@@ -52,3 +52,31 @@ run_magick_mixture();
 
 //$magick_test = new Magick_Mixtrue_Census;
 //$magick_test->b2_theme_active();
+
+//add_action('plugins_loaded', array('wpdocs_class_name', 'instance'));
+
+class wpdocs_class_name
+{
+
+    private function __construct()
+    {
+        self::init();
+    }
+
+    public static function instance()
+    {
+        static $instance = null;
+
+        if (is_null($instance)) {
+            $instance = new wpdocs_class_name;
+        }
+
+        return $instance;
+    }
+
+    public function init()
+    {
+        wp_die(__('Hello World!', 'text-domain'));
+    }
+
+}

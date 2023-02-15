@@ -65,7 +65,7 @@ class Magick_Mixtrue_Loader
      * @param    int                  $priority         可选择的应激发函数的优先级。默认值为10。
      * @param    int                  $accepted_args    可选择的应传递给$callback的参数数。默认值为1。
      */
-    public function add_action($hook, $component, $callback, $priority = 10, $accepted_args = 1)    
+    public function add_action($hook, $component, $callback, $priority = 10, $accepted_args = 1)
     {
         $this->actions = $this->add($this->actions, $hook, $component, $callback, $priority, $accepted_args);
     }
@@ -130,8 +130,6 @@ class Magick_Mixtrue_Loader
         foreach ($this->actions as $hook) {
             add_action($hook['hook'], array($hook['component'], $hook['callback']), $hook['priority'], $hook['accepted_args']);
         }
-
-        
 
     }
 

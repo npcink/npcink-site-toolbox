@@ -128,7 +128,7 @@ class Magick_Mixtrue
      * @since     1.0.0
      * @return    string    The name of the plugin.
      */
-    public function get_plugin_name()
+    public  function get_plugin_name()
     {
         return $this->plugin_name;
     }

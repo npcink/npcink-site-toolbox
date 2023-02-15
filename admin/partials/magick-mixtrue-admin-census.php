@@ -15,7 +15,7 @@ if (!class_exists('Magick_Mixtrue_Admin_Census')) {
             加载钩子*/
             $this->run();
             //添加发文统计菜单
-            add_action('admin_menu', array(&$this, 'add_menu_single'));
+            add_action('admin_menu', array(__CLASS__, 'add_menu_single'));
             $this->load_b2_shop();
 
         }
@@ -25,7 +25,8 @@ if (!class_exists('Magick_Mixtrue_Admin_Census')) {
          */
         public static function run()
         {
-
+            //实例化一下，跑起来
+            $Census_Single = new Magick_Mixtrue_Census_Single;
         }
 
         /**
@@ -41,7 +42,7 @@ if (!class_exists('Magick_Mixtrue_Admin_Census')) {
         public function add_menu_single()
         {
 
-            add_submenu_page('index.php', __('发文统计'), __('发文统计'), 'administrator', 'magick-census-single', array(&$this, 'census_single_content'));
+            add_submenu_page('index.php', __('发文统计'), __('发文统计'), 'administrator', 'magick-census-single', array(__CLASS__, 'census_single_content'));
 
         }
         /**
@@ -49,18 +50,19 @@ if (!class_exists('Magick_Mixtrue_Admin_Census')) {
          */
         public function add_menu_shop()
         {
-            add_submenu_page('index.php', __('销售统计'), __('销售统计'), 'administrator', 'magick-census-shop', array(&$this, 'census_shop_content'));
+            add_submenu_page('index.php', __('销售统计'), __('销售统计'), 'administrator', 'magick-census-shop', array(__CLASS__, 'census_shop_content'));
         }
         /**
          * 发文统计内容
          */
         public function census_single_content()
         {
-            $content=new Magick_Mixtrue_Census_Single;
+            $content = new Magick_Mixtrue_Census_Single;
             echo '<div class="wrap">';
             echo '<h2>';
             echo esc_html(get_admin_page_title());
             $content->load_echarts();
+            $content->init_actions();
             echo '</h2>';
             echo '</div>';
         }
@@ -98,8 +100,9 @@ if (!class_exists('Magick_Mixtrue_Admin_Census')) {
          */
         public function load_b2_shop()
         {
+
             if ($this->b2_theme_active()) {
-                add_action('admin_menu', array(&$this, 'add_menu_shop'));
+                add_action('admin_menu', array(__CLASS__, 'add_menu_shop'));
             } else {
                 //啥也不做
             }

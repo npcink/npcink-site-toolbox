@@ -1,4 +1,9 @@
 <?php
+function testttt()
+{
+    wp_enqueue_style('111', plugin_dir_url(__FILE__) . 'css/demo.css', array(), '1.1', 'all');
+}
+//add_action('admin_enqueue_scripts', 'testttt');
 
 /**
  *插件的管理员特定功能。
