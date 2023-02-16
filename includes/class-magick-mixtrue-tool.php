@@ -115,6 +115,130 @@ if (!class_exists('Magick_Mixtrue_Tool')) {
                 ),
             );
         }
+
+        /**
+         * 处理时间用
+         */
+        public function getDateFromRange($startdate, $enddate)
+        {
+            $stimestamp = strtotime($startdate);
+            $etimestamp = strtotime($enddate);
+            // 计算日期段内有多少天
+            $days = ($etimestamp - $stimestamp) / 86400 + 1;
+            // 保存每天日期
+            $date = array();
+            for ($i = 0; $i < $days; $i++) {
+                $date[] = date('Y-m-d', $stimestamp + (86400 * $i));
+            }
+            return $date;
+        }
+        /**
+         * 输出本周、上周、本月、上月时间数组
+         */
+        public static function get_time_long($type = "this_week")
+        {
+
+            /**
+             *输出本周数组
+             */
+            if ($type == "this_week") {
+                //本周开始时间戳
+                $startTime = date("Y-m-d H:i:s", mktime(0, 0, 0, date('m'), date('d') - date('w') + 1, date('y')));
+                //本周结束时间戳
+                $overTime = date("Y-m-d H:i:s", mktime(23, 59, 59, date('m'), date('d') - date('w') + 7, date('y')));
+                $date = self::getDateFromRange($startTime, $overTime);
+                return $date;
+            };
+            /**
+             *输出上周数组
+             */
+            if ($type == "last_week") {
+                //本周开始时间戳
+                $startTime = date("Y-m-d H:i:s", mktime(0, 0, 0, date('m'), date('d') - date('w') + 1 - 7, date('Y')));
+                //本周结束时间戳
+                $overTime = date("Y-m-d H:i:s", mktime(23, 59, 59, date('m'), date('d') - date('w') + 7 - 7, date('Y')));
+                $date = self::getDateFromRange($startTime, $overTime);
+                return $date;
+            }
+            /**
+             *输出本月数组
+             */
+            if ($type == "this_month") {
+                //本月起始时间日期格式
+                $startTime = date("Y-m-d ", mktime(0, 0, 0, date('m'), 1, date('Y')));
+                //本月结束时间日期格式
+                $overTime = date("Y-m-d", mktime(23, 59, 59, date('m'), date('t'), date('Y')));
+                $date = self::getDateFromRange($startTime, $overTime);
+                return $date;
+            }
+            /**
+             * 输出上一个月的数组
+             */
+            if ($type == "last_month") {
+                $month = 1;
+                // 1代表上个月，可以增加数字追溯前几个月的时间
+                $startTime = date("Y-m-d", mktime(0, 0, 0, date("m") - 1 * $month, 1, date("Y")));
+                $overTime = date("Y-m-d", mktime(23, 59, 59, date("m") - ($month - 1), 0, date("Y")));
+                $date = self::getDateFromRange($startTime, $overTime);
+                return $date;
+            }
+            $msg = "参数错误！";
+            return $msg;
+
+        }
+
+        /**
+         *输出上周数组
+         */
+        public function last_week()
+        {
+            //本周开始时间戳
+            $startTime = date("Y-m-d H:i:s", mktime(0, 0, 0, date('m'), date('d') - date('w') + 1 - 7, date('Y')));
+            //本周结束时间戳
+            $overTime = date("Y-m-d H:i:s", mktime(23, 59, 59, date('m'), date('d') - date('w') + 7 - 7, date('Y')));
+            $date = self::getDateFromRange($startTime, $overTime);
+            return $date;
+        }
+        /**
+         *输出本周数组
+         */
+
+        public function this_week()
+        {
+            //本周开始时间戳
+            $startTime = date("Y-m-d H:i:s", mktime(0, 0, 0, date('m'), date('d') - date('w') + 1, date('y')));
+            //本周结束时间戳
+            $overTime = date("Y-m-d H:i:s", mktime(23, 59, 59, date('m'), date('d') - date('w') + 7, date('y')));
+            $date = self::getDateFromRange($startTime, $overTime);
+            return $date;
+        }
+
+        /**
+         *输出本月数组
+         */
+        public function this_month()
+        {
+            //本月起始时间日期格式
+            $startTime = date("Y-m-d ", mktime(0, 0, 0, date('m'), 1, date('Y')));
+            //本月结束时间日期格式
+            $overTime = date("Y-m-d", mktime(23, 59, 59, date('m'), date('t'), date('Y')));
+            $date = self::getDateFromRange($startTime, $overTime);
+            return $date;
+        }
+
+        /**
+         * 输出上一个月的数组
+         */
+        public function last_month()
+        {
+            $month = 1;
+            // 1代表上个月，可以增加数字追溯前几个月的时间
+            $startTime = date("Y-m-d", mktime(0, 0, 0, date("m") - 1 * $month, 1, date("Y")));
+            $overTime = date("Y-m-d", mktime(23, 59, 59, date("m") - ($month - 1), 0, date("Y")));
+            $date = self::getDateFromRange($startTime, $overTime);
+            return $date;
+        }
+
         /**
          * 本日发文数量
          * 查询：https://developer.wordpress.org/reference/classes/wp_query/#date-parameters
