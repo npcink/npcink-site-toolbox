@@ -84,10 +84,10 @@ if (!class_exists('Magick_Mixtrue_Census_Shop')) {
 
     </section>
 
-    
+
     <!--四栏分隔-->
     <?php echo self::load_echarts_js() ?>
-   
+
             </div><!-- end wrap-->
             <?php
 } //end load_content
@@ -376,10 +376,26 @@ if (!class_exists('Magick_Mixtrue_Census_Shop')) {
                     //data: [120, 200, 150, 80, 70, 110, 130],
                      data: [<?php echo implode(',', array_reverse($arr['latelly']['sale'])) ?>],
                     type: 'bar',
+                    name:"总销售额",
                     showBackground: true,
                     backgroundStyle: {
                         color: 'rgba(180, 180, 180, 0.2)'
+                    },
+                   label:{
+                        show:true,
+                        position: 'insideTop', //在上方显示
+                        textStyle: { //数值样式
+                            color: '#fff',
+                            fontSize: 12,
+                             fontWeight:'bold',
+                        }
                     }
+
+
+
+
+
+
                 }
             ]
         };
@@ -402,11 +418,21 @@ if (!class_exists('Magick_Mixtrue_Census_Shop')) {
             series: [
                 {
                     //data: [120, 200, 150, 80, 70, 110, 130],
-                    data: [<?php echo  implode(',', array_reverse($arr['latelly']['sale_order'])) ?>],
-                    type: 'bar',
+                    data: [<?php echo implode(',', array_reverse($arr['latelly']['sale_order'])) ?>],
+                   type: 'bar',
+                    name:"总销售订单",
                     showBackground: true,
                     backgroundStyle: {
                         color: 'rgba(180, 180, 180, 0.2)'
+                    },
+                   label:{
+                        show:true,
+                        position: 'insideTop', //在上方显示
+                        textStyle: { //数值样式
+                            color: '#fff',
+                            fontSize: 12,
+                             fontWeight:'bold',
+                        }
                     }
                 }
             ]
@@ -432,10 +458,22 @@ if (!class_exists('Magick_Mixtrue_Census_Shop')) {
                     //data: [120, 200, 150, 80, 70, 110, 130],
                     data: [<?php echo implode(',', array_reverse($arr['latelly']['refund'])) ?>],
                     type: 'bar',
+                    name:"总退款额",
                     showBackground: true,
                     backgroundStyle: {
                         color: 'rgba(180, 180, 180, 0.2)'
+                    },
+                   label:{
+                        show:true,
+                        position: 'insideTop', //在上方显示
+                        textStyle: { //数值样式
+                            color: '#fff',
+                            fontSize: 12,
+                             fontWeight:'bold',
+                        }
                     }
+
+
                 }
             ]
         };
@@ -460,10 +498,22 @@ if (!class_exists('Magick_Mixtrue_Census_Shop')) {
                     //data: [120, 200, 150, 80, 70, 110, 130],
                     data: [<?php echo implode(',', array_reverse($arr['latelly']['refund_order'])) ?>],
                     type: 'bar',
+                    name:"总退款订单",
                     showBackground: true,
                     backgroundStyle: {
                         color: 'rgba(180, 180, 180, 0.2)'
+                    },
+                   label:{
+                        show:true,
+                        position: 'insideTop', //在上方显示
+                        textStyle: { //数值样式
+                            color: '#fff',
+                            fontSize: 12,
+                             fontWeight:'bold',
+                        }
                     }
+
+
                 }
             ]
         };
@@ -480,7 +530,7 @@ if (!class_exists('Magick_Mixtrue_Census_Shop')) {
 
 
     </script>
-            
+
             <?php
 
         } //end load_echarts_js()

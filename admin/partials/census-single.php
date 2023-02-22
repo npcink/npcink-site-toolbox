@@ -172,18 +172,19 @@ if (!class_exists('Magick_Mixtrue_Census_Single')) {
             /**
              * 基础数据准备
              */
+            $arr_data = $tool->get_site_census_data();
 
             //今天发文
-            //$count_today = $tool->get_publish_count_today();
-            $count_today = $tool->get_total_release_amount('today');
-            //本周发文
-            $count_week = $tool->get_total_release_amount('week');
-            //本月发文
-            $count_month = $tool->get_total_release_amount('month');
-            //本年发文
-            //$count_year = $tool->get_total_release_amount('year');
-            //累计发文
-            //$count_total = $tool->get_total_release_amount('total');
+            $count_today = $arr_data['today']['single'];
+            //今天发评论
+            $today_comments = $arr_data['today']['comments'];
+            //今天注册
+            $count_register = $arr_data['today']['register'];
+            //总发文
+            $total_single = $arr_data['total']['single'];
+            //总用户
+            $total_user = $arr_data['total']['register'];
+
             ?>
 
             <section class="magick-single-census">
@@ -199,41 +200,44 @@ if (!class_exists('Magick_Mixtrue_Census_Single')) {
                         <span class="dashicons dashicons-analytics"></span>
                     </div>
                 </div>
-                <!--
+
                 <div class="census-total">
-                    <span>累计发文</span>
+                    <span>今日评论</span>
                     <div class="census-child">
-                        <p><span><?php echo $count_total ?></span>篇</p>
-                        <span class="dashicons dashicons-analytics"></span>
+                        <p><span><?php echo $today_comments ?></span>篇</p>
+                        <span class="dashicons dashicons-format-status"></span>
                     </div>
                 </div>
-                -->
+
+                <div class="census-month">
+                    <span>今日注册</span>
+                    <div class="census-child">
+                        <p><span><?php echo $count_register; ?></span>次</p>
+                        <span class="dashicons dashicons-universal-access"></span>
+                    </div>
+                </div>
+
+
             </div>
 
             <div class="bisection">
                 <div class="census-week">
-                    <span>本周发文</span>
+                    <span>总计发文</span>
                     <div class="census-child">
-                        <p><span><?php echo $count_week; ?></span>篇</p>
+                        <p><span><?php echo $total_single; ?></span>篇</p>
                         <span class="dashicons dashicons-analytics"></span>
                     </div>
                 </div>
                 <div class="census-month">
-                    <span>本月发文</span>
+                    <span>总计用户</span>
                     <div class="census-child">
-                        <p><span><?php echo $count_month; ?></span>篇</p>
+                        <p><span><?php echo $total_user; ?></span>位</p>
                         <span class="dashicons dashicons-analytics"></span>
                     </div>
                 </div>
-                <!--
-                <div class="census-month">
-                    <span>本年发文</span>
-                    <div class="census-child">
-                        <p><span><?php echo $count_year; ?></span>篇</p>
-                        <span class="dashicons dashicons-analytics"></span>
-                    </div>
-                </div>
-                -->
+
+
+
             </div>
         </div>
 

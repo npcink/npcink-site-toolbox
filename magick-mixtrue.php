@@ -3,7 +3,7 @@
 Plugin Name: 魔法合剂插件
 Plugin URI: https://www.npc.ink/
 Description: 目前主要是统计功能
-Version: 0.0.1
+Version: 0.0.3
 Author: Muze
 Author URI: https://www.npc.ink/
  */
@@ -19,7 +19,7 @@ if (!defined('WPINC')) {
  *从1.0.0版本开始，使用SemVer-https://semver.org
  *重命名此插件，并在发布新版本时进行更新。
  */
-define('MAGICK_MIXTURE_VERSION', '0.0.2');
+define('MAGICK_MIXTURE_VERSION', '0.0.3');
 
 /**
  * 用于定义国际化的核心插件类，
@@ -45,4 +45,25 @@ run_magick_mixture();
 
 $magick_tool = new Magick_Mixtrue_Tool;
 
-//$magick_tool->p($magick_tool->get_count_user_month());
+//在菜单栏下，循环结束后添加以下内容
+//add_action('loop_start', 'my_new_elem_after_title');
+function my_new_elem_after_title()
+{
+    if ($query->is_main_query()):
+
+        //是文章页则输出内容
+        if (is_single()) {
+            echo '<h1>我是简单的广告内容</h1>';
+
+        }
+
+    endif;
+
+}
+
+//评论总数
+global $wpdb;
+$aaa = $wpdb->get_var("SELECT COUNT(*) FROM $wpdb->comments");
+echo $aaa;
+
+$magick_tool->p(22);

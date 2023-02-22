@@ -302,6 +302,85 @@ if (!class_exists('Magick_Mixtrue_Tool')) {
         }
 
         /**
+         * 输出今天的相关统计数据
+         * ['today']
+         * 发文数量 - ['single']
+         * 评论数量 - ['comments']
+         * 注册人数 - ['register']
+         * ['total']
+         * 总发文数量 - ['single']
+         * 总用户数量 - ['register']
+         */
+        public static function get_site_census_data()
+        {
+            //存储数据
+            $arr = array();
+            //拿到今天的时间
+            $today = getdate();
+
+            /**
+             * 今天
+             */
+            //今天发文数量
+            $today_args = array(
+                'post_type' => 'post', //类型
+                'post_status' => 'publish', //状态
+                'post__not_in' => get_option('sticky_posts'), //排除置顶文章
+                'date_query' => array( //时间
+                    array(
+                        'year' => $today['year'],
+                        'month' => $today['mon'],
+                        'day' => $today['mday'],
+                        //after’=>’1 day ago’
+                    ),
+
+                ),
+            );
+            $today_query = new WP_Query($today_args);
+            $today_single = $today_query->post_count;
+            $arr['today']['single'] = $today_single;
+
+            //获取今天的评论数量
+
+            $args = array(
+                'date_query' => array(
+                    array(
+                        'year' => $today['year'],
+                        'month' => $today['mon'],
+                        'day' => $today['mday'],
+                    ),
+
+                ),
+            );
+
+            $today_comments = count(get_comments($args));
+            $arr['today']['comments'] = $today_comments;
+
+            //获取今天的注册数量
+            global $wpdb;
+            $todate = date("Y-m-d");
+            $sql = "SELECT COUNT(*) AS num FROM `" . $wpdb->prefix . "users`  WHERE SUBSTRING(`user_registered`,1,10)='" . $todate . "'";
+            $results = $wpdb->get_results($sql);
+            $totay_register = $results[0]->num;
+            $arr['today']['register'] = $totay_register;
+
+            /**
+             * 总计
+             */
+            //总计发文数量
+            $count_posts = wp_count_posts();
+            $total_single = $count_posts->publish;
+            $arr['total']['single'] = $total_single;
+
+            //总用户
+            //网站注册用户总数
+            $total_users = $wpdb->get_var("SELECT COUNT(ID) FROM $wpdb->users");
+            $arr['total']['register'] = $total_users;
+
+            return $arr;
+        }
+
+        /**
          * 输入人员ID和时间，输出发文数量，可选文章状态
          * 时间：2022-12-09
          */
