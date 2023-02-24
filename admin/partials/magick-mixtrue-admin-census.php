@@ -44,8 +44,8 @@ if (!class_exists('Magick_Mixtrue_Admin_Census')) {
         public function load_b2_shop()
         {
             $tool = new Magick_Mixtrue_Tool;
-            $theme = 'Twenty Twenty';
-            //$theme = ' B2 PRO';
+            //$theme = 'Twenty Twenty';
+            $theme = 'B2 PRO';
 
             if ($tool->theme_active($theme)) {
                 //安装了2020主题
