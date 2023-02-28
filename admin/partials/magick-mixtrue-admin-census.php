@@ -32,7 +32,7 @@ if (!class_exists('Magick_Mixtrue_Admin_Census')) {
             //商城统计
             require_once plugin_dir_path(__FILE__) . 'census-shop.php';
             //菜单统计
-            require_once plugin_dir_path(__FILE__) . 'option-menu.php';
+            //require_once plugin_dir_path(__FILE__) . 'option-menu.php';
 
         }
 
@@ -46,7 +46,7 @@ if (!class_exists('Magick_Mixtrue_Admin_Census')) {
             $Census_Single = new Magick_Mixtrue_Census_Single;
 
             //添加选项
-            $option = new Magick_Mixtrue_Option();
+            //$option = new Magick_Mixtrue_Option();
 
         }
 

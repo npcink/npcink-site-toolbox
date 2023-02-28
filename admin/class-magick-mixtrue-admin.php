@@ -1,4 +1,6 @@
 <?php
+use Carbon_Fields\Container;
+use Carbon_Fields\Field;
 
 /**
  *插件的管理员特定功能。
@@ -43,6 +45,10 @@ class Magick_Mixtrue_Admin
 
         $this->plugin_name = $plugin_name;
         $this->version = $version;
+
+        //加载主题选项
+        add_action('carbon_fields_register_fields', array($this, 'load_admin_settings'));
+
         $this->load(); //加载所需的依赖项
         $this->run(); //跑起来
 
@@ -55,6 +61,8 @@ class Magick_Mixtrue_Admin
     public function load()
     {
         require_once plugin_dir_path(__FILE__) . 'partials/magick-mixtrue-admin-census.php';
+        //优化设置
+        require_once plugin_dir_path(__FILE__) . 'partials/option-optimize.php';
     }
 
     /**
@@ -65,6 +73,8 @@ class Magick_Mixtrue_Admin
 
         //实例化一下，会自动跑起来
         $census = new Magick_Mixtrue_Admin_Census();
+        //优化
+        Magick_Mixtrue_Optimize::run();
 
     }
 
@@ -113,23 +123,45 @@ class Magick_Mixtrue_Admin
          *类。
          */
 //加载echarts 用于图标绘制
-       // wp_enqueue_script($this->plugin_name, plugin_dir_url(__FILE__) . 'js/echarts_v5.4.0.js', array(), $this->version, false);
+        // wp_enqueue_script($this->plugin_name, plugin_dir_url(__FILE__) . 'js/echarts_v5.4.0.js', array(), $this->version, false);
         //wp_enqueue_script($this->plugin_name, plugin_dir_url(__FILE__) . 'js/magick-mixtrue-admin.js', array('jquery'), $this->version, false);
 
     }
 
     /**
-     * 加载图标用的JS
+     * 设置选项组
      */
-    public function load_echarts_js()
+    public function load_admin_settings()
     {
-        wp_enqueue_script(
-            $this->plugin_name,
-            plugin_dir_url(__FILE__) . 'js/echarts_v5.4.0.js',
-            array(),
-            $this->version,
-            false
-        );
+        Container::make('theme_options', __('魔法合剂'))
+            ->set_icon('dashicons-carrot')
+            ->add_tab(__('优化'), array(
+                Field::make('separator', 'cmma_optimize_filter', __('筛选')),
+                Field::make('checkbox', 'cmma_filter_single_user', __('文章菜单添加作者筛选项'))
+                    ->set_option_value('yes'),
+                Field::make('checkbox', 'cmma_filter_single_time', __('文章和媒体菜单添加时间筛选项'))
+                    ->set_option_value('yes')
+                    ->set_help_text("媒体菜单需为列表布局"),
+                Field::make('separator', 'cmma_optimize_show_id', __('显示ID')),
+                Field::make('checkbox', 'cmma_single_show_id', __('文章菜单显示文章ID'))
+                    ->set_option_value('yes'),
+                Field::make('text', 'crb_first_name', __('First Name')),
+                Field::make('text', 'crb_last_name', __('Last Name')),
+                Field::make('text', 'crb_position', __('Position')),
+                Field::make('html', 'crb_information_text')
+                    ->set_html('<h2>Lorem ipsum</h2><p>Quisque mattis ligula.</p>'),
+            ))
+            ->add_tab(__('安全'), array(
+                Field::make('text', 'crb_email', __('Notification Email')),
+                Field::make('text', 'crb_phone', __('Phone Number')),
+            ))
+            ->add_tab(__('其他'), array(
+                Field::make('separator', 'crb_separator', __('评论区')),
+                Field::make('checkbox', 'cmma_show_owo', __('评论区添加OWO表情包'))
+                    ->set_option_value('yes'),
+                Field::make('text', 'crb_emails', __('Notification Emails')),
+                Field::make('text', 'crb_phones', __('Phone Numbers')),
+            ));
     }
 
 }

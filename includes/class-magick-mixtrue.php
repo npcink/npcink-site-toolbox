@@ -78,6 +78,11 @@ class Magick_Mixtrue
         require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-magick-mixtrue-loader.php';
 
         /**
+         * 设置
+         */
+        require_once plugin_dir_path(dirname(__FILE__)) . 'includes/carbon-fields/carbon-fields-plugin.php';
+
+        /**
          * 负责定义后台中发生的所有操作的类。
          */
         require_once plugin_dir_path(dirname(__FILE__)) . 'admin/class-magick-mixtrue-admin.php';

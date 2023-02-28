@@ -15,11 +15,9 @@
 if (!class_exists('Magick_Mixtrue_Display')) {
     class Magick_Mixtrue_Display
     {
-       
 
         public function __construct()
         {
-            
 
             //加载表情包
             add_action('wp', array(__CLASS__, 'load_owo'));
@@ -34,7 +32,7 @@ if (!class_exists('Magick_Mixtrue_Display')) {
             //判断当前页面是否加载评论区
             if (comments_open()) {
                 //判断开关
-                if (get_option('slider_ons') === 'yes') {
+                if (carbon_get_theme_option('cmma_show_owo')) {
                     //加载js和css资源
                     add_action('wp_enqueue_scripts', array(__CLASS__, 'load_owo_resouce'));
                     //加载配置js
