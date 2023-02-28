@@ -53,18 +53,42 @@ $magick_tool = new Magick_Mixtrue_Tool;
 //echo '<h1>当前文章评论已打开</h1>';
 //$magick_tool->run_page_hook();
 
-function add_column($columns)
-{
-    $columns['post_id_clmn'] = 'ID'; // $columns['Column ID'] = 'Column Title';
-    return $columns;
-}
-add_filter('manage_posts_columns', 'add_column', 5);
+require plugin_dir_path(__FILE__) . 'includes/carbon-fields/carbon-fields-plugin.php';
 
-function column_content($column, $id)
-{
-    if ($column === 'post_id_clmn') {
-        echo $id;
-    }
+use Carbon_Fields\Container;
+use Carbon_Fields\Field;
 
+add_action('carbon_fields_register_fields', 'crb_attach_post_options');
+function crb_attach_post_options()
+{
+    Container::make('post_meta', __('Section Options'))
+        ->where('post_type', '=', 'page')
+        ->where('post_template', '=', 'template-section-based.php')
+        ->add_fields(array(
+            Field::make('complex', 'crb_sections', 'Sections')
+            // Our first group will be a simple rich text field
+                ->add_fields('text', 'Text', array(
+                    Field::make('rich_text', 'text', 'Text'),
+                ))
+
+            // Second group will be a list of files for users to download
+                ->add_fields('file_list', 'File List', array(
+                    Field::make('complex', 'files', 'Files')
+                        ->add_fields(array(
+                            Field::make('file', 'file', 'File'),
+                        )),
+                ))
+
+            // Third group will be a list of manually selected posts
+            // used as a simple curated "Related posts" listing
+                ->add_fields('related_posts', 'Related Posts', array(
+                    Field::make('association', 'posts', 'Posts')
+                        ->set_types(array(
+                            array(
+                                'type' => 'post',
+                                'post_type' => 'post',
+                            ),
+                        )),
+                )),
+        ));
 }
-add_action('manage_posts_custom_column', 'column_content', 5, 2);
