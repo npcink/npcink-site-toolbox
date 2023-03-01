@@ -150,12 +150,76 @@ class Magick_Mixtrue_Admin
                 Field::make('checkbox', 'cmma_single_show_id', __('各个列表显示链接ID'))
                     ->set_option_value('yes')
                     ->set_help_text("支持 文章、页面、链接、多媒体、评论、分类、标签、用户 等"),
+
+                Field::make('separator', 'cmma_opt_', __('媒体')),
+
+                //优化 - 评论
+                Field::make('separator', 'cmma_optimize_commont', __('评论')),
+                Field::make('checkbox', 'cmma_opt_com_time', __('两次评论间需指定间隔'))
+                    ->set_option_value('yes')
+                    ->set_help_text("避免短时间内重复灌水评论，对管理员无效")
+                    ->set_width(50),
+
+                Field::make('text', 'cmma_opt_com_times', '时间间隔（秒）')
+                    ->set_attribute('type', 'number')
+                    ->set_attribute('placeholder', '指定时间后才能再次评论')
+                    ->set_width(50)
+                    ->set_conditional_logic(array(
+                        array(
+                            'field' => 'cmma_opt_com_time',
+                            'value' => true,
+                        ),
+                    )),
+
+                Field::make('checkbox', 'cmma_opt_com_number', __('指定最小和最大评论字数'))
+                    ->set_option_value('yes')
+                    ->set_width(33),
+
+                Field::make('text', 'cmma_opt_com_num_min', '最少字数（个）')
+                    ->set_required(true)
+                    ->set_attribute('type', 'number')
+                    ->set_attribute('placeholder', '评论所需最少字数')
+                    ->set_width(33)
+                    ->set_conditional_logic(array(
+                        array(
+                            'field' => 'cmma_opt_com_number',
+                            'value' => true,
+                        ),
+                    )),
+                Field::make('text', 'cmma_opt_com_num_max', '最多字数（个）')
+                    ->set_required(true)
+                    ->set_attribute('type', 'number')
+                    ->set_attribute('placeholder', '评论所需最多字数')
+                    ->set_width(33)
+                    ->set_conditional_logic(array(
+                        array(
+                            'field' => 'cmma_opt_com_number',
+                            'value' => true,
+                        ),
+                    )),
+
+                Field::make('checkbox', 'cmma_opt_com_language', __('禁止纯英文和纯日文评论'))
+                    ->set_option_value('yes'),
+
+                Field::make('checkbox', 'cmma_opt_com_once', __('单篇文章只允许评论一次'))
+                    ->set_option_value('yes')
+                    ->set_help_text("管理员不受此影响"),
+
+                Field::make('separator', 'cmma_opt_page', __('页面')),
+                Field::make('checkbox', 'cmma_opt_com_logo_home', __('登录页LOGO改为首页链接'))
+                    ->set_option_value('yes'),
+
+                Field::make('separator', 'cmma_opt_remove', __('移除'))
+                    ->set_help_text("<b style='color:red;'>若您不知道会发生什么，还请慎重</b>"),
+                Field::make('checkbox', 'cmma_opt_rem_sign_lang', __('移除登录页面语言选择框'))
+                    ->set_option_value('yes'),
+
                 Field::make('html', 'crb_information_text')
                     ->set_html('<h2>Lorem ipsum</h2><p>Quisque mattis ligula.</p>'),
             ))
             ->add_tab(__('安全'), array(
                 Field::make('separator', 'cmma_safe_login', __('登录')),
-                Field::make('checkbox', 'cmma_safe_login_errors', __('替换默认账号密码报错信息-待完善'))
+                Field::make('checkbox', 'cmma_safe_login_errors', __('替换默认账号密码报错信息'))
                     ->set_option_value('yes')
                     ->set_help_text("默认报错信息会透露用户名错误还是密码错误，统一信息后，可改善此情况"),
 
@@ -163,7 +227,7 @@ class Magick_Mixtrue_Admin
                     ->set_option_value('yes')
                     ->set_help_text("默认的评论样式中，会包含管理员登录ID，修改后，可改善此情况"),
 
-                Field::make('checkbox', 'cmma_safe_head_version', __('从RSS源和网站中删除WordPress版本-待完善'))
+                Field::make('checkbox', 'cmma_safe_head_version', __('从RSS源和网站中删除WordPress版本'))
                     ->set_option_value('yes')
                     ->set_help_text("如果您无法保持您的WordPres版本为最新，推荐开启"),
 
@@ -172,8 +236,69 @@ class Magick_Mixtrue_Admin
                 Field::make('separator', 'crb_separator', __('评论区')),
                 Field::make('checkbox', 'cmma_show_owo', __('评论区添加OWO表情包'))
                     ->set_option_value('yes'),
+                Field::make('separator', 'crb_separator_login', __('登录页')),
+                Field::make('checkbox', 'cmma_abt_style_login', __('更改为自定义登录页'))
+                    ->set_option_value('yes')
+                    ->set_width(20),
+                Field::make('color', 'cmma_opt_login_bgcolor_left', '背景色（左下角）')
+                    ->set_palette(array('#181d23', '#960a9b', '#0000FF'))
+                    ->set_width(20)
+                    ->set_conditional_logic(array(
+                        array(
+                            'field' => 'cmma_abt_style_login',
+                            'value' => true,
+                        ),
+                    )),
+                Field::make('color', 'cmma_opt_login_bgcolor_right', '背景色（右上角）')
+                    ->set_palette(array('#3c3e42', '#ac1394', '#0000FF'))
+                    ->set_width(20)
+                    ->set_conditional_logic(array(
+                        array(
+                            'field' => 'cmma_abt_style_login',
+                            'value' => true,
+                        ),
+                    )),
+                Field::make('image', 'cmma_opt_login_logo', '顶部标志')
+                    ->set_type(array('image'))
+                    ->set_value_type('url')
+                    ->set_help_text("推荐是圆形")
+                    ->set_width(20)
+                    ->set_conditional_logic(array(
+                        array(
+                            'field' => 'cmma_abt_style_login',
+                            'value' => true,
+                        ),
+                    )),
+
+                Field::make('text', 'cmma_opt_login_logo_size', '标志尺寸（像素px）')
+                    ->set_help_text("默认尺寸是84px")
+                    ->set_attribute('type', 'number')
+                    ->set_attribute('placeholder', 'LOGO的尺寸')
+                    ->set_width(20)
+                    ->set_conditional_logic(array(
+                        array(
+                            'field' => 'cmma_abt_style_login',
+                            'value' => true,
+                        ),
+                    )),
+
+                Field::make('image', 'cmma_opt_login_bg_left', '左边文字背景图')
+                    ->set_type(array('image'))
+                    ->set_value_type('url')
+                    ->set_help_text("推荐尺寸是900X600，安全边距100像素")
+                    ->set_width(20)
+                    ->set_conditional_logic(array(
+                        array(
+                            'field' => 'cmma_abt_style_login',
+                            'value' => true,
+                        ),
+                    )),
+
                 Field::make('text', 'crb_emails', __('Notification Emails')),
                 Field::make('text', 'crb_phones', __('Phone Numbers')),
+
+                Field::make('time', 'crb_event_start', 'Event Start')
+                    ->set_attribute('placeholder', 'Time of event start'),
             ));
     }
 

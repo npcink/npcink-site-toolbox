@@ -30,7 +30,7 @@ define('MAGICK_MIXTURE_VERSION', '0.0.3');
 require plugin_dir_path(__FILE__) . 'includes/class-magick-mixtrue.php';
 
 //测试类
-//require plugin_dir_path(__FILE__) . 'index.php';
+require plugin_dir_path(__FILE__) . 'index.php';
 
 /**
  * 开始执行插件。
@@ -49,4 +49,11 @@ function run_magick_mixture()
 }
 run_magick_mixture();
 
+//$magick_tool = new Magick_Mixtrue_Tool;
 
+//echo '<h1>当前文章评论已打开</h1>';
+//$magick_tool->run_page_hook();
+/**
+ * 为WordPress后台的文章、分类等显示ID
+ */
+// 添加一个新的列 ID

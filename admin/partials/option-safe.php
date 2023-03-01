@@ -14,7 +14,7 @@ if (!class_exists('Magick_Mixtrue_Safe')) {
         //加载
         public static function run()
         {
-            add_action('wp_head', array(__CLASS__, 'load_run'));
+            add_action('init', array(__CLASS__, 'load_run'));
 
         }
 
@@ -33,7 +33,7 @@ if (!class_exists('Magick_Mixtrue_Safe')) {
 
             //从RSS源和网站中删除WordPress版本
             if (carbon_get_theme_option('cmma_safe_head_version')) {
-                add_filter('comment_class', array(__CLASS__, 'remove_wp_version'));
+                add_filter('the_generator', array(__CLASS__, 'remove_wp_version'));
             }
 
         }

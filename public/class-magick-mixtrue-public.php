@@ -57,6 +57,10 @@ class Magick_Mixtrue_Public
         require_once plugin_dir_path(__FILE__) . 'partials/magick-mixtrue-display.php';
         $magick_mixtrue_display = new Magick_Mixtrue_Display();
 
+        //自定义的一为登录页
+        require_once plugin_dir_path(__FILE__) . 'partials/class-mm-login.php';
+        Magick_Mixtrue_Login::run();
+
     }
 
     /**

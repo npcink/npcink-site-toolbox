@@ -15,8 +15,8 @@ if (!class_exists('Magick_Mixtrue_Optimize')) {
         //加载
         public static function run()
         {
-            add_action('wp', array(__CLASS__, 'load_run'));
-            //add_action('admin_init', array(__CLASS__, 'add_list_id_run'));
+            add_action('init', array(__CLASS__, 'load_run'));
+
         }
         //准备
         public static function load_run()
@@ -28,14 +28,45 @@ if (!class_exists('Magick_Mixtrue_Optimize')) {
 
             //各个列表显示ID
             if (carbon_get_theme_option('cmma_single_show_id')) {
-                self::add_list_id_run();
-                //add_action('admin_init', array(__CLASS__, 'add_list_id_run'));
+                //self::add_list_id_run();
+                add_action('admin_init', array(__CLASS__, 'add_list_id_run'));
 
             };
 
             //文章和媒体添加日期筛选
             if (carbon_get_theme_option('cmma_filter_single_time')) {
                 self::filter_time_run();
+            }
+
+            //评论时间间隔
+            if (carbon_get_theme_option('cmma_opt_com_time')) {
+                add_filter('comment_flood_filter', array(__CLASS__, 'suren_comment_flood_filter'), 10, 3);
+            }
+
+            //评论最少和最多字数
+            if (carbon_get_theme_option('cmma_opt_com_number')) {
+                add_filter('preprocess_comment', array(__CLASS__, 'set_comments_length'), 10, 3);
+            }
+
+            //禁止纯英文或纯日文评论
+            if (carbon_get_theme_option('cmma_opt_com_language')) {
+                add_filter('preprocess_comment', array(__CLASS__, 'refused_english_comments'));
+            }
+
+            //一篇文章只能评论一次
+            if (carbon_get_theme_option('cmma_opt_com_once')) {
+                add_action('preprocess_comment', array(__CLASS__, 'ludou_only_one_comment'), 20);
+            }
+
+            //登录页LOGO改为首页链接
+            if (carbon_get_theme_option('cmma_opt_com_logo_home')) {
+                add_filter('login_headerurl', array(__CLASS__, 'admin_logo_home'));
+            }
+
+            //移除登录页语言选择器
+            //https://www.iowen.cn/yichuwordpress59dengluyemianzhongdeyuyanqiehuankuang/
+            if (carbon_get_theme_option('cmma_opt_rem_sign_lang')) {
+                add_filter('login_display_language_dropdown', '__return_false');
             }
 
         }
@@ -248,11 +279,107 @@ if (!class_exists('Magick_Mixtrue_Optimize')) {
         public static function ssid_css()
         {
             ?>
-<style type="text/css">
-	#ssid { width: 50px; } /* Simply Show IDs */
-</style>
-<?php
+                <style type="text/css">
+                	#ssid { width: 50px; } /* Simply Show IDs */
+                </style>
+         <?php
 }
+
+        /**
+         * 优化-评论
+         */
+
+        /**
+         * 效果：两次评论之间间隔
+         * 来源：https://www.npc.ink/19960.html
+         */
+        public static function suren_comment_flood_filter($flood_control, $time_last, $time_new)
+        {
+            $seconds = carbon_get_theme_option('cmma_opt_com_times'); //间隔时间
+            if (($time_new - $time_last) < $seconds) {
+                $time = $seconds - ($time_new - $time_last);
+                wp_die('评论过快！请' . $time . '秒后再来评论');
+            } else {
+                return false;
+            }
+        }
+
+        /**
+         * 效果：评论所需的最少和最多字数
+         * 来源：https://www.npc.ink/17995.html
+         */
+        public static function set_comments_length($commentdata)
+        {
+            $minCommentlength = carbon_get_theme_option('cmma_opt_com_num_min'); //最少字數限制
+            $maxCommentlength = carbon_get_theme_option('cmma_opt_com_num_max'); //最多字數限制
+            $pointCommentlength = mb_strlen($commentdata['comment_content'], 'UTF8'); //mb_strlen 1個中文字符當作1個長度
+            if ($pointCommentlength < $minCommentlength) {
+                header("Content-type: text/html; charset=utf-8");
+                wp_die('抱歉，您的评论字数过少，请至少输入' . $minCommentlength . '个字（目前字数：' . $pointCommentlength . '个字）');
+                exit;
+            }
+            if ($pointCommentlength > $maxCommentlength) {
+                header("Content-type: text/html; charset=utf-8");
+                wp_die('对不起，您的评论字数过多，请少于' . $maxCommentlength . '个字（目前字数：' . $pointCommentlength . '个字）');
+                exit;
+            }
+            return $commentdata;
+        }
+
+        /* 作用：禁止纯英文、纯日文评论
+         * 来源：https://www.npc.ink/18129.html
+         * */
+        public static function refused_english_comments($incoming_comment)
+        {
+            $pattern = '/[一-龥]/u';
+            // 禁止全英文评论
+            if (!preg_match($pattern, $incoming_comment['comment_content'])) {
+                wp_die("您的评论中必须包含汉字!");
+            }
+            $pattern = '/[あ-んア-ン]/u';
+            // 禁止日文评论
+            if (preg_match($pattern, $incoming_comment['comment_content'])) {
+                wp_die("评论禁止包含日文!");
+            }
+            return ($incoming_comment);
+        }
+
+        /* 作用：一篇文章只能评论一次，管理员不受影响
+         * 来源：https://www.npc.ink/13477.html
+         * */
+        // 获取评论用户的ip，参考wp-includes/comment.php
+        public static function ludou_getIP()
+        {
+            $ip = $_SERVER['REMOTE_ADDR'];
+            $ip = preg_replace('/[^0-9a-fA-F:., ]/', '', $ip);
+
+            return $ip;
+        }
+        public static function ludou_only_one_comment($commentdata)
+        {
+            global $wpdb;
+            $currentUser = wp_get_current_user();
+
+            // 不限制管理员发表评论
+            if (empty($currentUser->roles) || !in_array('administrator', $currentUser->roles)) {
+                $bool = $wpdb->get_var("SELECT comment_ID FROM $wpdb->comments WHERE comment_post_ID = " . $commentdata['comment_post_ID'] . "  AND (comment_author = '" . $commentdata['comment_author'] . "' OR comment_author_email = '" . $commentdata['comment_author_email'] . "' OR comment_author_IP = '" . self::ludou_getIP() . "') LIMIT 0, 1;");
+
+                if ($bool) {
+                    wp_die('本站每篇文章只允许评论一次。<a href="' . get_permalink($commentdata['comment_post_ID']) . '">点此返回</a>');
+                }
+
+            }
+
+            return $commentdata;
+        }
+
+        /* 作用：登录页LOGO改为首页链接
+         * 来源：https://www.iowen.cn/chundaimameihuawordpressmorendengluye/
+         * */
+        public static function admin_logo_home()
+        {
+            return esc_url(home_url());
+        }
 
     }
 }
