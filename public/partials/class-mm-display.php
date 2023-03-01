@@ -27,8 +27,10 @@ if (!class_exists('Magick_Mixtrue_Display')) {
          */
         public static function run_particle()
         {
-            add_action('wp_enqueue_scripts', array(__CLASS__, 'add_page_particle_js'));
-            add_action('wp_body_open', array(__CLASS__, 'add_page_particle'));
+            if (carbon_get_theme_option('cmma_page_show_particle')) {
+                add_action('wp_enqueue_scripts', array(__CLASS__, 'add_page_particle_js'));
+                add_action('wp_body_open', array(__CLASS__, 'add_page_particle'));
+            }
 
         }
         //添加文件
@@ -42,7 +44,7 @@ if (!class_exists('Magick_Mixtrue_Display')) {
         public static function add_page_particle_js()
         {
             wp_enqueue_script(
-                'particle-js',
+                MAGICK_MIXTURE_NAME . '_particle-js',
                 plugin_dir_url(\dirname(__FILE__)) . 'js/style-click-particle.js',
                 array(),
                 MAGICK_MIXTURE_VERSION,
@@ -77,7 +79,7 @@ if (!class_exists('Magick_Mixtrue_Display')) {
         public static function load_owo_resouce()
         {
             wp_enqueue_script(
-                MAGICK_MIXTURE_NAME,
+                MAGICK_MIXTURE_NAME . '_OwO-js',
                 plugin_dir_url(\dirname(__FILE__)) . 'js/OwO.min.js',
                 array(),
                 MAGICK_MIXTURE_VERSION,
@@ -85,7 +87,7 @@ if (!class_exists('Magick_Mixtrue_Display')) {
             );
 
             wp_enqueue_style(
-                MAGICK_MIXTURE_NAME,
+                MAGICK_MIXTURE_NAME . '_OwO-css',
                 plugin_dir_url(\dirname(__FILE__)) . 'css/OwO.min.css',
                 array(),
                 MAGICK_MIXTURE_VERSION,

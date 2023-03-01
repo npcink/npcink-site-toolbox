@@ -161,7 +161,6 @@ class Magick_Mixtrue_Admin
                         'no' => '关闭',
                     ))
                     ->set_help_text("避免短时间内重复灌水评论，对管理员无效"),
-                   
 
                 Field::make('text', 'cmma_opt_com_times', '时间间隔（秒）')
                     ->set_attribute('type', 'number')
@@ -180,7 +179,6 @@ class Magick_Mixtrue_Admin
                         'yes' => '开启',
                         'no' => '关闭',
                     )),
-                    
 
                 Field::make('text', 'cmma_opt_com_num_min', '最少字数（个）')
                     ->set_required(true)
@@ -242,6 +240,10 @@ class Magick_Mixtrue_Admin
 
             ))
             ->add_tab(__('其他'), array(
+                Field::make('separator', 'crb_separator_page', __('页面特效')),
+                Field::make('checkbox', 'cmma_page_show_particle', __('页面添加粒子特效'))
+                    ->set_option_value('yes'),
+
                 Field::make('separator', 'crb_separator', __('评论区')),
                 Field::make('checkbox', 'cmma_show_owo', __('评论区添加OWO表情包'))
                     ->set_option_value('yes'),
