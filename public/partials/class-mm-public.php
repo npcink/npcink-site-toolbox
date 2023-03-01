@@ -5,13 +5,10 @@
 if (!class_exists('Magick_Mixtrue_Public')) {
     class Magick_Mixtrue_Public
     {
-        public function __construct()
-        {
-            echo "666";
-        }
+
         public static function runs()
         {
-            //add_action('wp_body_open', array(__CLASS__, 'add_page_particle'));
+            //add_action('wp_head', array(__CLASS__, 'add_page_particle'));
             //add_action('wp_enqueue_scripts', array(__CLASS__, 'add_page_particle_js'));
         }
         /**
@@ -22,7 +19,8 @@ if (!class_exists('Magick_Mixtrue_Public')) {
         //添加文件
         public static function add_page_particle()
         {
-            return "666";
+            echo "<h1>666898</h1>";
+            return;
 
         }
         //加载js
