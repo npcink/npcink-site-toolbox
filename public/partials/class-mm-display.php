@@ -27,9 +27,9 @@ if (!class_exists('Magick_Mixtrue_Display')) {
          */
         public static function run_particle()
         {
-
-            add_action('wp_body_open', array(__CLASS__, 'add_page_particle'));
             //add_action('wp_enqueue_scripts', array(__CLASS__, 'add_page_particle_js'));
+            add_action('wp_body_open', array(__CLASS__, 'add_page_particle'));
+            
         }
         //添加文件
         public static function add_page_particle()
@@ -41,7 +41,7 @@ if (!class_exists('Magick_Mixtrue_Display')) {
         //加载js
         public static function add_page_particle_js()
         {
-            wp_register_script(
+            wp_enqueue_script(
                 MAGICK_MIXTURE_NAME,
                 plugin_dir_url(\dirname(__FILE__)) . 'js/style-click-particle.js',
                 array(),
@@ -61,7 +61,7 @@ if (!class_exists('Magick_Mixtrue_Display')) {
                 //判断开关
                 if (carbon_get_theme_option('cmma_show_owo')) {
                     //加载js和css资源
-                    add_action('wp_enqueue_scripts', array(__CLASS__, 'load_owo_resouce'));
+                    //add_action('wp_enqueue_scripts', array(__CLASS__, 'load_owo_resouce'));
                     //加载配置js
                     add_action('wp_footer', array(__CLASS__, 'load_owo_comment_js'));
                     //加载表情包位置

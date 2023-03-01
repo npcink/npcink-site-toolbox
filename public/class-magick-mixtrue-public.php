@@ -93,7 +93,7 @@ class Magick_Mixtrue_Public
          * class.
          */
 
-        //wp_enqueue_style($this->magick_mixtrue, plugin_dir_url(__FILE__) . 'css/OwO.min.css', array(), $this->version, 'all');
+        //wp_enqueue_style($this->magick_mixtrue, plugin_dir_url(__FILE__) . 'css/magick-mixtrue-public.css', array(), $this->version, 'all');
 
     }
 
@@ -117,7 +117,7 @@ class Magick_Mixtrue_Public
          * class.
          */
 
-        //wp_enqueue_script($this->magick_mixtrue, plugin_dir_url(__FILE__) . 'js/magick-mixtrue.js', array('jquery'), $this->version, true);
+        //wp_enqueue_script($this->magick_mixtrue, plugin_dir_url(__FILE__) . 'js/magick-mixtrue-public.js', array('jquery'), $this->version, true);
 
     }
 
