@@ -127,9 +127,14 @@ if (!class_exists('Magick_Mixtrue_Optimize')) {
          *其他所有内容都应该包含在/wp-admin/中，如jquery、jquery ui核心等
          *如果您使用WooCommerce，您可以完全跳过此功能
          */
-        public static function jqueryui()
+        public static function jqueryui($hook)
         {
-            wp_enqueue_style('jquery-ui', '//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.min.css');
+            if (('upload.php' != $hook) && ('edit.php' != $hook)) {
+                return;
+            }
+
+            //http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.min.css
+            wp_enqueue_style('jquery-ui', plugin_dir_url(\dirname(__FILE__)) . 'css/jquery-ui.min.css');
             wp_enqueue_script('jquery-ui-datepicker');
         }
 

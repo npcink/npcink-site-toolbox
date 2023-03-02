@@ -27,8 +27,12 @@ if (!class_exists('Magick_Mixtrue_Display')) {
         public static function run_particle()
         {
             if (carbon_get_theme_option('cmma_page_show_particle')) {
-                add_action('wp_enqueue_scripts', array(__CLASS__, 'add_page_particle_js'));
-                add_action('wp_body_open', array(__CLASS__, 'add_page_particle'));
+                //手机端不加载
+                if (!wp_is_mobile()) {
+                    add_action('wp_enqueue_scripts', array(__CLASS__, 'add_page_particle_js'));
+                    add_action('wp_body_open', array(__CLASS__, 'add_page_particle'));
+                }
+
             }
 
         }
