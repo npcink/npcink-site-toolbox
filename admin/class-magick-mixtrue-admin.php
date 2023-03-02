@@ -60,7 +60,9 @@ class Magick_Mixtrue_Admin
      */
     public function load()
     {
-        require_once plugin_dir_path(__FILE__) . 'partials/magick-mixtrue-admin-census.php';
+        //文章统计页面
+        require_once plugin_dir_path(__FILE__) . 'partials/census-single.php';
+        //require_once plugin_dir_path(__FILE__) . 'partials/magick-mixtrue-admin-census.php';
         //优化设置
         require_once plugin_dir_path(__FILE__) . 'partials/option-optimize.php';
         //安全设置
@@ -74,7 +76,10 @@ class Magick_Mixtrue_Admin
     {
 
         //实例化一下，会自动跑起来
-        $census = new Magick_Mixtrue_Admin_Census();
+        //$census = new Magick_Mixtrue_Admin_Census();
+        //加载文章统计
+        Magick_Mixtrue_Census_Single::run();
+
         //优化
         Magick_Mixtrue_Optimize::run();
         //安全

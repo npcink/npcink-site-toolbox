@@ -1,34 +1,41 @@
 <?php
-//文章统计菜单
+/**
+ * 文章统计菜单
+ */
 
-//如何在当前页面加载js
 if (!class_exists('Magick_Mixtrue_Census_Single')) {
     class Magick_Mixtrue_Census_Single
     {
 
-        public function __construct()
+        public static function run()
         {
-            self::init_actions();
-
+            //添加发文统计菜单
+            add_action('admin_menu', array(__CLASS__, 'add_menu_single'));
+            //添加设置选项
+            add_action('admin_init', array(__CLASS__, 'magick_plugin_options'));
+            //加载图标用js
+            add_action('admin_enqueue_scripts', array(__CLASS__, 'load_enqueue_admin_script'));
         }
 
-        public static function init_actions()
+        /**
+         * 添加发文统计菜单
+         */
+        public static function add_menu_single()
         {
 
-            add_action('admin_init', array(__CLASS__, 'magick_plugin_options'));
-            //加载图标js
-            add_action('admin_enqueue_scripts', array(__CLASS__, 'load_enqueue_admin_script'));
+            add_submenu_page('index.php', __('发文统计'), __('发文统计'), 'administrator', 'magick-census-single', array(__CLASS__, 'load_content'));
 
         }
 
         //加载图标用js
         public static function load_enqueue_admin_script($hook)
         {
+            //判断下，是否在文章统计页中
             if ('dashboard_page_magick-census-single' != $hook) {
                 return;
             }
             wp_enqueue_script(
-                MAGICK_MIXTURE_NAME,
+                MAGICK_MIXTURE_NAME . '_echarts-single',
                 plugin_dir_url(\dirname(__FILE__)) . 'js/echarts_v5.4.0.js',
                 array(),
                 MAGICK_MIXTURE_VERSION,
@@ -62,15 +69,6 @@ if (!class_exists('Magick_Mixtrue_Census_Single')) {
             <?php
 }
 
-        //开始判断，在文章统计页则加载js
-        //public static function current_page_hook($hook)
-        //{
-        //    if ('dashboard_page_magick-census-single' == $hook) {
-        //        //是指定页
-        //        return true;
-        //    }
-        //}
-
         //添加设置选项
         public static function magick_plugin_options()
         {
@@ -82,7 +80,7 @@ if (!class_exists('Magick_Mixtrue_Census_Single')) {
             // 首先，我们注册一个部分。这是必要的，因为所有未来的选项都必须属于一个。
             add_settings_section(
                 'sandbox_theme_display_option', // 用于标识此部分以及用于注册选项的ID
-                '自定义设置', // 要在管理页面上显示的标题
+                '已统计人员ID', // 要在管理页面上显示的标题
                 //'magick_plugin_options_callback', // 用于呈现节描述的回调
                 array(__CLASS__, 'magick_plugin_options_callback'),
                 'sandbox_theme_display_options' // 添加此部分选项的页面
@@ -428,13 +426,3 @@ if (!class_exists('Magick_Mixtrue_Census_Single')) {
 
     } //end class
 }
-
-//加载echarts 用于图标绘制
-// public static function load_block_js()
-// {
-//     wp_enqueue_style('插件名', plugin_dir_url(dirname(__FILE__)) . 'js/echarts_v5.4.0.js', array(), '版本号', 'all');
-
-// }
-//激活插件时运行
-//add_action('plugins_loaded', array('Magick_Mixtrue_Census_Single', 'init_actions'));
-//add_action('admin_enqueue_scripts', array('Magick_Mixtrue_Census_Single', 'load_block_js'));
