@@ -26,27 +26,18 @@ class Magick_Mixtrue_Public
     /**
      * The ID of this plugin.
      *
-     * @since    1.0.0
-     * @access   private
-     * @var      string    $magick_mixtrue    The ID of this plugin.
      */
     private $magick_mixtrue;
 
     /**
      * The version of this plugin.
      *
-     * @since    1.0.0
-     * @access   private
-     * @var      string    $version    The current version of this plugin.
      */
     private $version;
 
     /**
      * Initialize the class and set its properties.
      *
-     * @since    1.0.0
-     * @param      string    $magick_mixtrue       The name of the plugin.
-     * @param      string    $version    The version of this plugin.
      */
     public function __construct($magick_mixtrue, $version)
     {
@@ -81,17 +72,6 @@ class Magick_Mixtrue_Public
     public function enqueue_styles()
     {
 
-        /**
-         * This function is provided for demonstration purposes only.
-         *
-         * An instance of this class should be passed to the run() function
-         * defined in magick_mixtrue_Loader as all of the hooks are defined
-         * in that particular class.
-         *
-         * The magick_mixtrue_Loader will then create the relationship
-         * between the defined hooks and the functions defined in this
-         * class.
-         */
 
         //wp_enqueue_style($this->magick_mixtrue, plugin_dir_url(__FILE__) . 'css/magick-mixtrue-public.css', array(), $this->version, 'all');
 

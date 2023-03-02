@@ -11,7 +11,6 @@ if (!class_exists('Magick_Mixtrue_Display')) {
 
         public static function run()
         {
-//加载表情包
             add_action('wp', array(__CLASS__, 'load'));
         }
 
@@ -54,7 +53,8 @@ if (!class_exists('Magick_Mixtrue_Display')) {
         }
 
         /**
-         * 加载表情包
+         * 效果：评论区加载表情包
+         * 来源：https://github.com/DIYgod/OwO
          */
         public static function run_owo()
         {

@@ -47,7 +47,7 @@ class Magick_Mixtrue
 
         $this->load_dependencies(); //加载此插件所需的依赖项
         $this->define_admin_hooks(); //注册与后台功能相关的所有挂钩
-        $this->define_public_hooks();
+        $this->define_public_hooks();//注册与前台功能相关的所有挂钩
 
     }
 

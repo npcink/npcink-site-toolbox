@@ -14,6 +14,11 @@ if (!class_exists('Magick_Mixtrue_Census_Shop')) {
 
         }
 
+        public static function run()
+        {
+
+        }
+
         //加载图标用js
         public static function load_enqueue_admin_script($hook)
         {

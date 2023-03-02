@@ -115,17 +115,6 @@ class Magick_Mixtrue_Admin
     public function enqueue_scripts()
     {
 
-        /**
-         * 此功能仅用于演示。
-         *
-         *此类的实例应传递给run（）函数
-         *在Plugin_Name_Loader中定义，因为定义了所有钩子
-         *在那个特定的班级里。
-         *
-         *然后Plugin_Name_Loader将创建关系
-         *在定义的钩子和在此定义的函数之间
-         *类。
-         */
 //加载echarts 用于图标绘制
         // wp_enqueue_script($this->plugin_name, plugin_dir_url(__FILE__) . 'js/echarts_v5.4.0.js', array(), $this->version, false);
         //wp_enqueue_script($this->plugin_name, plugin_dir_url(__FILE__) . 'js/magick-mixtrue-admin.js', array('jquery'), $this->version, false);
