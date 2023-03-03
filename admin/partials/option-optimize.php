@@ -69,6 +69,21 @@ if (!class_exists('Magick_Mixtrue_Optimize')) {
                 add_filter('login_display_language_dropdown', '__return_false');
             }
 
+            //媒体文件重命名
+            switch (carbon_get_theme_option('cmma_opt_medium_rename')) {
+                //时间
+                case 'math':
+                    add_filter('wp_handle_upload_prefilter', array(__CLASS__, 'custom_upload_filter_time'));
+                    break;
+                //md5重命名
+                case 'md5':
+                    add_filter('wp_handle_upload_prefilter', array(__CLASS__, 'custom_upload_filter_md5'));
+                    break;
+                //默认值
+                default:
+                    return;
+            }
+
         }
         /**
          * 优化 - 筛选
@@ -384,6 +399,33 @@ if (!class_exists('Magick_Mixtrue_Optimize')) {
         public static function admin_logo_home()
         {
             return esc_url(home_url());
+        }
+
+        /**
+         * 优化 - 媒体
+         */
+        /**
+         * 重命名
+         */
+
+        /*图片按时间自动重命名*/
+        public static function custom_upload_filter_time($file)
+        {
+            $info = pathinfo($file['name']);
+            $ext = $info['extension'];
+            $filedate = date('YmdHis') . rand(10, 99); //为了避免时间重复，再加一段2位的随机数
+            $file['name'] = $filedate . '.' . $ext;
+            return $file;
+        }
+
+        /*使用md5转码重命名媒体文件名*/
+        public static function custom_upload_filter_md5($file)
+        {
+            $info = pathinfo($file['name']);
+            $ext = '.' . $info['extension'];
+            $md5 = md5($file['name']);
+            $file['name'] = $md5 . $ext;
+            return $file;
         }
 
     }

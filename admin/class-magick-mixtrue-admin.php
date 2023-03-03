@@ -123,6 +123,9 @@ class Magick_Mixtrue_Admin
     {
         Container::make('theme_options', __('魔法合剂'))
             ->set_icon('dashicons-carrot')
+        /**
+         * 优化
+         */
             ->add_tab(__('优化'), array(
                 Field::make('separator', 'cmma_optimize_filter', __('筛选')),
                 Field::make('checkbox', 'cmma_filter_single_user', __('文章菜单添加作者筛选项'))
@@ -135,14 +138,25 @@ class Magick_Mixtrue_Admin
                     ->set_option_value('yes')
                     ->set_help_text("支持 文章、页面、链接、多媒体、评论、分类、标签、用户 等"),
 
-                Field::make('separator', 'cmma_opt_', __('媒体')),
+                /**
+             * 优化 - 媒体
+             */
+                Field::make('separator', 'cmma_opt_medium_title', __('媒体')),
+                Field::make('select', 'cmma_opt_medium_rename', __('媒体图片上传自动重命名'))
+                    ->set_options(array(
+                        'no' => '关闭',
+                        'math' => '数字重命名',
+                        'md5' => 'MD5重命名',
+                    ))
+                    ->set_default_value('no')
+                    ->set_help_text("数字重命名类似：<code>2023030303095446</code>，MD5重命名类似<code>a9193c211c6c991528f29fb7acfee31a</code>"),
 
                 //优化 - 评论
                 Field::make('separator', 'cmma_optimize_commont', __('评论')),
                 Field::make('select', 'cmma_opt_com_time', __('两次评论间需指定间隔'))
                     ->set_options(array(
-                        'yes' => '开启',
                         'no' => '关闭',
+                        'yes' => '开启',
                     ))
                     ->set_default_value('no')
                     ->set_help_text("避免短时间内重复灌水评论，对管理员无效"),
@@ -161,8 +175,8 @@ class Magick_Mixtrue_Admin
 
                 Field::make('select', 'cmma_opt_com_number', __('指定最小和最大评论字数'))
                     ->set_options(array(
-                        'yes' => '开启',
                         'no' => '关闭',
+                        'yes' => '开启',
                     ))
                     ->set_default_value('no'),
 
@@ -237,8 +251,8 @@ class Magick_Mixtrue_Admin
                 Field::make('separator', 'crb_separator_login', __('登录页')),
                 Field::make('select', 'cmma_abt_style_login', __('更改为自定义登录页'))
                     ->set_options(array(
-                        'yes' => '开启',
                         'no' => '关闭',
+                        'yes' => '开启',
                     ))
                     ->set_default_value('no')
                     ->set_width(40),
@@ -308,10 +322,10 @@ class Magick_Mixtrue_Admin
              */
                 Field::make('select', 'cmma_login_verify', __('登录验证码'))
                     ->set_options(array(
+                        'no' => '关闭',
                         'math_results' => '数学验证码',
                         'random_mixing' => '随机混合验证码',
                         'tx_vcode' => '腾讯验证码-功能未验证',
-                        'no' => '关闭',
                     ))
                     ->set_default_value('no')
                     ->set_help_text('
