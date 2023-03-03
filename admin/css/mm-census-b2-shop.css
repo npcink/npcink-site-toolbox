@@ -1,8 +1,10 @@
 /**==============================商城*/
-.magick_shop_box {
-  display: flex;
+.magick_section {
   max-width: 1200px;
   margin: 0 auto;
+}
+.magick_shop_box {
+  display: flex;
   /*两端居中对齐,仅包含子元素*/
   justify-content: space-evenly;
   /*垂直居中,仅包含子元素*/
