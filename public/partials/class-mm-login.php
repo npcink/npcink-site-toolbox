@@ -24,6 +24,11 @@ if (!class_exists('Magick_Mixtrue_Login')) {
             if (carbon_get_theme_option('cmma_login_verify_tx') === "tx_vcode") {
                 self::login_verify_tx_run();
             }
+
+            //添加数字运算验证码
+            if (carbon_get_theme_option('cmma_login_verify_tx') === "math_results") {
+                self::run_math();
+            }
         }
 
         /**
@@ -57,23 +62,23 @@ if (!class_exists('Magick_Mixtrue_Login')) {
         public static function io_login_header()
         {
             echo '<div class="login-container">
-    <div class="login-body">
-        <div class="login-img shadow-lg position-relative flex-fill">
-            <div class="img-bg position-absolute">
-                <div class="login-info">
-                    <h2>' . get_bloginfo('name') . '</h2>
-                    <p>' . get_bloginfo('description') . '</p>
-                </div>
-            </div>
-        </div>';
+                 <div class="login-body">
+                     <div class="login-img shadow-lg position-relative flex-fill">
+                         <div class="img-bg position-absolute">
+                             <div class="login-info">
+                                 <h2>' . get_bloginfo('name') . '</h2>
+                                 <p>' . get_bloginfo('description') . '</p>
+                             </div>
+                         </div>
+                     </div>';
         }
         public static function io_login_footer()
         {
             echo '</div><!--login-body END-->
-    </div><!--login-container END-->
-    <div class="footer-copyright position-absolute">
-            <span>Copyright © <a href="' . esc_url(home_url()) . '" class="text-white-50" title="' . get_bloginfo('name') . '" rel="home">' . get_bloginfo('name') . '</a></span>
-    </div>';
+            </div><!--login-container END-->
+            <div class="footer-copyright position-absolute">
+                    <span>Copyright © <a href="' . esc_url(home_url()) . '" class="text-white-50" title="' . get_bloginfo('name') . '" rel="home">' . get_bloginfo('name') . '</a></span>
+            </div>';
         }
 
         public static function custom_login_style()
@@ -89,32 +94,73 @@ if (!class_exists('Magick_Mixtrue_Login')) {
             //左边文字背景图
             $bg_img_left = carbon_get_theme_option('cmma_opt_login_bg_left');
             echo '<style type="text/css">
-    body{
-        background:-o-linear-gradient(45deg,' . $bg_left . ',' . $bg_right . ');
-        background:linear-gradient(45deg,' . $bg_left . ',' . $bg_right . ');
-        height:100vh;
-    }
-    .login h1 a{
-        background-image:url(' . $logo_url . ' );
-        width:180px;
-        background-position:center center;
-        background-size:' . $logo_size . 'px;
-    }
-    .img-bg{
-        color: #fff;
-        padding: 2rem;
-        bottom: -2rem;
-        left: 0;
-        top: -2rem;
-        right: 0;
-        border-radius: 10px;
-        background-repeat: no-repeat;
-        background-position: center center;
-        background-size: cover;
-        background-image:url(' . $bg_img_left . ');
-       }
+            body{
+                background:-o-linear-gradient(45deg,' . $bg_left . ',' . $bg_right . ');
+                background:linear-gradient(45deg,' . $bg_left . ',' . $bg_right . ');
+                height:100vh;
+            }
+            .login h1 a{
+                background-image:url(' . $logo_url . ' );
+                width:180px;
+                background-position:center center;
+                background-size:' . $logo_size . 'px;
+            }
+            .img-bg{
+                color: #fff;
+                padding: 2rem;
+                bottom: -2rem;
+                left: 0;
+                top: -2rem;
+                right: 0;
+                border-radius: 10px;
+                background-repeat: no-repeat;
+                background-position: center center;
+                background-size: cover;
+                background-image:url(' . $bg_img_left . ');
+               }
 
-</style>';
+               </style>';
+        }
+
+        /**
+         * 效果：添加数学验证码
+         * 来源：https://blog.csdn.net/qq_39339179/article/details/119183143
+         */
+        //后台登陆数学验证码开始
+        public static function run_math()
+        {
+            add_action('login_form', array(__CLASS__, 'myplugin_add_login_fields'));
+            add_action('login_form_login', array(__CLASS__, 'login_val'));
+        }
+
+        public static function myplugin_add_login_fields()
+        {
+            //获取两个随机数, 范围0~100
+            $num1 = rand(0, 20);
+            $num2 = rand(0, 20);
+            //最终网页中的具体内容
+            echo "<p><label for='math' class='small'>验证码： $num1 + $num2 = ?<input type='text' name='sum' class='input' value='' size='20' tabindex='4'>"
+                . "<input type='hidden' name='num1' value='$num1'>"
+                . "<input type='hidden' name='num2' value='$num2'></label></p>";
+        }
+
+        public static function login_val()
+        {
+            //初始化
+            $_POST['sum'] = isset($_POST['sum']) ? $_POST['sum'] : 0;
+            $_POST['num1'] = isset($_POST['num1']) ? $_POST['num1'] : 0;
+            $_POST['num2'] = isset($_POST['num2']) ? $_POST['num2'] : 0;
+            $sum = $_POST['sum']; //用户提交的计算结果
+            switch ($sum) {
+                //得到正确的计算结果则直接跳出
+                case $_POST['num1'] + $_POST['num2']:break;
+                //未填写结果时的错误讯息
+                case null:wp_die('提示: 请输入验证码.');
+                    break;
+                //计算错误时的错误讯息
+                default:wp_die('提示: 验证码错误,请重试.');
+
+            }
         }
 
 /**
@@ -142,25 +188,25 @@ if (!class_exists('Magick_Mixtrue_Login')) {
             $appid = carbon_get_theme_option('cmma_login_verify_tx_id'); //拿到 ID
 
             ?>
-     <input type="hidden" id="wp007_tcaptcha" name="tcaptcha_007" value="" />
-     <input type="hidden" id="wp007_ticket" name="syz_ticket" value="" />
-     <input type="hidden" id="wp007_randstr" name="syz_randstr" value="" />
-     <!-- 修改下面的 data-appid 值 -->
-     <div id="TencentCaptcha" data-appid="<?php echo $appid; ?>" data-cbfn="callback" class="login_button">验证</div>
-     <script>
-         window.callback = function(res){
-             if(res.ret === 0){
-                 var but = document.getElementById("TencentCaptcha");
-                 document.getElementById("wp007_ticket").value = res.ticket;
-                 document.getElementById("wp007_randstr").value = res.randstr;
-                 document.getElementById("wp007_tcaptcha").value = 1;
-                 but.style.cssText = "color:#fff;background:#4fb845;border-color:#4fb845;pointer-events:none";
-                 but.innerHTML = "验证成功";
-             }
+              <input type="hidden" id="wp007_tcaptcha" name="tcaptcha_007" value="" />
+              <input type="hidden" id="wp007_ticket" name="syz_ticket" value="" />
+              <input type="hidden" id="wp007_randstr" name="syz_randstr" value="" />
+              <!-- 修改下面的 data-appid 值 -->
+              <div id="TencentCaptcha" data-appid="<?php echo $appid; ?>" data-cbfn="callback" class="login_button">验证</div>
+              <script>
+                  window.callback = function(res){
+                      if(res.ret === 0){
+                          var but = document.getElementById("TencentCaptcha");
+                          document.getElementById("wp007_ticket").value = res.ticket;
+                          document.getElementById("wp007_randstr").value = res.randstr;
+                          document.getElementById("wp007_tcaptcha").value = 1;
+                          but.style.cssText = "color:#fff;background:#4fb845;border-color:#4fb845;pointer-events:none";
+                          but.innerHTML = "验证成功";
+                      }
+                  }
+              </script>
+            <?php
          }
-     </script>
- <?php
-}
 
 /**
  * 处理登录二次验证
