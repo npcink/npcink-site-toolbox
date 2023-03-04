@@ -65,6 +65,8 @@ class Magick_Mixtrue_Admin
         require_once plugin_dir_path(__FILE__) . 'partials/option-optimize.php';
         //安全设置
         require_once plugin_dir_path(__FILE__) . 'partials/option-safe.php';
+        //功能设置
+        require_once plugin_dir_path(__FILE__) . 'partials/option-function.php';
 
     }
 
@@ -87,6 +89,8 @@ class Magick_Mixtrue_Admin
         Magick_Mixtrue_Optimize::run();
         //安全
         Magick_Mixtrue_Safe::run();
+        //功能
+        Magick_Mixtrue_Fuction::run();
 
     }
 
@@ -291,6 +295,23 @@ class Magick_Mixtrue_Admin
                     ->set_width(20)
                     ->set_help_text('开启后显示在仪表盘下,<a href="https://7b2.com/shop/35736.html?=Npcink" target="_blank">了解B2主题</a>'),
 
+                Field::make('select', 'cmma_ban_search_keywords', __('屏蔽恶意关键词搜索'))
+                    ->set_options(array(
+                        'no' => '关闭',
+                        'yes' => '开启',
+                    ))
+                    ->set_default_value('no')
+                    ->set_help_text("禁止某些词在本站搜索"),
+
+                Field::make('textarea', 'cmma_ban_search_keywords_content', __('输入您的关键词，以“回车键”分隔'))
+
+                    ->set_conditional_logic(array(
+                        array(
+                            'field' => 'cmma_ban_search_keywords',
+                            'value' => 'yes',
+                            'compare' => '=',
+                        ),
+                    )),
 
                 /**
              * 页面特效
@@ -307,8 +328,6 @@ class Magick_Mixtrue_Admin
                 Field::make('separator', 'crb_separator', __('评论区')),
                 Field::make('checkbox', 'cmma_show_owo', __('评论区添加OWO表情包'))
                     ->set_option_value('yes'),
-
-                    
 
                 /**
              * 登录页
