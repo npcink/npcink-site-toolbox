@@ -7,7 +7,6 @@ if (!class_exists('Magick_Mixtrue_Census_Shop')) {
     class Magick_Mixtrue_Census_Shop
     {
 
-
         public static function run()
         {
             add_action('wp_loaded', array(__CLASS__, 'load'));
@@ -40,7 +39,7 @@ if (!class_exists('Magick_Mixtrue_Census_Shop')) {
             }
             wp_enqueue_style(
                 MAGICK_MIXTURE_NAME . '_census-b2-shop',
-                plugin_dir_url(\dirname(__FILE__)) . 'css/mm-census-b2-shop.css',
+                plugin_dir_url(\dirname(__FILE__)) . 'css/mm-census-style.css',
                 array(),
                 MAGICK_MIXTURE_VERSION,
                 'all'
@@ -65,9 +64,14 @@ if (!class_exists('Magick_Mixtrue_Census_Shop')) {
             global $wpdb;
             //实例化工具
             $tool = new Magick_Mixtrue_Tool;
+            //拿到时间
             $time = $tool->get_time();
             $time = $time['a'];
+            //拿到数据表
             $table_name = $wpdb->prefix . 'zrz_order';
+
+            //创建数组，存储数据
+            $array = array();
 
             //获取近7天的销售数据
             $order_data_seven = "SELECT order_type,order_commodity,order_state,order_date,order_total FROM $table_name WHERE  order_date > '$time[6]'";
@@ -286,6 +290,19 @@ if (!class_exists('Magick_Mixtrue_Census_Shop')) {
             //拿到表
             $table_name = $wpdb->prefix . 'zrz_order';
 
+            //存储数据
+            $arr = array();
+
+            //数据库不存在
+            if ($wpdb->get_var("SHOW TABLES LIKE '$table_name'") != $table_name) {
+                //echo 'Table does not exist';
+                $arr['total_sales'] = '0';
+                $arr['total_order'] = '0';
+                $arr['total_refund_sales'] = '0';
+                $arr['total_refund_order'] = '0';
+                return $arr;
+            }
+
             //实例化工具
             $tool = new Magick_Mixtrue_Tool;
             //拿到时间
@@ -295,8 +312,6 @@ if (!class_exists('Magick_Mixtrue_Census_Shop')) {
             $end = '';
             $start = $tool->export_handle_time('start', reset($math));
             $end = $tool->export_handle_time('end', end($math));
-            //存储数据
-            $arr = array();
 
             //开始查询
             //总销售额
@@ -322,7 +337,6 @@ if (!class_exists('Magick_Mixtrue_Census_Shop')) {
             //总退款订单
             $arr['total_refund_order'] = $wpdb->get_var($judge_later_d);
 
-           
             return $arr;
 
         }
@@ -339,13 +353,32 @@ if (!class_exists('Magick_Mixtrue_Census_Shop')) {
                      <h1><?php echo esc_html(get_admin_page_title()); ?></h1>
                      <hr />
 
-
-                    <!--五栏数据-->
+                     <section class="magick_section">
+                        <div class="switch-tab">
+                            <label>
+                            <input type="radio" name="tab" checked>
+                    <span>今日统计</span>
+                    <div class="tab-box">
+                         <!--五栏数据-->
                     <?php echo self::week_data_show() ?>
+        </div>
+        </label>
+
+        <label>
+                            <input type="radio" name="tab" >
+                    <span>本月统计</span>
+                    <div class="tab-box">
+                        <!--月度统计-->
+                    <?php echo self::month_content() ?>
+        </div>
+        </label>
+        </div>
+        </section>
+
+
                     <!--四栏分隔-->
                     <?php echo self::load_echarts_js() ?>
-                    <!--月度统计-->
-                    <?php echo self::month_content() ?>
+
 
                     </div><!-- end wrap-->
                     <?php
@@ -361,7 +394,7 @@ if (!class_exists('Magick_Mixtrue_Census_Shop')) {
              */
             $arr = self::handle_order_seven();
             ?>
-                         <section class="magick_shop_box">
+                         <div class="magick_shop_box">
 
                     <div class="content">
                         <div class="child-box">
@@ -374,7 +407,7 @@ if (!class_exists('Magick_Mixtrue_Census_Shop')) {
                     </div>
                     <div class="content">
                         <div class="child-box">
-                            <span>今日总销售额（已减退款）</span>
+                            <span>今日总销售额</span>
                             <div class="child">
                                 <p><span><?php echo $arr['today']['sale'] ?></span>￥</p>
                                 <span class="dashicons dashicons-insert"></span>
@@ -384,7 +417,7 @@ if (!class_exists('Magick_Mixtrue_Census_Shop')) {
                     </div>
                     <div class="content">
                         <div class="child-box">
-                            <span>今日总订单（已减退款）</span>
+                            <span>今日总订单</span>
                             <div class="child">
                                 <p><span><?php echo $arr['today']['sale_order'] ?></span>个</p>
                                 <span class="dashicons dashicons-database-add"></span>
@@ -410,7 +443,10 @@ if (!class_exists('Magick_Mixtrue_Census_Shop')) {
                         </div>
                     </div>
 
-                </section>
+                </div>
+                <div class="describe">
+                            总销售（已减退款），总订单（已减退款）。
+                        </div>
             <?php
 }
 
@@ -655,16 +691,14 @@ if (!class_exists('Magick_Mixtrue_Census_Shop')) {
             $month = self::get_month_order();
             ?>
             <!--月度统计-->
-            <section class="magick_section">
-            <h2>月数据</h2>
-            <hr>
+
             <div class="magick_shop_box">
 
 
 
             <div class="content">
                 <div class="child-box">
-                    <span>本月总销售额（已减退款）</span>
+                    <span>本月总销售额）</span>
                     <div class="child">
                         <p><span><?php echo $month['total_sales'] ?></span>￥</p>
                         <span class="dashicons dashicons-insert"></span>
@@ -674,7 +708,7 @@ if (!class_exists('Magick_Mixtrue_Census_Shop')) {
             </div>
             <div class="content">
                 <div class="child-box">
-                    <span>本月总订单（已减退款）</span>
+                    <span>本月总订单</span>
                     <div class="child">
                         <p><span><?php echo $month['total_order'] ? $month['total_order'] : 0 ?></span>个</p>
                         <span class="dashicons dashicons-database-add"></span>
@@ -700,9 +734,13 @@ if (!class_exists('Magick_Mixtrue_Census_Shop')) {
                     </div>
                 </div>
             </div>
-            </div>
 
-            </section>
+            </div>
+            <div class="describe">
+                            总销售（已减退款），总订单（已减退款）。
+                        </div>
+
+
             <?php
 }
 

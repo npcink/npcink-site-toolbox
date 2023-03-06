@@ -22,7 +22,7 @@ if (!defined('WPINC')) {
 //定义插件名
 define('MAGICK_MIXTURE_NAME', 'magick-mixtrue');
 //定义插件版本
-define('MAGICK_MIXTURE_VERSION', '0.0.3');
+define('MAGICK_MIXTURE_VERSION', '0.0.5');
 
 /**
  * 用于定义需要用到的插件类，
