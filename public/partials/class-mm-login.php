@@ -140,8 +140,8 @@ if (!class_exists('Magick_Mixtrue_Login')) {
         public static function run_math()
         {
             add_action('login_form', array(__CLASS__, 'myplugin_add_login_fields'));
-            //展示验证码错误
-            add_filter('wp_authenticate_user', array(__CLASS__, 'erro_login_math'), 100, 1);
+            //验证码错误
+            add_action('wp_authenticate_user', array(__CLASS__, 'login_val'));
         }
 
         public static function myplugin_add_login_fields()
@@ -155,23 +155,25 @@ if (!class_exists('Magick_Mixtrue_Login')) {
                 . "<input type='hidden' name='num2' value='$num2'></label></p>";
         }
 
-
-        //处理数字验证码错误
-        public static function erro_login_math()
+        public static function login_val()
         {
-            //用户提交的计算结果
-            $sum = $_POST['sum'];
-            //正确结果
-            $result = $_POST['num1'] + $_POST['num2'];
-            if ($sum != $result && $sum == null) {
-                //未输入验证码
-                return new WP_Error('broke', __('<strong>错误</strong>：请输入验证码！！！'));
-            } else if ($sum != $result && $sum != null) {
-                //验证码错误
-                return new WP_Error('broke', __('<strong>错误</strong>：验证码错误,请重试！！！'));
+            //初始化
+            $_POST['sum'] = isset($_POST['sum']) ? $_POST['sum'] : 0;
+            $_POST['num1'] = isset($_POST['num1']) ? $_POST['num1'] : 0;
+            $_POST['num2'] = isset($_POST['num2']) ? $_POST['num2'] : 0;
+            $sum = $_POST['sum']; //用户提交的计算结果
+            switch ($sum) {
+                //得到正确的计算结果则直接跳出
+                case $_POST['num1'] + $_POST['num2']:break;
+                //未填写结果时的错误讯息
+                case null:
+                    return new WP_Error("empty_captcha", __('<strong>错误</strong>: 请输入验证码.', 'zaxu'));
+                    break;
+                //计算错误时的错误讯息
+                default:
+                    return new WP_Error("empty_captcha", __('<strong>错误</strong>: 验证码错误，请重新输入.', 'zaxu'));
 
             }
-
         }
 
         /**
@@ -181,7 +183,7 @@ if (!class_exists('Magick_Mixtrue_Login')) {
         public static function run_random()
         {
             add_action('login_form', array(__CLASS__, 'loper_login_english_figures'));
-            add_action('login_form_login', array(__CLASS__, 'loper_login_calculation'));
+            add_action('wp_authenticate_user', array(__CLASS__, 'loper_login_calculation'));
         }
 
         public static function loper_login_english_figures()
@@ -202,9 +204,13 @@ if (!class_exists('Magick_Mixtrue_Login')) {
             $sum = $_POST['sum'];
             switch ($sum) {
                 case $_POST['num1']:break;
-                case null:wp_die(__('错误：请填入验证码！'), '', array('back_link' => true));
+                //未填写结果时的错误讯息
+                case null:
+                    return new WP_Error("empty_captcha", __('<strong>错误</strong>: 请输入验证码.', 'zaxu'));
                     break;
-                default:wp_die(__('错误：验证码不正确！'), '', array('back_link' => true));
+                //计算错误时的错误讯息
+                default:
+                    return new WP_Error("empty_captcha", __('<strong>错误</strong>: 验证码错误，请重新输入.', 'zaxu'));
             }
         }
 
