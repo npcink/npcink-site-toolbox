@@ -581,7 +581,7 @@ class Magick_Mixtrue_Admin
                     ))
                     ->set_options(self::get_categoriess()),
 
-                Field::make('separator', 'comm_h5_singel_link', __('H5内容页 - 联系'))
+                Field::make('separator', 'comm_h5_single_contact', __('H5内容页 - 联系'))
                     ->set_conditional_logic(array(
                         array(
                             'field' => 'comm_h5_switch',
@@ -589,7 +589,7 @@ class Magick_Mixtrue_Admin
                             'compare' => '=',
                         ),
                     )),
-                Field::make('text', 'comm_h5_singel_link_title', __('联系标题'))
+                Field::make('text', 'comm_h5_single_contact_title', __('联系标题'))
                     ->set_visible_in_rest_api($visible = true)
                     ->set_conditional_logic(array(
                         array(
@@ -598,7 +598,7 @@ class Magick_Mixtrue_Admin
                             'compare' => '=',
                         ),
                     )),
-                Field::make('text', 'comm_h5_singel_link_one_title', __('内容标题-1'))
+                Field::make('text', 'comm_h5_single_contact_one_title', __('内容标题-1'))
                     ->set_visible_in_rest_api($visible = true)
                     ->set_conditional_logic(array(
                         array(
@@ -608,7 +608,7 @@ class Magick_Mixtrue_Admin
                         ),
                     ))
                     ->set_width(25),
-                Field::make('rich_text', 'comm_h5_singel_link_one_content', __('内容标题-1'))
+                Field::make('rich_text', 'comm_h5_single_contact_one_content', __('内容标题-1'))
                     ->set_visible_in_rest_api($visible = true)
                     ->set_conditional_logic(array(
                         array(
@@ -618,7 +618,7 @@ class Magick_Mixtrue_Admin
                         ),
                     ))
                     ->set_width(25),
-                Field::make('text', 'comm_h5_singel_link_two_title', __('内容标题-2'))
+                Field::make('text', 'comm_h5_single_contact_two_title', __('内容标题-2'))
                     ->set_visible_in_rest_api($visible = true)
                     ->set_conditional_logic(array(
                         array(
@@ -628,7 +628,7 @@ class Magick_Mixtrue_Admin
                         ),
                     ))
                     ->set_width(25),
-                Field::make('rich_text', 'comm_h5_singel_link_two_content', __('内容标题-2'))
+                Field::make('rich_text', 'comm_h5_single_contact_two_content', __('内容标题-2'))
                     ->set_visible_in_rest_api($visible = true)
                     ->set_conditional_logic(array(
                         array(
