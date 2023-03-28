@@ -646,8 +646,8 @@ class Magick_Mixtrue_Admin
                             'compare' => '=',
                         ),
                     )),
-                    Field::make('text', 'comm_h5_singel_featured_link', __('跳转链接'))
-                    ->set_attribute( 'type', 'url' )
+                Field::make('text', 'comm_h5_singel_featured_link', __('跳转链接'))
+                    ->set_attribute('type', 'url')
                     ->set_visible_in_rest_api($visible = true)
                     ->set_conditional_logic(array(
                         array(
@@ -658,6 +658,7 @@ class Magick_Mixtrue_Admin
                     ))
                     ->set_width(33),
                 Field::make('image', 'comm_h5_singel_featured_logo', __('品牌LOGO'))
+                    ->set_value_type('url')
                     ->set_visible_in_rest_api($visible = true)
                     ->set_conditional_logic(array(
                         array(
