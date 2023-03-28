@@ -46,7 +46,7 @@ function run_magick_mixture()
     $plugin->run();
 
 }
-//run_magick_mixture();
+run_magick_mixture();
 
 //$magick_tool = new Magick_Mixtrue_Tool;
 
@@ -56,5 +56,3 @@ function run_magick_mixture()
  * 为WordPress后台的文章、分类等显示ID
  */
 // 添加一个新的列 ID
-
-

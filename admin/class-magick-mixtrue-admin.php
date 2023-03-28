@@ -517,9 +517,31 @@ class Magick_Mixtrue_Admin
 
                 Field::make('separator', 'comm_h5_intro_msg', __('H5介绍'))
                     ->set_help_text("使用WordPress提供的Rest API，可通过H5单页来展示有趣的内容。详情可见<a href='https://www.npc.ink/276746.html' target='_blank'>H5介绍</a>"),
-                Field::make('separator', 'comm_h5_index', __('H5首页')),
-                Field::make('association', 'crb_association', __('首页展示的特色文章'))
+                Field::make('select', 'comm_h5_switch', __('启用H5选项'))
+                    ->set_options(array(
+                        'no' => '关闭',
+                        'yes' => '开启',
+                    ))
+                    ->set_default_value('no'),
+
+                Field::make('separator', 'comm_h5_index_tone_msg', __('H5首页 - 特写'))
+                    ->set_conditional_logic(array(
+                        array(
+                            'field' => 'comm_h5_switch',
+                            'value' => 'yes',
+                            'compare' => '=',
+                        ),
+                    )),
+
+                Field::make('association', 'comm_h5_index_tone', __('幻灯片展示的特色文章'))
                     ->set_visible_in_rest_api($visible = true)
+                    ->set_conditional_logic(array(
+                        array(
+                            'field' => 'comm_h5_switch',
+                            'value' => 'yes',
+                            'compare' => '=',
+                        ),
+                    ))
                     ->set_types(array(
 
                         array(
@@ -527,15 +549,134 @@ class Magick_Mixtrue_Admin
                             'post_type' => 'post',
                         ),
 
-                    )),
-                Field::make('select', 'crb_select', __('首页展示的文章分类'))
+                    ))
+                ,
+                Field::make('select', 'comm_h5_index_tone_cat', __('幻灯片-查看全部'))
                     ->set_visible_in_rest_api($visible = true)
+                    ->set_conditional_logic(array(
+                        array(
+                            'field' => 'comm_h5_switch',
+                            'value' => 'yes',
+                            'compare' => '=',
+                        ),
+                    ))
                     ->set_options(self::get_categoriess()),
 
-                Field::make('textarea', 'crb_phone_numbers', __('Phone Numbers'))
-                    ->set_visible_in_rest_api($visible = true),
-                    Field::make('textarea', 'crb_phone_numberss', __('Phone Numbers'))
-                   ,
+                Field::make('separator', 'comm_h5_index_more_msg', __('H5首页 - 更多'))
+                    ->set_conditional_logic(array(
+                        array(
+                            'field' => 'comm_h5_switch',
+                            'value' => 'yes',
+                            'compare' => '=',
+                        ),
+                    )),
+                Field::make('select', 'comm_h5_index_category', __('首页展示的文章分类'))
+                    ->set_visible_in_rest_api($visible = true)
+                    ->set_conditional_logic(array(
+                        array(
+                            'field' => 'comm_h5_switch',
+                            'value' => 'yes',
+                            'compare' => '=',
+                        ),
+                    ))
+                    ->set_options(self::get_categoriess()),
+
+                Field::make('separator', 'comm_h5_singel_link', __('H5内容页 - 联系'))
+                    ->set_conditional_logic(array(
+                        array(
+                            'field' => 'comm_h5_switch',
+                            'value' => 'yes',
+                            'compare' => '=',
+                        ),
+                    )),
+                Field::make('text', 'comm_h5_singel_link_title', __('联系标题'))
+                    ->set_visible_in_rest_api($visible = true)
+                    ->set_conditional_logic(array(
+                        array(
+                            'field' => 'comm_h5_switch',
+                            'value' => 'yes',
+                            'compare' => '=',
+                        ),
+                    )),
+                Field::make('text', 'comm_h5_singel_link_one_title', __('内容标题-1'))
+                    ->set_visible_in_rest_api($visible = true)
+                    ->set_conditional_logic(array(
+                        array(
+                            'field' => 'comm_h5_switch',
+                            'value' => 'yes',
+                            'compare' => '=',
+                        ),
+                    ))
+                    ->set_width(25),
+                Field::make('rich_text', 'comm_h5_singel_link_one_content', __('内容标题-1'))
+                    ->set_visible_in_rest_api($visible = true)
+                    ->set_conditional_logic(array(
+                        array(
+                            'field' => 'comm_h5_switch',
+                            'value' => 'yes',
+                            'compare' => '=',
+                        ),
+                    ))
+                    ->set_width(25),
+                Field::make('text', 'comm_h5_singel_link_two_title', __('内容标题-2'))
+                    ->set_visible_in_rest_api($visible = true)
+                    ->set_conditional_logic(array(
+                        array(
+                            'field' => 'comm_h5_switch',
+                            'value' => 'yes',
+                            'compare' => '=',
+                        ),
+                    ))
+                    ->set_width(25),
+                Field::make('rich_text', 'comm_h5_singel_link_two_content', __('内容标题-2'))
+                    ->set_visible_in_rest_api($visible = true)
+                    ->set_conditional_logic(array(
+                        array(
+                            'field' => 'comm_h5_switch',
+                            'value' => 'yes',
+                            'compare' => '=',
+                        ),
+                    ))
+                    ->set_width(25),
+                Field::make('separator', 'comm_h5_singel_featured', __('H5内容页 - 品牌'))
+                    ->set_conditional_logic(array(
+                        array(
+                            'field' => 'comm_h5_switch',
+                            'value' => 'yes',
+                            'compare' => '=',
+                        ),
+                    )),
+                    Field::make('text', 'comm_h5_singel_featured_link', __('跳转链接'))
+                    ->set_attribute( 'type', 'url' )
+                    ->set_visible_in_rest_api($visible = true)
+                    ->set_conditional_logic(array(
+                        array(
+                            'field' => 'comm_h5_switch',
+                            'value' => 'yes',
+                            'compare' => '=',
+                        ),
+                    ))
+                    ->set_width(33),
+                Field::make('image', 'comm_h5_singel_featured_logo', __('品牌LOGO'))
+                    ->set_visible_in_rest_api($visible = true)
+                    ->set_conditional_logic(array(
+                        array(
+                            'field' => 'comm_h5_switch',
+                            'value' => 'yes',
+                            'compare' => '=',
+                        ),
+                    ))
+                    ->set_width(33),
+                Field::make('text', 'comm_h5_singel_featured_msg', __('一段介绍'))
+                    ->set_visible_in_rest_api($visible = true)
+                    ->set_conditional_logic(array(
+                        array(
+                            'field' => 'comm_h5_switch',
+                            'value' => 'yes',
+                            'compare' => '=',
+                        ),
+                    ))
+                    ->set_width(33),
 
             )); //结束选项组
 
