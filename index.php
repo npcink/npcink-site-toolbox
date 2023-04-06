@@ -4,12 +4,12 @@
 add_action('rest_api_init', function () {
     register_rest_route('carbon-fields/v1', 'posts/(?P<id>\d+)', array(
         'methods' => 'GET',
-        'callback' => 'mytheme_get_post_info',
-        'permission_callback' => '__return_true',
+        'callback' => 'mytheme_get_post_infos',
+        //'permission_callback' => '__return_true',
     ));
 });
 
-function mytheme_get_post_info($request)
+function mytheme_get_post_infos($request)
 {
     $post_id = $request->get_param('id');
     $post = get_post($post_id);
@@ -42,7 +42,7 @@ function mytheme_get_post_info($request)
         'title' => $post_title,
         'excerpt' => $post_excerpt,
         'image' => $featured_image,
-        'category' => $categories,
+        'cat' => $categories,
         'content' => $post_content,
     );
 
