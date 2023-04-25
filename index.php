@@ -122,7 +122,11 @@ function show_image_views()
         $where_clause = sprintf("WHERE DATE(click_time) BETWEEN '%s' AND '%s'", $start_date, $end_date);
     }
 
-    $rows = $wpdb->get_results("SELECT identify, DATE(click_time) as date, COUNT(*) as count FROM $table_name $where_clause GROUP BY identify, DATE(click_time)");
+    //$rows = $wpdb->get_results("SELECT identify, DATE(click_time) as date, COUNT(*) as count FROM $table_name $where_clause GROUP BY identify, DATE(click_time)");
+    $rows = $wpdb->get_results("SELECT identify, DATE(click_time) as date, COUNT(*) as count
+    FROM $table_name $where_clause
+    GROUP BY identify, DATE(click_time)
+    ORDER BY MIN(click_time) ASC, identify ASC");
 
     echo '<h1>广告统计</h1>';
     echo '<form method="post">';
@@ -163,7 +167,7 @@ function show_image_views()
     // Enqueue the script file
     wp_enqueue_script('my-image-views-vue', plugin_dir_url(__FILE__) . 'js/vue.global.js', array(), '1.0', true);
     wp_enqueue_script('my-image-views-echarts', plugin_dir_url(__FILE__) . 'js/echarts.js', array(), '1.0', true);
-    wp_enqueue_script('my-image-views-script', plugin_dir_url(__FILE__) . 'js/my-image-views.js', array(), '1.2', true);
+    wp_enqueue_script('my-image-views-script', plugin_dir_url(__FILE__) . 'js/my-image-views.js', array(), '1.7', true);
 
     wp_add_inline_script('my-image-views-script', sprintf('const imageViewsData = %s;', json_encode($data)), 'before');
 

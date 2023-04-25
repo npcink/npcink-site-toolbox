@@ -1,5 +1,5 @@
 
-
+console.log(imageViewsData)
 
 
 
@@ -10,7 +10,7 @@ const App = Vue.createApp({
 
 
         //拿到数据
-        const dataList = imageViewsData;
+        const dataList = imageViewsData.reverse();
 
 
         //替换数组
@@ -116,7 +116,7 @@ const App = Vue.createApp({
             //获取ID数组
             const id = getArr(data, 'id');
             //获取时间数组
-            const date = getArr(data, 'date');
+            const date = getArr(data, 'date').reverse();
 
             const list = arrData(data, id, date);
 
@@ -199,7 +199,7 @@ const App = Vue.createApp({
         Vue.watch(() => filteredData.value, (newValue) => {
             //处理筛选后的数据
             const data = handleData(filteredData.value)
-            console.log(data)
+
             //渲染图表
             showEcharts(data);
         })
