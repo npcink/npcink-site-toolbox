@@ -45,7 +45,7 @@ function record_image_view()
     //获取图片ID
     $image_id = $_POST['image_id'];
 
-    echo "<script>console.log('我打印了')</script>" . $image_id . $time;
+    echo "<script>console.log('我打印了')</script>" . $image_id;
     // 插入记录到数据库中
     $wpdb->insert(
         $table_name,
@@ -179,7 +179,6 @@ function show_image_views()
         <div id="Application"></div>
 
     ';
-
 }
 
 //获取最近3个月的数据
