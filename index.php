@@ -26,8 +26,9 @@ function create_image_view_table()
     $charset_collate = $wpdb->get_charset_collate();
     $sql = "CREATE TABLE $table_name (
       id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-      identify BIGINT(20) UNSIGNED NOT NULL,
-      click_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+      ad_id BIGINT(20) UNSIGNED NOT NULL,
+      ad_type VARCHAR(25) ,
+      ad_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
       PRIMARY KEY (id)
   ) $charset_collate;";
     require_once ABSPATH . 'wp-admin/includes/upgrade.php';
@@ -50,7 +51,7 @@ function record_image_view()
     $wpdb->insert(
         $table_name,
         array(
-            'identify' => $image_id,
+            'ad_id' => $image_id,
 
         )
     );
