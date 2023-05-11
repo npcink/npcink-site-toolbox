@@ -44,7 +44,6 @@ function run_magick_mixture()
 
     $plugin = new Magick_Mixtrue();
     $plugin->run();
-
 }
 run_magick_mixture();
 
@@ -98,15 +97,15 @@ function mytheme_get_theme_options($request)
             //创建数组存储数据
             $arr = [];
             $sum = carbon_get_theme_option($field);
-            $arr = array_map(function ($obj) {return $obj['id'];}, $sum);
+            $arr = array_map(function ($obj) {
+                return $obj['id'];
+            }, $sum);
             //转成数组
             $intArray = array_map('intval', $arr);
             $options[$field] = $intArray;
         }
-
     }
     return $options;
-
 }
 
 //查询文章接口
@@ -281,12 +280,11 @@ function mytheme_get_posts_data()
 }
 
 //加载js文件
-add_action('wp_enqueue_scripts', 'wpdocs_theme_name_scripts');
-function wpdocs_theme_name_scripts()
+add_action('wp_enqueue_scripts', 'npcink_plugin_ad_scripts');
+function npcink_plugin_ad_scripts()
 {
-    wp_enqueue_script('jquery', 'https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.js', array(), '20200506', true);
-    wp_enqueue_script('script-name', plugin_dir_url(__FILE__) . '/main.js', array('jquery'), '1.0.0', true);
-    wp_localize_script('my-script', 'myAjax', array(
+    wp_enqueue_script('npcink-name', plugin_dir_url(__FILE__) . '/main.js', array('jquery'), '1.0.0', true);
+    wp_localize_script('npcink-name', 'ajax_object', array(
         'ajaxurl' => admin_url('admin-ajax.php'),
     ));
 }

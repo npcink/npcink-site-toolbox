@@ -40,23 +40,34 @@ add_action('init', 'create_image_view_table');
 function record_image_view()
 {
 
+    $data = json_decode(stripslashes($_POST['data']), true);
+
+    $ad_id = $data['id'];
+    $type = $data['type'];
+
+
+
     global $wpdb;
     $table_name = $wpdb->prefix . 'npc_ad_count';
-
-    //获取图片ID
-    $image_id = $_POST['image_id'];
-
-    echo "<script>console.log('我打印了')</script>" . $image_id;
     // 插入记录到数据库中
-    $wpdb->insert(
+    $result = $wpdb->insert(
         $table_name,
         array(
-            'ad_id' => $image_id,
+            'ad_id' => $ad_id,
+            'ad_type' => $type,
 
         )
     );
+    // 返回响应给前端 AJAX 请求
+    if ($result === false) {
+        $response = array('success' => false, 'data' => $wpdb->last_error);
+    } else {
+        $response = array('success' => true, 'data' => 'Success!');
+    }
 
-    exit;
+    echo json_encode($response);
+    //用于终止 PHP 的运行，可以避免在处理 AJAX 请求时生成多余的 HTML 代码。
+    wp_die();
 }
 add_action("wp_ajax_record_image_view", "record_image_view");
 add_action("wp_ajax_nopriv_record_image_view", "record_image_view");
