@@ -1,4 +1,5 @@
 <?php
+
 use Carbon_Fields\Container;
 use Carbon_Fields\Field;
 
@@ -67,7 +68,6 @@ class Magick_Mixtrue_Admin
         require_once plugin_dir_path(__FILE__) . 'partials/option-safe.php';
         //功能设置
         require_once plugin_dir_path(__FILE__) . 'partials/option-function.php';
-
     }
 
     /**
@@ -76,7 +76,7 @@ class Magick_Mixtrue_Admin
     public function run()
     {
 
-//加载主题选项
+        //加载主题选项
         add_action('carbon_fields_register_fields', array(__CLASS__, 'load_admin_settings'));
 
         //加载文章统计
@@ -91,7 +91,6 @@ class Magick_Mixtrue_Admin
         Magick_Mixtrue_Safe::run();
         //功能
         Magick_Mixtrue_Fuction::run();
-
     }
 
     /**
@@ -115,7 +114,7 @@ class Magick_Mixtrue_Admin
     public function enqueue_scripts()
     {
 
-//加载echarts 用于图标绘制
+        //加载echarts 用于图标绘制
         // wp_enqueue_script($this->plugin_name, plugin_dir_url(__FILE__) . 'js/echarts_v5.4.0.js', array(), $this->version, false);
         //wp_enqueue_script($this->plugin_name, plugin_dir_url(__FILE__) . 'js/magick-mixtrue-admin.js', array('jquery'), $this->version, false);
 
@@ -128,14 +127,14 @@ class Magick_Mixtrue_Admin
     {
         Container::make('theme_options', __('魔法合剂'))
             ->set_icon('dashicons-carrot')
-            ->set_page_menu_position(500)
-        /**
-         * 优化
-         */
+            ->set_page_menu_position(200.6)
+            /**
+             * 优化
+             */
             ->add_tab(__('优化'), array(
                 /**
-             * 站点
-             */
+                 * 站点
+                 */
                 Field::make('separator', 'cmma_optimize_site_msg', __('站点')),
                 Field::make('checkbox', 'cmma_opt_site_transferred', __('禁止网站title中的 “-” 被转义'))
                     ->set_option_value('yes'),
@@ -148,8 +147,8 @@ class Magick_Mixtrue_Admin
                     '),
 
                 /**
-             * 筛选
-             */
+                 * 筛选
+                 */
                 Field::make('separator', 'cmma_optimize_filter', __('筛选')),
 
                 Field::make('checkbox', 'cmma_filter_single_user', __('文章菜单添加作者筛选项'))
@@ -163,8 +162,8 @@ class Magick_Mixtrue_Admin
                     ->set_help_text("支持 文章、页面、链接、多媒体、评论、分类、标签、用户 等"),
 
                 /**
-             * 优化 - 媒体
-             */
+                 * 优化 - 媒体
+                 */
                 Field::make('separator', 'cmma_opt_medium_title', __('媒体')),
                 Field::make('checkbox', 'cmma_medium_img_add_alt', __('自动给图片添加Alt标签'))
                     ->set_option_value('yes')
@@ -250,8 +249,8 @@ class Magick_Mixtrue_Admin
                 Field::make('separator', 'cmma_opt_page', __('页面')),
 
                 /**
-             * 禁用
-             */
+                 * 禁用
+                 */
                 Field::make('separator', 'cmma_opt_ban_svg', __('禁用'))
                     ->set_help_text("<b style='color:red;'>若您不知道会发生什么，还请慎重</b>"),
 
@@ -261,9 +260,9 @@ class Magick_Mixtrue_Admin
 
             ))
 
-        /**
-         * 安全
-         */
+            /**
+             * 安全
+             */
             ->add_tab(__('安全'), array(
                 Field::make('separator', 'cmma_safe_login', __('登录')),
                 Field::make('checkbox', 'cmma_safe_login_errors', __('替换默认账号密码报错信息，会影响验证码错误提示！'))
@@ -280,9 +279,9 @@ class Magick_Mixtrue_Admin
 
             ))
 
-        /**
-         * 控制
-         */
+            /**
+             * 控制
+             */
             ->add_tab(__('控制'), array(
                 Field::make('separator', 'comm_control_login_msg', __('登录控制')),
 
@@ -291,9 +290,9 @@ class Magick_Mixtrue_Admin
 
             ))
 
-        /**
-         * 其他
-         */
+            /**
+             * 其他
+             */
             ->add_tab(__('其他'), array(
 
                 Field::make('separator', 'comm_separator_fun_switch', __('功能开关')),
@@ -326,8 +325,8 @@ class Magick_Mixtrue_Admin
                     )),
 
                 /**
-             * 页面特效
-             */
+                 * 页面特效
+                 */
                 Field::make('separator', 'crb_separator_page', __('页面特效')),
                 Field::make('checkbox', 'cmma_page_show_particle', __('添加粒子特效'))
                     ->set_option_value('yes')
@@ -342,8 +341,8 @@ class Magick_Mixtrue_Admin
                     ->set_option_value('yes'),
 
                 /**
-             * 登录页
-             */
+                 * 登录页
+                 */
                 Field::make('separator', 'crb_separator_login', __('登录页')),
 
                 Field::make('checkbox', 'cmma_opt_com_logo_home', __('登录页LOGO改为首页链接'))
@@ -423,8 +422,8 @@ class Magick_Mixtrue_Admin
                     )),
 
                 /**
-             * 登录验证码
-             */
+                 * 登录验证码
+                 */
                 Field::make('select', 'cmma_login_verify', __('登录验证码'))
                     ->set_options(array(
                         'no' => '关闭',
@@ -435,8 +434,7 @@ class Magick_Mixtrue_Admin
                     ->set_default_value('no')
                     ->set_help_text('
 
-                    ')
-                ,
+                    '),
                 //数学验证码
                 Field::make('html', 'cmma_login_verify_msg_math')
                     ->set_html('<h2>需输入指定数学运算的结果才可登录</h2><p>
@@ -509,9 +507,9 @@ class Magick_Mixtrue_Admin
                     ->set_attribute('placeholder', 'Time of event start'),
             ))
 
-        /**
-         * H5
-         */
+            /**
+             * H5
+             */
 
             ->add_tab(__('H5'), array(
 
@@ -549,8 +547,7 @@ class Magick_Mixtrue_Admin
                             'post_type' => 'post',
                         ),
 
-                    ))
-                ,
+                    )),
                 Field::make('select', 'comm_h5_index_tone_cat', __('幻灯片-查看全部'))
                     ->set_visible_in_rest_api($visible = true)
                     ->set_conditional_logic(array(
@@ -698,5 +695,4 @@ class Magick_Mixtrue_Admin
         }
         return $options;
     }
-
 }
