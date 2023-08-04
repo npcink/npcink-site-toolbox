@@ -69,25 +69,27 @@ const App = () => {
   //表单提交逻辑
   const onFormSubmit = async (values: FieldType) => {
     console.log(values);
-    //准备穿出值
+    //准备传出值
     const params = new URLSearchParams();
     params.append("action", "save_object_option");
     params.append("object_data", JSON.stringify(values));
-    //发出请求
     try {
-      const response = await axios.post(ajaxurl, params);
-      console.log("设置选项已保存！");
-      console.log(response);
-      alert("保存成功，现在可以使用查询功能了");
+      const response = await axios.post(ajaxurl,  params );
+
+      if (response.status === 200) {
+        console.log("设置选项已保存！");
+        console.log(response);
+        alert("保存成功，现在可以使用查询功能了");
+      } else {
+        console.error("保存设置选项时出错：" + response.data);
+      }
     } catch (error: any) {
-      console.error("保存设置选项时出错：" + error.response.data);
+      console.error("保存设置选项时出错：" + error.message);
     }
   };
 
   return (
     <>
-      
-
       <Form
         name="basic"
         labelCol={{ span: 8 }}

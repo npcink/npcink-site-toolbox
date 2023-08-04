@@ -211,7 +211,11 @@ class Magick_Mixtrue_Admin
             'message' => '设置选项已保存！',
             'object' => $object,
         );
-        wp_send_json_success($response);
+       
+      
+      
+        // 使用 wp_send_json 函数发送 JSON 响应，避免汉字转义
+        wp_send_json($response, 200, JSON_UNESCAPED_UNICODE);
     }
 
 
