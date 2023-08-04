@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { Button, Switch, Form, Input, InputNumber } from "antd";
+import Tab from "./components/tab";
 
 //准备类型
 type DataLocal = {
@@ -55,7 +56,7 @@ const dataLocal: DataLocal = getDataLocal();
 //获取需要的值
 const getOption = dataLocal?.option;
 
-const App = () => {
+const App: React.FC = () => {
   //创建变量并设默认值
   const [, setFormData] = useState<FieldType>(getOption || {});
 
@@ -74,7 +75,7 @@ const App = () => {
     params.append("action", "save_object_option");
     params.append("object_data", JSON.stringify(values));
     try {
-      const response = await axios.post(ajaxurl,  params );
+      const response = await axios.post(ajaxurl, params);
 
       if (response.status === 200) {
         console.log("设置选项已保存！");
@@ -90,11 +91,15 @@ const App = () => {
 
   return (
     <>
+      <Tab />
+      <hr />
       <Form
+        //作为表单字段 id 前缀使用
         name="basic"
         labelCol={{ span: 8 }}
         wrapperCol={{ span: 16 }}
         style={{ maxWidth: 600 }}
+        //表单默认值，只有初始化以及重置时生效
         initialValues={getOption}
         //自动填充功能禁用
         autoComplete="off"

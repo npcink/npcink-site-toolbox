@@ -1,8 +1,12 @@
 import React from "react";
+
 import { Tabs } from "antd";
 import type { TabsProps } from "antd";
 import Test from "./test";
 import SwitchTest from "./switchTest";
+import Optimize from "./optimize";
+
+
 
 const onChange = (key: string) => {
   console.log(key);
@@ -17,7 +21,7 @@ const items: TabsProps["items"] = [
   {
     key: "2",
     label: `优化`,
-    children: `Content of Tab Pane 2`,
+    children: <Optimize />,
   },
   {
     key: "3",
