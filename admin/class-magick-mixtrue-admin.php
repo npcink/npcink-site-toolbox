@@ -17,6 +17,10 @@ class Magick_Mixtrue_Admin
 {
 
     /**
+     * 选项
+     */
+    public static $option = "mami_object_option";
+    /**
      * 此插件的ID。
      *
      * @since    1.0.0
@@ -89,6 +93,9 @@ class Magick_Mixtrue_Admin
         //加载主题选项
         add_action('carbon_fields_register_fields', array(__CLASS__, 'load_admin_settings'));
 
+        // 添加Ajax请求处理函数
+        add_action('wp_ajax_save_object_option', array(__CLASS__, 'save_object_option_callback'));
+
         //加载文章统计
         Magick_Mixtrue_Census_Single::run();
 
@@ -134,6 +141,9 @@ class Magick_Mixtrue_Admin
         echo esc_html(get_admin_page_title());
         //准备节点
         echo '</h2><div id="root"></div>';
+        $value = get_option(self::$option);
+        echo "<h2>设置选项的值</h2>";
+        print_r($value);
     }
 
     /**
@@ -159,7 +169,7 @@ class Magick_Mixtrue_Admin
 
 
         $mami_array = array(
-            'option' => get_option("mami_object_option"),
+            'option' => get_option(self::$option),
         );
         wp_localize_script($name, 'dataLocal', $mami_array); //传给vite项目
 
@@ -176,6 +186,32 @@ class Magick_Mixtrue_Admin
             $tag = str_replace('<script', '<script type="module"', $tag);
         }
         return $tag;
+    }
+
+
+    /**
+     * 添加选项接口
+     */
+
+
+    public static  function save_object_option_callback()
+    {
+
+        // 获取通过 Ajax POST 请求传递的对象数据
+        $object_data = $_POST['object_data'];
+
+        // 将 JSON 字符串解析为 PHP 对象
+        $object = json_decode(stripslashes($object_data));
+
+        // 保存设置选项
+        update_option(self::$option, $object);
+
+        // 发送成功响应
+        $response = array(
+            'message' => '设置选项已保存！',
+            'object' => $object,
+        );
+        wp_send_json_success($response);
     }
 
 
