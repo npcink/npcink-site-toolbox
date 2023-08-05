@@ -2,6 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import { Button, Switch, Form, Input, InputNumber } from "antd";
 import Tab from "./components/tab";
+import Save from "./components/save";
 
 //准备类型
 type DataLocal = {
@@ -92,6 +93,7 @@ const App: React.FC = () => {
   return (
     <>
       <Tab />
+      <Save site={ajaxurl} />
       <hr />
       <Form
         //作为表单字段 id 前缀使用

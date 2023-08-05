@@ -32,7 +32,7 @@ const App: React.FC = () => {
   return (
     <>
       优化
-      {optionObj.screen.menu_add_author.toString()}
+      
       <Form
         name="opt"
         labelCol={{ span: 12 }}
