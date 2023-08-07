@@ -13,7 +13,7 @@ const App: React.FC = () => {
   //拿到值
   const optionObj = useContext(DataContext) ?? { style: {} };
 
-   //简化并提供默认值
+  //简化并提供默认值
   let publicData = optionObj.style?.page || defaultVar.style.page;
 
   //创建变量并设默认值

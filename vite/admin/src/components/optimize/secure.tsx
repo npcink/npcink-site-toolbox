@@ -13,16 +13,11 @@ const App: React.FC = () => {
   //拿到值
   const optionObj = useContext(DataContext) ?? { optimize: {} };
 
-  //简化
-  let publicData = optionObj.optimize.secure;
-
-  //提供默认值
-  if (!publicData) {
-    publicData = defaultVar.optimize.secure;
-  }
+  //简化并提供默认值
+  let publicData = optionObj.optimize?.secure || defaultVar.optimize.secure;
 
   //创建变量并设默认值
-  const [FormData, setFormData] = useState(publicData || {});
+  const [formData, setFormData] = useState(publicData || {});
 
   //表单同步修改值
   const onValuesChange = (
@@ -36,9 +31,13 @@ const App: React.FC = () => {
   };
 
   // 表单值发生变化时更新dataContext的值
+
   useEffect(() => {
-    optionObj.optimize.secure = FormData;
-  }, [FormData]);
+    optionObj.optimize = {
+      ...optionObj.optimize,
+      secure: formData,
+    };
+  }, [formData]);
 
   return (
     <>
@@ -67,7 +66,7 @@ const App: React.FC = () => {
           extra={
             <span>
               默认登录报错信息会透露用户是用户名错误还是密码错误，统一信息后，可改善此情况，
-              <b style={{color:'red'}}>会影响验证码错误提示！</b>
+              <b style={{ color: "red" }}>会影响验证码错误提示！</b>
             </span>
           }
         >
