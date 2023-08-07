@@ -1,10 +1,11 @@
 //准备对象类型
 
 //准备类型
-type DataLocal = {
+export type DataLocal = {
   option: FieldType;
   optimize: {
     site: OptimizeSite;
+    medium: OptimizeMedium;
   };
 };
 
@@ -15,11 +16,17 @@ type FieldType = {
 };
 
 //优化 站点
-type OptimizeSite = {
+export type OptimizeSite = {
   //禁止转义
   no_escape: boolean;
   //关键词自动添加链接
   add_inks: boolean;
 };
 
-export type { DataLocal, OptimizeSite };
+//优化 媒体
+export type OptimizeMedium = {
+  img_add_tag: boolean;
+  no_auto_size: boolean;
+  medium_add_svg: boolean;
+  upload_auto_name: string;
+};

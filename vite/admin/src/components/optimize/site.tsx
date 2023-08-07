@@ -5,6 +5,7 @@ import { Switch, Form } from "antd";
 import DataContext from "@/tool/dataContext";
 import { OptimizeSite } from "@/tool/interface";
 import option from "@/tool/defaultVar";
+
 //选项类型
 type FieldType = OptimizeSite;
 
@@ -31,9 +32,9 @@ const App: React.FC = () => {
   };
 
   //打印修改后的值
-  const printData = (value: FieldType) => {
-    console.log(value);
-  };
+  //const printData = (value: FieldType) => {
+  //  console.log(value);
+  //};
 
   useEffect(() => {
     // 表单值发生变化时更新dataContext的值
@@ -44,15 +45,15 @@ const App: React.FC = () => {
     <>
       <Form
         name="opts"
-        labelCol={{ span: 12 }}
-        wrapperCol={{ span: 8 }}
-        style={{ maxWidth: 600 }}
+        labelCol={{ span: 8 }}
+        wrapperCol={{ span: 16 }}
+        style={{ maxWidth: 800 }}
         //表单默认值，只有初始化以及重置时生效
         initialValues={optionObj.optimize.site}
         //自动填充功能禁用
         autoComplete="off"
         //指定当表单提交时要执行的回调函数
-        onFinish={printData}
+        onFinish={()=>{}}
         //指定当表单字段值发生变化时要执行的回调函数
         onValuesChange={onValuesChange}
       >
