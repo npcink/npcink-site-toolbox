@@ -2,7 +2,6 @@
 
 //准备类型
 export type DataLocal = {
-  option: FieldType;
   optimize: {
     site: OptimizeSite;
     medium: OptimizeMedium;
@@ -22,11 +21,7 @@ export type DataLocal = {
   };
 };
 
-type FieldType = {
-  name?: string;
-  age?: number;
-  handle?: boolean;
-};
+
 
 //优化 站点
 export type OptimizeSite = {
