@@ -110,36 +110,7 @@ function mytheme_get_theme_options($request)
 }
 
 
-/**
- * 获取页面hook
- */
-function wpdocs_myselective_css_or_js($hook)
-{
-    echo '<h1 style="color: crimson;text-align: center;">' . esc_html($hook) . '</h1>';
-}
 
-//add_action('admin_enqueue_scripts', 'wpdocs_myselective_css_or_js');
 
-/**
- * 页面顶部添加内容
- */
-function add_hello_header()
-{
-    //获取选项
-    $value = get_option("mami_object_option");
-    print_r($value);
-    if ($value->handle == 1) {
-        echo '<div style="background-color: yellow; text-align: center;">你好</div>';
-    }
-}
-add_action('wp_head', 'add_hello_header');
 
-//添加选项
-// 设置选项的值为一个对象
-$my_option = array(
-    'name' => 'John',
-    'age' => 30,
-    'email' => 'john@example.com',
-    'handle' => "true",
-);
-//update_option('mami_object_option', $my_option);
+

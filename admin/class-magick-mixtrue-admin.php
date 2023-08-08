@@ -219,6 +219,39 @@ class Magick_Mixtrue_Admin
         wp_send_json($response, 200, JSON_UNESCAPED_UNICODE);
     }
 
+    /**
+     * 提供选项
+     */
+    public static function get_seting($option)
+    {
+        //拿到选项值
+        $config = get_option(self::$option);
+        $value =  self::get_config($config, $option);
+        return $value;
+    }
+    /**
+     * 从对象中获取属性值
+     *
+     * @param object $config 对象
+     * @param string $property 从对象中获取的属性名
+     * @param string $defaultValue 默认值（可选）
+     * @return mixed 属性值或默认值
+     */
+    public static function get_config($config, $property, $defaultValue = false)
+    {
+        /**
+         * 是否是对象
+         * 对象中是否有此键名
+         * 在对象中的此值是否为空
+         */
+        if (is_object($config) && property_exists($config, $property) && !empty($config->$property)) {
+            return $config->$property;
+        } else {
+            //不存在则输出默认值
+            return $defaultValue;
+        }
+    }
+
 
     /**
      * 设置选项组
