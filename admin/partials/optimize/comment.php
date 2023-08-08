@@ -31,20 +31,17 @@ if (!class_exists('MaMi_Optimize_Comment')) {
                 }, 10, 1);
             }
 
-
             //禁止纯英文评论
             $english = MaMi_Admin::get_config($option, 'english');
-
             if ($english) {
                 add_filter('preprocess_comment', array(__CLASS__, 'refused_english_comments'));
             }
 
-           
-
+            //TODO:想办法先检查评论一次，再检查纯英文
             //一篇文章只能评论一次
             $only = MaMi_Admin::get_config($option, 'only');
             if ($only) {
-                add_action('preprocess_comment', array(__CLASS__, 'ludou_only_one_comment'), 20);
+                add_filter('preprocess_comment', array(__CLASS__, 'ludou_only_one_comment'));
             }
         }
 
@@ -110,20 +107,18 @@ if (!class_exists('MaMi_Optimize_Comment')) {
          * */
         public static function refused_english_comments($incoming_comment)
         {
-            $comment_content = $incoming_comment['comment_content'];
-            $chinese_characters = preg_replace('/[^\x{4e00}-\x{9fa5}]/u', '', $comment_content);
-            $total_characters = preg_replace('/\s/u', '', $comment_content);
-
-            if (mb_strlen($total_characters, 'UTF-8') > 0 && mb_strlen($chinese_characters, 'UTF-8') === 0) {
+            $pattern = '/[\p{Script=Han}]/u';
+            if (!preg_match($pattern, $incoming_comment['comment_content'])) {
                 $message = '您的评论中必须包含汉字!';
                 $message .= '<br/><a href="#" onclick="history.back();">
                 <button class="button" style="margin: 1em 0;">返回</button>
                 </a>';
                 wp_die($message);
             }
+            return $incoming_comment;
         }
 
-        
+
 
         /* 作用：一篇文章只能评论一次，管理员不受影响
          * 来源：https://www.npc.ink/13477.html
@@ -146,7 +141,12 @@ if (!class_exists('MaMi_Optimize_Comment')) {
                 $bool = $wpdb->get_var("SELECT comment_ID FROM $wpdb->comments WHERE comment_post_ID = " . $commentdata['comment_post_ID'] . "  AND (comment_author = '" . $commentdata['comment_author'] . "' OR comment_author_email = '" . $commentdata['comment_author_email'] . "' OR comment_author_IP = '" . self::ludou_getIP() . "') LIMIT 0, 1;");
 
                 if ($bool) {
-                    wp_die('本站每篇文章只允许评论一次。<a href="' . get_permalink($commentdata['comment_post_ID']) . '">返回</a>');
+                    $message = '本站每篇文章仅允许评论一次。';
+                    $message .= '<br/><a href="#" onclick="history.back();">
+                    <button class="button" style="margin: 1em 0;">返回</button>
+                    </a>';
+                    wp_die($message);
+                    //wp_die('<br/><a href="' . get_permalink($commentdata['comment_post_ID']) . '">返回</a>');
                 }
             }
 
