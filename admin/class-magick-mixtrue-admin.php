@@ -69,8 +69,7 @@ class MaMi_Admin
         require_once plugin_dir_path(__FILE__) . 'partials/census-shop.php';
         //优化设置
         require_once plugin_dir_path(__FILE__) . 'partials/option-optimize.php';
-        //安全设置
-        require_once plugin_dir_path(__FILE__) . 'partials/option-safe.php';
+
         //功能设置
         require_once plugin_dir_path(__FILE__) . 'partials/option-function.php';
     }
@@ -104,8 +103,7 @@ class MaMi_Admin
 
         //优化
         Magick_Mixtrue_Optimize::run();
-        //安全
-        Magick_Mixtrue_Safe::run();
+
         //功能
         Magick_Mixtrue_Fuction::run();
     }
