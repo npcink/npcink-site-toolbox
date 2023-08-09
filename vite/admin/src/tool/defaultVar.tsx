@@ -3,10 +3,10 @@
 const boo: boolean = import.meta.env.VITE_BOOLEAN === true;
 
 //准备字符串false
-const str: string = import.meta.env.VITE_BOOLEAN;
+const str: string = "false";
 
 //准备数字
-const num: number = import.meta.env.VITE_BOOLEAN ? 1 : 0;
+const num: number = 0;
 
 //优化 站点
 const OptimizeSite = {
