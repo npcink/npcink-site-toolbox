@@ -59,27 +59,6 @@ if (!class_exists('Magick_Mixtrue_Optimize')) {
             require_once plugin_dir_path(__FILE__) . 'auxiliary.php';
             MaMi_Auxiliary::run($authority);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-           
-
-
-
           
         }
 

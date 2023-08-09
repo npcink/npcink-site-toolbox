@@ -1,4 +1,5 @@
 <?php
+
 /**
  * 文章统计菜单
  */
@@ -9,20 +10,16 @@ if (!class_exists('Magick_Mixtrue_Census_Single')) {
 
         public static function run()
         {
-            add_action('wp_loaded', array(__CLASS__, 'load'));
+            //add_action('wp_loaded', array(__CLASS__, 'load'));
+            //添加发文统计菜单
+            add_action('admin_menu', array(__CLASS__, 'add_menu_single'));
+            //添加设置选项
+            add_action('admin_init', array(__CLASS__, 'magick_plugin_options'));
+            //加载图标用js
+            add_action('admin_enqueue_scripts', array(__CLASS__, 'load_enqueue_admin_script'));
         }
 
-        public static function load()
-        {
-            if (carbon_get_theme_option('cmma_fun_census_single')) {
-                //添加发文统计菜单
-                add_action('admin_menu', array(__CLASS__, 'add_menu_single'));
-                //添加设置选项
-                add_action('admin_init', array(__CLASS__, 'magick_plugin_options'));
-                //加载图标用js
-                add_action('admin_enqueue_scripts', array(__CLASS__, 'load_enqueue_admin_script'));
-            }
-        }
+
 
         /**
          * 添加发文统计菜单
@@ -31,7 +28,6 @@ if (!class_exists('Magick_Mixtrue_Census_Single')) {
         {
 
             add_submenu_page('index.php', __('发文统计'), __('发文统计'), 'administrator', 'magick-census-single', array(__CLASS__, 'load_content'));
-
         }
 
         //页面加载图标用css和js
@@ -57,33 +53,32 @@ if (!class_exists('Magick_Mixtrue_Census_Single')) {
                 MAGICK_MIXTURE_VERSION,
                 false
             );
-
         }
 
         //待渲染的内容
         public static function load_content()
         {
-            ?>
+?>
             <!-- 在默认WordPress“包装”容器中创建标题 -->
-	        <div class="wrap magick_section">
+            <div class="wrap magick_section">
 
-            <!--标题-->
-		     <h1><?php echo esc_html(get_admin_page_title()); ?></h1>
-             <!--展示图表内容-->
-             <?php self::render_page()?>
-		     <!--在保存设置时调用WordPress函数以呈现错误。 -->
-		     <?php settings_errors();?>
-		     <!-- 创建用于呈现选项的表单 -->
-		     <form method="post" action="options.php">
-		     	<?php settings_fields('sandbox_theme_display_options');?>
-		     	<?php do_settings_sections('sandbox_theme_display_options');?>
-		     	<?php submit_button();?>
-		     </form>
+                <!--标题-->
+                <h1><?php echo esc_html(get_admin_page_title()); ?></h1>
+                <!--展示图表内容-->
+                <?php self::render_page() ?>
+                <!--在保存设置时调用WordPress函数以呈现错误。 -->
+                <?php settings_errors(); ?>
+                <!-- 创建用于呈现选项的表单 -->
+                <form method="post" action="options.php">
+                    <?php settings_fields('sandbox_theme_display_options'); ?>
+                    <?php do_settings_sections('sandbox_theme_display_options'); ?>
+                    <?php submit_button(); ?>
+                </form>
 
 
-	             </div><!-- /.wrap -->
+            </div><!-- /.wrap -->
             <?php
-}
+        }
 
         //添加设置选项
         public static function magick_plugin_options()
@@ -120,7 +115,6 @@ if (!class_exists('Magick_Mixtrue_Census_Single')) {
                 'sandbox_theme_display_options', //选项组
                 'magick_plugin_config', //选项名称
             );
-
         } //结束magick_plugin_options
 
         /**
@@ -137,7 +131,6 @@ if (!class_exists('Magick_Mixtrue_Census_Single')) {
                 echo "您没有选择值";
                 return;
             }
-
         } //结束magick_plugin_options_callback
 
         /**
@@ -155,26 +148,27 @@ if (!class_exists('Magick_Mixtrue_Census_Single')) {
                 array(
                     //符合其中之一要求的人
                     'role__in' => $role = array('administrator', 'author', 'editor', 'contributor'),
-                ));
+                )
+            );
 
             //将选项循环出来
             foreach ($user_data as $key => $value) {
                 $id = $value->ID;
                 $name = $value->display_name;
-                ?>
+            ?>
 
-            <input type='checkbox' name='magick_plugin_config[option_id][]' <?php checked(in_array($id, $uwcc_checkbox_field_1), 1);?> value=<?php echo $id; ?>>
-            <label class="magick-user-label"><?php echo $name; ?></label>
-            &nbsp;&nbsp;|&nbsp;&nbsp;
+                <input type='checkbox' name='magick_plugin_config[option_id][]' <?php checked(in_array($id, $uwcc_checkbox_field_1), 1); ?> value=<?php echo $id; ?>>
+                <label class="magick-user-label"><?php echo $name; ?></label>
+                &nbsp;&nbsp;|&nbsp;&nbsp;
 
 
-               <?php
-} //end foreach
+            <?php
+            } //end foreach
             ?>
             <!--描述-->
             <hr /><label for="option_id"> <?php echo $args[0]; ?></label>
 
-            <?php
+        <?php
 
         } // end magick_show_select_callback
 
@@ -217,123 +211,123 @@ if (!class_exists('Magick_Mixtrue_Census_Single')) {
             //总用户
             $total_user = $arr_data['total']['register'];
 
-            ?>
+        ?>
 
             <section class="magick_section">
                 <div class="single-mixtrue">
-        <!--放统计图-->
-        <div id="magick-seven-census" style="width:700px;height:400px;"></div>
-        <!--放方框-->
-        <div class="magick-right">
-            <div class="magick-per">
-                <div class="per-content">
-                <div class="black-data-box-mix">
-                    <span>今日发文</span>
-                    <div class="child">
-                        <p><span><?php echo $count_today; ?></span>篇</p>
-                        <span class="dashicons dashicons-text-page"></span>
-                    </div>
+                    <!--放统计图-->
+                    <div id="magick-seven-census" style="width:700px;height:400px;"></div>
+                    <!--放方框-->
+                    <div class="magick-right">
+                        <div class="magick-per">
+                            <div class="per-content">
+                                <div class="black-data-box-mix">
+                                    <span>今日发文</span>
+                                    <div class="child">
+                                        <p><span><?php echo $count_today; ?></span>篇</p>
+                                        <span class="dashicons dashicons-text-page"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="per-content">
+                                <div class="black-data-box-mix">
+                                    <span>今日评论</span>
+                                    <div class="child">
+                                        <p><span><?php echo $today_comments ?></span>篇</p>
+                                        <span class="dashicons dashicons-format-status"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="per-content">
+                                <div class="black-data-box-mix">
+                                    <span>今日注册</span>
+                                    <div class="child">
+                                        <p><span><?php echo $count_register; ?></span>次</p>
+                                        <span class="dashicons dashicons-universal-access"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                        <div class="magick-per">
+                            <div class="per-content">
+                                <div class="black-data-box-mix">
+                                    <span>总计发文</span>
+                                    <div class="child">
+                                        <p><span><?php echo $total_single; ?></span>篇</p>
+                                        <span class="dashicons dashicons-clipboard"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="per-content ">
+                                <div class="black-data-box-mix">
+                                    <span>总计用户</span>
+                                    <div class="child">
+                                        <p><span><?php echo $total_user; ?></span>位</p>
+                                        <span class="dashicons dashicons-universal-access-alt"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                        </div>
                     </div>
                 </div>
 
-                <div class="per-content">
-                <div class="black-data-box-mix">
-                    <span>今日评论</span>
-                    <div class="child">
-                        <p><span><?php echo $today_comments ?></span>篇</p>
-                        <span class="dashicons dashicons-format-status"></span>
-                    </div>
-                    </div>
-                </div>
+            </section>
+            <!--月度统计-->
+            <section class="magick-census-single-month">
+                <div id="magick-month-census" style="width:1200px;height:400px;"></div>
+            </section>
 
-                <div class="per-content">
-                <div class="black-data-box-mix">
-                    <span>今日注册</span>
-                    <div class="child">
-                        <p><span><?php echo $count_register; ?></span>次</p>
-                        <span class="dashicons dashicons-universal-access"></span>
-                    </div>
-                    </div>
-                </div>
+            <script type="text/javascript">
+                // 基于准备好的dom，初始化echarts实例
+                let myChart_week = echarts.init(document.getElementById("magick-seven-census"));
+                let myChart_month = echarts.init(document.getElementById("magick-month-census"));
 
-
-            </div>
-
-            <div class="magick-per">
-                <div class="per-content">
-                    <div class="black-data-box-mix">
-                    <span>总计发文</span>
-                    <div class="child">
-                        <p><span><?php echo $total_single; ?></span>篇</p>
-                        <span class="dashicons dashicons-clipboard"></span>
-                    </div>
-                    </div>
-                </div>
-                <div class="per-content ">
-                <div class="black-data-box-mix">
-                    <span>总计用户</span>
-                    <div class="child">
-                        <p><span><?php echo $total_user; ?></span>位</p>
-                        <span class="dashicons dashicons-universal-access-alt"></span>
-                    </div>
-                    </div>
-                </div>
-
-
-
-            </div>
-        </div>
-        </div>
-
-    </section>
-    <!--月度统计-->
-    <section class="magick-census-single-month">
-        <div id="magick-month-census" style="width:1200px;height:400px;"></div>
-    </section>
-
-    <script type="text/javascript">
-        // 基于准备好的dom，初始化echarts实例
-        let myChart_week = echarts.init(document.getElementById("magick-seven-census"));
-        let myChart_month = echarts.init(document.getElementById("magick-month-census"));
-
-        // 指定图表的配置项和数据
-        let option_week = {
-            title: {
-                text: "一周发文统计",
-            },
-            tooltip: {},
-            legend: {
-                data: <?php echo $chart_data_week['user'] ?>,
-            },
-            xAxis: {
-                data: <?php echo $chart_data_week['time'] ?>,
-            },
-            yAxis: {},
-            series:  <?php echo $chart_data_week['content'] ?>,
-        };
+                // 指定图表的配置项和数据
+                let option_week = {
+                    title: {
+                        text: "一周发文统计",
+                    },
+                    tooltip: {},
+                    legend: {
+                        data: <?php echo $chart_data_week['user'] ?>,
+                    },
+                    xAxis: {
+                        data: <?php echo $chart_data_week['time'] ?>,
+                    },
+                    yAxis: {},
+                    series: <?php echo $chart_data_week['content'] ?>,
+                };
                 // 指定图表的配置项和数据
                 let option_month = {
-            title: {
-                text: "月度发文统计",
-            },
-            tooltip: {},
-            legend: {
-                data: <?php echo $chart_data_month['user'] ?>,
-            },
-            xAxis: {
-                data: <?php echo $chart_data_month['time'] ?>,
-            },
-            yAxis: {},
-            series:  <?php echo $chart_data_month['content'] ?>,
-        };
+                    title: {
+                        text: "月度发文统计",
+                    },
+                    tooltip: {},
+                    legend: {
+                        data: <?php echo $chart_data_month['user'] ?>,
+                    },
+                    xAxis: {
+                        data: <?php echo $chart_data_month['time'] ?>,
+                    },
+                    yAxis: {},
+                    series: <?php echo $chart_data_month['content'] ?>,
+                };
 
-        // 使用刚指定的配置项和数据显示图表。
-        myChart_week.setOption(option_week);
-        myChart_month.setOption(option_month);
-    </script>
+                // 使用刚指定的配置项和数据显示图表。
+                myChart_week.setOption(option_week);
+                myChart_month.setOption(option_month);
+            </script>
 
-            <?php
-}
+<?php
+        }
 
         /**
          * 获取一批人的发文数量,一周，一个月
@@ -368,7 +362,6 @@ if (!class_exists('Magick_Mixtrue_Census_Single')) {
             $arr['month'] = self::optimize_chart_data($month);
 
             return $arr;
-
         }
 
         /**
@@ -405,7 +398,6 @@ if (!class_exists('Magick_Mixtrue_Census_Single')) {
                 $arr['month'][$i] = $tool->get_count_user($id, $time, 'publish');
             }
             return $arr;
-
         }
 
         /**
@@ -449,7 +441,6 @@ if (!class_exists('Magick_Mixtrue_Census_Single')) {
             $arr['time'] = json_encode($chart_time);
             $arr['content'] = json_encode($chart_content);
             return $arr;
-
         } //end 数据优化
 
     } //end class

@@ -19,7 +19,7 @@ class MaMi_Admin
     /**
      * 选项
      */
-    public static $option = "mami_object_option";
+    public static $option = "mami_object_option_a";
     /**
      * 此插件的ID。
      *
@@ -63,10 +63,10 @@ class MaMi_Admin
      */
     public function load()
     {
-        //文章统计页面
-        require_once plugin_dir_path(__FILE__) . 'partials/census-single.php';
+
         //商城统计页面
         require_once plugin_dir_path(__FILE__) . 'partials/census-shop.php';
+
         //优化设置
         require_once plugin_dir_path(__FILE__) . 'partials/option-optimize.php';
 
@@ -95,11 +95,9 @@ class MaMi_Admin
         // 添加Ajax请求处理函数
         add_action('wp_ajax_save_object_option', array(__CLASS__, 'save_object_option_callback'));
 
-        //加载文章统计
-        Magick_Mixtrue_Census_Single::run();
 
-        //加载商城统计
-        Magick_Mixtrue_Census_Shop::run();
+
+
 
         //优化
         Magick_Mixtrue_Optimize::run();
@@ -201,6 +199,7 @@ class MaMi_Admin
 
         // 将 JSON 字符串解析为 PHP 对象
         $object = json_decode(stripslashes($object_data));
+        //$object = json_decode('"' . $object_data . '"');
 
         // 保存设置选项
         update_option(self::$option, $object);

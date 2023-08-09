@@ -1,4 +1,5 @@
 <?php
+
 /**
  * 商城统计
  */
@@ -9,18 +10,13 @@ if (!class_exists('Magick_Mixtrue_Census_Shop')) {
 
         public static function run()
         {
-            add_action('wp_loaded', array(__CLASS__, 'load'));
+            //add_action('wp_loaded', array(__CLASS__, 'load'));
+            //加载菜单
+            add_action('admin_menu', array(__CLASS__, 'add_menu_shop'));
+            //加载图标用js
+            add_action('admin_enqueue_scripts', array(__CLASS__, 'load_enqueue_admin_script'));
         }
-        public static function load()
-        {
-//加载B2商城统计
-            if (carbon_get_theme_option('cmma_fun_census_shop')) {
-                //加载菜单
-                add_action('admin_menu', array(__CLASS__, 'add_menu_shop'));
-                //加载图标用js
-                add_action('admin_enqueue_scripts', array(__CLASS__, 'load_enqueue_admin_script'));
-            }
-        }
+
 
         /**
          * 添加商城菜单
@@ -52,7 +48,6 @@ if (!class_exists('Magick_Mixtrue_Census_Shop')) {
                 MAGICK_MIXTURE_VERSION,
                 false
             );
-
         }
 
         /**
@@ -117,9 +112,13 @@ if (!class_exists('Magick_Mixtrue_Census_Shop')) {
                         //实物
                         if ($v['order_commodity'] == '1') {
                             //已发货
-                            if ($v['order_state'] == 'q') {$switch = true;}
+                            if ($v['order_state'] == 'q') {
+                                $switch = true;
+                            }
                             //已签收
-                            if ($v['order_state'] == 'c') {$switch = true;}
+                            if ($v['order_state'] == 'c') {
+                                $switch = true;
+                            }
                         }
                     }
                     return $switch;
@@ -142,7 +141,6 @@ if (!class_exists('Magick_Mixtrue_Census_Shop')) {
 
                 //拿到的数组键名会乱，这里重置下键名
                 $order_seven_total[$t]['data'] = array_values($data);
-
             } //end for
             //$tool->p($order_seven_total);
 
@@ -167,7 +165,9 @@ if (!class_exists('Magick_Mixtrue_Census_Shop')) {
                         //实物
                         if ($v['order_commodity'] == '1') {
                             //已退款
-                            if ($v['order_state'] == 't') {$switch = true;}
+                            if ($v['order_state'] == 't') {
+                                $switch = true;
+                            }
                         }
                     }
                     return $switch;
@@ -183,7 +183,6 @@ if (!class_exists('Magick_Mixtrue_Census_Shop')) {
                 $total_refund_data[$t]['total'] = $total;
                 $total_refund_data[$t]['order'] = count((array) $data);
                 $total_refund_data[$t]['data'] = array_values($data);
-
             }
             //$tool->p($total_refund_data);
             /**
@@ -272,7 +271,6 @@ if (!class_exists('Magick_Mixtrue_Census_Shop')) {
             $arr['latelly']['refund_order'] = $seven_refund_order;
             //$tool->p($arr);
             return $arr;
-
         } //  handle_order_seven()
 
         /**
@@ -338,51 +336,50 @@ if (!class_exists('Magick_Mixtrue_Census_Shop')) {
             $arr['total_refund_order'] = $wpdb->get_var($judge_later_d);
 
             return $arr;
-
         }
 
         //页面显示内容
         public static function load_content()
         {
 
-            ?>
-                     <!-- 在默认WordPress“包装”容器中创建标题 -->
-                    <div class="wrap magick_section">
+?>
+            <!-- 在默认WordPress“包装”容器中创建标题 -->
+            <div class="wrap magick_section">
 
-                    <!--标题-->
-                     <h1><?php echo esc_html(get_admin_page_title()); ?></h1>
-                     <hr />
+                <!--标题-->
+                <h1><?php echo esc_html(get_admin_page_title()); ?></h1>
+                <hr />
 
-                     <section class="magick_section">
-                        <div class="switch-tab">
-                            <label>
+                <section class="magick_section">
+                    <div class="switch-tab">
+                        <label>
                             <input type="radio" name="tab" checked>
-                    <span>今日统计</span>
-                    <div class="tab-box">
-                         <!--五栏数据-->
-                    <?php echo self::week_data_show() ?>
-        </div>
-        </label>
+                            <span>今日统计</span>
+                            <div class="tab-box">
+                                <!--五栏数据-->
+                                <?php echo self::week_data_show() ?>
+                            </div>
+                        </label>
 
-        <label>
-                            <input type="radio" name="tab" >
-                    <span>本月统计</span>
-                    <div class="tab-box">
-                        <!--月度统计-->
-                    <?php echo self::month_content() ?>
-        </div>
-        </label>
-        </div>
-        </section>
-
-
-                    <!--四栏分隔-->
-                    <?php echo self::load_echarts_js() ?>
+                        <label>
+                            <input type="radio" name="tab">
+                            <span>本月统计</span>
+                            <div class="tab-box">
+                                <!--月度统计-->
+                                <?php echo self::month_content() ?>
+                            </div>
+                        </label>
+                    </div>
+                </section>
 
 
-                    </div><!-- end wrap-->
-                    <?php
-} //end load_content
+                <!--四栏分隔-->
+                <?php echo self::load_echarts_js() ?>
+
+
+            </div><!-- end wrap-->
+        <?php
+        } //end load_content
 
         /**
          * 五栏数据展示
@@ -393,62 +390,62 @@ if (!class_exists('Magick_Mixtrue_Census_Shop')) {
              * 准备数据
              */
             $arr = self::handle_order_seven();
-            ?>
-                         <div class="magick_shop_box">
+        ?>
+            <div class="magick_shop_box">
 
-                    <div class="content">
-                        <div class="black-data-box-mix">
-                            <span>待发货</span>
-                            <div class="child">
-                                <p><span><?php echo $arr['shipped'] ? $arr['shipped'] : 0 ?></span>个</p>
-                                <span class="dashicons dashicons-store"></span>
-                            </div>
+                <div class="content">
+                    <div class="black-data-box-mix">
+                        <span>待发货</span>
+                        <div class="child">
+                            <p><span><?php echo $arr['shipped'] ? $arr['shipped'] : 0 ?></span>个</p>
+                            <span class="dashicons dashicons-store"></span>
                         </div>
                     </div>
-                    <div class="content">
-                        <div class="black-data-box-mix">
-                            <span>今日总销售额</span>
-                            <div class="child">
-                                <p><span><?php echo $arr['today']['sale'] ?></span>￥</p>
-                                <span class="dashicons dashicons-insert"></span>
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="content">
-                        <div class="black-data-box-mix">
-                            <span>今日总订单</span>
-                            <div class="child">
-                                <p><span><?php echo $arr['today']['sale_order'] ?></span>个</p>
-                                <span class="dashicons dashicons-database-add"></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="content">
-                        <div class="black-data-box-mix">
-                            <span>今日总退款</span>
-                            <div class="child">
-                                <p><span><?php echo $arr['today']['refund'] ?></span>￥</p>
-                                <span class="dashicons dashicons-remove"></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="content">
-                        <div class="black-data-box-mix">
-                            <span>今日总退款订单</span>
-                            <div class="child">
-                                <p><span><?php echo $arr['today']['refund_order'] ?></span>个</p>
-                                <span class="dashicons dashicons-database-remove"></span>
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
-                <div class="describe">
-                            总销售（已减退款），总订单（已减退款）。
+                <div class="content">
+                    <div class="black-data-box-mix">
+                        <span>今日总销售额</span>
+                        <div class="child">
+                            <p><span><?php echo $arr['today']['sale'] ?></span>￥</p>
+                            <span class="dashicons dashicons-insert"></span>
                         </div>
-            <?php
-}
+
+                    </div>
+                </div>
+                <div class="content">
+                    <div class="black-data-box-mix">
+                        <span>今日总订单</span>
+                        <div class="child">
+                            <p><span><?php echo $arr['today']['sale_order'] ?></span>个</p>
+                            <span class="dashicons dashicons-database-add"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="content">
+                    <div class="black-data-box-mix">
+                        <span>今日总退款</span>
+                        <div class="child">
+                            <p><span><?php echo $arr['today']['refund'] ?></span>￥</p>
+                            <span class="dashicons dashicons-remove"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="content">
+                    <div class="black-data-box-mix">
+                        <span>今日总退款订单</span>
+                        <div class="child">
+                            <p><span><?php echo $arr['today']['refund_order'] ?></span>个</p>
+                            <span class="dashicons dashicons-database-remove"></span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="describe">
+                总销售（已减退款），总订单（已减退款）。
+            </div>
+        <?php
+        }
 
         /**
          * 四栏统计表
@@ -460,33 +457,33 @@ if (!class_exists('Magick_Mixtrue_Census_Shop')) {
             //时间
             $time = $arr['time'];
 
-            ?>
-                <style>
-                .magick_four-column .content > div {
-                  width: 600px;
-                  height: 300px;
+        ?>
+            <style>
+                .magick_four-column .content>div {
+                    width: 600px;
+                    height: 300px;
                 }
-                </style>
+            </style>
             <section class="magick_section">
-            <h2>周数据概览</h2>
-            <hr>
-            <div class="magick_four-column">
-                <div class="content">
-                    <!--最近7天总销售额-->
-                    <div id="total-sales"></div>
-                </div>
-                <div class="content">
-                    <!--最近7天总销售订单-->
-                    <div id="total-order"></div>
-                </div>
-                <div class="content">
-                    <!--最近7天总退款销售额-->
-                    <div id="total-refund"></div>
-                </div>
-                <div class="content">
-                    <!--最近7天总退款订单-->
-                    <div id="total-refund-order"></div>
-                </div>
+                <h2>周数据概览</h2>
+                <hr>
+                <div class="magick_four-column">
+                    <div class="content">
+                        <!--最近7天总销售额-->
+                        <div id="total-sales"></div>
+                    </div>
+                    <div class="content">
+                        <!--最近7天总销售订单-->
+                        <div id="total-order"></div>
+                    </div>
+                    <div class="content">
+                        <!--最近7天总退款销售额-->
+                        <div id="total-refund"></div>
+                    </div>
+                    <div class="content">
+                        <!--最近7天总退款订单-->
+                        <div id="total-refund-order"></div>
+                    </div>
                 </div>
             </section>
             <script type="text/javascript">
@@ -508,7 +505,7 @@ if (!class_exists('Magick_Mixtrue_Census_Shop')) {
                         text: "最近7天总销售额（已减退款额）",
                     },
                     tooltip: {
-                        valueFormatter: (value) =>  value.toFixed(2)+'￥'
+                        valueFormatter: (value) => value.toFixed(2) + '￥'
                     },
                     xAxis: {
                         type: 'category',
@@ -518,33 +515,31 @@ if (!class_exists('Magick_Mixtrue_Census_Shop')) {
                     yAxis: {
                         type: 'value'
                     },
-                    series: [
-                        {
-                            //data: [120, 200, 150, 80, 70, 110, 130],
-                             data: [<?php echo implode(',', array_reverse($arr['latelly']['sale'])) ?>],
-                            type: 'bar',
-                            name:"总销售额",
-                            showBackground: true,
-                            backgroundStyle: {
-                                color: 'rgba(180, 180, 180, 0.2)'
-                            },
-                           label:{
-                                show:true,
-                                position: 'insideTop', //在上方显示
-                                textStyle: { //数值样式
-                                    color: '#fff',
-                                    fontSize: 12,
-                                     fontWeight:'bold',
-                                }
+                    series: [{
+                        //data: [120, 200, 150, 80, 70, 110, 130],
+                        data: [<?php echo implode(',', array_reverse($arr['latelly']['sale'])) ?>],
+                        type: 'bar',
+                        name: "总销售额",
+                        showBackground: true,
+                        backgroundStyle: {
+                            color: 'rgba(180, 180, 180, 0.2)'
+                        },
+                        label: {
+                            show: true,
+                            position: 'insideTop', //在上方显示
+                            textStyle: { //数值样式
+                                color: '#fff',
+                                fontSize: 12,
+                                fontWeight: 'bold',
                             }
-
-
-
-
-
-
                         }
-                    ]
+
+
+
+
+
+
+                    }]
                 };
 
                 let total_order_option = {
@@ -552,7 +547,7 @@ if (!class_exists('Magick_Mixtrue_Census_Shop')) {
                         text: "最近7天总销售订单（已减退款订单）",
                     },
                     tooltip: {
-                        valueFormatter: (value) =>  value.toFixed(0)+'个'
+                        valueFormatter: (value) => value.toFixed(0) + '个'
                     },
                     xAxis: {
                         type: 'category',
@@ -562,27 +557,25 @@ if (!class_exists('Magick_Mixtrue_Census_Shop')) {
                     yAxis: {
                         type: 'value'
                     },
-                    series: [
-                        {
-                            //data: [120, 200, 150, 80, 70, 110, 130],
-                            data: [<?php echo implode(',', array_reverse($arr['latelly']['sale_order'])) ?>],
-                           type: 'bar',
-                            name:"总销售订单",
-                            showBackground: true,
-                            backgroundStyle: {
-                                color: 'rgba(180, 180, 180, 0.2)'
-                            },
-                           label:{
-                                show:true,
-                                position: 'insideTop', //在上方显示
-                                textStyle: { //数值样式
-                                    color: '#fff',
-                                    fontSize: 12,
-                                     fontWeight:'bold',
-                                }
+                    series: [{
+                        //data: [120, 200, 150, 80, 70, 110, 130],
+                        data: [<?php echo implode(',', array_reverse($arr['latelly']['sale_order'])) ?>],
+                        type: 'bar',
+                        name: "总销售订单",
+                        showBackground: true,
+                        backgroundStyle: {
+                            color: 'rgba(180, 180, 180, 0.2)'
+                        },
+                        label: {
+                            show: true,
+                            position: 'insideTop', //在上方显示
+                            textStyle: { //数值样式
+                                color: '#fff',
+                                fontSize: 12,
+                                fontWeight: 'bold',
                             }
                         }
-                    ]
+                    }]
                 };
 
                 let total_refund_option = {
@@ -590,7 +583,7 @@ if (!class_exists('Magick_Mixtrue_Census_Shop')) {
                         text: "最近7天总退款额",
                     },
                     tooltip: {
-                        valueFormatter: (value) =>  value.toFixed(2)+'￥'
+                        valueFormatter: (value) => value.toFixed(2) + '￥'
                     },
                     xAxis: {
                         type: 'category',
@@ -600,29 +593,27 @@ if (!class_exists('Magick_Mixtrue_Census_Shop')) {
                     yAxis: {
                         type: 'value'
                     },
-                    series: [
-                        {
-                            //data: [120, 200, 150, 80, 70, 110, 130],
-                            data: [<?php echo implode(',', array_reverse($arr['latelly']['refund'])) ?>],
-                            type: 'bar',
-                            name:"总退款额",
-                            showBackground: true,
-                            backgroundStyle: {
-                                color: 'rgba(180, 180, 180, 0.2)'
-                            },
-                           label:{
-                                show:true,
-                                position: 'insideTop', //在上方显示
-                                textStyle: { //数值样式
-                                    color: '#fff',
-                                    fontSize: 12,
-                                     fontWeight:'bold',
-                                }
+                    series: [{
+                        //data: [120, 200, 150, 80, 70, 110, 130],
+                        data: [<?php echo implode(',', array_reverse($arr['latelly']['refund'])) ?>],
+                        type: 'bar',
+                        name: "总退款额",
+                        showBackground: true,
+                        backgroundStyle: {
+                            color: 'rgba(180, 180, 180, 0.2)'
+                        },
+                        label: {
+                            show: true,
+                            position: 'insideTop', //在上方显示
+                            textStyle: { //数值样式
+                                color: '#fff',
+                                fontSize: 12,
+                                fontWeight: 'bold',
                             }
-
-
                         }
-                    ]
+
+
+                    }]
                 };
 
                 let total_refund_order_option = {
@@ -640,29 +631,27 @@ if (!class_exists('Magick_Mixtrue_Census_Shop')) {
                     yAxis: {
                         type: 'value'
                     },
-                    series: [
-                        {
-                            //data: [120, 200, 150, 80, 70, 110, 130],
-                            data: [<?php echo implode(',', array_reverse($arr['latelly']['refund_order'])) ?>],
-                            type: 'bar',
-                            name:"总退款订单",
-                            showBackground: true,
-                            backgroundStyle: {
-                                color: 'rgba(180, 180, 180, 0.2)'
-                            },
-                           label:{
-                                show:true,
-                                position: 'insideTop', //在上方显示
-                                textStyle: { //数值样式
-                                    color: '#fff',
-                                    fontSize: 12,
-                                     fontWeight:'bold',
-                                }
+                    series: [{
+                        //data: [120, 200, 150, 80, 70, 110, 130],
+                        data: [<?php echo implode(',', array_reverse($arr['latelly']['refund_order'])) ?>],
+                        type: 'bar',
+                        name: "总退款订单",
+                        showBackground: true,
+                        backgroundStyle: {
+                            color: 'rgba(180, 180, 180, 0.2)'
+                        },
+                        label: {
+                            show: true,
+                            position: 'insideTop', //在上方显示
+                            textStyle: { //数值样式
+                                color: '#fff',
+                                fontSize: 12,
+                                fontWeight: 'bold',
                             }
-
-
                         }
-                    ]
+
+
+                    }]
                 };
 
                 // 使用刚指定的配置项和数据显示图表。
@@ -674,11 +663,9 @@ if (!class_exists('Magick_Mixtrue_Census_Shop')) {
                 total_refund.setOption(total_refund_option);
                 //最近7天总退款订单
                 total_refund_order.setOption(total_refund_order_option);
+            </script>
 
-
-                </script>
-
-            <?php
+        <?php
 
         } //end load_echarts_js()
 
@@ -689,60 +676,59 @@ if (!class_exists('Magick_Mixtrue_Census_Shop')) {
         {
             //本月数据
             $month = self::get_month_order();
-            ?>
+        ?>
             <!--月度统计-->
 
             <div class="magick_shop_box">
 
 
 
-            <div class="content">
-                <div class="black-data-box-mix">
-                    <span>本月总销售额）</span>
-                    <div class="child">
-                        <p><span><?php echo $month['total_sales'] ?></span>￥</p>
-                        <span class="dashicons dashicons-insert"></span>
-                    </div>
+                <div class="content">
+                    <div class="black-data-box-mix">
+                        <span>本月总销售额）</span>
+                        <div class="child">
+                            <p><span><?php echo $month['total_sales'] ?></span>￥</p>
+                            <span class="dashicons dashicons-insert"></span>
+                        </div>
 
-                </div>
-            </div>
-            <div class="content">
-                <div class="black-data-box-mix">
-                    <span>本月总订单</span>
-                    <div class="child">
-                        <p><span><?php echo $month['total_order'] ? $month['total_order'] : 0 ?></span>个</p>
-                        <span class="dashicons dashicons-database-add"></span>
                     </div>
                 </div>
-            </div>
-            <div class="content">
-                <div class="black-data-box-mix">
-                    <span>本月总退款</span>
-                    <div class="child">
-                        <p><span><?php echo $month['total_refund_sales'] ?></span>￥</p>
-                        <span class="dashicons dashicons-remove"></span>
+                <div class="content">
+                    <div class="black-data-box-mix">
+                        <span>本月总订单</span>
+                        <div class="child">
+                            <p><span><?php echo $month['total_order'] ? $month['total_order'] : 0 ?></span>个</p>
+                            <span class="dashicons dashicons-database-add"></span>
+                        </div>
                     </div>
                 </div>
-            </div>
+                <div class="content">
+                    <div class="black-data-box-mix">
+                        <span>本月总退款</span>
+                        <div class="child">
+                            <p><span><?php echo $month['total_refund_sales'] ?></span>￥</p>
+                            <span class="dashicons dashicons-remove"></span>
+                        </div>
+                    </div>
+                </div>
 
-            <div class="content">
-                <div class="black-data-box-mix">
-                    <span>本月总退款订单</span>
-                    <div class="child">
-                        <p><span><?php echo $month['total_refund_order'] ? $month['total_refund_order'] : 0 ?></span>个</p>
-                        <span class="dashicons dashicons-database-remove"></span>
+                <div class="content">
+                    <div class="black-data-box-mix">
+                        <span>本月总退款订单</span>
+                        <div class="child">
+                            <p><span><?php echo $month['total_refund_order'] ? $month['total_refund_order'] : 0 ?></span>个</p>
+                            <span class="dashicons dashicons-database-remove"></span>
+                        </div>
                     </div>
                 </div>
-            </div>
 
             </div>
             <div class="describe">
-                            总销售（已减退款），总订单（已减退款）。
-                        </div>
+                总销售（已减退款），总订单（已减退款）。
+            </div>
 
 
-            <?php
-}
-
+<?php
+        }
     } //end class
 }

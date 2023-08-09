@@ -37,18 +37,21 @@ if (!class_exists('MaMi_Style_Page')) {
 
             //自定义登录页外观
             $custom_login_page = MaMi_Admin::get_config($option, 'custom_login_page');
-            //左下角颜色
-            //右上角颜色
-            //LOGO尺寸
-            //顶部LOGO
-            //文字背景图
-            $background_left = MaMi_Admin::get_config($option, 'background_left', '#0073aa');
-            $background_right = MaMi_Admin::get_config($option, 'background_right', '#0073aa');
-            $logo_size = MaMi_Admin::get_config($option, 'logo_size', '1');
-            $top_logo = MaMi_Admin::get_config($option, 'top_logo', '1');
-            $background_img = MaMi_Admin::get_config($option, 'background_img', '1');
+
 
             if ($custom_login_page) {
+
+                //左下角颜色
+                //右上角颜色
+                //LOGO尺寸
+                //顶部LOGO
+                //文字背景图
+                $background_left = MaMi_Admin::get_config($option, 'background_left', '#0073aa');
+                $background_right = MaMi_Admin::get_config($option, 'background_right', '#0073aa');
+                $logo_size = MaMi_Admin::get_config($option, 'logo_size', '1');
+                $top_logo = MaMi_Admin::get_config($option, 'top_logo', '1');
+                $background_img = MaMi_Admin::get_config($option, 'background_img', '1');
+
                 add_action('login_header', array(__CLASS__, 'io_login_header'));
                 add_action('login_footer', array(__CLASS__, 'io_login_footer'));
                 //样式配置
