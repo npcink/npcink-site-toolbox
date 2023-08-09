@@ -109,17 +109,18 @@ if (!class_exists('MaMi_Auxiliary')) {
                 global $wp_query;
                 //拿到输入的值
                 $ytkah_search_key = $malice_keu_content;
-                echo "<h1>";
-                echo $ytkah_search_key;
-                echo "</h1>";
-               
                 if ($ytkah_search_key) {
-                    $ytkah_search_key = str_replace("\r\n", "|", $ytkah_search_key);
+                    $ytkah_search_key = str_replace("\n", "|", $ytkah_search_key);
                     $BanKey = explode('|', $ytkah_search_key);
                     $S_Key = $wp_query->query_vars;
                     foreach ($BanKey as $Key) {
                         if (stristr($S_Key['s'], $Key) != false) {
-                            wp_die('好像搜索了什么不宜展示的东西呢');
+                            $message = '搜索内容包含敏感词，请换个方式搜索';
+                            $message .= '<br/><a href="#" onclick="history.back();">
+                            <button class="button" style="margin: 1em 0;">返回</button>
+                            </a>';
+                            wp_die($message);
+                           
                         }
                     }
                 }
