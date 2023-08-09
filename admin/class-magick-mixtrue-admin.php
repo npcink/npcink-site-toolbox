@@ -19,7 +19,7 @@ class MaMi_Admin
     /**
      * 选项
      */
-    public static $option = "mami_object_option_e";
+    public static $option = "mami_object_option_f";
     /**
      * 此插件的ID。
      *
@@ -139,8 +139,8 @@ class MaMi_Admin
         echo '</h2><div id="root"></div>';
         $value = get_option(self::$option);
         echo "<h2>设置选项的值</h2>";
-        $jsonString = json_encode($value, JSON_PRETTY_PRINT);
-        if ($jsonString) {
+        $jsonString = json_encode($value, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+        if ($jsonString !== "false") {
             echo '<pre>' . $jsonString . '</pre>';
         } else {
             echo '<pre>暂无对象值</pre>';
