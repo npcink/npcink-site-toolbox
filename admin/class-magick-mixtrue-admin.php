@@ -70,6 +70,9 @@ class MaMi_Admin
 
         //权限设置
         require_once plugin_dir_path(__FILE__) . 'partials/auxiliary.php';
+
+        //h5设置
+        require_once plugin_dir_path(__FILE__) . 'partials/h5.php';
     }
 
     /**
@@ -103,6 +106,11 @@ class MaMi_Admin
          * 权限
          */
         MaMi_Auxiliary::run();
+
+        /**
+         * H5
+         */
+        MaMi_H5::run();
     }
 
 
