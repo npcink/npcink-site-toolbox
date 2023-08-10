@@ -81,6 +81,14 @@ const AuthorityAuxiliary = {
   tecent_key: str, //腾讯秘钥
 };
 
+// H5 首页
+const H5Home = {
+  switch: boo, //开关
+  slide: [1, 2], //幻灯片
+  slide_all: str, //幻灯片 查看全部
+  more: num,
+};
+
 const App = {
   //优化
   optimize: {
@@ -98,6 +106,10 @@ const App = {
   //个性化
   style: {
     page: StylePage, //页面特效
+  },
+  //H5
+  h5: {
+    home: H5Home, //首页
   },
 };
 

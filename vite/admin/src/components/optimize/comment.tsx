@@ -110,7 +110,7 @@ const App: React.FC = () => {
       </Form.Item>
 
       <Form.Item<FieldType>
-        label="仅限评论一次"
+        label="单篇文章仅限评论一次"
         name="only"
         valuePropName="checked"
         extra={"管理员不受此影响"}

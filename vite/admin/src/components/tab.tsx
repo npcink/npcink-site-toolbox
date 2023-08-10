@@ -2,10 +2,10 @@ import React from "react";
 
 import { Tabs } from "antd";
 import type { TabsProps } from "antd";
-import Test from "./test";
 import Optimize from "@/components/optimize/index";
 import Style from "@/components/style/index";
 import Authority from "@/components/authority/index";
+import H5 from "@/components/h5/index";
 
 const onChange = (key: string) => {
   console.log(key);
@@ -29,8 +29,8 @@ const items: TabsProps["items"] = [
   },
   {
     key: "4",
-    label: `其他`,
-    children: <Test />,
+    label: `H5`,
+    children: <H5 />,
   },
 ];
 

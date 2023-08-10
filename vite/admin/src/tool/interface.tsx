@@ -19,6 +19,9 @@ export type DataLocal = {
     disable: AuthorityDisable;
     auxiliary: AuthorityAuxiliary;
   };
+  h5: {
+    home: H5Home;
+  };
 };
 
 //优化 站点
@@ -92,4 +95,12 @@ export type AuthorityAuxiliary = {
   login_code: string; //登录验证码
   tecent_id: string; //腾讯ID
   tecent_key: string; //腾讯秘钥
+};
+
+//H5 首页
+export type H5Home = {
+  switch: boolean; //开关
+  slide: Array<number>; //幻灯片
+  slide_all: string; //幻灯片 查看全部
+  more: number;
 };
