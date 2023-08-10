@@ -144,6 +144,7 @@ class MaMi_Admin
         echo esc_html(get_admin_page_title());
         //准备节点
         echo '</h2><div id="root"></div>';
+       
         $value = get_option(self::$option);
         echo "<h2>设置选项的值</h2>";
         $jsonString = json_encode($value, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
@@ -177,7 +178,8 @@ class MaMi_Admin
 
 
         $mami_array = array(
-            'option' => get_option(self::$option),
+            'option' => get_option(self::$option), //传递选项
+            'cat_arr' => self::get_cat_data(), //分类信息
         );
         wp_localize_script($name, 'dataLocal', $mami_array); //传给vite项目
 
@@ -194,6 +196,23 @@ class MaMi_Admin
             $tag = str_replace('<script', '<script type="module"', $tag);
         }
         return $tag;
+    }
+    /**
+     * 整理分类数据
+     */
+    public static function get_cat_data()
+    {
+        $categories = get_categories();
+
+        $category_list = array();
+
+        foreach ($categories as $category) {
+            $category_obj = new stdClass();
+            $category_obj->label = $category->name;
+            $category_obj->value = $category->cat_ID;
+            $category_list[] = $category_obj;
+        }
+        return $category_list;
     }
 
 

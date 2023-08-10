@@ -1,10 +1,11 @@
 //h5 - 首页
 import React from "react";
 import { useState, useContext, useEffect } from "react";
-import { Switch, Form, Input } from "antd";
+import { Switch, Form, Input, Select } from "antd";
 import DataContext from "@/tool/dataContext";
 import { H5Home } from "@/tool/interface";
 import defaultVar from "@/tool/defaultVar";
+import type { SelectProps } from "antd";
 import Contact from "@/components/h5/contact";
 
 //选项类型
@@ -35,6 +36,26 @@ const App: React.FC = () => {
       home: formData,
     };
   }, [formData]);
+
+  //下拉选项
+  //准备默认值
+
+  //开发环境状态
+  const state: boolean = import.meta.env.VITE_STATE;
+  const getCatData = () => {
+    if (state) {
+      return [
+        { label: "1号", value: 1 },
+        { label: "2号", value: 2 },
+      ];
+    } else {
+      return (window as any).dataLocal.cat_arr !== ""
+        ? (window as any).dataLocal.cat_arr
+        : [];
+    }
+  };
+
+  const options: SelectProps["options"] = getCatData();
 
   return (
     <>
@@ -76,13 +97,22 @@ const App: React.FC = () => {
         {formData.switch && (
           <>
             <Form.Item>
-              <h2>幻灯片</h2>
+              <h2>首页</h2>
             </Form.Item>
-            <Form.Item>
-              <h2>幻灯片选择</h2>
+            {/**
+             * TODO:无法搜索
+             */}
+            <Form.Item<FieldType> label="幻灯片文章选择" name="slide">
+              <Select mode="multiple" allowClear options={options} />
             </Form.Item>
             <Form.Item<FieldType> label="查看全部按钮的链接" name="slide_all">
+              {/**
+               * TODO:添加链接验证
+               */}
               <Input />
+            </Form.Item>
+            <Form.Item<FieldType> label="分类" name="more">
+              <Select allowClear options={options} />
             </Form.Item>
           </>
         )}
