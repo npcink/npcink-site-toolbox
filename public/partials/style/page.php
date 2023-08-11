@@ -191,9 +191,12 @@ if (!class_exists('MaMi_Style_Page')) {
          */
         public static function load_css()
         {
+            //准备地址
+            $url_css = plugin_dir_url(dirname(__DIR__)) . 'css/style-login.css';
+            $url_css = str_replace('/public/partials/', '/public/',  $url_css);
             wp_enqueue_style(
                 MAGICK_MIXTURE_NAME . '_style-login-css',
-                plugin_dir_url(\dirname(__FILE__)) . 'css/style-login.css',
+                $url_css,
                 array(),
                 MAGICK_MIXTURE_VERSION,
                 'all'
@@ -228,11 +231,11 @@ if (!class_exists('MaMi_Style_Page')) {
             //右上背景色
             $bg_right = MaMi_Admin::get_config(self::$option, 'background_right', '#0073aa');
             //LOGO
-            $logo_url = MaMi_Admin::get_config(self::$option, 'logo_size', '1');
+            $logo_url = MaMi_Admin::get_config(self::$option, 'top_logo');
             //尺寸
-            $logo_size = MaMi_Admin::get_config(self::$option, 'top_logo', '1');
+            $logo_size = MaMi_Admin::get_config(self::$option, 'logo_size');
             //左边文字背景图
-            $bg_img_left = MaMi_Admin::get_config(self::$option, 'background_img', '1');
+            $bg_img_left = MaMi_Admin::get_config(self::$option, 'background_img');
             echo '<style type="text/css">
              body{
                  background:-o-linear-gradient(45deg,' . $bg_left . ',' . $bg_right . ');

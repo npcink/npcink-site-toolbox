@@ -1,5 +1,3 @@
-//页面特效
-import React from "react";
 import { useState, useContext, useEffect } from "react";
 import { Switch, Form, ColorPicker, Input, InputNumber } from "antd";
 import { FileImageOutlined } from "@ant-design/icons";
@@ -8,45 +6,40 @@ import { StylePage } from "@/tool/interface";
 import defaultVar from "@/tool/defaultVar";
 
 import type { Color } from "antd/es/color-picker";
-import { useMemo } from "react";
 
-//选项类型
 type FieldType = StylePage;
 
+//处理颜色格式
+const getHexString = (color: Color | string): string => {
+  return typeof color === "string" ? color : color.toHexString();
+};
+
 const App: React.FC = () => {
-  const [color, setColor] = useState<Color | string>("#1677ff");
-
-  const hexString = useMemo(
-    () => (typeof color === "string" ? color : color.toHexString()),
-    [color]
-  );
-
-  
-
-  //拿到值
+  //准备默认值
   const optionObj = useContext(DataContext) ?? { style: {} };
+  const publicData = optionObj.style?.page || defaultVar.style.page;
 
-  //简化并提供默认值
-  let publicData = optionObj.style?.page || defaultVar.style.page;
-
-  //创建变量并设默认值
+  //存储表单值
   const [formData, setFormData] = useState(publicData || {});
 
-  //表单同步修改值
+  //修改表单值
   const onValuesChange = (
     changedValues: Partial<FieldType>,
     _allValues: FieldType
   ) => {
-    if ("background_left" in changedValues) {
-      changedValues.background_left = hexString;
-    }
+    const updatedValues = {
+      ...changedValues,
+      background_left: getHexString(changedValues.background_left || ""),
+      background_right: getHexString(changedValues.background_right || ""),
+    };
+
     setFormData((prevState) => ({
       ...prevState,
-      ...changedValues,
+      ...updatedValues,
     }));
   };
 
-  // 表单值发生变化时更新dataContext的值
+  //修改公共值
   useEffect(() => {
     optionObj.style = {
       ...optionObj.style,
@@ -56,22 +49,14 @@ const App: React.FC = () => {
 
   return (
     <>
-      
-     
-     
-     
       <Form
         name="page"
         labelCol={{ span: 8 }}
         wrapperCol={{ span: 16 }}
         style={{ maxWidth: 800 }}
-        //表单默认值，只有初始化以及重置时生效
         initialValues={publicData}
-        //自动填充功能禁用
         autoComplete="off"
-        //指定当表单提交时要执行的回调函数
         onFinish={() => {}}
-        //指定当表单字段值发生变化时要执行的回调函数
         onValuesChange={onValuesChange}
       >
         <Form.Item>
@@ -112,9 +97,6 @@ const App: React.FC = () => {
           <Switch />
         </Form.Item>
 
-        {/**
-         * TODO:解决颜色hec格式问题
-         */}
         {formData.custom_login_page && (
           <>
             <Form.Item<FieldType>
@@ -122,8 +104,7 @@ const App: React.FC = () => {
               name="background_left"
               extra={""}
             >
-             
-              <ColorPicker showText value={color} onChange={setColor} />
+              <ColorPicker showText />
             </Form.Item>
             <Form.Item<FieldType>
               label="右上角颜色"
@@ -136,9 +117,9 @@ const App: React.FC = () => {
             <Form.Item<FieldType>
               label="LOGO尺寸(px)"
               name="logo_size"
-              extra={""}
+              extra={"默认120，最大180"}
             >
-              <InputNumber />
+              <InputNumber min={0} max={180}  formatter={(value) => `${value}px`}/>
             </Form.Item>
 
             <Form.Item<FieldType> label="顶部LOGO" name="top_logo" extra={""}>
@@ -160,7 +141,6 @@ const App: React.FC = () => {
             </Form.Item>
           </>
         )}
-
       </Form>
     </>
   );

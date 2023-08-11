@@ -3,7 +3,7 @@
 const boo: boolean = import.meta.env.VITE_BOOLEAN === true;
 
 //准备字符串false
-const str: string = "false";
+const str: string = "";
 
 //准备数字
 const num: number = 0;
@@ -59,7 +59,7 @@ const StylePage = {
   custom_login_page: boo, //自定义登录页
   background_left: str, //左下角颜色
   background_right: str, //右上角颜色
-  logo_size: num, //LOGO尺寸
+  logo_size: 120, //LOGO尺寸
   top_logo: str, //顶部LOGO
   background_img: str, //文字背景图
 };
