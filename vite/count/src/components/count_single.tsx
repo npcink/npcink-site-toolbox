@@ -9,7 +9,6 @@ const data = {
     ["Cheese Cocoa", 86.4, 65.2, 82.5],
     ["Walnut Brownie", 72.4, 53.9, 39.1],
   ],
-  series: [{ type: "bar" }, { type: "bar" }, { type: "bar" }],
 };
 const App = () => {
   return (

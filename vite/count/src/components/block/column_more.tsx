@@ -22,11 +22,16 @@ echarts.use([
 type Data = {
   title: string; //标题
   dataset: Array<Array<string | number>>; //数据
-  series:Array<object>
 };
 
 const App = ({ data }: { data: Data }) => {
   //准备数据
+  //获取type数量
+  const typeNumber = () => {
+    const num = data.dataset.length - 1;
+    return Array.from({ length: num }, () => ({ type: "bar" }));
+  };
+
   const option = {
     title: {
       text: data.title,
@@ -42,7 +47,7 @@ const App = ({ data }: { data: Data }) => {
     yAxis: {},
     //声明几个条形系列，每个都将被映射
     //默认情况下为dataset.source的列。
-    series: data.series,
+    series: typeNumber(),
   };
 
   //准备节点
