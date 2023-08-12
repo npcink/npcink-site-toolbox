@@ -1,16 +1,18 @@
-import {  useState } from "react";
+import { useState } from "react";
+import Today from "./tab/today";
+import Moon from "./tab/moon";
 
 const Tab = () => {
   const [activeTab, setActiveTab] = useState(0);
 
   const tabs = [
     {
-      title: "Tab 1",
-      content: "Content of Tab 1",
+      title: "本周",
+      content: <Today />,
     },
     {
-      title: "Tab 2",
-      content: "Content of Tab 2",
+      title: "本月",
+      content: <Moon />,
     },
     {
       title: "Tab 3",
@@ -18,7 +20,7 @@ const Tab = () => {
     },
   ];
 
-  const handleTabClick = (index:number) => {
+  const handleTabClick = (index: number) => {
     setActiveTab(index);
   };
 
@@ -41,7 +43,7 @@ const Tab = () => {
             key={index}
             className={`tab-item ${activeTab === index ? "active" : ""}`}
           >
-            {tab.content}
+            {activeTab === index && tab.content}
           </div>
         ))}
       </div>

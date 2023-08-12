@@ -23,7 +23,14 @@ if (!class_exists('Magick_Mixtrue_Census_Shop')) {
          */
         public static function add_menu_shop()
         {
-            add_submenu_page('index.php', __('销售统计'), __('销售统计'), 'administrator', 'magick-census-shop', array(__CLASS__, 'load_content'));
+            add_submenu_page(
+                'index.php',
+                __('销售统计'),
+                __('销售统计'),
+                'administrator',
+                'magick-census-shop',
+                array(__CLASS__, 'load_content')
+            );
         }
 
         //页面加载图标用css和js
@@ -37,8 +44,10 @@ if (!class_exists('Magick_Mixtrue_Census_Shop')) {
             //准备地址
             $url_css = plugin_dir_url(dirname(__DIR__)) . 'css/mm-census-style.css';
             $url_css = str_replace('/admin/partials/', '/admin/',  $url_css);
+
             $url_js = plugin_dir_url(dirname(__DIR__)) . 'js/echarts_v5.4.0.js';
             $url_js = str_replace('/admin/partials/', '/admin/',  $url_js);
+
             wp_enqueue_style(
                 MAGICK_MIXTURE_NAME . '_census-b2-shop',
                 $url_css,
@@ -50,6 +59,27 @@ if (!class_exists('Magick_Mixtrue_Census_Shop')) {
             wp_enqueue_script(
                 MAGICK_MIXTURE_NAME . '_echarts-shop',
                 $url_js,
+                array(),
+                MAGICK_MIXTURE_VERSION,
+                false
+            );
+
+            //准备打包后的数据
+            $build_css = plugin_dir_url(dirname(__DIR__)) . 'count/dist/index.css';
+            $build_css = str_replace('/admin/partials/', '/vite/',  $build_css);
+            
+            $build_js = plugin_dir_url(dirname(__DIR__)) . 'count/dist/index.js';
+            $build_js = str_replace('/admin/partials/', '/vite/',  $build_js);
+            wp_enqueue_style(
+                MAGICK_MIXTURE_NAME . '_index_css',
+                $build_css,
+                array(),
+                MAGICK_MIXTURE_VERSION,
+                'all'
+            );
+            wp_enqueue_script(
+                MAGICK_MIXTURE_NAME . '_index_js',
+                $build_js,
                 array(),
                 MAGICK_MIXTURE_VERSION,
                 false
@@ -351,6 +381,7 @@ if (!class_exists('Magick_Mixtrue_Census_Shop')) {
 ?>
             <!-- 在默认WordPress“包装”容器中创建标题 -->
             <div class="wrap magick_section">
+                <div id="mami_b2_shop_count"></div>
 
                 <!--标题-->
                 <h1><?php echo esc_html(get_admin_page_title()); ?></h1>

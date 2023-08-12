@@ -4,9 +4,53 @@
   padding: 2rem;
   text-align: center;
 }
-.tab .tab-item {
-  display: none;
+.tab .tab-header .tab-button {
+  padding: 0.6em 1.2em;
+  margin: 0 1.6em 0 0;
+  border-radius: 6px;
+  transition: all 0.3s;
+  cursor: pointer;
 }
-.tab .tab-item.active {
-  display: inline;
+.tab .tab-header .tab-button.active {
+  color: #fff;
+  background-color: #3ac569;
+  box-shadow: 5px 5px 10px #d9d9d9, -5px -5px 10px #ffffff;
+}
+.count-box {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.box {
+  min-width: 180px;
+  padding: 10px 20px;
+  margin: 20px 10px;
+  color: #2c2c2c;
+  border-radius: 18px;
+  background-color: #f6f7f7;
+  box-shadow: 5px 5px 10px #d1d2d2, -5px -5px 10px #ffffff;
+}
+.box > span {
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  cursor: pointer;
+}
+.box .child {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.box .child p {
+  line-height: 1.5;
+}
+.box .child p span {
+  font-size: 28px;
+  font-weight: bold;
+}
+.box .child > span {
+  font-size: 28px;
+  width: 36px;
+  height: 36px;
 }
