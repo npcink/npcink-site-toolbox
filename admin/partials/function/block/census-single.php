@@ -293,6 +293,7 @@ if (!class_exists('Magick_Mixtrue_Census_Single')) {
             </section>
 
             <script type="text/javascript">
+               
                 // 基于准备好的dom，初始化echarts实例
                 let myChart_week = echarts.init(document.getElementById("magick-seven-census"));
                 let myChart_month = echarts.init(document.getElementById("magick-month-census"));

@@ -1,49 +1,69 @@
 import { useRef, useEffect } from "react";
 import * as echarts from "echarts/core";
-import { GridComponent, TitleComponent,TooltipComponent } from "echarts/components";
+import {
+  GridComponent,
+  TitleComponent,
+  TooltipComponent,
+} from "echarts/components";
 import { BarChart } from "echarts/charts";
 import { CanvasRenderer } from "echarts/renderers";
 
-echarts.use([GridComponent, BarChart, CanvasRenderer,TitleComponent,TooltipComponent]);
+echarts.use([
+  GridComponent,
+  BarChart,
+  CanvasRenderer,
+  TitleComponent,
+  TooltipComponent,
+]);
 
-const option = {
-  title: {
-    text: "最近7天总销售订单（已减退款订单）",
-  },
-  tooltip: {
-    valueFormatter: (value: number) => value.toFixed(0) + "个",
-  },
-  xAxis: {
-    type: "category",
-    data: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
-  },
-  yAxis: {
-    type: "value",
-  },
-  series: [
-    {
-      name: "总销售订单",
-      data: [120, 200, 150, 80, 70, 110, 130],
-      type: "bar",
-      showBackground: true,
-      backgroundStyle: {
-        color: "rgba(180, 180, 180, 0.2)",
-      },
-      label: {
-        show: true,
-        position: "insideTop", //在上方显示
-        textStyle: {
-          //数值样式
-          color: "#fff",
-          fontSize: 12,
-          fontWeight: "bold",
-        },
-      },
-    },
-  ],
+type Data = {
+  title: string; //标题
+  x: Array<string>; //横轴数据
+  s: {
+    title: string; //提示标题
+    data: Array<number>; //数据
+  };
 };
 
-const App = () => {
+const App = ({ data }: { data: Data }) => {
+  //准备数据
+  const option = {
+    title: {
+      text: data.title,
+    },
+    tooltip: {
+      valueFormatter: (value: number) => value.toFixed(0) + "个",
+    },
+    xAxis: {
+      type: "category",
+      data: data.x,
+    },
+    yAxis: {
+      type: "value",
+    },
+    series: [
+      {
+        name: data.s.title,
+        data: data.s.data,
+        type: "bar",
+        showBackground: true,
+        backgroundStyle: {
+          color: "rgba(180, 180, 180, 0.2)",
+        },
+        label: {
+          show: true,
+          position: "insideTop", //在上方显示
+          textStyle: {
+            //数值样式
+            color: "#fff",
+            fontSize: 12,
+            fontWeight: "bold",
+          },
+        },
+      },
+    ],
+  };
+  //准备节点
   const chartRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
