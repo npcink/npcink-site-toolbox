@@ -84,6 +84,14 @@ if (!class_exists('Magick_Mixtrue_Census_Shop')) {
                 MAGICK_MIXTURE_VERSION,
                 false
             );
+
+            //传输数据给JS
+            $mami_array = array(
+                'countData' => "666", //统计的数据信息
+
+
+            );
+            wp_localize_script(MAGICK_MIXTURE_NAME . '_index_js', 'dataLocal', $mami_array); //传给vite项目
         }
 
         /**
