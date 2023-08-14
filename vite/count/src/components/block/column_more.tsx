@@ -9,7 +9,7 @@ import {
 } from "echarts/components";
 import { BarChart } from "echarts/charts";
 import { CanvasRenderer } from "echarts/renderers";
-import { ColumnMore } from "../tool/interface";
+import { ColumnMore } from "@/components/tool/interface";
 echarts.use([
   DatasetComponent,
   TooltipComponent,

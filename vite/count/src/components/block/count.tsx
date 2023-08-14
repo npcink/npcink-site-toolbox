@@ -1,5 +1,4 @@
-import {Count} from "../tool/interface"
-
+import { Count } from "@/components/tool/interface";
 
 const App = ({ data }: { data: Count }) => {
   return (
