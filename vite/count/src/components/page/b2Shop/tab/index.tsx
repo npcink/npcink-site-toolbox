@@ -36,14 +36,10 @@ const Tab = () => {
         ))}
       </div>
       <div className="tab-content">
-        {tabs.map((tab, index) => (
-          <div
-            key={index}
-            className={`tab-item ${activeTab === index ? "active" : ""}`}
-          >
-            {activeTab === index && tab.content}
-          </div>
-        ))}
+        {tabs.map(
+          (tab, index) =>
+            activeTab === index && <div key={index}>{tab.content}</div>
+        )}
       </div>
       <div className="describe">总销售（已减退款），总订单（已减退款）。</div>
       <hr />

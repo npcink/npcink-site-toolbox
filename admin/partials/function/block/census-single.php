@@ -388,7 +388,7 @@ if (!class_exists('Magick_Mixtrue_Census_Single')) {
             //拿到时间数组 - 最近一周
             $t_week = $tool->get_time()['a'];
             //拿到时间数组 - 本月
-            $t_month = $tool->get_time_long("this_month");
+            $t_month =  array_reverse($tool->get_time_long("this_month"));//获取时间并取反
 
 
 
