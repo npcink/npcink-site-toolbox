@@ -26,7 +26,7 @@ function App() {
               <Basic />
             </div>
           </div>
-          <h3>月度统计</h3>
+          <h3>月度</h3>
           <Moon />
         </>
       )}

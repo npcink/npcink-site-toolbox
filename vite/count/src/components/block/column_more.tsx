@@ -62,7 +62,13 @@ const App = ({ data }: { data: ColumnMore }) => {
   }, []);
 
   return (
-    <div ref={chartRefs} style={{ width: "600px", height: "300px" }}></div>
+    <div
+      ref={chartRefs}
+      style={{
+        width: `${data.width ?? 600}px`,
+        height: `${data.height ?? 300}px`,
+      }}
+    ></div>
   );
 };
 

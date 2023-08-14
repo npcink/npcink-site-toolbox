@@ -100,6 +100,8 @@ export const ShopForm = [
 
 //文章统计 每天发文数量
 export const SinglePublishToday = {
+  width: 600,
+  height: 300,
   title: "统计", //标题
   dataset: [
     ["time", "2015", "2016", "2017"],
@@ -111,6 +113,8 @@ export const SinglePublishToday = {
 };
 
 export const SinglePublishMoon = {
+  width: 1200,
+  height: 300,
   title: "月度统计", //标题
   dataset: [
     ["time", "2015", "2016", "2017"],
