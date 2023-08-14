@@ -15,10 +15,6 @@ const Tab = () => {
       title: "本月",
       content: <Moon />,
     },
-    {
-      title: "Tab 3",
-      content: "Content of Tab 3",
-    },
   ];
 
   const handleTabClick = (index: number) => {

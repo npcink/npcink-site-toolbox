@@ -1,6 +1,5 @@
 #mami_b2_shop_count {
-  max-width: 1280px;
-  margin: 0 auto;
+  max-width: 1200px;
   padding: 2rem;
 }
 //tab
@@ -76,10 +75,18 @@
 //文章统计
 .single-box {
   display: flex;
+
   .right {
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-wrap: wrap;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  //文章统计
+  .single-box {
     flex-wrap: wrap;
   }
 }

@@ -24,6 +24,7 @@ export type Count = {
 
 //单柱状图
 export type Column = {
+  
   title: string; //标题
   x: Array<string>; //横轴数据
   s: {

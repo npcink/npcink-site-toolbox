@@ -8,7 +8,7 @@ import {
 } from "echarts/components";
 import { BarChart } from "echarts/charts";
 import { CanvasRenderer } from "echarts/renderers";
-import { Column } from "@/components/tool/interface";
+import { Column } from "../tool/interface";
 echarts.use([
   GridComponent,
   BarChart,

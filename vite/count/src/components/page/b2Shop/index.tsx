@@ -12,7 +12,7 @@ function App() {
       {state && (
         <>
           <h3>销售统计</h3>
-          <hr />
+          
           <Tab />
           <h3>周数据预览</h3>
           <Count />
