@@ -83,8 +83,8 @@ if (!class_exists('Magick_Mixtrue_Census_Single')) {
             $array = array(
                 'single' => array(
                     'count' => self::get_today_data(), //今天的统计数据
-                    'today' => self::get_today_release()['week'], //今天文章发布数据
-                    'month' => self::get_today_release()['month'], //今天文章发布数据
+                    'today' => self::get_count_release()['week'], //今天文章发布数据
+                    'month' => self::get_count_release()['month'], //今天文章发布数据
                 )
             );
             return $array;
@@ -161,7 +161,7 @@ if (!class_exists('Magick_Mixtrue_Census_Single')) {
         /**
          * 准备表格统计信息
          */
-        public static function get_today_release()
+        public static function get_count_release()
         {
             //准备日期
 

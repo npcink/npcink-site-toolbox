@@ -7,7 +7,11 @@ const App = ({ data }: { data: Count }) => {
         <span>{data.title}</span>
         <div className="child">
           <p>
-            <span>{data.num}</span>
+            <span>
+              {data.num % 1 === 0
+                ? data.num.toFixed(0)
+                : parseFloat(data.num.toFixed(3))}
+            </span>
             {data.unit}
           </p>
           <span className={data.icon}></span>

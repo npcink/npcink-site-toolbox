@@ -8,8 +8,8 @@ export const ShopToday = [
   },
   {
     title: "总销售额",
-    num: 10,
-    unit: "个",
+    num: 10.123456,
+    unit: "￥",
     icon: "dashicons dashicons-insert",
   },
 
@@ -22,7 +22,7 @@ export const ShopToday = [
   {
     title: "总退款",
     num: 10,
-    unit: "个",
+    unit: "￥",
     icon: "dashicons dashicons-remove",
   },
   {
@@ -38,7 +38,7 @@ export const ShopMonth = [
   {
     title: "总销售额",
     num: 10,
-    unit: "个",
+    unit: "￥",
     icon: "dashicons dashicons-insert",
   },
 
@@ -51,7 +51,7 @@ export const ShopMonth = [
   {
     title: "总退款",
     num: 10,
-    unit: "个",
+    unit: "￥",
     icon: "dashicons dashicons-remove",
   },
   {
@@ -104,11 +104,11 @@ export const SinglePublishToday = {
   height: 300,
   title: "统计", //标题
   dataset: [
-    ["time", "2015", "2016", "2017"],
-    ["Matcha Latte", 43.3, 85.8, 93.7],
-    ["Milk Tea", 83.1, 73.4, 55.1],
-    ["Cheese Cocoa", 86.4, 65.2, 82.5],
-    ["Walnut Brownie", 72.4, 53.9, 39.1],
+    ["user", "大大怪", "小小怪", "007"],
+    ["01", 43, 85, 93],
+    ["02", 83, 73, 55],
+    ["03", 86, 65, 82],
+    ["04", 72, 53, 39],
   ],
 };
 
@@ -117,11 +117,14 @@ export const SinglePublishMonth = {
   height: 300,
   title: "月度统计", //标题
   dataset: [
-    ["time", "2015", "2016", "2017"],
-    ["Matcha Latte", 43.3, 85.8, 93.7],
-    ["Milk Tea", 83.1, 73.4, 55.1],
-    ["Cheese Cocoa", 86.4, 65.2, 82.5],
-    ["Walnut Brownie", 72.4, 53.9, 39.1],
+    ["user", "大大怪", "小小怪", "007"],
+    ["01", 43, 85, 93],
+    ["02", 83, 73, 55],
+    ["03", 86, 65, 82],
+    ["04", 72, 53, 39],
+    ["05", 12, 33, 59],
+    ["06", 22, 23, 69],
+    ["07", 32, 13, 79],
   ],
 };
 
