@@ -103,18 +103,60 @@ if (!class_exists('Magick_Mixtrue_Census_Shop')) {
             //准备对象
             $array = array(
                 'shop' => array(
-                  //  'today' => "66", //今天销售数据
+                    'today' => self::get_shop_today(), //今天销售数据
                     'moon' => self::get_shop_moon(), //本月销售数据
-                  //  'form' => "66", //最近7天销售数据
+                    //  'form' => "66", //最近7天销售数据
                 ),
-               //'single' => array(
-               //    'count' => "66", //文统计数据
-               //    'today' => "66", //今天文章发布数据
-               //)
+                //'single' => array(
+                //    'count' => "66", //文统计数据
+                //    'today' => "66", //今天文章发布数据
+                //)
             );
             return $array;
         }
 
+        /**
+         * 拿到当天销售数据
+         */
+        public static function get_shop_today()
+        {
+            //今天的数据
+            $option = self::handle_order_seven();
+            $array = array(
+                array(
+                    'title' => "待发货",
+                    'num' => (int)$option['shipped'],
+                    'unit' => "个",
+                    'icon' => "dashicons dashicons-store",
+                ),
+                array(
+                    'title' => "总销售额",
+                    'num' => (int)$option['today']['sale'],
+                    'unit' => "￥",
+                    'icon' => "dashicons dashicons-insert",
+                ),
+                array(
+                    'title' => "总订单",
+                    'num' => (int)$option['today']['sale_order'],
+                    'unit' => "个",
+                    'icon' => "dashicons dashicons-database-add",
+                ),
+                array(
+                    'title' => "总退款",
+                    'num' => (int)$option['today']['refund'],
+                    'unit' => "￥",
+                    'icon' => "dashicons dashicons-remove",
+                ),
+                array(
+                    'title' => "总退款订单",
+                    'num' => (int)$option['today']['refund_order'],
+                    'unit' => "个",
+                    'icon' => "dashicons dashicons-database-remove",
+                ),
+
+            );
+            return $array;
+        }
         /**
          * 拿到月销售数据
          */
@@ -132,27 +174,31 @@ if (!class_exists('Magick_Mixtrue_Census_Shop')) {
                     'icon' => "dashicons dashicons-insert",
                 ),
                 array(
-                    'title' => "总销售额",
+                    'title' => "总订单",
+                    'num' => (int)$option['total_sales'],
+                    'unit' => "个",
+                    'icon' => "dashicons dashicons-insert",
+                ),
+                array(
+                    'title' => "总退款额",
                     'num' => (int)$option['total_sales'],
                     'unit' => "￥",
                     'icon' => "dashicons dashicons-insert",
                 ),
                 array(
-                    'title' => "总销售额",
+                    'title' => "总退款订单",
                     'num' => (int)$option['total_sales'],
-                    'unit' => "￥",
-                    'icon' => "dashicons dashicons-insert",
-                ),
-                array(
-                    'title' => "总销售额",
-                    'num' => (int)$option['total_sales'],
-                    'unit' => "￥",
+                    'unit' => "个",
                     'icon' => "dashicons dashicons-insert",
                 ),
 
             );
             return $array;
         }
+
+        /**
+         * 最近7天销售数据
+         */
 
         /**
          * 拿到指定时间内的所有数据
@@ -487,7 +533,7 @@ if (!class_exists('Magick_Mixtrue_Census_Shop')) {
                 <!--四栏分隔-->
                 <?php echo self::load_echarts_js() ?>
 
-   
+
             </div><!-- end wrap-->
         <?php
         } //end load_content
