@@ -1,8 +1,8 @@
 //销售表格
 import { useContext } from "react";
-import Column from "./block/column";
-import DataContext from "./tool/dataContext";
-import { ShopForm } from "./tool/defaultVar";
+import Column from "@/components/block/column";
+import DataContext from "../../tool/dataContext";
+import { ShopForm } from "../../tool/defaultVar";
 const App = () => {
   //拿到值
   const optionObj = useContext(DataContext) ?? { shop: {} };

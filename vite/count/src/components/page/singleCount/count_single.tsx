@@ -1,9 +1,9 @@
 //发文统计 左表右块
 import { useContext } from "react";
-import ColumnMore from "./block/column_more";
-import Count from "./block/count";
-import { SinglePublish, SingleCount } from "./tool/defaultVar";
-import DataContext from "./tool/dataContext";
+import ColumnMore from "@/components/block/column_more";
+import Count from "@/components/block/count";
+import { SinglePublish, SingleCount } from "../../tool/defaultVar";
+import DataContext from "../../tool/dataContext";
 
 const App = () => {
   //拿到值

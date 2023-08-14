@@ -1,21 +1,23 @@
 import "./App.css";
 //打包前注释
 //import "./load-styles.css";
-import Tab from "./components/tab";
-import Count from "./components/count";
-import CountSingle from "./components/count_single";
+import B2Shop from "./components/b2_shop";
+import SingleCount from "./components/single_count";
 
 function App() {
   return (
     <>
-      <h3>销售统计</h3>
-      <hr />
-      <Tab />
-      <h3>周数据预览</h3>
-      <Count />
-      <hr />
-      <h3>发文统计</h3>
-      <CountSingle />
+      {/**
+       * 销售统计
+       */}
+    
+      <B2Shop />
+      {/**
+       * 周数据预览
+       */}
+
+      <SingleCount />
+      
     </>
   );
 }

@@ -1,6 +1,7 @@
+//Tab切换
 import { useState } from "react";
-import Today from "./tab/today";
-import Moon from "./tab/moon";
+import Today from "./today";
+import Moon from "./moon";
 
 const Tab = () => {
   const [activeTab, setActiveTab] = useState(0);
