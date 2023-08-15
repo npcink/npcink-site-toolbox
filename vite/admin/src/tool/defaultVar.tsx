@@ -10,20 +10,18 @@ const num: number = 0;
 
 //优化 站点
 const OptimizeSite = {
-  //禁止转义
-  no_escape: boo,
-  //关键词自动添加链接
-  add_inks: boo,
+  no_escape: boo, //禁止转义
+  add_inks: boo, //关键词自动添加链接
   modify_login_link: boo, //登录页LOGO改首页链接
   remove_langue: boo, //移除登录页语言选择框
 };
 
 //优化  媒体
 const OptimizeMedium = {
-  img_add_tag: boo,
-  no_auto_size: boo,
-  medium_add_svg: boo,
-  upload_auto_name: "false",
+  img_add_tag: boo, //自动给媒体添加alt标签
+  no_auto_size: boo, //禁止缩略图
+  medium_add_svg: boo, //添加svg支持
+  upload_auto_name: "false", //自动重命名
 };
 
 //优化  评论
