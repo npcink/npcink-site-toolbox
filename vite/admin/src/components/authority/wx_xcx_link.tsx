@@ -104,10 +104,23 @@ const App: React.FC = () => {
               label="路径参数"
               name="path"
               extra={
-                <p>
-                  需跳转的页面，例如 <pre>pages/circle/index.html</pre>则填写<pre>pages/circle</pre>
-                  例如 <pre>pages/single/post.html?id=300485</pre>则填写<pre>pages/single/post</pre>
-                </p>
+                <>
+                  需跳转的页面，
+                  <p>
+                    例如
+                    <pre className="pre-meat">pages/circle/index.html</pre>
+                    则填写
+                    <pre className="pre-meat">pages/circle</pre>
+                  </p>
+                  <p>
+                    例如
+                    <pre className="pre-meat">
+                      pages/single/post.html?id=300485
+                    </pre>
+                    则填写
+                    <pre className="pre-meat">pages/single/post</pre>
+                  </p>
+                </>
               }
             >
               <Input />
@@ -117,7 +130,12 @@ const App: React.FC = () => {
               name="query"
               extra={
                 <p>
-                  需跳转指定的页面，例如 <pre>pages/single/post.html?id=300485</pre>则填写<pre>id=300485</pre>
+                  需跳转指定的页面，例如{" "}
+                  <pre className="pre-meat">
+                    pages/single/post.html?id=300485
+                  </pre>
+                  则填写
+                  <pre className="pre-meat">id=300485</pre>
                 </p>
               }
             >

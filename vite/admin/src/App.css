@@ -1,3 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  button,
+  [type="button"],
+  [type="reset"],
+  [type="submit"] {
+    background-color: rgba(0, 0, 0, 0.25);
+  }
+}
+@layer components {
+  .pre-meat {
+    @apply inline-block text-xs text-orange-500  mx-2;
+  }
+}
+
+.ant-btn-primary {
+  background-color: #1677ff;
+}
+
 .mami_option {
   max-width: 900px;
 }
