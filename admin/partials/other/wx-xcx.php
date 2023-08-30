@@ -14,6 +14,12 @@ if (!class_exists('MaMi_Wx_Xcx')) {
             $active = MaMi_Admin::get_config(self::$option, 'active'); //状态
             if ($active) {
                 add_action('wp_head', array(__CLASS__, 'add_hello_header'));
+
+                //注册页面模版
+                add_filter('theme_page_templates', array(__CLASS__, 'add_custom_page_template'));
+
+                //置顶模版路径
+                add_filter('template_include', array(__CLASS__, 'get_custom_template'));
             }
         }
 
@@ -121,5 +127,29 @@ if (!class_exists('MaMi_Wx_Xcx')) {
             $wx_url =  $json_url['openlink'];
             return $wx_url;
         }
-    }
+        /**
+         * 添加单页
+         */
+        // 注册自定义页面模板
+        public static function add_custom_page_template($templates)
+        {
+            $templates['custom-template.php'] = '微信小程序引导页';
+            return $templates;
+        }
+
+        // 指定自定义页面模板的路径
+        public static  function get_custom_template($template)
+        {
+            if (!is_singular() || !$template) {
+                return $template;
+            }
+
+            $custom_template = get_post_meta(get_queried_object_id(), '_wp_page_template', true);
+            if ('custom-template.php' === basename($custom_template)) {
+                $template = plugin_dir_path(__FILE__) . '../block/custom-template.php';
+            }
+
+            return $template;
+        }
+    } //end
 }

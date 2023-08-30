@@ -66,17 +66,7 @@ if (!class_exists('MaMi_Auxiliary')) {
             if ($login_code !== "false") {
 
                 MaMi_Login_Verify::run($login_code);
-            }
-
-
-
-
-
-
-           
-
-
-            
+            }  
         }
 
         //加载文件
@@ -91,8 +81,6 @@ if (!class_exists('MaMi_Auxiliary')) {
             //加载微信小程序链接生成
             require_once plugin_dir_path(__FILE__) . 'other/wx-xcx.php';
         }
-
-
 
         /**
          * 效果：禁用更新
