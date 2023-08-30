@@ -2,6 +2,7 @@
 
 /**
  * 商城统计
+ * TODO:重写逻辑
  */
 
 if (!class_exists('Magick_Mixtrue_Census_Shop')) {
@@ -10,7 +11,7 @@ if (!class_exists('Magick_Mixtrue_Census_Shop')) {
 
         public static function run()
         {
-            //add_action('wp_loaded', array(__CLASS__, 'load'));
+           
             //加载菜单
             add_action('admin_menu', array(__CLASS__, 'add_menu_shop'));
             //加载图标用js
@@ -80,6 +81,7 @@ if (!class_exists('Magick_Mixtrue_Census_Shop')) {
             $message .= '<!--准备节点-->';
             $message .= '<div id="mami_b2_shop_count"></div>';
             echo $message;
+           
         }
 
         /**
@@ -95,10 +97,7 @@ if (!class_exists('Magick_Mixtrue_Census_Shop')) {
                     'month' => self::get_shop_month(), //本月销售数据
                     'form' => self::get_seven_data(), //最近7天销售数据
                 ),
-                //'single' => array(
-                //    'count' => "66", //文统计数据
-                //    'today' => "66", //今天文章发布数据
-                //)
+               
             );
             return $array;
         }
@@ -146,7 +145,7 @@ if (!class_exists('Magick_Mixtrue_Census_Shop')) {
             return $array;
         }
         /**
-         * 拿到月销售数据
+         * 月销售数据 - 整理数据
          */
         public static function get_shop_month()
         {
@@ -445,17 +444,18 @@ if (!class_exists('Magick_Mixtrue_Census_Shop')) {
             $seven_refund_order = array_column($data['refund'], 'order');
 
             //时间
-            $arr['time'] = $t;
-            $arr['latelly']['sale'] = $seven_sale_total;
-            $arr['latelly']['sale_order'] = $seven_sale_order;
-            $arr['latelly']['refund'] = $seven_refund_total;
-            $arr['latelly']['refund_order'] = $seven_refund_order;
+            $arr['time'] = array_reverse($t);
+            //数据
+            $arr['latelly']['sale'] = array_reverse($seven_sale_total);
+            $arr['latelly']['sale_order'] = array_reverse($seven_sale_order);
+            $arr['latelly']['refund'] = array_reverse($seven_refund_total);
+            $arr['latelly']['refund_order'] = array_reverse($seven_refund_order);
             //$tool->p($arr);
             return $arr;
         } //  handle_order_seven()
 
         /**
-         * 月数据
+         * 月数据 - 拿到数据
          * 月总订单数（去退款）
          * 月总销售额（去退款）
          * 月总退款订单数
