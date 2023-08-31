@@ -99,6 +99,39 @@ const App: React.FC = () => {
         >
           <Switch />
         </Form.Item>
+        <Form.Item<FieldType>
+          label="添加喜庆灯笼"
+          name="lantern"
+          valuePropName="checked"
+          extra={
+            <>
+              特殊时间下会有特别的意义，
+              <a href="https://www.npc.ink/11073.html" target="_blank">
+                实现详情
+              </a>
+            </>
+          }
+        >
+          <Switch />
+        </Form.Item>
+        <Form.Item<FieldType>
+          label="飘落樱花"
+          name="sakura"
+          valuePropName="checked"
+          extra={
+            <>
+              全站飘洒樱花
+              <a
+                href="https://www.cnblogs.com/quaint/p/12291936.html"
+                target="_blank"
+              >
+                实现详情
+              </a>
+            </>
+          }
+        >
+          <Switch />
+        </Form.Item>
       </Form>
     </>
   );

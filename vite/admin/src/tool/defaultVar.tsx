@@ -69,6 +69,8 @@ const StyleAspect = {
   particle: boo, //粒子特效
   screen_hair: boo, //屏幕上的毛
   site_grey: boo, //网站变灰
+  lantern:boo,//灯笼效果
+  sakura:boo,//樱花效果
 };
 
 //权限控制 禁用

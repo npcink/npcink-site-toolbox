@@ -39,6 +39,23 @@ if (!class_exists('MaMi_Style_Aspect')) {
             if ($site_grey) {
                 add_action('wp_footer', array(__CLASS__, 'site_grey'));
             }
+
+            /**
+             * 添加灯笼
+             */
+            $lantern =  MaMi_Admin::get_config($option, 'lantern');
+            if ($lantern) {
+                add_action('wp_enqueue_scripts', array(__CLASS__, 'lantern_css'));
+                add_action('wp_footer', array(__CLASS__, 'lantern'));
+            }
+
+            /**
+             * 添加樱花
+             */
+            $sakura =  MaMi_Admin::get_config($option, 'sakura');
+            if ($sakura) {
+                add_action('wp_enqueue_scripts', array(__CLASS__, 'sakura'));
+            }
         }
 
         /**
@@ -103,6 +120,64 @@ if (!class_exists('MaMi_Style_Aspect')) {
                 filter: grayscale(0.95);
             }
             </style>';
+        }
+
+        /**
+         * 添加灯笼css
+         */
+        public static function lantern_css()
+        {
+            wp_enqueue_style(
+                MAGICK_MIXTURE_NAME . '_lantern',
+                plugin_dir_url(dirname(__DIR__)) . 'css/lantern.css',
+                array(),
+                MAGICK_MIXTURE_VERSION,
+                false
+            );
+        }
+        /**
+         * 添加灯笼节点
+         */
+        public static function lantern()
+        {
+            echo '
+<div id="lantern">
+<div class="deng-box">
+<div class="deng">
+    <div class="xian"></div>
+    <div class="deng-a">
+        <div class="deng-b"><div class="deng-t">节</div></div>
+    </div>
+    <div class="shui shui-a"><div class="shui-c"></div><div class="shui-b"></div></div>
+</div>
+</div>
+
+<!-- 灯笼2 -->
+<div class="deng-box1">
+<div class="deng">
+    <div class="xian"></div>
+    <div class="deng-a">
+        <div class="deng-b"><div class="deng-t">春</div></div>
+    </div>
+    <div class="shui shui-a"><div class="shui-c"></div><div class="shui-b"></div></div>
+</div>
+</div>
+</div>
+<!--结束包裹我-->';
+        }
+
+        /**
+         * 添加樱花
+         */
+        public static function sakura()
+        {
+            wp_enqueue_script(
+                MAGICK_MIXTURE_NAME . '_sakura',
+                plugin_dir_url(dirname(__DIR__)) . 'js/sakuraPlus.js',
+                array(),
+                MAGICK_MIXTURE_VERSION,
+                true
+            );
         }
     }
 }

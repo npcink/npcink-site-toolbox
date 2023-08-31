@@ -91,6 +91,8 @@ export type StyleAspect = {
   particle: boolean; //粒子特效
   screen_hair: boolean; //屏幕上的毛
   site_grey: boolean; //网站变灰
+  lantern:boolean;//灯笼效果
+  sakura:boolean;//樱花效果
 };
 
 //权限 禁用
