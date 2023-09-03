@@ -13,14 +13,13 @@ if (!class_exists('MaMi_Auxiliary_Index')) {
         {
             //加载文件
             self::load();
-            //获取选项 - 辅助功能
-            // $auxiliary =  MaMi_Admin::get_config($config, 'auxiliary');
+
+            //获取选项
             self::$auxiliary = $auxiliary;
 
             //加载文章统计
             $single_count = MaMi_Admin::get_config($auxiliary, 'single_count');
             if ($single_count) {
-
                 Magick_Mixtrue_Census_Single::run();
             }
 
@@ -36,6 +35,12 @@ if (!class_exists('MaMi_Auxiliary_Index')) {
             $login_code = MaMi_Admin::get_config($auxiliary, 'login_code');
             if ($login_code !== "false") {
                 MaMi_Login_Verify::run($login_code);
+            }
+
+            //跳转中间页
+            $go_middle = MaMi_Admin::get_config($auxiliary, 'go_middle');
+            if ($go_middle !== "false") {
+                add_action('init', array(__CLASS__, 'go_to_new_link'));
             }
         }
         //加载文件
@@ -70,6 +75,50 @@ if (!class_exists('MaMi_Auxiliary_Index')) {
                     }
                 }
             }
+        }
+
+        /**
+         * 跳转中间页
+         */
+        public static function go_to_new_link()
+        {
+            // 检查是否已经存在自定义页面
+            $page_slug = 'gotos'; //链接
+            $config = 'my_custom_plugin_page_zhihu-aa'; //唯一标识
+            $existing_page_id = get_option($config);
+
+            if ($existing_page_id) {
+                return; // 页面已经存在，不执行后续操作
+            }
+
+            // 创建新页面
+            $page_title = '禁止删除：外链跳转中间页专用 - 知乎(编辑此页无效果)';
+            $page_content = 'hello';
+
+            $page = array(
+                'post_title'   => $page_title,
+                'post_content' => $page_content,
+                'post_status'  => 'publish',
+                'post_type'    => 'page',
+                'post_name'    => $page_slug
+            );
+
+            // 添加页面，并获取页面ID
+            $page_id = wp_insert_post($page);
+
+            // 设置页面模板为无效模板，以避免外部访问该页面
+            update_post_meta($page_id, '_wp_page_template', 'invalid-template.php');
+
+            // 隐藏页面在页面管理中的显示选项
+            $page_data = array(
+                'ID'          => $page_id,
+                'post_type'   => 'page',
+                'post_status' => 'publish'
+            );
+            wp_update_post($page_data);
+
+            // 存储页面ID
+            update_option($config, $page_id);
         }
     }
 }
