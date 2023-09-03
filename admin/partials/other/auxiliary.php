@@ -47,11 +47,11 @@ if (!class_exists('MaMi_Auxiliary_Index')) {
                 add_filter('get_comment_text', array(__CLASS__, 'the_content_nofollowss'), 999);
 
                 //添加重定向
-                register_activation_hook(__FILE__, array(__CLASS__, 'go_to_new_link'));
-                add_action('init', array(__CLASS__, 'go_to_new_link'));
+                register_activation_hook(__FILE__, array(__CLASS__, 'go_new_link'));
+                add_action('init', array(__CLASS__, 'go_new_link'));
 
                 //行动
-                add_action('template_redirect', array(__CLASS__, 'go_to_new_link_move'));
+                add_action('template_redirect', array(__CLASS__, 'go_new_link_move'));
             }
         }
         //加载文件
@@ -97,21 +97,35 @@ if (!class_exists('MaMi_Auxiliary_Index')) {
          */
         public static function the_content_nofollowss($content)
         {
-            preg_match_all('/<a(.*?)href="(.*?)"(.*?)>/', $content, $matches);
-            if ($matches) {
-                foreach ($matches[2] as $val) {
-                    if (strpos($val, '://') !== false && strpos($val, home_url()) === false && !preg_match('/\.(jpg|jepg|png|ico|bmp|gif|tiff)/i', $val)) {
-                        $new_link = home_url() . '/go_to/?url=' . $val;
-                        $replacement = "href=\"$new_link\" rel=\"external nofollow\" target=\"_blank\"";
-                        $content = str_replace("href=\"$val\"", $replacement, $content);
-                    }
+            $pattern = '/<a(.*?)href="(.*?)"(.*?)>(.*?)<\/a>/';
+            $content = preg_replace_callback($pattern, function($matches) {
+                $url = $matches[2];
+                if (strpos($url, '://') !== false && strpos($url, home_url()) === false && !preg_match('/\.(jpg|jpeg|png|ico|bmp|gif|tiff)/i', $url)) {
+                    $new_link = home_url('/go_to/?url=' . urlencode($url));
+                    $replacement = '<a' . $matches[1] . 'href="' . $new_link . '"' . $matches[3] . ' rel="external nofollow" target="_blank">' . $matches[4] . '</a>';
+                    return $replacement;
                 }
-            }
+                return $matches[0];
+            }, $content);
+            
+            // 处理纯链接内容
+            $content = preg_replace_callback('/(https?:\/\/[^\s]+)/i', function($matches) {
+                $url = $matches[1];
+                if (strpos($url, home_url()) === false && !preg_match('/\.(jpg|jpeg|png|ico|bmp|gif|tiff)/i', $url)) {
+                    $new_link = home_url('/go_to/?url=' . urlencode($url));
+                    $replacement = '<a href="' . $new_link . '" rel="external nofollow" target="_blank">' . $url . '</a>';
+                    return $replacement;
+                }
+                return $matches[0];
+            }, $content);
+
+            
+        
             return $content;
         }
         //注册
 
-        public static function go_to_new_link()
+        public static function go_new_link()
         {
             add_rewrite_rule(
                 'go_to', // 设置你的链接格式，例如 /too/
@@ -125,7 +139,7 @@ if (!class_exists('MaMi_Auxiliary_Index')) {
         /**
          * 行动
          */
-        public static  function go_to_new_link_move()
+        public static  function go_new_link_move()
         {
             global $wp;
             //跳转中间页
