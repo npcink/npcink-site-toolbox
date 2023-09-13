@@ -151,6 +151,7 @@ const App: React.FC = () => {
               { value: "shimo", label: "石墨文档" },
               { value: "jianshu", label: "简书" },
               { value: "csdn", label: "CSDN" },
+              { value: "wx_community", label: "微信社区" },
             ]}
           />
         </Form.Item>

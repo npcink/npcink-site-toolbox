@@ -17,12 +17,20 @@ include plugin_dir_path((__FILE__)) . 'index.php'; // 获取数据
     <title><?php echo $site_name ?> - 安全中心</title>
     <link rel="shortcut icon" href="<?php echo $favicon_url ?>" type="image/x-icon">
     <style>
-
+        .box {
+            text-align: center;
+            margin-top: 30px;
+            margin-bottom: 30px;
+            font-weight: 400;
+        }
     </style>
 </head>
 
 <body>
-
+    <div class="box">
+        您即将离开<?php echo $site_name ?>，
+        <a href="<?php echo esc_url($external_url); ?>" target="_self">继续前往</a>
+    </div>
 </body>
 
 </html>
