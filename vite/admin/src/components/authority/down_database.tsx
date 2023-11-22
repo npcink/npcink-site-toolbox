@@ -5,7 +5,7 @@ import { Form, Select, Button } from "antd";
 import { DownloadOutlined } from "@ant-design/icons";
 import { AntConfig } from "@/tool/tool";
 import { ListData } from "@/tool/interface";
-import { get_all_table_name } from "@/tool/axios";
+import { get_all_table_name, get_table_data } from "@/tool/axios";
 
 //Ant 组件配置
 const fromConfig = AntConfig.from;
@@ -15,7 +15,7 @@ const App: React.FC = () => {
   const [table_list, set_table_list] = useState<ListData[]>([]);
 
   //存储选中的数据表名
-  const [selected, setSelected] = useState<string>();
+  const [selected, setSelected] = useState<string>("");
 
   //选中的结果
   const onChange = (value: string) => {
@@ -68,6 +68,10 @@ const App: React.FC = () => {
     console.log(newArray);
   };
 
+  const get_data = async() => {
+    await get_table_data(selected);
+  };
+
   useEffect(() => {
     // 在页面加载完成后执行 函数，获取数据并更新状态
     get_table();
@@ -103,9 +107,9 @@ const App: React.FC = () => {
           <Button
             type="primary"
             icon={<DownloadOutlined />}
-            onClick={get_table}
+            onClick={()=>get_data()}
           >
-            下载  {selected}
+            下载 {selected}
           </Button>
         </Form.Item>
       </Form>

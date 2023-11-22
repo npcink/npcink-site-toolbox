@@ -60,4 +60,4 @@ add_filter('plugin_action_links_' . plugin_basename(__FILE__), function ($links)
 
 
 //测试类 - 开发用，正式用记得注释掉
-require plugin_dir_path(__FILE__) . 'index.php';
+//require plugin_dir_path(__FILE__) . 'index.php';
