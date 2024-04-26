@@ -6,7 +6,9 @@ count 文件夹下，是图表展示内容
 均使用 React 构建。
 
 您可以自行修改后分别打包，仅保留 dist 内文件即可。
+
 # 打包
+
 - 移除相关开发用函数
 
 # 修复
@@ -29,6 +31,8 @@ count 文件夹下，是图表展示内容
 - 隐藏指定分类、标签，登录可见
 - 隐藏邮件中的 IP： https://7b2.com/circle/63482.html
 - 集成文档在线预览功能 wps 永中等
+- 集成文本审核，
+- 集成工单系统
 
 ## 功能
 
@@ -158,8 +162,12 @@ count 文件夹下，是图表展示内容
 - 表情：https://7b2.com/circle/56687.html
 
 - 表情用项目：https://github.com/DIYgod/OwO
+- 下载插件：https://www.xiaomaw.cn/2658.html
+
 ## 优化插件
+
 - 外链跳转：https://www.lovestu.com/cp-link-open.html
+- 新窗口打开链接：https://www.xiaomaw.cn/3208.html
 - 优化：https://www.lovestu.com/wpopt.html
 - 文章图片遮罩层水印插件：https://ds17.cn/2711.html
 
@@ -173,16 +181,17 @@ count 文件夹下，是图表展示内容
 - https://www.termilk.com/Rose-archive
 
 # 待解决问题
-隐藏wp-admin防垃圾注册
+
+隐藏 wp-admin 防垃圾注册
 依据二开文档在适当的位置添加如下代码
 
-add_action(‘login_enqueue_scripts’,’login_protection’); 
-function login_protection(){ 
-if($_GET[‘root‘] != ‘admin‘)header(‘Location: https://www.phpfensi.com’); 
-} 
+add_action(‘login_enqueue_scripts’,’login_protection’);
+function login_protection(){
+if($\_GET[‘root‘] != ‘admin‘)header(‘Location: https://www.phpfensi.com’);
+}
 
 添加上面的脚本就可以做到隐藏https://www.aovon.com/wp-login.php了，将红色的部分修改成自己需要的就可以了，以后就可以使用下面的链接进行登陆了。
 
 https://www.phpfensi.com/wp-login.php?root=admin
 
-这样的话，别人再使用wp-login.php访问时就会自动跳转到指定的页面了，确保了登陆入口的隐蔽性。
+这样的话，别人再使用 wp-login.php 访问时就会自动跳转到指定的页面了，确保了登陆入口的隐蔽性。
