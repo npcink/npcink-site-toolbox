@@ -69,8 +69,8 @@ class MaMi_Admin
         //优化设置
         require_once plugin_dir_path(__FILE__) . 'partials/optimize.php';
 
-        //权限设置
-        require_once plugin_dir_path(__FILE__) . 'partials/auxiliary.php';
+        //功能设置
+        require_once plugin_dir_path(__FILE__) . 'partials/function.php';
 
         //h5设置
         require_once plugin_dir_path(__FILE__) . 'partials/h5.php';
@@ -100,9 +100,9 @@ class MaMi_Admin
 
 
         /**
-         * 权限
+         * 功能
          */
-        MaMi_Auxiliary::run();
+        MaMi_Function::run();
 
         /**
          * H5

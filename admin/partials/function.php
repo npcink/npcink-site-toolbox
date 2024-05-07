@@ -3,8 +3,8 @@
 /**
  * 功能
  */
-if (!class_exists('MaMi_Auxiliary')) {
-    class MaMi_Auxiliary
+if (!class_exists('MaMi_Function')) {
+    class MaMi_Function
     {
         public static function run()
         {
@@ -16,6 +16,7 @@ if (!class_exists('MaMi_Auxiliary')) {
             //禁用
             $disable =  MaMi_Admin::get_config($config, 'disable');
             MaMi_Auxiliary_Disable::run($disable);
+            
             //辅助功能
             $auxiliary =  MaMi_Admin::get_config($config, 'auxiliary');
             MaMi_Auxiliary_Index::run($auxiliary);
