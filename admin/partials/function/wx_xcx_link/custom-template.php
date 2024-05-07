@@ -3,24 +3,24 @@
 /**
  * 微信小程序链接引导模版
  */
-$c5_file = 'image/template/wx_one/icon_c5_wx.png';
-$c5 = plugin_dir_url(dirname(__DIR__)) . $c5_file;
+$c5_file = 'image/icon_c5_wx.png';
+$c5 = plugin_dir_url(__FILE__) . $c5_file;
 
-$logo_file = 'image/template/wx_one/icon_wx_logo.png';
-$logo = plugin_dir_url(dirname(__DIR__)) . $logo_file;
+$logo_file = 'image/icon_wx_logo.png';
+$logo = plugin_dir_url(__FILE__) . $logo_file;
 
-$css = plugin_dir_url(dirname(__DIR__)) . 'css/template_one.css';
+$css = plugin_dir_url(__FILE__) . 'template_page.css';
 
 //小程序链接
-$link = MaMi_Wx_Xcx::add_hello_header();
+$link = MaMi_Function_Wx_Xcx_Link::add_hello_header();
 
 //当前页面链接
 $page_url = get_permalink();
 
-$site_url = home_url(); // 获取当前网站的URL
+//$site_url = home_url(); // 获取当前网站的URL
 
 //选项中的网址
-$site = MaMi_Wx_Xcx::get_h5_options_site();
+$site = MaMi_Function_Wx_Xcx_Link::get_h5_options_site();
 ?>
 <!DOCTYPE html>
 <html lang="en">

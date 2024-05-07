@@ -26,7 +26,7 @@ if (!class_exists('MaMi_Function')) {
 
             //微信生成小程序跳转链接
             $wx_xcx =  MaMi_Admin::get_config($config, 'wx_xcx');
-            MaMi_Wx_Xcx::run($wx_xcx);
+            MaMi_Function_Wx_Xcx_Link::run($wx_xcx);
 
             //B2 功能选项
             $b2 =  MaMi_Admin::get_config($config, 'b2');
@@ -45,13 +45,11 @@ if (!class_exists('MaMi_Function')) {
             //辅助功能
             require_once plugin_dir_path(__FILE__) . 'function/auxiliary/index.php';
 
+            //加载微信小程序链接生成
+            require_once plugin_dir_path(__FILE__) . 'function/wx_xcx_link/index.php';
+
             //商城统计页面
             require_once plugin_dir_path(__FILE__) . 'other/block/census-shop.php';
-
-
-
-            //加载微信小程序链接生成
-            require_once plugin_dir_path(__FILE__) . 'other/wx-xcx.php';
         }
     } //end
 }

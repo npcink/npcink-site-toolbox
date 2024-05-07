@@ -4,6 +4,7 @@ import type { TabsProps } from "antd";
 import Optimize from "@/components/optimize/index";
 import Style from "@/components/style/index";
 import Authority from "@/components/authority/index";
+import Login from "@/components/login/index";
 import H5 from "@/components/h5/index";
 
 const items: TabsProps["items"] = [
@@ -24,17 +25,18 @@ const items: TabsProps["items"] = [
   },
   {
     key: "4",
+    label: `登录页`,
+    children: <Login />,
+  },
+  {
+    key: "5",
     label: `H5`,
     children: <H5 />,
   },
 ];
 
 const App: React.FC = () => (
-  <Tabs
-    defaultActiveKey="1"
-    tabPosition="left"
-    items={items}
-  />
+  <Tabs defaultActiveKey="1" tabPosition="left" items={items} />
 );
 
 export default App;

@@ -1,10 +1,10 @@
 <?php
 
 /**
- * 小程序生成链接
+ * 效果：生成微信小程序跳转链接和页面模版
  */
-if (!class_exists('MaMi_Wx_Xcx')) {
-    class MaMi_Wx_Xcx
+if (!class_exists('MaMi_Function_Wx_Xcx_Link')) {
+    class MaMi_Function_Wx_Xcx_Link
     {
         //选项值
         private static $option;
@@ -150,7 +150,7 @@ if (!class_exists('MaMi_Wx_Xcx')) {
 
             $custom_template = get_post_meta(get_queried_object_id(), '_wp_page_template', true);
             if ('custom-template.php' === basename($custom_template)) {
-                $template = plugin_dir_path(__FILE__) . '../block/custom-template.php';
+                $template = plugin_dir_path(__FILE__) . 'custom-template.php';
             }
 
             return $template;
