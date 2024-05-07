@@ -1,29 +1,24 @@
 <?php
 
 /**
- * 禁用
+ * 效果：禁用WordPress更新
+ * 来源：https://www.npc.ink/15932.html
  */
-if (!class_exists('MaMi_Auxiliary_Disable')) {
-    class MaMi_Auxiliary_Disable
+if (!class_exists('Npcink_Ban_Update')) {
+    class Npcink_Ban_Update
     {
-        public static function run($disable)
-        {
-            //禁用更新
-            $renew = MaMi_Admin::get_config($disable, 'renew');
-            if ($renew) {
-                self::run_ban_update();
-            }
-            //未登录模糊文章内图片
-            $no_login_img = MaMi_Admin::get_config($disable, 'no_login_img');
-            if ($no_login_img) {
-                add_action('wp_footer', array(__CLASS__, 'n_yingcang_css'));
-            }
-        }
         /**
-         * 效果：禁用更新
-         * 来源：https://www.npc.ink/15932.html
+         * 执行代码
          */
-        public static function run_ban_update()
+        public static  function run()
+        {
+            self::ban_update();
+        }
+
+        /**
+         * 功能代码
+         */
+        public static function ban_update()
         {
             remove_action('init', 'wp_schedule_update_checks'); // 关闭更新检查定时作业
             wp_clear_scheduled_hook('wp_version_check'); // 移除已有的版本检查定时作业
@@ -40,29 +35,6 @@ if (!class_exists('MaMi_Auxiliary_Disable')) {
             remove_action('load-update.php', 'wp_update_themes');
             remove_action('load-update-core.php', 'wp_update_themes');
             remove_action('admin_init', '_maybe_update_themes');
-        }
-
-
-
-        /**
-         * 未登录模糊文章内图片
-         */
-        public static function n_yingcang_css()
-        {
-            //判断是否登录
-            if (!is_user_logged_in()) {
-                echo '<style>
-                /*仅模糊文章内图片*/
-                .entry-content img {
-                -webkit-filter: blur(10px)!important;
-                  -moz-filter: blur(10px)!important;
-                  -ms-filter: blur(10px)!important;
-                  filter: blur(6px)!important;}
-                  .entry-content img:before{
-                    content:"登录可见";
-                  }
-                  </style>';
-            }
         }
     }
 }

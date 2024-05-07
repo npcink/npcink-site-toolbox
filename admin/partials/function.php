@@ -18,7 +18,7 @@ if (!class_exists('MaMi_Function')) {
 
             //禁用
             $disable =  MaMi_Admin::get_config($config, 'disable');
-            MaMi_Auxiliary_Disable::run($disable);
+            MaMi_Function_Disabled::run($disable);
 
             //辅助功能
             $auxiliary =  MaMi_Admin::get_config($config, 'auxiliary');
@@ -39,11 +39,13 @@ if (!class_exists('MaMi_Function')) {
             //下载指定数据库表内容
             require_once plugin_dir_path(__FILE__) . 'function/download-sql-table.php';
 
+            //禁用
+            require_once plugin_dir_path(__FILE__) . 'function/disabled/index.php';
+
             //商城统计页面
             require_once plugin_dir_path(__FILE__) . 'other/block/census-shop.php';
 
-            //禁用
-            require_once plugin_dir_path(__FILE__) . 'other/disable.php';
+
 
             //加载微信小程序链接生成
             require_once plugin_dir_path(__FILE__) . 'other/wx-xcx.php';
