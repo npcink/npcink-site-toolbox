@@ -3,7 +3,7 @@ import "./App.css";
 //import "./load-styles.css";
 import B2Shop from "@/components/page/b2Shop/index";
 import SingleCount from "@/components/page/singleCount/index";
-import Demo from "@/components/demo";
+import YearList from "@/components/page/yearList";
 import { ConfigProvider } from "antd";
 import zhCN from "antd/locale/zh_CN";
 function App() {
@@ -22,7 +22,7 @@ function App() {
       {/**
        * 年度数据预览
        */}
-      <Demo />
+      <YearList />
     </ConfigProvider>
   );
 }

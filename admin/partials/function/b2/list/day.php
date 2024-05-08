@@ -27,7 +27,7 @@ if (!class_exists('Npcink_B2_Shop_Day')) {
             $current_date = current_time('mysql');
 
             // 计算六个月前的日期
-            $six_months_ago = date('Y-m-d H:i:s', strtotime('-1 months', strtotime($current_date)));
+            $six_months_ago = date('Y-m-d H:i:s', strtotime('-6 months', strtotime($current_date)));
 
             $search = "SELECT DATE(order_date) AS order_date, SUM(order_total) AS total
                 FROM $table_name
@@ -48,7 +48,7 @@ if (!class_exists('Npcink_B2_Shop_Day')) {
             foreach ($results as $result) {
                 $sales_data[] = array(
                     'time' => $result->order_date, //2024-05-04
-                    'total' => number_format((float) $result->total, 2),
+                    'total' => number_format((float) $result->total, 0),
                     'color' => self::getSalesType($result->total)
                 );
             }
@@ -58,17 +58,17 @@ if (!class_exists('Npcink_B2_Shop_Day')) {
         // 定义一个函数，根据销售总额返回对应的类型控制颜色用
         public static function getSalesType($total)
         {
-            if ($total > 500) {
-                return 'green';
-            } elseif ($total > 200) {
-                return 'red';
-            } elseif ($total > 100) {
-                return 'blue';
-            } elseif ($total > 50) {
-                return 'yellow';
+            if ($total > 10000) {
+                return '#fbbf24';
+            } elseif ($total > 5000) {
+                return '#f43f5e';
+            } elseif ($total > 1000) {
+                return '#dc2626';
+            } elseif ($total > 500) {
+                return '#f87171';
             } // 继续添加更多的条件
             else {
-                return 'blank';
+                return '#e2e8f0';
             }
         }
     }

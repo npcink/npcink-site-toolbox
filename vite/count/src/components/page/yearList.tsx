@@ -1,7 +1,7 @@
 import React from "react";
 import { Calendar, CalendarProps, theme } from "antd";
 import type { Dayjs } from "dayjs";
-import { day_data } from "./tool/dataContext";
+import { day_data } from "../tool/dataContext";
 
 //月度
 const getListData = (value: Dayjs) => {
@@ -21,9 +21,12 @@ const dateCellRender = (value: Dayjs) => {
   const listData = getListData(value);
 
   const styles = { "--bgColor": listData?.color } as React.CSSProperties;
+
+  //当前时间大于表格时间为true
+  const switchTime = listData?.time > value.format("YYYY-MM-DD");
   return (
     <div className="calendar-box" style={styles}>
-      <span> {listData?.total}</span>
+      <span> {listData?.total ?? "0"}</span>
     </div>
   );
 };
@@ -62,7 +65,7 @@ const App: React.FC = () => {
 
   return (
     <>
-    <h2>年度销售额</h2>
+      <h2>年度销售额</h2>
       <div style={wrapperStyle}>
         <Calendar cellRender={cellRender} fullscreen={false} />
       </div>
