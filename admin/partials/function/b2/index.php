@@ -2,7 +2,7 @@
 
 /**
  * 商城统计
- * TODO:重写逻辑
+ * TODO:重写逻辑，拆分，销售额的数字可能是好多9
  */
 
 if (!class_exists('Magick_Mixtrue_Census_Shop')) {
@@ -105,7 +105,6 @@ if (!class_exists('Magick_Mixtrue_Census_Shop')) {
             $message .= '<!--准备节点-->';
             $message .= '<div id="mami_b2_shop_count"></div>';
             echo $message;
-            
         }
 
         /**
@@ -223,6 +222,7 @@ if (!class_exists('Magick_Mixtrue_Census_Shop')) {
                         'title' => "总销售额",
                         'data' => $option['latelly']['sale'],
                     ),
+                    'tooltip' => '元',
                 ),
                 array(
                     'title' => "总销售订单(已减退款订单)",
@@ -239,6 +239,7 @@ if (!class_exists('Magick_Mixtrue_Census_Shop')) {
                         'title' => "总退款额",
                         'data' => $option['latelly']['refund'],
                     ),
+                    'tooltip' => '元',
                 ),
                 array(
                     'title' => "总退款订单",
@@ -337,8 +338,8 @@ if (!class_exists('Magick_Mixtrue_Census_Shop')) {
                 //时间
                 $order_seven_total[$t]['time'] = $t;
 
-                //总销售额
-                $order_seven_total[$t]['total'] = $total;
+                //总销售额，保留两位小数
+                $order_seven_total[$t]['total'] = round($total, 2);
 
                 //总销售订单 - 统计筛选后的数组有多少个
                 $order_seven_total[$t]['order'] = count((array) $data);
@@ -384,7 +385,7 @@ if (!class_exists('Magick_Mixtrue_Census_Shop')) {
                 }
 
                 $total_refund_data[$t]['time'] = $t;
-                $total_refund_data[$t]['total'] = $total;
+                $total_refund_data[$t]['total'] = round($total, 2);
                 $total_refund_data[$t]['order'] = count((array) $data);
                 $total_refund_data[$t]['data'] = array_values($data);
             }
