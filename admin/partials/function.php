@@ -30,7 +30,7 @@ if (!class_exists('MaMi_Function')) {
 
             //B2 功能选项
             $b2 =  MaMi_Admin::get_config($config, 'b2');
-            Magick_Mixtrue_Census_Shop::run($b2);
+            Npcink_B2_Shop::run($b2);
         }
 
         //加载文件
