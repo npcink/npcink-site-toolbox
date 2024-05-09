@@ -35,14 +35,13 @@ const App: React.FC = () => {
   //修改表单值
   const onValuesChange = (
     changedValues: Partial<FieldType>,
-    _allValues: FieldType
+    allValues: FieldType
   ) => {
     const updatedValues = {
       ...changedValues,
-      background_left: getHexString(changedValues.background_left || ""),
-      background_right: getHexString(changedValues.background_right || ""),
+      background_left: getHexString(allValues.background_left || ""),
+      background_right: getHexString(allValues.background_right || ""),
     };
-    console.log(updatedValues);
 
     setFormData((prevState) => ({
       ...prevState,

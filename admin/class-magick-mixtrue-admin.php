@@ -71,6 +71,9 @@ class MaMi_Admin
 
         //h5设置
         require_once plugin_dir_path(__FILE__) . 'partials/h5.php';
+
+        //登录页
+        require_once plugin_dir_path(__FILE__) . 'partials/login.php';
     }
 
     /**
@@ -88,7 +91,6 @@ class MaMi_Admin
         // 添加Ajax请求处理函数
         add_action('wp_ajax_save_object_option', array(__CLASS__, 'save_object_option_callback'));
 
-       
         /**
          * 优化
          */
@@ -104,6 +106,11 @@ class MaMi_Admin
          * H5
          */
         MaMi_H5::run();
+
+        /**
+         * 登录页
+         */
+        Npcink_Login::run();
     }
 
 

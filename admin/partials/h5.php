@@ -1,7 +1,7 @@
 <?php
 
 /**
- * 权限 辅助
+ * H5 项目
  */
 if (!class_exists('MaMi_H5')) {
     class MaMi_H5
