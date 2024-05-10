@@ -47,7 +47,7 @@ class Magick_Mixtrue
 
         $this->load_dependencies(); //加载此插件所需的依赖项
         $this->define_admin_hooks(); //注册与后台功能相关的所有挂钩
-        $this->define_public_hooks(); //注册与前台功能相关的所有挂钩
+        //$this->define_public_hooks(); //注册与前台功能相关的所有挂钩
 
     }
 
@@ -88,7 +88,7 @@ class Magick_Mixtrue
          * 负责定义面向公众的所有行为的类
          *现场一侧。
          */
-        require_once plugin_dir_path(dirname(__FILE__)) . 'public/class-magick-mixtrue-public.php';
+        //require_once plugin_dir_path(dirname(__FILE__)) . 'public/class-magick-mixtrue-public.php';
 
         /**
          * 公共工具类

@@ -65,15 +65,23 @@ class MaMi_Admin
 
         //优化设置
         require_once plugin_dir_path(__FILE__) . 'partials/optimize.php';
+        MaMi_Optimize::run();
 
         //功能设置
         require_once plugin_dir_path(__FILE__) . 'partials/function.php';
+        MaMi_Function::run();
 
         //h5设置
         require_once plugin_dir_path(__FILE__) . 'partials/h5.php';
+        MaMi_H5::run();
 
         //登录页
         require_once plugin_dir_path(__FILE__) . 'partials/login.php';
+        Npcink_Login::run();
+
+        //页面设置
+        require_once plugin_dir_path(__FILE__) . 'partials/page.php';
+        Npcink_Page::run();
     }
 
     /**
@@ -90,27 +98,7 @@ class MaMi_Admin
 
         // 添加Ajax请求处理函数
         add_action('wp_ajax_save_object_option', array(__CLASS__, 'save_object_option_callback'));
-
-        /**
-         * 优化
-         */
-        MaMi_Optimize::run();
-
-
-        /**
-         * 功能
-         */
-        MaMi_Function::run();
-
-        /**
-         * H5
-         */
-        MaMi_H5::run();
-
-        /**
-         * 登录页
-         */
-        Npcink_Login::run();
+        
     }
 
 
