@@ -72,7 +72,7 @@ const App: React.FC = () => {
           extra={
             <span>
               默认登录报错信息会透露用户是用户名错误还是密码错误，统一信息后，可改善此情况，
-              <b style={{ color: "red" }}>会影响验证码错误提示！</b>
+              <b style={{ color: "red" }}>会覆盖下方登录验证码错误提示！</b>
             </span>
           }
         >

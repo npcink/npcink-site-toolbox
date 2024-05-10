@@ -9,11 +9,7 @@ if (!class_exists('MaMi_Optimize_Secure')) {
             //获取选项
             $option =  MaMi_Admin::get_config($config, 'secure');
 
-            //统一登录错误信息
-            $replace_login_error = MaMi_Admin::get_config($option, 'replace_login_error');
-            if ($replace_login_error) {
-                add_filter('login_errors', array(__CLASS__, 'remove_default_login_errors'));
-            }
+            
             //修改评论区样式中的管理员信息
             $modify_comment_user = MaMi_Admin::get_config($option, 'modify_comment_user');
             if ($modify_comment_user) {
@@ -27,17 +23,7 @@ if (!class_exists('MaMi_Optimize_Secure')) {
             }
         }
 
-        /**
-         * 作用：覆盖默认登录错误提示信息
-         * 来源：https://rudrastyh.com/wordpress/11-security-steps.html
-         */
-        public static function remove_default_login_errors()
-        {
-            return '<span class="dashicons dashicons-info-outline" style="
-            color: #d63638;
-            margin: 0 6px;
-        "></span>用户名或密码不正确';
-        }
+       
 
         /**
          * 作用：修改评论区样式中的管理员信息

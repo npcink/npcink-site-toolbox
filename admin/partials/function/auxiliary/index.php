@@ -24,11 +24,7 @@ if (!class_exists('MaMi_Function_Auxiliary')) {
                 Npcink_Ban_Malice_Search::run($keyword_arr);
             }
 
-            //登录验证码
-            $login_code = MaMi_Admin::get_config($auxiliary, 'login_code');
-            if ($login_code !== false) {
-                MaMi_Login_Verify::run($login_code);
-            }
+           
 
             //跳转中间页
             $go_middle = MaMi_Admin::get_config($auxiliary, 'go_middle');
@@ -48,8 +44,7 @@ if (!class_exists('MaMi_Function_Auxiliary')) {
             //屏蔽恶意关键词搜索
             require_once plugin_dir_path(__FILE__) . 'ban_malice_search.php';
 
-            //登录添加验证码
-            require_once plugin_dir_path(__FILE__) . 'login_verify.php';
+          
 
             //跳转中间页
             require_once plugin_dir_path(__FILE__) . 'jump_middle_page.php';
