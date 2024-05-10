@@ -2,25 +2,10 @@
 //将拿到的值推送到服务器端
 import { useContext } from "react";
 import axios from "axios";
-import { Button, message,  } from "antd";
+import { Button, message } from "antd";
 import DataContext from "./dataContext";
 
-//开发环境状态
-const state: boolean = import.meta.env.VITE_STATE;
-
-//输出ajaxurl
-function getAjaxurl(): string {
-  if (state) {
-    //开发
-    return import.meta.env.VITE_AJAXURL;
-  } else {
-    //打包
-    return (window as any).ajaxurl;
-  }
-}
-//传值
-const ajaxurl = getAjaxurl();
-
+import { Ajaxurl } from "./dataContext";
 const App: React.FC = () => {
   //提示信息
   const [messageApi, contextHolder] = message.useMessage();
@@ -52,7 +37,7 @@ const App: React.FC = () => {
     params.append("action", "save_object_option");
     params.append("object_data", JSON.stringify(optionObj));
     try {
-      const response = await axios.post(ajaxurl, params);
+      const response = await axios.post(Ajaxurl, params);
 
       if (response.status === 200) {
         //保存成功
@@ -71,11 +56,10 @@ const App: React.FC = () => {
   return (
     <>
       {contextHolder}
-     
-        <Button type="primary" onClick={postData}>
-          保存
-        </Button>
-     
+
+      <Button type="primary" onClick={postData}>
+        保存
+      </Button>
     </>
   );
 };

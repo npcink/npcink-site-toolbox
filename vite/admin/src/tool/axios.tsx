@@ -1,27 +1,13 @@
 //各种请求
 import axios from "axios";
-
-//开发环境状态
-const state: boolean = import.meta.env.VITE_STATE;
-//输出ajaxurl
-function getAjaxurl(): string {
-  if (state) {
-    //开发
-    return import.meta.env.VITE_AJAXURL;
-  } else {
-    //打包
-    return (window as any).ajaxurl;
-  }
-}
-//传值
-const ajaxurl = getAjaxurl();
+import { Ajaxurl } from "./dataContext";
 
 //获取所有数据库表名字
 export const get_all_table_name = async () => {
   const params = new URLSearchParams();
   params.append("action", "get_all_table_names");
   try {
-    const response = await axios.post(ajaxurl, params);
+    const response = await axios.post(Ajaxurl, params);
 
     if (response.status === 200) {
       //保存成功
@@ -61,7 +47,7 @@ export const get_table_data = async (type: string) => {
   params.append("action", "get_table_data");
   params.append("databaseName", type);
   try {
-    const response = await axios.post(ajaxurl, params);
+    const response = await axios.post(Ajaxurl, params);
 
     if (response.status === 200) {
       //保存成功
