@@ -29,6 +29,13 @@ if (!class_exists('Npcink_Page_Comment')) {
                 require_once plugin_dir_path(__FILE__) . 'comment_interval.php';
                 Npcink_Page_Comment_Interval::run($option);
             }
+
+            //评论最少和最多字数
+            $words_number = MaMi_Admin::get_config($option, 'words_number');
+            if ($words_number === true) {
+                require_once plugin_dir_path(__FILE__) . 'limit_word_count.php';
+                Npcink_Comment_Limit_Word_Count::run($option);
+            }
         }
     }
 }

@@ -16,11 +16,7 @@ if (!class_exists('MaMi_Optimize_Comment')) {
 
            
 
-            //评论最少和最多字数
-            $words_number = MaMi_Admin::get_config($option, 'words_number');
-            if ($words_number) {
-                add_filter('preprocess_comment', array(__CLASS__, 'set_comments_length'), 10, 3);
-            }
+          
 
             //禁止纯英文评论
             $english = MaMi_Admin::get_config($option, 'english');
@@ -42,35 +38,7 @@ if (!class_exists('MaMi_Optimize_Comment')) {
 
        
 
-        /**
-         * 效果：评论所需的最少和最多字数
-         * 来源：https://www.npc.ink/17995.html
-         */
-        public static function set_comments_length($commentdata)
-        {
-            $minCommentlength =  MaMi_Admin::get_config(self::$option, 'words_number_min'); //最少字數限制
-            $maxCommentlength = MaMi_Admin::get_config(self::$option, 'words_number_max'); //最多字數限制
-            $pointCommentlength = mb_strlen($commentdata['comment_content'], 'UTF8'); //mb_strlen 1個中文字符當作1個長度
-            if ($pointCommentlength < $minCommentlength) {
-                header("Content-type: text/html; charset=utf-8");
-                $message = '抱歉，您的评论字数过少，请至少输入' . $minCommentlength . '个字（目前字数：' . $pointCommentlength . '个字）';
-                $message = $message . MaMi_Admin::blank_button();
-                wp_die($message);
-
-
-                exit;
-            }
-            if ($pointCommentlength > $maxCommentlength) {
-                header("Content-type: text/html; charset=utf-8");
-                $message = '对不起，您的评论字数过多，请少于' . $maxCommentlength . '个字（目前字数：' . $pointCommentlength . '个字）';
-                $message = $message . MaMi_Admin::blank_button();
-                wp_die($message);
-
-                exit;
-            }
-            return $commentdata;
-        }
-
+       
         /* 作用：禁止纯英文评论
          * 来源：https://www.npc.ink/18129.html
          * */
