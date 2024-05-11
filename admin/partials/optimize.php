@@ -24,11 +24,6 @@ if (!class_exists('MaMi_Optimize')) {
             require_once plugin_dir_path(__FILE__) . 'optimize/medium.php';
             MaMi_Optimize_Medium::run($config);
 
-            /**
-             * 优化 - 评论
-             */
-            require_once plugin_dir_path(__FILE__) . 'optimize/comment.php';
-            MaMi_Optimize_Comment::run($config);
 
             /**
              * 优化 - 安全

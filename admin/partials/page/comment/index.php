@@ -43,6 +43,15 @@ if (!class_exists('Npcink_Page_Comment')) {
                 require_once plugin_dir_path(__FILE__) . 'ban_pure_english.php';
                 Npcink_Comment_Ban_Pure_English::run($option);
             }
+
+              //TODO:想办法先检查评论一次，再检查纯英文
+            //一篇文章只能评论一次
+            $only = MaMi_Admin::get_config($option, 'only');
+            if ($only === true) {
+                require_once plugin_dir_path(__FILE__) . 'only_comment_once.php';
+                Npcink_Comment_Only_Once::run();
+            }
+           
         }
     }
 }

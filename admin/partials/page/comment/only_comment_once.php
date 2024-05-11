@@ -1,47 +1,18 @@
 <?php
-//优化 评论
-if (!class_exists('MaMi_Optimize_Comment')) {
-    class MaMi_Optimize_Comment
+
+/**
+ * 效果：一篇文章只能评论一次，管理员不受影响
+ * 来源：https://www.npc.ink/13477.html
+ */
+
+if (!class_exists('Npcink_Comment_Only_Once')) {
+    class Npcink_Comment_Only_Once
     {
-        //选项值
-        private static $option;
-        //加载
-        public static function run($config)
+        public static function run()
         {
-            //获取选项
-            $option =  MaMi_Admin::get_config($config, 'comment');
-
-            //类内赋值
-            self::$option = $option;
-
-           
-
-          
-
-          
-
-            //TODO:想办法先检查评论一次，再检查纯英文
-            //一篇文章只能评论一次
-            $only = MaMi_Admin::get_config($option, 'only');
-            if ($only) {
-                add_filter('preprocess_comment', array(__CLASS__, 'ludou_only_one_comment'));
-            }
+            add_filter('preprocess_comment', array(__CLASS__, 'ludou_only_one_comment'));
         }
 
-        /**
-         * 优化-评论
-         */
-
-       
-
-       
-     
-
-
-
-        /* 作用：一篇文章只能评论一次，管理员不受影响
-         * 来源：https://www.npc.ink/13477.html
-         * */
         // 获取评论用户的ip，参考wp-includes/comment.php
         public static function ludou_getIP()
         {
@@ -68,5 +39,5 @@ if (!class_exists('MaMi_Optimize_Comment')) {
 
             return $commentdata;
         }
-    } //end
+    }
 }
