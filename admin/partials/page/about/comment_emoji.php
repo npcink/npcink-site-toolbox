@@ -1,52 +1,18 @@
 <?php
-//风格 特效
-if (!class_exists('MaMi_Style_Page')) {
-    class MaMi_Style_Page
+
+/**
+ * 效果：评论区加载表情包
+ * 来源：https://github.com/DIYgod/OwO
+ */
+
+if (!class_exists('Npcink_Page_Comment_Emoji')) {
+    class Npcink_Page_Comment_Emoji
     {
-        //选项值
-        private static $option;
-        //加载
-        public static function run($config)
+        public static function run()
         {
-            //获取选项
-            $option =  MaMi_Admin::get_config($config, 'page');
-
-            //传值
-            self::$option = $option;
-
-
-           
-
-          
-
-
-
-
-          
-
-
-            //评论区添加表情
-            $comment_emote = MaMi_Admin::get_config($option, 'comment_emote');
-            if ($comment_emote) {
-                add_action('wp', array(__CLASS__, 'run_owo'));
-            }
+            add_action('wp', array(__CLASS__, 'run_owo'));
         }
 
-        
-
-
-      
-
-
-       
-
-
-
-
-        /**
-         * 效果：评论区加载表情包
-         * 来源：https://github.com/DIYgod/OwO
-         */
         public static function run_owo()
         {
             /**
