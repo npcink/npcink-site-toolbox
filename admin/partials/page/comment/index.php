@@ -1,11 +1,11 @@
 <?php
 
 /**
- * 其他
+ * 页面 评论
  */
 
-if (!class_exists('Npcink_Page_About')) {
-    class Npcink_Page_About
+if (!class_exists('Npcink_Page_Comment')) {
+    class Npcink_Page_Comment
     {
         public static function run($option)
         {
