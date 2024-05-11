@@ -9,7 +9,7 @@ const bottom = Math.floor(60 * Math.random()),
   rotate = Math.floor(360 * Math.random());
 const foolsEgg = document.createElement("img");
 //添加图片
-foolsEgg.src = image_folder + "hair.png";
+foolsEgg.src = image_url;
 
 foolsEgg.style.position = "fixed";
 foolsEgg.style.bottom = `${bottom}%`;

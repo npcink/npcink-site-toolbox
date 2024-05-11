@@ -27,12 +27,7 @@ if (!class_exists('MaMi_Style_Aspect')) {
         
 
 
-            //屏幕上有根毛
-            $screen_hair = MaMi_Admin::get_config($option, 'screen_hair');
-            if ($screen_hair) {
-
-                add_action('wp_enqueue_scripts', array(__CLASS__, 'screen_hair'));
-            }
+           
 
             /**
              * 网页整体变灰
@@ -71,28 +66,7 @@ if (!class_exists('MaMi_Style_Aspect')) {
 
 
 
-        /**
-         * 屏幕上有根毛
-         */
-        public static function screen_hair()
-        {
-            wp_enqueue_script(
-                MAGICK_MIXTURE_NAME . '_hair',
-                plugin_dir_url(dirname(__DIR__)) . 'js/hair.js',
-                array(),
-                MAGICK_MIXTURE_VERSION,
-                true
-            );
-            // 获取上一层的 image 文件夹路径
-            $image_folder_path =  plugin_dir_url(dirname(__DIR__)) . 'image/';
-
-            //传递路径
-            wp_localize_script(
-                MAGICK_MIXTURE_NAME . '_hair-js',
-                'image_folder',
-                $image_folder_path,
-            );
-        }
+      
 
 
         //网站变灰

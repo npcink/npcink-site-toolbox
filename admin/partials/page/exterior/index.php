@@ -31,6 +31,13 @@ if (!class_exists('Npcink_Page_Exterior')) {
                 require_once plugin_dir_path(__FILE__) . 'add_scroll_bar.php';
                 Npcink_Page_Add_Scroll_Bar::run($scrol);
             }
+
+            //屏幕上有根毛
+            $screen_hair = MaMi_Admin::get_config($option, 'screen_hair');
+            if ($screen_hair === true) {
+                require_once plugin_dir_path(__FILE__) . 'screen_hair.php';
+                Npcink_Page_Screen_Hair::run();
+            }
         }
     }
 }
