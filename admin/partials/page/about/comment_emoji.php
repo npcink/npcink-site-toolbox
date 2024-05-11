@@ -37,7 +37,7 @@ if (!class_exists('Npcink_Page_Comment_Emoji')) {
         {
             wp_enqueue_script(
                 MAGICK_MIXTURE_NAME . '_OwO-js',
-                plugin_dir_url(dirname(__DIR__)) . 'js/OwO.min.js',
+                plugin_dir_url(__FILE__) . 'emoji/OwO.min.js',
                 array(),
                 MAGICK_MIXTURE_VERSION,
                 false
@@ -45,7 +45,7 @@ if (!class_exists('Npcink_Page_Comment_Emoji')) {
 
             wp_enqueue_style(
                 MAGICK_MIXTURE_NAME . '_OwO-css',
-                plugin_dir_url(dirname(__DIR__)) . 'css/OwO.min.css',
+                plugin_dir_url(__FILE__) . 'emoji/OwO.min.css',
                 array(),
                 MAGICK_MIXTURE_VERSION,
                 'all'
@@ -61,7 +61,7 @@ if (!class_exists('Npcink_Page_Comment_Emoji')) {
             $target_id = 'comment';
 
             //拿到表情包用js地址
-            $json_src = plugin_dir_url(dirname(__DIR__)) . 'json/OwO.json';
+            $json_src = plugin_dir_url(__FILE__) . 'emoji/OwO.json';
 ?>
             <script>
                 let $src = '<?php echo $json_src ?>';
