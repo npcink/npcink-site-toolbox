@@ -55,6 +55,15 @@ if (!class_exists('Npcink_Page_Exterior')) {
                 require_once plugin_dir_path(__FILE__) . 'lantern.php';
                 Npcink_Page_Lantern::run($option);
             }
+
+            /**
+             * 添加樱花
+             */
+            $sakura =  MaMi_Admin::get_config($option, 'sakura');
+            if ($sakura === true) {
+                require_once plugin_dir_path(__FILE__) . 'sakura_drops.php';
+                Npcink_Page_Sakura_Drops::run();
+            }
         }
     }
 }
