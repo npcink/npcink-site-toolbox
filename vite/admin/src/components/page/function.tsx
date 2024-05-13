@@ -1,7 +1,7 @@
 //页面 - 功能
 import React from "react";
 import { useState, useContext, useEffect } from "react";
-import { Form, Switch,  Select } from "antd";
+import { Form, Switch, Select } from "antd";
 import DataContext from "@/tool/dataContext";
 import defaultVar from "@/tool/defaultVar";
 import { AntConfig } from "@/tool/tool";
@@ -61,6 +61,40 @@ const App: React.FC = () => {
           <h2>功能</h2>
         </Form.Item>
         <Form.Item<FieldType>
+          label="文章内关键词添加内链"
+          name="add_inks"
+          valuePropName="checked"
+          extra={
+            <>
+              文章内的内容与添加的标签相同，则添加对应标签的链接
+              <a
+                href="https://www.npc.ink/15286.html?=magick-mami"
+                target="_blank"
+              >
+                详细介绍
+              </a>
+            </>
+          }
+        >
+          <Switch />
+        </Form.Item>
+        <Form.Item<FieldType>
+          label="移除文章内超链接"
+          name="remove_single_link"
+          valuePropName="checked"
+          extra={"关闭此选项可恢复"}
+        >
+          <Switch />
+        </Form.Item>
+        <Form.Item<FieldType>
+          label="彩色背景标签云"
+          name="color_tag"
+          valuePropName="checked"
+          extra={"可在小工具中添加圆角彩色背景标签云，前台即可看到效果"}
+        >
+          <Switch />
+        </Form.Item>
+        <Form.Item<FieldType>
           label="外链跳转中间页"
           name="go_middle"
           extra={
@@ -91,14 +125,7 @@ const App: React.FC = () => {
             ]}
           />
         </Form.Item>
-        <Form.Item<FieldType>
-          label="彩色背景标签云"
-          name="color_tag"
-          valuePropName="checked"
-          extra={"可在小工具中添加圆角彩色背景标签云，前台即可看到效果"}
-        >
-          <Switch />
-        </Form.Item>
+       
       </Form>
     </>
   );

@@ -11,7 +11,7 @@ const num: number = 0;
 //优化 站点
 const OptimizeSite = {
   no_escape: boo, //禁止转义
-  add_inks: boo, //关键词自动添加链接
+ 
 };
 
 //优化  媒体
@@ -33,7 +33,7 @@ const OptimizeOther = {
   add_user: boo, //作者筛选
   add_time: boo, //时间筛选
   show_id: boo, //列表显示ID
-  remove_single_link: boo, //移除文章内超链接
+
   add_last_update: boo, //添加最后更新时间
 };
 
@@ -69,7 +69,9 @@ const PageFeature = {
 
 //页面 功能
 const PageFunction = {
+  add_inks: boo, //关键词自动添加链接
   go_middle: "false", //链接跳转中间页
+  remove_single_link: boo, //移除文章内超链接
   color_tag: boo, //彩色标签云特效
 };
 

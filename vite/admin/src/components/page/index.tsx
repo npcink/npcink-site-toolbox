@@ -5,10 +5,10 @@ import Function from "@/components/page/function";
 const App: React.FC = () => {
   return (
     <>
-      <Feature /> {/**外观 */}
-      <Comment /> {/**评论 */}
       <Function />
       {/**功能 */}
+      <Comment /> {/**评论 */}
+      <Feature /> {/**外观 */}
     </>
   );
 };

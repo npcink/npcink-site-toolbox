@@ -10,8 +10,8 @@ interface AntFrom {
 export const AntConfig: AntFrom = {
   //表单配置
   from: {
-    labelCol: 8,
-    wrapperCol: 16,
+    labelCol: 6,
+    wrapperCol: 18,
     maxWidth: 900,
   },
 };

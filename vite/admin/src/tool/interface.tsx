@@ -48,7 +48,7 @@ export interface axiosType {
 //优化 站点
 export type OptimizeSite = {
   no_escape: boolean; //禁止转义
-  add_inks: boolean; //关键词自动添加链接
+  
 };
 
 //优化 媒体
@@ -72,7 +72,7 @@ export type OptimizeOther = {
   add_time: boolean; //时间筛选
   //显示ID
   show_id: boolean; //列表显示ID
-  remove_single_link: boolean; //移除文章内超链接
+
   add_last_update: boolean; //添加最后更新时间
 };
 
@@ -107,7 +107,9 @@ export type PageFeature = {
 };
 
 export type PageFunction = {
+  add_inks: boolean; //关键词自动添加链接
   go_middle: string; //链接跳转中间页
+  remove_single_link: boolean; //移除文章内超链接
   color_tag: boolean; //彩色标签云特效
 };
 

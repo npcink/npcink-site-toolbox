@@ -81,24 +81,7 @@ const App: React.FC = () => {
         >
           <Switch />
         </Form.Item>
-        <Form.Item<FieldType>
-          label="文章内关键词添加内链"
-          name="add_inks"
-          valuePropName="checked"
-          extra={
-            <>
-            文章内的内容与添加的标签相同，则添加对应标签的链接
-            <a
-              href="https://www.npc.ink/15286.html?=magick-mami"
-              target="_blank"
-            >
-              详细介绍
-            </a>
-            </>
-          }
-        >
-          <Switch />
-        </Form.Item>
+       
         
        
       </Form>
