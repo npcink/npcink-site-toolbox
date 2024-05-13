@@ -8,3 +8,6 @@ $site_name = get_bloginfo('name');
 
 //ico图标
 $favicon_url = get_site_icon_url();
+
+//准备路径
+$url = plugin_dir_url(__FILE__) ;

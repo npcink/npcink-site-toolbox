@@ -4,8 +4,7 @@
  */
 
 include plugin_dir_path((__FILE__)) . 'index.php'; // 获取数据
-//准备路径
-$path = plugin_dir_url(__FILE__) . "style.css";
+$url = $url . "ssp.css";
 
 ?>
 <html lang="zh-CN">
@@ -19,7 +18,7 @@ $path = plugin_dir_url(__FILE__) . "style.css";
 
     <title><?php echo $site_name ?> - 安全中心</title>
     <link rel="shortcut icon" href="<?php echo $favicon_url ?>" type="image/x-icon">
-    <link rel="stylesheet" type="text/css" href=<?php echo $path ?>>
+    <link rel="stylesheet" type="text/css" href=<?php echo $url ?>>
 </head>
 
 <body>
@@ -28,15 +27,31 @@ $path = plugin_dir_url(__FILE__) . "style.css";
     -->
     <div class="page__link__wrapper">
         <div class="page__link">
-            <div class="page__header">
-                <img src="otter__go.png" alt="即将离开少数派" width="128">
-            </div>
-            <div class="page__title">即将离开少数派</div>
+
+            <?php
+            if (!empty($favicon_url)) {
+            ?>
+                <div class="page__header">
+                    <img src="<?php echo $favicon_url ?>" alt="即将离开<?php echo $site_name ?>" width="128">
+                </div>
+            <?php
+            }
+            ?>
+
+            <div class="page__title">即将离开<?php echo $site_name ?></div>
             <p class="page__desc">你访问的网站可能包含未知的安全风险，如需继续访问，请手动复制链接访问，并注意保护帐号和隐私信息</p>
             <div id="target" class="page__target">
-                <span>https://github.com/kkkgo/LTSC-Add-MicrosoftStore</span>
+                <span>
+                    <a href="<?php echo esc_url($external_url); ?>" target="_self">
+                        <?php echo  $external_url ?>
+                    </a>
+                </span>
             </div>
-            <div class="btn__wrapper"><button class="btn">继续前往</button></div>
+            <div class="btn__wrapper">
+                <a href="<?php echo esc_url($external_url); ?>" target="_self">
+                    <button class="btn">继续前往</button>
+                </a>
+            </div>
         </div>
 </body>
 
