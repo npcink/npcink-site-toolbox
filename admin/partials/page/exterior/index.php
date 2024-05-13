@@ -17,11 +17,12 @@ if (!class_exists('Npcink_Page_Exterior')) {
             }
 
 
-            //烟花特效
+            //点击特效
             $particle = MaBox_Admin::get_config($option, 'particle', "false");
-            if ($particle === "diffuse") {
+            //有值且不是手机端
+            if ($particle !== false && !wp_is_mobile()) {
                 require_once plugin_dir_path(__FILE__) . 'click_effect.php';
-                Npcink_Page_Add_Click_Effect::run();
+                Npcink_Page_Add_Click_Effect::run($particle);
             }
 
             //汇聚线条
