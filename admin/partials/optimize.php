@@ -25,10 +25,10 @@ if (!class_exists('MaMi_Optimize')) {
             MaMi_Optimize_Medium::run($config);
 
             /**
-             * 优化 - 其他
+             * 优化 - 后台
              */
-            require_once plugin_dir_path(__FILE__) . 'optimize/other.php';
-            MaMi_Optimize_Other::run($config);
+            require_once plugin_dir_path(__FILE__) . 'optimize/admin/index.php';
+            MaMi_Optimize_Admin::run($config);
         }
     }
 }
