@@ -24,10 +24,10 @@ if (!class_exists('Npcink_Page_Exterior')) {
                 Npcink_Page_Add_Fireworks::run();
             }
 
-            //粒子特效
+            //点击特效
             $coupling = MaBox_Admin::get_config($option, 'coupling');
             if ($coupling === true) {
-                require_once plugin_dir_path(__FILE__) . 'add_particle.php';
+                require_once plugin_dir_path(__FILE__) . 'click_effect.php';
                 Npcink_Page_Add_Particle::run();
             }
 

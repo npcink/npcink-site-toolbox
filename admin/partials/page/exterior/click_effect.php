@@ -1,7 +1,7 @@
 <?php
 
 /**
- * 效果：页面添加粒子特效
+ * 效果：也面点击特效
  * 来源：https://blog.csdn.net/weixin_42077074/article/details/121031327
  */
 

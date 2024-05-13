@@ -89,7 +89,7 @@ const App: React.FC = () => {
           </>
         )}
         <Form.Item<FieldType>
-          label="粒子特效"
+          label="点击特效"
           name="particle"
           extra={"考虑到性能以及操作问题，移动端不加载此特效"}
         >
@@ -97,8 +97,11 @@ const App: React.FC = () => {
             style={{ width: "20%" }}
             //TODO:默认值有问题
             options={[
-              { value: "diffuse", label: "四散" },
               { value: "false", label: "禁用" },
+              { value: "diffuse", label: "爆炸粒子" },
+              { value: "text", label: "循环文字" },
+              { value: "number", label: "随机数字" },
+              
             ]}
           />
         </Form.Item>
