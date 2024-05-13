@@ -13,7 +13,7 @@ if (!class_exists('Npcink_Single_Add_Last_Updated_Date')) {
             add_filter('the_content', array(__CLASS__, 'add_last_updated_date'));
         }
 
-        //在更新过的文章和页面结尾添加最后更新时间
+        //在更新过的文章的页面结尾添加最后更新时间
         public static function add_last_updated_date($content)
         {
             $u_time = get_the_time('U'); //发布时间
@@ -21,7 +21,7 @@ if (!class_exists('Npcink_Single_Add_Last_Updated_Date')) {
             $custom_content = '';
             if ($u_modified_time >= $u_time + 86400) {
                 $updated_date = get_the_modified_time('Y-m-d H:i'); //Y-m-d H:i
-                $custom_content .= '<div class="last-updated" style="color: #8590a6;font-size: 14px;">最后编辑于：' . $updated_date . ' </div>';
+                $custom_content .= '<div class="npcink-last-updated">最后编辑于：<span>' . $updated_date . ' </span></div>';
             }
             $content .= $custom_content;
             return $content;
