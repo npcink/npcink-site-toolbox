@@ -15,7 +15,7 @@ if (!class_exists('MaMi_Optimize')) {
             /**
              * 优化 - 站点
              */
-            require_once plugin_dir_path(__FILE__) . 'optimize/site.php';
+            require_once plugin_dir_path(__FILE__) . 'optimize/site/index.php';
             MaMi_Optimize_Site::run($config);
 
             /**

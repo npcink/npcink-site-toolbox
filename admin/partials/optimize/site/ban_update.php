@@ -13,6 +13,10 @@ if (!class_exists('Npcink_Ban_Update')) {
         public static  function run()
         {
             self::ban_update();
+            // 禁止主题自动检查更新
+            //add_filter('http_request_args', array(__CLASS__,'disable_theme_updates'), 10, 2);
+            // 隐藏主题更新提示
+            add_action('admin_init', array(__CLASS__, 'disable_theme_update_notification'));
         }
 
         /**
@@ -35,6 +39,28 @@ if (!class_exists('Npcink_Ban_Update')) {
             remove_action('load-update.php', 'wp_update_themes');
             remove_action('load-update-core.php', 'wp_update_themes');
             remove_action('admin_init', '_maybe_update_themes');
+        }
+
+        public static function disable_theme_updates($r, $url)
+        {
+            if (0 !== strpos($url, 'https://api.wordpress.org/themes/update-check')) {
+                return $r; // 不是主题更新检查请求，直接返回
+            }
+
+            $themes = json_decode($r['body']['themes']);
+            $active_theme = get_option('stylesheet');
+
+            // 移除当前活动主题的更新信息
+            unset($themes->themes->$active_theme);
+
+            $r['body']['themes'] = json_encode($themes);
+            return $r;
+        }
+        
+        public static function disable_theme_update_notification()
+        {
+            remove_action('load-update-core.php', 'wp_update_themes');
+            add_filter('pre_site_transient_update_themes', '__return_null');
         }
     }
 }
