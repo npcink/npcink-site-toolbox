@@ -20,15 +20,15 @@ if (!class_exists('Npcink_Page_Exterior')) {
             //烟花特效
             $particle = MaBox_Admin::get_config($option, 'particle', "false");
             if ($particle === "diffuse") {
-                require_once plugin_dir_path(__FILE__) . 'add_fireworks.php';
-                Npcink_Page_Add_Fireworks::run();
+                require_once plugin_dir_path(__FILE__) . 'click_effect.php';
+                Npcink_Page_Add_Click_Effect::run();
             }
 
-            //点击特效
+            //汇聚线条
             $coupling = MaBox_Admin::get_config($option, 'coupling');
             if ($coupling === true) {
-                require_once plugin_dir_path(__FILE__) . 'click_effect.php';
-                Npcink_Page_Add_Particle::run();
+                require_once plugin_dir_path(__FILE__) . 'convergence_line.php';
+                Npcink_Page_Add_Convergence_Line::run();
             }
 
             //美化滚动条
