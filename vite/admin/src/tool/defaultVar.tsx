@@ -24,7 +24,7 @@ const OptimizeMedium = {
 
 //优化 安全
 const OptimizeSecure = {
-  modify_comment_user: boo, //修改评论区管理员样式ID
+ 
   remove_RSS_version: boo, //从RSS源中删除WordPress版本信息
 };
 
@@ -48,6 +48,7 @@ const PageComment = {
   words_number_max: 120, //最多评论字数
   english: boo, //禁止纯英文评论
   only: boo, //单篇文章仅限评论一次
+  modify_comment_user: boo, //修改评论区管理员样式ID
 };
 
 //页面 - 外观特效

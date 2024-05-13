@@ -61,7 +61,7 @@ export type OptimizeMedium = {
 
 //优化 安全
 export type OptimizeSecure = {
-  modify_comment_user: boolean; //修改评论区管理员样式ID
+
   remove_RSS_version: boolean; //从RSS源中删除WordPress版本信息
 };
 
@@ -87,6 +87,7 @@ export type PageComment = {
   words_number_max: number; //最多评论字数
   english: boolean; //禁止纯英文评论
   only: boolean; //单篇文章仅限评论一次
+  modify_comment_user: boolean; //修改评论区管理员样式ID
 };
 
 //页面 - 外观特效
