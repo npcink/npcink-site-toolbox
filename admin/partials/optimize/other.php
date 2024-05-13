@@ -27,13 +27,9 @@ if (!class_exists('MaMi_Optimize_Other')) {
                 self::filter_time_run();
             }
 
-            //去除文章内的超链接，可复原
-            $remove_single_link = MaMi_Admin::get_config($option, 'remove_single_link');
-            if ($remove_single_link) {
-                add_filter('the_content', array(__CLASS__, 'replace_text_wps'));
-            }
+           
 
-            //去除文章内的超链接，可复原
+            //文章末尾添加最后更新时间
             $add_last_update = MaMi_Admin::get_config($option, 'add_last_update');
             if ($add_last_update) {
                 add_filter('the_content', array(__CLASS__, 'add_last_updated_date'));
@@ -261,12 +257,7 @@ if (!class_exists('MaMi_Optimize_Other')) {
 <?php
         }
 
-        //移除文章内超链接
-        public static function replace_text_wps($text)
-        {
-            $text = preg_replace("/<a[^>]*>(.*?)<\/a>/is", "$1", $text);
-            return $text;
-        }
+       
 
         //在更新过的文章和页面结尾添加最后更新时间
         public static function add_last_updated_date($content)
