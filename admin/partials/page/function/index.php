@@ -36,6 +36,14 @@ if (!class_exists('Npcink_Page_Function')) {
                 Npcink_Single_Add_Last_Updated_Date::run();
             }
 
+            //未登录模糊文章内图片
+            $no_login_img = MaMi_Admin::get_config($option, 'no_login_img');
+            if ($no_login_img === true) {
+                //未登录模糊文章内图片
+                require_once plugin_dir_path(__FILE__) . 'unlisted_vague_img.php';
+                Npcink_Unlisted_Vague_Img::run();
+            }
+
             //跳转中间页
             $go_middle = MaMi_Admin::get_config($option, 'go_middle');
             if ($go_middle !== false) {

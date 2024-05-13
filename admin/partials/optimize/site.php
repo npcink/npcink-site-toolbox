@@ -16,6 +16,14 @@ if (!class_exists('MaMi_Optimize_Site')) {
                 add_filter('run_wptexturize', '__return_false');
             };
 
+            //禁用自动更新
+            $renew = MaMi_Admin::get_config($option, 'renew');
+            if ($renew === true) {
+                //禁用自动更新
+                require_once plugin_dir_path(__FILE__) . 'ban_update.php';
+                Npcink_Ban_Update::run();
+            }
+
 
             //从RSS源和网站中删除WordPress版本
             $remove_RSS_version = MaMi_Admin::get_config($option, 'remove_RSS_version');

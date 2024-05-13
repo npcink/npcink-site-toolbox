@@ -82,7 +82,7 @@ const App: React.FC = () => {
           <Switch />
         </Form.Item>
         <Form.Item<FieldType>
-          label="禁用更新"
+          label="禁用自动更新"
           name="renew"
           valuePropName="checked"
           extra={"WordPress、主题和插件不再提示更新"}
