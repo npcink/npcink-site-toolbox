@@ -1,0 +1,85 @@
+.app_container {
+  position: relative;
+}
+
+.body {
+  width: 100%;
+  padding-bottom: 31px;
+  box-sizing: border-box;
+  min-height: 821px;
+}
+
+.container_box {
+  max-width: 1140px;
+  min-width: 960px;
+  margin: 0 auto;
+  min-height: 700px;
+}
+
+.container_unknow_link {
+  padding-top: 80px;
+  text-align: center;
+}
+
+.container_unknow_link .ic_unknow {
+  display: inline-block;
+  width: 150px;
+  height: 150px;
+  margin: 0 auto;
+  text-align: center;
+  background: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNzIiIGhlaWdodD0iNzIiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj48cGF0aCBkPSJNNzIgMzYuNDQ0QzcyIDE2LjExNyA1NS44ODMgMCAzNS41NTYgMCAxNi4xMTcgMCAwIDE2LjExNyAwIDM2LjQ0NCAwIDU1Ljg4MyAxNi4xMTcgNzIgMzUuNTU2IDcyIDU1Ljg4MyA3MiA3MiA1NS44ODMgNzIgMzYuNDQ0eiIgZmlsbD0iIzEwQUVGRiIvPjxwYXRoIGQ9Ik0zNi40ODggNTQuMjg0aC0uOTc2YTIuMDQyIDIuMDQyIDAgMCAwIDIuMDM4LTEuOTk3bC40MjYtMjIuMDA2YTEuOTQ5IDEuOTQ5IDAgMCAwLTEuOTUyLTEuOTk3aC0uMDQ4YTEuOTUgMS45NSAwIDAgMC0xLjk1MiAxLjk5N2wuNDI2IDIyLjAwNmEyLjA0NiAyLjA0NiAwIDAgMCAyLjAzOCAxLjk5N3pNMzYgMTguMjYxYTMgMyAwIDEgMCAwIDYgMyAzIDAgMCAwIDAtNnoiIGZpbGw9IiNGRkYiLz48L2c+PC9zdmc+)
+    no-repeat 50%;
+  background-size: cover;
+}
+
+.container_unknow_link .text_area_title {
+  text-align: center;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  font-weight: 400;
+}
+
+.container_unknow_link .text_area {
+  display: inline-block;
+}
+
+.container_unknow_link .text_area .text_area_desc {
+  text-align: left;
+}
+
+@media only screen and (max-width: 959px) {
+  .app_container {
+    color: rgba(0, 0, 0, 0.9);
+    font-size: 14px;
+  }
+
+  .app_container .body {
+    padding-top: 16px;
+    padding-bottom: 0;
+  }
+
+  .app_container .body .container_box {
+    width: auto;
+    min-width: 0;
+    min-height: 0;
+  }
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  color: #576b95;
+  text-decoration: none;
+}
+
+body {
+  line-height: 1.6;
+  font-family: -apple-system-font, BlinkMacSystemFont, Helvetica Neue,
+    PingFang SC, Hiragino Sans GB, Microsoft YaHei UI, Microsoft YaHei, Arial,
+    sans-serif;
+  font-size: 14px;
+  background-color: hsla(0, 0%, 100%, 0);
+}

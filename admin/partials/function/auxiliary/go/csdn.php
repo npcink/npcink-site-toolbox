@@ -1,6 +1,6 @@
 <?php
 /*
- Go中间页跳转 - 演示
+ Go中间页跳转 - CSDN
  */
 
 include plugin_dir_path((__FILE__)) . 'index.php'; // 获取数据
@@ -16,7 +16,7 @@ include plugin_dir_path((__FILE__)) . 'index.php'; // 获取数据
 
     <title><?php echo $site_name ?> - 安全中心</title>
     <link rel="shortcut icon" href="<?php echo $favicon_url ?>" type="image/x-icon">
-    <link rel="stylesheet" type="text/css" href=<?php echo $url . "css/csdn.css" ?>>
+    <link rel="stylesheet" type="text/css" href=<?php echo $url . "csdn.css" ?>>
 </head>
 
 <body>

@@ -10,4 +10,4 @@ $site_name = get_bloginfo('name');
 $favicon_url = get_site_icon_url();
 
 //准备路径
-$url = plugin_dir_url(__FILE__) ;
+$url = plugin_dir_url(__FILE__)."css/" ;

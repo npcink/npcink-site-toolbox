@@ -4,7 +4,6 @@
  */
 
 include plugin_dir_path((__FILE__)) . 'index.php'; // 获取数据
-$url = $url . "css/ssp.css";
 
 ?>
 <html lang="zh-CN">
@@ -18,7 +17,7 @@ $url = $url . "css/ssp.css";
 
     <title><?php echo $site_name ?> - 安全中心</title>
     <link rel="shortcut icon" href="<?php echo $favicon_url ?>" type="image/x-icon">
-    <link rel="stylesheet" type="text/css" href=<?php echo $url ?>>
+    <link rel="stylesheet" type="text/css" href=<?php echo $url . "ssp.css" ?>>
 </head>
 
 <body>
