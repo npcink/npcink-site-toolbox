@@ -236,12 +236,12 @@ const App: React.FC = () => {
           <Switch />
         </Form.Item>
         <Form.Item<FieldType>
-          label="页脚添加已读完的书"
+          label="已读完的书"
           name="past_books"
           valuePropName="checked"
           extra={
             <>
-              统计您撰写的文章总字数，相当于那本书。
+              页脚添加，统计您撰写的文章总字数，相当于那本书。
               <a href="https://www.npc.ink/276901.html" target="_blank">
                 详细信息
               </a>
@@ -249,6 +249,25 @@ const App: React.FC = () => {
           }
         >
           <Switch />
+        </Form.Item>
+        <Form.Item<FieldType>
+          label="复制弹窗"
+          name="copy_pop_up"
+          extra={
+            <>
+             复制文本时进行弹窗提示
+             
+            </>
+          }
+        >
+          <Select
+            style={{ width: "20%" }}
+            //TODO:默认值有问题
+            options={[
+              { value: "false", label: "禁用" },
+              { value: "sweetalert", label: "通用圆角" },
+            ]}
+          />
         </Form.Item>
       </Form>
     </>

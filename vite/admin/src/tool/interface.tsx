@@ -94,6 +94,7 @@ export type PageFeature = {
   lantern_right: string; //右边的字
   sakura: boolean; //樱花效果
   past_books: boolean; //已写完的书
+  copy_pop_up: string; //鼠标点击复制弹窗
 };
 
 //页面 - 功能

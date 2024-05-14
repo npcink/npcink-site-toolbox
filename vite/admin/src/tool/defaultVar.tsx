@@ -58,6 +58,7 @@ const PageFeature = {
   lantern_right: "节", //右边的字
   sakura: boo, //樱花效果
   past_books: boo, //已写完的书
+  copy_pop_up:"false",//鼠标点击复制弹窗
 };
 
 //页面 功能
