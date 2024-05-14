@@ -1,20 +1,23 @@
 <?php
 /*
- Go中间页跳转 - CSDN
+ 暂停页模版
  */
 
 include plugin_dir_path((__FILE__)) . 'index.php'; // 获取数据
 ?>
-<!DOCTYPE html>
-<html lang="zh-CN">
+<!doctype html>
+<html <?php language_attributes(); ?>>
 
 <head>
-  <title>敬请期待 - Npcink</title>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta charset="<?php bloginfo('charset'); ?>" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <?php wp_head(); ?>
 </head>
 
-<body>
+<body <?php body_class(); ?>>
+  <?php wp_body_open(); ?>
+
+
   <!--复制开始-->
   <!--
 	版本：1.0
@@ -26,9 +29,9 @@ include plugin_dir_path((__FILE__)) . 'index.php'; // 获取数据
 
   <style>
     .waitimg {
-     
+
       background: url(<?php echo $url_image . '/popure/wait.png' ?>) center no-repeat;
-     
+
     }
 
     @media screen and (min-width: 750px) {
@@ -39,7 +42,9 @@ include plugin_dir_path((__FILE__)) . 'index.php'; // 获取数据
   </style>
   <div class="main">
     <div class="waitimg">
+      <!--
       <div class="beian">鄂ICP备18019477号</div>
+  -->
     </div>
   </div>
 

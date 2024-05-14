@@ -153,10 +153,11 @@ const App: React.FC = () => {
             style={{ width: 200 }}
             options={[
               { value: "false", label: "禁用" },
-              { value: "default", label: "默认" },
+              { value: "default", label: "默认简洁" },
+              { value: "default_img", label: "默认带图" },
               { value: "red", label: "红色纯粹" },
               { value: "purple", label: "紫色期待" },
-              { value: "pink", label: "粉爪小猫" },
+              { value: "lighting", label: "灯光聚焦" },
               { value: "running_plan", label: "跑路计划" },
             ]}
           />
