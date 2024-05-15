@@ -1,5 +1,10 @@
 <?php
 //简单SEO
+/**
+ * 效果：
+ * TODO: 检查，是否已存在相关标签，存在的则不添加
+ * TODO: 分类、标签、文章、页面、等，添加TDK
+ */
 if (!class_exists('Npcink_Easy_Seo')) {
     class Npcink_Easy_Seo
     {
