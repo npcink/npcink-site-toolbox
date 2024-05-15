@@ -40,7 +40,7 @@ const App: React.FC = () => {
               <HeaderBlock />
             </Header>
           </Affix>
-          <Content>
+          <Content className="mabox_content">
             <Tab />
           </Content>
           <Footer style={footerStyle}>

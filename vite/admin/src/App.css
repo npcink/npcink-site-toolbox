@@ -34,5 +34,11 @@
 }
 
 .MaBox_option {
-  max-width: 900px;
+  width: 900px;
+  margin: 0 auto;
+  padding-top: 2em;
+}
+
+.mabox_content{
+  margin-top: 1em;
 }

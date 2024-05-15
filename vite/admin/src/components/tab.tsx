@@ -6,6 +6,7 @@ import Page from "@/components/page/index";
 import Authority from "@/components/authority/index";
 import Login from "@/components/login/index";
 import H5 from "@/components/h5/index";
+import About from "@/components/about/index";
 
 const items: TabsProps["items"] = [
   {
@@ -32,6 +33,11 @@ const items: TabsProps["items"] = [
     key: "5",
     label: `H5`,
     children: <H5 />,
+  },
+  {
+    key: "6",
+    label: `关于`,
+    children: <About />,
   },
 ];
 
