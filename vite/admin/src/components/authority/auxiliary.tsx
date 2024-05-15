@@ -124,7 +124,6 @@ const App: React.FC = () => {
               </a>
               → 代码管理（左侧） → 代码获取 → 获取代码 →
               复制代码贴入输入框中并保存即可
-              <pre className="pre-meat">输入其他来源代码可能造成安全风险</pre>
             </p>
           }
         >
@@ -135,7 +134,19 @@ const App: React.FC = () => {
           name="google_tonji"
           getValueFromEvent={extract}
           extra={
-            '示例：<meta name="google-site-verification" content="HB..." />'
+            <p>
+              <a
+                href="https://search.google.com/search-console/about"
+                target="_blank"
+              >
+                谷歌统计
+              </a>
+              ：
+              <pre className="pre-meat">
+                &lt;meta name="google-site-verification" content="HB..." /&gt;
+              </pre>
+              '
+            </p>
           }
         >
           <Input />
@@ -144,7 +155,18 @@ const App: React.FC = () => {
           label="必应统计"
           name="biying_tonji"
           getValueFromEvent={extract}
-          extra={'示例：<meta name="msvalidate.01" content="CF..." />'}
+          extra={
+            <p>
+              <a href="https://www.bing.com/webmasters" target="_blank">
+                必应统计
+              </a>
+              ：
+              <pre className="pre-meat">
+                &lt;meta name="msvalidate.01" content="CF..." /&gt;
+              </pre>
+              '
+            </p>
+          }
         >
           <Input />
         </Form.Item>
