@@ -63,13 +63,3 @@ add_filter('plugin_action_links_' . plugin_basename(__FILE__), function ($links)
 //测试类 - 开发用，正式用记得注释掉
 //require plugin_dir_path(__FILE__) . 'index.php';
 
-add_action('init', 'get_head_content_once');
-
-function get_head_content_once()
-{
-        ob_start(); // 开始输出缓存
-        wp_head(); // 输出 <head> 标签内容到缓存
-        $head_content = ob_get_clean(); // 获取缓存内容并清空缓存
-        $default_value = strpos($head_content, '<meta name="description"') !== false;
-        printf('<script>console.log(%s)</script>', json_encode($default_value));
-}
