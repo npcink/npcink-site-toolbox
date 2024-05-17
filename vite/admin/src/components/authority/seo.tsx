@@ -1,7 +1,7 @@
 //权限 - 辅助功能
 import React from "react";
 import { useState, useContext, useEffect } from "react";
-import { Form, Input } from "antd";
+import { Form, Input, Switch } from "antd";
 import DataContext from "@/tool/dataContext";
 import { FunctionSeo } from "@/tool/interface";
 import defaultVar from "@/tool/defaultVar";
@@ -67,11 +67,35 @@ const App: React.FC = () => {
         <Form.Item<FieldType> label="标题" name="title" extra={"站点标题"}>
           <Input />
         </Form.Item>
-        <Form.Item<FieldType> label="关键词" name="keywords" extra={"网站相关关键词，用英文逗号分隔，建议不超过6个词"}>
+        <Form.Item<FieldType>
+          label="关键词"
+          name="keywords"
+          extra={"网站相关关键词，用英文逗号分隔，建议不超过6个词"}
+        >
           <Input />
         </Form.Item>
-        <Form.Item<FieldType> label="描述" name="description" extra={"关于网站的描述，建议240字以内"}>
+        <Form.Item<FieldType>
+          label="描述"
+          name="description"
+          extra={"关于网站的描述，建议240字以内"}
+        >
           <TextArea rows={4} />
+        </Form.Item>
+        <Form.Item<FieldType>
+          label="文章SEO"
+          name="single_seo"
+          valuePropName="checked"
+          extra={<p>title是文章标题，keywords是文章标签，description是文章描述</p>}
+        >
+          <Switch />
+        </Form.Item>
+        <Form.Item<FieldType>
+          label="分类和标签SEO"
+          name="category_seo"
+          valuePropName="checked"
+          extra={<p>title 是分类名称，keywords 是分类名称，description 是分类描述</p>}
+        >
+          <Switch />
         </Form.Item>
       </Form>
     </>

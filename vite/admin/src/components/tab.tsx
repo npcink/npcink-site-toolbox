@@ -11,6 +11,11 @@ import About from "@/components/about/index";
 const items: TabsProps["items"] = [
   {
     key: "1",
+    label: `功能`,
+    children: <Authority />,
+  },
+  {
+    key: "3",
     label: `优化`,
     children: <Optimize />,
   },
@@ -19,11 +24,7 @@ const items: TabsProps["items"] = [
     label: `页面`,
     children: <Page />,
   },
-  {
-    key: "3",
-    label: `功能`,
-    children: <Authority />,
-  },
+
   {
     key: "4",
     label: `登录页`,

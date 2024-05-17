@@ -81,7 +81,7 @@ const AuthorityAuxiliary = {
   baidu_tonji: str, //  百度统计
   google_tonji: str, // 谷歌统计
   biying_tonji: str, // 必应统计
-  uniqueKey:0,
+  uniqueKey: 0,
 };
 
 //权限控制 b2
@@ -105,6 +105,8 @@ const FunctionSeo = {
   title: str, //网站标题
   keywords: str, //网站关键字
   description: str, //网站描述
+  single_seo: boo, //文章SEO
+  category_seo: boo, //分类和标签SEO
 };
 
 // H5 首页

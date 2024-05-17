@@ -7,11 +7,12 @@ import Seo from "@/components/authority/seo";
 const App: React.FC = () => {
   return (
     <>
+      <Seo />
       {/**下载指定数据库表内容 */}
       <DownDatabase />
       {/**辅助功能 */}
       <Auxiliary />
-      <Seo />
+    
       {/**微信小程序链接 */}
       <Wx_xcx_link />
       {/**B2功能 */}
