@@ -74,10 +74,11 @@ const App: React.FC = () => {
 
     console.log(formData);
   };
-
+  const [form] = Form.useForm();
   return (
     <>
       <Form
+        form={form}
         name="auxiliary"
         labelCol={{ span: fromConfig.labelCol }}
         wrapperCol={{ span: fromConfig.wrapperCol }}
@@ -178,7 +179,7 @@ const App: React.FC = () => {
             </p>
           }
         >
-          <BiYing />
+          <BiYing tongji_reset={tongji_reset} form={form} />
         </Form.Item>
         <Form.Item>
           <Button type="primary" htmlType="submit" onClick={tongji_reset}>
@@ -195,10 +196,10 @@ const BiYing = (props: any) => {
   const inputRef = useRef(null);
 
   const resetInputValue = () => {
-    if (inputRef.current) {
-      // 如果输入框引用存在，则清空输入框的值
-      (inputRef.current as any).input.value = "";
-    }
+    props.form.resetFields(["biying_tonji"]); // 重置指定字段的值
+    // 如果输入框引用存在，则清空输入框的值
+
+    props.tongji_reset();
   };
 
   return (
