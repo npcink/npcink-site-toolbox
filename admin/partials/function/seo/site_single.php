@@ -8,24 +8,23 @@
 if (!class_exists('Npcink_Seo_Single')) {
     class Npcink_Seo_Single
     {
-        private static $description;
-        private static $keywords;
+
         public static function run()
         {
-            add_action('wp', array(__CLASS__, 'single_seo'));
-           
+            add_action('wp_head', array(__CLASS__, 'single_seo'), 1);
         }
 
-       
+
         public static function single_seo()
         {
+            //是文章
             if (is_singular()) {
                 //文章ID
                 //拿到文章的描述，关键词
-                $description = get_the_excerpt();
-                if (empty($description)) {
-                    $description = get_post_meta(get_the_ID(), 'custom_description_field', true);
-                }
+                $description_data = get_the_excerpt();
+               
+                $description = mb_substr($description_data, 0, 55, 'utf-8'); //只取前40个字
+
                 //拿到文章的关键词
                 $tags = get_the_tags();
                 $keywords = '';
@@ -36,18 +35,13 @@ if (!class_exists('Npcink_Seo_Single')) {
                     $keywords = rtrim($keywords, ', '); // 去除最后一个逗号和空格
                 }
 
-                self::$keywords = $keywords;
-                self::$description = $description;
-                
-                require_once plugin_dir_path(__FILE__) . 'site_keywords.php'; // 确保文件正确加载
-                Npcink_Seo_Site_Keywords::run($keywords);
+                //echo $description . $keywords;
 
-                echo self::$keywords;
-
-              
+                echo '<meta name="keywords" content="' . $keywords . '" />';
+                echo "\n";
+                echo '<meta name="description" content="' . $description . '" />';
+                echo "\n";
             }
         }
-
-       
     }
 }
