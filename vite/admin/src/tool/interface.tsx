@@ -110,6 +110,7 @@ export type PageFunction = {
   maintenance_tips: string; //维护提示
   countdown: string; //维护结束倒计时
   countdown_title: string; //维护标题
+  countdown_image: string; //维护图片
   countdown_content: string; //维护内容
 };
 

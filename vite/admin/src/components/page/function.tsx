@@ -204,6 +204,9 @@ const App: React.FC = () => {
             <Form.Item label="倒计时标题" name="countdown_title">
               <Input />
             </Form.Item>
+            <Form.Item label="倒计时图片" name="countdown_image"extra={<>不同模版位置不一样，请手动确认效果</>}>
+              <Input />
+            </Form.Item>
             <Form.Item
               label="倒计时内容"
               name="countdown_content"

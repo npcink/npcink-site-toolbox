@@ -18,5 +18,10 @@ $config = MaBox_Admin::get_seting('page');
 $function =  MaBox_Admin::get_config($config, 'function');
 //标题
 $countdown_title =  MaBox_Admin::get_config($function, 'countdown_title');
+
+//图片
+$countdown_image =  MaBox_Admin::get_config($function, 'countdown_image');
+/*<img src="<?php echo $countdown_image; ?>"/>*/
+
 //内容
 $countdown_content =  MaBox_Admin::get_config($function, 'countdown_content');
