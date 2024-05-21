@@ -51,17 +51,6 @@ const App: React.FC = () => {
     };
   }, [formData]);
 
-  //更新时间
-  const updataTime = (timeData: string) => {
-    const updatedFormData = {
-      ...formData,
-      countdown: timeData,
-      // 其他需要修改的属性和值
-      // uniqueKey: Math.random(), // 添加一个随机数作为唯一标识符
-    };
-    setFormData(updatedFormData); //更新传输的值
-    //form.setFieldsValue(updatedFormData); // 更新表单中的值
-  };
   //const [form] = Form.useForm();
   const { TextArea } = Input;
   return (
@@ -201,7 +190,7 @@ const App: React.FC = () => {
               name="countdown"
               extra={<>选中时间后，需先点击生成时间，方可保存选项</>}
             >
-              <Countdown updataTime={updataTime} />
+              <Countdown />
             </Form.Item>
             <Form.Item label="倒计时标题" name="countdown_title">
               <Input />
@@ -257,10 +246,12 @@ const Countdown = (props: any) => {
 
   //日期
   const [choiceTime, setChoiceTime] = useState<string>("06:00:00");
+
   const onChange: DatePickerProps["onChange"] = (date, dateString) => {
     console.log(date, dateString);
     setChoiceDate(dateString as string);
   };
+
   const onChanges: TimePickerProps["onChange"] = (time, timeString) => {
     console.log(time, timeString);
     setChoiceTime(timeString as string);
@@ -295,7 +286,8 @@ const Countdown = (props: any) => {
   //生成日期
   const generateDate = () => {
     const choiceData = choiceDate + "T" + choiceTime; //组合成时间
-    props.updataTime(choiceData); //更新值
+    props.onChange(choiceData); //更新值
+    console.log(props);
     message.success("成功生成日期，现在可以保存了");
     console.log(choiceData);
   };
