@@ -7,11 +7,12 @@ export type DataLocal = {
     medium: OptimizeMedium;
     admin: OptimizeAdmin;
   };
-  //个性化
+  //页面
   page: {
     comment: PageComment; //评论
     feature: PageFeature; //外观
     function: PageFunction; //功能
+    jurisdiction: PageJurisdiction; //权限
   };
   //权限
   authority: {
@@ -112,6 +113,14 @@ export type PageFunction = {
   countdown_title: string; //维护标题
   countdown_image: string; //维护图片
   countdown_content: string; //维护内容
+};
+
+// 页面 - 权限
+export type PageJurisdiction = {
+  category_id: number[]; //分类ID
+  tag_id: number[]; //标签ID
+  page_id: number[]; //页面ID
+  single_id: number[]; //文章ID
 };
 
 //权限 辅助

@@ -78,6 +78,14 @@ const PageFunction = {
   countdown_content: "", //维护内容
 };
 
+// 页面 - 权限
+const PageJurisdiction = {
+  category_id: [19], //分类ID
+  tag_id: [1], //标签ID
+  page_id: [1], //页面ID
+  single_id: [19], //文章ID
+};
+
 //权限控制 辅助
 const AuthorityAuxiliary = {
   single_count: boo, //文章统计
@@ -172,6 +180,7 @@ const App = {
     comment: PageComment, //评论
     feature: PageFeature, //外观特效
     function: PageFunction, //页面功能
+    jurisdiction: PageJurisdiction, //权限
   },
   //H5
   h5: {

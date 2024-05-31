@@ -72,13 +72,7 @@ const App: React.FC = () => {
       >
         <Form.Item>
           <h2>功能</h2>
-          <button
-            onClick={() => {
-              console.log(formData);
-            }}
-          >
-            打印数据
-          </button>
+         
         </Form.Item>
         <Form.Item<FieldType>
           label="彩色背景标签云"
@@ -211,7 +205,8 @@ const App: React.FC = () => {
               name="countdown_content"
               extra={
                 <>
-                  可使用HTML，例如：
+                  未来可使用HTML，例如：
+                  {/*TODO:支持HTML标签*/}
                   <br />
                   <pre className="pre-meat">
                     &lt;p&gt; 抱歉，我们的网站正在维护中...
