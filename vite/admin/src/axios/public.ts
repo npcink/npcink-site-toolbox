@@ -15,7 +15,11 @@ instance.interceptors.response.use(
   (response) => {
     const responseData = response.data;
     if (responseData.success) {
-      message.success(responseData.data.message);
+      if (responseData.data.message) {
+        message.success(responseData.data.message);
+      } else {
+        
+      }
     } else {
       message.error(responseData.data.message);
     }

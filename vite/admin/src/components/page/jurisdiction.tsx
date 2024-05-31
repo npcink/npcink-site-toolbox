@@ -4,7 +4,7 @@
 import { useState, useContext, useEffect } from "react";
 import { Form, Select } from "antd";
 import DataContext from "@/tool/dataContext";
-import { PageJurisdiction } from "@/tool/interface";
+import { PageJurisdiction, ListData } from "@/tool/interface";
 import defaultVar from "@/tool/defaultVar";
 import { AntConfig } from "@/tool/tool";
 import { getCategoryData } from "@/axios/axios";
@@ -47,28 +47,33 @@ const App: React.FC = () => {
     console.log(formData);
   };
 
-  //准备分类数据
-  const options = [
-    { label: "文章一", value: 19 },
-    { label: "文章二", value: 24 },
-    { label: "文章三", value: 27 },
-  ];
-
   //打印表单
   const handleChange = (value: string[]) => {
     console.log(`selected ${value}`);
   };
 
+  //存储表单值
+  interface TagData {
+    categorys: ListData[];
+    tags: ListData[];
+  }
+  const [tagArray, setTagArray] = useState<TagData>();
   //获取分类数组
   const getData = async () => {
     try {
       // 获取原始数据
       const list = await getCategoryData();
-      console.log(list);
+      //console.log(list);
+      setTagArray(list);
     } catch (error) {
       console.error("Error fetching table data:", error);
     }
   };
+  //加载页面自动获取数据
+  useEffect(() => {
+    // 在页面加载完成后执行 函数，获取数据并更新状态
+    getData();
+  }, []);
 
   return (
     <>
@@ -85,22 +90,36 @@ const App: React.FC = () => {
         <Form.Item>
           <h2>未登录权限</h2>
           <button onClick={print}>打印</button>
-          <button onClick={getData}>获取对象</button>
         </Form.Item>
 
         <Form.Item<FieldType>
           label="隐藏指定分类"
           name="category_id"
-          extra={"输入文章ID"}
+          extra={"该分类下的内容未登录，不可见"}
         >
           <Select
             mode="multiple"
             allowClear
             style={{ width: "100%" }}
-            placeholder="请选择要隐藏的文章"
+            placeholder="请选择要隐藏的分类"
             defaultValue={["19", "27"]}
             onChange={handleChange}
-            options={options}
+            options={tagArray?.categorys}
+          />
+        </Form.Item>
+        <Form.Item<FieldType>
+          label="隐藏指定标签"
+          name="tag_id"
+          extra={"该标签下的内容未登录，不可见"}
+        >
+          <Select
+            mode="multiple"
+            allowClear
+            style={{ width: "100%" }}
+            placeholder="请选择要隐藏的标签"
+            defaultValue={[]}
+            onChange={handleChange}
+            options={tagArray?.tags}
           />
         </Form.Item>
       </Form>
