@@ -52,7 +52,7 @@ const App: React.FC = () => {
   }, [formData]);
 
   //const [form] = Form.useForm();
-  const { TextArea } = Input;
+
   return (
     <>
       <Form
@@ -72,7 +72,6 @@ const App: React.FC = () => {
       >
         <Form.Item>
           <h2>功能</h2>
-         
         </Form.Item>
         <Form.Item<FieldType>
           label="彩色背景标签云"
@@ -205,23 +204,23 @@ const App: React.FC = () => {
               name="countdown_content"
               extra={
                 <>
-                  未来可使用HTML，例如：
+                  可使用HTML，例如：
                   {/*TODO:支持HTML标签*/}
                   <br />
                   <pre className="pre-meat">
                     &lt;p&gt; 抱歉，我们的网站正在维护中...
                     <br />
-                    &lt;span class="dull-text"&gt; <br />
+                    &lt;h5 class="dull-text"&gt; <br />
                     请倒计时结束后再回来，我们准备了全新的内容哦！
                     <br />
-                    &lt;/span&gt;
+                    &lt;/h5&gt;
                     <br />
                     &lt;/p&gt;
                   </pre>
                 </>
               }
             >
-              <TextArea rows={4} />
+              <TextAreaHtml />
             </Form.Item>
           </>
         )}
@@ -300,6 +299,40 @@ const Countdown = (props: any) => {
       &nbsp;&nbsp;
       <Button onClick={generateDate}>生成日期</Button>
     </div>
+  );
+};
+
+//HTML 输入框
+//反转义
+function unescapeHtmlTagsInString(escapedString: string) {
+  const tempElement = document.createElement("textarea");
+  tempElement.innerHTML = escapedString;
+  return tempElement.value;
+}
+
+const TextAreaHtml: React.FC = (props: any) => {
+  const { TextArea } = Input;
+
+  const [textAreaValue, setTextAreaValue] = useState(
+    unescapeHtmlTagsInString(props.value)
+  );
+
+  const handleTextAreaChange = (e: any) => {
+    //对字符串进行转化
+    const data = e.target.value.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    console.log(data);
+    setTextAreaValue(e.target.value); // 更新 textAreaValue 的值
+    props.onChange(data); //传出值
+  };
+
+  return (
+    <>
+      <TextArea
+        rows={4}
+        value={textAreaValue}
+        onChange={handleTextAreaChange}
+      />
+    </>
   );
 };
 export default App;

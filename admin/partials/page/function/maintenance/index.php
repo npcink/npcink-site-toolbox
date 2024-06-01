@@ -27,4 +27,6 @@ $countdown_image =  MaBox_Admin::get_config($function, 'countdown_image');
 /*<img src="<?php echo $countdown_image; ?>"/>*/
 
 //内容
-$countdown_content =  MaBox_Admin::get_config($function, 'countdown_content');
+$countdown_content_data =  MaBox_Admin::get_config($function, 'countdown_content');
+$countdown_content =html_entity_decode($countdown_content_data);
+
