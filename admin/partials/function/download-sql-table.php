@@ -17,6 +17,11 @@ if (!class_exists('MaBox_Download_SQL_Table')) {
         {
             global $wpdb;
 
+            //管理员权限
+            if (!current_user_can('manage_options')) {
+                return wp_send_json_error(['error' => '非管理员，无权获取此内容', 'data' => []], 404);
+            }
+
 
             //获取所有表名
             $results = $wpdb->get_results("SHOW TABLES", ARRAY_N);
@@ -26,6 +31,8 @@ if (!class_exists('MaBox_Download_SQL_Table')) {
             foreach ($results as $result) {
                 $table_names[] = $result[0];
             }
+
+
             // 如果 $table_names 是空数组，则返回空数据
             if (empty($table_names)) {
                 wp_send_json_error(['error' => '获取数据库表名失败', 'data' => []], 404);
@@ -39,6 +46,11 @@ if (!class_exists('MaBox_Download_SQL_Table')) {
         public static function get_table_data()
         {
             global $wpdb;
+
+            //管理员权限
+            if (!current_user_can('manage_options')) {
+                return  wp_send_json_error(['error' => '非管理员，无权获取此内容', 'data' => []], 404);
+            }
 
             // 检查是否传递了数据库名
             if (empty($_POST['databaseName'])) {

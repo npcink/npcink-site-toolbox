@@ -2,8 +2,8 @@
 import React from "react";
 import { useState, useContext, useEffect } from "react";
 import { Form, Switch, Input, Select } from "antd";
-import DataContext from "@/tool/dataContext";
-import defaultVar from "@/tool/defaultVar";
+import { DataContext } from "@/tool/dataContext";
+import { defaultVarOption } from "@/tool/defaultVar";
 import { AntConfig } from "@/tool/tool";
 import { PageFeature } from "@/tool/interface";
 
@@ -18,7 +18,7 @@ const App: React.FC = () => {
   const optionObj = useContext(DataContext) ?? { page: {} };
 
   //简化并提供默认值
-  let publicData = optionObj.page?.feature || defaultVar.page.feature;
+  let publicData = optionObj.page?.feature || defaultVarOption.page.feature;
 
   //创建变量并设默认值
   const [formData, setFormData] = useState(publicData || {});

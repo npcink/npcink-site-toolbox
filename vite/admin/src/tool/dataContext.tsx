@@ -1,7 +1,7 @@
 //准备初始数据
 import { createContext } from "react";
 import { DataLocal } from "@/tool/interface";
-import option from "@/tool/defaultVar";
+import {defaultVarData} from "@/tool/defaultVar";
 import axios from "axios";
 
 //开发环境状态
@@ -14,7 +14,7 @@ function getDataLocal(): DataLocal {
   if (state) {
     axios.defaults.baseURL = "/api"; //开发模式下使用代理
     //开发
-    return option;
+    return defaultVarData;
   } else {
     //打包
     //return (window as any).dataLocal.option;
@@ -39,9 +39,11 @@ function getAjaxurl(): string {
 const dataObject: DataLocal = getDataLocal();
 //console.log(dataObject);
 
-//组件间传递数据
-const DataContext = createContext(dataObject);
+//组件间传递选项数据
+export const DataContext = createContext(dataObject?.option);
 
+//站点地址
+export const url_site = dataObject?.url_site;
+
+//ajaxurl
 export const Ajaxurl = getAjaxurl();
-
-export default DataContext;

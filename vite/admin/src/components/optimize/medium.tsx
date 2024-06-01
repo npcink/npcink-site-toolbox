@@ -1,8 +1,8 @@
 import React, { useContext, useState, useEffect } from "react";
 import { Switch, Select, Form } from "antd";
-import DataContext from "@/tool/dataContext";
+import { DataContext } from "@/tool/dataContext";
 import { OptimizeMedium } from "@/tool/interface";
-import defaultVar from "@/tool/defaultVar";
+import { defaultVarOption } from "@/tool/defaultVar";
 import { AntConfig } from "@/tool/tool";
 
 //选项类型
@@ -16,7 +16,8 @@ const App: React.FC = () => {
   const optionObj = useContext(DataContext) || { optimize: {} };
 
   //简化并提供默认值
-  let publicData = optionObj.optimize?.medium || defaultVar.optimize.medium;
+  let publicData =
+    optionObj.optimize?.medium || defaultVarOption.optimize.medium;
 
   //拿到需要的媒体值
   const [formData, setFormData] = useState(publicData);

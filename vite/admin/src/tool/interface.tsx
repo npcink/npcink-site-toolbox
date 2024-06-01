@@ -2,6 +2,10 @@
 
 //准备类型
 export type DataLocal = {
+  option: Option;
+  url_site: string;
+};
+export type Option = {
   optimize: {
     site: OptimizeSite;
     medium: OptimizeMedium;

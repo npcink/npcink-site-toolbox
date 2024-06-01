@@ -3,9 +3,9 @@
  */
 import { useState, useContext, useEffect } from "react";
 import { Form, Switch, InputNumber } from "antd";
-import DataContext from "@/tool/dataContext";
+import { DataContext } from "@/tool/dataContext";
 import { PageComment } from "@/tool/interface";
-import defaultVar from "@/tool/defaultVar";
+import { defaultVarOption } from "@/tool/defaultVar";
 import { AntConfig } from "@/tool/tool";
 
 type FieldType = PageComment;
@@ -16,7 +16,7 @@ const fromConfig = AntConfig.from;
 const App: React.FC = () => {
   //准备默认值
   const optionObj = useContext(DataContext) ?? { page: {} };
-  const publicData = optionObj.page?.comment || defaultVar.page.comment;
+  const publicData = optionObj.page?.comment || defaultVarOption.page.comment;
 
   //存储表单值
   const [formData, setFormData] = useState(publicData || {});

@@ -3,9 +3,9 @@
  */
 import { useState, useContext, useEffect } from "react";
 import { Form, Select } from "antd";
-import DataContext from "@/tool/dataContext";
+import { DataContext } from "@/tool/dataContext";
 import { PageJurisdiction, ListData } from "@/tool/interface";
-import defaultVar from "@/tool/defaultVar";
+import { defaultVarOption } from "@/tool/defaultVar";
 import { AntConfig } from "@/tool/tool";
 import { getCategoryData } from "@/axios/axios";
 
@@ -18,7 +18,7 @@ const App: React.FC = () => {
   //准备默认值
   const optionObj = useContext(DataContext) ?? { page: {} };
   const publicData =
-    optionObj.page?.jurisdiction || defaultVar.page.jurisdiction;
+    optionObj.page?.jurisdiction || defaultVarOption.page.jurisdiction;
 
   //存储表单值
   const [formData, setFormData] = useState(publicData || {});
@@ -79,7 +79,6 @@ const App: React.FC = () => {
       >
         <Form.Item>
           <h2>未登录权限</h2>
-         
         </Form.Item>
 
         <Form.Item<FieldType>

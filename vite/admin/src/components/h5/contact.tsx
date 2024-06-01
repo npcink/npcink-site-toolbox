@@ -2,9 +2,9 @@
 import React from "react";
 import { useState, useContext, useEffect } from "react";
 import { Form, Input } from "antd";
-import DataContext from "@/tool/dataContext";
+import { DataContext } from "@/tool/dataContext";
 import { H5Contact } from "@/tool/interface";
-import defaultVar from "@/tool/defaultVar";
+import { defaultVarOption } from "@/tool/defaultVar";
 import { validateLink } from "@/tool/tool";
 import { AntConfig } from "@/tool/tool";
 
@@ -18,7 +18,7 @@ const App: React.FC = () => {
   const optionObj = useContext(DataContext) ?? { h5: {} };
 
   //简化并提供默认值
-  const publicData = optionObj.h5?.contact || defaultVar.h5.contact;
+  const publicData = optionObj.h5?.contact || defaultVarOption.h5.contact;
 
   //创建变量并设默认值
   const [formData, setFormData] = useState(publicData);

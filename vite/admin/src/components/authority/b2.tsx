@@ -2,9 +2,9 @@
 import React from "react";
 import { useState, useContext, useEffect } from "react";
 import { Switch, Form } from "antd";
-import DataContext from "@/tool/dataContext";
+import { DataContext } from "@/tool/dataContext";
 import { AuthorityB2 } from "@/tool/interface";
-import defaultVar from "@/tool/defaultVar";
+import { defaultVarOption } from "@/tool/defaultVar";
 import { AntConfig } from "@/tool/tool";
 
 //选项类型
@@ -18,7 +18,7 @@ const App: React.FC = () => {
   const optionObj = useContext(DataContext) ?? { authority: {} };
 
   //简化并提供默认值
-  const publicData = optionObj.authority?.b2 || defaultVar.authority.b2;
+  const publicData = optionObj.authority?.b2 || defaultVarOption.authority.b2;
 
   //创建变量并设默认值
   const [formData, setFormData] = useState(publicData);

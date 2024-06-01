@@ -6,9 +6,9 @@
 import { useState, useContext, useEffect } from "react";
 import { Switch, Form, ColorPicker, Input, InputNumber } from "antd";
 import { FileImageOutlined } from "@ant-design/icons";
-import DataContext from "@/tool/dataContext";
+import { DataContext } from "@/tool/dataContext";
 import { LoginBeautify } from "@/tool/interface";
-import defaultVar from "@/tool/defaultVar";
+import { defaultVarOption } from "@/tool/defaultVar";
 
 import type { Color } from "antd/es/color-picker";
 import { AntConfig } from "@/tool/tool";
@@ -26,7 +26,8 @@ const getHexString = (color: Color | string): string => {
 const App: React.FC = () => {
   //准备默认值
   const optionObj = useContext(DataContext) ?? { login: {} };
-  const publicData = optionObj.login?.beautify || defaultVar.login.beautify;
+  const publicData =
+    optionObj.login?.beautify || defaultVarOption.login.beautify;
 
   //存储表单值
   const [formData, setFormData] = useState(publicData || {});
@@ -55,8 +56,6 @@ const App: React.FC = () => {
       beautify: formData,
     };
   }, [formData]);
-
-
 
   return (
     <>

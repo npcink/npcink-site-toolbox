@@ -2,9 +2,9 @@
 import React from "react";
 import { useState, useContext, useEffect } from "react";
 import { Form, Input, Switch } from "antd";
-import DataContext from "@/tool/dataContext";
+import { DataContext } from "@/tool/dataContext";
 import { FunctionSeo } from "@/tool/interface";
-import defaultVar from "@/tool/defaultVar";
+import { defaultVarOption } from "@/tool/defaultVar";
 import { AntConfig } from "@/tool/tool";
 
 //选项类型
@@ -21,7 +21,7 @@ const App: React.FC = () => {
   const optionObj = useContext(DataContext) ?? { authority: {} };
 
   //简化并提供默认值
-  let publicData = optionObj.authority?.seo || defaultVar.authority.seo;
+  let publicData = optionObj.authority?.seo || defaultVarOption.authority.seo;
 
   //创建变量并设默认值
   const [formData, setFormData] = useState(publicData || {});
@@ -86,7 +86,9 @@ const App: React.FC = () => {
           name="seo_single"
           valuePropName="checked"
           extra={
-            <p>title是文章标题，keywords是文章标签，description是文章描述或文章首段前40字</p>
+            <p>
+              title是文章标题，keywords是文章标签，description是文章描述或文章首段前40字
+            </p>
           }
         >
           <Switch />
@@ -96,7 +98,10 @@ const App: React.FC = () => {
           name="seo_category"
           valuePropName="checked"
           extra={
-            <p>T 是分类名称，K 是分类关键词，D 是分类描述，标签只做了D ，是标签描述</p>
+            <p>
+              T 是分类名称，K 是分类关键词，D 是分类描述，标签只做了D
+              ，是标签描述
+            </p>
           }
         >
           <Switch />

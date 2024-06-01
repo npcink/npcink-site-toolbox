@@ -170,6 +170,7 @@ class MaBox_Admin
             'option' => get_option(self::$option), //传递选项
             'cat_arr' => self::get_cat_data(), //分类信息
             'single_arr' => self::get_single_data(), //文章信息
+            'url_site'=> get_site_url(),//当前首页网址
 
         );
         wp_localize_script($name, 'dataLocal', $MaBox_array); //传给vite项目

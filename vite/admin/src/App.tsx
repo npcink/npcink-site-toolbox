@@ -72,7 +72,7 @@ const HeaderBlock: React.FC = () => {
 //将拿到的值推送到服务器端
 import { useContext } from "react";
 import { Button } from "antd";
-import DataContext from "@/tool/dataContext";
+import {DataContext} from "@/tool/dataContext";
 import { saceOption } from "@/axios/save";
 const Save: React.FC = () => {
   //拿到值

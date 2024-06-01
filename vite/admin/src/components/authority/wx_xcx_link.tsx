@@ -3,9 +3,9 @@ import React from "react";
 import { useState, useContext, useEffect } from "react";
 import { Form, Switch, Input, Collapse } from "antd";
 import type { CollapseProps } from "antd";
-import DataContext from "@/tool/dataContext";
+import { DataContext } from "@/tool/dataContext";
 import { AuthorityWxXcx } from "@/tool/interface";
-import defaultVar from "@/tool/defaultVar";
+import { defaultVarOption } from "@/tool/defaultVar";
 import { AntConfig } from "@/tool/tool";
 
 //选项类型
@@ -71,7 +71,8 @@ const App: React.FC = () => {
   const optionObj = useContext(DataContext) ?? { authority: {} };
 
   //简化并提供默认值
-  const publicData = optionObj.authority?.wx_xcx || defaultVar.authority.wx_xcx;
+  const publicData =
+    optionObj.authority?.wx_xcx || defaultVarOption.authority.wx_xcx;
 
   //创建变量并设默认值
   const [formData, setFormData] = useState(publicData);
@@ -161,7 +162,7 @@ const App: React.FC = () => {
               name="site"
               extra={
                 <p>
-                小程序中跳转的外部网址，例如
+                  小程序中跳转的外部网址，例如
                   <pre className="pre-meat">
                     https://www.npc.ink/300485.html
                   </pre>
@@ -218,7 +219,6 @@ const App: React.FC = () => {
                 <p>
                   此选项会添加接口，供自定义页面或其他页面调用，地址如下
                   <pre className="pre-meat">您的网址/wp-json/wx_xcx/v1/qy</pre>
-                 
                 </p>
               }
             >

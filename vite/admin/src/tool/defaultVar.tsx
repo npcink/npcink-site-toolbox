@@ -72,7 +72,7 @@ const PageFunction = {
   no_login_img: boo, //未登录模糊图片
   maintenance_tips: "false", //维护提示
   //countdown:"2024-05-20T14:49:09",//维护结束倒计时
-  countdown: [''], //维护结束倒计时
+  countdown: [""], //维护结束倒计时
   countdown_title: "", //维护标题
   countdown_image: "", //维护图片
   countdown_content: "", //维护内容
@@ -161,7 +161,7 @@ const LoginSecurity = {
   tecent_key: str, //腾讯秘钥
 };
 
-const App = {
+export const defaultVarOption = {
   //优化
   optimize: {
     site: OptimizeSite, //站点
@@ -192,5 +192,7 @@ const App = {
     security: LoginSecurity, //安全
   },
 };
-
-export default App;
+export const defaultVarData = {
+  option: defaultVarOption,
+  url_site: "http://localhost:10029",
+};

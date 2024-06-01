@@ -6,9 +6,9 @@
 import React from "react";
 import { useState, useContext, useEffect } from "react";
 import { Form, Input, Select, Switch } from "antd";
-import DataContext from "@/tool/dataContext";
+import { DataContext } from "@/tool/dataContext";
 import { LoginSecurity } from "@/tool/interface";
-import defaultVar from "@/tool/defaultVar";
+import { defaultVarOption } from "@/tool/defaultVar";
 import { AntConfig } from "@/tool/tool";
 
 //选项类型
@@ -22,7 +22,7 @@ const App: React.FC = () => {
   const optionObj = useContext(DataContext) ?? { login: {} };
 
   //简化并提供默认值
-  let publicData = optionObj.login?.security || defaultVar.login.security;
+  let publicData = optionObj.login?.security || defaultVarOption.login.security;
 
   //创建变量并设默认值
   const [formData, setFormData] = useState(publicData || {});
