@@ -18,8 +18,8 @@ function getDataLocal(): DataLocal {
   } else {
     //打包
     //return (window as any).dataLocal.option;
-    return (window as any).dataLocal?.option !== ""
-      ? (window as any).dataLocal?.option
+    return (window as any).dataLocal !== ""
+      ? (window as any).dataLocal
       : {};
   }
 }

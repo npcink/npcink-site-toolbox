@@ -61,6 +61,11 @@ if (!class_exists('Npcink_Page_Function')) {
             //倒计时时间段
             $countdown = MaBox_Admin::get_config($option, 'countdown');
 
+            //若时间段不存在，给默认值
+            if (!empty($countdown)) {
+                $countdown = array('2024-01-01 00:00:00', '2024-01-01 23:59:59');
+            }
+
             //判断
             $result = self::isCurrentTimeInRange($countdown);
 
