@@ -39,10 +39,12 @@ const App: React.FC = () => {
     }));
   };
 
+  // 表单值发生变化时更新dataContext的值
+  const dataContext = useContext(DataContext);
   useEffect(() => {
     //由于选项site可能不存在，这里需要使用复制来新建
-    optionObj.authority = {
-      ...optionObj.authority,
+    dataContext.authority = {
+      ...dataContext.authority,
       auxiliary: formData,
     };
   }, [formData]);

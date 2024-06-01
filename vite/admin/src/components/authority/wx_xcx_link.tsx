@@ -87,9 +87,10 @@ const App: React.FC = () => {
   };
 
   // 表单值发生变化时更新dataContext的值
+  const dataContext = useContext(DataContext);
   useEffect(() => {
-    optionObj.authority = {
-      ...optionObj.authority,
+    dataContext.authority = {
+      ...dataContext.authority,
       wx_xcx: formData,
     };
   }, [formData]);
