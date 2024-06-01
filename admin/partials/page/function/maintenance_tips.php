@@ -19,7 +19,7 @@ if (!class_exists('Npcink_Maintenance_Tips')) {
          */
         public static function run($config)
         {
-            self::$configs = $config;
+            self::$configs = $config;//展示类型
             self::$blogname =  get_bloginfo('name');
             self::$blogdescription = get_bloginfo('description');
             self::$url = plugin_dir_url((__FILE__)) . 'maintenance/';
@@ -46,7 +46,7 @@ if (!class_exists('Npcink_Maintenance_Tips')) {
                         add_action('get_header', array(__CLASS__, 'purple'));
                         break;
                     case "lighting":
-                        add_action('get_header', array(__CLASS__, 'lighting'));
+                        add_action('get_header', array(__CLASS__, 'lighting'));//灯光聚焦
                         break;
                     case "masking": //大气遮罩
                         add_action('get_header', array(__CLASS__, 'masking'));

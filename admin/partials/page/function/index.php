@@ -7,6 +7,10 @@
 if (!class_exists('Npcink_Page_Function')) {
     class Npcink_Page_Function
     {
+
+
+
+
         public static function run($option)
         {
             //文章关键词自动添加内链链接代码
@@ -53,16 +57,28 @@ if (!class_exists('Npcink_Page_Function')) {
 
             //维护提示
             $maintenance_tips = MaBox_Admin::get_config($option, 'maintenance_tips');
-            //倒计时时间
-            $countdown = MaBox_Admin::get_config($option, 'countdown');
-            $givenTime = strtotime($countdown); //传来的时间
-            $currentTime = time(); //现在时间
 
-            //有选项，且时间有效
-            if ($maintenance_tips !== false && $givenTime > $currentTime) {
+            //倒计时时间段
+            $countdown = MaBox_Admin::get_config($option, 'countdown');
+
+            //判断
+            $result = self::isCurrentTimeInRange($countdown);
+
+            //选项非关闭，且时间有效
+            if ($maintenance_tips !== false && $result) {
                 require_once plugin_dir_path(__FILE__) . 'maintenance_tips.php';
                 Npcink_Maintenance_Tips::run($maintenance_tips);
             }
+        }
+
+        //计算时间
+        public static function isCurrentTimeInRange($range)
+        {
+            $start = strtotime($range[0]);
+            $end = strtotime($range[1]);
+            $now = time();
+
+            return ($now >= $start && $now <= $end);
         }
     }
 }

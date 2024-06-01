@@ -109,7 +109,7 @@ export type PageFunction = {
   add_last_update: boolean; //添加最后更新时间
   no_login_img: boolean; //未登录模糊图片
   maintenance_tips: string; //维护提示
-  countdown: string; //维护结束倒计时
+  countdown: string[]; //维护结束倒计时
   countdown_title: string; //维护标题
   countdown_image: string; //维护图片
   countdown_content: string; //维护内容

@@ -60,12 +60,10 @@ include plugin_dir_path((__FILE__)) . 'index.php'; // 获取数据
         </div>
         <div class="text">
             <h3>
-                <?php
-                $countdown_title = isset($countdown_title) && !empty($countdown_title) ? $countdown_title : "升级维护中";
-                echo $countdown_title;
-                ?>
+                <?php echo $countdown_title; ?>
             </h3>
-            <p><?php echo $countdown_content; ?></p>
+
+            <div class="content"> <?php echo $countdown_content; ?></div>
 
             <?php include 'countdown.php'; ?>
             <style>
@@ -75,6 +73,18 @@ include plugin_dir_path((__FILE__)) . 'index.php'; // 获取数据
 
                 .countdown-container {
                     margin-top: 20rem;
+                }
+
+                .text {
+                    padding-top: 20px;
+                }
+
+                .text p {
+                    margin-top: .2em!important;
+                }
+
+                .text .content {
+                    margin-top: 1rem;
                 }
             </style>
             <!--载入倒计时结束-->
