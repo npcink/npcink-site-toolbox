@@ -6,6 +6,7 @@ export type DataLocal = {
   url_site: string;
 };
 export type Option = {
+  [key: string]: any;
   optimize: {
     site: OptimizeSite;
     medium: OptimizeMedium;

@@ -24,12 +24,11 @@ const getHexString = (color: Color | string): string => {
 };
 
 const App: React.FC = () => {
-  //拿到默认选项值
-  const { login: optionData } = useContext(DataContext) ?? {};
-  const optionObj = { login: optionData || {} };
+  //拿到默认选项值和修改方法
+  const { optionData, updateOption } = useContext(DataContext);
 
   const publicData =
-    optionObj.login?.beautify || defaultVarOption.login.beautify;
+  optionData.login?.beautify || defaultVarOption.login.beautify;
 
   //存储表单值
   const [formData, setFormData] = useState(publicData || {});
@@ -51,13 +50,9 @@ const App: React.FC = () => {
     }));
   };
 
-  // 表单值发生变化时更新dataContext的值
-  const dataContext = useContext(DataContext);
+  //表单值发生变化时更新选项值
   useEffect(() => {
-    dataContext.login = {
-      ...dataContext.login,
-      beautify: formData,
-    };
+    updateOption("login", "beautify", formData);
   }, [formData]);
 
   return (

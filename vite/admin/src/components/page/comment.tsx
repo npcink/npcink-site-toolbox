@@ -14,10 +14,9 @@ type FieldType = PageComment;
 const fromConfig = AntConfig.from;
 
 const App: React.FC = () => {
-  //准备默认值
-  const { page: optionData } = useContext(DataContext) ?? {};
-  const optionObj = { page: optionData || {} };
-  const publicData = optionObj.page?.comment || defaultVarOption.page.comment;
+  //拿到默认选项值和修改方法
+  const { optionData, updateOption } = useContext(DataContext);
+  const publicData = optionData.page?.comment || defaultVarOption.page.comment;
 
   //存储表单值
   const [formData, setFormData] = useState(publicData || {});
@@ -33,13 +32,9 @@ const App: React.FC = () => {
     }));
   };
 
-  //修改公共值
-  const dataContext = useContext(DataContext);
+  //表单值发生变化时更新选项值
   useEffect(() => {
-    dataContext.page = {
-      ...dataContext.page,
-      comment: formData,
-    };
+    updateOption("page", "comment", formData);
   }, [formData]);
 
   return (

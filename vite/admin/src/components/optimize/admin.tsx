@@ -14,12 +14,11 @@ type FieldType = OptimizeAdmin;
 const fromConfig = AntConfig.from;
 
 const App: React.FC = () => {
-  //拿到默认选项值
-  const { optimize: optionData } = useContext(DataContext) ?? {};
-  const optionObj = { optimize: optionData || {} };
+  //拿到默认选项值和修改方法
+  const { optionData, updateOption } = useContext(DataContext);
 
   //简化并提供默认值
-  let publicData = optionObj.optimize?.admin || defaultVarOption.optimize.admin;
+  let publicData = optionData.optimize?.admin || defaultVarOption.optimize.admin;
 
   //创建变量并设默认值
   const [formData, setFormData] = useState(publicData || {});
@@ -35,13 +34,10 @@ const App: React.FC = () => {
     }));
   };
 
-  // 表单值发生变化时更新dataContext的值
-  const dataContext = useContext(DataContext);
+ 
+  //表单值发生变化时更新选项值
   useEffect(() => {
-    dataContext.optimize = {
-      ...dataContext.optimize,
-      admin: formData,
-    };
+    updateOption("optimize", "admin", formData);
   }, [formData]);
 
   return (

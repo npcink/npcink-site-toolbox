@@ -15,12 +15,12 @@ type FieldType = PageJurisdiction;
 const fromConfig = AntConfig.from;
 
 const App: React.FC = () => {
-  //拿到默认选项值
-  const { page: optionData } = useContext(DataContext) ?? {};
-  const optionObj = { page: optionData || {} };
+  //拿到默认选项值和修改方法
+  const { optionData, updateOption } = useContext(DataContext);
 
+  //准备选项默认值
   const publicData =
-    optionObj.page?.jurisdiction || defaultVarOption.page.jurisdiction;
+    optionData.page?.jurisdiction || defaultVarOption.page.jurisdiction;
 
   //存储表单值
   const [formData, setFormData] = useState(publicData || {});
@@ -36,13 +36,9 @@ const App: React.FC = () => {
     }));
   };
 
-  //修改公共值
-  const dataContext = useContext(DataContext)
+  //表单值发生变化时更新选项值
   useEffect(() => {
-    dataContext.page = {
-      ...dataContext.page,
-      jurisdiction: formData,
-    };
+    updateOption("page", "jurisdiction", formData);
   }, [formData]);
 
   //存储表单值

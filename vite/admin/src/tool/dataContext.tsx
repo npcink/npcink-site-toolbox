@@ -1,7 +1,7 @@
 //准备初始数据
 import { createContext } from "react";
-import { DataLocal } from "@/tool/interface";
-import {defaultVarData} from "@/tool/defaultVar";
+import { DataLocal, Option } from "@/tool/interface";
+import { defaultVarData } from "@/tool/defaultVar";
 import axios from "axios";
 
 //开发环境状态
@@ -18,9 +18,7 @@ function getDataLocal(): DataLocal {
   } else {
     //打包
     //return (window as any).dataLocal.option;
-    return (window as any).dataLocal !== ""
-      ? (window as any).dataLocal
-      : {};
+    return (window as any).dataLocal !== "" ? (window as any).dataLocal : {};
   }
 }
 
@@ -35,16 +33,27 @@ function getAjaxurl(): string {
   }
 }
 
-//传值
+//拿到传来的值
 const dataObject: DataLocal = getDataLocal();
 //console.log("拿到的选项");
 //console.log(dataObject);
 
-//组件间传递选项数据
-export const DataContext = createContext(dataObject?.option);
-
+//选项
+export const defaultOption = dataObject?.option;
 //站点地址
 export const url_site = dataObject?.url_site;
 
 //ajaxurl
 export const Ajaxurl = getAjaxurl();
+
+//准备选项默认值
+interface OptionContextType {
+  optionData: Option; //选项默认值
+  updateOption: (father: string, son: string, newValue: any) => void; // 修改选项方法
+}
+
+//组件间传递选项数据
+export const DataContext = createContext<OptionContextType>({
+  optionData: defaultOption, //选项值
+  updateOption: () => {}, // 空函数作为默认值
+});

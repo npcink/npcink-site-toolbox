@@ -17,13 +17,12 @@ const fromConfig = AntConfig.from;
 const { TextArea } = Input;
 
 const App: React.FC = () => {
-  //拿到默认选项值
-  const { authority: optionData } = useContext(DataContext) ?? {};
-  const optionObj = { authority: optionData || {} };
+  //拿到默认选项值和修改方法
+  const { optionData, updateOption } = useContext(DataContext);
 
   //简化并提供默认值
   let publicData =
-    optionObj.authority?.auxiliary || defaultVarOption.authority.auxiliary;
+    optionData.authority?.auxiliary || defaultVarOption.authority.auxiliary;
 
   //创建变量并设默认值
   const [formData, setFormData] = useState(publicData || {});
@@ -40,13 +39,8 @@ const App: React.FC = () => {
   };
 
   // 表单值发生变化时更新dataContext的值
-  const dataContext = useContext(DataContext);
   useEffect(() => {
-    //由于选项site可能不存在，这里需要使用复制来新建
-    dataContext.authority = {
-      ...dataContext.authority,
-      auxiliary: formData,
-    };
+    updateOption("authority", "auxiliary", formData);
   }, [formData]);
 
   //提取百度统计标识符
@@ -177,7 +171,7 @@ const App: React.FC = () => {
           name="google_tonji"
           getValueFromEvent={extract_google}
           extra={
-            <p>
+            <span>
               <a
                 href="https://search.google.com/search-console/about"
                 target="_blank"
@@ -188,7 +182,7 @@ const App: React.FC = () => {
               <pre className="pre-meat">
                 &lt;meta name="google-site-verification" content="HB..." /&gt;
               </pre>
-            </p>
+            </span>
           }
         >
           <SiteInput />
@@ -198,7 +192,7 @@ const App: React.FC = () => {
           name="biying_tonji"
           getValueFromEvent={extract_biying}
           extra={
-            <p>
+            <span>
               <a href="https://www.bing.com/webmasters" target="_blank">
                 必应统计
               </a>
@@ -206,7 +200,7 @@ const App: React.FC = () => {
               <pre className="pre-meat">
                 &lt;meta name="msvalidate.01" content="CF..." /&gt;
               </pre>
-            </p>
+            </span>
           }
         >
           <SiteInput />

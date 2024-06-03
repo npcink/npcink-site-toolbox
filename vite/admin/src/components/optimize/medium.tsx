@@ -12,14 +12,12 @@ type FieldType = OptimizeMedium;
 const fromConfig = AntConfig.from;
 
 const App: React.FC = () => {
-  //拿到公共值
-  //拿到默认选项值
-  const { optimize: optionData } = useContext(DataContext) ?? {};
-  const optionObj = { optimize: optionData || {} };
+  //拿到默认选项值和修改方法
+  const { optionData, updateOption } = useContext(DataContext);
 
   //简化并提供默认值
   let publicData =
-    optionObj.optimize?.medium || defaultVarOption.optimize.medium;
+  optionData.optimize?.medium || defaultVarOption.optimize.medium;
 
   //拿到需要的媒体值
   const [formData, setFormData] = useState(publicData);
@@ -29,13 +27,9 @@ const App: React.FC = () => {
     setFormData((prevState) => ({ ...prevState, ...changedValues }));
   };
 
-  // 表单值发生变化时更新dataContext的值
-  const dataContext = useContext(DataContext);
+  //表单值发生变化时更新选项值
   useEffect(() => {
-    dataContext.optimize = {
-      ...dataContext.optimize,
-      medium: formData,
-    };
+    updateOption("optimize", "medium", formData);
   }, [formData]);
 
   return (

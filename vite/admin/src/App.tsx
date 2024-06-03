@@ -76,13 +76,13 @@ import {DataContext} from "@/tool/dataContext";
 import { saceOption } from "@/axios/save";
 const Save: React.FC = () => {
   //拿到值
-  const optionObj = useContext(DataContext);
+  const {optionData} = useContext(DataContext);
 
   //提交动作
   const postData = async () => {
     //console.log("提交动作");
    // console.log(optionObj);
-    saceOption(optionObj);
+    saceOption(optionData);
   };
   return (
     <>

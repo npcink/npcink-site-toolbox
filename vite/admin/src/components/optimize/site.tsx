@@ -14,12 +14,11 @@ type FieldType = OptimizeSite;
 const fromConfig = AntConfig.from;
 
 const App: React.FC = () => {
-  //拿到默认选项值
-  const { optimize: optionData } = useContext(DataContext) ?? {};
-  const optionObj = { optimize: optionData || {} };
+  //拿到默认选项值和修改方法
+  const { optionData, updateOption } = useContext(DataContext);
 
   //简化并提供默认值
-  let publicData = optionObj.optimize?.site || defaultVarOption.optimize.site;
+  let publicData = optionData.optimize?.site || defaultVarOption.optimize.site;
 
   //创建变量并设默认值
   const [formData, setFormData] = useState(publicData || {});
@@ -35,14 +34,9 @@ const App: React.FC = () => {
     }));
   };
 
-  // 表单值发生变化时更新dataContext的值
-  const dataContext = useContext(DataContext);
+  //表单值发生变化时更新选项值
   useEffect(() => {
-    //由于选项site可能不存在，这里需要使用复制来新建
-    dataContext.optimize = {
-      ...dataContext.optimize,
-      site: formData,
-    };
+    updateOption("optimize", "site", formData);
   }, [formData]);
 
   return (

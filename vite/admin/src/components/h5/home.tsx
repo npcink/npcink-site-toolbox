@@ -16,12 +16,11 @@ type FieldType = H5Home;
 //Ant 组件配置
 const fromConfig = AntConfig.from;
 const App: React.FC = () => {
-  //拿到默认选项值
-  const { h5: optionData } = useContext(DataContext) ?? {};
-  const optionObj = { h5: optionData || {} };
+  //拿到默认选项值和修改方法
+  const { optionData, updateOption } = useContext(DataContext);
 
   //简化并提供默认值
-  const publicData = optionObj.h5?.home || defaultVarOption.h5.home;
+  const publicData = optionData.h5?.home || defaultVarOption.h5.home;
 
   //创建变量并设默认值
   const [formData, setFormData] = useState(publicData);
@@ -35,12 +34,9 @@ const App: React.FC = () => {
   };
 
   // 表单值发生变化时更新dataContext的值
-  const dataContext = useContext(DataContext);
+  //表单值发生变化时更新选项值
   useEffect(() => {
-    dataContext.h5 = {
-      ...dataContext.h5,
-      home: formData,
-    };
+    updateOption("h5", "home", formData);
   }, [formData]);
 
   //下拉选项

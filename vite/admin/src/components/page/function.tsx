@@ -15,12 +15,11 @@ type FieldType = PageFunction;
 const fromConfig = AntConfig.from;
 
 const App: React.FC = () => {
-  //拿到默认选项值
-  const { page: optionData } = useContext(DataContext) ?? {};
-  const optionObj = { page: optionData || {} };
+  //拿到默认选项值和修改方法
+  const { optionData, updateOption } = useContext(DataContext);
 
   //简化并提供默认值
-  let publicData = optionObj.page?.function || defaultVarOption.page.function;
+  let publicData = optionData.page?.function || defaultVarOption.page.function;
 
   //创建变量并设默认值
   const [formData, setFormData] = useState(publicData || {});
@@ -36,13 +35,9 @@ const App: React.FC = () => {
     }));
   };
 
-  //修改公共值
-  const dataContext = useContext(DataContext);
+  //表单值发生变化时更新选项值
   useEffect(() => {
-    dataContext.page = {
-      ...dataContext.page,
-      function: formData,
-    };
+    updateOption("page", "function", formData);
   }, [formData]);
 
   //const [form] = Form.useForm();
