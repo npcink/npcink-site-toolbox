@@ -6,7 +6,7 @@ import { DataContext } from "@/tool/dataContext";
 import { defaultVarOption } from "@/tool/defaultVar";
 import { AntConfig } from "@/tool/tool";
 import { PageFeature } from "@/tool/interface";
-
+import FixedImage from "@/basic/fixedImage";
 //选项类型
 type FieldType = PageFeature;
 
@@ -91,20 +91,7 @@ const App: React.FC = () => {
           name="particle"
           extra={"考虑到性能以及操作问题，移动端不加载此特效"}
         >
-          <Select
-            style={{ width: "20%" }}
-            //TODO:默认值有问题
-            options={[
-              { value: "false", label: "禁用" },
-              { value: "diffuse", label: "爆炸烟花" },
-              { value: "circle_fireworks", label: "圆圈烟花" },
-              { value: "scattered_fireworks", label: "四散烟花" },
-              { value: "text", label: "随机文字" },
-              { value: "number", label: "随机数字" },
-              { value: "love", label: "七彩爱心" },
-              { value: "star_trail", label: "星星拖尾" },
-            ]}
-          />
+          <FixedImage alists={effectsList}/>
         </Form.Item>
 
         <Form.Item<FieldType>
@@ -266,5 +253,25 @@ const App: React.FC = () => {
     </>
   );
 };
+
+//准备特效
+import Diffuse from "@/assets/effects/爆炸烟花.png";
+import Circle_fireworks from "@/assets/effects/圆圈烟花.png";
+import Scattered_fireworks from "@/assets/effects/四散烟花.png";
+import Text from "@/assets/effects/随机文字.png";
+import Number from "@/assets/effects/随机数字.png";
+import Love from "@/assets/effects/七彩爱心.png";
+import Star_trail from "@/assets/effects/星星拖尾.png";
+const effectsList=[
+  { value: "diffuse", label: Diffuse, title: "爆炸烟花" },
+  { value: "circle_fireworks", label: Circle_fireworks, title: "圆圈烟花" },
+  { value: "scattered_fireworks", label: Scattered_fireworks, title: "四散烟花" },
+  { value: "text", label: Text, title: "随机文字" },
+  { value: "number", label: Number, title: "随机数字" },
+  { value: "love", label: Love, title: "七彩爱心" },
+  { value: "star_trail", label: Star_trail, title: "星星拖尾" },
+  
+]
+
 
 export default App;

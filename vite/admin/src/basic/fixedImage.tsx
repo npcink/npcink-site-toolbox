@@ -51,7 +51,11 @@ const FixedImage: React.FC<FixedImageProps> = (props: any) => {
   return (
     <>
       <Space style={{ width: "100%" }} size={"middle"}>
-        <Image src={result.label} width={300} height={200} />
+        {props.value === "false" ? (
+          "禁用"
+        ) : (
+          <Image src={result.label} width={300}  />
+        )}
 
         <Button onClick={showModal}>更换</Button>
       </Space>
