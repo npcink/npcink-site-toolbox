@@ -5,7 +5,7 @@ import path from "path";
 // 引入rollup-plugin-visualizer模块
 import { visualizer } from "rollup-plugin-visualizer";
 
-//const site="wp-content/plugins/magick-optimize/"
+const site="wp-content/plugins/wp-magick-toolbox/"
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
@@ -38,7 +38,7 @@ export default defineConfig({
     },
   },
     //媒体资源打包前缀，避免图片无法正常显示
-    //base: site + "admin-vite/dist/",
+    base: site + "vite/admin/dist/",
       //代理
   server: {
     //host: "0.0.0.0",

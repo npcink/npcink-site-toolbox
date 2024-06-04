@@ -1,19 +1,14 @@
 //页面 - 功能
 import React from "react";
 import { useState, useContext, useEffect } from "react";
-import {
-  Form,
-  Switch,
-  Select,
-  DatePicker,
-  Input,
-} from "antd";
+import { Form, Switch, Select, DatePicker, Input } from "antd";
 
 import { DataContext } from "@/tool/dataContext";
 import { defaultVarOption } from "@/tool/defaultVar";
 import { AntConfig } from "@/tool/tool";
 import { PageFunction } from "@/tool/interface";
 import SelectImage from "@/basic/selectImage";
+import FixedImage from "@/basic/fixedImage";
 
 //选项类型
 type FieldType = PageFunction;
@@ -135,19 +130,7 @@ const App: React.FC = () => {
             </>
           }
         >
-          <Select
-            style={{ width: 200 }}
-            options={[
-              { value: "false", label: "禁用" },
-              { value: "zhihu", label: "知乎" },
-              { value: "tencent", label: "腾讯云" },
-              { value: "shimo", label: "石墨文档" },
-              { value: "jianshu", label: "简书" },
-              { value: "csdn", label: "CSDN" },
-              { value: "wx_community", label: "微信社区" },
-              { value: "ssp", label: "少数派" },
-            ]}
-          />
+          <FixedImage alists={goLink} />
         </Form.Item>
         <Form.Item<FieldType>
           label="维护提示"
@@ -302,5 +285,23 @@ const TextAreaHtml: React.FC = (props: any) => {
     </>
   );
 };
+
+//准备跳转链接用数组对象
+import Zhihu from "@/assets/go/知乎.png";
+import Tencent from "@/assets/go/腾讯云.png";
+import Shimo from "@/assets/go/石墨文档.png";
+import Jianshu from "@/assets/go/简书.png";
+import Wx_community from "@/assets/go/微信社区.png";
+import CSDN from "@/assets/go/CSDN.png";
+import SSP from "@/assets/go/少数派.png";
+const goLink = [
+  { value: "zhihu", label: Zhihu },
+  { value: "tencent", label: Tencent },
+  { value: "shimo", label: Shimo },
+  { value: "jianshu", label: Jianshu },
+  { value: "wx_community", label: Wx_community },
+  { value: "csdn", label: CSDN },
+  { value: "ssp", label: SSP },
+];
 
 export default App;

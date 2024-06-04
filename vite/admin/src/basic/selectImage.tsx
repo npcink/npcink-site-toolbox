@@ -2,8 +2,11 @@
 import { useState } from "react";
 import { Input, Space, Button, Modal, List, Radio, Popover, Image } from "antd";
 import { FileImageOutlined } from "@ant-design/icons";
-
 import type { RadioChangeEvent } from "antd";
+
+//获取媒体库数据
+import axios from "axios";
+import { url_site } from "@/tool/dataContext";
 
 const SelectImage: React.FC = (props: any) => {
   //弹窗
@@ -110,9 +113,5 @@ const SelectImage: React.FC = (props: any) => {
     </>
   );
 };
-
-//获取媒体库数据
-import axios from "axios";
-import { url_site } from "@/tool/dataContext";
 
 export default SelectImage;
