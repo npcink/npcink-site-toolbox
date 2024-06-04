@@ -141,19 +141,7 @@ const App: React.FC = () => {
             </>
           }
         >
-          <Select
-            style={{ width: 200 }}
-            options={[
-              { value: "false", label: "禁用" },
-              { value: "default", label: "默认简洁" },
-              { value: "default_img", label: "默认带图" },
-              { value: "red", label: "红色纯粹" },
-              { value: "purple", label: "紫色期待" },
-              { value: "lighting", label: "灯光聚焦" },
-              { value: "masking", label: "高级遮罩" },
-              { value: "rotate", label: "炫彩时钟" },
-            ]}
-          />
+          <FixedImage alists={serviceList} />
         </Form.Item>
         {formData.maintenance_tips !== "false" && (
           <>
@@ -303,6 +291,24 @@ const goLink = [
   { value: "wx_community", label: Wx_community, title: "微信社区" },
   { value: "csdn", label: CSDN, title: "CSDN" },
   { value: "ssp", label: SSP, title: "少数派" },
+];
+
+//准备维护界面
+import Default from "@/assets/service/默认简洁.png";
+import Default_img from "@/assets/service/默认带图.png";
+import Red from "@/assets/service/红色纯粹.png";
+import Purple from "@/assets/service/紫色期待.png";
+import Lighting from "@/assets/service/灯光聚焦.png";
+import Masking from "@/assets/service/高级遮罩.png";
+import Rotate from "@/assets/service/炫彩时钟.png";
+const serviceList = [
+  { value: "default", label: Default, title: "默认简洁" },
+  { value: "default_img", label: Default_img, title: "默认带图" },
+  { value: "red", label: Red, title: "红色纯粹" },
+  { value: "purple", label: Purple, title: "紫色期待" },
+  { value: "lighting", label: Lighting, title: "灯光聚焦" },
+  { value: "masking", label: Masking, title: "高级遮罩" },
+  { value: "rotate", label: Rotate, title: "炫彩时钟" },
 ];
 
 export default App;

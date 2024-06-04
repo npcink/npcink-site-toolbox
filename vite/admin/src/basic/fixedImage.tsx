@@ -48,8 +48,6 @@ const FixedImage: React.FC<FixedImageProps> = (props: any) => {
     setImageValue(e.target.value);
   };
 
-
-
   return (
     <>
       <Space style={{ width: "100%" }} size={"middle"}>
@@ -71,11 +69,11 @@ const FixedImage: React.FC<FixedImageProps> = (props: any) => {
               <Radio.Group onChange={onChange} value={imageValue}>
                 <Radio value={item.value}>
                   <Popover
+                    placement="rightTop"
                     content={
                       <Image src={item.label} width={300} alt={item.title} />
                     }
-                    title={"预览效果：" + item.title}
-                    placement="right"
+                    title={"预览样式：" + item.title}
                   >
                     {item.title}
                   </Popover>
