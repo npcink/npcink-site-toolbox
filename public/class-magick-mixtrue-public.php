@@ -54,6 +54,10 @@ class MaBox_Public
     {
         //加载公共样式
         add_action('wp_enqueue_scripts', array(__CLASS__, 'public_css'));
+
+        //添加分享按钮
+        require_once plugin_dir_path(__FILE__) . 'add_share.php';
+        Npcink_Public_Add_Share::run();
     }
 
     //添加公共样式
