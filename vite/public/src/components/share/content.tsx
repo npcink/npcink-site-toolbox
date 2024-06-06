@@ -9,7 +9,8 @@ import Qzone from "@/assets/share/QQ空间.svg";
 import Facebook from "@/assets/share/Facebook.svg";
 import X from "@/assets/share/X.svg";
 
-import { message, QRCode } from "antd";
+import { useState } from "react";
+import { message, QRCode, Drawer } from "antd";
 import { ScanOutlined } from "@ant-design/icons";
 import Poster from "@/components/share/poster";
 interface AppProps {
@@ -32,25 +33,14 @@ const App: React.FC<AppProps> = ({ toggleDrawer }) => {
 
   //生成海报
   const poster = () => {
-    messageApi.open({
-      type: "success",
-      content: (
-        <>
-          <Poster />
-        </>
-      ),
-      duration: 300, //10秒后自动关闭
-      icon: (
-        <ScanOutlined
-          style={{ fontSize: "32px", color: "#000", display: "none" }}
-        />
-      ),
-      style: {
-        marginTop: "10vh",
-      },
-    });
     //关闭弹窗
     toggleDrawer();
+
+    // 1 秒后执行 showDrawer
+    setTimeout(() => {
+      //开海报弹窗
+      showDrawer();
+    }, 200);
   };
 
   //复制当前链接
@@ -150,6 +140,24 @@ const App: React.FC<AppProps> = ({ toggleDrawer }) => {
     window.open(shareUrl, "_blank");
   };
 
+  //弹窗
+  const [open, setOpen] = useState(false);
+
+  //开海报弹窗
+  const showDrawer = () => {
+    setOpen(true);
+  };
+
+  //关海报弹窗
+  const onClose = () => {
+    setOpen(false);
+  };
+
+  //准备样式
+  const classNameNames = {
+    content: "drawer_content_poster",
+  };
+
   return (
     <>
       {contextHolder}
@@ -208,6 +216,19 @@ const App: React.FC<AppProps> = ({ toggleDrawer }) => {
           </ul>
         </div>
       </section>
+
+      {/**弹窗 */}
+      <Drawer
+        placement="bottom"
+        closable={false}
+        onClose={onClose}
+        open={open}
+        size="large"
+        rootClassName="poster_drawer"
+        classNames={classNameNames}
+      >
+        <Poster closePoster={onClose} />
+      </Drawer>
     </>
   );
 };

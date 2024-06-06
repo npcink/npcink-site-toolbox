@@ -1,16 +1,31 @@
-.ant-message-notice-content {
-  padding: 0 !important;
-  overflow: hidden !important;
-  border-radius: 2rem !important;
+/** 弹出框*/
+.poster_drawer .ant-drawer-content-wrapper {
+  box-shadow: none;
+  width: 500px;
+  height: 820px !important;
+  margin: 0 auto;
 }
+.poster_drawer .ant-drawer-content-wrapper .drawer_content_poster {
+  background-color: transparent;
+}
+
+/*海报图*/
 .poster_canvas .canvas-container {
   display: flex;
+  justify-content: center;
 }
+.poster_canvas .canvas-container canvas {
+  overflow: hidden !important;
+  border-radius: 20px !important;
+}
+
+/** 海报*/
 .poster {
   position: relative;
   color: #333;
   width: 100%;
   max-width: 40rem;
+  width: 400px;
   height: auto;
   margin: 0 auto;
   background-color: #f4f4f4;
@@ -18,9 +33,7 @@
   overflow: hidden;
   */
 }
-.box {
-  width: 400px;
-}
+
 .bg {
   position: relative;
 }
@@ -66,4 +79,58 @@
 .content .qr p {
   margin: 10px 0;
   font-size: 12px;
+}
+/*关闭按钮*/
+.close {
+  visibility: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 30px;
+  right: 56px;
+  width: 40px;
+  height: 40px;
+  transition: 0.4s, visibility 0.4s;
+  transition-delay: 0s, 0s;
+  transition-delay: 0s, 0s;
+  transition-delay: 0.2s;
+  opacity: 0;
+  cursor: pointer;
+
+  visibility: visible;
+  opacity: 1;
+  z-index: 9;
+}
+.close .icon {
+  position: relative;
+  width: 30px;
+  height: 30px;
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 100%;
+  box-shadow: inset 0 0 0 0.1rem rgba(255, 255, 255, 0.1);
+}
+
+.close .icon::before,
+.close .icon::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 1.4rem;
+  height: 0.2rem;
+  background-color: #fff;
+}
+
+.close .icon::before {
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+.close .icon::after {
+  -webkit-transform: rotate(-45deg);
+  transform: rotate(-45deg);
 }

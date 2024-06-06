@@ -129,3 +129,15 @@ ul {
     height: 40px;
   }
 }
+
+
+/*优化弹出框*/
+/**
+分享
+*/
+.share .ant-drawer-content-wrapper {
+  box-shadow: none;
+}
+.share .ant-drawer-content-wrapper .drawer_content {
+  background-color: transparent;
+}

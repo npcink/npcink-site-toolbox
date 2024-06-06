@@ -2,8 +2,7 @@
 import { useState } from "react";
 import { Drawer, Button } from "antd";
 import ShareContent from "@/components/share/content";
-import "./style.css";
-import "./main.css";
+import "./index.css";
 const App: React.FC = () => {
   const [open, setOpen] = useState(false);
 
@@ -20,10 +19,10 @@ const App: React.FC = () => {
   //准备样式
 
   const classNameNames = {
-    body: "drawer_body",
-    mask: "drawer_mask",
-    header: "drawer_header",
-    footer: "drawer_footer",
+    //  body: "drawer_body",
+    //  mask: "drawer_mask",
+    //  header: "drawer_header",
+    //  footer: "drawer_footer",
     content: "drawer_content",
   };
 
@@ -43,7 +42,7 @@ const App: React.FC = () => {
         rootClassName="share"
         classNames={classNameNames}
       >
-        <ShareContent toggleDrawer={onClose}/>
+        <ShareContent toggleDrawer={onClose} />
       </Drawer>
     </>
   );
