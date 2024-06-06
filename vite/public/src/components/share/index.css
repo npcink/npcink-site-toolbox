@@ -9,14 +9,12 @@
   z-index: 11;
 }
 
-ol,
-ul {
-  box-sizing: border-box;
-}
-* {
+.site-sharing-container ul,
+.site-sharing-container li {
   box-sizing: border-box;
   -webkit-tap-highlight-color: transparent;
 }
+
 .site-sharing-container {
   line-height: 1.5;
 }
