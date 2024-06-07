@@ -2,7 +2,7 @@
 .poster_drawer .ant-drawer-content-wrapper {
   box-shadow: none;
   width: 500px;
-  height: 820px !important;
+  height: 800px !important;
   margin: 0 auto;
 }
 .poster_drawer .ant-drawer-content-wrapper .drawer_content_poster {
@@ -29,9 +29,10 @@
   height: auto;
   margin: 0 auto;
   background-color: #f4f4f4;
-  /*border-radius: 2rem;
+ 
+  border-radius: 20px;
   overflow: hidden;
-  */
+  
 }
 
 .bg {
@@ -52,9 +53,11 @@
 }
 .bg .meat p {
   margin: 0;
+  font-size: 16px;
 }
 .bg .meat p:first-child {
-  font-size: 30px;
+  font-size: 36px;
+  font-weight: bold;
 }
 .content {
   text-align: center;
@@ -62,6 +65,7 @@
 }
 .content h2 {
   margin: 10px 0;
+  font-size: 26px;
   font-weight: bold;
 }
 .content .meat {
@@ -133,4 +137,14 @@
 .close .icon::after {
   -webkit-transform: rotate(-45deg);
   transform: rotate(-45deg);
+}
+
+/**
+* 下载按钮
+*/
+.dowload-btn {
+  margin: 20px auto;
+  display: flex;
+  border: 0;
+  border-radius: 20px;
 }

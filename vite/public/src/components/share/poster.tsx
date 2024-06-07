@@ -5,11 +5,13 @@
 import "./poster.css";
 import DefaultImg from "@/assets/default/file-dark-1920x1280.jpg";
 import { useRef, useEffect } from "react";
-import { QRCode } from "antd";
+import { QRCode, Button } from "antd";
+import { DownloadOutlined } from "@ant-design/icons";
 import html2canvas from "html2canvas";
+import { publicShareData } from "@/store";
 
 interface AppProps {
-  closePoster: () => void;//关闭弹窗
+  closePoster: () => void; //关闭弹窗
 }
 //弹窗内容
 const App: React.FC<AppProps> = ({ closePoster }) => {
@@ -20,10 +22,10 @@ const App: React.FC<AppProps> = ({ closePoster }) => {
   const posterRef = useRef<HTMLDivElement>(null); // 创建一个持久的引用
 
   //海报图
-  const aaaRef = useRef<HTMLDivElement>(null);
+  const posterCanvasRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     const capturePoster = async () => {
-      if (posterRef.current && aaaRef.current) {
+      if (posterRef.current && posterCanvasRef.current) {
         // 确保引用已经存在
         const canvas = await html2canvas(posterRef.current);
         const canvasContainer = document.createElement("div");
@@ -31,10 +33,10 @@ const App: React.FC<AppProps> = ({ closePoster }) => {
         canvasContainer.appendChild(canvas);
 
         // 清空节点b中的内容
-        aaaRef.current.innerHTML = "";
+        posterCanvasRef.current.innerHTML = "";
 
         // 将生成的canvas元素添加到节点b中
-        aaaRef.current.appendChild(canvasContainer);
+        posterCanvasRef.current.appendChild(canvasContainer);
 
         // 销毁节点a
         const posterNode = posterRef.current;
@@ -52,23 +54,68 @@ const App: React.FC<AppProps> = ({ closePoster }) => {
     };
   }, []); // 空数组表示只在组件挂载时执行一次
 
+  //获取年月日
+  // 获取当前日期
+  const currentDate = new Date();
+
+  // 提取年份和月份
+  const year = currentDate.getFullYear();
+
+  // 月份从0开始，需要加1
+  const month = currentDate.getMonth() + 1;
+
+  // 格式化输出
+  const formattedDate = year + " / " + (month < 10 ? "0" : "") + month;
+
+  // 获取当前日期中的日
+  const day = currentDate.getDate();
+
+  // 格式化日，确保输出两位数
+  const formattedDay = day < 10 ? "0" + day : day;
+
+  /**
+   * 标题和描述
+   */
+  // 获取页面标题
+  const page_title = publicShareData.title;
+
+  // 获取页面描述
+  const metaDescription = publicShareData.description;
+  const description = metaDescription
+    ? publicShareData.description
+    : "还没有拿到页面描述，也许你可以亲自来看看";
+
+  //获取特色图
+  const posterImage = publicShareData.image
+    ? publicShareData.image
+    : DefaultImg;
+  //下载海报按钮
+  const downloadButton = () => {
+    if (posterCanvasRef.current) {
+      const canvasContainer = posterCanvasRef.current
+        .firstChild as HTMLDivElement;
+      const canvas = canvasContainer.firstChild as HTMLCanvasElement;
+      const image = canvas.toDataURL("image/png");
+
+      const link = document.createElement("a");
+      link.href = image;
+      link.download = page_title + " - 页面海报.png";
+      link.click();
+    }
+  };
   return (
     <>
       <div className="poster" ref={posterRef}>
         <div className="bg">
-          <img src={DefaultImg} />
+          <img src={posterImage} />
           <div className="meat">
-            <p id="formattedDay">06</p>
-            <p id="formattedDate">2024 / 06</p>
+            <p>{formattedDay}</p>
+            <p>{formattedDate}</p>
           </div>
         </div>
         <div className="content">
-          <h2>关于 - ZAXU</h2>
-          <div className="meat">
-            Our CustomerHit it Off, Never Change.Hi, I’m Jony Zhang. I based in
-            Shanghai, China. A freelance Graphic, UX, UI Designer and Website
-            Develo...
-          </div>
+          <h2>{page_title}</h2>
+          <div className="meat">{description}</div>
           <div className="qr">
             <QRCode
               errorLevel="H"
@@ -82,10 +129,18 @@ const App: React.FC<AppProps> = ({ closePoster }) => {
       </div>
       {/**关闭 */}
       <div className="close" onClick={closePoster}>
-        <span className="icon background-blur"></span>
+        <span className="icon"></span>
       </div>
       {/**放图 */}
-      <div className="poster_canvas" ref={aaaRef}></div>
+      <div className="poster_canvas" ref={posterCanvasRef}></div>
+      <Button
+        className="dowload-btn"
+        onClick={downloadButton}
+        icon={<DownloadOutlined />}
+        iconPosition="end"
+      >
+        下载海报
+      </Button>
     </>
   );
 };

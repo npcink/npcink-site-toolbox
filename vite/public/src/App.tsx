@@ -1,11 +1,7 @@
-import Share from "@/components/share";
-
 import { ConfigProvider } from "antd";
-
 import zhCN from "antd/locale/zh_CN";
-
 import { message } from "antd";
-
+import Share from "@/components/share";
 message.config({
   top: 50,
 
@@ -22,7 +18,6 @@ function App() {
   return (
     <>
       <ConfigProvider locale={zhCN}>
-        
         <Share />
       </ConfigProvider>
     </>
