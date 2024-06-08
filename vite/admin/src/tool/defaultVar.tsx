@@ -14,23 +14,36 @@ var yesterday = new Date();
 yesterday.setDate(yesterday.getDate() - 1);
 
 // 设置开始时间和结束时间
-var startTime = new Date(yesterday.getFullYear(), yesterday.getMonth(), yesterday.getDate(), 9, 0, 0);
-var endTime = new Date(yesterday.getFullYear(), yesterday.getMonth(), yesterday.getDate(), 12, 0, 0);
+var startTime = new Date(
+  yesterday.getFullYear(),
+  yesterday.getMonth(),
+  yesterday.getDate(),
+  9,
+  0,
+  0
+);
+var endTime = new Date(
+  yesterday.getFullYear(),
+  yesterday.getMonth(),
+  yesterday.getDate(),
+  12,
+  0,
+  0
+);
 
 // 格式化时间
 function formatTime(date: Date) {
-    var year = date.getFullYear();
-    var month = (date.getMonth() + 1).toString().padStart(2, '0');
-    var day = date.getDate().toString().padStart(2, '0');
-    var hours = date.getHours().toString().padStart(2, '0');
-    var minutes = date.getMinutes().toString().padStart(2, '0');
-    var seconds = date.getSeconds().toString().padStart(2, '0');
-    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+  const year = date.getFullYear();
+  const month = (date.getMonth() + 1).toString().padStart(2, "0");
+  const day = date.getDate().toString().padStart(2, "0");
+  const hours = date.getHours().toString().padStart(2, "0");
+  const minutes = date.getMinutes().toString().padStart(2, "0");
+  const seconds = date.getSeconds().toString().padStart(2, "0");
+  return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
 }
 
 // 构建数组
 const timeArray = [formatTime(startTime), formatTime(endTime)];
-
 
 //优化 站点
 const OptimizeSite = {
@@ -96,11 +109,16 @@ const PageFunction = {
   no_login_img: boo, //未登录模糊图片
   maintenance_tips: "false", //维护提示
   //countdown: ["2024-06-01 00:00:00","2024-06-02 00:00:00"], //维护结束倒计时
-  countdown:timeArray,
+  countdown: timeArray,
   countdown_title: "", //维护标题
   countdown_image: "", //维护图片
   countdown_content: "", //维护内容
   share: boo, //分享
+  share_position: "right", //按钮位置
+  share_top: "200", //按钮距离顶部距离
+  share_img_home: "", //首页默认图
+  share_img_page: "", //页面默认图
+  share_img_about: "", //其他默认图
 };
 
 // 页面 - 权限

@@ -1,7 +1,7 @@
 //页面 - 功能
 import React from "react";
 import { useState, useContext, useEffect } from "react";
-import { Form, Switch, DatePicker, Input } from "antd";
+import { Form, Switch, DatePicker, Input, Radio, InputNumber } from "antd";
 
 import { DataContext } from "@/tool/dataContext";
 import { defaultVarOption } from "@/tool/defaultVar";
@@ -198,7 +198,32 @@ const App: React.FC = () => {
         >
           <Switch />
         </Form.Item>
-        {formData.share && <></>}
+        {formData.share && (
+          <>
+            <Form.Item<FieldType> label="分享按钮位置" name="share_position">
+              <Radio.Group
+                options={[
+                  { label: "左边", value: "left" },
+                  { label: "右边", value: "right" },
+                ]}
+                optionType="button"
+                buttonStyle="solid"
+              />
+            </Form.Item>
+            <Form.Item<FieldType> label="按钮距离顶部" name="share_top">
+              <InputNumber addonAfter="px" style={{ width: "120px" }} />
+            </Form.Item>
+            <Form.Item<FieldType> label="首页默认图" name="share_img_home">
+              <SelectImage />
+            </Form.Item>
+            <Form.Item<FieldType> label="页面默认图" name="share_img_page">
+              <SelectImage />
+            </Form.Item>
+            <Form.Item<FieldType> label="其他默认图" name="share_img_about">
+              <SelectImage />
+            </Form.Item>
+          </>
+        )}
       </Form>
     </>
   );

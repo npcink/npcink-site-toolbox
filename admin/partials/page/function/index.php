@@ -84,7 +84,7 @@ if (!class_exists('Npcink_Page_Function')) {
             $share = MaBox_Admin::get_config($option, 'share');
             if ($share !== false) {
                 require_once plugin_dir_path(__FILE__) . 'share/index.php';
-                Npcink_Public_Add_Share::run();
+                Npcink_Public_Add_Share::run($option);
             }
         }
 

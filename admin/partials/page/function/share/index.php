@@ -8,10 +8,10 @@
 if (!class_exists('Npcink_Public_Add_Share')) {
     class Npcink_Public_Add_Share
     {
-        //private static $config; //分类数组
-        public static function run()
+        private static $config; //选项
+        public static function run($option)
         {
-            //self::$config = $option;
+            self::$config = $option;
             //加载HTML
             add_action('wp_footer', array(__CLASS__, 'add_share_html'));
 
@@ -53,10 +53,14 @@ if (!class_exists('Npcink_Public_Add_Share')) {
                 false
             );
 
-            //  //传输数据给JS
-            $MaBox_array = self::get_page_meat();
+            //  //传输数据给JS $share = MaBox_Admin::get_config($option, 'share');
+            $info = array();
+            $info['pageData'] = self::get_page_meat(); //页面数据
+            $info['sharePosition'] = MaBox_Admin::get_config(self::$config, 'share_position');
+            $info['shareTop'] = MaBox_Admin::get_config(self::$config, 'share_top');
 
-            wp_localize_script(MAGICK_MIXTURE_NAME . '_public_index_js', 'dataLocal', $MaBox_array); //传给vite项目
+
+            wp_localize_script(MAGICK_MIXTURE_NAME . '_public_index_js', 'dataLocal', $info); //传给vite项目
         }
 
         //对js文件进行module接入
@@ -78,31 +82,44 @@ if (!class_exists('Npcink_Public_Add_Share')) {
                 $info = self::get_page_info();
                 $info['type'] = "single"; //类型
 
+                //默认图片
+                $info['image']  =  MaBox_Admin::get_config(self::$config, 'share_img_page');
             }
 
             if (is_page()) {
                 // 当前是单页
                 $info = self::get_page_info();
                 $info['type'] = "page";
+                //默认图片
+                $info['image']  =  MaBox_Admin::get_config(self::$config, 'share_img_page');
             }
             if (is_category()) {
                 // 当前是分类页
                 $info = self::get_category_info();
                 $info['type'] = "category";
+
+                //默认图片
+                $info['image']  =  MaBox_Admin::get_config(self::$config, 'share_img_about');
             }
             if (is_tag()) {
                 // 当前是标签页
                 $info = self::get_tag_info();
                 $info['type'] = "tag";
+
+                //默认图片
+                $info['image']  =  MaBox_Admin::get_config(self::$config, 'share_img_about');
             }
 
             if (is_home()) {
                 // 当前是首页
                 $info = self::get_home_info();
                 $info['type'] = "home";
+
+                //默认图片
+                $info['image']  =  MaBox_Admin::get_config(self::$config, 'share_img_home');
             }
 
-            //准备默认图
+            //保底画报图
             $default_image = plugin_dir_url(__FILE__) . 'file-light-1920x1280.jpg';
 
             $info['image'] = $info['image'] ?: $default_image;

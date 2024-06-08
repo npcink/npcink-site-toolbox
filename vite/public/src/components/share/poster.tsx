@@ -16,7 +16,7 @@ interface AppProps {
 //弹窗内容
 const App: React.FC<AppProps> = ({ closePoster }) => {
   //准备当前网页链接
-  const site_url = encodeURIComponent(publicShareData.url);
+  const site_url = encodeURIComponent(publicShareData.pageData.url);
 
   //海报
   const posterRef = useRef<HTMLDivElement>(null); // 创建一个持久的引用
@@ -85,17 +85,17 @@ const App: React.FC<AppProps> = ({ closePoster }) => {
    * 标题和描述
    */
   // 获取页面标题
-  const page_title = publicShareData.title;
+  const page_title = publicShareData.pageData.title;
 
   // 获取页面描述
-  const metaDescription = publicShareData.description;
+  const metaDescription = publicShareData.pageData.description;
   const description = metaDescription
-    ? publicShareData.description
+    ? publicShareData.pageData.description
     : "还没有拿到页面描述，也许你可以亲自来看看";
 
   //获取特色图
-  const posterImage = publicShareData.image
-    ? publicShareData.image
+  const posterImage = publicShareData.pageData.image
+    ? publicShareData.pageData.image
     : DefaultImg;
   //下载海报按钮
   const downloadButton = () => {

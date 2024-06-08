@@ -1,7 +1,7 @@
 //准备初始数据
 import data from "@/store/defaultVar";
 import { PublicShareData } from "@/store/interface";
-
+import DefaultVar from "@/store/defaultVar";
 //开发环境状态
 const state: boolean = import.meta.env.VITE_STATE;
 
@@ -12,7 +12,9 @@ const getDataLocal = () => {
     return data;
   } else {
     //打包
-    return (window as any).dataLocal !== "" ? (window as any).dataLocal : {};
+    return (window as any).dataLocal !== ""
+      ? (window as any).dataLocal
+      : DefaultVar;
   }
 };
 

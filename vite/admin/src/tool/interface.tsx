@@ -119,6 +119,11 @@ export type PageFunction = {
   countdown_image: string; //维护图片
   countdown_content: string; //维护内容
   share: boolean; //分享
+  share_position: string; //按钮位置
+  share_top: string; //按钮距离顶部距离
+  share_img_home: string; //首页默认图
+  share_img_page: string; //页面默认图
+  share_img_about: string; //其他默认图
 };
 
 // 页面 - 权限
