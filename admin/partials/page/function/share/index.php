@@ -34,8 +34,8 @@ if (!class_exists('Npcink_Public_Add_Share')) {
             }
 
             //准备打包后的数据
-            $build_css = plugin_dir_url(dirname(dirname(__FILE__))) . 'vite/public/dist/index.css';
-            $build_js = plugin_dir_url(dirname(dirname(__FILE__))) . 'vite/public/dist/index.js';
+            $build_css =  plugin_dir_url(dirname(dirname(dirname(dirname(__DIR__))))) . 'vite/public/dist/index.css';
+            $build_js =  plugin_dir_url(dirname(dirname(dirname(dirname(__DIR__))))) . 'vite/public/dist/index.js';
 
 
             wp_enqueue_style(

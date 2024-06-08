@@ -100,6 +100,7 @@ const PageFunction = {
   countdown_title: "", //维护标题
   countdown_image: "", //维护图片
   countdown_content: "", //维护内容
+  share: boo, //分享
 };
 
 // 页面 - 权限

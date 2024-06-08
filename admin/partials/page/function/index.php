@@ -79,6 +79,13 @@ if (!class_exists('Npcink_Page_Function')) {
                 require_once plugin_dir_path(__FILE__) . 'maintenance_tips.php';
                 Npcink_Maintenance_Tips::run($maintenance_tips);
             }
+
+            //添加分享按钮
+            $share = MaBox_Admin::get_config($option, 'share');
+            if ($share !== false) {
+                require_once plugin_dir_path(__FILE__) . 'share/index.php';
+                Npcink_Public_Add_Share::run();
+            }
         }
 
         //计算时间

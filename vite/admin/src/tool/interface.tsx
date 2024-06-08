@@ -118,6 +118,7 @@ export type PageFunction = {
   countdown_title: string; //维护标题
   countdown_image: string; //维护图片
   countdown_content: string; //维护内容
+  share: boolean; //分享
 };
 
 // 页面 - 权限

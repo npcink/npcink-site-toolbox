@@ -191,6 +191,14 @@ const App: React.FC = () => {
             </Form.Item>
           </>
         )}
+        <Form.Item<FieldType>
+          label="分享"
+          name="share"
+          extra={<>开启侧边悬浮按钮，提供画报分享，复制链接，发送邮件等功能</>}
+        >
+          <Switch />
+        </Form.Item>
+        {formData.share && <></>}
       </Form>
     </>
   );
