@@ -63,10 +63,6 @@ if (!class_exists('Npcink_Public_Add_Share')) {
             wp_localize_script(MAGICK_MIXTURE_NAME . '_public_index_js', 'dataLocal', $info); //传给vite项目
         }
 
-        //对js文件进行module接入
-
-
-
         /**
          * 准备各种页面的相关信息
          */
@@ -83,7 +79,7 @@ if (!class_exists('Npcink_Public_Add_Share')) {
                 $info['type'] = "single"; //类型
 
                 //默认图片
-                $info['image']  =  MaBox_Admin::get_config(self::$config, 'share_img_page');
+                $info['image']  = $info['image'] ?: MaBox_Admin::get_config(self::$config, 'share_img_page');
             }
 
             if (is_page()) {
@@ -91,7 +87,7 @@ if (!class_exists('Npcink_Public_Add_Share')) {
                 $info = self::get_page_info();
                 $info['type'] = "page";
                 //默认图片
-                $info['image']  =  MaBox_Admin::get_config(self::$config, 'share_img_page');
+                $info['image']  = $info['image'] ?: MaBox_Admin::get_config(self::$config, 'share_img_page');
             }
             if (is_category()) {
                 // 当前是分类页
@@ -99,7 +95,7 @@ if (!class_exists('Npcink_Public_Add_Share')) {
                 $info['type'] = "category";
 
                 //默认图片
-                $info['image']  =  MaBox_Admin::get_config(self::$config, 'share_img_about');
+                $info['image']  = $info['image'] ?: MaBox_Admin::get_config(self::$config, 'share_img_about');
             }
             if (is_tag()) {
                 // 当前是标签页
@@ -107,7 +103,7 @@ if (!class_exists('Npcink_Public_Add_Share')) {
                 $info['type'] = "tag";
 
                 //默认图片
-                $info['image']  =  MaBox_Admin::get_config(self::$config, 'share_img_about');
+                $info['image']  = $info['image'] ?: MaBox_Admin::get_config(self::$config, 'share_img_about');
             }
 
             if (is_home()) {
@@ -116,7 +112,7 @@ if (!class_exists('Npcink_Public_Add_Share')) {
                 $info['type'] = "home";
 
                 //默认图片
-                $info['image']  =  MaBox_Admin::get_config(self::$config, 'share_img_home');
+                $info['image']  = $info['image'] ?: MaBox_Admin::get_config(self::$config, 'share_img_home');
             }
 
             //保底画报图

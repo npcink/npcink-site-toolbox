@@ -139,7 +139,7 @@ const App: React.FC<AppProps> = ({ closePoster }) => {
       <div className="close" onClick={closePoster}>
         <span className="icon"></span>
       </div>
-      {/**放图 */}
+      {/**放图 TODO:做长和宽两种比例，智能一点*/}
       <div className="poster_canvas" ref={posterCanvasRef}></div>
       <Button
         className="dowload-btn"
