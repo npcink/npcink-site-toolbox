@@ -8,8 +8,8 @@ const page_data = {
 
 const data = {
   pageData: page_data,
-  sharePosition: "", //分享按钮位置
-  shareTop: "", //分享按钮距离顶部距离
+  sharePosition: "right", //分享按钮位置
+  shareTop: "195", //分享按钮距离顶部距离
 };
 
 export default data;

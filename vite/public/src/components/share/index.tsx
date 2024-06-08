@@ -4,6 +4,7 @@ import { Drawer, Button } from "antd";
 import { ShareAltOutlined } from "@ant-design/icons";
 import ShareContent from "@/components/share/content";
 import "@/components/share/index.css";
+import { publicShareData } from "@/store";
 
 const App: React.FC = () => {
   const [open, setOpen] = useState(false);
@@ -24,16 +25,19 @@ const App: React.FC = () => {
     content: "drawer_content",
   };
 
-  //准备内容
-
   return (
     <>
-      
       <Button
         shape="circle"
         icon={<ShareAltOutlined />}
         onClick={showDrawer}
         className="open_share"
+        //TODO:太长了，想办法优化下
+        style={{
+          top: `${publicShareData.shareTop}px`,
+          ...(publicShareData.sharePosition === "left" && { left: "12px" }),
+          ...(publicShareData.sharePosition === "right" && { right: "12px" }),
+        }}
       />
 
       <Drawer

@@ -4,8 +4,10 @@
  */
 .open_share {
   position: fixed;
+  /*
   right: 12px;
   top: 195px;
+  */
   z-index: 11;
 }
 
