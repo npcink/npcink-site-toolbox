@@ -55,6 +55,14 @@ if (!class_exists('Npcink_Page_Function')) {
                 Npcink_Jump_Middle_Page::run($go_middle);
             }
 
+            //添加分享按钮
+            $share = MaBox_Admin::get_config($option, 'share');
+            if ($share !== false) {
+                require_once plugin_dir_path(__FILE__) . 'share/index.php';
+                Npcink_Public_Add_Share::run($option);
+            }
+
+
             //维护提示
             $maintenance_tips = MaBox_Admin::get_config($option, 'maintenance_tips');
 
@@ -73,18 +81,12 @@ if (!class_exists('Npcink_Page_Function')) {
 
                 //当前时间不在此时间段，则跳过
                 if ($result !== true) {
+                    //TODO:这段会影响后续代码的执行，待优化
                     return;
                 }
 
                 require_once plugin_dir_path(__FILE__) . 'maintenance_tips.php';
                 Npcink_Maintenance_Tips::run($maintenance_tips);
-            }
-
-            //添加分享按钮
-            $share = MaBox_Admin::get_config($option, 'share');
-            if ($share !== false) {
-                require_once plugin_dir_path(__FILE__) . 'share/index.php';
-                Npcink_Public_Add_Share::run($option);
             }
         }
 
