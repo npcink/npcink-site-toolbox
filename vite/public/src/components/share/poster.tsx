@@ -4,7 +4,8 @@
  */
 import "@/components/share/poster.css";
 import DefaultImg from "@/assets/default/file-dark-1920x1280.jpg";
-import { useRef, useEffect } from "react";
+//import DefaultImg from "@/assets/default/height.jpg";
+import { useRef, useEffect, useState } from "react";
 import { QRCode, Button } from "antd";
 import { DownloadOutlined } from "@ant-design/icons";
 import html2canvas from "html2canvas";
@@ -21,27 +22,24 @@ const App: React.FC<AppProps> = ({ closePoster }) => {
   //海报
   const posterRef = useRef<HTMLDivElement>(null); // 创建一个持久的引用
 
-  //海报图
+  //海报图节点
   const posterCanvasRef = useRef<HTMLDivElement>(null);
+
+  //BASE64 图片
+  const [posterData, setPosterData] = useState("");
 
   //TODO:执行这个时会报错
   useEffect(() => {
     const capturePoster = async () => {
-      if (posterRef.current && posterCanvasRef.current) {
+      if (posterRef.current) {
         // 确保引用已经存在
         try {
           const canvas = await html2canvas(posterRef.current, {
             useCORS: true,
           });
-          const canvasContainer = document.createElement("div");
-          canvasContainer.classList.add("canvas-container");
-          canvasContainer.appendChild(canvas);
-
-          // 清空节点b中的内容
-          posterCanvasRef.current.innerHTML = "";
-
-          // 将生成的canvas元素添加到节点b中
-          posterCanvasRef.current.appendChild(canvasContainer);
+          // 将canvas转换为base64格式
+          const base64Image = canvas.toDataURL("image/png");
+          setPosterData(base64Image);
 
           // 销毁节点a
           const posterNode = posterRef.current;
@@ -113,34 +111,39 @@ const App: React.FC<AppProps> = ({ closePoster }) => {
   };
   return (
     <>
-      <div className="poster" ref={posterRef}>
-        <div className="bg">
-          <img src={posterImage} />
-          <div className="meat">
-            <p>{formattedDay}</p>
-            <p>{formattedDate}</p>
+      <div className="scroll-content">
+        <div className="posterBox">
+          <div className="poster" ref={posterRef}>
+            <div className="bg">
+              <img src={posterImage} />
+              <div className="meat">
+                <p>{formattedDay}</p>
+                <p>{formattedDate}</p>
+              </div>
+            </div>
+            <div className="content">
+              <h2>{page_title}</h2>
+              <div className="meat">{description}</div>
+              <div className="qr">
+                <QRCode
+                  errorLevel="H"
+                  value={site_url}
+                  size={150}
+                  style={{ border: "0px" }}
+                />
+                <p>扫描二维码了解详情</p>
+              </div>
+            </div>
           </div>
-        </div>
-        <div className="content">
-          <h2>{page_title}</h2>
-          <div className="meat">{description}</div>
-          <div className="qr">
-            <QRCode
-              errorLevel="H"
-              value={site_url}
-              size={150}
-              style={{ border: "0px" }}
-            />
-            <p>扫描二维码了解详情</p>
+          {/**关闭 */}
+          <div className="close" onClick={closePoster}>
+            <span className="icon"></span>
           </div>
+          {/**放图 TODO:做长和宽两种比例，智能一点*/}
+
+          <img src={posterData} />
         </div>
       </div>
-      {/**关闭 */}
-      <div className="close" onClick={closePoster}>
-        <span className="icon"></span>
-      </div>
-      {/**放图 TODO:做长和宽两种比例，智能一点*/}
-      <div className="poster_canvas" ref={posterCanvasRef}></div>
       <Button
         className="dowload-btn"
         onClick={downloadButton}

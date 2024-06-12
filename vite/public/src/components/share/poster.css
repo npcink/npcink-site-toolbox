@@ -1,22 +1,44 @@
 /** 弹出框*/
 .poster_drawer .ant-drawer-content-wrapper {
   box-shadow: none;
+  height: 100vh !important;
   width: 500px;
-  height: 800px !important;
   margin: 0 auto;
 }
+
+/*隐藏滚动条*/
+.poster_drawer .ant-drawer-content-wrapper .ant-drawer-body {
+  overflow: auto;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE 10+ */
+}
+.poster_drawer .ant-drawer-content-wrapper .ant-drawer-body::-webkit-scrollbar {
+  display: none; /* Chrome Safari */
+}
+
 .poster_drawer .ant-drawer-content-wrapper .drawer_content_poster {
   background-color: transparent;
 }
 
-/*海报图*/
-.poster_canvas .canvas-container {
-  display: flex;
-  justify-content: center;
+/** 海报盒子*/
+.scroll-content {
+  padding: 80px 0 30px 0;
 }
-.poster_canvas .canvas-container canvas {
-  overflow: hidden !important;
-  border-radius: 20px !important;
+.posterBox {
+  position: relative;
+  color: rgba(51, 51, 51, 1);
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+  margin: 0 auto;
+  background-color: #fff;
+  border-radius: 20px;
+  overflow: hidden;
+}
+.posterBox img {
+  display: block;
+  width: 100%;
+  height: auto;
 }
 
 /** 海报*/
@@ -30,30 +52,14 @@
   margin: 0 auto;
   background-color: #f4f4f4;
 
+  /*
   border-radius: 20px;
   overflow: hidden;
-
-  /*
   position: absolute;
   left: -9999px;
   top: -9999px;
   */
 }
-/*
-.bg {
-  width: 400px;
-  height: 250px;
-  overflow: hidden;
-  position: relative;
-}
-.bg img {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  min-width: 100%;
-  min-height: 100%;
-}*/
 
 .bg {
   position: relative;
@@ -112,8 +118,8 @@
   justify-content: center;
   align-items: center;
   position: absolute;
-  top: 30px;
-  right: 56px;
+  top: 10px;
+  right: 10px;
   width: 40px;
   height: 40px;
   transition: 0.4s, visibility 0.4s;
