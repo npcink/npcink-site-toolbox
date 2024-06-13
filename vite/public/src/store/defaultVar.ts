@@ -1,7 +1,7 @@
 const button = {
   position: "right", //分享按钮位置
   top: "200", //分享按钮距离顶部距离
-  margins: "20",//边距
+  margins: "20", //边距
 };
 
 const page = {
@@ -13,9 +13,9 @@ const page = {
 };
 
 const email = {
-  email: "recipient@example.com", //邮箱地址
-  title: "string", //邮箱标题
-  content: "string", //邮箱内容
+  email: "demo@npc.ink", //邮箱地址
+  title: "邮箱标题", //邮箱标题
+  content: "邮箱内容", //邮箱内容
 };
 
 const data = {

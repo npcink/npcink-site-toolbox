@@ -70,7 +70,7 @@ const App: React.FC<AppProps> = ({ toggleDrawer }) => {
     const mail = publicShareData.email.email;
     const title = publicShareData.email.title;
     const content = publicShareData.email.content;
-    const url = `mailto:${mail}?subject=${title}&body=${content}`;
+    const url = `mailto:${mail}?subject=${title} - ${page_title}&body=${content} - ${page_url}`;
     window.open(url);
   };
 
