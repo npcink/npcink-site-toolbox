@@ -13,15 +13,16 @@ import { useState } from "react";
 import { message, QRCode, Drawer } from "antd";
 import { ScanOutlined } from "@ant-design/icons";
 import Poster from "@/components/share/poster";
+import {publicShareData} from "@/store/index";
 interface AppProps {
   toggleDrawer: () => void;
 }
 
 const App: React.FC<AppProps> = ({ toggleDrawer }) => {
   //当前页面标题
-  const page_title = document.title;
+  const page_title = publicShareData.page.title;
   //准备当前网页链接
-  const site_url = encodeURIComponent(window.location.href);
+  const site_url = encodeURIComponent(publicShareData.page.url);
 
   //准备宣传语
   const site_title = encodeURIComponent(
@@ -82,9 +83,9 @@ const App: React.FC<AppProps> = ({ toggleDrawer }) => {
 
   //发出邮件
   const sendEmail = () => {
-    const mail = "recipient@example.com";
-    const title = "Hello";
-    const content = "This is a test email.";
+    const mail = publicShareData.email.email;
+    const title = publicShareData.email.title;
+    const content = publicShareData.email.content;
     const url = `mailto:${mail}?subject=${title}&body=${content}`;
     window.open(url);
   };

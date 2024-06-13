@@ -17,13 +17,10 @@ interface AppProps {
 //弹窗内容
 const App: React.FC<AppProps> = ({ closePoster }) => {
   //准备当前网页链接
-  const site_url = encodeURIComponent(publicShareData.pageData.url);
+  const site_url = encodeURIComponent(publicShareData.page.url);
 
-  //海报
+  //海报节点
   const posterRef = useRef<HTMLDivElement>(null); // 创建一个持久的引用
-
-  //海报图节点
-  const posterCanvasRef = useRef<HTMLDivElement>(null);
 
   //BASE64 图片
   const [posterData, setPosterData] = useState("");
@@ -79,36 +76,22 @@ const App: React.FC<AppProps> = ({ closePoster }) => {
   // 格式化日，确保输出两位数
   const formattedDay = day < 10 ? "0" + day : day;
 
-  /**
-   * 标题和描述
-   */
   // 获取页面标题
-  const page_title = publicShareData.pageData.title;
+  const page_title = publicShareData.page.title;
 
   // 获取页面描述
-  const metaDescription = publicShareData.pageData.description;
+  const metaDescription = publicShareData.page.description;
   const description = metaDescription
-    ? publicShareData.pageData.description
+    ? publicShareData.page.description
     : "还没有拿到页面描述，也许你可以亲自来看看";
 
   //获取特色图
-  const posterImage = publicShareData.pageData.image
-    ? publicShareData.pageData.image
+  const posterImage = publicShareData.page.image
+    ? publicShareData.page.image
     : DefaultImg;
-  //下载海报按钮
-  const downloadButton = () => {
-    if (posterCanvasRef.current) {
-      const canvasContainer = posterCanvasRef.current
-        .firstChild as HTMLDivElement;
-      const canvas = canvasContainer.firstChild as HTMLCanvasElement;
-      const image = canvas.toDataURL("image/png");
-
-      const link = document.createElement("a");
-      link.href = image;
-      link.download = page_title + " - 页面海报.png";
-      link.click();
-    }
-  };
+  //下载海报按钮TODO:完善下载海报功能
+  
+  const downloadButton = () => {};
   return (
     <>
       <div className="scroll-content">

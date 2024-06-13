@@ -25,6 +25,22 @@ const App: React.FC = () => {
     content: "drawer_content",
   };
 
+  //分离按钮样式
+  const { top, position, margins } = publicShareData.button;
+  const buttonStyle = {
+    top: `${top}px`,
+    [position]: `${margins}px`,
+  };
+  //  const buttonStyle = {
+  //    top: `${publicShareData.button.top}px`,
+  //    ...(publicShareData.button.position === "left" && {
+  //      left: `${publicShareData.button.margins}px`,
+  //    }),
+  //    ...(publicShareData.button.position === "right" && {
+  //      right: `${publicShareData.button.margins}px`,
+  //    }),
+  //  };
+
   return (
     <>
       <Button
@@ -33,11 +49,7 @@ const App: React.FC = () => {
         onClick={showDrawer}
         className="open_share"
         //TODO:太长了，想办法优化下
-        style={{
-          top: `${publicShareData.shareTop}px`,
-          ...(publicShareData.sharePosition === "left" && { left: "12px" }),
-          ...(publicShareData.sharePosition === "right" && { right: "12px" }),
-        }}
+        style={buttonStyle}
       />
 
       <Drawer
