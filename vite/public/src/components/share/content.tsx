@@ -26,9 +26,8 @@ const App: React.FC<AppProps> = ({ toggleDrawer }) => {
   const page_url = encodeURIComponent(publicShareData.page.url);
 
   //准备宣传语
-  const promo = encodeURIComponent(
-    "发现一个蛮有意思的站点，分享给你看看 - " + page_title + "："
-  );
+  const shareText = publicShareData.button.shareText;
+  const promo = encodeURIComponent(shareText + page_title + "：");
 
   //当前弹窗展示内容
   const [drawerContent, setDrawerContent] = useState("");

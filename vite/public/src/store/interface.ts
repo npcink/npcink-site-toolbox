@@ -9,6 +9,7 @@ interface ShareButton {
   position: string; //位置
   top: string; //距离顶部
   margins: string; //边距
+  shareText: string; //分享文本
 }
 
 //页面数据

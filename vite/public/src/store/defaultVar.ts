@@ -2,6 +2,7 @@ const button = {
   position: "right", //分享按钮位置
   top: "200", //分享按钮距离顶部距离
   margins: "20", //边距
+  shareText: "发现一个蛮有意思的站点，分享给你看看 - ", //分享用文本
 };
 
 const page = {
