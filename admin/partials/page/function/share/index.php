@@ -53,13 +53,34 @@ if (!class_exists('Npcink_Public_Add_Share')) {
                 false
             );
 
-            //  //传输数据给JS $share = MaBox_Admin::get_config($option, 'share');
-            $info = array();
-            $info['pageData'] = self::get_page_meat(); //页面数据
-            $info['sharePosition'] = MaBox_Admin::get_config(self::$config, 'share_position');//位置
-            $info['shareTop'] = MaBox_Admin::get_config(self::$config, 'share_top');//距离
+            //传输数据给JS 
+            $info = self::get_info();
 
             wp_localize_script(MAGICK_MIXTURE_NAME . '_public_index_js', 'dataLocal', $info); //传给vite项目
+        }
+        
+        /**
+         * 准备各种数据
+         */
+        public static function get_info()
+        {
+            //获取按钮数据
+            $button = array();
+            $button['position'] = MaBox_Admin::get_config(self::$config, 'share_position'); //位置
+            $button['top'] =   MaBox_Admin::get_config(self::$config, 'share_top'); //距离
+            $button['margins'] =   MaBox_Admin::get_config(self::$config, 'share_margins'); //边距
+            $button['shareText'] =    MaBox_Admin::get_config(self::$config, 'share_text'); //分享文本
+            //获取邮箱数据
+            $email = array();
+            $email['email'] = MaBox_Admin::get_config(self::$config, 'share_email_email'); //邮箱地址
+            $email['title'] = MaBox_Admin::get_config(self::$config, 'share_email_title'); //邮箱标题
+            $email['content'] = MaBox_Admin::get_config(self::$config, 'share_email_content'); //邮箱内容
+
+            $info = array();
+            $info['button'] = $button;
+            $info['page'] = self::get_page_meat(); //页面数据
+            $info['email'] = $email;
+            return $info;
         }
 
         /**

@@ -222,20 +222,33 @@ const App: React.FC = () => {
             <Form.Item label="分享">
               <h3>邮箱</h3>
             </Form.Item>
-            <Form.Item<FieldType> label="邮箱地址" name="share_email_email">
-              <Input  />
+            <Form.Item<FieldType>
+              label="邮箱地址"
+              name="share_email_email"
+              rules={[
+                {
+                  type: "email",
+                  message: "请输入有效的邮箱地址!",
+                },
+                {
+                  required: true,
+                  message: "请输入邮箱地址!",
+                },
+              ]}
+            >
+              <Input />
             </Form.Item>
             <Form.Item<FieldType> label="邮箱标题" name="share_email_title">
-              <Input  />
+              <Input />
             </Form.Item>
             <Form.Item<FieldType> label="邮箱内容" name="share_email_content">
-              <Input  />
+              <Input />
             </Form.Item>
             <Form.Item label="分享">
               <h3>分享信息</h3>
             </Form.Item>
             <Form.Item<FieldType> label="分享文本" name="share_text">
-              <Input  />
+              <Input />
             </Form.Item>
             <Form.Item<FieldType> label="首页默认图" name="share_img_home">
               <SelectImage />
@@ -246,7 +259,6 @@ const App: React.FC = () => {
             <Form.Item<FieldType> label="其他默认图" name="share_img_about">
               <SelectImage />
             </Form.Item>
-
           </>
         )}
       </Form>
