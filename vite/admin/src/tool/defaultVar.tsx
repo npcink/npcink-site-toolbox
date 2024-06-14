@@ -117,9 +117,9 @@ const PageFunction = {
   share_position: "right", //按钮位置
   share_top: "200", //按钮距离顶部距离
   share_margins:"20",//按钮距离侧边位置
-  share_text:"发现一个蛮有意思的站点，分享给你看看 - ",//分享用文本
-  share_email_email:"demo@npc.ink",//邮箱地址
-  share_email_title:"发现有趣的网站",//邮箱标题
+  share_text:"发现一个蛮有意思的网站，分享给你看看 - ",//分享用文本
+  share_email_email:"test@npc.ink",//邮箱地址
+  share_email_title:"发现有趣的链接",//邮箱标题
   share_email_content:"发现一个有趣的网站，分享给你看看",//邮箱内容
   share_img_home: "", //首页默认图
   share_img_page: "", //页面默认图

@@ -1,7 +1,15 @@
 //页面 - 功能
 import React from "react";
 import { useState, useContext, useEffect } from "react";
-import { Form, Switch, DatePicker, Input, Radio, InputNumber } from "antd";
+import {
+  Form,
+  Switch,
+  DatePicker,
+  Input,
+  Radio,
+  InputNumber,
+  Popover,
+} from "antd";
 
 import { DataContext } from "@/tool/dataContext";
 import { defaultVarOption } from "@/tool/defaultVar";
@@ -9,6 +17,8 @@ import { AntConfig } from "@/tool/tool";
 import { PageFunction } from "@/tool/interface";
 import SelectImage from "@/basic/selectImage";
 import FixedImage from "@/basic/fixedImage";
+import Email from "@/assets/share/email.png";
+import WeiBo from "@/assets/share/weibo.png";
 
 //选项类型
 type FieldType = PageFunction;
@@ -219,8 +229,30 @@ const App: React.FC = () => {
             <Form.Item<FieldType> label="按钮距离侧边" name="share_margins">
               <InputNumber addonAfter="px" style={{ width: "120px" }} />
             </Form.Item>
+            <Form.Item<FieldType>
+              label="分享文本"
+              name="share_text"
+              extra={
+                <>
+                  前往第三方平台分享时展示的文本：
+                  <Popover
+                    content={<img src={WeiBo} width={500} />}
+                    title="预览"
+                  >
+                    预览
+                  </Popover>
+                </>
+              }
+            >
+              <Input />
+            </Form.Item>
             <Form.Item label="分享">
-              <h3>邮箱</h3>
+              <h3>
+                邮箱 -  
+                <Popover content={<img src={Email} width={500} />} title="预览">
+                  预览
+                </Popover>
+              </h3>
             </Form.Item>
             <Form.Item<FieldType>
               label="邮箱地址"
@@ -245,11 +277,9 @@ const App: React.FC = () => {
               <Input />
             </Form.Item>
             <Form.Item label="分享">
-              <h3>分享信息</h3>
+              <h3>主图</h3>
             </Form.Item>
-            <Form.Item<FieldType> label="分享文本" name="share_text">
-              <Input />
-            </Form.Item>
+
             <Form.Item<FieldType> label="首页默认图" name="share_img_home">
               <SelectImage />
             </Form.Item>
