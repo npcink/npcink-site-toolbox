@@ -67,7 +67,7 @@ if (!class_exists('Npcink_Page_Copy_Pop_Up')) {
         {
             wp_enqueue_style(
                 MAGICK_MIXTURE_NAME . '_sweetalert',
-                plugin_dir_url(__FILE__) . 'project/sweetalert/sweetalert.min.css',
+                plugin_dir_url(__FILE__) . 'sweetalert/sweetalert.min.css',
                 array(),
                 MAGICK_MIXTURE_VERSION,
                 false
@@ -75,7 +75,7 @@ if (!class_exists('Npcink_Page_Copy_Pop_Up')) {
 
             wp_enqueue_script(
                 MAGICK_MIXTURE_NAME . '_sweetalert',
-                plugin_dir_url(__FILE__) . 'project/sweetalert/sweetalert.min.js',
+                plugin_dir_url(__FILE__) . 'sweetalert/sweetalert.min.js',
                 array(),
                 MAGICK_MIXTURE_VERSION,
                 true

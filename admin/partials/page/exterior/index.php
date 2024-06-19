@@ -90,7 +90,7 @@ if (!class_exists('Npcink_Page_Exterior')) {
             //复制弹窗
             $copy_pop_up = MaBox_Admin::get_config($option, 'copy_pop_up');
             if ($copy_pop_up !== "false") {
-                require_once plugin_dir_path(__FILE__) . 'copy_pop_up.php';
+                require_once plugin_dir_path(__FILE__) . 'copy_pop_up/index.php';
                 Npcink_Page_Copy_Pop_Up::run($copy_pop_up);
             }
 
