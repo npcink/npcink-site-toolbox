@@ -29,7 +29,7 @@ if (!class_exists('Npcink_Page_Exterior')) {
             $particle = MaBox_Admin::get_config($option, 'particle', "false");
             //有值且不是手机端
             if ($particle !== false && !wp_is_mobile()) {
-                require_once plugin_dir_path(__FILE__) . 'click_effect.php';
+                require_once plugin_dir_path(__FILE__) . 'click_effect/index.php';
                 Npcink_Page_Add_Click_Effect::run($particle);
             }
 
