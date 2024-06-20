@@ -138,7 +138,7 @@ const PageJurisdiction = {
 };
 
 //权限控制 辅助
-const AuthorityAuxiliary = {
+const FunctionAuxiliary = {
   single_count: boo, //文章统计
   no_malice_key: boo, //拒绝恶意关键词
   malice_keu_content: str, //恶意关键词内容
@@ -149,13 +149,13 @@ const AuthorityAuxiliary = {
 };
 
 //权限控制 b2
-const AuthorityB2 = {
+const FunctionB2 = {
   add_order_menu: boo, //添加订单菜单
   b2_count: boo, //B2商城统计
 };
 
 //权限 微信小程序
-const AuthorityWxXcx = {
+const FunctionWxXcx = {
   active: boo, //开关状态
   appid: str, //
   secret: str, //
@@ -220,10 +220,10 @@ export const defaultVarOption = {
     admin: OptimizeAdmin, //其他
   },
   //权限控制
-  authority: {
-    auxiliary: AuthorityAuxiliary, //辅助功能
-    b2: AuthorityB2, //B2
-    wx_xcx: AuthorityWxXcx, //微信小程序链接生成
+  function: {
+    auxiliary: FunctionAuxiliary, //辅助功能
+    b2: FunctionB2, //B2
+    wx_xcx: FunctionWxXcx, //微信小程序链接生成
     seo: FunctionSeo, //简单 SEO 功能
   },
   //页面

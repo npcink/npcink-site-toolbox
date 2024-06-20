@@ -4,12 +4,12 @@ import { useState, useContext, useEffect } from "react";
 import { Form, Switch, Input, Collapse } from "antd";
 import type { CollapseProps } from "antd";
 import { DataContext } from "@/tool/dataContext";
-import { AuthorityWxXcx } from "@/tool/interface";
+import { FunctionWxXcx } from "@/tool/interface";
 import { defaultVarOption } from "@/tool/defaultVar";
 import { AntConfig } from "@/tool/tool";
 
 //选项类型
-type FieldType = AuthorityWxXcx;
+type FieldType = FunctionWxXcx;
 
 //Ant 组件配置
 const fromConfig = AntConfig.from;
@@ -72,7 +72,7 @@ const App: React.FC = () => {
 
   //简化并提供默认值
   const publicData =
-  optionData.authority?.wx_xcx || defaultVarOption.authority.wx_xcx;
+    optionData.function?.wx_xcx || defaultVarOption.function.wx_xcx;
 
   //创建变量并设默认值
   const [formData, setFormData] = useState(publicData);
@@ -87,7 +87,7 @@ const App: React.FC = () => {
 
   // 表单值发生变化时更新dataContext的值
   useEffect(() => {
-    updateOption("authority", "wx_xcx", formData);
+    updateOption("function", "wx_xcx", formData);
   }, [formData]);
 
   return (

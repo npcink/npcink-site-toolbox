@@ -10,7 +10,7 @@ if (!class_exists('MaBox_Function')) {
         {
 
             //获取设置选项值
-            $config = MaBox_Admin::get_seting('authority');
+            $config = MaBox_Admin::get_seting('function');
 
             //下载指定数据库表内容
             require_once plugin_dir_path(__FILE__) . 'function/download-sql-table.php';

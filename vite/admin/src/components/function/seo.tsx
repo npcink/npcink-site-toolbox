@@ -21,7 +21,7 @@ const App: React.FC = () => {
   const { optionData, updateOption } = useContext(DataContext);
 
   //简化并提供默认值
-  let publicData = optionData.authority?.seo || defaultVarOption.authority.seo;
+  let publicData = optionData.function?.seo || defaultVarOption.function.seo;
 
   //创建变量并设默认值
   const [formData, setFormData] = useState(publicData || {});
@@ -39,7 +39,7 @@ const App: React.FC = () => {
 
   // 表单值发生变化时更新dataContext的值
   useEffect(() => {
-    updateOption("authority", "seo", formData);
+    updateOption("function", "seo", formData);
   }, [formData]);
 
   return (

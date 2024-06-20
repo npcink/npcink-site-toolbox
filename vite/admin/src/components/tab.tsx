@@ -7,7 +7,7 @@ import { defaultOption, DataContext } from "@/tool/dataContext";
 
 import Optimize from "@/components/optimize/index";
 import Page from "@/components/page/index";
-import Authority from "@/components/authority/index";
+import Function from "@/components/function/index";
 import Login from "@/components/login/index";
 import H5 from "@/components/h5/index";
 import About from "@/components/about/index";
@@ -18,11 +18,11 @@ const items: TabsProps["items"] = [
     label: `页面`,
     children: <Page />,
   },
-  
+
   {
     key: "2",
     label: `功能`,
-    children: <Authority />,
+    children: <Function />,
   },
   {
     key: "3",
@@ -45,7 +45,6 @@ const items: TabsProps["items"] = [
     label: `关于`,
     children: <About />,
   },
-  
 ];
 
 const App: React.FC = () => {

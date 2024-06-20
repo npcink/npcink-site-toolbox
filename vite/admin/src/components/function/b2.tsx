@@ -3,12 +3,12 @@ import React from "react";
 import { useState, useContext, useEffect } from "react";
 import { Switch, Form } from "antd";
 import { DataContext } from "@/tool/dataContext";
-import { AuthorityB2 } from "@/tool/interface";
+import { FunctionB2 } from "@/tool/interface";
 import { defaultVarOption } from "@/tool/defaultVar";
 import { AntConfig } from "@/tool/tool";
 
 //选项类型
-type FieldType = AuthorityB2;
+type FieldType = FunctionB2;
 
 //Ant 组件配置
 const fromConfig = AntConfig.from;
@@ -18,7 +18,7 @@ const App: React.FC = () => {
   const { optionData, updateOption } = useContext(DataContext);
 
   //简化并提供默认值
-  const publicData = optionData.authority?.b2 || defaultVarOption.authority.b2;
+  const publicData = optionData.function?.b2 || defaultVarOption.function.b2;
 
   //创建变量并设默认值
   const [formData, setFormData] = useState(publicData);
@@ -33,7 +33,7 @@ const App: React.FC = () => {
 
   // 表单值发生变化时更新dataContext的值
   useEffect(() => {
-    updateOption("authority", "b2", formData);
+    updateOption("function", "b2", formData);
   }, [formData]);
 
   return (

@@ -3,12 +3,12 @@ import React from "react";
 import { useState, useContext, useEffect } from "react";
 import { Switch, Form, Input, Button, Space, message } from "antd";
 import { DataContext } from "@/tool/dataContext";
-import { AuthorityAuxiliary } from "@/tool/interface";
+import { FunctionAuxiliary } from "@/tool/interface";
 import { defaultVarOption } from "@/tool/defaultVar";
 import { AntConfig } from "@/tool/tool";
 
 //选项类型
-type FieldType = AuthorityAuxiliary;
+type FieldType = FunctionAuxiliary;
 
 //Ant 组件配置
 const fromConfig = AntConfig.from;
@@ -22,7 +22,7 @@ const App: React.FC = () => {
 
   //简化并提供默认值
   let publicData =
-    optionData.authority?.auxiliary || defaultVarOption.authority.auxiliary;
+    optionData.function?.auxiliary || defaultVarOption.function.auxiliary;
 
   //创建变量并设默认值
   const [formData, setFormData] = useState(publicData || {});
@@ -40,7 +40,7 @@ const App: React.FC = () => {
 
   // 表单值发生变化时更新dataContext的值
   useEffect(() => {
-    updateOption("authority", "auxiliary", formData);
+    updateOption("function", "auxiliary", formData);
   }, [formData]);
 
   //提取百度统计标识符

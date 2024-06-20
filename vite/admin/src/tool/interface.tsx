@@ -20,10 +20,10 @@ export type Option = {
     jurisdiction: PageJurisdiction; //权限
   };
   //权限
-  authority: {
-    auxiliary: AuthorityAuxiliary; //辅助功能
-    b2: AuthorityB2; //B2主题
-    wx_xcx: AuthorityWxXcx; //微信小程序链接生成
+  function: {
+    auxiliary: FunctionAuxiliary; //辅助功能
+    b2: FunctionB2; //B2主题
+    wx_xcx: FunctionWxXcx; //微信小程序链接生成
     seo: FunctionSeo; //简单 SEO 功能
   };
   h5: {
@@ -105,7 +105,7 @@ export type PageFeature = {
   page_scrolling: boolean; //平滑滚动
   page_back_top_cat: boolean; //上吊猫
   page_back_top_cat_right: number; //右边距
-  background_effect: string;//背景特效
+  background_effect: string; //背景特效
 };
 
 //页面 - 功能
@@ -143,7 +143,7 @@ export type PageJurisdiction = {
 };
 
 //权限 辅助
-export type AuthorityAuxiliary = {
+export type FunctionAuxiliary = {
   single_count: boolean; //文章统计
   no_malice_key: boolean; //拒绝恶意关键词
   malice_keu_content: string; //恶意关键词内容
@@ -154,13 +154,13 @@ export type AuthorityAuxiliary = {
 };
 
 //权限 B2
-export type AuthorityB2 = {
+export type FunctionB2 = {
   add_order_menu: boolean; //添加订单菜单
   b2_count: boolean; //B2商城统计
 };
 
 //权限 微信小程序
-export type AuthorityWxXcx = {
+export type FunctionWxXcx = {
   active: boolean; //开关状态
   appid: string; //
   secret: string; //
