@@ -27,6 +27,11 @@ if (!class_exists('Npcink_Page_Runcode')) {
                 /*文章内代码运行功能*/
                 .runcode {
                     width: 100%;
+                    margin-top: .8em;
+                    border-radius: 8px;
+                    border: 1px solid;
+                    padding: .6em;
+                    font-size: 12px;
                 }
             </style>
             <!--代码运行模块-->
@@ -80,10 +85,14 @@ if (!class_exists('Npcink_Page_Runcode')) {
                     $id = "runcode_$num";
                     $blockID = "<p>++RUNCODE_BLOCK_$num++";
                     $innertext = '
+                    <div class="runcode-box">
+                        <div class="runcode-box-header">
+                            <input class="runcode2" type="button" value="运行代码" onclick="runCode(\'' . $id . '\')"/>
+                           <!-- <input class="btn btn--secondary" style="margin-left: 30px;" type="button" value="全选代码" onclick="selectCode(\'' . $id . '\')"/>-->
+                            <input class="btn btn--secondary" style="margin-left: 30px;" type="button" value="复制代码" onclick="copyCode(\'' . $id . '\')"/>
+                        </div>
                         <textarea readonly id="' . $id . '" class="runcode" style="height: auto; min-height: 150px; max-height: 300px; overflow-y: auto;">' . $code . '</textarea>
-                        <input class="runcode2" type="button" value="运行代码" onclick="runCode(\'' . $id . '\')"/>
-                        <input class="btn btn--secondary" style="margin-left: 30px;" type="button" value="全选代码" onclick="selectCode(\'' . $id . '\')"/>
-                        <input class="btn btn--secondary" style="margin-left: 30px;" type="button" value="复制代码" onclick="copyCode(\'' . $id . '\')"/>
+                        </div>
                     ';
                     self::$blocks[$blockID] = $innertext;
                     $content = str_replace($matches[0][$i], $blockID, $content);
