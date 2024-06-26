@@ -139,6 +139,7 @@ export type PageFunction = {
 
 // 页面 - 权限
 export type PageJurisdiction = {
+  ban_copy: boolean;//禁止复制
   category_id: number[]; //分类ID
   tag_id: number[]; //标签ID
   page_id: number[]; //页面ID

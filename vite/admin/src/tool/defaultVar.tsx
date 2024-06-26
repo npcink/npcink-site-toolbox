@@ -134,6 +134,7 @@ const PageFunction = {
 
 // 页面 - 权限
 const PageJurisdiction = {
+  ban_copy: boo, //禁止复制
   category_id: [], //分类ID
   tag_id: [], //标签ID
   page_id: [], //页面ID

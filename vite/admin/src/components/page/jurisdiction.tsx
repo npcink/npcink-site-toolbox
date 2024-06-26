@@ -2,7 +2,7 @@
  * 页面优化 - 权限
  */
 import { useState, useContext, useEffect } from "react";
-import { Form, Select } from "antd";
+import { Form, Select,Switch } from "antd";
 import { DataContext } from "@/tool/dataContext";
 import { PageJurisdiction, ListData } from "@/tool/interface";
 import { defaultVarOption } from "@/tool/defaultVar";
@@ -77,7 +77,19 @@ const App: React.FC = () => {
         onValuesChange={onValuesChange}
       >
         <Form.Item>
-          <h2>未登录权限</h2>
+          <h2>权限</h2>
+        </Form.Item>
+        <Form.Item>
+          <h3 className="menu-header">隐私权限</h3>
+        </Form.Item>
+        <Form.Item<FieldType>
+          label="禁止复制"
+          name="ban_copy"
+        >
+          <Switch />
+        </Form.Item>
+        <Form.Item>
+          <h3 className="menu-header">未登录权限</h3>
         </Form.Item>
 
         <Form.Item<FieldType>

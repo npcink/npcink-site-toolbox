@@ -10,6 +10,13 @@ if (!class_exists('Npcink_Page_Jurisdiction')) {
         public static function run($option)
         {
 
+            //禁止复制
+            $ban_copy = MaBox_Admin::get_config($option, 'ban_copy');
+            if ($ban_copy === true) {
+                require_once plugin_dir_path(__FILE__) . 'ban_copy.php';
+                Npcink_Page_Ban_Copy::run();
+            }
+
             //分类数组
             $category_id = MaBox_Admin::get_config($option, 'category_id');
 
