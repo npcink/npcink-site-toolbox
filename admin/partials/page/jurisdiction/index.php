@@ -16,6 +16,12 @@ if (!class_exists('Npcink_Page_Jurisdiction')) {
                 require_once plugin_dir_path(__FILE__) . 'ban_copy.php';
                 Npcink_Page_Ban_Copy::run();
             }
+             //禁用前端 F12 调试
+             $front_debug = MaBox_Admin::get_config($option, 'front_debug');
+             if ($front_debug !== false) {
+                 require_once plugin_dir_path(__FILE__) . 'front_debug.php';
+                 Npcink_Page_Front_Debug::run();
+             }
 
             //分类数组
             $category_id = MaBox_Admin::get_config($option, 'category_id');

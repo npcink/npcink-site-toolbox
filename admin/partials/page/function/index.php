@@ -98,12 +98,7 @@ if (!class_exists('Npcink_Page_Function')) {
                 Npcink_Single_Lang_Jf::run();
             }
 
-            //禁用前端 F12 调试
-            $front_debug = MaBox_Admin::get_config($option, 'front_debug');
-            if ($front_debug !== false) {
-                require_once plugin_dir_path(__FILE__) . 'front_debug.php';
-                Npcink_Page_Front_Debug::run();
-            }
+           
         }
 
         //计算时间

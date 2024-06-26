@@ -315,13 +315,6 @@ const App: React.FC = () => {
         >
           <Switch />
         </Form.Item>
-        <Form.Item<FieldType>
-          label="禁用F12前端调试"
-          name="front_debug"
-          extra={<>打开浏览器控制台会卡死页面</>}
-        >
-          <Switch />
-        </Form.Item>
       </Form>
     </>
   );
