@@ -42,7 +42,7 @@ function run_mare_uninstall()
 	if ($plugin === true) {
 		//删除选项
 
-		$deleted = delete_option('MAGICK_MIXTURE_OPTION');
+		$deleted = delete_option(MAGICK_MIXTURE_OPTION);
 
 		if ($deleted) {
 			// 成功删除选项的逻辑
