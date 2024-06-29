@@ -25,7 +25,7 @@ define('MAGICK_MIXTURE_NAME', 'magick-optimize');
 //定义插件版本
 define('MAGICK_MIXTURE_VERSION', '2.0.7');
 //定义保存选项字段
-define('MAGICK_MIXTURE_OPTION', "Magick_ToolBox_Option");
+define('MAGICK_MIXTURE_OPTION', "Magick_ToolBox_Option_207");
 
 /**
  * 用于定义需要用到的插件类，

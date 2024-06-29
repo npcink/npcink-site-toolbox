@@ -32,25 +32,10 @@ if (!defined('WP_UNINSTALL_PLUGIN')) {
 
 
 //执行卸载插件时的动作
-require plugin_dir_path(__FILE__) . 'admin/class-magick-mixtrue-admin.php';
+require plugin_dir_path(__FILE__) . 'admin/partials/function/config/remove_config.php';
 function run_mare_uninstall()
 {
-	$plugin = new MaBox_Admin("1","1");
-	$plugin->get_seting('function');
-	$plugin->get_config($plugin, 'config');
-	$plugin->get_config($plugin, 'remove_config');
-	if ($plugin === true) {
-		//删除选项
-
-		$deleted = delete_option(MAGICK_MIXTURE_OPTION);
-
-		if ($deleted) {
-			// 成功删除选项的逻辑
-			echo '选项 MAGICK_MIXTURE_OPTION 已成功删除。';
-		} else {
-			// 未能删除选项的逻辑
-			echo '无法删除选项 MAGICK_MIXTURE_OPTION。';
-		}
-	}
+	$plugin = new MaBox_Config_Remove_Config();
+	$plugin->run();
 }
 run_mare_uninstall();

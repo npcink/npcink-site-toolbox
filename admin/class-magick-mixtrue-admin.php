@@ -227,6 +227,14 @@ class MaBox_Admin
     public static  function save_option_wmt_callback()
     {
         global $wpdb;
+
+        // 检查是否有传递的对象数据
+        if (empty($_POST['object_data'])) {
+            return wp_send_json_error([
+                'error' => '未接收到有效的设置数据',
+            ], 400); // 使用 400 错误码表示客户端请求错误
+        }
+
         // 获取通过 Ajax POST 请求传递的对象数据
         $object_data = isset($_POST['object_data']) ? sanitize_text_field($_POST['object_data']) : null;
 
