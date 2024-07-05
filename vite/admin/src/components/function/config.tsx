@@ -57,10 +57,10 @@ const App: React.FC = () => {
         </Form.Item>
 
         <Form.Item<FieldType>
-          label="移除设置选项"
+          label="待定"
           name="remove_config"
           valuePropName="checked"
-          extra={"删除插件的同时，移除设置选项内容"}
+          extra={"待定"}
         >
           <Switch />
         </Form.Item>

@@ -2,8 +2,6 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 //配置路径
 import path from "path";
-// 引入rollup-plugin-visualizer模块
-import { visualizer } from "rollup-plugin-visualizer";
 
 const site="wp-content/plugins/wp-magick-toolbox/"
 // https://vitejs.dev/config/
