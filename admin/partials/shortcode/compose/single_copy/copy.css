@@ -8,6 +8,8 @@
   border: 1px solid #17795e;
   background-color: #209978;
   overflow: hidden;
+
+  border-radius: 3px;
 }
 
 .mabox_copy_btn,
@@ -26,7 +28,7 @@
   position: absolute;
   transform: translateX(109px);
   height: 100%;
-  width: 39px;
+  width: 42px;
   background-color: #17795e;
   display: flex;
   align-items: center;
