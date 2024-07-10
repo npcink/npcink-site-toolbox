@@ -36,8 +36,20 @@ if (!class_exists('MaBox_ShortCode_Single_Copy')) {
             $link = esc_url($a['link']);
             //递归解析短代码
             // 生成按钮的 HTML 代码，使用 htmlspecialchars 进行安全输出
-            $button_html = '<button onClick="copys(&quot;' . htmlspecialchars($copy) . '&quot;, &quot;' . htmlspecialchars($alert) . '&quot;, &quot;' . htmlspecialchars($link) . '&quot;)">'
-                . $content . '</button>';
+            $button_html = '
+            
+            
+            <button class="mabox_copy_btn" type="button" onClick="copys(&quot;' . htmlspecialchars($copy) . '&quot;, &quot;' . htmlspecialchars($alert) . '&quot;, &quot;' . htmlspecialchars($link) . '&quot;)">
+            
+            <span class="button__text">
+            ' . $content . '
+            </span>
+                
+                
+                <span class="button__icon">
+<svg t="1720593066129" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4463" width="16" height="16"><path d="M678.758927 731.426377a51.930909 51.930909 0 0 0 52.66233-51.930909V51.936029A51.930909 51.930909 0 0 0 678.758927 0.00512H51.930909A51.930909 51.930909 0 0 0 0 51.936029v627.559439a51.930909 51.930909 0 0 0 51.930909 51.930909h626.828018z" p-id="4464" fill="#ffffff"></path><path d="M971.32743 292.573623H804.563383v454.212601a57.782279 57.782279 0 0 1-57.782279 57.782279H292.568503v167.495468a51.930909 51.930909 0 0 0 52.66233 51.930909h626.828018a51.930909 51.930909 0 0 0 51.930909-51.930909V344.504532a51.930909 51.930909 0 0 0-52.66233-51.930909z" p-id="4465" fill="#ffffff"></path></svg>
+                </button>
+                ';
 
             return $button_html;
         }
