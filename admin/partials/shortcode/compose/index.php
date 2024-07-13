@@ -28,7 +28,7 @@ if (!class_exists('MaBox_ShortCode_Compose')) {
                 //下拉中添加短代码
                 //这里需要进行转义，不然会丢失部分短代码内容
                 self::$option_list .= '
-                 <option value="[mabox_copy_btn copy=&quot;提供复制的内容&quot; alert=&quot;复制成功&quot; link=&quot;#&quot;]复制我吧[/mabox_copy_btn]">复制按钮</option>
+                 <option value="[mabox_copy_btn name=&quot;按钮名称&quot; alert=&quot;复制成功&quot; link=&quot;#&quot;]待复制内容[/mabox_copy_btn]">复制按钮</option>
                ';
             }
         }

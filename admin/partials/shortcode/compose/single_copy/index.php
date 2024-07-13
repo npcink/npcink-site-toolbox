@@ -26,12 +26,12 @@ if (!class_exists('MaBox_ShortCode_Single_Copy')) {
         public static function caption_shortcode($atts, $content = null)
         {
             $a = shortcode_atts(array(
-                'copy' => '需复制的内容',
+                'name' => '按钮名称',
                 'alert' => '复制成功提示',
                 'link' => '跳转链接',
                 // ...etc
             ), $atts);
-            $copy = esc_attr($a['copy']);
+            $name = esc_attr($a['name']);
             $alert = esc_attr($a['alert']);
             $link = esc_url($a['link']);
             //递归解析短代码
@@ -39,10 +39,10 @@ if (!class_exists('MaBox_ShortCode_Single_Copy')) {
             $button_html = '
             
             <span style="display: block ruby;">
-            <span class="mabox_copy_btn"  onClick="copys(&quot;' . htmlspecialchars($copy) . '&quot;, &quot;' . htmlspecialchars($alert) . '&quot;, &quot;' . htmlspecialchars($link) . '&quot;)">
+            <span class="mabox_copy_btn"  onClick="copys(&quot;' . htmlspecialchars($content) . '&quot;, &quot;' . htmlspecialchars($alert) . '&quot;, &quot;' . htmlspecialchars($link) . '&quot;)">
             
             <span class="button__text">
-            ' . $content . '
+            ' . $name . '
             </span>
                 
                 
