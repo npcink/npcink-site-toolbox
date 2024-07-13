@@ -38,7 +38,7 @@ if (!class_exists('MaBox_ShortCode_Single_Copy')) {
             // 生成按钮的 HTML 代码，使用 htmlspecialchars 进行安全输出
             $button_html = '
             
-            <span style="display: block ruby;">
+            <span style="display: block ruby;text-align: center;">
             <span class="mabox_copy_btn"  onClick="copys(&quot;' . htmlspecialchars($content) . '&quot;, &quot;' . htmlspecialchars($alert) . '&quot;, &quot;' . htmlspecialchars($link) . '&quot;)">
             
             <span class="button__text">
