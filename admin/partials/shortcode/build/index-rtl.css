@@ -1,0 +1,32 @@
+/*!****************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./src/editor.scss ***!
+  \****************************************************************************************************************************************************************************************************************************************/
+@charset "UTF-8";
+/**
+ * 以下样式仅在编辑器内应用。
+*
+*用您自己的样式替换它们或完全删除文件。
+ */
+.wp-block-create-block-mabox-copy-btn .block-editor,
+.wp-block-create-block-mabox-copy-btn .block-editor textarea {
+  border-radius: 3px;
+}
+
+.wp-block-create-block-mabox-copy-btn .block-editor textarea {
+  width: 100%;
+  overflow: hidden;
+  overflow-wrap: break-word;
+  height: 46px;
+}
+
+.wp-block-create-block-mabox-copy-btn .desc {
+  font-size: 12px;
+  margin: 10px 0;
+  color: #999;
+  line-height: 1.8;
+}
+
+.wp-block-create-block-mabox-copy-btn .btn button {
+  margin-left: 10px;
+  font-size: 14px;
+}

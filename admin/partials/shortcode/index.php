@@ -22,9 +22,11 @@ if (!class_exists('MaBox_ShortCode')) {
             $compose =  MaBox_Admin::get_config($config, 'compose');
             MaBox_ShortCode_Compose::runs($compose);
 
-            //经典编辑器添加下拉按钮
             if (!empty(self::$option_list)) {
+                //经典编辑器添加下拉按钮
                 add_action('admin_init', array(__CLASS__, 'custom_function_for_media_buttons'));
+                //载入古登堡
+                add_action('init', array(__CLASS__, 'create_block_todo_list_block_init'));
             }
         }
 
@@ -43,17 +45,15 @@ if (!class_exists('MaBox_ShortCode')) {
             $options = self::$option_list;
             // 开始构建下拉框的 HTML
             $html = '
-  <select id="short_code_select">
-      <option value="">选择短代码</option>
-      ' . $options . '
-  </select>';
-
+            <select id="short_code_select">
+                <option value="">选择短代码</option>
+                ' . $options . '
+            </select>';
             // 输出 HTML
             echo $html;
         }
 
-
-
+        //添加按钮
         public static function wzt_button()
         {
 ?>
@@ -66,6 +66,13 @@ if (!class_exists('MaBox_ShortCode')) {
                 });
             </script>
 <?php
+        }
+
+        //载入古登堡模块
+        public static  function create_block_todo_list_block_init()
+        {
+          
+            register_block_type(__DIR__ . '/build');
         }
     } //end
 }
