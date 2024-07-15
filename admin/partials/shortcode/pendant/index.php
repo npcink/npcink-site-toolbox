@@ -16,7 +16,7 @@ if (!class_exists('MaBox_ShortCode_Pendant')) {
                 //下拉中添加短代码
                 //这里需要进行转义，不然会丢失部分短代码内容
                 self::$option_list .= '
-                <option value="[past_posts_map ]">足迹地图</option>
+                <option value="[mabox_cn_map]">足迹地图</option>
               ';
             }
         }
