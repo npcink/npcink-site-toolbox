@@ -74,11 +74,11 @@ const App: React.FC = () => {
           <Switch />
         </Form.Item>
         <Form.Item<FieldType>
-          label="运行代码的短代码"
+          label="前端运行代码"
           name="runcode"
           extra={
             <>
-              文章中添加短代码，其中可运行前端代码,
+              1、仅支持经典编辑器，2、[runcode]和[/runcode]不能换行，会有换行符,
               <pre className="pre-meat">&lt;runcode&gt;&lt;/runcode&gt;</pre>；
               <Popover content={<img src={Runcode} width={500} />} title="预览">
                 预览

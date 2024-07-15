@@ -3,6 +3,7 @@
 /**
  * 效果：页面中添加运行代码的短代码
  * 来源：https://www.bber.cn/174.html
+ * TODO:代码前后有换行符
  */
 if (!class_exists('Npcink_Page_Runcode')) {
     class Npcink_Page_Runcode

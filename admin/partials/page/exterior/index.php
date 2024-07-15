@@ -69,6 +69,13 @@ if (!class_exists('Npcink_Page_Exterior')) {
             }
 
  
+             //像素小鸡
+             $pixel_chicken = MaBox_Admin::get_config($option, 'pixel_chicken');
+             if ($pixel_chicken === true) {
+                 require_once plugin_dir_path(__FILE__) . 'pixel_chicken/index.php';
+                 Npcink_Page_Pixel_Chicken::run();
+             }
+
 
             //已写完的书
             $past_books = MaBox_Admin::get_config($option, 'past_books');

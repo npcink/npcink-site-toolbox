@@ -228,6 +228,14 @@ const App: React.FC = () => {
           </Form.Item>
         )}
         <Form.Item<FieldType>
+          label="像素小鸡"
+          name="pixel_chicken"
+          valuePropName="checked"
+          extra={<>页脚添加会动的像素小鸡和蘑菇，挺可爱的，移动端不显示。</>}
+        >
+          <Switch />
+        </Form.Item>
+        <Form.Item<FieldType>
           label="已读完的书"
           name="past_books"
           valuePropName="checked"
@@ -270,7 +278,6 @@ const effectsList = [
   { value: "love", label: Love, title: "七彩爱心" },
   { value: "loveWhirl", label: LoveWhirl, title: "爱心回旋" },
   { value: "starTrail", label: StarTrail, title: "星星拖尾" },
-  
 ];
 
 //背景特效
