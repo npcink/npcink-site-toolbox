@@ -41,7 +41,7 @@ export type Option = {
   //短代码
   shortcode: {
     compose: CodeCompose; //板式
-    pendant:CodePendant,//挂件
+    pendant: CodePendant; //挂件
   };
 };
 
@@ -108,7 +108,7 @@ export type PageFeature = {
   lantern: boolean; //灯笼效果
   lantern_left: string; //左边的字
   lantern_right: string; //右边的字
-  pixel_chicken: boolean;//像素小鸡
+  pixel_chicken: boolean; //像素小鸡
   past_books: boolean; //已写完的书
   copy_pop_up: string; //鼠标点击复制弹窗
   page_scrolling: boolean; //平滑滚动
@@ -245,6 +245,7 @@ export type CodeCompose = {
 //挂件
 export type CodePendant = {
   merc_map: boolean; //足迹
+  merc_location: Array<number>; //地点
 };
 //下拉列表类型
 export type ListData = {

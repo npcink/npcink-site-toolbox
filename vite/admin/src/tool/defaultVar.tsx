@@ -96,7 +96,7 @@ const PageFeature = {
   lantern: boo, //灯笼效果
   lantern_left: "春", //左边的字
   lantern_right: "节", //右边的字
-  pixel_chicken: boo,//像素小鸡
+  pixel_chicken: boo, //像素小鸡
   past_books: boo, //已写完的书
   copy_pop_up: "false", //鼠标点击复制弹窗
   page_scrolling: boo, //平滑滚动
@@ -131,13 +131,12 @@ const PageFunction = {
   share_img_page: "", //页面默认图
   share_img_about: "", //其他默认图
 
-  switch_lang_jf:boo,//简繁切换
- 
+  switch_lang_jf: boo, //简繁切换
 };
 
 // 页面 - 权限
 const PageJurisdiction = {
-  front_debug:boo,//前端调试
+  front_debug: boo, //前端调试
   ban_copy: boo, //禁止复制
   category_id: [], //分类ID
   tag_id: [], //标签ID
@@ -228,13 +227,14 @@ const LoginSecurity = {
 //短代码
 const CodeCompose = {
   single_list: boo, //文章列表
-  single_copy: boo,//复制
-  runcode:boo,//运行代码
+  single_copy: boo, //复制
+  runcode: boo, //运行代码
 };
 
 //挂件
 const CodePendant = {
   merc_map: boo, //足迹
+  merc_location: [], //地点
 };
 
 export const defaultVarOption = {
@@ -250,7 +250,7 @@ export const defaultVarOption = {
     b2: FunctionB2, //B2
     wx_xcx: FunctionWxXcx, //微信小程序链接生成
     seo: FunctionSeo, //简单 SEO 功能
-    config:FunctionConfig,//设置
+    config: FunctionConfig, //设置
   },
   //页面
   page: {
@@ -272,7 +272,7 @@ export const defaultVarOption = {
   //短代码
   shortcode: {
     compose: CodeCompose, //短代码
-    pendant:CodePendant,//挂件
+    pendant: CodePendant, //挂件
   },
 };
 export const defaultVarData = {
