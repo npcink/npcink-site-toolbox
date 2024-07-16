@@ -9,7 +9,8 @@ const EditableContext = React.createContext<FormInstance<any> | null>(null);
 interface Item {
   key: string;
   name: string;
-  age: number[];
+  longitude: number;
+  latitude: number;
 }
 
 interface EditableRowProps {
@@ -105,7 +106,8 @@ type EditableTableProps = Parameters<typeof Table>[0];
 interface DataType {
   key: React.Key;
   name: string;
-  age: number[];
+  longitude: number;
+  latitude: number;
 }
 
 type ColumnTypes = Exclude<EditableTableProps["columns"], undefined>;
@@ -114,13 +116,15 @@ const App: React.FC = () => {
   const [dataSource, setDataSource] = useState<DataType[]>([
     {
       key: "0",
-      name: "Edward King 0",
-      age: [66, 66],
+      name: "上海",
+      longitude: 121.48,
+      latitude: 31.4,
     },
     {
       key: "1",
-      name: "Edward King 1",
-      age: [66, 66],
+      name: "天津",
+      longitude: 117.2,
+      latitude: 39.09,
     },
   ]);
 
@@ -144,14 +148,18 @@ const App: React.FC = () => {
       editable: true,
     },
     {
-      title: "经纬度",
-      dataIndex: "age",
+      title: "经度",
+      dataIndex: "longitude",
+      width: "20%",
       editable: true,
-      render: (text) => (
-        <p>
-          [{text[0]} , {text[1]}]
-        </p>
-      ),
+      render: (text) => <p>{text}</p>,
+    },
+    {
+      title: "纬度",
+      width: "20%",
+      dataIndex: "latitude",
+      editable: true,
+      render: (text) => <p>{text}</p>,
     },
 
     {
@@ -174,7 +182,8 @@ const App: React.FC = () => {
     const newData: DataType = {
       key: count,
       name: `新地方 ${count}`,
-      age: [66, 77],
+      longitude: 114.06,
+      latitude: 22.54,
     };
     setDataSource([...dataSource, newData]);
     setCount(count + 1);
@@ -214,11 +223,17 @@ const App: React.FC = () => {
     };
   });
 
+  //打印当前数组内容
+  const printData = () => {
+    console.log(dataSource);
+  };
+
   return (
     <div>
       <Button onClick={handleAdd} type="primary" style={{ marginBottom: 16 }}>
         添加
       </Button>
+      <Button onClick={printData}>打印当前数组内容</Button>
       <Table
         components={components} //覆盖默认的 table 元素
         rowClassName={() => "editable-row"} //表格行的类名
