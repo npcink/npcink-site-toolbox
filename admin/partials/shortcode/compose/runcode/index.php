@@ -10,11 +10,25 @@ if (!class_exists('Npcink_Page_Runcode')) {
     {
         public static function run()
         {
-            add_shortcode('runcode', array('Npcink_Page_Runcode', 'shortcode_handler'));
+            add_shortcode('runcode', array(__CLASS__, 'shortcode_handler'));
+
+            //判断当前页面是否有 mabox_cn_map 短代码，如果有则加载 加载前端资源
+            add_action('wp', array(__CLASS__, 'runcode_shortcode'));
+        }
+
+        public static function runcode_shortcode()
+        {
+            global $post;
+
+            // 如果不是单篇文章页面或页面内容中不包含 runcode 短代码，则不加载资源
+            if (!is_singular() || !has_shortcode($post->post_content, 'runcode')) {
+                return;
+            }
 
             //底部添加前端资源
-            add_action('wp_footer', array('Npcink_Page_Runcode', 'add_runcode'));
+            add_action('wp_footer', array(__CLASS__, 'add_runcode'));
         }
+
         public static function shortcode_handler($atts, $content = null)
         {
             $code = htmlspecialchars($content);

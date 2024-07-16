@@ -12,13 +12,20 @@ if (!class_exists('MaBox_ShortCode_Merc_Map')) {
             //添加短代码
             add_shortcode('mabox_cn_map', array(__CLASS__, 'mabox_cn_map_shortcode'));
 
-            // 判断当前页面是否有 mabox_copy_btn 短代码，如果有则加载 加载前端资源
-            //add_action('wp_enqueue_scripts', function () {
-            //    global $post;
-            //    if (has_shortcode($post->post_content, 'past_posts_display')) {
-            //        self::load_js();
-            //    }
-            //});
+            //判断当前页面是否有 mabox_cn_map 短代码，如果有则加载 加载前端资源
+            add_action('wp', array(__CLASS__, 'check_for_mabox_cn_map_shortcode'));
+        }
+
+
+        public static function check_for_mabox_cn_map_shortcode()
+        {
+            global $post;
+
+            // 如果不是单篇文章页面或页面内容中不包含 mabox_cn_map 短代码，则不加载资源
+            if (!is_singular() || !has_shortcode($post->post_content, 'mabox_cn_map')) {
+                return;
+            }
+
             add_action('wp_footer', array(__CLASS__, 'add_map_node'));
             add_action('wp_enqueue_scripts', array(__CLASS__, 'load_js'));
         }
@@ -28,7 +35,8 @@ if (!class_exists('MaBox_ShortCode_Merc_Map')) {
         {
             $html = '
               <!--background-color: 地图背景颜色-->
-            <div id="map" style="background-color:#f4f4f4"></div>
+              
+            <div id="map" style="background-color:#f4f4f4;height:550px"></div>
 ';
             return $html;
         }
@@ -38,6 +46,7 @@ if (!class_exists('MaBox_ShortCode_Merc_Map')) {
 
             <script>
                 jQuery(document).ready(function($) {
+
                     $('#map').vectorMap({
 
                         // 此处更改地图
@@ -48,7 +57,7 @@ if (!class_exists('MaBox_ShortCode_Merc_Map')) {
 
                         backgroundColor: 'transparent',
                         zoomMin: 0.9, // 鼠标缩放时的最小比例
-                        zoomMax: 2.4, // 鼠标缩放时的最大比例
+                        zoomMax: 5, // 鼠标缩放时的最大比例
                         focusOn: {
                             x: 0.55,
                             y: 2,
