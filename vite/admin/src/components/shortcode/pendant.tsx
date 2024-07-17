@@ -2,13 +2,14 @@
  * 短代码 挂件
  */
 import { useState, useContext, useEffect } from "react";
-import { Form, Switch, Popover } from "antd";
+import { Form, Switch } from "antd";
 import { DataContext } from "@/tool/dataContext";
 import { CodePendant } from "@/tool/interface";
 import { defaultVarOption } from "@/tool/defaultVar";
 import { AntConfig } from "@/tool/tool";
 import Map from "@/basic/mapTable";
 import Zuji from "@/assets/shortcode/pendant/足迹.png";
+import Preview from "@/basic/preview";
 
 type FieldType = CodePendant;
 //Ant 组件配置
@@ -62,9 +63,7 @@ const App: React.FC = () => {
           extra={
             <>
               "在简单的中国地图上展示你的足迹"，
-              <Popover content={<img src={Zuji} width={200} />} title="预览">
-                效果预览
-              </Popover>
+              <Preview title="足迹" img={Zuji} />
             </>
           }
         >

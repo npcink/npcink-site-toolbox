@@ -1,13 +1,14 @@
 //页面 - 外观优化
 import React from "react";
 import { useState, useContext, useEffect } from "react";
-import { Form, Switch, Input, InputNumber, Popover } from "antd";
+import { Form, Switch, Input, InputNumber } from "antd";
 import { DataContext } from "@/tool/dataContext";
 import { defaultVarOption } from "@/tool/defaultVar";
 import { AntConfig } from "@/tool/tool";
 import { PageFeature } from "@/tool/interface";
 import FixedImage from "@/basic/fixedImage";
-import PixelChicken from "@/assets/page/feature/像素小鸡.png"
+import PixelChicken from "@/assets/page/feature/像素小鸡.png";
+import Preview from "@/basic/preview";
 
 //选项类型
 type FieldType = PageFeature;
@@ -235,10 +236,8 @@ const App: React.FC = () => {
           valuePropName="checked"
           extra={
             <>
-              页脚添加会动的像素小鸡和蘑菇，挺可爱的，移动端不显示。{" "}
-              <Popover content={<img src={PixelChicken} width={200} />} title="预览">
-                效果预览
-              </Popover>
+              页脚添加会动的像素小鸡和蘑菇，挺可爱的，移动端不显示。
+              <Preview title="像素小鸡" img={PixelChicken} />
             </>
           }
         >
