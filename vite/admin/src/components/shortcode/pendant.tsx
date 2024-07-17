@@ -2,15 +2,15 @@
  * 短代码 挂件
  */
 import { useState, useContext, useEffect } from "react";
-import { Form, Switch,  } from "antd";
+import { Form, Switch, Popover } from "antd";
 import { DataContext } from "@/tool/dataContext";
 import { CodePendant } from "@/tool/interface";
 import { defaultVarOption } from "@/tool/defaultVar";
 import { AntConfig } from "@/tool/tool";
 import Map from "@/basic/mapTable";
+import Zuji from "@/assets/shortcode/pendant/足迹.png";
 
 type FieldType = CodePendant;
-
 //Ant 组件配置
 const fromConfig = AntConfig.from;
 
@@ -39,8 +39,6 @@ const App: React.FC = () => {
     updateOption("shortcode", "pendant", formData);
   }, [formData]);
 
-
-
   return (
     <>
       <Form
@@ -61,7 +59,14 @@ const App: React.FC = () => {
           label="足迹地图"
           name="merc_map"
           valuePropName="checked"
-          extra={"在简单的中国地图上展示你的足迹"}
+          extra={
+            <>
+              "在简单的中国地图上展示你的足迹"，
+              <Popover content={<img src={Zuji} width={200} />} title="预览">
+                效果预览
+              </Popover>
+            </>
+          }
         >
           <Switch />
         </Form.Item>
@@ -73,7 +78,9 @@ const App: React.FC = () => {
               extra={
                 <>
                   需填写地址和经纬度，保留两位小数
-                  <a href="https://jingweidu.bmcx.com/">经纬度查询</a>
+                  <a href="https://jingweidu.bmcx.com/" target="_blank">
+                    经纬度查询
+                  </a>
                 </>
               }
             >

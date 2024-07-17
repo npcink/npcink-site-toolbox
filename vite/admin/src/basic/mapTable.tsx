@@ -165,6 +165,10 @@ const App: React.FC = (props: any) => {
   const handleDelete = (key: React.Key) => {
     const newData = dataSource.filter((item) => item.key !== key);
     setDataSource(newData);
+
+    //传出数据
+    const data = convertBackToOriginal(newData);
+    props.onChange(data);
   };
 
   //准备表头
@@ -287,7 +291,7 @@ const App: React.FC = (props: any) => {
         columns={columns as ColumnTypes} //表格列的配置描述
         bordered
         size="small"
-        style={{ width: 550,}}
+        style={{ width: 550 }}
       />
     </>
   );
