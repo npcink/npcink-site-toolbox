@@ -7,8 +7,14 @@
 if (!class_exists('MaBox_ShortCode_Merc_Map')) {
     class MaBox_ShortCode_Merc_Map
     {
-        public static function run()
+        public static $location;
+        public static function run($merc_location)
         {
+            self::$location = $merc_location;
+
+            $default_value = self::$location;
+
+            printf('<script>console.log(%s)</script>', json_encode($default_value));
             //添加短代码
             add_shortcode('mabox_cn_map', array(__CLASS__, 'mabox_cn_map_shortcode'));
 
@@ -91,23 +97,7 @@ if (!class_exists('MaBox_ShortCode_Merc_Map')) {
                                 "fill-opacity": 0.8
                             },
                         },
-                        markers: [ // 足迹位置
-
-                            // {latLng: [经度（保留两位小数）, 纬度（保留两位小数）], name: '城市名称'},
-                            // 推荐查询经纬度网站：http://www.gpsspg.com/maps.htm
-                            {
-                                latLng: [31.40, 121.48],
-                                name: '上海'
-                            },
-                            {
-                                latLng: [39.09, 117.20],
-                                name: '天津'
-                            },
-                            {
-                                latLng: [22.54, 114.06],
-                                name: '深圳'
-                            },
-                        ]
+                        markers: <?php echo json_encode(self::$location); ?>,
                     });
                 });
             </script>
