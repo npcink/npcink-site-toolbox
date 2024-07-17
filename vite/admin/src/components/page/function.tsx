@@ -17,9 +17,8 @@ import { AntConfig } from "@/tool/tool";
 import { PageFunction } from "@/tool/interface";
 import SelectImage from "@/basic/selectImage";
 import FixedImage from "@/basic/fixedImage";
-import Email from "@/assets/share/email.png";
-import WeiBo from "@/assets/share/weibo.png";
-
+import Email from "@/assets/page/function/share/email.png";
+import WeiBo from "@/assets/page/function/share/weibo.png";
 
 //选项类型
 type FieldType = PageFunction;
@@ -293,7 +292,7 @@ const App: React.FC = () => {
             </Form.Item>
           </>
         )}
-       
+
         <Form.Item<FieldType>
           label="简繁切换"
           name="switch_lang_jf"

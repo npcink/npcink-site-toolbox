@@ -299,16 +299,16 @@ const backgroundList = [
 ];
 
 //滚动条
-import DiffuseBar from "@/assets/scrollBar/默认.png";
-import Color from "@/assets/scrollBar/彩条.png";
+import DiffuseBar from "@/assets/page/feature/scrollBar/默认.png";
+import Color from "@/assets/page/feature/scrollBar/彩条.png";
 const scrollBarList = [
   { value: "default", label: DiffuseBar, title: "默认" },
   { value: "color", label: Color, title: "彩条" },
 ];
 
 //弹窗
-import Concise from "@/assets/popUp/原生弹窗.png";
-import Sweetalert from "@/assets/popUp/通用圆角.png";
+import Concise from "@/assets/page/feature/popUp/原生弹窗.png";
+import Sweetalert from "@/assets/page/feature/popUp/通用圆角.png";
 const popUpList = [
   { value: "concise", label: Concise, title: "原生弹窗" },
   { value: "sweetalert", label: Sweetalert, title: "通用圆角" },
