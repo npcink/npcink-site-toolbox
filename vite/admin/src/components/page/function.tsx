@@ -77,6 +77,14 @@ const App: React.FC = () => {
           <Switch />
         </Form.Item>
         <Form.Item<FieldType>
+          label="首图作特色图"
+          name="first_picture"
+          valuePropName="checked"
+          extra={<>初次发布文章，未设置特色图时，自动将第一张图设为特色图</>}
+        >
+          <Switch />
+        </Form.Item>
+        <Form.Item<FieldType>
           label="文章内关键词添加内链"
           name="add_inks"
           valuePropName="checked"

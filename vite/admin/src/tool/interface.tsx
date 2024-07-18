@@ -119,6 +119,7 @@ export type PageFeature = {
 
 //页面 - 功能
 export type PageFunction = {
+  first_picture:boolean;//首图作特色图
   add_inks: boolean; //关键词自动添加链接
   go_middle: string; //链接跳转中间页
   remove_single_link: boolean; //移除文章内超链接

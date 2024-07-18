@@ -107,6 +107,7 @@ const PageFeature = {
 
 //页面 功能
 const PageFunction = {
+  first_picture:boo,//首图作特色图
   add_inks: boo, //关键词自动添加链接
   go_middle: "false", //链接跳转中间页
   remove_single_link: boo, //移除文章内超链接

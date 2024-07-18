@@ -9,6 +9,12 @@ if (!class_exists('Npcink_Page_Function')) {
     {
         public static function run($option)
         {
+            //首图作特色图
+            $first_picture = MaBox_Admin::get_config($option, 'first_picture');
+            if ($first_picture === true) {
+                require_once plugin_dir_path(__FILE__) . 'first_picture.php';
+                Npcink_Single_First_Picture::run();
+            }
             //文章关键词自动添加内链链接代码
             $add_inks = MaBox_Admin::get_config($option, 'add_inks');
             if ($add_inks === true) {

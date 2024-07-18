@@ -18,7 +18,7 @@ function replace_comment_link_attributes($content)
 
 //add_filter('get_comment_text', 'replace_comment_link_attributes');
 
- // 允许任何来源的跨域请求
+// 允许任何来源的跨域请求
 function allow_cors()
 {
     header("Access-Control-Allow-Origin: *");
