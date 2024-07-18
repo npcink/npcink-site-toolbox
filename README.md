@@ -261,26 +261,3 @@ https://www.phpfensi.com/wp-login.php?root=admin
 
 
 
-<style>
-    #post-meta,
-    #crumbs,
-    .ribbon3,
-    .site-header,
-    .comments-box,
-    #secondary,
-    .n-boxs,
-    #colophon,
-    #mobile-footer-menu,
-    .single-bottom-html,
-    .content-footer,
-    .post-tags-meat {
-        display: none !important;
-    }
-
-    .entry-header {
-        margin-top: 0 !important;
-    }
-    .entry-content img {
-      border-redius: 0px;
-    }
-</style>
