@@ -22,6 +22,9 @@ if (!class_exists('Npcink_Page_Flowing_Lines')) {
             <style>
                 canvas {
                         position: absolute;
+                        /*position: fixed;//全屏
+                         z-index: -1;
+                        */
                         top: 0;
                         left: 0;
                         z-index: 0;

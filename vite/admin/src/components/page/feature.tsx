@@ -292,14 +292,18 @@ const effectsList = [
 import Star from "@/assets/page/feature/backgroundEffect/漂浮星星.png";
 import Sakura from "@/assets/page/feature/backgroundEffect/樱花.png";
 import Coupling from "@/assets/page/feature/backgroundEffect/细线联结.png";
+import Flowing_lines from "@/assets/page/feature/backgroundEffect/流动线条.png";
+import Drip_ink from "@/assets/page/feature/backgroundEffect/滴墨水.png";
+import Sliding_ribbon from "@/assets/page/feature/backgroundEffect/流动彩带.png";
+import Random_ribbon from "@/assets/page/feature/backgroundEffect/随机彩带.png";
 const backgroundList = [
   { value: "star", label: Star, title: "漂浮星星" },
   { value: "sakura", label: Sakura, title: "樱花效果" },
   { value: "coupling", label: Coupling, title: "细线联结" },
-  { value: "flowing_lines", label: Coupling, title: "流动线条" },
-  { value: "drip_ink", label: Coupling, title: "滴墨水" },
-  { value: "sliding_ribbon", label: Coupling, title: "流动彩带" },
-  { value: "random_ribbon", label: Coupling, title: "随机彩带" },
+  { value: "flowing_lines", label: Flowing_lines, title: "流动线条" },
+  { value: "drip_ink", label: Drip_ink, title: "滴墨水" },
+  { value: "sliding_ribbon", label: Sliding_ribbon, title: "流动彩带" },
+  { value: "random_ribbon", label: Random_ribbon, title: "随机彩带" },
 ];
 
 //滚动条

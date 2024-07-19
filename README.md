@@ -125,7 +125,8 @@ vite.config.ts 文件底部有代理，替换为您的本地开发地址即可
 - 短代码添加古藤堡支持
 - 添加足迹地图功能
 - 自动设文章首图为特色图功能
-- 添加禁止在微信或QQ中打开的提示
+- 添加禁止在微信或 QQ 中打开的提示
+- 添加背景：流动线条、滴墨水、流动彩带、随机彩带
 
 #### 2024.06.01
 
@@ -257,7 +258,3 @@ if($\_GET[‘root‘] != ‘admin‘)header(‘Location: https://www.phpfensi.co
 https://www.phpfensi.com/wp-login.php?root=admin
 
 这样的话，别人再使用 wp-login.php 访问时就会自动跳转到指定的页面了，确保了登陆入口的隐蔽性。
-
-
-
-
