@@ -35,7 +35,7 @@ const App: React.FC = () => {
     <ConfigProvider locale={zhCN}>
       <div className="MaBox_option">
         <Layout>
-          <Affix offsetTop={20}>
+          <Affix offsetTop={30}>
             <Header style={headerStyle}>
               <HeaderBlock />
             </Header>
@@ -76,6 +76,7 @@ import { useContext, useState, useEffect } from "react";
 import { Button } from "antd";
 import { DataContext } from "@/tool/dataContext";
 import { saceOption } from "@/axios/save";
+import { UpOutlined } from "@ant-design/icons";
 const Save: React.FC = () => {
   //拿到值
   const { optionData } = useContext(DataContext);
@@ -116,11 +117,14 @@ const Save: React.FC = () => {
 
   return (
     <div>
-      <Space>
+      <Space size={"large"}>
         {showButton && (
-          <Button type="text" onClick={handleButtonClick}>
-            返回顶部
-          </Button>
+          <Button
+            type="text"
+            shape="circle"
+            onClick={handleButtonClick}
+            icon={<UpOutlined />}
+          ></Button>
         )}
         <Button type="primary" onClick={postData}>
           保存
