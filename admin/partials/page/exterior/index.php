@@ -33,9 +33,9 @@ if (!class_exists('Npcink_Page_Exterior')) {
                 Npcink_Page_Add_Click_Effect::run($particle);
             }
 
-           
 
-    
+
+
 
             //美化滚动条
             $scrol = MaBox_Admin::get_config($option, 'scrol');
@@ -68,13 +68,13 @@ if (!class_exists('Npcink_Page_Exterior')) {
                 Npcink_Page_Lantern::run($option);
             }
 
- 
-             //像素小鸡
-             $pixel_chicken = MaBox_Admin::get_config($option, 'pixel_chicken');
-             if ($pixel_chicken === true) {
-                 require_once plugin_dir_path(__FILE__) . 'pixel_chicken/index.php';
-                 Npcink_Page_Pixel_Chicken::run();
-             }
+
+            //像素小鸡
+            $pixel_chicken = MaBox_Admin::get_config($option, 'pixel_chicken');
+            if ($pixel_chicken === true) {
+                require_once plugin_dir_path(__FILE__) . 'pixel_chicken/index.php';
+                Npcink_Page_Pixel_Chicken::run();
+            }
 
 
             //已写完的书
@@ -98,19 +98,19 @@ if (!class_exists('Npcink_Page_Exterior')) {
                 Npcink_Page_Scrolling::run();
             }
 
-            //上吊猫
+            //抓绳猫
             $page_back_top_cat = MaBox_Admin::get_config($option, 'page_back_top_cat');
             if ($page_back_top_cat === true) {
                 require_once plugin_dir_path(__FILE__) . 'back_top_cat/index.php';
                 Npcink_Page_Back_Top_Cat::run($option);
             }
 
-             //背景特效
-             $background_effect = MaBox_Admin::get_config($option, 'background_effect');
-             if ($background_effect !== 'false') {
-                 require_once plugin_dir_path(__FILE__) . 'background_effect/index.php';
-                 Npcink_Page_Background_Effect::run($background_effect);
-             }
+            //背景特效
+            $background_effect = MaBox_Admin::get_config($option, 'background_effect');
+            if ($background_effect !== 'false') {
+                require_once plugin_dir_path(__FILE__) . 'background_effect/index.php';
+                Npcink_Page_Background_Effect::run($background_effect);
+            }
         }
     }
 }

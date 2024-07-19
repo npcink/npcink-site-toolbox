@@ -214,7 +214,7 @@ const App: React.FC = () => {
         )}
 
         <Form.Item<FieldType>
-          label="上吊猫"
+          label="抓绳猫"
           name="page_back_top_cat"
           valuePropName="checked"
           extra={"添加一个可爱的猫猫，点击即可返回页面顶部"}

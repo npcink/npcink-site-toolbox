@@ -1,7 +1,7 @@
 <?php
 
 /**
- * 上吊猫
+ * 抓绳猫
  * 来源：https://www.bber.cn/97.html#respond
  */
 if (!class_exists('Npcink_Page_Back_Top_Cat')) {

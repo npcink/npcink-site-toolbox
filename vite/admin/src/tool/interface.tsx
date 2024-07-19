@@ -63,7 +63,7 @@ export type OptimizeSite = {
   remove_RSS_version: boolean; //从RSS源中删除WordPress版本信息
   renew: boolean; //禁用自动更新
   category_link_simplify: boolean; //分类链接简化
-  remove_sitemap_users: boolean;//安全 - 移除 wp-sitemap-users
+  remove_sitemap_users: boolean; //安全 - 移除 wp-sitemap-users
 };
 
 //优化 媒体
@@ -113,7 +113,7 @@ export type PageFeature = {
   past_books: boolean; //已写完的书
   copy_pop_up: string; //鼠标点击复制弹窗
   page_scrolling: boolean; //平滑滚动
-  page_back_top_cat: boolean; //上吊猫
+  page_back_top_cat: boolean; //抓绳猫
   page_back_top_cat_right: number; //右边距
   background_effect: string; //背景特效
 };
