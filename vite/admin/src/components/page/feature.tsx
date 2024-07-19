@@ -297,7 +297,7 @@ const backgroundList = [
   { value: "sakura", label: Sakura, title: "樱花效果" },
   { value: "coupling", label: Coupling, title: "细线联结" },
   { value: "drip_ink", label: Coupling, title: "滴墨水" },
-  { value: "sliding_ribbon", label: Coupling, title: "滑动彩带" },
+  { value: "sliding_ribbon", label: Coupling, title: "流动彩带" },
   { value: "random_ribbon", label: Coupling, title: "随机彩带" },
 ];
 

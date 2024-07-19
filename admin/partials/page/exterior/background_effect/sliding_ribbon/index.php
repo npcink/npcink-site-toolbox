@@ -1,7 +1,7 @@
 <?php
 
 /**
- * 效果：滑动彩带
+ * 效果：流动彩带
  * 来源：https://blog.csdn.net/weixin_45511682/article/details/122825805
  */
 
