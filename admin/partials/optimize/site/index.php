@@ -38,6 +38,13 @@ if (!class_exists('MaBox_Optimize_Site')) {
                 Npcink_Category_Link_Simplify::run();
             }
 
+            //搜索链接优化
+            $search_link_simplify = MaBox_Admin::get_config($option, 'search_link_simplify');
+            if ($search_link_simplify === true) {
+                require_once plugin_dir_path(__FILE__) . 'search_link_simplify.php';
+                Npcink_Search_Link_Simplify::run();
+            }
+
             //移除站点地图中的用户信息部分
             $remove_sitemap_users = MaBox_Admin::get_config($option, 'remove_sitemap_users');
             if ($remove_sitemap_users === true) {

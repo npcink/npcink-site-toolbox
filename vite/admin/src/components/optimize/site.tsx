@@ -60,14 +60,6 @@ const App: React.FC = () => {
         </Form.Item>
 
         <Form.Item<FieldType>
-          label="禁止title中的 “-” 被转义"
-          name="no_escape"
-          valuePropName="checked"
-          extra={"让网页标题符号正常显示"}
-        >
-          <Switch />
-        </Form.Item>
-        <Form.Item<FieldType>
           label="禁用自动更新"
           name="renew"
           valuePropName="checked"
@@ -86,10 +78,31 @@ const App: React.FC = () => {
           <Switch />
         </Form.Item>
         <Form.Item<FieldType>
+          label="禁止title中的 “-” 被转义"
+          name="no_escape"
+          valuePropName="checked"
+          extra={"让网页标题符号正常显示"}
+        >
+          <Switch />
+        </Form.Item>
+
+        <Form.Item<FieldType>
           label="分类链接简化"
           name="category_link_simplify"
           valuePropName="checked"
           extra={"去掉分类目录链接中的 category 字符。"}
+        >
+          <Switch />
+        </Form.Item>
+        <Form.Item<FieldType>
+          label="搜索链接优化"
+          name="search_link_simplify"
+          valuePropName="checked"
+          extra={
+            <>
+              <code>?s=关键词</code>改为<code>域名/search/关键词</code>
+            </>
+          }
         >
           <Switch />
         </Form.Item>

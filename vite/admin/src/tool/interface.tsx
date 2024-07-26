@@ -63,6 +63,7 @@ export type OptimizeSite = {
   remove_RSS_version: boolean; //从RSS源中删除WordPress版本信息
   renew: boolean; //禁用自动更新
   category_link_simplify: boolean; //分类链接简化
+  search_link_simplify: boolean; //搜索链接简化
   remove_sitemap_users: boolean; //安全 - 移除 wp-sitemap-users
   user_list_show_nickname: boolean; //用户列表展示昵称
 };
