@@ -15,6 +15,12 @@ if (!class_exists('Npcink_Template_Static')) {
                 self::$load_template['template-one.php'] = 'static/template-one.php';
                 self::$add_template['template-two.php'] = 'Custom Template Two';
                 self::$load_template['template-two.php'] = 'static/template-two.php';
+
+                require_once plugin_dir_path(__FILE__) . 'special/index.php';
+                Npcink_Template_Special::run();
+                //下拉中添加短代码
+                //这里需要进行转义，不然会丢失部分短代码内容
+
             }
         }
     } //end
