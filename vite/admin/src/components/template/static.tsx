@@ -51,14 +51,14 @@ const App: React.FC = () => {
         onValuesChange={onValuesChange}
       >
         <Form.Item>
-          <h2>爱心</h2>
+          <h2>静态</h2>
         </Form.Item>
 
         <Form.Item<FieldType>
-          label="爱心"
+          label="立体三角"
           name="love"
           valuePropName="checked"
-          extra={"展示有趣的爱心页面"}
+          extra={"展示高级质感的立体三角，可添加文本"}
         >
           <Switch />
         </Form.Item>

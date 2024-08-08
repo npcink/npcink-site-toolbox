@@ -12,12 +12,12 @@ if (!class_exists('Npcink_Login')) {
             $config = MaBox_Admin::get_seting('login');
 
             //登录页美化
-            require_once plugin_dir_path(__FILE__) . 'login/beautify/index.php'; //加载文件
+            require_once plugin_dir_path(__FILE__) . 'beautify/index.php'; //加载文件
             $beautify =  MaBox_Admin::get_config($config, 'beautify'); //获取设置选项值
             Npcink_Login_Beautify::run($beautify); //传值
 
             //登录页安全
-            require_once plugin_dir_path(__FILE__) . 'login/security/index.php'; //加载文件
+            require_once plugin_dir_path(__FILE__) . 'security/index.php'; //加载文件
             $security =  MaBox_Admin::get_config($config, 'security'); //获取设置选项值
             Npcink_Login_Security::run($security); //传值
         }

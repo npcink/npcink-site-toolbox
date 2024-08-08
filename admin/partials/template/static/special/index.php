@@ -41,7 +41,7 @@ if (!class_exists('Npcink_Template_Special')) {
             $custom_field_1_value = get_post_meta($post->ID, 'custom_field_1', true);
 ?>
 
-            <label for="custom-field-1">沉浸阅读网址：</label>
+            <label for="custom-field-1">标题关键词：</label>
             <input type="text" name="custom_field_1" id="custom-field-1" value="<?php echo esc_attr($custom_field_1_value); ?>">
             <p>根据填入的关键词搜索标题，将包含此关键词的标题列表</p>
 

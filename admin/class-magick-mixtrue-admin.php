@@ -64,11 +64,11 @@ class MaBox_Admin
     {
 
         //优化设置
-        require_once plugin_dir_path(__FILE__) . 'partials/optimize.php';
+        require_once plugin_dir_path(__FILE__) . 'partials/optimize/index.php';
         MaBox_Optimize::run();
 
         //功能设置
-        require_once plugin_dir_path(__FILE__) . 'partials/function.php';
+        require_once plugin_dir_path(__FILE__) . 'partials/function/index.php';
         MaBox_Function::run();
 
         //h5设置
@@ -76,11 +76,11 @@ class MaBox_Admin
         MaBox_H5::run();
 
         //登录页
-        require_once plugin_dir_path(__FILE__) . 'partials/login.php';
+        require_once plugin_dir_path(__FILE__) . 'partials/login/index.php';
         Npcink_Login::run();
 
         //页面设置
-        require_once plugin_dir_path(__FILE__) . 'partials/page.php';
+        require_once plugin_dir_path(__FILE__) . 'partials/page/index.php';
         Npcink_Page::run();
 
         //短代码设置

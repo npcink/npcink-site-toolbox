@@ -45,6 +45,11 @@ if (!class_exists('Npcink_Template')) {
         {
             global $post;
 
+            // 如果 $post 对象不存在或者没有 ID 属性，则返回原始的 $template
+            if (!isset($post->ID)) {
+                return $template;
+            }
+
             // 定义页面模板数组
             $custom_templates = self::$load_template;
 

@@ -15,19 +15,19 @@ if (!class_exists('MaBox_Optimize')) {
             /**
              * 优化 - 站点
              */
-            require_once plugin_dir_path(__FILE__) . 'optimize/site/index.php';
+            require_once plugin_dir_path(__FILE__) . 'site/index.php';
             MaBox_Optimize_Site::run($config);
 
             /**
              * 优化 - 媒体
              */
-            require_once plugin_dir_path(__FILE__) . 'optimize/medium/index.php';
+            require_once plugin_dir_path(__FILE__) . 'medium/index.php';
             MaBox_Optimize_Medium::run($config);
 
             /**
              * 优化 - 后台
              */
-            require_once plugin_dir_path(__FILE__) . 'optimize/admin/index.php';
+            require_once plugin_dir_path(__FILE__) . 'admin/index.php';
             MaBox_Optimize_Admin::run($config);
         }
     }

@@ -4,11 +4,11 @@
 import { useState, useContext, useEffect } from "react";
 import { Form, Switch } from "antd";
 import { DataContext } from "@/tool/dataContext";
-import { TemplateStatic } from "@/tool/interface";
+import { TemplateTrends } from "@/tool/interface";
 import { defaultVarOption } from "@/tool/defaultVar";
 import { AntConfig } from "@/tool/tool";
 
-type FieldType = TemplateStatic;
+type FieldType = TemplateTrends;
 
 //Ant 组件配置
 const fromConfig = AntConfig.from;
