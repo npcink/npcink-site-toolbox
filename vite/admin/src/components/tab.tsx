@@ -1,9 +1,10 @@
 import React from "react";
 import { useState } from "react";
-import { Tabs } from "antd";
+import { Tabs, Layout, Affix } from "antd";
 import type { TabsProps } from "antd";
 
 import { defaultOption, DataContext } from "@/tool/dataContext";
+import Save from "@/tool/save";
 
 import Optimize from "@/components/optimize/index";
 import Page from "@/components/page/index";
@@ -69,23 +70,74 @@ const App: React.FC = () => {
    * @param newValue 更改的对象值
    */
   const updateOption = (father: string, son: string, newValue: any) => {
-    setOptionData((optionData) => {
-      // 创建新的 optionData 对象，而不是直接修改 prevState
-      const newOptionData = { ...optionData };
+    setOptionData((prevOptionData) => {
+      const updatedOptionData = { ...prevOptionData };
 
-      // 检查父级对象键和子级对象键是否存在，并且进行值的更新
-      if (newOptionData[father] && newOptionData[father][son]) {
-        newOptionData[father][son] = newValue;
+      if (!updatedOptionData[father]) {
+        updatedOptionData[father] = {};
       }
 
-      return newOptionData; // 返回新的 optionData 对象
+      updatedOptionData[father][son] = newValue;
+
+      return updatedOptionData;
     });
+  };
+
+  const { Header, Footer, Content } = Layout;
+
+  const headerStyle: React.CSSProperties = {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    height: 64,
+    paddingInline: 48,
+    lineHeight: "64px",
+    borderBottom: "1px solid #ccd0d4",
+    background: "linear-gradient(#fefefe, #f5f5f5)",
+  };
+
+  const footerStyle: React.CSSProperties = {
+    float: "right",
+    /*borderBottom: "1px solid #ccd0d4",*/
+    background: "linear-gradient(#fefefe, #f5f5f5)",
   };
   return (
     <>
       <DataContext.Provider value={{ optionData, updateOption }}>
-        <Tabs defaultActiveKey="1" tabPosition="left" items={items} />
+        <div className="MaBox_option">
+          <Layout>
+            <Affix offsetTop={30}>
+              <Header style={headerStyle}>
+                <HeaderBlock />
+              </Header>
+            </Affix>
+            <Content className="mabox_content">
+              <Tabs defaultActiveKey="1" tabPosition="left" items={items} />
+            </Content>
+            <Footer style={footerStyle}>
+              <div className="float-right">
+                <Save />
+              </div>
+            </Footer>
+          </Layout>
+        </div>
       </DataContext.Provider>
+    </>
+  );
+};
+
+const HeaderBlock: React.FC = () => {
+  return (
+    <>
+      <h1 className="text-2xl leading-7 font-medium">
+        魔法工具箱
+        <small className="text-xs font-light text-gray-400 ml-2 ">
+          <a target="_blank" href="https://www.npc.ink">
+            For Npcink
+          </a>
+        </small>
+      </h1>
+      <Save />
     </>
   );
 };
