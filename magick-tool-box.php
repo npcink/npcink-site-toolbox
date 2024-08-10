@@ -1,6 +1,6 @@
 <?php
 /*
- * Plugin Name: WP Magick Toolbox【BETA】
+ * Plugin Name: WP Magick Toolbox
  * Description: 魔法工具箱，诸多实用且有趣的功能合集，简单易用；详情请见插件中的「关于」页内容
  * Plugin URI: https://www.npc.ink/277510.html
  * Version: 2.0.81
