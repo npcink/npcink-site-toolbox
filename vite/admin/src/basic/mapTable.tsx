@@ -180,6 +180,7 @@ const App: React.FC = (props: any) => {
       title: "序号",
       dataIndex: "key",
       width: "20%",
+      render: (_text, _record, index) => <p>{index + 1}</p>, // 显示序号，index 是从 0 开始的
     },
     {
       title: "地区",
@@ -226,7 +227,7 @@ const App: React.FC = (props: any) => {
       latitude: 22.54,
     };
     setDataSource([...dataSource, newData]);
-    setCount(count + 1);
+    setCount(count + 1); //序号加一
   };
 
   //实现表格数据的动态更新和展示，提升了用户交互的实时性和友好性
