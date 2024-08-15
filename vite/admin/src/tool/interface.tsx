@@ -120,11 +120,11 @@ export type PageFeature = {
   pixel_chicken: boolean; //像素小鸡
   past_books: boolean; //已写完的书
   go_top: string; //返回顶部
+  page_back_top_cat_right: number; //右边距
   copy_pop_up: string; //鼠标点击复制弹窗
   bottom_effect: string; //页底特效
   page_scrolling: boolean; //平滑滚动
-  page_back_top_cat: boolean; //抓绳猫
-  page_back_top_cat_right: number; //右边距
+ 
   background_effect: string; //背景特效
 };
 

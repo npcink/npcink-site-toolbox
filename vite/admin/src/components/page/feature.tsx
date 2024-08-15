@@ -222,23 +222,6 @@ const App: React.FC = () => {
         )}
 
         <Form.Item<FieldType>
-          label="抓绳猫"
-          name="page_back_top_cat"
-          valuePropName="checked"
-          extra={"添加一个可爱的猫猫，点击即可返回页面顶部"}
-        >
-          <Switch />
-        </Form.Item>
-        {formData.page_back_top_cat !== false && (
-          <Form.Item<FieldType>
-            label="猫猫距离右边"
-            name="page_back_top_cat_right"
-            extra={"右边距离"}
-          >
-            <InputNumber addonAfter={"px"} style={{ width: "120px" }} />
-          </Form.Item>
-        )}
-        <Form.Item<FieldType>
           label="像素小鸡"
           name="pixel_chicken"
           valuePropName="checked"
@@ -273,6 +256,15 @@ const App: React.FC = () => {
         >
           <FixedImage alists={goTopList} />
         </Form.Item>
+        {formData.go_top == "cord_cat" && (
+          <Form.Item<FieldType>
+            label="猫猫距离右边"
+            name="page_back_top_cat_right"
+            extra={"右边距离"}
+          >
+            <InputNumber addonAfter={"px"} style={{ width: "120px" }} />
+          </Form.Item>
+        )}
       </Form>
     </>
   );
@@ -345,8 +337,9 @@ const bottomEffectList = [{ value: "fish", label: Fish, title: "鱼群跃动" }]
 
 //返回顶部
 const goTopList = [
-  { value: "cat", label: Concise, title: "偷瞄猫猫" },
   { value: "arrow", label: Sweetalert, title: "圆角箭头" },
+  { value: "cat", label: Concise, title: "偷瞄猫猫" },
+  { value: "cord_cat", label: Concise, title: "抓绳猫猫" },
 ];
 
 export default App;

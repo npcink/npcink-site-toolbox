@@ -107,12 +107,6 @@ if (!class_exists('Npcink_Page_Exterior')) {
                 Npcink_Page_Scrolling::run();
             }
 
-            //抓绳猫
-            $page_back_top_cat = MaBox_Admin::get_config($option, 'page_back_top_cat');
-            if ($page_back_top_cat === true) {
-                require_once plugin_dir_path(__FILE__) . 'back_top_cat/index.php';
-                Npcink_Page_Back_Top_Cat::run($option);
-            }
 
             //背景特效
             $background_effect = MaBox_Admin::get_config($option, 'background_effect');
@@ -125,7 +119,7 @@ if (!class_exists('Npcink_Page_Exterior')) {
             $go_top = MaBox_Admin::get_config($option, 'go_top');
             if ($go_top !== 'false') {
                 require_once plugin_dir_path(__FILE__) . 'go_top/index.php';
-                Npcink_Page_Go_Top::run($go_top);
+                Npcink_Page_Go_Top::run($go_top, $option);//选中的参数，选项参数（进一步设置）
             }
         }
     }

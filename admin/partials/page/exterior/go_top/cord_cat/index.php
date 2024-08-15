@@ -26,6 +26,9 @@ if (!class_exists('Npcink_Page_Back_Top_Cat')) {
             if (empty($right)) {
                 $right = 30;
             }
+
+            //准备图片
+            $images =  plugin_dir_url(__DIR__) . 'cord_cat/scroll.gif';
 ?>
 
             <div class="back-to-top cd-top faa-float animated cd-is-visible" style="top: -600px;"></div>
@@ -40,6 +43,12 @@ if (!class_exists('Npcink_Page_Back_Top_Cat')) {
                 .back-to-top {
                     right: <?php echo $right; ?>px;
                 }
+
+                /*抓绳猫*/
+                .back-to-top {
+                    background: url(<?php echo $images ?>);
+
+                }
             </style>
 <?php
 
@@ -53,11 +62,11 @@ if (!class_exists('Npcink_Page_Back_Top_Cat')) {
             }
 
             //准备数据
-            $build_js =  plugin_dir_url(__DIR__) . 'back_top_cat/szgotop.js';
-            $build_css =  plugin_dir_url(__DIR__) . 'back_top_cat/szgotop.css';
+            $build_js =  plugin_dir_url(__DIR__) . 'cord_cat/szgotop.js';
+            $build_css =  plugin_dir_url(__DIR__) . 'cord_cat/szgotop.css';
 
             wp_enqueue_script(
-                MAGICK_MIXTURE_NAME . '_public_back_top_cat_js',
+                MAGICK_MIXTURE_NAME . '_public_cord_cat_js',
                 $build_js,
                 array('jquery'),
                 MAGICK_MIXTURE_VERSION,
@@ -65,7 +74,7 @@ if (!class_exists('Npcink_Page_Back_Top_Cat')) {
             );
 
             wp_enqueue_style(
-                MAGICK_MIXTURE_NAME . '_public_back_top_cat_css',
+                MAGICK_MIXTURE_NAME . '_public_cord_cat_css',
                 $build_css,
                 array(),
                 MAGICK_MIXTURE_VERSION,

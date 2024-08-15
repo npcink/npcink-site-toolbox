@@ -8,8 +8,8 @@
 if (!class_exists('Npcink_Page_Go_Top')) {
     class Npcink_Page_Go_Top
     {
-
-        public static function run($config)
+        //选项值，进一步调用的值
+        public static function run($config, $option)
         {
             //偷瞄猫猫
             if ($config === "cat") {
@@ -20,6 +20,11 @@ if (!class_exists('Npcink_Page_Go_Top')) {
             if ($config === "arrow") {
 
                 add_action('wp_footer', array(__CLASS__, 'jiub'), 100);
+            }
+            //抓绳猫猫
+            if ($config === "cord_cat") {
+                require_once plugin_dir_path(__FILE__) . 'cord_cat/index.php';
+                Npcink_Page_Back_Top_Cat::run($option);
             }
         }
 
