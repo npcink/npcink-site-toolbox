@@ -44,8 +44,9 @@ const App: React.FC = () => {
 
   //存储表单值
   interface TagData {
-    categorys: ListData[];
-    tags: ListData[];
+    categorys: ListData[];//分类数组
+    tags: ListData[];//标签数组
+    pages:ListData[];//页面数组
   }
   const [tagArray, setTagArray] = useState<TagData>();
   //获取分类数组
@@ -114,7 +115,7 @@ const App: React.FC = () => {
         <Form.Item<FieldType>
           label="隐藏指定分类下的内容"
           name="category_id"
-          extra={"该分类下的内容未登录，不可见"}
+          extra={"该分类下的内容未登录时，不可见，仅展示提示内容"}
         >
           <Select
             mode="multiple"
@@ -127,7 +128,7 @@ const App: React.FC = () => {
         <Form.Item<FieldType>
           label="隐藏指定标签下的内容"
           name="tag_id"
-          extra={"该标签下的内容未登录，不可见"}
+          extra={"该标签下的内容未登录时，不可见，仅展示提示内容"}
         >
           <Select
             mode="multiple"
@@ -135,6 +136,19 @@ const App: React.FC = () => {
             style={{ width: "100%" }}
             placeholder="请选择要隐藏的标签"
             options={tagArray?.tags}
+          />
+        </Form.Item>
+        <Form.Item<FieldType>
+          label="隐藏指定页面"
+          name="page_id"
+          extra={"该页面下的内容未登录时，不可见，仅展示提示内容"}
+        >
+          <Select
+            mode="multiple"
+            allowClear
+            style={{ width: "100%" }}
+            placeholder="请选择要隐藏的页面"
+            options={tagArray?.pages}
           />
         </Form.Item>
         {/**TODO:要不要预先提供几个模版 */}

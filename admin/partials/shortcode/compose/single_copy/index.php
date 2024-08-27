@@ -15,7 +15,7 @@ if (!class_exists('MaBox_ShortCode_Single_Copy')) {
             // 判断当前页面是否有 mabox_copy_btn 短代码，如果有则加载前端资源
             add_action('wp_enqueue_scripts', function () {
                 global $post;
-                if (has_shortcode($post->post_content, 'mabox_copy_btn')) {
+                if (isset($post) && has_shortcode($post->post_content, 'mabox_copy_btn')) {
                     self::load_js();
                 }
             });

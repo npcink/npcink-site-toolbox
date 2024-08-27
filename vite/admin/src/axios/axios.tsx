@@ -50,7 +50,7 @@ export const get_table_data = async (type: string) => {
   }
 };
 
-//获取分类数据
+//获取分类数据（分类、标签、页面）
 export const getCategoryData = async () => {
   const params = new URLSearchParams();
   params.append("action", "get_all_category_names");

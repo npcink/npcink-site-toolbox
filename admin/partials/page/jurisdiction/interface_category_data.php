@@ -47,10 +47,22 @@ if (!class_exists('Npcink_Interface_Category_Data')) {
                 );
             }
 
+            // 获取所有页面
+            $pages = get_pages();
+            $page_array = array();
+
+            foreach ($pages as $page) {
+                $page_array[] = array(
+                    'label' => $page->post_title,
+                    'value' => $page->ID
+                );
+            }
+
             // 现在 $tag_array 就包含了所有标签的ID和名称
             $data_array = array(
                 'categorys' => $category_array,
                 'tags' => $tag_array,
+                'pages' => $page_array,
             );
 
             // 现在 $category_array 就包含了所有分类的ID和名称
