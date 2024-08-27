@@ -49,7 +49,12 @@ if (!class_exists('Npcink_Page_Jurisdiction')) {
             //提示内容
             $tip_content_basic = MaBox_Admin::get_config($option, 'tip_content');
             //反转义
-            $tip_content = html_entity_decode($tip_content_basic);
+            $tip_content_escape = html_entity_decode($tip_content_basic);
+            //准备提示内容
+            $tip_content = !empty($tip_content_escape)
+                ? '<div class="login-hint">' . esc_html($tip_content_escape) . '</div>'
+                : '<div class="login-hint">抱歉，您没有权限访问此内容，请<strong>登录</strong>后访问。</div>';
+
 
 
             //总有默认分类，添加判断意义不大

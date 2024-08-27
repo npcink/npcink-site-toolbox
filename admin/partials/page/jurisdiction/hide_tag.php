@@ -34,7 +34,7 @@ if (!class_exists('Npcink_Page_Hide_Tag')) {
                 if (array_intersect($post_tag_ids, $restricted_tag_ids)) {
                     if (!is_user_logged_in()) {
                         // 如果用户未登录，则将文章内容替换为登录提示
-                        $content = '<div class="login-hint">' . self::$tip_content . '</div>' ?: '<div class="login-hint">抱歉，您没有权限访问此内容，请<strong>登录</strong>后访问。</div>';
+                        $content = self::$tip_content;
                     }
                 }
             }
