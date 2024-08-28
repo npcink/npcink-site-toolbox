@@ -4,11 +4,11 @@ import B2 from "@/components/function/b2";
 import Wx_xcx_link from "@/components/function/wx_xcx_link";
 import DownDatabase from "@/components/function/down_database";
 import Seo from "@/components/function/seo";
-import Config from "@/components/function/config";
+import Tips from "@/components/function/tips";
 const App: React.FC = () => {
   return (
     <>
-      <Config /> {/**配置 */}
+      <Tips /> {/**提示信息 */}
       <Seo />
       {/**下载指定数据库表内容 */}
       <DownDatabase />

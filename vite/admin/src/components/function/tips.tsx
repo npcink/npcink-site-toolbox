@@ -1,14 +1,16 @@
 //功能 - 插件设置
 import React from "react";
 import { useState, useContext, useEffect } from "react";
-import { Switch, Form } from "antd";
+import { Switch, Form, Input } from "antd";
+import TimePeriod from "@/basic/timeInput";
 import { DataContext } from "@/tool/dataContext";
-import { FunctionConfig } from "@/tool/interface";
+import { FunctionTips } from "@/tool/interface";
 import { defaultVarOption } from "@/tool/defaultVar";
 import { AntConfig } from "@/tool/tool";
+import TextAreaHtml from "@/basic/htmlInput";
 
 //选项类型
-type FieldType = FunctionConfig;
+type FieldType = FunctionTips;
 
 //Ant 组件配置
 const fromConfig = AntConfig.from;
@@ -18,7 +20,8 @@ const App: React.FC = () => {
   const { optionData, updateOption } = useContext(DataContext);
 
   //简化并提供默认值
-  const publicData = optionData.function?.config || defaultVarOption.function.config;
+  const publicData =
+    optionData.function?.config || defaultVarOption.function.config;
 
   //创建变量并设默认值
   const [formData, setFormData] = useState(publicData);
@@ -57,13 +60,33 @@ const App: React.FC = () => {
         </Form.Item>
 
         <Form.Item<FieldType>
-          label="待定"
-          name="remove_config"
+          label="弹窗提示"
+          name="pop_tips"
           valuePropName="checked"
-          extra={"待定"}
+          extra={"添加页面提示"}
         >
           <Switch />
         </Form.Item>
+        {formData.pop_tips && (
+          <>
+            <Form.Item<FieldType>
+              label="提示内容"
+              name="tips_content"
+              extra={"支持HTML"}
+            >
+              <TextAreaHtml />
+            </Form.Item>
+            <Form.Item<FieldType> label="按钮文字" name="tips_button">
+              <Input />
+            </Form.Item>
+            <Form.Item<FieldType> label="按钮链接" name="tips_link">
+              <Input />
+            </Form.Item>
+            <Form.Item<FieldType> label="显示时间" name="tips_time">
+              <TimePeriod />
+            </Form.Item>
+          </>
+        )}
       </Form>
     </>
   );

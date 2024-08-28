@@ -1,8 +1,9 @@
 //页面 - 功能
 import React from "react";
 import { useState, useContext, useEffect } from "react";
-import { Form, Switch, DatePicker, Input, Radio, InputNumber } from "antd";
-
+import { Form, Switch,  Input, Radio, InputNumber } from "antd";
+import TimePeriod from "@/basic/timeInput";
+import TextAreaHtml from "@/basic/htmlInput";
 import { DataContext } from "@/tool/dataContext";
 import { defaultVarOption } from "@/tool/defaultVar";
 import { AntConfig } from "@/tool/tool";
@@ -299,83 +300,8 @@ const App: React.FC = () => {
   );
 };
 
-//时间段
-//["2024-05-01 12:00:00","2024-05-09 12:00:00"]
-import dayjs from "dayjs";
-const TimePeriod: React.FC = (props: any) => {
-  //准备时间组件
-  const { RangePicker } = DatePicker;
 
-  //时间格式
-  //const dateFormat = "YYYY-MM-DD HH:mm:ss";
-  const dateFormat = "YYYY-MM-DD HH:mm";
 
-  // 获取当前时间并格式化
-  const currentTime = dayjs().format(dateFormat);
-
-  // 计算1天后的时间并格式化
-  const nextDay = dayjs().add(1, "day").format(dateFormat);
-
-  //触发
-  const onChange = (_value: any, dateString: any) => {
-    //console.log("Selected Time: ", value);
-    //console.log("Formatted Selected Time: ", dateString);
-    //格式化时间
-    const data = dateString.map((item: any) =>
-      dayjs(item).format("YYYY-MM-DD HH:mm")
-    );
-    //console.log(data);
-    props.onChange(data);
-  };
-  return (
-    <>
-      <RangePicker
-        showTime={{ format: dateFormat }}
-        format="YYYY-MM-DD HH:mm"
-        onChange={onChange}
-        //TODO:想办法抽离下
-        defaultValue={[
-          dayjs(props.value[0] ?? currentTime, dateFormat),
-          dayjs(props.value[1] ?? nextDay, dateFormat),
-        ]}
-      />
-    </>
-  );
-};
-
-//HTML 输入框
-//反转义
-function unescapeHtmlTagsInString(escapedString: string) {
-  const tempElement = document.createElement("textarea");
-  tempElement.innerHTML = escapedString;
-  return tempElement.value;
-}
-
-const TextAreaHtml: React.FC = (props: any) => {
-  const { TextArea } = Input;
-
-  const [textAreaValue, setTextAreaValue] = useState(
-    unescapeHtmlTagsInString(props.value)
-  );
-
-  const handleTextAreaChange = (e: any) => {
-    //对字符串进行转化
-    const data = e.target.value.replace(/</g, "&lt;").replace(/>/g, "&gt;");
-    //console.log(data);
-    setTextAreaValue(e.target.value); // 更新 textAreaValue 的值
-    props.onChange(data); //传出值
-  };
-
-  return (
-    <>
-      <TextArea
-        rows={4}
-        value={textAreaValue}
-        onChange={handleTextAreaChange}
-      />
-    </>
-  );
-};
 
 //准备跳转链接用数组对象
 import Zhihu from "@/assets/page/function/go/知乎.png";

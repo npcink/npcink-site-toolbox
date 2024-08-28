@@ -21,13 +21,13 @@ export type Option = {
     function: PageFunction; //功能
     jurisdiction: PageJurisdiction; //权限
   };
-  //权限
+  //功能
   function: {
     auxiliary: FunctionAuxiliary; //辅助功能
     b2: FunctionB2; //B2主题
     wx_xcx: FunctionWxXcx; //微信小程序链接生成
     seo: FunctionSeo; //简单 SEO 功能
-    config: FunctionConfig; //插件设置
+    config: FunctionTips; //简单提示
   };
   h5: {
     home: H5Home;
@@ -124,7 +124,7 @@ export type PageFeature = {
   copy_pop_up: string; //鼠标点击复制弹窗
   bottom_effect: string; //页底特效
   page_scrolling: boolean; //平滑滚动
- 
+
   background_effect: string; //背景特效
 };
 
@@ -187,9 +187,13 @@ export type FunctionB2 = {
   b2_count: boolean; //B2商城统计
 };
 
-//功能 插件设置
-export type FunctionConfig = {
-  remove_config: boolean; //移除设置选项
+//功能 弹窗提示
+export type FunctionTips = {
+  pop_tips: boolean; //弹窗提示
+  tips_time: number; //提示时间段
+  tips_content: string; //提示内容
+  tips_button: string; //按钮文字
+  tips_link: string; //按钮链接
 };
 
 //功能 微信小程序

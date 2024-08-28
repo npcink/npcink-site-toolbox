@@ -73,11 +73,15 @@ if (!class_exists('Npcink_Page_Function')) {
                     $countdown = array('2024-01-01 00:00:00', '2024-01-01 23:59:59');
                 }
 
+
                 //判断当前时间，是否在时间段中
                 $result = self::isCurrentTimeInRange($countdown);
 
+               
+
                 //当前时间不在此时间段，则跳过
                 if ($result === true) {
+                   
                     require_once plugin_dir_path(__FILE__) . 'maintenance_tips.php';
                     Npcink_Maintenance_Tips::run($maintenance_tips);
                 }

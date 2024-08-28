@@ -102,12 +102,12 @@ const PageFeature = {
   lantern_right: "节", //右边的字
   pixel_chicken: boo, //像素小鸡
   past_books: boo, //已写完的书
-  go_top:"false",//返回顶部
+  go_top: "false", //返回顶部
   page_back_top_cat_right: 60, //右边距
   copy_pop_up: "false", //鼠标点击复制弹窗
   bottom_effect: "false", //页底特效
   page_scrolling: boo, //平滑滚动
-  
+
   background_effect: "false", //背景特效
 };
 
@@ -151,7 +151,7 @@ const PageJurisdiction = {
   tag_id: [], //标签ID
   page_id: [], //页面ID
   single_id: [], //文章ID
-  tip_content:str, //提示内容
+  tip_content: str, //提示内容
 };
 
 //权限控制 辅助
@@ -191,8 +191,12 @@ const FunctionSeo = {
 };
 
 //功能 插件设置
-const FunctionConfig = {
-  remove_config: boo, //移除设置选项
+const FunctionTips = {
+  pop_tips: boo, //弹窗提示
+  tips_time: num, //提示时间段
+  tips_content: str, //提示内容
+  tips_button: str, //按钮文字
+  tips_link: str, //按钮链接
 };
 
 // H5 首页
@@ -258,11 +262,11 @@ const CodePendant = {
 
 //静态
 const TemplateStatic = {
-  triangle: boo,//立体三角
+  triangle: boo, //立体三角
 };
 
 //动态
-const TemplateTrends= {
+const TemplateTrends = {
   special: boo, //专题列表
 };
 
@@ -279,7 +283,7 @@ export const defaultVarOption = {
     b2: FunctionB2, //B2
     wx_xcx: FunctionWxXcx, //微信小程序链接生成
     seo: FunctionSeo, //简单 SEO 功能
-    config: FunctionConfig, //设置
+    config: FunctionTips, //设置
   },
   //页面
   page: {
