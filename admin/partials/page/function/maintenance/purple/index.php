@@ -3,7 +3,7 @@
  暂停页模版 - 紫色期待
  */
 
-include plugin_dir_path((__FILE__)) . 'index.php'; // 获取数据
+include plugin_dir_path((__FILE__)) . '../index.php'; // 获取数据
 ?>
 <!doctype html>
 <html <?php language_attributes(); ?>>
@@ -25,12 +25,15 @@ include plugin_dir_path((__FILE__)) . 'index.php'; // 获取数据
 	帮助：https://www.npc.ink/17635.html
 -->
   <!--载入CSS样式-->
-  <link href="<?php echo $url_css . "purple.css" ?>" rel="stylesheet" type="text/css" />
+  <link href="<?php echo $file_url . "purple/style.css" ?>" rel="stylesheet" type="text/css" />
   <div class="main">
     <div class="waitimg">
       <!--倒计时开始-->
       <div class="box">
-        <?php include 'countdown.php'; ?>
+
+
+
+        <?php include $file_path . 'countdown.php'; ?>
       </div>
 
       <!--倒计时结束-->
@@ -38,13 +41,13 @@ include plugin_dir_path((__FILE__)) . 'index.php'; // 获取数据
       <style>
         .waitimg {
 
-          background: url(<?php echo $url_image . '/popure/wait.png' ?>) center no-repeat;
+          background: url(<?php echo $file_url . '/purple/img/wait.png' ?>) center no-repeat;
 
         }
 
         @media screen and (min-width: 750px) {
           .waitimg {
-            background: url(<?php echo $url_image . '/popure/wait1.png' ?>) center no-repeat;
+            background: url(<?php echo $file_url . '/purple/img/wait1.png' ?>) center no-repeat;
           }
         }
 

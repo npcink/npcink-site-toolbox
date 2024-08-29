@@ -23,7 +23,7 @@ const TextAreaHtml: React.FC = (props: any) => {
 
     const data = e.target.value.replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
-    console.log(data);
+    //console.log(data);
 
     setTextAreaValue(e.target.value); // 更新 textAreaValue 的值
 

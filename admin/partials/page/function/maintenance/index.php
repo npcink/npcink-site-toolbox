@@ -11,9 +11,8 @@ $description = get_bloginfo('description');
 $favicon_url = get_site_icon_url();
 
 //准备资源路径
-$url_css = plugin_dir_url(__FILE__) . "css/";
-$url_js = plugin_dir_url(__FILE__) . "js/";
-$url_image = plugin_dir_url(__FILE__) . "image/";
+$file_path = plugin_dir_path((__FILE__));
+$file_url = plugin_dir_url(__FILE__);
 
 //传来的值
 

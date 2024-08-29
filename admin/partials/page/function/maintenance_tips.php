@@ -45,7 +45,7 @@ if (!class_exists('Npcink_Maintenance_Tips')) {
                         break;
 
                     case "purple": //紫色期待
-                        include(self::$path . 'purple.php');
+                        include(self::$path . 'purple/index.php');
                         exit;
                         break;
 

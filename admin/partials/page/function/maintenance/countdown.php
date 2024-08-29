@@ -1,6 +1,6 @@
             <!--载入倒计时-->
-            <link href="<?php echo $url_css . "Countdown.css" ?>" rel="stylesheet" type="text/css" />
-            <script type="text/javascript" src="<?php echo $url_js . "Countdown.js" ?>"></script>
+            <link href="<?php echo $file_url . "css/Countdown.css" ?>" rel="stylesheet" type="text/css" />
+            <script type="text/javascript" src="<?php echo $file_url . "js/Countdown.js" ?>"></script>
             <script>
                 // 目标日期和时间
                 var targetDate = new Date("<?php echo $countdown ?>"); //规定以T分隔日期和时间
