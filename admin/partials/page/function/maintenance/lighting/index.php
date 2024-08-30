@@ -65,7 +65,7 @@ include plugin_dir_path((__FILE__)) . '../index.php'; // 获取数据
 
             <div class="content"> <?php echo $countdown_content; ?></div>
 
-            <?php include $file_path . 'countdown.php'; ?>
+            <?php include $file_path . 'countdown/index.php'; ?>
             <style>
                 body {
                     height: 70vh !important;

@@ -11,7 +11,8 @@ include plugin_dir_path((__FILE__)) . 'index.php'; // 获取数据
 <head>
     <meta charset="<?php bloginfo('charset'); ?>" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <?php wp_head(); ?>
+    <title><?php echo $page_title; ?></title>
+    <?php //wp_head(); ?>
 </head>
 
 <body <?php body_class(); ?>>
@@ -47,7 +48,7 @@ include plugin_dir_path((__FILE__)) . 'index.php'; // 获取数据
 
             <!--倒计时开始-->
             <div class="boxs">
-                <?php include 'countdown.php'; ?>
+                <?php include 'countdown/index.php'; ?>
             </div>
             <style>
                 .box {
