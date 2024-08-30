@@ -22,7 +22,8 @@ const App: React.FC = () => {
   const { optionData, updateOption } = useContext(DataContext);
 
   //简化并提供默认值
-  let publicData = optionData.login?.security || defaultVarOption.login.security;
+  let publicData =
+    optionData.login?.security || defaultVarOption.login.security;
 
   //创建变量并设默认值
   const [formData, setFormData] = useState(publicData || {});
@@ -69,12 +70,13 @@ const App: React.FC = () => {
           valuePropName="checked"
           extra={
             <span>
+              <strong>修复中，禁用;</strong>
               默认登录报错信息会透露用户是用户名错误还是密码错误，统一信息后，可改善此情况，
               <b style={{ color: "red" }}>会覆盖下方登录验证码错误提示！</b>
             </span>
           }
         >
-          <Switch />
+          <Switch disabled={true} />
         </Form.Item>
 
         <Form.Item<FieldType>

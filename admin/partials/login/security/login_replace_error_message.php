@@ -10,7 +10,7 @@ if (!class_exists('Npcink_Login_Replace_Error_Message')) {
         public static function run()
         {
 
-            add_filter('login_errors', array(__CLASS__, 'remove_default_login_errors'));
+            add_filter('wp_login_errors', array(__CLASS__, 'remove_default_login_errors'));
         }
 
 
