@@ -3,10 +3,10 @@
  暂停页模版 - 高级遮罩 zaxu 
  */
 
-include plugin_dir_path((__FILE__)) . 'index.php'; // 获取数据
+include plugin_dir_path((__FILE__)) . '../index.php'; // 获取数据
 
 //准备图片 1920 1080
-$img_url = $countdown_image ? $countdown_image : plugin_dir_url(__FILE__) . './image/masking_1920.jpg';
+$img_url = $countdown_image ? $countdown_image : $file_url . './masking/masking_1920.jpg';
 
 ?>
 <!doctype html>
@@ -15,7 +15,7 @@ $img_url = $countdown_image ? $countdown_image : plugin_dir_url(__FILE__) . './i
 <head>
     <meta charset="<?php bloginfo('charset'); ?>" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <?php wp_head(); ?>
+    <title>临时维护中 - <?php echo $site_name; ?></title>
 </head>
 
 <body class="maintenance-page" <?php body_class(); ?>>
@@ -23,8 +23,8 @@ $img_url = $countdown_image ? $countdown_image : plugin_dir_url(__FILE__) . './i
 
 
 
-    <link href="<?php echo $url_css . "masking.css" ?>" rel="stylesheet" type="text/css" />
-    <script type="text/javascript" src="<?php echo $url_js . "Countdown.js" ?>"></script>
+    <link href="<?php echo $file_url . "masking/style.css" ?>" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="<?php echo $file_url . "Countdown.js" ?>"></script>
     <picture class="pending-bg-img">
         <img src="<?php echo $img_url ?>" alt="<?php echo $countdown_title ?>">
     </picture>
@@ -39,7 +39,7 @@ $img_url = $countdown_image ? $countdown_image : plugin_dir_url(__FILE__) . './i
                                     <h1><?php echo $countdown_title ?></h1>
                                     <h2><?php echo $countdown_content ?></h2>
                                 </section>
-                                <?php include 'countdown.php'; ?>
+                                <?php include $file_path . 'countdown.php'; ?>
                             </div>
                         </article>
                     </main>

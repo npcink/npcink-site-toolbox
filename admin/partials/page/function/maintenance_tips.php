@@ -54,7 +54,7 @@ if (!class_exists('Npcink_Maintenance_Tips')) {
                         exit;
                         break;
                     case "masking": //大气遮罩
-                        include(self::$path . 'masking.php');
+                        include(self::$path . 'masking/index.php');
                         exit;
                         break;
                     case "rotate": //旋转时钟

@@ -41,6 +41,7 @@
     color: #ffffff;
     background-color: #f4f4f4;
   }
+  
   body.maintenance-page .pending-bg-img {
     position: fixed;
     top: 0;
