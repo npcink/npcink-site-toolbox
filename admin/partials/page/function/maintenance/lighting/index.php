@@ -11,7 +11,7 @@ include plugin_dir_path((__FILE__)) . '../index.php'; // 获取数据
 <head>
     <meta charset="<?php bloginfo('charset'); ?>" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <?php wp_head(); ?>
+    <title><?php echo $page_title; ?></title>
 
 
 </head>

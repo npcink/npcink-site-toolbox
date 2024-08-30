@@ -15,7 +15,7 @@ $img_url = $countdown_image ? $countdown_image : $file_url . './masking/masking_
 <head>
     <meta charset="<?php bloginfo('charset'); ?>" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>临时维护中 - <?php echo $site_name; ?></title>
+    <title><?php echo $page_title; ?></title>
 </head>
 
 <body class="maintenance-page" <?php body_class(); ?>>
