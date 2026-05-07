@@ -67,11 +67,11 @@ if (!class_exists('Npcink_Seo_Category_Add_Meat')) {
                 }
                 // 标题
                 $title_key = 'cat-title-' . $term_id; // key
-                $title_value = $_POST['cat-title']; // value
+                $title_value = sanitize_text_field(wp_unslash($_POST['cat-title'])); // value
 
                 // 关键字
                 $words_key = 'cat-words-' . $term_id;
-                $words_value = $_POST['cat-words'];
+                $words_value = sanitize_text_field(wp_unslash($_POST['cat-words']));
 
                 // 更新选项值
                 update_option($title_key, $title_value);

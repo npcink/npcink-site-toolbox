@@ -4,6 +4,8 @@
 export type DataLocal = {
   option: Option;
   url_site: string;
+  ajaxurl?: string;
+  nonce?: string;
 };
 
 //选项

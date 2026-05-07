@@ -41,12 +41,12 @@ if (!class_exists('Npcink_Page_Back_Top_Cat')) {
 
                 /*右边距*/
                 .back-to-top {
-                    right: <?php echo $right; ?>px;
+                    right: <?php echo esc_attr($right); ?>px;
                 }
 
                 /*抓绳猫*/
                 .back-to-top {
-                    background: url(<?php echo $images ?>);
+                    background: url(<?php echo esc_url($images); ?>);
 
                 }
             </style>

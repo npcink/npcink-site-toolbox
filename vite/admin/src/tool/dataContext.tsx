@@ -18,7 +18,7 @@ function getDataLocal(): DataLocal {
   } else {
     //打包
     //return (window as any).dataLocal.option;
-    return (window as any).dataLocal !== "" ? (window as any).dataLocal : {};
+    return (window as any).dataLocal !== "" ? (window as any).dataLocal : defaultVarData;
   }
 }
 
@@ -29,7 +29,7 @@ function getAjaxurl(): string {
     return "/wp-admin/admin-ajax.php";
   } else {
     //打包
-    return (window as any).ajaxurl;
+    return (window as any).dataLocal?.ajaxurl || "/wp-admin/admin-ajax.php";
   }
 }
 
@@ -45,6 +45,13 @@ export const url_site = dataObject?.url_site;
 
 //ajaxurl
 export const Ajaxurl = getAjaxurl();
+
+export const getNonce = (): string => {
+  if (state) {
+    return "";
+  }
+  return (window as any).dataLocal?.nonce || "";
+};
 
 //准备选项默认值
 interface OptionContextType {

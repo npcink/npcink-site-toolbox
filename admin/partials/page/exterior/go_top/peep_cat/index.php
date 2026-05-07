@@ -23,7 +23,7 @@ if (!class_exists('Npcink_Page_Go_Top_Peep_Cat')) {
             $cat_url = plugin_dir_url(__FILE__) . 'cat.png';
 ?>
             <div id="topcontrol" onclick="goTop()">
-                <img src="<?php echo $cat_url ?>" alt="偷瞄猫猫" title="偷瞄猫猫">
+                <img src="<?php echo esc_url($cat_url); ?>" alt="偷瞄猫猫" title="偷瞄猫猫">
             </div>
             <style>
                 #topcontrol {

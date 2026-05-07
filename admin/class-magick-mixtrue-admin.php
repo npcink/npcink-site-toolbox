@@ -112,6 +112,9 @@ class MaBox_Admin
 
         // 添加Ajax请求处理函数
         add_action('wp_ajax_save_option_wmt', array(__CLASS__, 'save_option_wmt_callback'));
+
+        // 注册 REST API 端点
+        add_action('rest_api_init', array(__CLASS__, 'register_rest_routes'));
     }
 
 
@@ -185,6 +188,8 @@ class MaBox_Admin
             'cat_arr' => self::get_cat_data(), //分类信息
             'single_arr' => self::get_single_data(), //文章信息
             'url_site' => get_site_url(), //当前首页网址
+            'ajaxurl' => admin_url('admin-ajax.php'), // AJAX 地址
+            'nonce' => wp_create_nonce('mabox_save_nonce'), // 安全令牌
 
         );
         wp_localize_script($name, 'dataLocal', $MaBox_array); //传给vite项目
@@ -234,56 +239,112 @@ class MaBox_Admin
 
 
     /**
-     * 添加选项接口
+     * 添加选项接口 (AJAX)
      */
-
-
-    public static  function save_option_wmt_callback()
+    public static function save_option_wmt_callback()
     {
-        global $wpdb;
+        // 1. 权限检查
+        if (!current_user_can('manage_options')) {
+            wp_send_json_error(['error' => '权限不足，仅管理员可操作'], 403);
+        }
 
-        // 检查是否有传递的对象数据
+        // 2. Nonce 验证
+        check_ajax_referer('mabox_save_nonce', 'nonce');
+
+        // 3. 接收并解析数据
         if (empty($_POST['object_data'])) {
-            return wp_send_json_error([
-                'error' => '未接收到有效的设置数据',
-            ], 400); // 使用 400 错误码表示客户端请求错误
+            wp_send_json_error(['error' => '未接收到有效的设置数据'], 400);
         }
 
-        // 获取通过 Ajax POST 请求传递的对象数据
-        $object_data = isset($_POST['object_data']) ? sanitize_text_field($_POST['object_data']) : null;
+        $raw_data = wp_unslash($_POST['object_data']);
+        $object = json_decode($raw_data, true); // 解码为关联数组
 
-        // 将 JSON 字符串解析为 PHP 对象
-        $object = json_decode(stripslashes($object_data));
-
-        if (empty($object)) {
-            return wp_send_json_error([
-                'error' => '设置选项为空',
-                'data' => $object_data,
-            ], 403);
+        if (!is_array($object) || empty($object)) {
+            wp_send_json_error(['error' => '设置数据格式无效'], 400);
         }
 
-        // 备份旧选项数据
+        // 4. 备份旧数据（失败时回滚）
         $old_option_backup = get_option(MAGICK_MIXTURE_OPTION);
 
-        try {
-            // 删除原有选项
-            delete_option(MAGICK_MIXTURE_OPTION);
+        // 5. 保存新选项
+        $result = update_option(MAGICK_MIXTURE_OPTION, $object);
 
-            // 保存新选项
-            $result = update_option(MAGICK_MIXTURE_OPTION, $object);
-
-            if ($result === false) {
-                // 如果保存新选项失败，恢复备份数据
-                update_option(MAGICK_MIXTURE_OPTION, $old_option_backup);
-                // 可以在这里记录错误或者执行其他的错误处理逻辑
-                error_log('Failed to update option, rolled back to previous state');
-                return wp_send_json_error(['error' => '选项无变化，保存失败', 'reason' => $wpdb->last_error, 'result' => $result, 'msg' => $object], 500);
-            } else {
-                return wp_send_json_success(['message' => '保存成功', 'msg' => $object,]);
-            }
-        } catch (Exception $e) {
-            // 可能的异常处理代码
+        if ($result === false) {
+            // 保存失败，恢复旧数据
+            update_option(MAGICK_MIXTURE_OPTION, $old_option_backup);
+            error_log('[MaBox] Failed to update option, rolled back to previous state');
+            wp_send_json_error(['error' => '保存失败，已恢复为之前的设置'], 500);
         }
+
+        wp_send_json_success(['message' => '保存成功']);
+    }
+
+    /**
+     * REST API: 保存设置
+     */
+    public static function rest_save_settings($request)
+    {
+        if (!current_user_can('manage_options')) {
+            return new \WP_Error('rest_forbidden', '权限不足', array('status' => 403));
+        }
+
+        $body = $request->get_json_params();
+        if (empty($body) || !is_array($body)) {
+            return new \WP_Error('rest_invalid_data', '设置数据格式无效', array('status' => 400));
+        }
+
+        $old_option_backup = get_option(MAGICK_MIXTURE_OPTION);
+        $result = update_option(MAGICK_MIXTURE_OPTION, $body);
+
+        if ($result === false) {
+            update_option(MAGICK_MIXTURE_OPTION, $old_option_backup);
+            error_log('[MaBox] REST API: Failed to update option, rolled back');
+            return new \WP_Error('rest_save_failed', '保存失败，已恢复为之前的设置', array('status' => 500));
+        }
+
+        return rest_ensure_response([
+            'success' => true,
+            'message' => '保存成功',
+        ]);
+    }
+
+    /**
+     * REST API: 获取设置
+     */
+    public static function rest_get_settings($request)
+    {
+        if (!current_user_can('manage_options')) {
+            return new \WP_Error('rest_forbidden', '权限不足', array('status' => 403));
+        }
+
+        $settings = get_option(MAGICK_MIXTURE_OPTION, array());
+        return rest_ensure_response([
+            'success' => true,
+            'data' => $settings,
+        ]);
+    }
+
+    /**
+     * 注册 REST API 路由
+     */
+    public static function register_rest_routes()
+    {
+        register_rest_route('mabox/v1', '/settings', array(
+            array(
+                'methods'             => \WP_REST_Server::READABLE,
+                'callback'            => array(__CLASS__, 'rest_get_settings'),
+                'permission_callback' => function () {
+                    return current_user_can('manage_options');
+                },
+            ),
+            array(
+                'methods'             => \WP_REST_Server::CREATABLE,
+                'callback'            => array(__CLASS__, 'rest_save_settings'),
+                'permission_callback' => function () {
+                    return current_user_can('manage_options');
+                },
+            ),
+        ));
     }
 
     /**
@@ -306,17 +367,13 @@ class MaBox_Admin
      */
     public static function get_config($config, $property, $defaultValue = false)
     {
-        /**
-         * 是否是对象
-         * 对象中是否有此键名
-         * 在对象中的此值是否为空
-         */
+        if (is_array($config) && isset($config[$property]) && !empty($config[$property])) {
+            return $config[$property];
+        }
         if (is_object($config) && property_exists($config, $property) && !empty($config->$property)) {
             return $config->$property;
-        } else {
-            //不存在则输出默认值
-            return $defaultValue;
         }
+        return $defaultValue;
     }
 
     //公用返回按钮

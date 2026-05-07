@@ -210,7 +210,10 @@ if (!class_exists('Npcink_B2_Shop')) {
             $array = array();
 
             //获取近7天的销售数据
-            $order_data_seven = "SELECT order_type,order_commodity,order_state,order_date,order_total FROM $table_name WHERE  order_date > '$time[6]'";
+            $order_data_seven = $wpdb->prepare(
+                "SELECT order_type,order_commodity,order_state,order_date,order_total FROM {$table_name} WHERE order_date > %s",
+                $time[6]
+            );
             //原始数据
             $order_data = $wpdb->get_results($order_data_seven, ARRAY_A);
 
@@ -329,7 +332,10 @@ if (!class_exists('Npcink_B2_Shop')) {
             /**
              * 待发货订单
              */
-            $shipped_order = $wpdb->get_var("SELECT COUNT(*) FROM $table_name where order_state='f'");
+            $shipped_order = $wpdb->get_var($wpdb->prepare(
+                "SELECT COUNT(*) FROM {$table_name} WHERE order_state = %s",
+                'f'
+            ));
 
             //创建数组，存储数据
             $array = array();
@@ -434,7 +440,7 @@ if (!class_exists('Npcink_B2_Shop')) {
             $arr = array();
 
             //数据库不存在
-            if ($wpdb->get_var("SHOW TABLES LIKE '$table_name'") != $table_name) {
+            if ($wpdb->get_var($wpdb->prepare("SHOW TABLES LIKE %s", $table_name)) != $table_name) {
                 //echo 'Table does not exist';
                 $arr['total_sales'] = '0';
                 $arr['total_order'] = '0';
@@ -455,15 +461,27 @@ if (!class_exists('Npcink_B2_Shop')) {
 
             //开始查询
             //总销售额
-            $judge_later_a = "SELECT SUM(BINARY(order_total)) AS total FROM $table_name WHERE order_type = 'gx' and order_commodity = 1 and (order_state = 'c' or order_state = 'q') and order_date > '$start' and order_date < '$end'";
+            $judge_later_a = $wpdb->prepare(
+                "SELECT SUM(BINARY(order_total)) AS total FROM {$table_name} WHERE order_type = 'gx' AND order_commodity = 1 AND (order_state = 'c' OR order_state = 'q') AND order_date > %s AND order_date < %s",
+                $start, $end
+            );
             //总订单数
-            $judge_later_b = "SELECT COUNT(*) FROM $table_name WHERE order_type = 'gx' and order_commodity = 1 and (order_state = 'c' or order_state = 'q') and order_date > '$start' and order_date < '$end'";
+            $judge_later_b = $wpdb->prepare(
+                "SELECT COUNT(*) FROM {$table_name} WHERE order_type = 'gx' AND order_commodity = 1 AND (order_state = 'c' OR order_state = 'q') AND order_date > %s AND order_date < %s",
+                $start, $end
+            );
 
             //总退款
-            $judge_later_c = "SELECT SUM(BINARY(order_total)) AS refund FROM $table_name WHERE order_type = 'gx' and order_commodity = 1 and order_state = 't' and order_date > '$start' and order_date < '$end'";
+            $judge_later_c = $wpdb->prepare(
+                "SELECT SUM(BINARY(order_total)) AS refund FROM {$table_name} WHERE order_type = 'gx' AND order_commodity = 1 AND order_state = 't' AND order_date > %s AND order_date < %s",
+                $start, $end
+            );
 
             //总退款订单数
-            $judge_later_d = "SELECT COUNT(*) FROM $table_name WHERE order_type = 'gx' and order_commodity = 1 and  order_state = 't' and order_date > '$start' and order_date < '$end'";
+            $judge_later_d = $wpdb->prepare(
+                "SELECT COUNT(*) FROM {$table_name} WHERE order_type = 'gx' AND order_commodity = 1 AND order_state = 't' AND order_date > %s AND order_date < %s",
+                $start, $end
+            );
             //第二天到第7天拿到的值
             //总销售额
             $arr['total_sales'] = isset(($wpdb->get_results($judge_later_a, ARRAY_A))['0']['total']) ? ($wpdb->get_results($judge_later_a, ARRAY_A))['0']['total'] : 0;

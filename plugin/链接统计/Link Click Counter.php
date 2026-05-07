@@ -69,13 +69,20 @@ add_filter('the_content', 'add_visit_count_to_link', 99);
 function add_link_counter_script() {
     wp_enqueue_script('link-counter', plugins_url('/link-counter.js', __FILE__), array('jquery'), '1.0', true);
     wp_localize_script('link-counter', 'linkCounter', array(
-        'ajaxUrl' => admin_url('admin-ajax.php')
+        'ajaxUrl' => admin_url('admin-ajax.php'),
+        'nonce' => wp_create_nonce('link_counter_nonce'),
     ));
 }
 add_action('wp_enqueue_scripts', 'add_link_counter_script');
 
 function link_counter_ajax_callback() {
-    $link_url = isset($_POST['link_url']) ? $_POST['link_url'] : '';
+    // Nonce 验证
+    check_ajax_referer('link_counter_nonce', 'nonce');
+
+    $link_url = isset($_POST['link_url']) ? esc_url_raw(wp_unslash($_POST['link_url'])) : '';
+    if (empty($link_url)) {
+        wp_die('Invalid link URL');
+    }
     update_link_visit_count($link_url);
     wp_die();
 }

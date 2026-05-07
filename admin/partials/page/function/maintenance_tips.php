@@ -31,7 +31,7 @@ if (!class_exists('Npcink_Maintenance_Tips')) {
         {
             //不是管理员
             // if (!current_user_can('edit_themes') || !is_user_logged_in()) {
-            if (!current_user_can('administrator')) {
+            if (!current_user_can('manage_options')) {
                 switch (self::$configs) {
                     case "default": //默认
                         wp_die(self::$blogname . ' 升级维护中，过一会再来吧！');

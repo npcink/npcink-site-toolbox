@@ -210,7 +210,7 @@ const App: React.FC = (props: any) => {
         dataSource.length >= 1 ? (
           <Popconfirm
             title="确定要删除吗?"
-            onConfirm={() => handleDelete(record.key)}
+            onConfirm={() => handleDelete((record as Item).key)}
           >
             <a>删除</a>
           </Popconfirm>

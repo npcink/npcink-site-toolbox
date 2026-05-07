@@ -56,9 +56,9 @@ if (!class_exists('Npcink_Login_Verify')) {
         public static function login_val()
         {
             //初始化
-            $_POST['sum'] = isset($_POST['sum']) ? $_POST['sum'] : 0;
-            $_POST['num1'] = isset($_POST['num1']) ? $_POST['num1'] : 0;
-            $_POST['num2'] = isset($_POST['num2']) ? $_POST['num2'] : 0;
+            $_POST['sum'] = isset($_POST['sum']) ? (int) $_POST['sum'] : 0;
+            $_POST['num1'] = isset($_POST['num1']) ? (int) $_POST['num1'] : 0;
+            $_POST['num2'] = isset($_POST['num2']) ? (int) $_POST['num2'] : 0;
             $sum = $_POST['sum']; //用户提交的计算结果
             switch ($sum) {
                     //得到正确的计算结果则直接跳出
@@ -106,8 +106,8 @@ if (!class_exists('Npcink_Login_Verify')) {
         //判断验证码是否空白和错误
         public static function loper_login_calculation()
         {
-            $_POST['sum'] = isset($_POST['sum']) ? $_POST['sum'] : 0;
-            $_POST['num1'] = isset($_POST['num1']) ? $_POST['num1'] : 0;
+            $_POST['sum'] = isset($_POST['sum']) ? (int) $_POST['sum'] : 0;
+            $_POST['num1'] = isset($_POST['num1']) ? (int) $_POST['num1'] : 0;
             $sum = $_POST['sum'];
             switch ($sum) {
                 case $_POST['num1']:

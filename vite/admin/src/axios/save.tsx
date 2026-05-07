@@ -1,5 +1,6 @@
 //保存选项接口
 import { Ajaxurl } from "@/tool/dataContext";
+import { getNonce } from "@/tool/dataContext";
 import { instance, addParamIfDefined } from "@/axios/public";
 import { Option } from "@/tool/interface";
 import { defaultVarOption } from "@/tool/defaultVar";
@@ -8,6 +9,7 @@ export const saceOption = async (data: Option) => {
   //console.log("待保存数据：" + JSON.stringify(data, null, 2));
   const params = new URLSearchParams();
   params.append("action", "save_option_wmt");
+  params.append("nonce", getNonce());
 
   if (data) {
     addParamIfDefined(params, "object_data", JSON.stringify(data));

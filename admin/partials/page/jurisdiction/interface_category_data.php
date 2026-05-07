@@ -17,6 +17,9 @@ if (!class_exists('Npcink_Interface_Category_Data')) {
         //名称，ID
         public static function get_all_category_names()
         {
+            // Nonce 验证
+            check_ajax_referer('mabox_save_nonce', 'nonce');
+
             //获取所有分类
             $categories = get_terms(array(
                 'taxonomy' => 'category', // 分类法的名称，默认是'category'

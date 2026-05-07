@@ -6,7 +6,8 @@ jQuery(document).ready(function ($) {
             type: 'POST',
             data: {
                 action: 'update_link_visit_count',
-                link_url: linkUrl
+                link_url: linkUrl,
+                nonce: linkCounter.nonce
             }
         });
     });

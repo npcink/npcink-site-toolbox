@@ -52,13 +52,13 @@ if (!class_exists('Npcink_Page_Completed_Book')) {
 
             foreach ($books as $numChars => $book) {
                 if ($chars < $numChars) {
-                    echo '<p class="completed_book">全站共 <span class="completed_book_num">' . $chars . ' </span>字，写完一本<span class="completed_book_book">' . $book . '</span>了！</p>';
+                    echo '<p class="completed_book">全站共 <span class="completed_book_num">' . esc_html((string) $chars) . ' </span>字，写完一本<span class="completed_book_book">' . esc_html($book) . '</span>了！</p>';
                     return;
                 }
             }
 
             //保底
-            echo '<p class="completed_book">全站共 <span class="completed_book_num">' . $chars . '</span> 字，已写一本<span class="completed_book_book">列夫·托尔斯泰的《战争与和平》</span>了！</p>';
+            echo '<p class="completed_book">全站共 <span class="completed_book_num">' . esc_html((string) $chars) . '</span> 字，已写一本<span class="completed_book_book">列夫·托尔斯泰的《战争与和平》</span>了！</p>';
         }
     }
 }

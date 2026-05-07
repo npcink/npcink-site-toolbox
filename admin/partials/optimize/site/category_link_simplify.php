@@ -121,8 +121,7 @@ if (!class_exists('Npcink_Category_Link_Simplify')) {
         {
             if (isset($query_vars['category_redirect'])) {
                 $catlink = trailingslashit(get_option('home')) . user_trailingslashit($query_vars['category_redirect'], 'category');
-                status_header(301);
-                header("Location: $catlink");
+                wp_safe_redirect($catlink, 301);
                 exit();
             }
 

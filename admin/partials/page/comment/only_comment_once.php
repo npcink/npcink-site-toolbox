@@ -28,7 +28,13 @@ if (!class_exists('Npcink_Comment_Only_Once')) {
 
             // 不限制管理员发表评论
             if (empty($currentUser->roles) || !in_array('administrator', $currentUser->roles)) {
-                $bool = $wpdb->get_var("SELECT comment_ID FROM $wpdb->comments WHERE comment_post_ID = " . $commentdata['comment_post_ID'] . "  AND (comment_author = '" . $commentdata['comment_author'] . "' OR comment_author_email = '" . $commentdata['comment_author_email'] . "' OR comment_author_IP = '" . self::ludou_getIP() . "') LIMIT 0, 1;");
+                $bool = $wpdb->get_var($wpdb->prepare(
+                    "SELECT comment_ID FROM $wpdb->comments WHERE comment_post_ID = %d AND (comment_author = %s OR comment_author_email = %s OR comment_author_IP = %s) LIMIT 0, 1",
+                    $commentdata['comment_post_ID'],
+                    $commentdata['comment_author'],
+                    $commentdata['comment_author_email'],
+                    self::ludou_getIP()
+                ));
 
                 if ($bool) {
                     $message = '本站每篇文章仅允许评论一次。';

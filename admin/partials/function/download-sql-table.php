@@ -22,6 +22,8 @@ if (!class_exists('MaBox_Download_SQL_Table')) {
                 return wp_send_json_error(['error' => '非管理员，无权获取此内容', 'data' => []], 404);
             }
 
+            // Nonce 验证
+            check_ajax_referer('mabox_save_nonce', 'nonce');
 
             //获取所有表名
             $results = $wpdb->get_results("SHOW TABLES", ARRAY_N);
@@ -52,58 +54,58 @@ if (!class_exists('MaBox_Download_SQL_Table')) {
                 return  wp_send_json_error(['error' => '非管理员，无权获取此内容', 'data' => []], 404);
             }
 
+            // Nonce 验证
+            check_ajax_referer('mabox_save_nonce', 'nonce');
+
             // 检查是否传递了数据库名
             if (empty($_POST['databaseName'])) {
                 return wp_send_json_error(['error' => '没有拿到表名',], 400);
             }
 
-            $databaseName = sanitize_text_field($_POST['databaseName']); // 对数据库名进行安全过滤
+            $databaseName = sanitize_text_field(wp_unslash($_POST['databaseName']));
+
+            // 白名单验证：表名只能包含字母、数字、下划线
+            if (!preg_match('/^[a-zA-Z0-9_]+$/', $databaseName)) {
+                return wp_send_json_error(['error' => '非法表名'], 400);
+            }
 
             //待查询的表名
-            $searchTableName = "{$databaseName}";
+            $searchTableName = $databaseName;
 
             // 检查数据库表是否存在
-            $existingTableName = $wpdb->get_var("SHOW TABLES LIKE '{$searchTableName}'");
+            $existingTableName = $wpdb->get_var($wpdb->prepare("SHOW TABLES LIKE %s", $searchTableName));
             if ($existingTableName !== $searchTableName) {
                 return wp_send_json_error([
                     'error' => '该表不存在',
                 ], 404);
             }
 
-            $query = "SELECT * FROM {$searchTableName}"; // 使用预处理语句构建查询语句
-            $results = $wpdb->get_results($query, ARRAY_A); // 执行查询并获取数组结果
+            $query = "SELECT * FROM `{$searchTableName}`";
+            $results = $wpdb->get_results($query, ARRAY_A);
 
             // 检查查询结果是否为空
             if (!$results) {
                 return wp_send_json_error(['error' => '没有查到表格的数据，可能该表为空',], 404);
             }
 
-            $filename = $databaseName . '.csv'; // 生成要下载的文件名
+            // 使用内存流代替临时文件，避免竞态条件
+            $stream = fopen('php://temp', 'r+');
+            $header = array_keys((array) $results[0]);
+            fputcsv($stream, $header);
 
-            // 创建 CSV 文件并写入表头
-            $file = fopen($filename, 'w');
-            $header = array_keys((array) $results[0]); // 获取第一行数据的属性名作为表头
-            fputcsv($file, $header); //将表头写入到 CSV 文件中。
-
-            // 写入查询结果
             foreach ($results as $row) {
-                fputcsv($file, (array) $row);
+                fputcsv($stream, (array) $row);
             }
-            fclose($file); //关闭文件句柄，完成文件写入操作。
 
-            // readfile($filename);//将指定的文件发送给浏览器，完成下载操作。
-            // 读取文件内容
-            $file_content = file_get_contents($filename);
+            rewind($stream);
+            $file_content = stream_get_contents($stream);
+            fclose($stream);
 
-            // 如果文件内容读取成功，就将数据传递给前端
             if ($file_content !== false) {
                 wp_send_json_success(['data' => $file_content, 'message' => '下载成功']);
             } else {
                 wp_send_json_error(['error' => '无法读取文件内容',], 400);
             }
-
-            // 删除临时文件
-            unlink($filename);
         }
     }
 }

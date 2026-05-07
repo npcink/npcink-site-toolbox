@@ -1,11 +1,12 @@
 //各种请求
-import { Ajaxurl } from "@/tool/dataContext";
+import { Ajaxurl, getNonce } from "@/tool/dataContext";
 import { instance, addParamIfDefined } from "@/axios/public";
 
 //获取所有数据库表名字
 export const get_all_table_name = async () => {
   const params = new URLSearchParams();
   params.append("action", "get_all_table_names");
+  params.append("nonce", getNonce());
   try {
     const response = await instance.post(Ajaxurl, params);
     //console.log(response.data.data);
@@ -40,6 +41,7 @@ function downloadCSV(csvString: string, filename: string) {
 export const get_table_data = async (type: string) => {
   const params = new URLSearchParams();
   params.append("action", "get_table_data");
+  params.append("nonce", getNonce());
   addParamIfDefined(params, "databaseName", type);
   try {
     const response = await instance.post(Ajaxurl, params);
@@ -54,6 +56,7 @@ export const get_table_data = async (type: string) => {
 export const getCategoryData = async () => {
   const params = new URLSearchParams();
   params.append("action", "get_all_category_names");
+  params.append("nonce", getNonce());
   try {
     const response = await instance.post(Ajaxurl, params);
     return response.data.data;
