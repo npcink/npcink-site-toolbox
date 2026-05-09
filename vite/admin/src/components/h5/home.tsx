@@ -55,8 +55,8 @@ const App: React.FC = () => {
         { label: "文章3", value: 3 },
       ];
     } else {
-      return (window as any).dataLocal.single_arr !== ""
-        ? (window as any).dataLocal.single_arr
+      return window.dataLocal.single_arr !== ""
+        ? window.dataLocal.single_arr
         : [];
     }
   };
@@ -69,8 +69,8 @@ const App: React.FC = () => {
         { label: "大大怪", value: 3 },
       ];
     } else {
-      return (window as any).dataLocal.cat_arr !== ""
-        ? (window as any).dataLocal.cat_arr
+      return window.dataLocal.cat_arr !== ""
+        ? window.dataLocal.cat_arr
         : [];
     }
   };
@@ -84,8 +84,8 @@ const App: React.FC = () => {
     <>
       <Form
         name="home"
-        labelCol={fromConfig.labelCol as any}
-        wrapperCol={fromConfig.wrapperCol as any}
+        labelCol={fromConfig.labelCol}
+        wrapperCol={fromConfig.wrapperCol}
         style={{ maxWidth: fromConfig.maxWidth }}
         //表单默认值，只有初始化以及重置时生效
         initialValues={publicData}

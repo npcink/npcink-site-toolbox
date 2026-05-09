@@ -43,8 +43,8 @@ const App: React.FC = () => {
     <>
       <Form
         name="trends"
-        labelCol={fromConfig.labelCol as any}
-        wrapperCol={fromConfig.wrapperCol as any}
+        labelCol={fromConfig.labelCol}
+        wrapperCol={fromConfig.wrapperCol}
         style={{ maxWidth: fromConfig.maxWidth }}
         initialValues={publicData}
         autoComplete="off"

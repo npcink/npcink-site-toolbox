@@ -384,7 +384,7 @@ if (!class_exists('MaBox_Tool')) {
 
             //总用户
             //网站注册用户总数
-            $total_users = $wpdb->get_var("SELECT COUNT(ID) FROM $wpdb->users");
+            $total_users = $wpdb->get_var($wpdb->prepare("SELECT COUNT(ID) FROM {$wpdb->users}"));
             $arr['total']['register'] = $total_users;
 
             return $arr;

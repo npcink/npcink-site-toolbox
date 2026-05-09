@@ -30,12 +30,12 @@ delete_option('Magick_ToolBox_Config_Version');
 delete_option('Magick_ToolBox_Active_Modules');
 
 // 删除 SEO 相关选项（可能由 seo_category_add_meat.php 创建）
-$wpdb->query("DELETE FROM {$wpdb->options} WHERE option_name LIKE 'cat-title-%'");
-$wpdb->query("DELETE FROM {$wpdb->options} WHERE option_name LIKE 'cat-words-%'");
+$wpdb->query($wpdb->prepare("DELETE FROM {$wpdb->options} WHERE option_name LIKE %s", 'cat-title-%'));
+$wpdb->query($wpdb->prepare("DELETE FROM {$wpdb->options} WHERE option_name LIKE %s", 'cat-words-%'));
 
 // 删除缩略图切换器相关 transient
-$wpdb->query("DELETE FROM {$wpdb->options} WHERE option_name LIKE '_transient_ts_%'");
-$wpdb->query("DELETE FROM {$wpdb->options} WHERE option_name LIKE '_transient_timeout_ts_%'");
+$wpdb->query($wpdb->prepare("DELETE FROM {$wpdb->options} WHERE option_name LIKE %s", '_transient_ts_%'));
+$wpdb->query($wpdb->prepare("DELETE FROM {$wpdb->options} WHERE option_name LIKE %s", '_transient_timeout_ts_%'));
 
 // 删除字数统计缓存
 delete_transient('mabox_total_chars');

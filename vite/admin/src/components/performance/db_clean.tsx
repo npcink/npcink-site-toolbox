@@ -24,7 +24,7 @@ const App: React.FC = () => {
   const fetchStats = () => {
     const formData2 = new FormData();
     formData2.append("action", "mabox_db_stats");
-    fetch((window as any).dataLocal?.ajaxurl || "/wp-admin/admin-ajax.php", {
+    fetch(window.dataLocal?.ajaxurl || "/wp-admin/admin-ajax.php", {
       method: "POST",
       body: formData2,
     })
@@ -39,7 +39,7 @@ const App: React.FC = () => {
     const formData2 = new FormData();
     formData2.append("action", "mabox_db_clean");
     formData2.append("type", type);
-    fetch((window as any).dataLocal?.ajaxurl || "/wp-admin/admin-ajax.php", {
+    fetch(window.dataLocal?.ajaxurl || "/wp-admin/admin-ajax.php", {
       method: "POST",
       body: formData2,
     })
@@ -60,8 +60,8 @@ const App: React.FC = () => {
   return (
     <Form
       name="db_clean"
-      labelCol={fromConfig.labelCol as any}
-      wrapperCol={fromConfig.wrapperCol as any}
+      labelCol={fromConfig.labelCol}
+      wrapperCol={fromConfig.wrapperCol}
       style={{ maxWidth: fromConfig.maxWidth }}
       initialValues={publicData}
       autoComplete="off"
@@ -101,7 +101,7 @@ const App: React.FC = () => {
         </Form.Item>
       )}
 
-      <Form.Item wrapperCol={{ offset: fromConfig.labelCol as any, span: fromConfig.wrapperCol as any }}>
+      <Form.Item wrapperCol={{ offset: fromConfig.labelCol, span: fromConfig.wrapperCol }}>
         <Button onClick={fetchStats}>查看统计</Button>
         <Button type="primary" danger style={{ marginLeft: 8 }} onClick={() => handleClean("all")} loading={loading}>
           一键清理全部
@@ -109,7 +109,7 @@ const App: React.FC = () => {
       </Form.Item>
 
       {stats.db_size && (
-        <Form.Item wrapperCol={{ offset: fromConfig.labelCol as any, span: fromConfig.wrapperCol as any }}>
+        <Form.Item wrapperCol={{ offset: fromConfig.labelCol, span: fromConfig.wrapperCol }}>
           <List size="small" bordered>
             <List.Item>数据库大小：{stats.db_size}</List.Item>
             <List.Item>修订版本：{stats.revisions} <Button size="small" onClick={() => handleClean("revisions")}>清理</Button></List.Item>

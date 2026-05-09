@@ -27,7 +27,11 @@ if (!class_exists('Npcink_Page_Completed_Book')) {
             $chars = get_transient('mabox_total_chars');
             if ($chars === false) {
                 $chars = 0;
-                $results = $wpdb->get_results("SELECT post_content FROM {$wpdb->posts} WHERE post_status = 'publish' AND post_type = 'post'");
+                $results = $wpdb->get_results($wpdb->prepare(
+                    "SELECT post_content FROM {$wpdb->posts} WHERE post_status = %s AND post_type = %s",
+                    'publish',
+                    'post'
+                ));
                 foreach ($results as $result) {
                     $chars += mb_strlen(trim($result->post_content), 'UTF-8');
                 }

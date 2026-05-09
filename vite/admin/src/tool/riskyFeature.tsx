@@ -77,7 +77,7 @@ function addDismissedFeature(featureId: string) {
 
 export function checkRiskyFeature(
   featureId: string,
-  newValue: boolean | string,
+  newValue: unknown,
   onConfirm: () => void
 ): boolean {
   const riskInfo = RISKY_FEATURES[featureId];

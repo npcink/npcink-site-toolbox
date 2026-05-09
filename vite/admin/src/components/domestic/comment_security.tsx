@@ -23,8 +23,8 @@ const App: React.FC = () => {
   return (
     <Form
       name="comment_security"
-      labelCol={fromConfig.labelCol as any}
-      wrapperCol={fromConfig.wrapperCol as any}
+      labelCol={fromConfig.labelCol}
+      wrapperCol={fromConfig.wrapperCol}
       style={{ maxWidth: fromConfig.maxWidth }}
       initialValues={publicData}
       autoComplete="off"

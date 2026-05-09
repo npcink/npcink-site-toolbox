@@ -19,19 +19,19 @@ if (!class_exists('Npcink_Performance_Seo_Checker')) {
                 $issues[] = array('type' => '首页描述', 'message' => '首页 SEO 描述为空');
             }
             global $wpdb;
-            $missing_seo = $wpdb->get_var("SELECT COUNT(*) FROM {$wpdb->posts} WHERE post_status = 'publish' AND post_type = 'post' AND (post_title = '' OR post_excerpt = '')");
+            $missing_seo = $wpdb->get_var($wpdb->prepare("SELECT COUNT(*) FROM {$wpdb->posts} WHERE post_status = %s AND post_type = %s AND (post_title = '' OR post_excerpt = '')", 'publish', 'post'));
             if ($missing_seo > 0) {
                 $issues[] = array('type' => '文章SEO', 'message' => $missing_seo . ' 篇文章缺少标题或摘要');
             }
-            $missing_alt = $wpdb->get_var("SELECT COUNT(*) FROM {$wpdb->posts} WHERE post_type = 'attachment' AND post_excerpt = ''");
+            $missing_alt = $wpdb->get_var($wpdb->prepare("SELECT COUNT(*) FROM {$wpdb->posts} WHERE post_type = %s AND post_excerpt = ''", 'attachment'));
             if ($missing_alt > 0) {
                 $issues[] = array('type' => '图片Alt', 'message' => $missing_alt . ' 张图片缺少 Alt 文本');
             }
-            $missing_featured = $wpdb->get_var("SELECT COUNT(*) FROM {$wpdb->posts} p LEFT JOIN {$wpdb->postmeta} pm ON p.ID = pm.post_id AND pm.meta_key = '_thumbnail_id' WHERE p.post_status = 'publish' AND p.post_type = 'post' AND pm.meta_id IS NULL");
+            $missing_featured = $wpdb->get_var($wpdb->prepare("SELECT COUNT(*) FROM {$wpdb->posts} p LEFT JOIN {$wpdb->postmeta} pm ON p.ID = pm.post_id AND pm.meta_key = %s WHERE p.post_status = %s AND p.post_type = %s AND pm.meta_id IS NULL", '_thumbnail_id', 'publish', 'post'));
             if ($missing_featured > 0) {
                 $issues[] = array('type' => '特色图', 'message' => $missing_featured . ' 篇文章没有特色图');
             }
-            $short_posts = $wpdb->get_var("SELECT COUNT(*) FROM {$wpdb->posts} WHERE post_status = 'publish' AND post_type = 'post' AND LENGTH(post_content) < 300");
+            $short_posts = $wpdb->get_var($wpdb->prepare("SELECT COUNT(*) FROM {$wpdb->posts} WHERE post_status = %s AND post_type = %s AND LENGTH(post_content) < %d", 'publish', 'post', 300));
             if ($short_posts > 0) {
                 $issues[] = array('type' => '内容过短', 'message' => $short_posts . ' 篇文章内容过短（少于300字）');
             }
@@ -40,7 +40,7 @@ if (!class_exists('Npcink_Performance_Seo_Checker')) {
         public static function ajax_fix_alt() {
             if (!current_user_can('manage_options')) wp_send_json_error('权限不足', 403);
             global $wpdb;
-            $images = $wpdb->get_results("SELECT ID, post_title FROM {$wpdb->posts} WHERE post_type = 'attachment' AND post_excerpt = '' LIMIT 50");
+            $images = $wpdb->get_results($wpdb->prepare("SELECT ID, post_title FROM {$wpdb->posts} WHERE post_type = %s AND post_excerpt = '' LIMIT 50", 'attachment'));
             $fixed = 0;
             foreach ($images as $img) {
                 $alt = !empty($img->post_title) ? $img->post_title : '图片';

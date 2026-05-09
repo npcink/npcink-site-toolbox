@@ -27,10 +27,10 @@ if (!class_exists('Npcink_Performance_Db_Clean')) {
             if (!current_user_can('manage_options')) wp_send_json_error('权限不足', 403);
             global $wpdb;
             $stats = array();
-            $stats['revisions'] = intval($wpdb->get_var("SELECT COUNT(*) FROM {$wpdb->posts} WHERE post_type = 'revision'"));
-            $stats['drafts'] = intval($wpdb->get_var("SELECT COUNT(*) FROM {$wpdb->posts} WHERE post_status = 'auto-draft'"));
-            $stats['spam'] = intval($wpdb->get_var("SELECT COUNT(*) FROM {$wpdb->comments} WHERE comment_approved = 'spam'"));
-            $stats['transients'] = intval($wpdb->get_var("SELECT COUNT(*) FROM {$wpdb->options} WHERE option_name LIKE '_transient_%'"));
+            $stats['revisions'] = intval($wpdb->get_var($wpdb->prepare("SELECT COUNT(*) FROM {$wpdb->posts} WHERE post_type = %s", 'revision')));
+            $stats['drafts'] = intval($wpdb->get_var($wpdb->prepare("SELECT COUNT(*) FROM {$wpdb->posts} WHERE post_status = %s", 'auto-draft')));
+            $stats['spam'] = intval($wpdb->get_var($wpdb->prepare("SELECT COUNT(*) FROM {$wpdb->comments} WHERE comment_approved = %s", 'spam')));
+            $stats['transients'] = intval($wpdb->get_var($wpdb->prepare("SELECT COUNT(*) FROM {$wpdb->options} WHERE option_name LIKE %s", '_transient_%')));
             $db_size = $wpdb->get_var("SELECT SUM(data_length + index_length) FROM information_schema.tables WHERE table_schema = DATABASE()");
             $stats['db_size'] = size_format($db_size ?: 0);
             wp_send_json_success($stats);
@@ -42,16 +42,16 @@ if (!class_exists('Npcink_Performance_Db_Clean')) {
             global $wpdb;
             switch ($type) {
                 case 'revisions':
-                    $result['deleted'] = $wpdb->query("DELETE FROM {$wpdb->posts} WHERE post_type = 'revision'");
+                    $result['deleted'] = $wpdb->query($wpdb->prepare("DELETE FROM {$wpdb->posts} WHERE post_type = %s", 'revision'));
                     break;
                 case 'drafts':
-                    $result['deleted'] = $wpdb->query("DELETE FROM {$wpdb->posts} WHERE post_status = 'auto-draft'");
+                    $result['deleted'] = $wpdb->query($wpdb->prepare("DELETE FROM {$wpdb->posts} WHERE post_status = %s", 'auto-draft'));
                     break;
                 case 'spam':
-                    $result['deleted'] = $wpdb->query("DELETE FROM {$wpdb->comments} WHERE comment_approved = 'spam'");
+                    $result['deleted'] = $wpdb->query($wpdb->prepare("DELETE FROM {$wpdb->comments} WHERE comment_approved = %s", 'spam'));
                     break;
                 case 'transients':
-                    $result['deleted'] = $wpdb->query("DELETE FROM {$wpdb->options} WHERE option_name LIKE '_transient_%' OR option_name LIKE '_site_transient_%'");
+                    $result['deleted'] = $wpdb->query($wpdb->prepare("DELETE FROM {$wpdb->options} WHERE option_name LIKE %s OR option_name LIKE %s", '_transient_%', '_site_transient_%'));
                     break;
                 case 'optimize':
                     $tables = $wpdb->get_results("SHOW TABLES", ARRAY_N);
@@ -62,10 +62,10 @@ if (!class_exists('Npcink_Performance_Db_Clean')) {
                     break;
                 case 'all':
                     $result['deleted'] = 0;
-                    $result['deleted'] += $wpdb->query("DELETE FROM {$wpdb->posts} WHERE post_type = 'revision'");
-                    $result['deleted'] += $wpdb->query("DELETE FROM {$wpdb->posts} WHERE post_status = 'auto-draft'");
-                    $result['deleted'] += $wpdb->query("DELETE FROM {$wpdb->comments} WHERE comment_approved = 'spam'");
-                    $result['deleted'] += $wpdb->query("DELETE FROM {$wpdb->options} WHERE option_name LIKE '_transient_%' OR option_name LIKE '_site_transient_%'");
+                    $result['deleted'] += $wpdb->query($wpdb->prepare("DELETE FROM {$wpdb->posts} WHERE post_type = %s", 'revision'));
+                    $result['deleted'] += $wpdb->query($wpdb->prepare("DELETE FROM {$wpdb->posts} WHERE post_status = %s", 'auto-draft'));
+                    $result['deleted'] += $wpdb->query($wpdb->prepare("DELETE FROM {$wpdb->comments} WHERE comment_approved = %s", 'spam'));
+                    $result['deleted'] += $wpdb->query($wpdb->prepare("DELETE FROM {$wpdb->options} WHERE option_name LIKE %s OR option_name LIKE %s", '_transient_%', '_site_transient_%'));
                     break;
             }
             wp_send_json_success($result);
@@ -73,16 +73,16 @@ if (!class_exists('Npcink_Performance_Db_Clean')) {
         public static function auto_clean() {
             global $wpdb;
             if (!empty(self::$config['clean_revisions'])) {
-                $wpdb->query("DELETE FROM {$wpdb->posts} WHERE post_type = 'revision'");
+                $wpdb->query($wpdb->prepare("DELETE FROM {$wpdb->posts} WHERE post_type = %s", 'revision'));
             }
             if (!empty(self::$config['clean_drafts'])) {
-                $wpdb->query("DELETE FROM {$wpdb->posts} WHERE post_status = 'auto-draft'");
+                $wpdb->query($wpdb->prepare("DELETE FROM {$wpdb->posts} WHERE post_status = %s", 'auto-draft'));
             }
             if (!empty(self::$config['clean_spam_comments'])) {
-                $wpdb->query("DELETE FROM {$wpdb->comments} WHERE comment_approved = 'spam'");
+                $wpdb->query($wpdb->prepare("DELETE FROM {$wpdb->comments} WHERE comment_approved = %s", 'spam'));
             }
             if (!empty(self::$config['clean_transients'])) {
-                $wpdb->query("DELETE FROM {$wpdb->options} WHERE option_name LIKE '_transient_%' OR option_name LIKE '_site_transient_%'");
+                $wpdb->query($wpdb->prepare("DELETE FROM {$wpdb->options} WHERE option_name LIKE %s OR option_name LIKE %s", '_transient_%', '_site_transient_%'));
             }
         }
     }

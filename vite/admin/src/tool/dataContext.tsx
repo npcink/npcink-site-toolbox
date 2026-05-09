@@ -18,7 +18,7 @@ function getDataLocal(): DataLocal {
   } else {
     //打包
     //return (window as any).dataLocal.option;
-    return (window as any).dataLocal !== "" ? (window as any).dataLocal : defaultVarData;
+    return window.dataLocal !== "" ? window.dataLocal : defaultVarData;
   }
 }
 
@@ -29,7 +29,7 @@ function getAjaxurl(): string {
     return "/wp-admin/admin-ajax.php";
   } else {
     //打包
-    return (window as any).dataLocal?.ajaxurl || "/wp-admin/admin-ajax.php";
+    return window.dataLocal?.ajaxurl || "/wp-admin/admin-ajax.php";
   }
 }
 
@@ -50,13 +50,13 @@ export const getNonce = (): string => {
   if (state) {
     return "";
   }
-  return (window as any).dataLocal?.nonce || "";
+  return window.dataLocal?.nonce || "";
 };
 
 //准备选项默认值
 interface OptionContextType {
   optionData: Option; //选项默认值
-  updateOption: (father: string, son: string, newValue: any) => void; // 修改选项方法
+  updateOption: (father: string, son: string, newValue: unknown) => void; // 修改选项方法
 }
 
 //组件间传递选项数据

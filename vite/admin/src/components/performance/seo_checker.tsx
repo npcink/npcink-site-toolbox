@@ -25,7 +25,7 @@ const App: React.FC = () => {
     setChecking(true);
     const formData2 = new FormData();
     formData2.append("action", "mabox_seo_check");
-    fetch((window as any).dataLocal?.ajaxurl || "/wp-admin/admin-ajax.php", {
+    fetch(window.dataLocal?.ajaxurl || "/wp-admin/admin-ajax.php", {
       method: "POST",
       body: formData2,
     })
@@ -45,7 +45,7 @@ const App: React.FC = () => {
   const handleFixAlt = () => {
     const formData2 = new FormData();
     formData2.append("action", "mabox_seo_fix_alt");
-    fetch((window as any).dataLocal?.ajaxurl || "/wp-admin/admin-ajax.php", {
+    fetch(window.dataLocal?.ajaxurl || "/wp-admin/admin-ajax.php", {
       method: "POST",
       body: formData2,
     })
@@ -61,8 +61,8 @@ const App: React.FC = () => {
   return (
     <Form
       name="seo_checker"
-      labelCol={fromConfig.labelCol as any}
-      wrapperCol={fromConfig.wrapperCol as any}
+      labelCol={fromConfig.labelCol}
+      wrapperCol={fromConfig.wrapperCol}
       style={{ maxWidth: fromConfig.maxWidth }}
       initialValues={publicData}
       autoComplete="off"
@@ -76,7 +76,7 @@ const App: React.FC = () => {
         <FeatureSwitch featureId="performance-seo_checker-enabled" />
       </Form.Item>
 
-      <Form.Item wrapperCol={{ offset: fromConfig.labelCol as any, span: fromConfig.wrapperCol as any }}>
+      <Form.Item wrapperCol={{ offset: fromConfig.labelCol, span: fromConfig.wrapperCol }}>
         <Button type="primary" onClick={handleCheck} loading={checking}>
           开始检查
         </Button>
@@ -86,7 +86,7 @@ const App: React.FC = () => {
       </Form.Item>
 
       {issues.length > 0 && (
-        <Form.Item wrapperCol={{ offset: fromConfig.labelCol as any, span: fromConfig.wrapperCol as any }}>
+        <Form.Item wrapperCol={{ offset: fromConfig.labelCol, span: fromConfig.wrapperCol }}>
           <Alert message={"发现 " + issues.length + " 个问题"} type="warning" />
           <List
             size="small"

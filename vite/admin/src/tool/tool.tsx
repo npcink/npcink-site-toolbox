@@ -1,7 +1,11 @@
+import type { FormProps } from "antd";
+
+type ColProps = FormProps["labelCol"];
+
 interface AntFrom {
   from: {
-    labelCol: number | Record<string, number>;
-    wrapperCol: number | Record<string, number>;
+    labelCol: ColProps;
+    wrapperCol: ColProps;
     maxWidth: number;
   };
 }

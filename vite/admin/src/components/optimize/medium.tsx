@@ -34,7 +34,7 @@ const App: React.FC = () => {
     const featureId = RISKY_FIELDS[fieldKey];
     if (featureId) {
       const newValue = changedValues[fieldKey as keyof FieldType];
-      const shouldProceed = checkRiskyFeature(featureId, newValue as any, () => {
+      const shouldProceed = checkRiskyFeature(featureId, newValue, () => {
         setFormData((prevState) => ({ ...prevState, ...changedValues }));
       });
       if (!shouldProceed) {
@@ -52,8 +52,8 @@ const App: React.FC = () => {
   return (
     <Form
       name="medium"
-      labelCol={fromConfig.labelCol as any}
-      wrapperCol={fromConfig.wrapperCol as any}
+      labelCol={fromConfig.labelCol}
+      wrapperCol={fromConfig.wrapperCol}
       style={{ maxWidth: fromConfig.maxWidth }}
       initialValues={publicData}
       autoComplete="off"
