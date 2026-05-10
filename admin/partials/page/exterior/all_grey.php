@@ -1,6 +1,6 @@
 <?php
 
-if (!class_exists('Npcink_Page_All_Grey')) {
+if (!class_exists('MaBox_Page_All_Grey')) {
     class MaBox_Page_All_Grey
     {
         public static function run()

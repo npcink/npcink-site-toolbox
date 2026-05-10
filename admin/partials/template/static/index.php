@@ -3,7 +3,7 @@
 /**
  * 静态页面模版
  */
-if (!class_exists('Npcink_Template_Static')) {
+if (!class_exists('MaBox_Template_Static')) {
     class MaBox_Template_Static extends MaBox_Template
     {
         public static function runs($option)
@@ -15,7 +15,7 @@ if (!class_exists('Npcink_Template_Static')) {
                 self::$load_template['template-triangle.php'] = 'static/triangle/template-triangle.php';
 
                 require_once plugin_dir_path(__FILE__) . 'triangle/index.php';
-                Npcink_Template_Triangle::run();
+                MaBox_Template_Triangle::run();
                 //下拉中添加短代码
                 //这里需要进行转义，不然会丢失部分短代码内容
 

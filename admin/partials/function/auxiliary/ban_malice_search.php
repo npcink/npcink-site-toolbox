@@ -4,7 +4,7 @@
  * 效果：屏蔽恶意关键词搜索词
  * 来源：https://www.npc.ink/277953.html
  */
-if (!class_exists('Npcink_Ban_Malice_Search')) {
+if (!class_exists('MaBox_Ban_Malice_Search')) {
     class MaBox_Ban_Malice_Search
     {
 

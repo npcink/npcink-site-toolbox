@@ -5,7 +5,7 @@
  * 来源：https://www.npc.ink/18129.html
  */
 
-if (!class_exists('Npcink_Comment_Ban_Pure_English')) {
+if (!class_exists('MaBox_Comment_Ban_Pure_English')) {
     class MaBox_Comment_Ban_Pure_English
     {
         public static function run()

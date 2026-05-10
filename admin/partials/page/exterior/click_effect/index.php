@@ -6,7 +6,7 @@
  * 来源2：https://blog.csdn.net/m0_58849641/article/details/126126951
  * 来源3：https://www.npc.ink/14512.html
  */
-if (!class_exists('Npcink_Page_Add_Click_Effect')) {
+if (!class_exists('MaBox_Page_Add_Click_Effect')) {
     class MaBox_Page_Add_Click_Effect
     {
         public static function run($config)

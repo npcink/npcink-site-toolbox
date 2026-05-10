@@ -1,5 +1,5 @@
 <?php
-if (!class_exists('Npcink_Domestic_Compliance')) {
+if (!class_exists('MaBox_Domestic_Compliance')) {
     class MaBox_Domestic_Compliance {
         private static $config;
         public static function run($config) {

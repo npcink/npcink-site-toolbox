@@ -5,7 +5,7 @@
  * 来源：https://www.npc.ink/13477.html
  */
 
-if (!class_exists('Npcink_Comment_Only_Once')) {
+if (!class_exists('MaBox_Comment_Only_Once')) {
     class MaBox_Comment_Only_Once
     {
         public static function run()

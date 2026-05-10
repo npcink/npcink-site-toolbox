@@ -4,7 +4,7 @@
  * 效果：谷歌统计
  * 来源：
  */
-if (!class_exists('Npcink_Google_Tonji')) {
+if (!class_exists('MaBox_Google_Tonji')) {
     class MaBox_Google_Tonji
     {
 

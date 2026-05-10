@@ -3,7 +3,7 @@
  * 仅登录可搜索
  * 未登录用户无法使用搜索功能
  */
-if (!class_exists('Npcink_Page_Login_Search')) {
+if (!class_exists('MaBox_Page_Login_Search')) {
     class MaBox_Page_Login_Search
     {
         public static function run()

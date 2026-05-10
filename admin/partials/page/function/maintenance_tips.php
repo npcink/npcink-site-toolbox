@@ -5,7 +5,7 @@
  * 来源：
  */
 
-if (!class_exists('Npcink_Maintenance_Tips')) {
+if (!class_exists('MaBox_Maintenance_Tips')) {
     class MaBox_Maintenance_Tips
     {
 

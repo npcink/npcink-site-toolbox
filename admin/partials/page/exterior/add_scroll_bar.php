@@ -6,7 +6,7 @@
  * TODO:兼容更多浏览器
  */
 
-if (!class_exists('Npcink_Page_Add_Scroll_Bar')) {
+if (!class_exists('MaBox_Page_Add_Scroll_Bar')) {
     class MaBox_Page_Add_Scroll_Bar
     {
         public static $config; //配置

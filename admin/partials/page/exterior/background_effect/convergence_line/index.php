@@ -5,7 +5,7 @@
  * 来源：https://blog.csdn.net/weixin_42077074/article/details/121031327
  */
 
-if (!class_exists('Npcink_Page_Add_Convergence_Line')) {
+if (!class_exists('MaBox_Page_Add_Convergence_Line')) {
     class MaBox_Page_Add_Convergence_Line
     {
         public static function run()

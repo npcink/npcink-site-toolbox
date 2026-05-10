@@ -4,7 +4,7 @@
  * 效果：喜庆红灯笼
  * 来源：https://www.npc.ink/11073.html
  */
-if (!class_exists('Npcink_Page_Lantern')) {
+if (!class_exists('MaBox_Page_Lantern')) {
     class MaBox_Page_Lantern
     {
         public static $option; //配置

@@ -1,6 +1,6 @@
 <?php
 
-if (!class_exists('Npcink_Unlisted_Vague_Img')) {
+if (!class_exists('MaBox_Unlisted_Vague_Img')) {
     class MaBox_Unlisted_Vague_Img
     {
         public static function run()

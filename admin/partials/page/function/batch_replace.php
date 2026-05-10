@@ -3,7 +3,7 @@
  * 文章批量替换
  * 保存文章时自动替换指定内容，也支持手动触发
  */
-if (!class_exists('Npcink_Page_Batch_Replace')) {
+if (!class_exists('MaBox_Page_Batch_Replace')) {
     class MaBox_Page_Batch_Replace
     {
         private static $option;

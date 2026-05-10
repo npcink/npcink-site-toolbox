@@ -1,5 +1,5 @@
 <?php
-if (!class_exists('Npcink_Domestic_Wechat')) {
+if (!class_exists('MaBox_Domestic_Wechat')) {
     class MaBox_Domestic_Wechat {
         private static $config;
         public static function run($config) {

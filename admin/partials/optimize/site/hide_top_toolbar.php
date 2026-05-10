@@ -4,7 +4,7 @@
  * 效果：隐藏顶部工具条，仅管理员和编辑可见
  * 来源：https://www.huitheme.com/show_admin_bar.html
  */
-if (!class_exists('Npcink_Hide_Top_Toolbar')) {
+if (!class_exists('MaBox_Hide_Top_Toolbar')) {
     class MaBox_Hide_Top_Toolbar
     {
         /**

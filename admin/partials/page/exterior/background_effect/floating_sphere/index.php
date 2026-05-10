@@ -5,7 +5,7 @@
  * 来源：https://www.wkun.com/studio/?nav
  */
 
-if (!class_exists('Npcink_Page_Floating_Sphere')) {
+if (!class_exists('MaBox_Page_Floating_Sphere')) {
     class MaBox_Page_Floating_Sphere
     {
         public static function run()

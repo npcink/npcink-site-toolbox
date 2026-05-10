@@ -5,7 +5,7 @@
  * 参考：https://demo.zaxu.com/
  */
 
-if (!class_exists('Npcink_Public_Add_Share')) {
+if (!class_exists('MaBox_Public_Add_Share')) {
     class MaBox_Public_Add_Share
     {
         private static $config; //选项

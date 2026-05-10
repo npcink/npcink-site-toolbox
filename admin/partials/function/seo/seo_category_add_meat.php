@@ -4,7 +4,7 @@
  * 效果：简单SEO - 分类和标签添加输入框
  * 来源：https://www.npc.ink/4596.html
  */
-if (!class_exists('Npcink_Seo_Category_Add_Meat')) {
+if (!class_exists('MaBox_Seo_Category_Add_Meat')) {
     class MaBox_Seo_Category_Add_Meat
     {
         public static function run()

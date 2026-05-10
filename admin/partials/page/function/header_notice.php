@@ -3,7 +3,7 @@
  * 页眉通知栏
  * 在页面顶部显示通知信息
  */
-if (!class_exists('Npcink_Page_Header_Notice')) {
+if (!class_exists('MaBox_Page_Header_Notice')) {
     class MaBox_Page_Header_Notice
     {
         private static $option;

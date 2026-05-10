@@ -4,7 +4,7 @@
  * 效果：必应统计
  * 来源：
  */
-if (!class_exists('Npcink_Biying_Tonji')) {
+if (!class_exists('MaBox_Biying_Tonji')) {
     class MaBox_Biying_Tonji
     {
         private static $option;

@@ -5,7 +5,7 @@
  * 来源：https://mkblog.cn/2382/
  */
 
-if (!class_exists('Npcink_Page_Screen_Hair')) {
+if (!class_exists('MaBox_Page_Screen_Hair')) {
     class MaBox_Page_Screen_Hair
     {
         public static function run()

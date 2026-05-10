@@ -5,7 +5,7 @@
  * 将 WordPress 加载的国外资源替换为国内 CDN 镜像
  * 包括：Google 字体、Gravatar 头像、Google Ajax 等
  */
-if (!class_exists('Npcink_CDN_Replace')) {
+if (!class_exists('MaBox_CDN_Replace')) {
     class MaBox_CDN_Replace
     {
         private static $option;

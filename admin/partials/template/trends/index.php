@@ -3,7 +3,7 @@
 /**
  * 动态页面模版
  */
-if (!class_exists('Npcink_Template_Trends')) {
+if (!class_exists('MaBox_Template_Trends')) {
     class MaBox_Template_Trends extends MaBox_Template
     {
         public static function runs($option)
@@ -15,7 +15,7 @@ if (!class_exists('Npcink_Template_Trends')) {
                 self::$load_template['template-special.php'] = 'trends/special/template-special.php';
 
                 require_once plugin_dir_path(__FILE__) . 'special/index.php';
-                Npcink_Template_Special::run();
+                MaBox_Template_Special::run();
                 //下拉中添加短代码
                 //这里需要进行转义，不然会丢失部分短代码内容
 

@@ -4,7 +4,7 @@
  * 效果：后台文章管理中添加作者过滤器
  * 来源：https://rudrastyh.com/wordpress/filter-posts-by-author.html
  */
-if (!class_exists('Npcink_Admin_Single_Add_User_Screen')) {
+if (!class_exists('MaBox_Admin_Single_Add_User_Screen')) {
     class MaBox_Admin_Single_Add_User_Screen
     {
         //加载

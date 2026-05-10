@@ -4,7 +4,7 @@
  * 效果：底部漂浮星星
  * 来源：https://www.bber.cn/84.html
  */
-if (!class_exists('Npcink_Page_Footer_Star')) {
+if (!class_exists('MaBox_Page_Footer_Star')) {
     class MaBox_Page_Footer_Star
     {
         public static function run()

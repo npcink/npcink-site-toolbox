@@ -4,7 +4,7 @@
  * 接口 - 提供分类和标签数据接口
  */
 
-if (!class_exists('Npcink_Interface_Category_Data')) {
+if (!class_exists('MaBox_Interface_Category_Data')) {
     class MaBox_Interface_Category_Data
     {
         public static function run()

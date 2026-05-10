@@ -4,7 +4,7 @@
  * 功能：图片重命名
  * 来源：
  */
-if (!class_exists('Npcink_Medium_Image_Rename')) {
+if (!class_exists('MaBox_Medium_Image_Rename')) {
     class MaBox_Medium_Image_Rename
     {
         //加载

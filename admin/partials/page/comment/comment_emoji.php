@@ -5,7 +5,7 @@
  * 来源：https://github.com/DIYgod/OwO
  */
 
-if (!class_exists('Npcink_Page_Comment_Emoji')) {
+if (!class_exists('MaBox_Page_Comment_Emoji')) {
     class MaBox_Page_Comment_Emoji
     {
         public static function run()

@@ -5,7 +5,7 @@
  * 在 WordPress 发送的邮件中（如评论通知、新用户注册等），
  * 将 IP 地址替换为 [已隐藏]，保护用户隐私。
  */
-if (!class_exists('Npcink_Hide_Email_IP')) {
+if (!class_exists('MaBox_Hide_Email_IP')) {
     class MaBox_Hide_Email_IP {
 
         private static $option;

@@ -1,5 +1,5 @@
 <?php
-if (!class_exists('Npcink_Domestic_Baidu_Push')) {
+if (!class_exists('MaBox_Domestic_Baidu_Push')) {
     class MaBox_Domestic_Baidu_Push {
         private static $config;
         public static function run($config) {

@@ -4,7 +4,7 @@
  * 效果：文章列表显示文章ID
  * 来源：https://blog.csdn.net/qq_39339179/article/details/119135050
  */
-if (!class_exists('Npcink_Admin_Single_Show_ID')) {
+if (!class_exists('MaBox_Admin_Single_Show_ID')) {
     class MaBox_Admin_Single_Show_ID
     {
         //加载

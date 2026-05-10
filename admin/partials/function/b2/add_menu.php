@@ -1,6 +1,6 @@
 <?php
 //添加菜单
-if (!class_exists('Npcink_B2_Shop_Add_Menu')) {
+if (!class_exists('MaBox_B2_Shop_Add_Menu')) {
     class MaBox_B2_Shop_Add_Menu extends MaBox_B2_Shop
     {
 
@@ -78,7 +78,7 @@ if (!class_exists('Npcink_B2_Shop_Add_Menu')) {
             //传输数据给JS
             $MaBox_array = array(
                 'countData' => self::deliver_data(), //统计的数据信息
-                'day_data' => Npcink_B2_Shop_Day::run(),
+                'day_data' => MaBox_B2_Shop_Day::run(),
             );
             wp_localize_script(MAGICK_MIXTURE_NAME . '_index_js', 'dataLocal', $MaBox_array); //传给vite项目
         }

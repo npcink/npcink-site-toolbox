@@ -5,7 +5,7 @@
  * 来源 ： https://www.huitheme.com/wordpress-search.html
  */
 
-if (!class_exists('Npcink_Template')) {
+if (!class_exists('MaBox_Template')) {
     class MaBox_Template
     {
         //添加模版
@@ -22,14 +22,14 @@ if (!class_exists('Npcink_Template')) {
              */
             require_once plugin_dir_path(__FILE__) . 'static/index.php';
             $static =  MaBox_Admin::get_config($config, 'static');
-            Npcink_Template_Static::runs($static);
+            MaBox_Template_Static::runs($static);
 
             /**
              * 页面模版 - 动态页面
              */
             require_once plugin_dir_path(__FILE__) . 'trends/index.php';
             $trends =  MaBox_Admin::get_config($config, 'trends');
-            Npcink_Template_Trends::runs($trends);
+            MaBox_Template_Trends::runs($trends);
 
             //添加
             add_filter('theme_page_templates', array(__CLASS__, 'custom_page_templates'));

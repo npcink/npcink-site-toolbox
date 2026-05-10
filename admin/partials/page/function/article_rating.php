@@ -3,7 +3,7 @@
  * 文章评分功能
  * 用户可以对文章进行评分，支持匿名用户（IP + Cookie 追踪）
  */
-if (!class_exists('Npcink_Page_Article_Rating')) {
+if (!class_exists('MaBox_Page_Article_Rating')) {
     class MaBox_Page_Article_Rating
     {
         public static function run()

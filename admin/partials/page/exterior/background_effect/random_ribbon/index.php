@@ -5,7 +5,7 @@
  * 来源：https://github.com/hustcc/ribbon.js
  */
 
-if (!class_exists('Npcink_Page_Random_Ribbon')) {
+if (!class_exists('MaBox_Page_Random_Ribbon')) {
     class MaBox_Page_Random_Ribbon
     {
         public static function run()

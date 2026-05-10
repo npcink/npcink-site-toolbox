@@ -4,7 +4,7 @@
  * 效果：顶部加载进度条
  * 来源：https://www.bber.cn/92.html
  */
-if (!class_exists('Npcink_Page_Top_Loading')) {
+if (!class_exists('MaBox_Page_Top_Loading')) {
     class MaBox_Page_Top_Loading
     {
         public static function run()

@@ -1,6 +1,6 @@
 <?php
 
-if (!class_exists('Npcink_Page_Ban_Open_QQ')) {
+if (!class_exists('MaBox_Page_Ban_Open_QQ')) {
     class MaBox_Page_Ban_Open_QQ
     {
         public static function run()

@@ -5,7 +5,7 @@
  * 来源：https://www.huitheme.com/wordpress-auto-featured-image.html
  */
 
-if (!class_exists('Npcink_Single_First_Picture')) {
+if (!class_exists('MaBox_Single_First_Picture')) {
     class MaBox_Single_First_Picture
     {
         public static function run()

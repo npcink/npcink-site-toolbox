@@ -1,6 +1,6 @@
 <?php
 
-if (!class_exists('Npcink_Page_Ban_Copy')) {
+if (!class_exists('MaBox_Page_Ban_Copy')) {
     class MaBox_Page_Ban_Copy
     {
         public static function run()

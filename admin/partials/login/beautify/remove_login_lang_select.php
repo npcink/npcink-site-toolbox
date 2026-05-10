@@ -4,7 +4,7 @@
  * 作用：移除登录页语言选择器
  * 来源：https://www.iowen.cn/yichuwordpress59dengluyemianzhongdeyuyanqiehuankuang/
  * */
-if (!class_exists('Npcink_Login_Remove_Lang_Select')) {
+if (!class_exists('MaBox_Login_Remove_Lang_Select')) {
     class MaBox_Login_Remove_Lang_Select
     {
         public static function run()

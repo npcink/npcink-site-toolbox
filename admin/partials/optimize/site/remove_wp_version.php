@@ -6,7 +6,7 @@
  * 验证：移除<meta name="generator" content="WordPress 6.5.3" />内容
  * TODO:怎么移除加载的样式中的版本号信息
  */
-if (!class_exists('Npcink_Remove_WP_Version')) {
+if (!class_exists('MaBox_Remove_WP_Version')) {
     class MaBox_Remove_WP_Version
     {
         /**

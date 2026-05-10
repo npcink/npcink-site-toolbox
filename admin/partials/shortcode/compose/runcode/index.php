@@ -5,7 +5,7 @@
  * 来源：https://www.bber.cn/174.html
  * TODO:代码前后有换行符
  */
-if (!class_exists('Npcink_Page_Runcode')) {
+if (!class_exists('MaBox_Page_Runcode')) {
     class MaBox_Page_Runcode
     {
         public static function run()

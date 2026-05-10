@@ -5,7 +5,7 @@
  * 来源：https://blog.csdn.net/weixin_45511682/article/details/122825805
  */
 
-if (!class_exists('Npcink_Page_Drip_Ink')) {
+if (!class_exists('MaBox_Page_Drip_Ink')) {
     class MaBox_Page_Drip_Ink
     {
         public static function run()

@@ -1,5 +1,5 @@
 <?php
-if (!class_exists('Npcink_Performance_Media_Health')) {
+if (!class_exists('MaBox_Performance_Media_Health')) {
     class MaBox_Performance_Media_Health {
         private static $config;
         public static function run($config) {

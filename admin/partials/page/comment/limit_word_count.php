@@ -5,7 +5,7 @@
  * 来源：https://www.npc.ink/17995.html
  */
 
-if (!class_exists('Npcink_Comment_Limit_Word_Count')) {
+if (!class_exists('MaBox_Comment_Limit_Word_Count')) {
     class MaBox_Comment_Limit_Word_Count
     {
         public static $option; //配置

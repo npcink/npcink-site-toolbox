@@ -1,5 +1,5 @@
 <?php
-if (!class_exists('Npcink_Performance_Db_Clean')) {
+if (!class_exists('MaBox_Performance_Db_Clean')) {
     class MaBox_Performance_Db_Clean {
         private static $config;
         public static function run($config) {

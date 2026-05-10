@@ -4,7 +4,7 @@
  * 效果：文章中出现的标签自动添加链接
  * 来源：https://www.npc.ink/15286.html
  */
-if (!class_exists('Npcink_Single_Keyword_Add_Link')) {
+if (!class_exists('MaBox_Single_Keyword_Add_Link')) {
     class MaBox_Single_Keyword_Add_Link
     {
         //加载

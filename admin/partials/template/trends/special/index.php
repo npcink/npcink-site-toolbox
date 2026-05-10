@@ -4,7 +4,7 @@
  * 专题页面模版
  * 介绍：页面中输入搜索的文本，页面会搜索保护该标题的文本，列成列表
  */
-if (!class_exists('Npcink_Template_Special')) {
+if (!class_exists('MaBox_Template_Special')) {
     class MaBox_Template_Special
     {
         public static function run()

@@ -6,7 +6,7 @@
  * 检查：<li id="comment-2" class="comment byuser comment-author-1 bypostauthor even thread-even depth-1">
  */
 
-if (!class_exists('Npcink_Comment_Modify_User_Style')) {
+if (!class_exists('MaBox_Comment_Modify_User_Style')) {
     class MaBox_Comment_Modify_User_Style
     {
         //加载

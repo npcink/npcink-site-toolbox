@@ -430,14 +430,14 @@ class MaBox_Admin
         // ===== Performance: Media Health =====
         register_rest_route('mabox/v1', '/performance/media/check', array(
             'methods'             => \WP_REST_Server::CREATABLE,
-            'callback'            => array('Npcink_Performance_Media_Health', 'ajax_check'),
+            'callback'            => array('MaBox_Performance_Media_Health', 'ajax_check'),
             'permission_callback' => function () {
                 return current_user_can('manage_options');
             },
         ));
         register_rest_route('mabox/v1', '/performance/media/fix-alt', array(
             'methods'             => \WP_REST_Server::CREATABLE,
-            'callback'            => array('Npcink_Performance_Media_Health', 'ajax_fix_alt'),
+            'callback'            => array('MaBox_Performance_Media_Health', 'ajax_fix_alt'),
             'permission_callback' => function () {
                 return current_user_can('manage_options');
             },
@@ -446,14 +446,14 @@ class MaBox_Admin
         // ===== Performance: DB Clean =====
         register_rest_route('mabox/v1', '/performance/db/stats', array(
             'methods'             => \WP_REST_Server::READABLE,
-            'callback'            => array('Npcink_Performance_Db_Clean', 'ajax_stats'),
+            'callback'            => array('MaBox_Performance_Db_Clean', 'ajax_stats'),
             'permission_callback' => function () {
                 return current_user_can('manage_options');
             },
         ));
         register_rest_route('mabox/v1', '/performance/db/clean', array(
             'methods'             => \WP_REST_Server::CREATABLE,
-            'callback'            => array('Npcink_Performance_Db_Clean', 'ajax_clean'),
+            'callback'            => array('MaBox_Performance_Db_Clean', 'ajax_clean'),
             'permission_callback' => function () {
                 return current_user_can('manage_options');
             },
@@ -462,14 +462,14 @@ class MaBox_Admin
         // ===== Performance: SEO Checker =====
         register_rest_route('mabox/v1', '/performance/seo/check', array(
             'methods'             => \WP_REST_Server::CREATABLE,
-            'callback'            => array('Npcink_Performance_Seo_Checker', 'ajax_check'),
+            'callback'            => array('MaBox_Performance_Seo_Checker', 'ajax_check'),
             'permission_callback' => function () {
                 return current_user_can('manage_options');
             },
         ));
         register_rest_route('mabox/v1', '/performance/seo/fix-alt', array(
             'methods'             => \WP_REST_Server::CREATABLE,
-            'callback'            => array('Npcink_Performance_Seo_Checker', 'ajax_fix_alt'),
+            'callback'            => array('MaBox_Performance_Seo_Checker', 'ajax_fix_alt'),
             'permission_callback' => function () {
                 return current_user_can('manage_options');
             },
@@ -478,7 +478,7 @@ class MaBox_Admin
         // ===== Domestic: Baidu Push =====
         register_rest_route('mabox/v1', '/domestic/baidu/push', array(
             'methods'             => \WP_REST_Server::CREATABLE,
-            'callback'            => array('Npcink_Domestic_Baidu_Push', 'ajax_batch_push'),
+            'callback'            => array('MaBox_Domestic_Baidu_Push', 'ajax_batch_push'),
             'permission_callback' => function () {
                 return current_user_can('manage_options');
             },
@@ -487,7 +487,7 @@ class MaBox_Admin
         // ===== Page: Batch Replace =====
         register_rest_route('mabox/v1', '/page/batch-replace', array(
             'methods'             => \WP_REST_Server::CREATABLE,
-            'callback'            => array('Npcink_Page_Batch_Replace', 'manual_replace'),
+            'callback'            => array('MaBox_Page_Batch_Replace', 'manual_replace'),
             'permission_callback' => function () {
                 return current_user_can('edit_posts');
             },
@@ -512,28 +512,28 @@ class MaBox_Admin
         // ===== Tools: Categories =====
         register_rest_route('mabox/v1', '/tools/categories', array(
             'methods'             => \WP_REST_Server::READABLE,
-            'callback'            => array('Npcink_Interface_Category_Data', 'get_all_category_names'),
+            'callback'            => array('MaBox_Interface_Category_Data', 'get_all_category_names'),
             'permission_callback' => '__return_true', // 公开分类数据，用于前端展示
         ));
 
         // ===== Public: Search Log =====
         register_rest_route('mabox/v1', '/public/search-log', array(
             'methods'             => \WP_REST_Server::CREATABLE,
-            'callback'            => array('Npcink_Performance_Search_Enhance', 'ajax_log_search'),
+            'callback'            => array('MaBox_Performance_Search_Enhance', 'ajax_log_search'),
             'permission_callback' => array(__CLASS__, 'verify_public_nonce'),
         ));
 
         // ===== Public: Anti-Crawler Verify =====
         register_rest_route('mabox/v1', '/public/anti-crawler/verify', array(
             'methods'             => \WP_REST_Server::CREATABLE,
-            'callback'            => array('Npcink_Page_Anti_Crawler', 'ajax_verify'),
+            'callback'            => array('MaBox_Page_Anti_Crawler', 'ajax_verify'),
             'permission_callback' => array(__CLASS__, 'verify_public_nonce'),
         ));
 
         // ===== Public: Article Rating =====
         register_rest_route('mabox/v1', '/public/rating', array(
             'methods'             => \WP_REST_Server::CREATABLE,
-            'callback'            => array('Npcink_Page_Article_Rating', 'handle_rating'),
+            'callback'            => array('MaBox_Page_Article_Rating', 'handle_rating'),
             'permission_callback' => array(__CLASS__, 'verify_public_nonce'),
         ));
 

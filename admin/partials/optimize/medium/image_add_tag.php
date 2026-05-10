@@ -3,7 +3,7 @@
  * 功能：给图片添加alt标签
  * 来源：
  */
-if (!class_exists('Npcink_Image_Add_Tag')) {
+if (!class_exists('MaBox_Image_Add_Tag')) {
     class MaBox_Image_Add_Tag
     {
         //加载

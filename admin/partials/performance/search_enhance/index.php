@@ -1,5 +1,5 @@
 <?php
-if (!class_exists('Npcink_Performance_Search_Enhance')) {
+if (!class_exists('MaBox_Performance_Search_Enhance')) {
     class MaBox_Performance_Search_Enhance {
         private static $config;
         public static function run($config) {

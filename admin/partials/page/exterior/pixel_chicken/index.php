@@ -4,7 +4,7 @@
  * 效果：像素小鸡
  * 来源：https://www.bber.cn
  */
-if (!class_exists('Npcink_Page_Pixel_Chicken')) {
+if (!class_exists('MaBox_Page_Pixel_Chicken')) {
     class MaBox_Page_Pixel_Chicken
     {
         public static function run()

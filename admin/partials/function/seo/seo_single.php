@@ -5,7 +5,7 @@
  * description：文章描述，拿不到就拿文章开头120字
  * keywords：文章标签
  */
-if (!class_exists('Npcink_Seo_Single')) {
+if (!class_exists('MaBox_Seo_Single')) {
     class MaBox_Seo_Single
     {
 

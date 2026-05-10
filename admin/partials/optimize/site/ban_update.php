@@ -5,7 +5,7 @@
  * 来源：https://www.npc.ink/15932.html
  * 参考：https://m.wpjam.com/m/disable-wordpress-auto-update/
  */
-if (!class_exists('Npcink_Ban_Update')) {
+if (!class_exists('MaBox_Ban_Update')) {
     class MaBox_Ban_Update
     {
         /**

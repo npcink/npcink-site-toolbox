@@ -4,7 +4,7 @@
  * 效果：简单SEO - 分类和标签TDK 
  * 来源：https://www.npc.ink/4596.html
  */
-if (!class_exists('Npcink_Seo_Category')) {
+if (!class_exists('MaBox_Seo_Category')) {
     class MaBox_Seo_Category
     {
         public static function run()

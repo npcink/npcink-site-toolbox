@@ -1,6 +1,6 @@
 <?php
 
-if (!class_exists('Npcink_Page_Anti_Crawler')) {
+if (!class_exists('MaBox_Page_Anti_Crawler')) {
     class MaBox_Page_Anti_Crawler
     {
         private static $option;

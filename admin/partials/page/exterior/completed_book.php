@@ -4,7 +4,7 @@
  * 效果：已写完的书
  * 来源：https://www.npc.ink/276901.html
  */
-if (!class_exists('Npcink_Page_Completed_Book')) {
+if (!class_exists('MaBox_Page_Completed_Book')) {
     class MaBox_Page_Completed_Book
     {
         public static function run()

@@ -5,7 +5,7 @@
  * TODO:仅移除站外链接，暴露站内的
  */
 
-if (!class_exists('Npcink_Single_Remove_Link')) {
+if (!class_exists('MaBox_Single_Remove_Link')) {
     class MaBox_Single_Remove_Link
     {
         public static function run()

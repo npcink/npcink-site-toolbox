@@ -5,7 +5,7 @@
  * TODO:重写逻辑，拆分，销售额的数字可能是好多9
  */
 
-if (!class_exists('Npcink_B2_Shop')) {
+if (!class_exists('MaBox_B2_Shop')) {
     class MaBox_B2_Shop
     {
 
@@ -17,7 +17,7 @@ if (!class_exists('Npcink_B2_Shop')) {
             $b2_count = MaBox_Admin::get_config($option, 'b2_count');
             if ($b2_count) {
                 require_once plugin_dir_path(__FILE__) . 'add_menu.php'; //载入文件
-                Npcink_B2_Shop_Add_Menu::run_add_menu();
+                MaBox_B2_Shop_Add_Menu::run_add_menu();
             }
 
             //是否添加订单菜单

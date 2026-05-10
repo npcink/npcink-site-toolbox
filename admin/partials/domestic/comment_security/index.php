@@ -1,5 +1,5 @@
 <?php
-if (!class_exists('Npcink_Domestic_Comment_Security')) {
+if (!class_exists('MaBox_Domestic_Comment_Security')) {
     class MaBox_Domestic_Comment_Security {
         private static $config;
         public static function run($config) {

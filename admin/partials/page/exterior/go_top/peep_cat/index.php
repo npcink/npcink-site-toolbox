@@ -5,7 +5,7 @@
  * 来源1：https://lishuma.com/connect
  * 来源2：https://www.shephe.com/website/
  */
-if (!class_exists('Npcink_Page_Go_Top_Peep_Cat')) {
+if (!class_exists('MaBox_Page_Go_Top_Peep_Cat')) {
     class MaBox_Page_Go_Top_Peep_Cat
     {
         public static function run()

@@ -5,7 +5,7 @@
  * 来源：https://www.dujin.org/12762.html
  */
 
-if (!class_exists('Npcink_Jump_Middle_Page')) {
+if (!class_exists('MaBox_Jump_Middle_Page')) {
     class MaBox_Jump_Middle_Page
     {
 

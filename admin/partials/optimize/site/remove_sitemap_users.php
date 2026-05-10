@@ -4,7 +4,7 @@
  * 效果：从原生站点地图中移除用户信息部分
  * 来源：https://www.huitheme.com/wp-sitemap-users.html
  */
-if (!class_exists('Npcink_Remove_Sitemap_Users')) {
+if (!class_exists('MaBox_Remove_Sitemap_Users')) {
     class MaBox_Remove_Sitemap_Users
     {
 

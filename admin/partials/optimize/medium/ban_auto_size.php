@@ -4,7 +4,7 @@
  * 功能：禁止自动生成缩略图
  * 来源：
  */
-if (!class_exists('Npcink_Medium_Ban_Auto_Size')) {
+if (!class_exists('MaBox_Medium_Ban_Auto_Size')) {
     class MaBox_Medium_Ban_Auto_Size
     {
         //加载

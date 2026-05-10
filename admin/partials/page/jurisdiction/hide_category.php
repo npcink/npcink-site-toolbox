@@ -4,7 +4,7 @@
  * 未登录隐藏指定分类下的文章
  */
 
-if (!class_exists('Npcink_Page_Hide_Category')) {
+if (!class_exists('MaBox_Page_Hide_Category')) {
     class MaBox_Page_Hide_Category
     {
         private static $id_array; //分类数组

@@ -4,7 +4,7 @@
  * 效果：用户列表展示昵称
  * 来源：https://www.huitheme.com/add_user_nickname_column.html
  */
-if (!class_exists('Npcink_User_List_Show_Nickname')) {
+if (!class_exists('MaBox_User_List_Show_Nickname')) {
     class MaBox_User_List_Show_Nickname
     {
         public static function run()

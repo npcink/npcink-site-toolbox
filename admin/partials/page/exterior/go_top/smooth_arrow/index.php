@@ -4,7 +4,7 @@
  * 效果：返回顶部
  * 平滑箭头：https://www.shephe.com/website/
  */
-if (!class_exists('Npcink_Page_Go_Top_Smooth_Arrow')) {
+if (!class_exists('MaBox_Page_Go_Top_Smooth_Arrow')) {
     class MaBox_Page_Go_Top_Smooth_Arrow
     {
         public static function run()

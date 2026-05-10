@@ -4,7 +4,7 @@
  *
  * 在页面右下角添加字体切换按钮，支持切换多种字体。
  */
-if (!class_exists('Npcink_Page_Font_Switch')) {
+if (!class_exists('MaBox_Page_Font_Switch')) {
     class MaBox_Page_Font_Switch {
 
         private static $config;

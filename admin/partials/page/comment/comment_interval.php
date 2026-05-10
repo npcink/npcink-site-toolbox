@@ -5,7 +5,7 @@
  * 来源：https://www.npc.ink/19960.html
  */
 
-if (!class_exists('Npcink_Page_Comment_Interval')) {
+if (!class_exists('MaBox_Page_Comment_Interval')) {
     class MaBox_Page_Comment_Interval
     {
         public static $option; //配置

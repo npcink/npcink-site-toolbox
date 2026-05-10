@@ -5,7 +5,7 @@
  * 来源：http://www.cs.cmu.edu/~hanfeis/
  */
 
-if (!class_exists('Npcink_Page_Flowing_Lines')) {
+if (!class_exists('MaBox_Page_Flowing_Lines')) {
     class MaBox_Page_Flowing_Lines
     {
         public static function run()

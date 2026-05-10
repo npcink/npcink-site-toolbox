@@ -3,7 +3,7 @@
  * 默认文章缩略图
  * 当文章没有特色图时，使用默认缩略图
  */
-if (!class_exists('Npcink_Page_Default_Thumbnail')) {
+if (!class_exists('MaBox_Page_Default_Thumbnail')) {
     class MaBox_Page_Default_Thumbnail
     {
         private static $option;

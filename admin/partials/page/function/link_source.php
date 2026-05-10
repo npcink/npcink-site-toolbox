@@ -4,7 +4,7 @@
  *
  * 在文章中的所有内部链接后添加 from=npc 参数，用于流量追踪。
  */
-if (!class_exists('Npcink_Page_Link_Source')) {
+if (!class_exists('MaBox_Page_Link_Source')) {
     class MaBox_Page_Link_Source {
 
         private static $option;

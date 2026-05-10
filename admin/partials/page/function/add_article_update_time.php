@@ -5,7 +5,7 @@
  * 来源：
  */
 
-if (!class_exists('Npcink_Single_Add_Last_Updated_Date')) {
+if (!class_exists('MaBox_Single_Add_Last_Updated_Date')) {
     class MaBox_Single_Add_Last_Updated_Date
     {
         public static function run()

@@ -4,7 +4,7 @@
  * 未登录隐藏指定标签下的文章
  */
 
-if (!class_exists('Npcink_Page_Hide_Tag')) {
+if (!class_exists('MaBox_Page_Hide_Tag')) {
     class MaBox_Page_Hide_Tag
     {
         private static $id_array; //标签数组

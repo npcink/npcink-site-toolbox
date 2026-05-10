@@ -1,6 +1,6 @@
 <?php
 
-if (!class_exists('Npcink_Comment_Baidu_Moderation')) {
+if (!class_exists('MaBox_Comment_Baidu_Moderation')) {
     class MaBox_Comment_Baidu_Moderation
     {
         private static $option;

@@ -3,7 +3,7 @@
 /**
  * 静态页面模版
  */
-if (!class_exists('Npcink_Template_Triangle')) {
+if (!class_exists('MaBox_Template_Triangle')) {
     class MaBox_Template_Triangle
     {
         public static function run()

@@ -1,6 +1,6 @@
 <?php
 
-if (!class_exists('Npcink_Page_Dynamic_Title')) {
+if (!class_exists('MaBox_Page_Dynamic_Title')) {
     class MaBox_Page_Dynamic_Title
     {
         public static $option;

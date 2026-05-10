@@ -5,7 +5,7 @@
  * 来源：https://www.npc.ink/15778.html
  */
 
-if (!class_exists('Npcink_Single_Lang_Jf')) {
+if (!class_exists('MaBox_Single_Lang_Jf')) {
     class MaBox_Single_Lang_Jf
     {
         public static function run()

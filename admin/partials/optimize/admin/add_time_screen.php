@@ -4,7 +4,7 @@
  * 效果：按日期筛选文章和媒体
  * 来源：https://rudrastyh.com/wordpress/date-range-filter.html
  */
-if (!class_exists('Npcink_Admin_Add_Time_Screen')) {
+if (!class_exists('MaBox_Admin_Add_Time_Screen')) {
     class MaBox_Admin_Add_Time_Screen
     {
         //加载

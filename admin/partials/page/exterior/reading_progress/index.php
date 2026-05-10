@@ -1,6 +1,6 @@
 <?php
 
-if (!class_exists('Npcink_Page_Reading_Progress')) {
+if (!class_exists('MaBox_Page_Reading_Progress')) {
     class MaBox_Page_Reading_Progress
     {
         private static $option;

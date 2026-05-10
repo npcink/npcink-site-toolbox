@@ -1,6 +1,6 @@
 <?php
 
-if (!class_exists('Npcink_Baidu_Tonji')) {
+if (!class_exists('MaBox_Baidu_Tonji')) {
     class MaBox_Baidu_Tonji
     {
         private static $option;

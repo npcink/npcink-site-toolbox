@@ -3,7 +3,7 @@
 /**
  * 效果：页面底部效果
  */
-if (!class_exists('Npcink_Page_Bottom_Effect')) {
+if (!class_exists('MaBox_Page_Bottom_Effect')) {
     class MaBox_Page_Bottom_Effect
     {
 

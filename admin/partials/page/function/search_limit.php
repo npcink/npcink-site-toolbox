@@ -3,7 +3,7 @@
  * 限制搜索频次
  * 限制未登录用户的搜索频率，防止恶意搜索
  */
-if (!class_exists('Npcink_Page_Search_Limit')) {
+if (!class_exists('MaBox_Page_Search_Limit')) {
     class MaBox_Page_Search_Limit
     {
         private static $option;

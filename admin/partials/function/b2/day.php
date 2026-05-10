@@ -4,7 +4,7 @@
  * 一年内的时间
  * 每天的销售额
  */
-if (!class_exists('Npcink_B2_Shop_Day')) {
+if (!class_exists('MaBox_B2_Shop_Day')) {
     class MaBox_B2_Shop_Day
     {
         public static function run()

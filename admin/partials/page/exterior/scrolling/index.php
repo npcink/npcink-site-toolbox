@@ -4,7 +4,7 @@
  * 页面平滑滚动 page_scrolling
  * 来源：https://7b2.com/circle/64661.html
  */
-if (!class_exists('Npcink_Page_Scrolling')) {
+if (!class_exists('MaBox_Page_Scrolling')) {
     class MaBox_Page_Scrolling
     {
         public static function run()

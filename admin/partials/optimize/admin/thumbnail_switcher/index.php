@@ -5,7 +5,7 @@
  * 来源1：https://wordpress.org/plugins/easy-thumbnail-switcher/
  * 来源2：https://www.huitheme.com/wordpress_posts_custom_thumbnail.html
  */
-if (!class_exists('Npcink_Admin_Single_Thumbnail_Switcher')) {
+if (!class_exists('MaBox_Admin_Single_Thumbnail_Switcher')) {
     class MaBox_Admin_Single_Thumbnail_Switcher
     {
         //加载

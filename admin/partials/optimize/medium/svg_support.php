@@ -4,7 +4,7 @@
  * 功能：媒体库支持SVG格式
  * 来源：
  */
-if (!class_exists('Npcink_Medium_Svg_Support')) {
+if (!class_exists('MaBox_Medium_Svg_Support')) {
     class MaBox_Medium_Svg_Support
     {
         //加载

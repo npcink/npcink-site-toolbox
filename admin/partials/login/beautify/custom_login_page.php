@@ -4,7 +4,7 @@
  * 效果：美化Wordpress登录页
  * 原文地址：https://www.iowen.cn/chundaimameihuawordpressmorendengluye/
  */
-if (!class_exists('Npcink_Login_Custom_Page')) {
+if (!class_exists('MaBox_Login_Custom_Page')) {
     class MaBox_Login_Custom_Page
     {
         public static $option;
