@@ -2,9 +2,10 @@
 
 /**
  * 效果：从RSS源和网站中删除WordPress版本
- * 来源：https://rudrastyh.com/wordpress/11-security-steps.html
+ * 来源：https://rudrastyh.com/wordpress/11-security- steps.html
  * 验证：移除<meta name="generator" content="WordPress 6.5.3" />内容
- * TODO:怎么移除加载的样式中的版本号信息
+ * 注：样式/脚本版本号通过 wp_enqueue_style/script 的 $ver 参数控制，
+ *     如需全局移除需额外添加 script_loader_tag / style_loader_tag 过滤器
  */
 if (!class_exists('MaBox_Remove_WP_Version')) {
     class MaBox_Remove_WP_Version

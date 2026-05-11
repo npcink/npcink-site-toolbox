@@ -149,7 +149,7 @@ const App: React.FC = () => {
             <TextArea rows={4} placeholder="一行一个" />
           </Form.Item>
         )}
-        {/**TODO:处理script标签 */}
+        {/** 注：script 标签处理待实现（需支持统计代码直接渲染） */}
         <Form.Item<FieldType>
           label="百度统计"
           name="baidu_tonji"

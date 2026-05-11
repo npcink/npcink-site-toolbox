@@ -9,8 +9,8 @@ if (!class_exists('MaBox_Page_Bottom_Effect')) {
 
         public static function run($config)
         {
-            //TODO:为啥没效果，移动端不展示
-            //鱼群
+            // 注：移动端不展示可能是主题模板差异导致，需检查移动端主题是否加载 wp_footer
+            // 鱼群
             if ($config === "fish") {
                 add_action('wp_enqueue_scripts', array(__CLASS__, 'add_page_fish'));
                 add_action('wp_footer', array(__CLASS__, 'fish'), 100);

@@ -211,7 +211,7 @@ const App: React.FC = () => {
               extra={
                 <>
                   可使用HTML，例如：
-                  {/*TODO:支持HTML标签*/}
+                  {/* 注：维护页内容支持 HTML 标签 */}
                   <br />
                   <pre className="pre-meat">
                     &lt;p&gt; 抱歉，我们的网站正在维护中...

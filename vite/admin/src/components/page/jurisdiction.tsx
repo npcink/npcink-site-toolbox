@@ -213,7 +213,7 @@ const App: React.FC = () => {
             options={tagArray?.pages}
           />
         </Form.Item>
-        {/**TODO:要不要预先提供几个模版 */}
+        {/** 注：可考虑预设常见场景模板（如仅登录用户可见、特定分类可见等） */}
         <Form.Item<FieldType>
           label="隐藏时的提示内容"
           name="tip_content"

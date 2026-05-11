@@ -1,4 +1,5 @@
-//功能 - 下载数据库文件TODO:这个文件为啥会在这？
+//功能 - 下载数据库文件
+// 注：此组件在 registry.php 中注册为 function.download_sql_table 模块
 import React from "react";
 import { useState, useEffect } from "react";
 import { Form, Select, Button } from "antd";

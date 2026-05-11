@@ -26,7 +26,7 @@ const SelectImage: React.FC = (props: any) => {
       setMediaImage(data);
     } catch (error: any) {
       console.error("出错：" + error.message);
-      //TODO:完善报错
+      // 注：可考虑使用 Ant Design message.error 替代 alert
       alert("请开启 REST API 功能");
     }
   };

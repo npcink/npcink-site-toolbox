@@ -3,7 +3,6 @@
 /**
  * 效果：页面中添加运行代码的短代码
  * 来源：https://www.bber.cn/174.html
- * TODO:代码前后有换行符
  */
 if (!class_exists('MaBox_Page_Runcode')) {
     class MaBox_Page_Runcode
@@ -31,7 +30,8 @@ if (!class_exists('MaBox_Page_Runcode')) {
 
         public static function shortcode_handler($atts, $content = null)
         {
-            $code = htmlspecialchars($content);
+            $code = trim($content);
+            $code = htmlspecialchars($code);
             $code = preg_replace("/(\s*?\r?\n\s*?)+/", "\n", $code);
             $num = rand(1000, 9999);
             $id = "runcode_$num";

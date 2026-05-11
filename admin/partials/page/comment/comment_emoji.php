@@ -15,9 +15,7 @@ if (!class_exists('MaBox_Page_Comment_Emoji')) {
 
         public static function run_owo()
         {
-            /**
-             * TODO:判断当前页面是否加载评论区
-             */
+            // 检查当前页面评论是否开启
             //获取当前页面的帖子对象
             $current_post = get_post();
             if ($current_post && $current_post->comment_status === 'open') {

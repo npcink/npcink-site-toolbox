@@ -34,7 +34,7 @@ const TimePeriod: React.FC = (props: any) => {
         showTime={{ format: dateFormat }}
         format="YYYY-MM-DD HH:mm"
         onChange={onChange}
-        //TODO:想办法抽离下
+        // 注：defaultValue 可考虑通过 props 传入默认工厂函数抽离
         defaultValue={[
           dayjs(props.value[0] ?? currentTime, dateFormat),
           dayjs(props.value[1] ?? nextDay, dateFormat),

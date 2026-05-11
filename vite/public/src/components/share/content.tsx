@@ -103,7 +103,7 @@ const App: React.FC<AppProps> = ({ toggleDrawer }) => {
     window.open(shareUrl, "_blank");
   };
 
-  //分享到FacebookTODO:待验证
+  //分享到 Facebook（需验证跨域和弹窗策略）
   const shareToFacebook = () => {
     // 替换下面的 URL 为你想分享的网站链接
     const url = page_url;

@@ -49,7 +49,8 @@ if (!class_exists('MaBox_Jump_Middle_Page')) {
                 return $matches[0];
             }, $content);
 
-            // TODO:处理纯链接内容 - 有问题
+            // 注：以下纯链接替换逻辑已注释，因与 HTML 链接替换冲突导致问题
+            // 如需启用，需调整优先级或合并逻辑
             //$content = preg_replace_callback('/(https?:\/\/[^\s]+)/i', function ($matches) {
             //    $url = $matches[1];
             //    if (strpos($url, home_url()) === false && !preg_match('/\.(jpg|jpeg|png|ico|bmp|gif|tiff)/i', $url)) {
@@ -60,7 +61,7 @@ if (!class_exists('MaBox_Jump_Middle_Page')) {
             //    return $matches[0];
             //}, $content);
 
-            // 替换评论者填写了网站地址的链接TODO:未完成
+            // 注：评论者网站地址的链接替换待实现（需处理 comment_author_link 过滤器）
 
 
             return $content;

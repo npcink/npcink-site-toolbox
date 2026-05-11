@@ -48,7 +48,7 @@ const App: React.FC = () => {
         icon={<ShareAltOutlined />}
         onClick={showDrawer}
         className="open_share"
-        //TODO:太长了，想办法优化下
+        // 注：buttonStyle 对象较长，可考虑抽离为常量
         style={buttonStyle}
       />
 

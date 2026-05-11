@@ -1,8 +1,7 @@
 <?php
 
 /**
- * 效果：移除文章中的超链接，可恢复
- * TODO:仅移除站外链接，暴露站内的
+ * 效果：移除文章中的站外超链接，保留站内链接
  */
 
 if (!class_exists('MaBox_Single_Remove_Link')) {
@@ -15,8 +14,15 @@ if (!class_exists('MaBox_Single_Remove_Link')) {
         
         public static function replace_text_wps($text)
         {
-            $text = preg_replace("/<a[^>]*>(.*?)<\/a>/is", "$1", $text);
-            return $text;
+            return preg_replace_callback('/<a[^>]*href="([^"]*)"[^>]*>(.*?)<\/a>/is', function ($matches) {
+                $url = $matches[1];
+                $home = home_url();
+                // 保留站内链接，移除站外链接
+                if (strpos($url, $home) === 0 || strpos($url, '/') === 0) {
+                    return $matches[0];
+                }
+                return $matches[2];
+            }, $text);
         }
     }
 }

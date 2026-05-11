@@ -25,7 +25,7 @@ const App: React.FC<AppProps> = ({ closePoster }) => {
   //BASE64 图片
   const [posterData, setPosterData] = useState("");
 
-  //TODO:执行这个时会报错
+  // 注：html2canvas 在某些环境下可能报错（如跨域图片），已添加 try-catch 处理
   useEffect(() => {
     const capturePoster = async () => {
       if (posterRef.current) {
@@ -89,10 +89,13 @@ const App: React.FC<AppProps> = ({ closePoster }) => {
   const posterImage = publicShareData.page.image
     ? publicShareData.page.image
     : DefaultImg;
-  //下载海报按钮TODO:完善下载海报功能
-  
+  //下载海报按钮
   const downloadButton = () => {
-    // TODO: 完善下载海报功能
+    if (!posterData) return;
+    const link = document.createElement("a");
+    link.download = `${page_title}-poster.png`;
+    link.href = posterData;
+    link.click();
   };
   return (
     <>
@@ -124,7 +127,7 @@ const App: React.FC<AppProps> = ({ closePoster }) => {
           <div className="close" onClick={closePoster}>
             <span className="icon"></span>
           </div>
-          {/**放图 TODO:做长和宽两种比例，智能一点*/}
+          {/** 注：海报比例可考虑支持横竖两种模式 */}
 
           <img src={posterData} />
         </div>

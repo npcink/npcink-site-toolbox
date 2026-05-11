@@ -111,7 +111,8 @@ $site = MaBox_Function_Wx_Xcx_Link::get_h5_options_site();
                 let site = <?php echo json_encode($site); ?>;
                 // 当前环境是微信小程序
                 console.log('当前环境是微信小程序');
-                //TODO:如何在小程序中打开小程序的页面
+                // 注：小程序内打开小程序页面需使用 wx.navigateToMiniProgram API
+                // 需引入微信 JSSDK 并配置 appId，当前默认跳转外部文章页面
                 window.location.href = site; //跳转外部文章页面
             } else {
                 // 当前环境不是微信小程序
