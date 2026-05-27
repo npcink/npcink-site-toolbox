@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
+import { aiReviewApi } from "@/api";
 import { Table, Tag, Button, Space, Popconfirm, message, Typography } from "antd";
 import type { ColumnsType } from "antd/es/table";
-import { RestNonce } from "@/tool/dataContext";
+
 
 const { Text } = Typography;
 
@@ -45,17 +46,9 @@ const App: React.FC = () => {
   const fetchLogs = async (p = 1) => {
     setLoading(true);
     try {
-      const res = await fetch(
-        `/wp-json/mabox/v1/ai-review/logs?page=${p}&per_page=20`,
-        {
-          headers: {
-            "X-WP-Nonce": RestNonce,
-          },
-        }
-      );
-      const data = await res.json();
-      setLogs(data.items || []);
-      setTotal(data.total || 0);
+      const res = await aiReviewApi.getLogs(p);
+      setLogs(res.data?.items || []);
+      setTotal(res.data?.total || 0);
       setPage(p);
     } catch {
       message.error("获取日志失败");
@@ -70,20 +63,12 @@ const App: React.FC = () => {
 
   const handleReview = async (index: number, action: string) => {
     try {
-      const res = await fetch(`/wp-json/mabox/v1/ai-review/review/${index}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "X-WP-Nonce": RestNonce,
-        },
-        body: JSON.stringify({ index, action }),
-      });
-      const result = await res.json();
+      const result = await aiReviewApi.reviewItem(index, action);
       if (result.success) {
         message.success("操作成功");
         fetchLogs(page);
       } else {
-        message.error(result.error || "操作失败");
+        message.error(result.message || result.data?.error || "操作失败");
       }
     } catch {
       message.error("请求失败");
@@ -92,17 +77,13 @@ const App: React.FC = () => {
 
   const handleClear = async () => {
     try {
-      const res = await fetch("/wp-json/mabox/v1/ai-review/clear-logs", {
-        method: "POST",
-        headers: {
-          "X-WP-Nonce": RestNonce,
-        },
-      });
-      const result = await res.json();
+      const result = await aiReviewApi.clearLogs();
       if (result.success) {
         message.success("日志已清空");
         setLogs([]);
         setTotal(0);
+      } else {
+        message.error(result.message || result.data?.error || "清空失败");
       }
     } catch {
       message.error("请求失败");

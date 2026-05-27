@@ -1,4 +1,4 @@
-import React, { useContext, useState, useMemo, useCallback } from "react";
+import React, { useContext, useState, useMemo, useCallback, useEffect } from "react";
 import {
   Card,
   Statistic,
@@ -22,11 +22,16 @@ import {
   ExclamationCircleOutlined,
   StarOutlined,
   ArrowRightOutlined,
+  CustomerServiceOutlined,
+  FileTextOutlined,
 } from "@ant-design/icons";
-import { DataContext } from "@/tool/dataContext";
-import { saceOption } from "@/axios/save";
+import { DataContext, serverDefaults } from "@/tool/dataContext";
+import { saveOption } from "@/axios/save";
+import { diagnosticsApi } from "@/api";
+import { DiagnosticSummary, DiagnosticItem } from "@/tool/interface";
 import { getAllPresets, Preset, saveCustomPreset, deleteCustomPreset } from "@/tool/presets";
 import { getSnapshots, deleteSnapshot, restoreSnapshot, clearSnapshots, Snapshot, getDefaultConfig } from "@/tool/snapshot";
+import { Dropdown } from "antd";
 import FavoritesPanel from "@/components/favorites-panel";
 
 const { Title, Text, Paragraph } = Typography;
@@ -270,6 +275,25 @@ const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
   const [allPresets, setAllPresets] = useState<Preset[]>(getAllPresets());
   const [backupVisible, setBackupVisible] = useState(false);
   const [snapshots, setSnapshots] = useState<Snapshot[]>(getSnapshots());
+  const [diagnosticSummary, setDiagnosticSummary] = useState<DiagnosticSummary | null>(null);
+  const [diagnosticLoading, setDiagnosticLoading] = useState(false);
+
+  useEffect(() => {
+    setDiagnosticLoading(true);
+    diagnosticsApi
+      .getSummary()
+      .then((res: any) => {
+        if (res?.success && res?.data) {
+          setDiagnosticSummary(res.data as DiagnosticSummary);
+        }
+      })
+      .catch((err: any) => {
+        console.error("获取诊断摘要失败:", err);
+      })
+      .finally(() => {
+        setDiagnosticLoading(false);
+      });
+  }, []);
 
   const stats = useMemo(() => countFeatures(optionData), [optionData]);
   const healthScore = useMemo(() => calculateHealthScore(optionData), [optionData]);
@@ -354,6 +378,97 @@ const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
     });
   };
 
+  const handleExportReport = () => {
+    if (!diagnosticSummary) {
+      message.info("诊断数据加载中，请稍后再试");
+      return;
+    }
+
+    const lines: string[] = [];
+    lines.push("# WP Magick Toolbox 诊断报告");
+    lines.push("");
+    lines.push(`- 生成时间：${new Date().toLocaleString()}`);
+    lines.push(`- 体检评分：${diagnosticSummary.score} / 100`);
+    lines.push(`- 总体状态：${diagnosticSummary.status === "good" ? "优秀" : diagnosticSummary.status === "warning" ? "良好" : "需优化"}`);
+    lines.push("");
+
+    lines.push("## 环境信息");
+    const envItem = diagnosticSummary.items?.find((i: DiagnosticItem) => i.id === "php_version");
+    if (envItem) lines.push(`- PHP 版本：${envItem.message}`);
+    const wpItem = diagnosticSummary.items?.find((i: DiagnosticItem) => i.id === "wp_version");
+    if (wpItem) lines.push(`- WordPress 版本：${wpItem.message}`);
+    const moduleItem = diagnosticSummary.items?.find((i: DiagnosticItem) => i.id === "module_count");
+    if (moduleItem) lines.push(`- ${moduleItem.message}`);
+    lines.push("");
+
+    if (diagnosticSummary.risks && diagnosticSummary.risks.length > 0) {
+      lines.push("## 风险模块/配置");
+      diagnosticSummary.risks.forEach((risk: any) => {
+        lines.push(`- **${risk.title}**（${risk.tier}）`);
+        lines.push(`  ${risk.message}`);
+      });
+      lines.push("");
+    }
+
+    if (diagnosticSummary.recommendations && diagnosticSummary.recommendations.length > 0) {
+      lines.push("## 关键建议");
+      diagnosticSummary.recommendations.forEach((rec: any) => {
+        lines.push(`- ${rec.title}：${rec.reason}`);
+      });
+      lines.push("");
+    }
+
+    if (diagnosticSummary.service_hints && diagnosticSummary.service_hints.length > 0) {
+      lines.push("## 需要人工处理");
+      diagnosticSummary.service_hints.forEach((hint: any) => {
+        lines.push(`- ${hint.message}`);
+      });
+      lines.push("");
+    }
+
+    lines.push("---");
+    lines.push("*本报告由 WP Magick Toolbox 体检中心自动生成*");
+
+    const reportText = lines.join("\n");
+
+    // 复制到剪贴板
+    navigator.clipboard.writeText(reportText).then(() => {
+      message.success("诊断报告已复制到剪贴板");
+    }).catch(() => {
+      // 降级：下载为文件
+      const blob = new Blob([reportText], { type: "text/markdown" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `mabox-diagnostic-report-${Date.now()}.md`;
+      a.click();
+      URL.revokeObjectURL(url);
+      message.success("诊断报告已下载");
+    });
+  };
+
+  const handleRestoreModuleDefault = (moduleKey: string) => {
+    const source = serverDefaults || getDefaultConfig();
+    const moduleDefault = source[moduleKey];
+
+    if (!moduleDefault || typeof moduleDefault !== "object") {
+      message.error(`模块 ${moduleKey} 没有可恢复的默认值`);
+      return;
+    }
+
+    confirm({
+      title: `恢复「${moduleKey}」模块默认值？`,
+      icon: <ExclamationCircleOutlined />,
+      content: `此操作将重置「${moduleKey}」模块为默认值，不影响其他模块。`,
+      onOk: () => {
+        Object.keys(moduleDefault).forEach((son) => {
+          updateOption(moduleKey, son, moduleDefault[son]);
+        });
+        message.success(`已恢复「${moduleKey}」模块默认值，请点击保存按钮保存到服务器`);
+      },
+    });
+  };
+
   const applyPreset = useCallback(
     async (presetId: string) => {
       const preset = allPresets.find((p: Preset) => p.id === presetId);
@@ -386,7 +501,7 @@ const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
               }
             });
 
-            await saceOption(merged);
+            await saveOption(merged);
             message.success(`已应用预设：${preset.name}`);
           } catch (error) {
             message.error("应用预设失败，请重试");
@@ -452,8 +567,117 @@ const getScoreStatus = (score: number) => {
   return "需优化";
 };
 
+  const diagnosticScore = diagnosticSummary?.score ?? healthScore;
+  const diagnosticStatus = diagnosticSummary?.status ?? (healthScore >= 80 ? "good" : healthScore >= 60 ? "warning" : "critical");
+
+  const getDiagnosticStatusText = (status: string) => {
+    if (status === "good") return "优秀";
+    if (status === "warning") return "良好";
+    return "需优化";
+  };
+
+  const getDiagnosticStatusColor = (status: string) => {
+    if (status === "good") return "success";
+    if (status === "warning") return "warning";
+    return "error";
+  };
+
+  const criticalItems = diagnosticSummary?.items?.filter((i: DiagnosticItem) => i.status === "critical") || [];
+  const warningItems = diagnosticSummary?.items?.filter((i: DiagnosticItem) => i.status === "warning") || [];
+
   return (
     <div className="space-y-6">
+      {/* ===== 体检中心（后端诊断数据驱动） ===== */}
+      <Card loading={diagnosticLoading}>
+        <Row gutter={[24, 24]} align="middle">
+          <Col xs={24} md={6}>
+            <div style={{ textAlign: "center" }}>
+              <Progress
+                type="circle"
+                percent={diagnosticScore}
+                strokeColor={getScoreColor(diagnosticScore)}
+                size={120}
+                format={(percent) => (
+                  <div>
+                    <div style={{ fontSize: 28, fontWeight: "bold", color: getScoreColor(diagnosticScore) }}>
+                      {percent}
+                    </div>
+                    <div style={{ fontSize: 12, color: "#999" }}>体检评分</div>
+                  </div>
+                )}
+              />
+              <div style={{ marginTop: 8 }}>
+                <Tag color={getDiagnosticStatusColor(diagnosticStatus)}>
+                  {getDiagnosticStatusText(diagnosticStatus)}
+                </Tag>
+              </div>
+            </div>
+          </Col>
+          <Col xs={24} md={18}>
+            <Row gutter={[16, 16]}>
+              <Col span={8}>
+                <Statistic
+                  title="关键风险"
+                  value={criticalItems.length}
+                  valueStyle={{ color: criticalItems.length > 0 ? "#f5222d" : "#52c41a", fontSize: 24 }}
+                />
+              </Col>
+              <Col span={8}>
+                <Statistic
+                  title="建议优化"
+                  value={warningItems.length}
+                  valueStyle={{ color: warningItems.length > 0 ? "#faad14" : "#52c41a", fontSize: 24 }}
+                />
+              </Col>
+              <Col span={8}>
+                <Statistic
+                  title="建议开启"
+                  value={diagnosticSummary?.recommendations?.length ?? recommendList.length}
+                  valueStyle={{ fontSize: 24 }}
+                />
+              </Col>
+              <Col span={24}>
+                <div style={{ marginTop: 4 }}>
+                  {diagnosticSummary?.risks && diagnosticSummary.risks.length > 0 ? (
+                    <Text type="danger">
+                      <ExclamationCircleOutlined style={{ marginRight: 4 }} />
+                      检测到 {diagnosticSummary.risks.length} 个风险项，建议检查后再保存配置。
+                    </Text>
+                  ) : (
+                    <Text type="success">
+                      <SafetyOutlined style={{ marginRight: 4 }} />
+                      当前未检测到配置风险，站点运行状态安全。
+                    </Text>
+                  )}
+                </div>
+                <div style={{ marginTop: 8 }}>
+                  <Space wrap>
+                    <Button
+                      size="small"
+                      icon={<FileTextOutlined />}
+                      onClick={() => handleExportReport()}
+                    >
+                      导出诊断报告
+                    </Button>
+                    {diagnosticSummary?.service_hints && diagnosticSummary.service_hints.length > 0 && (
+                      <Button
+                        type="primary"
+                        size="small"
+                        icon={<CustomerServiceOutlined />}
+                        onClick={() => onNavigate && onNavigate("13", "")}
+                      >
+                        联系技术支持
+                      </Button>
+                    )}
+                  </Space>
+                </div>
+              </Col>
+            </Row>
+          </Col>
+        </Row>
+      </Card>
+
+      {/* ===== 原有健康评分（前端计算，保留作为参考） ===== */}
       <Card>
         <Row gutter={[24, 24]} align="middle">
           <Col xs={24} md={8}>
@@ -633,6 +857,24 @@ const getScoreStatus = (score: number) => {
               <Button size="small" onClick={() => setBackupVisible(true)}>
                 配置备份中心
               </Button>
+              <Dropdown
+                menu={{
+                  items: [
+                    { key: "optimize", label: "站点优化" },
+                    { key: "page", label: "页面功能" },
+                    { key: "function", label: "SEO / 功能" },
+                    { key: "login", label: "登录页" },
+                    { key: "domestic", label: "国内生态" },
+                    { key: "performance", label: "性能优化" },
+                    { key: "ai_review", label: "AI 审核" },
+                    { key: "services", label: "增值服务" },
+                    { key: "feedback", label: "用户反馈" },
+                  ],
+                  onClick: ({ key }) => handleRestoreModuleDefault(key),
+                }}
+              >
+                <Button size="small">恢复模块默认值</Button>
+              </Dropdown>
               <Button size="small" onClick={() => setSaveModalVisible(true)}>
                 保存当前为方案
               </Button>

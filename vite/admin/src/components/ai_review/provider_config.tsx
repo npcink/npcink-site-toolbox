@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
+import { aiReviewApi } from "@/api";
 import { Form, Input, Select, Button, message, Tag, Space, Card } from "antd";
-import { DataContext, RestNonce } from "@/tool/dataContext";
+import { DataContext } from "@/tool/dataContext";
 import { AntConfig } from "@/tool/tool";
 import FeatureSwitch from "@/basic/feature-switch";
 
@@ -38,19 +39,12 @@ const App: React.FC = () => {
     setTesting(true);
     setTestResult(null);
     try {
-      const res = await fetch("/wp-json/mabox/v1/ai-review/test", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "X-WP-Nonce": RestNonce,
-        },
-      });
-      const result = await res.json();
+      const result = await aiReviewApi.testProvider(formData.provider || "local", formData);
       setTestResult(result);
       if (result.success) {
         message.success("测试成功");
       } else {
-        message.error("测试失败");
+        message.error(result.message || result.data?.error || "测试失败");
       }
     } catch (e) {
       message.error("请求失败");

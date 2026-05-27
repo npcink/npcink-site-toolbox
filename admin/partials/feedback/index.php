@@ -1,4 +1,7 @@
 <?php
+// 如果直接访问此文件，请中止。
+defined('ABSPATH') || exit;
+
 /**
  * 用户反馈与数据洞察
  *
@@ -115,10 +118,13 @@ if (!class_exists('MaBox_Feedback')) {
             $feature_popularity = get_option('mabox_feature_popularity', array());
 
             return array(
-                'feedback_stats'     => $feedback_stats,
-                'total_telemetry'    => count($telemetry),
-                'estimated_users'    => $total_users,
-                'feature_popularity' => $feature_popularity,
+                'success' => true,
+                'data'    => array(
+                    'feedback_stats'     => $feedback_stats,
+                    'total_telemetry'    => count($telemetry),
+                    'estimated_users'    => $total_users,
+                    'feature_popularity' => $feature_popularity,
+                ),
             );
         }
 

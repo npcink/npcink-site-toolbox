@@ -1,4 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
+import { feedbackApi } from "@/api";
 import { Form, Input, Select, Button, message, Card, Statistic, Row, Col } from "antd";
 import { SendOutlined } from "@ant-design/icons";
 import { DataContext } from "@/tool/dataContext";
@@ -39,17 +40,12 @@ const App: React.FC = () => {
     }
     setSubmitting(true);
     try {
-      const res = await fetch("/wp-json/mabox/v1/feedback/submit", {
-        method: "POST",
-        headers: { "Content-Type": "application/json", "X-WP-Nonce": typeof window.dataLocal === "object" ? window.dataLocal.nonce || "" : "" },
-        body: JSON.stringify(feedbackForm),
-      });
-      const result = await res.json();
+      const result = await feedbackApi.submit(feedbackForm);
       if (result.success) {
         message.success(result.message || "反馈已提交");
         setFeedbackForm({ subject: "", content: "", type: "feature" });
       } else {
-        message.error(result.error || "提交失败");
+        message.error(result.message || result.data?.error || "提交失败");
       }
     } catch {
       message.error("请求失败");
@@ -60,11 +56,14 @@ const App: React.FC = () => {
 
   const loadInsights = async () => {
     try {
-      const res = await fetch("/wp-json/mabox/v1/feedback/insights");
-      const result = await res.json();
-      setInsights(result);
+      const result = await feedbackApi.getInsights();
+      if (result.success) {
+        setInsights(result.data);
+      } else {
+        message.error(result.message || "获取数据失败");
+      }
     } catch {
-      message.error("获取数据失败");
+      message.error("请求失败");
     }
   };
 

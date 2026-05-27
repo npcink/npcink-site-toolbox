@@ -66,10 +66,14 @@ interface OptionContextType {
   optionData: Option;
   updateOption: (father: string, son: string, newValue: unknown) => void;
   refreshOption: () => Promise<void>;
+  lastSavedOption: Option;
+  setLastSavedOption: (data: Option) => void;
 }
 
 export const DataContext = createContext<OptionContextType>({
   optionData: defaultOption,
   updateOption: () => {},
   refreshOption: async () => {},
+  lastSavedOption: defaultOption,
+  setLastSavedOption: () => {},
 });

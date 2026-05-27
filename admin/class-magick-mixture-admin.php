@@ -509,6 +509,27 @@ class MaBox_Admin
     }
 
     /**
+     * 获取诊断摘要
+     */
+    public static function rest_get_diagnostics_summary(\WP_REST_Request $request)
+    {
+        if (!class_exists('MaBox_Diagnostics')) {
+            return new \WP_Error(
+                'diagnostics_not_available',
+                __('诊断服务暂不可用', 'magick-toolbox'),
+                array('status' => 500)
+            );
+        }
+
+        $summary = MaBox_Diagnostics::get_summary();
+
+        return rest_ensure_response(array(
+            'success' => true,
+            'data'    => $summary,
+        ));
+    }
+
+    /**
      * 注册 REST API 路由
      */
     public static function register_rest_routes()
@@ -698,7 +719,7 @@ class MaBox_Admin
             'methods'             => \WP_REST_Server::CREATABLE,
             'callback'            => array('MaBox_Page_Batch_Replace', 'manual_replace'),
             'permission_callback' => function () {
-                return current_user_can('edit_posts');
+                return current_user_can('manage_options');
             },
             'args'                => array(
                 'pairs' => array(
@@ -741,8 +762,8 @@ class MaBox_Admin
             'methods'             => \WP_REST_Server::CREATABLE,
             'callback'            => array('MaBox_Page_Batch_Replace', 'rollback_all'),
             'permission_callback' => function () {
-                return current_user_can('edit_posts');
-            },
+                return current_user_can('manage_options');
+            },},{
             'args'                => array(
                 'confirm' => array(
                     'required'          => true,
@@ -757,7 +778,7 @@ class MaBox_Admin
             'methods'             => \WP_REST_Server::CREATABLE,
             'callback'            => array('MaBox_Page_Batch_Replace', 'rollback'),
             'permission_callback' => function () {
-                return current_user_can('edit_posts');
+                return current_user_can('manage_options');
             },
             'args'                => array(
                 'post_id' => array(
@@ -898,6 +919,38 @@ class MaBox_Admin
                     'sanitize_callback' => 'sanitize_text_field',
                 ),
             ),
+        ));
+
+        // ===== Domestic: Baidu Push =====
+        register_rest_route('mabox/v1', '/domestic/baidu/push', array(
+            'methods'             => \WP_REST_Server::CREATABLE,
+            'callback'            => array('MaBox_Domestic_Baidu_Push', 'rest_batch_push'),
+            'permission_callback' => function () {
+                return current_user_can('manage_options');
+            },
+            'args'                => array(
+                'urls' => array(
+                    'required'          => false,
+                    'type'              => 'array',
+                    'description'       => '要推送的 URL 列表',
+                    'items'             => array('type' => 'string'),
+                ),
+                'offset' => array(
+                    'required'          => false,
+                    'type'              => 'integer',
+                    'description'       => '文章批量推送的偏移量',
+                    'sanitize_callback' => 'intval',
+                ),
+            ),
+        ));
+
+        // ===== Diagnostics: Summary =====
+        register_rest_route('mabox/v1', '/diagnostics/summary', array(
+            'methods'             => \WP_REST_Server::READABLE,
+            'callback'            => array(__CLASS__, 'rest_get_diagnostics_summary'),
+            'permission_callback' => function () {
+                return current_user_can('manage_options');
+            },
         ));
 
         // 触发模块路由注册钩子（统一路由注册模式）

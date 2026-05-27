@@ -1,4 +1,7 @@
 <?php
+// 如果直接访问此文件，请中止。
+defined('ABSPATH') || exit;
+
 /**
  * AI 审核引擎主模块
  *
@@ -18,8 +21,6 @@ if (!class_exists('MaBox_Ai_Review')) {
         public static function run($config) {
             self::$config = $config;
 
-            require_once dirname(__FILE__) . '/provider/interface.php';
-            require_once dirname(__FILE__) . '/provider_manager.php';
 
             MaBox_Ai_Provider_Manager::get_instance()->set_config($config);
 
@@ -167,7 +168,10 @@ if (!class_exists('MaBox_Ai_Review')) {
         public static function rest_get_logs($request) {
             $page     = $request->get_param('page') ? intval($request->get_param('page')) : 1;
             $per_page = $request->get_param('per_page') ? intval($request->get_param('per_page')) : 20;
-            return rest_ensure_response(self::get_logs($page, $per_page));
+            return rest_ensure_response(array(
+                'success' => true,
+                'data'    => self::get_logs($page, $per_page),
+            ));
         }
 
         public static function rest_review_entry($request) {

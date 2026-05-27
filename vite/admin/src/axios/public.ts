@@ -2,6 +2,17 @@ import axios from "axios";
 import { message } from "antd";
 import { ApiBase, RestNonce } from "@/tool/dataContext";
 
+/**
+ * 统一 API 响应结构（restInstance 拦截器已解包为 response body）
+ */
+export interface ApiResponse<T = any> {
+  success: boolean;
+  data?: T & Record<string, any>;
+  message?: string;
+  error?: string;
+  [key: string]: any;
+}
+
 export const instance = axios.create({});
 
 export const restInstance = axios.create({
@@ -44,14 +55,18 @@ restInstance.interceptors.response.use(
         message.success(responseData.message);
       }
     } else {
-      const errMsg = responseData.message || '未知错误';
+      // 适配标准化错误格式：{ code: 'xxx', message: '...' }
+      const errData = responseData.data || responseData;
+      const errMsg = errData?.message || errData?.error || responseData.message || '未知错误';
       message.error(errMsg);
     }
     return responseData;
   },
   (error) => {
     const errorData = error.response?.data;
-    const errMsg = errorData?.message || errorData?.code || error.message;
+    // 适配标准化错误格式
+    const errBody = errorData?.data || errorData;
+    const errMsg = errBody?.message || errBody?.error || errorData?.message || error.message;
     message.error(`出错：${errMsg}`);
     console.error(errMsg);
     return Promise.reject(error);

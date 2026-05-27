@@ -31,6 +31,7 @@ const TabFallback = (
 
 const App: React.FC = () => {
   const [optionData, setOptionData] = useState(defaultOption);
+  const [lastSavedOption, setLastSavedOption] = useState(defaultOption);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const [activeTab, setActiveTab] = useState("0");
   const tabsRef = useRef<any>(null);
@@ -44,6 +45,7 @@ const App: React.FC = () => {
   useEffect(() => {
     fetchSettings().then((data) => {
       setOptionData(data);
+      setLastSavedOption(data);
     });
   }, []);
 
@@ -61,6 +63,7 @@ const App: React.FC = () => {
   const refreshOption = async () => {
     const freshData = await fetchSettings();
     setOptionData(freshData);
+    setLastSavedOption(freshData);
   };
 
   const handleSearchNavigate = useCallback((tabKey: string, itemId: string) => {
@@ -169,7 +172,7 @@ const App: React.FC = () => {
   };
   return (
     <>
-      <DataContext.Provider value={{ optionData, updateOption, refreshOption }}>
+      <DataContext.Provider value={{ optionData, updateOption, refreshOption, lastSavedOption, setLastSavedOption }}>
         <div className="MaBox_option">
           <Layout>
             <Affix offsetTop={30}>
