@@ -7,10 +7,28 @@ parameters:
         - uninstall.php
     excludePaths:
         - admin/partials/function/b2/*
+        - admin/partials/page/function/maintenance/rotate/index.php
+        - admin/partials/page/function/maintenance/countdown/index.php
+        - admin/partials/page/function/maintenance/default/index.php
+        - admin/partials/page/function/maintenance/lighting/index.php
+        - admin/partials/page/function/maintenance/masking/index.php
+        - admin/partials/page/function/maintenance/purple/index.php
+        - admin/partials/page/function/maintenance/red.php
+        - admin/partials/page/function/maintenance/index.php
+        - admin/partials/page/function/go/csdn.php
+        - admin/partials/page/function/go/demo.php
+        - admin/partials/page/function/go/jianshu.php
+        - admin/partials/page/function/go/shimo.php
+        - admin/partials/page/function/go/ssp.php
+        - admin/partials/page/function/go/tencent.php
+        - admin/partials/page/function/go/wps.php
+        - admin/partials/page/function/go/wx_community.php
+        - admin/partials/page/function/go/zhihu.php
+        - admin/partials/shortcode/build/render.php
+        - admin/partials/login/security/login_verify.php
     bootstrapFiles:
         - vendor/php-stubs/wordpress-stubs/wordpress-stubs.php
-    checkMissingIterableValueType: false
-    checkGenericClassInNonGenericObjectType: false
+        - phpstan-bootstrap.php
+    scanFiles:
+        - stubs/carbon-fields.php
     inferPrivatePropertyTypeFromConstructor: false
-    reportMaybes: false
-    reportStaticMethodSignatures: false

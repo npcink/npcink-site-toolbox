@@ -26,11 +26,12 @@ import {
   CustomerServiceOutlined,
   FileTextOutlined,
   RocketOutlined,
+  SearchOutlined,
 } from "@ant-design/icons";
 import { DataContext, serverDefaults } from "@/tool/dataContext";
 import { saveOption } from "@/axios/save";
-import { diagnosticsApi, settingsApi } from "@/api";
-import { DiagnosticSummary, DiagnosticItem } from "@/tool/interface";
+import { diagnosticsApi, searchHealthApi, settingsApi } from "@/api";
+import { DiagnosticSummary, DiagnosticItem, SearchHealthSummary } from "@/tool/interface";
 import { getAllPresets, Preset, saveCustomPreset, deleteCustomPreset } from "@/tool/presets";
 import { getSnapshots, deleteSnapshot, restoreSnapshot, clearSnapshots, Snapshot, getDefaultConfig } from "@/tool/snapshot";
 import { Dropdown } from "antd";
@@ -257,6 +258,9 @@ const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
   const [snapshots, setSnapshots] = useState<Snapshot[]>(getSnapshots());
   const [diagnosticSummary, setDiagnosticSummary] = useState<DiagnosticSummary | null>(null);
   const [diagnosticLoading, setDiagnosticLoading] = useState(false);
+  const [searchHealth, setSearchHealth] = useState<SearchHealthSummary | null>(null);
+  const [searchHealthLoading, setSearchHealthLoading] = useState(false);
+  const [searchHealthError, setSearchHealthError] = useState(false);
   const [wizardVisible, setWizardVisible] = useState(false);
   const [wizardCompleted, setWizardCompleted] = useState(false);
 
@@ -281,6 +285,22 @@ const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
         setWizardCompleted(true);
       }
     }).catch(() => {});
+
+    setSearchHealthLoading(true);
+    searchHealthApi
+      .getSummary(30)
+      .then((res: any) => {
+        if (res?.success && res?.data) {
+          setSearchHealth(res.data as SearchHealthSummary);
+          setSearchHealthError(false);
+        }
+      })
+      .catch(() => {
+        setSearchHealthError(true);
+      })
+      .finally(() => {
+        setSearchHealthLoading(false);
+      });
   }, []);
 
   const stats = useMemo(() => countFeatures(optionData), [optionData]);
@@ -694,6 +714,75 @@ const diagnosticScore = diagnosticSummary?.score ?? 60;
             </Row>
           </Col>
         </Row>
+      </Card>
+
+      {/* ===== 搜索健康摘要 ===== */}
+      <Card
+        title={<span><SearchOutlined style={{ marginRight: 8 }} />搜索健康</span>}
+        loading={searchHealthLoading}
+        extra={searchHealth && searchHealth.total_searches > 0 ? <Tag color="blue">近 {searchHealth.range_days} 天</Tag> : null}
+      >
+        {searchHealthError ? (
+          <Alert type="warning" message="搜索健康数据加载失败" showIcon banner={false} style={{ marginBottom: 0 }} />
+        ) : !searchHealth || searchHealth.total_searches === 0 ? (
+          <div style={{ textAlign: "center", padding: "24px 0" }}>
+            <SearchOutlined style={{ fontSize: 32, color: "#d9d9d9" }} />
+            <div style={{ marginTop: 8, color: "#999" }}>暂无搜索数据</div>
+            <div style={{ fontSize: 12, color: "#bbb" }}>开启搜索增强并积累搜索数据后，这里会展示搜索健康分析</div>
+          </div>
+        ) : (
+          <>
+            <Row gutter={[16, 16]} style={{ marginBottom: 16 }}>
+              <Col span={8}>
+                <Statistic title="总搜索量" value={searchHealth.total_searches} valueStyle={{ fontSize: 24 }} />
+              </Col>
+              <Col span={8}>
+                <Statistic title="唯一关键词" value={searchHealth.unique_terms} valueStyle={{ fontSize: 24 }} />
+              </Col>
+              <Col span={8}>
+                <Statistic
+                  title="无结果词比例"
+                  value={searchHealth.total_searches > 0 ? Math.round((searchHealth.no_result_terms.reduce((s, t) => s + t.no_result_count, 0) / searchHealth.total_searches) * 100) : 0}
+                  suffix="%"
+                  valueStyle={{ fontSize: 24, color: searchHealth.no_result_terms.length > 0 ? "#faad14" : "#52c41a" }}
+                />
+              </Col>
+            </Row>
+            <Row gutter={[16, 16]}>
+              {searchHealth.top_terms.length > 0 && (
+                <Col span={12}>
+                  <Text strong style={{ marginBottom: 8, display: "block" }}>热门搜索词</Text>
+                  <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+                    {searchHealth.top_terms.slice(0, 10).map((t) => (
+                      <Tag key={t.term} color="blue">{t.term} ({t.count})</Tag>
+                    ))}
+                  </div>
+                </Col>
+              )}
+              {searchHealth.no_result_terms.length > 0 && (
+                <Col span={12}>
+                  <Text strong style={{ marginBottom: 8, display: "block" }}>无结果搜索词</Text>
+                  <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+                    {searchHealth.no_result_terms.slice(0, 10).map((t) => (
+                      <Tag key={t.term} color="orange">{t.term} ({t.no_result_count})</Tag>
+                    ))}
+                  </div>
+                </Col>
+              )}
+            </Row>
+            {searchHealth.recommendations && searchHealth.recommendations.length > 0 && (
+              <div style={{ marginTop: 12 }}>
+                <Divider style={{ margin: "8px 0" }} />
+                {searchHealth.recommendations.map((r) => (
+                  <div key={r.id} style={{ marginBottom: 4 }}>
+                    <Text type="warning"><ExclamationCircleOutlined style={{ marginRight: 4 }} />{r.title}：</Text>
+                    <Text type="secondary">{r.reason}</Text>
+                  </div>
+                ))}
+              </div>
+            )}
+          </>
+        )}
       </Card>
 
       {/* ===== 功能统计 ===== */}

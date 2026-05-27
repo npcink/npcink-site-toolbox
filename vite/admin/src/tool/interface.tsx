@@ -139,6 +139,34 @@ export interface DiagnosticSummary {
   service_hints: DiagnosticServiceHint[];
 }
 
+export interface SearchHealthTerm {
+  term: string;
+  count: number;
+  no_result_count: number;
+}
+
+export interface SearchHealthSuspicious {
+  term: string;
+  count: number;
+  reason: string;
+}
+
+export interface SearchHealthRecommendation {
+  id: string;
+  title: string;
+  reason: string;
+}
+
+export interface SearchHealthSummary {
+  range_days: number;
+  total_searches: number;
+  unique_terms: number;
+  top_terms: SearchHealthTerm[];
+  no_result_terms: SearchHealthTerm[];
+  suspicious_terms: SearchHealthSuspicious[];
+  recommendations: SearchHealthRecommendation[];
+}
+
 //优化 站点
 export type OptimizeSite = {
   hide_top_toolbar: boolean; //隐藏顶部工具条

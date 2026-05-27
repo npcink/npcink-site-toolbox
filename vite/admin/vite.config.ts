@@ -3,7 +3,7 @@ import react from "@vitejs/plugin-react";
 //配置路径
 import path from "path";
 
-const site="wp-content/plugins/wp-magick-toolbox/"
+const site="/wp-content/plugins/wp-magick-toolbox/"
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
@@ -43,6 +43,7 @@ export default defineConfig({
       },
     },
     //sourcemap: true,//保留映射关系，方便调试
+    chunkSizeWarningLimit: 1600,
   },
   resolve: {
     alias: {

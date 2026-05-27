@@ -48,7 +48,7 @@ if (!class_exists('MaBox_Seo_Category')) {
                 echo "\n";
             }
 
-            //分类描述，
+            $description_data = '';
             $category = get_queried_object(); // 获取当前分类对象
             if ($category) {
                 $description_data = $category->description; // 获取分类描述

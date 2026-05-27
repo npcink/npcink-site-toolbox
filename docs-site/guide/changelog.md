@@ -1,5 +1,21 @@
 # 更新日志
 
+## 2.6.1 — 2026-05-28
+
+### 新增
+- PHPStan 静态分析门禁（CI 与本地命令统一，`--memory-limit=1G`）
+- 搜索健康中心：`hotwords_enabled` 开启后自动挂载主查询采集 `pre_get_posts`
+- 搜索健康中心：无结果搜索路径通过 `loop_no_results` 单独递增 `no_result_count`
+- REST 搜索日志端点兼容 `keyword` 参数，权限由 route nonce + rate limiter 负责
+- REST 搜索日志与无结果采集 PHPUnit 测试覆盖
+
+### 修复
+- REST `/mabox/v1/public/search-log` 回调不再依赖 `check_ajax_referer()`
+- 版本号同步到 `2.6.1`（readme.txt、README.md、CHANGELOG.md、docs-site changelog）
+- Vite base 路径修复
+
+---
+
 ## 2.6.0 — 2026-05-27
 
 ### 修复

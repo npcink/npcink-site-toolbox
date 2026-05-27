@@ -117,6 +117,7 @@ if (!class_exists('MaBox_Tool')) {
          */
         public static function export_handle_time($type = 'start', $time = '2023-03-31')
         {
+            $handle_time = '';
             if ($type === 'start') {
                 $handle_time = date('Y-m-d H:i:s', strtotime($time . '00:00:00'));
             }
@@ -153,9 +154,9 @@ if (!class_exists('MaBox_Tool')) {
              */
             if ($type == "this_week") {
                 //本周开始时间戳
-                $startTime = date("Y-m-d ", mktime(0, 0, 0, date('m'), date('d') - date('w') + 1, date('y')));
+                $startTime = date("Y-m-d ", mktime(0, 0, 0, (int)date('m'), (int)date('d') - (int)date('w') + 1, (int)date('y')));
                 //本周结束时间戳
-                $overTime = date("Y-m-d ", mktime(23, 59, 59, date('m'), date('d') - date('w') + 7, date('y')));
+                $overTime = date("Y-m-d ", mktime(23, 59, 59, (int)date('m'), (int)date('d') - (int)date('w') + 7, (int)date('y')));
                 $date = self::getDateFromRange($startTime, $overTime);
                 return $date;
             };
@@ -164,9 +165,9 @@ if (!class_exists('MaBox_Tool')) {
              */
             if ($type == "last_week") {
                 //本周开始时间戳
-                $startTime = date("Y-m-d ", mktime(0, 0, 0, date('m'), date('d') - date('w') + 1 - 7, date('Y')));
+                $startTime = date("Y-m-d ", mktime(0, 0, 0, (int)date('m'), (int)date('d') - (int)date('w') + 1 - 7, (int)date('Y')));
                 //本周结束时间戳
-                $overTime = date("Y-m-d ", mktime(23, 59, 59, date('m'), date('d') - date('w') + 7 - 7, date('Y')));
+                $overTime = date("Y-m-d ", mktime(23, 59, 59, (int)date('m'), (int)date('d') - (int)date('w') + 7 - 7, (int)date('Y')));
                 $date = self::getDateFromRange($startTime, $overTime);
                 return $date;
             }

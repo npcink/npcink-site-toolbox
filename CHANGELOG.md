@@ -6,6 +6,37 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [2.6.1] - 2026-05-28
+
+### Added
+- PHPStan 静态分析门禁（CI 与本地命令统一，`--memory-limit=1G`）
+- 搜索健康中心：`hotwords_enabled` 开启后自动挂载主查询采集 `pre_get_posts`
+- 搜索健康中心：无结果搜索路径通过 `loop_no_results` 单独递增 `no_result_count`
+- REST 搜索日志端点兼容 `keyword` 参数，权限由 route nonce + rate limiter 负责
+- REST 搜索日志与无结果采集 PHPUnit 测试覆盖
+
+### Fixed
+- REST `/mabox/v1/public/search-log` 回调不再依赖 `check_ajax_referer()`，与 REST 权限模型一致
+- 版本号同步到 `2.6.1`（readme.txt、README.md、CHANGELOG.md、docs-site changelog）
+- Vite base 路径修复
+
+## [2.6.0] - 2026-05-27
+
+### Added
+- 首次配置向导：提供个人博客、企业官网、内容 SEO 站 3 个场景预设，diff 确认后保存
+- 中国访问适配检测与一键修复建议：Gravatar、Google Fonts、Google Ajax 替换需 diff 确认
+- 诊断中心增加中国访问适配检查项，诊断报告导出增加敏感信息脱敏
+- 数据库清理改为先预览、按类型门控、确认后显式 `dry_run: false` 执行
+- 数据库清理、数据库导出等移入高风险层级；SVG 上传移入进阶层级
+- 首次配置向导 diff 确认、快照、统一保存、刷新配置后再完成
+- PHPUnit risky 清理，测试在 PHP 8.5 下无 failure、无 risky
+
+### Fixed
+- 百度推送 REST API 缺失回调，补齐 `rest_batch_push`
+- SVG 安全清洗，覆盖 `javascript:`、`vbscript:`、`expression(` 等风险
+- 搜索增强、短代码运行器等 PHP 语法问题
+- README、readme.txt、docs-site changelog 同步到 2.6.0
+
 ## [2.5.0] - 2026-05-27
 
 ### Added

@@ -3,8 +3,11 @@
  * A library that shows various admin notices
  */
 if( !class_exists( 'TS_Admin_Notice' ) ) :
+	/**
+	 * @property array $args
+	 */
 	class TS_Admin_Notice {
-		
+
 		function __construct( $args = array() ) {
 
 			if( !function_exists('wp_get_current_user') ) {
@@ -81,7 +84,7 @@ if( !class_exists( 'TS_Admin_Notice' ) ) :
 			}
 
 			?>
-			<div class="<?php echo esc_attr( implode( ' ', $classes )  ); ?>"> 
+			<div class="<?php echo esc_attr( implode( ' ', $classes )  ); ?>">
 				<?php echo wp_kses_post( wpautop( $args['notice'] ) ); ?>
 			</div>
 			<?php

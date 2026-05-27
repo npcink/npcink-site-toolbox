@@ -1,10 +1,19 @@
 import axios from "axios";
 import { message } from "antd";
-import { ApiBase, RestNonce } from "@/tool/dataContext";
 
-/**
- * 统一 API 响应结构（restInstance 拦截器已解包为 response body）
- */
+function getApiBase(): string {
+  const dl = (window as any).dataLocal;
+  return dl?.apiBase || "/wp-json/mabox/v1";
+}
+
+function getRestNonce(): string {
+  const dl = (window as any).dataLocal;
+  return dl?.restNonce || "";
+}
+
+const ApiBase = getApiBase();
+const RestNonce = getRestNonce();
+
 export interface ApiResponse<T = any> {
   success: boolean;
   data?: T & Record<string, any>;

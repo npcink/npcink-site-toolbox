@@ -12,6 +12,8 @@ if (!class_exists('MaBox_Performance_Search_Enhance')) {
                 add_action('loop_no_results', array(__CLASS__, 'show_recommendations'));
             }
             if (!empty($config['hotwords_enabled'])) {
+                add_action('pre_get_posts', array(__CLASS__, 'frontend_log_search'));
+                add_action('loop_no_results', array(__CLASS__, 'mark_no_result'));
                 add_action('wp_ajax_mabox_search_log', array(__CLASS__, 'ajax_log_search_deprecated'));
                 add_action('wp_ajax_nopriv_mabox_search_log', array(__CLASS__, 'ajax_log_search_deprecated'));
             }
@@ -42,7 +44,7 @@ if (!class_exists('MaBox_Performance_Search_Enhance')) {
             if (!is_admin() && $query->is_main_query() && $query->is_search()) {
                 $search_term = $query->get('s');
                 if (!empty($search_term)) {
-                    self::log_search_term($search_term);
+                    MaBox_Search_Health::log_search_term($search_term, true);
                 }
             }
             return $query;
@@ -51,21 +53,22 @@ if (!class_exists('MaBox_Performance_Search_Enhance')) {
             check_ajax_referer('mabox_public_nonce', 'nonce');
             $term = isset($_POST['term']) ? sanitize_text_field($_POST['term']) : '';
             if (!empty($term)) {
-                self::log_search_term($term);
+                MaBox_Search_Health::log_search_term($term, true);
             }
             wp_send_json_success();
         }
-        private static function log_search_term($term) {
-            $log = get_option('mabox_search_log', array());
-            $today = current_time('Y-m-d');
-            if (!isset($log[$today])) $log[$today] = array();
-            if (!isset($log[$today][$term])) $log[$today][$term] = 0;
-            $log[$today][$term]++;
-            $keys = array_keys($log);
-            if (count($keys) > 30) {
-                unset($log[array_shift($keys)]);
+        public static function rest_log_search($request) {
+            $keyword = $request->get_param('keyword');
+            if (!empty($keyword)) {
+                MaBox_Search_Health::log_search_term($keyword, true);
             }
-            update_option('mabox_search_log', $log);
+            return rest_ensure_response(array('success' => true));
+        }
+        public static function mark_no_result() {
+            $query = get_search_query();
+            if (!empty($query)) {
+                MaBox_Search_Health::increment_no_result_count($query);
+            }
         }
     }
 }

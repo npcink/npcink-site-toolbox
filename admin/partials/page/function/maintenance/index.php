@@ -53,7 +53,7 @@ $countdown_content_data =  MaBox_Admin::get_config($function, 'countdown_content
 $countdown_content = html_entity_decode($countdown_content_data);
 
 //内容默认值
-if (isset($countdown_content) && empty($countdown_content)) {
+if (empty($countdown_content)) {
     $countdown_content = '
     <h5> 抱歉，我们的网站正在维护中...</h5> 
     <p> 

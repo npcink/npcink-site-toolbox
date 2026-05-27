@@ -187,6 +187,7 @@ class DiagnosticsTest extends TestCase {
             'page'     => array('function' => array('search_limit' => true)),
             'function' => array('seo' => array('seo_home' => true)),
             'login'    => array('security' => array('login_code' => true)),
+            'performance' => array('search_enhance' => array('hotwords_enabled' => true)),
         );
 
         $recommendations = $method->invoke(null, $config);

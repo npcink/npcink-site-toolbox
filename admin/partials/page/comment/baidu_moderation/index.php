@@ -148,7 +148,7 @@ if (!class_exists('MaBox_Comment_Baidu_Moderation')) {
             $replace_char = MaBox_Admin::get_config(self::$option, 'sensitive_words_replace_char', '***');
 
             foreach ($words as $word) {
-                if (empty($word)) {
+                if ($word === '') {
                     continue;
                 }
                 if (mb_stripos($content, $word) !== false) {

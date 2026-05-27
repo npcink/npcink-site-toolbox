@@ -6,7 +6,7 @@
  */
 
 import { restInstance, ApiResponse } from "@/axios/public";
-import { DiagnosticSummary } from "@/tool/interface";
+import { DiagnosticSummary, SearchHealthSummary } from "@/tool/interface";
 
 // ========== AI 审核 ==========
 export const aiReviewApi = {
@@ -80,6 +80,12 @@ export const settingsApi = {
 export const diagnosticsApi = {
   getSummary: (): Promise<ApiResponse<DiagnosticSummary>> =>
     restInstance.get("/diagnostics/summary") as Promise<any>,
+};
+
+// ========== 搜索健康 ==========
+export const searchHealthApi = {
+  getSummary: (days = 30): Promise<ApiResponse<SearchHealthSummary>> =>
+    restInstance.get(`/search-health/summary?days=${days}`) as Promise<any>,
 };
 
 // ========== 批量替换 ==========

@@ -181,9 +181,25 @@ if ( ! function_exists( 'sanitize_text_field' ) ) {
 		return strip_tags( trim( $str ) );
 	}
 }
+if ( ! function_exists( '__' ) ) {
+	function __( $text, $domain = 'default' ) {
+		return $text;
+	}
+}
 if ( ! function_exists( 'is_email' ) ) {
 	function is_email( $email ) {
 		return filter_var( $email, FILTER_VALIDATE_EMAIL ) !== false;
+	}
+}
+if ( ! function_exists( 'rest_ensure_response' ) ) {
+	function rest_ensure_response( $data ) {
+		return $data;
+	}
+}
+if ( ! function_exists( 'get_search_query' ) ) {
+	function get_search_query() {
+		global $_test_search_query;
+		return $_test_search_query ?? '';
 	}
 }
 

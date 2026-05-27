@@ -1,7 +1,7 @@
 # WP Magick Toolbox
 
 > 面向中国 WordPress 站长的一站式实用工具箱插件  
-> 版本：**2.6.0** | 功能数：**90+** | 授权：**GPL-2.0**
+> 版本：**2.6.1** | 功能数：**90+** | 授权：**GPL-2.0**
 
 [![CI](https://github.com/npcink/wp-magick-toolbox/actions/workflows/ci.yml/badge.svg)](https://github.com/npcink/wp-magick-toolbox/actions/workflows/ci.yml)
 [![WordPress Plugin](https://img.shields.io/badge/WordPress-4.6%2B-blue)](https://wordpress.org)
@@ -103,6 +103,14 @@ cd vite/admin && npm run dev
 ---
 
 ## 更新记录
+
+### 2.6.1 — 2026-05-28
+
+- PHPStan 静态分析门禁（CI 与本地命令统一，`--memory-limit=1G`）
+- 搜索健康中心：`hotwords_enabled` 开启后自动挂载主查询采集与无结果追踪
+- REST `/mabox/v1/public/search-log` 兼容 `keyword` 参数，移除 `check_ajax_referer` 依赖
+- 版本号同步到 `2.6.1`
+- Vite base 路径修复
 
 ### 2.6.0 — 2026-05-27
 

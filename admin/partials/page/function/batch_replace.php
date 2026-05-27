@@ -89,7 +89,7 @@ if (!class_exists('MaBox_Page_Batch_Replace')) {
             }
 
             // 支持 REST API 和 AJAX 两种参数传递方式
-            $params = isset($_POST) ? $_POST : array();
+            $params = $_POST;
             $dry_run = isset($params['dry_run']) ? rest_sanitize_boolean($params['dry_run']) : true; // 默认 dry-run
 
             $pairs = MaBox_Admin::get_config(self::$option, 'batch_replace_pairs', array());

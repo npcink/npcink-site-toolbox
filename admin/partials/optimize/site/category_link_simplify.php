@@ -37,7 +37,7 @@ if (!class_exists('MaBox_Category_Link_Simplify')) {
         public static function no_category_base_deactivate()
         {
             remove_filter('category_rewrite_rules', 'no_category_base_rewrite_rules'); // We don't want to insert our custom rules again
-            no_category_base_refresh_rules();
+            self::no_category_base_refresh_rules();
         }
 
         /**
@@ -85,7 +85,7 @@ if (!class_exists('MaBox_Category_Link_Simplify')) {
             foreach ($categories as $category) {
                 $category_nicename = $category->slug;
 
-                if ($category->parent == $category->cat_ID) {
+                if ($category->parent == $category->term_id) {
                     $category->parent = 0;
                 } elseif ($category->parent != 0) {
                     $category_nicename = get_category_parents($category->parent, false, '/', true) . $category_nicename;

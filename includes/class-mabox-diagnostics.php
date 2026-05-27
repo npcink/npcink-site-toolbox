@@ -361,6 +361,49 @@ if (!class_exists('MaBox_Diagnostics')) {
                 'action'  => $cdn_replaced < 3 ? __('去配置国内环境适配', 'magick-toolbox') : '',
             );
 
+            $search_enhance = self::get_nested($config, 'performance', 'search_enhance');
+            $search_logging_on = !empty($search_enhance['hotwords_enabled']);
+            $items[] = array(
+                'id'      => 'search_logging',
+                'title'   => __('搜索日志', 'magick-toolbox'),
+                'status'  => $search_logging_on ? 'good' : 'warning',
+                'message' => $search_logging_on
+                    ? __('搜索日志已开启，可收集搜索健康数据。', 'magick-toolbox')
+                    : __('搜索日志已关闭，无法收集搜索健康数据，建议开启。', 'magick-toolbox'),
+                'action'  => $search_logging_on ? '' : __('去开启搜索增强', 'magick-toolbox'),
+            );
+
+            $search_health = MaBox_Search_Health::get_summary(30);
+            if ($search_health['total_searches'] > 0) {
+                $no_result_total = 0;
+                foreach ($search_health['no_result_terms'] as $term) {
+                    $no_result_total += $term['no_result_count'];
+                }
+                $no_result_ratio = $no_result_total / $search_health['total_searches'];
+                $nr_status = $no_result_ratio > 0.5 ? 'warning' : 'good';
+                $items[] = array(
+                    'id'      => 'search_no_result_ratio',
+                    'title'   => __('搜索无结果比例', 'magick-toolbox'),
+                    'status'  => $nr_status,
+                    'message' => $nr_status === 'warning'
+                        ? sprintf(__('近 30 天 %.0f%% 的搜索无结果，建议补充相关内容。', 'magick-toolbox'), $no_result_ratio * 100)
+                        : sprintf(__('近 30 天 %.0f%% 的搜索无结果，比例正常。', 'magick-toolbox'), $no_result_ratio * 100),
+                    'action'  => $nr_status === 'warning' ? __('查看无结果搜索词', 'magick-toolbox') : '',
+                );
+            }
+
+            $page_function = self::get_nested($config, 'page', 'function');
+            $search_limit_on = !empty($page_function['search_limit']);
+            $items[] = array(
+                'id'      => 'search_rate_limit',
+                'title'   => __('搜索频次限制', 'magick-toolbox'),
+                'status'  => $search_limit_on ? 'good' : 'warning',
+                'message' => $search_limit_on
+                    ? __('已启用搜索频次限制，可防御恶意搜索。', 'magick-toolbox')
+                    : __('未启用搜索频次限制，可能被恶意搜索消耗资源。', 'magick-toolbox'),
+                'action'  => $search_limit_on ? '' : __('去开启搜索频次限制', 'magick-toolbox'),
+            );
+
             return $items;
         }
 
@@ -436,6 +479,17 @@ if (!class_exists('MaBox_Diagnostics')) {
                     'module' => 'optimize',
                     'field'  => 'site.hide_top_toolbar',
                     'reason' => __('前台访客不显示 WP 管理工具条，提升体验。', 'magick-toolbox'),
+                );
+            }
+
+            $search_enhance = self::get_nested($config, 'performance', 'search_enhance');
+            if (empty($search_enhance['hotwords_enabled'])) {
+                $recommendations[] = array(
+                    'id'     => 'rec_search_logging',
+                    'title'  => __('开启搜索日志', 'magick-toolbox'),
+                    'module' => 'performance',
+                    'field'  => 'search_enhance.hotwords_enabled',
+                    'reason' => __('搜索日志已关闭，无法收集搜索健康数据。', 'magick-toolbox'),
                 );
             }
 
@@ -621,7 +675,7 @@ if (!class_exists('MaBox_Diagnostics')) {
          * @param string ...$keys
          * @return array|null
          */
-        private static function get_nested($data, ...$keys)
+        public static function get_nested($data, ...$keys)
         {
             $current = $data;
             foreach ($keys as $key) {

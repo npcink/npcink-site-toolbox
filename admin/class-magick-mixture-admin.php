@@ -242,7 +242,7 @@ class MaBox_Admin
         foreach ($categories as $category) {
             $category_obj = new stdClass();
             $category_obj->label = $category->name;
-            $category_obj->value = $category->cat_ID;
+            $category_obj->value = $category->term_id;
             $category_list[] = $category_obj;
         }
         return $category_list;
@@ -867,7 +867,7 @@ class MaBox_Admin
         // ===== Public: Search Log =====
         register_rest_route('mabox/v1', '/public/search-log', array(
             'methods'             => \WP_REST_Server::CREATABLE,
-            'callback'            => array('MaBox_Performance_Search_Enhance', 'ajax_log_search'),
+            'callback'            => array('MaBox_Performance_Search_Enhance', 'rest_log_search'),
             'permission_callback' => MaBox_Rate_Limiter::permission_callback_with_nonce('search-log', 'mabox_public_api', array('max_requests' => 30, 'time_window' => 60)),
             'args'                => array(
                 'keyword' => array(
@@ -980,6 +980,29 @@ class MaBox_Admin
                 'permission_callback' => function () {
                     return current_user_can('manage_options');
                 },
+            ),
+        ));
+
+        // ===== Search Health: Summary =====
+        register_rest_route('mabox/v1', '/search-health/summary', array(
+            array(
+                'methods'             => \WP_REST_Server::READABLE,
+                'callback'            => array('MaBox_Search_Health', 'rest_get_summary'),
+                'permission_callback' => function () {
+                    return current_user_can('manage_options');
+                },
+                'args'                => array(
+                    'days' => array(
+                        'required'          => false,
+                        'type'              => 'integer',
+                        'description'       => '统计天数范围',
+                        'default'           => 30,
+                        'sanitize_callback' => 'intval',
+                        'validate_callback' => function ($value) {
+                            return is_numeric($value) && (int) $value >= 1 && (int) $value <= 365;
+                        },
+                    ),
+                ),
             ),
         ));
 

@@ -44,6 +44,7 @@ spl_autoload_register(function ($class) {
         'MaBox_Comment_Only_Once' => 'admin/partials/page/comment/only_comment_once.php',
         'MaBox_Comment_Sensitive_Words' => 'admin/partials/page/comment/sensitive_words.php',
         'MaBox_Config' => 'admin/partials/function/config/index.php',
+        'MaBox_Search_Health' => 'includes/class-mabox-search-health.php',
         'MaBox_Config_Manager' => 'includes/class-magick-config-manager.php',
         'MaBox_Config_Schema' => 'includes/class-mabox-config-schema.php',
         'MaBox_Diagnostics' => 'includes/class-mabox-diagnostics.php',
