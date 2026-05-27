@@ -53,9 +53,8 @@ export const searchIndex: SearchItem[] = [
   { id: "shortcode-compose-wx_unlock", label: "公众号解锁内容", tabKey: "7", tabLabel: "短代码", section: "板式", keywords: ["wechat", "微信", "公众号", "解锁"] },
   { id: "shortcode-compose-reward", label: "打赏模块", tabKey: "7", tabLabel: "短代码", section: "板式", keywords: ["reward", "打赏", "收款"] },
   { id: "shortcode-pendant-merc_map", label: "足迹地图", tabKey: "7", tabLabel: "短代码", section: "挂件", keywords: ["map", "地图", "足迹"] },
-  // 页面模版
-  { id: "template-static-triangle", label: "立体三角模版", tabKey: "8", tabLabel: "页面模版", section: "静态", keywords: ["triangle", "立体三角"] },
-  { id: "template-trends-special", label: "专题列表模版", tabKey: "8", tabLabel: "页面模版", section: "动态", keywords: ["special", "专题"] },
+  { id: "template-static-triangle", label: "立体三角模板", tabKey: "8", tabLabel: "页面模板", section: "静态模板", keywords: ["triangle", "立体三角"] },
+  { id: "template-trends-special", label: "专题列表模板", tabKey: "8", tabLabel: "页面模板", section: "动态模板", keywords: ["special", "专题"] },
   // 国内生态
   { id: "domestic-compliance-icp", label: "ICP 备案号", tabKey: "10", tabLabel: "国内生态", section: "合规", keywords: ["icp", "备案", "合规"], tags: ["推荐"] },
   { id: "domestic-compliance-police", label: "公安网备号", tabKey: "10", tabLabel: "国内生态", section: "合规", keywords: ["公安", "网备", "备案"], tags: ["推荐"] },
@@ -80,9 +79,11 @@ export const searchIndex: SearchItem[] = [
 
 interface FeatureSearchProps {
   onNavigate: (tabKey: string, itemId: string) => void;
+  className?: string;
+  style?: React.CSSProperties;
 }
 
-const FeatureSearch: React.FC<FeatureSearchProps> = ({ onNavigate }) => {
+const FeatureSearch: React.FC<FeatureSearchProps> = ({ onNavigate, className, style }) => {
   const [keyword, setKeyword] = useState("");
   const [open, setOpen] = useState(false);
   const [favRefresh, setFavRefresh] = useState(0);
@@ -144,10 +145,10 @@ const FeatureSearch: React.FC<FeatureSearchProps> = ({ onNavigate }) => {
   };
 
   return (
-    <div style={{ position: "relative", width: 280 }}>
+    <div className={className} style={{ position: "relative", width: "100%", ...style }}>
       <Input
         prefix={<SearchOutlined style={{ color: "#bfbfbf" }} />}
-        placeholder="搜索 90+ 功能..."
+        placeholder="搜索功能或设置..."
         value={keyword}
         onChange={(e) => {
           setKeyword(e.target.value);

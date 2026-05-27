@@ -75,6 +75,7 @@ spl_autoload_register(function ($class) {
         'MaBox_Medium_Image_Rename' => 'admin/partials/optimize/medium/image_rename.php',
         'MaBox_Medium_Svg_Support' => 'admin/partials/optimize/medium/svg_support.php',
         'MaBox_Module_Loader' => 'admin/modules/loader.php',
+        'MaBox_Module_Metadata' => 'admin/modules/metadata.php',
         'MaBox_Page_Add_Click_Effect' => 'admin/partials/page/exterior/click_effect/index.php',
         'MaBox_Page_Add_Convergence_Line' => 'admin/partials/page/exterior/background_effect/convergence_line/index.php',
         'MaBox_Page_Add_Scroll_Bar' => 'admin/partials/page/exterior/add_scroll_bar.php',

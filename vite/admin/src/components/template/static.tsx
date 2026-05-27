@@ -1,6 +1,3 @@
-/**
- * 页面模版 静态
- */
 import { useState, useContext, useEffect } from "react";
 import { Form } from "antd";
 import { DataContext } from "@/tool/dataContext";
@@ -13,19 +10,25 @@ import FeatureSwitch from "@/basic/feature-switch";
 
 type FieldType = TemplateStatic;
 
-//Ant 组件配置
 const fromConfig = AntConfig.from;
 
+const templateItems = [
+  {
+    name: "立体三角",
+    fieldName: "triangle" as const,
+    featureId: "template-static-triangle",
+    description: "展示高级质感的立体三角，底部是文章正文内容",
+    preview: { title: "立体三角", img: TrianglePng },
+  },
+];
+
 const App: React.FC = () => {
-  //拿到默认选项值和修改方法
   const { optionData, updateOption } = useContext(DataContext);
   const publicData =
     optionData.template?.static || defaultVarOption.template.static;
 
-  //存储表单值
   const [formData, setFormData] = useState(publicData || {});
 
-  //修改表单值
   const onValuesChange = (
     changedValues: Partial<FieldType>,
     _allValues: FieldType
@@ -36,7 +39,6 @@ const App: React.FC = () => {
     }));
   };
 
-  //表单值发生变化时更新选项值
   useEffect(() => {
     updateOption("template", "static", formData);
   }, [formData]);
@@ -54,23 +56,33 @@ const App: React.FC = () => {
         onValuesChange={onValuesChange}
       >
         <Form.Item>
-          <h2>静态</h2>
+          <h2>静态模板</h2>
         </Form.Item>
 
-        <Form.Item<FieldType>
-          id="template-static-triangle"
-          label="立体三角"
-          name="triangle"
-          valuePropName="checked"
-          extra={
-            <>
-              展示高级质感的立体三角，底部是文章正文内容，
-              <Preview title="立体三角" img={TrianglePng} />
-            </>
-          }
-        >
-          <FeatureSwitch featureId="template-static-triangle" />
-        </Form.Item>
+        {templateItems.map((item) => (
+          <div
+            key={item.fieldName}
+            id={item.featureId}
+            className="mabox-template-row"
+          >
+            <div className="mabox-template-row-info">
+              <div className="mabox-template-row-name">{item.name}</div>
+              <div className="mabox-template-row-desc">{item.description}</div>
+            </div>
+            <div className="mabox-template-row-actions">
+              <Form.Item<FieldType>
+                name={item.fieldName}
+                valuePropName="checked"
+                noStyle
+              >
+                <FeatureSwitch featureId={item.featureId} />
+              </Form.Item>
+              {item.preview && (
+                <Preview title={item.preview.title} img={item.preview.img} />
+              )}
+            </div>
+          </div>
+        ))}
       </Form>
     </>
   );

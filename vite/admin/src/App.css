@@ -7,7 +7,6 @@
   [type="button"],
   [type="reset"],
   [type="submit"] {
-    /*background-color: rgba(0, 0, 0, 0.25);*/
   }
   a {
     color: #1677ff;
@@ -23,9 +22,8 @@
   }
 }
 @layer components {
-  /*pre标签*/
   .pre-meat {
-    @apply inline-block text-xs text-orange-500  mx-2;
+    @apply inline-block text-xs text-orange-500 mx-2;
   }
 }
 
@@ -33,32 +31,277 @@
   background-color: #1677ff;
 }
 
-.MaBox_option {
-  width: 900px;
-  margin: 0 auto;
-  padding-top: 2em;
+.mabox-shell {
+  min-height: 100vh;
+  background: #f0f0f1;
 }
 
-.mabox_content {
-  margin-top: 1em;
+.mabox-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 56px;
+  padding: 0 24px;
+  background: #fff;
+  border-bottom: 1px solid #e0e0e0;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  gap: 16px;
+}
+
+.mabox-header-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.mabox-header-icon {
+  font-size: 22px;
+  width: 22px;
+  height: 22px;
+  color: #1677ff;
+}
+
+.mabox-header-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0;
+  color: #1d2327;
+  line-height: 1;
+}
+
+.mabox-header-subtitle {
+  font-size: 11px;
+  font-weight: 300;
+  color: #999;
+  margin-left: 8px;
+}
+
+.mabox-header-center {
+  flex: 1;
+  max-width: 320px;
+}
+
+.mabox-header-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.mabox-help-btn {
+  font-size: 13px;
+  color: #666;
+}
+
+.mabox-body {
+  display: flex;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 20px 24px 80px;
+  gap: 0;
+}
+
+.mabox-sidebar {
+  width: 220px;
+  min-width: 220px;
+  background: #fff;
+  border-radius: 8px;
+  padding: 12px 0;
+  margin-right: 20px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  overflow-y: auto;
+}
+
+.mabox-nav-group {
+  margin-bottom: 4px;
+}
+
+.mabox-nav-group-label {
+  padding: 8px 16px 4px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #999;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.mabox-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  cursor: pointer;
+  border-radius: 4px;
+  margin: 2px 8px;
+  font-size: 13px;
+  color: #50575e;
+  transition: all 0.2s;
+  position: relative;
+}
+
+.mabox-nav-item:hover {
+  background: #f0f6fc;
+  color: #1677ff;
+}
+
+.mabox-nav-item .dashicons {
+  font-size: 16px;
+  width: 16px;
+  height: 16px;
+  line-height: 16px;
+  color: #999;
+}
+
+.mabox-nav-item:hover .dashicons {
+  color: #1677ff;
+}
+
+.mabox-nav-item--active {
+  background: #e7f1ff;
+  color: #1677ff;
+  font-weight: 500;
+}
+
+.mabox-nav-item--active::before {
+  content: "";
+  position: absolute;
+  left: -8px;
+  top: 4px;
+  bottom: 4px;
+  width: 3px;
+  background: #1677ff;
+  border-radius: 2px;
+}
+
+.mabox-nav-item--active .dashicons {
+  color: #1677ff;
+}
+
+.mabox-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.mabox-breadcrumb {
+  font-size: 12px;
+  color: #999;
+  margin-bottom: 16px;
+  padding: 0;
+}
+
+.mabox-breadcrumb-sep {
+  margin: 0 6px;
+  color: #ccc;
+}
+
+.mabox-breadcrumb-current {
+  color: #1d2327;
+  font-weight: 500;
+}
+
+.mabox-content {
+  background: #fff;
+  border-radius: 8px;
+  padding: 24px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  min-height: 400px;
+}
+
+.mabox-footer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  height: 48px;
+  padding: 0 24px;
+  background: #fff;
+  border-top: 1px solid #e0e0e0;
+  box-shadow: 0 -1px 3px rgba(0,0,0,0.06);
+}
+
+.mabox-mobile-toggle {
+  display: none;
+  width: 100%;
+  padding: 10px 16px;
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #1d2327;
+  gap: 8px;
+  align-items: center;
+}
+
+.mabox-mobile-nav-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.3);
+  z-index: 99;
 }
 
 @media (max-width: 768px) {
-  .MaBox_option {
+  .mabox-header {
+    padding: 0 12px;
+    height: auto;
+    min-height: 48px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .mabox-header-title {
+    font-size: 15px;
+  }
+
+  .mabox-header-subtitle {
+    display: none;
+  }
+
+  .mabox-header-center {
+    max-width: 100%;
+    flex: 1 1 100%;
+    order: 3;
+  }
+
+  .mabox-header-right {
+    flex-shrink: 0;
+  }
+
+  .mabox-body {
+    padding: 12px 12px 80px;
+    flex-direction: column;
+  }
+
+  .mabox-sidebar {
+    display: none;
     width: 100%;
-    padding: 0.5em;
+    min-width: unset;
+    margin-right: 0;
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 100;
+    max-width: 260px;
+    padding: 16px 0;
+    box-shadow: 2px 0 8px rgba(0,0,0,0.12);
   }
 
-  .mabox_content {
-    margin-top: 0.5em;
+  .mabox-sidebar--open {
+    display: block;
   }
 
-  .ant-tabs-left > .ant-tabs-nav {
-    width: 100% !important;
+  .mabox-mobile-toggle {
+    display: flex;
   }
 
-  .ant-tabs-left > .ant-tabs-nav .ant-tabs-tab {
-    padding: 8px 16px;
+  .mabox-content {
+    padding: 16px;
+  }
+
+  .mabox-nav-item {
+    padding: 10px 16px;
+    margin: 2px 12px;
+    font-size: 14px;
   }
 
   .ant-form-item .ant-form-item-label {
@@ -70,7 +313,58 @@
   }
 }
 
-/* 分类菜单 */
-.menu-header{
+.menu-header {
   font-weight: bold;
+}
+
+.mabox-template-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 16px;
+  border: 1px solid #f0f0f0;
+  border-radius: 6px;
+  margin-bottom: 8px;
+  transition: box-shadow 0.2s;
+}
+
+.mabox-template-row:hover {
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.mabox-template-row-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.mabox-template-row-name {
+  font-size: 14px;
+  font-weight: 500;
+  color: #1d2327;
+}
+
+.mabox-template-row-desc {
+  font-size: 12px;
+  color: #999;
+  margin-top: 2px;
+}
+
+.mabox-template-row-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+  .mabox-template-row {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .mabox-template-row-actions {
+    width: 100%;
+    justify-content: flex-end;
+  }
 }

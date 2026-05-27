@@ -8,7 +8,11 @@ import DiffModal from "@/components/diff-modal";
 import { ConfigDiffItem } from "@/tool/interface";
 import { UpOutlined } from "@ant-design/icons";
 
-const App: React.FC = () => {
+interface SaveProps {
+  label?: string;
+}
+
+const App: React.FC<SaveProps> = ({ label = "保存" }) => {
   const { optionData, refreshOption, lastSavedOption } = useContext(DataContext);
   const [saving, setSaving] = useState(false);
   const [diffVisible, setDiffVisible] = useState(false);
@@ -85,7 +89,7 @@ const App: React.FC = () => {
           ></Button>
         )}
         <Button type="primary" onClick={handleSaveClick} loading={saving}>
-          保存
+          {label}
         </Button>
       </Space>
       <DiffModal

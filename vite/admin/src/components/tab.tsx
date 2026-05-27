@@ -1,13 +1,12 @@
 import React from "react";
-import { useState, lazy, Suspense, useEffect, useRef, useCallback } from "react";
-import { Tabs, Layout, Affix, Spin } from "antd";
-import type { TabsProps } from "antd";
+import { useState, lazy, Suspense, useEffect, useCallback } from "react";
+import { Affix, Spin, Dropdown, Button } from "antd";
+import { QuestionCircleOutlined } from "@ant-design/icons";
 
 import { defaultOption, DataContext, fetchSettings } from "@/tool/dataContext";
 import Save from "@/tool/save";
 import FeatureSearch from "@/components/feature-search";
 
-// 懒加载各 Tab 组件
 const Dashboard = lazy(() => import("@/components/dashboard/index"));
 const Page = lazy(() => import("@/components/page/index"));
 const Optimize = lazy(() => import("@/components/optimize/index"));
@@ -29,12 +28,70 @@ const TabFallback = (
   </div>
 );
 
+interface NavItem {
+  key: string;
+  label: string;
+  icon: string;
+  component: React.LazyExoticComponent<React.FC<any>>;
+  props?: Record<string, any>;
+}
+
+interface NavGroup {
+  groupLabel: string;
+  items: NavItem[];
+}
+
+const navGroups: NavGroup[] = [
+  {
+    groupLabel: "概览",
+    items: [
+      { key: "0", label: "仪表盘", icon: "dashicons-dashboard", component: Dashboard },
+    ],
+  },
+  {
+    groupLabel: "内容与页面",
+    items: [
+      { key: "1", label: "页面", icon: "dashicons-admin-page", component: Page },
+      { key: "4", label: "H5", icon: "dashicons-smartphone", component: H5 },
+      { key: "7", label: "短代码", icon: "dashicons-editor-code", component: Shortcode },
+      { key: "8", label: "页面模板", icon: "dashicons-layout", component: Template },
+    ],
+  },
+  {
+    groupLabel: "站点增强",
+    items: [
+      { key: "2", label: "优化", icon: "dashicons-admin-tools", component: Optimize },
+      { key: "3", label: "登录页", icon: "dashicons-lock", component: Login },
+      { key: "11", label: "性能优化", icon: "dashicons-performance", component: Performance },
+    ],
+  },
+  {
+    groupLabel: "AI 与生态",
+    items: [
+      { key: "5", label: "功能", icon: "dashicons-admin-plugins", component: Function },
+      { key: "10", label: "国内生态", icon: "dashicons-location-alt", component: Domestic },
+      { key: "12", label: "AI 审核", icon: "dashicons-shield", component: AiReview },
+    ],
+  },
+];
+
+const helpItems = [
+  { key: "13", label: "技术支持", icon: "dashicons-sos", component: Services },
+  { key: "14", label: "用户反馈", icon: "dashicons-feedback", component: Feedback },
+  { key: "9", label: "关于", icon: "dashicons-info", component: About },
+];
+
+const allNavItems: NavItem[] = [
+  ...navGroups.flatMap((g) => g.items),
+  ...helpItems,
+];
+
 const App: React.FC = () => {
   const [optionData, setOptionData] = useState(defaultOption);
   const [lastSavedOption, setLastSavedOption] = useState(defaultOption);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const [activeTab, setActiveTab] = useState("0");
-  const tabsRef = useRef<any>(null);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 768);
@@ -68,6 +125,7 @@ const App: React.FC = () => {
 
   const handleSearchNavigate = useCallback((tabKey: string, itemId: string) => {
     setActiveTab(tabKey);
+    setMobileMenuOpen(false);
     setTimeout(() => {
       const el = document.getElementById(itemId);
       if (el) {
@@ -79,142 +137,133 @@ const App: React.FC = () => {
     }, 100);
   }, []);
 
-  const items: TabsProps["items"] = [
-    {
-      key: "0",
-      label: `仪表盘`,
-      children: <Suspense fallback={TabFallback}><Dashboard onNavigate={handleSearchNavigate} /></Suspense>,
+  const activeNavItem = allNavItems.find((item) => item.key === activeTab);
+  const activeGroup = navGroups.find((g) => g.items.some((i) => i.key === activeTab));
+
+  const handleNavClick = (key: string) => {
+    setActiveTab(key);
+    setMobileMenuOpen(false);
+  };
+
+  const helpDropdownItems = {
+    items: helpItems.map((item) => ({
+      key: item.key,
+      label: (
+        <span style={{ display: "flex", alignItems: "center", gap: 8 }}>
+          <span className={`dashicons ${item.icon}`} style={{ fontSize: 16, width: 16, height: 16, lineHeight: "16px" }} />
+          {item.label}
+        </span>
+      ),
+    })),
+    onClick: ({ key }: { key: string }) => {
+      setActiveTab(key);
     },
-    {
-      key: "1",
-      label: `页面`,
-      children: <Suspense fallback={TabFallback}><Page /></Suspense>,
-    },
-    {
-      key: "2",
-      label: `优化`,
-      children: <Suspense fallback={TabFallback}><Optimize /></Suspense>,
-    },
-    {
-      key: "3",
-      label: `登录页`,
-      children: <Suspense fallback={TabFallback}><Login /></Suspense>,
-    },
-    {
-      key: "4",
-      label: `H5`,
-      children: <Suspense fallback={TabFallback}><H5 /></Suspense>,
-    },
-    {
-      key: "5",
-      label: `功能`,
-      children: <Suspense fallback={TabFallback}><Function /></Suspense>,
-    },
-    {
-      key: "7",
-      label: `短代码`,
-      children: <Suspense fallback={TabFallback}><Shortcode /></Suspense>,
-    },
-    {
-      key: "8",
-      label: `页面模版`,
-      children: <Suspense fallback={TabFallback}><Template /></Suspense>,
-    },
-    {
-      key: "10",
-      label: `国内生态`,
-      children: <Suspense fallback={TabFallback}><Domestic /></Suspense>,
-    },
-    {
-      key: "11",
-      label: `性能优化`,
-      children: <Suspense fallback={TabFallback}><Performance /></Suspense>,
-    },
-    {
-      key: "12",
-      label: `AI 审核`,
-      children: <Suspense fallback={TabFallback}><AiReview /></Suspense>,
-    },
-    {
-      key: "13",
-      label: `技术支持`,
-      children: <Suspense fallback={TabFallback}><Services /></Suspense>,
-    },
-    {
-      key: "14",
-      label: `用户反馈`,
-      children: <Suspense fallback={TabFallback}><Feedback /></Suspense>,
-    },
-    {
-      key: "9",
-      label: `关于`,
-      children: <Suspense fallback={TabFallback}><About /></Suspense>,
-    },
+  };
+
+  const renderContent = () => {
+    const item = allNavItems.find((i) => i.key === activeTab);
+    if (!item) return null;
+    const Comp = item.component;
+    const extraProps = item.key === "0" ? { onNavigate: handleSearchNavigate } : {};
+    return (
+      <Suspense fallback={TabFallback}>
+        <Comp {...extraProps} />
+      </Suspense>
+    );
+  };
+
+  const breadcrumbs = [
+    "魔法工具箱",
+    activeGroup ? activeGroup.groupLabel : "帮助",
+    activeNavItem?.label || "",
   ];
 
-  const { Header, Footer, Content } = Layout;
-
-  const headerStyle: React.CSSProperties = {
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    height: 64,
-    paddingInline: 48,
-    lineHeight: "64px",
-    borderBottom: "1px solid #ccd0d4",
-    background: "linear-gradient(#fefefe, #f5f5f5)",
-  };
-
-  const footerStyle: React.CSSProperties = {
-    float: "right",
-    /*borderBottom: "1px solid #ccd0d4",*/
-    background: "linear-gradient(#fefefe, #f5f5f5)",
-  };
   return (
     <>
       <DataContext.Provider value={{ optionData, updateOption, refreshOption, lastSavedOption, setLastSavedOption }}>
-        <div className="MaBox_option">
-          <Layout>
-            <Affix offsetTop={30}>
-              <Header style={headerStyle}>
-                <HeaderBlock onNavigate={handleSearchNavigate} />
-              </Header>
-            </Affix>
-            <Content className="mabox_content">
-              <Tabs
-                activeKey={activeTab}
-                onChange={setActiveTab}
-                defaultActiveKey="0"
-                tabPosition={isMobile ? "top" : "left"}
-                items={items}
-                ref={tabsRef}
-              />
-            </Content>
-            <Footer style={footerStyle}>
-              <div className="float-right">
-                <Save />
+        <div className="mabox-shell">
+          <Affix offsetTop={32}>
+            <header className="mabox-header">
+              <div className="mabox-header-left">
+                <span className="dashicons dashicons-admin-generic mabox-header-icon" />
+                <h1 className="mabox-header-title">
+                  魔法工具箱
+                  <small className="mabox-header-subtitle">
+                    <a target="_blank" href="https://www.npc.ink">For Npcink</a>
+                  </small>
+                </h1>
               </div>
-            </Footer>
-          </Layout>
+              <div className="mabox-header-center">
+                <FeatureSearch onNavigate={handleSearchNavigate} style={{ maxWidth: isMobile ? "100%" : 280 }} />
+              </div>
+              <div className="mabox-header-right">
+                <Dropdown menu={helpDropdownItems} placement="bottomRight">
+                  <Button type="text" icon={<QuestionCircleOutlined />} className="mabox-help-btn">
+                    帮助
+                  </Button>
+                </Dropdown>
+                {!isMobile && <Save />}
+              </div>
+            </header>
+          </Affix>
+
+          <div className="mabox-body">
+            {isMobile && (
+              <button
+                className="mabox-mobile-toggle"
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              >
+                <span className="dashicons dashicons-menu" />
+                {activeNavItem?.label || "导航"}
+              </button>
+            )}
+
+            {isMobile && mobileMenuOpen && (
+              <div className="mabox-mobile-nav-overlay" onClick={() => setMobileMenuOpen(false)} />
+            )}
+
+            <aside className={`mabox-sidebar ${isMobile && mobileMenuOpen ? "mabox-sidebar--open" : ""}`}>
+              {navGroups.map((group) => (
+                <div className="mabox-nav-group" key={group.groupLabel}>
+                  <div className="mabox-nav-group-label">{group.groupLabel}</div>
+                  {group.items.map((item) => (
+                    <div
+                      key={item.key}
+                      className={`mabox-nav-item ${activeTab === item.key ? "mabox-nav-item--active" : ""}`}
+                      onClick={() => handleNavClick(item.key)}
+                    >
+                      <span className={`dashicons ${item.icon}`} />
+                      <span className="mabox-nav-item-label">{item.label}</span>
+                    </div>
+                  ))}
+                </div>
+              ))}
+            </aside>
+
+            <main className="mabox-main">
+              <div className="mabox-breadcrumb">
+                {breadcrumbs.map((crumb, idx) => (
+                  <span key={idx}>
+                    {idx > 0 && <span className="mabox-breadcrumb-sep">/</span>}
+                    <span className={idx === breadcrumbs.length - 1 ? "mabox-breadcrumb-current" : ""}>
+                      {crumb}
+                    </span>
+                  </span>
+                ))}
+              </div>
+              <div className="mabox-content">
+                {renderContent()}
+              </div>
+            </main>
+          </div>
+
+          <Affix offsetBottom={0}>
+            <footer className="mabox-footer">
+              <Save label="保存更改" />
+            </footer>
+          </Affix>
         </div>
       </DataContext.Provider>
-    </>
-  );
-};
-
-const HeaderBlock: React.FC<{ onNavigate: (tabKey: string, itemId: string) => void }> = ({ onNavigate }) => {
-  return (
-    <>
-      <h1 className="text-2xl leading-7 font-medium">
-        魔法工具箱
-        <small className="text-xs font-light text-gray-400 ml-2 ">
-          <a target="_blank" href="https://www.npc.ink">
-            For Npcink
-          </a>
-        </small>
-      </h1>
-      <FeatureSearch onNavigate={onNavigate} />
-      <Save />
     </>
   );
 };
