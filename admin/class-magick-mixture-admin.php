@@ -763,7 +763,7 @@ class MaBox_Admin
             'callback'            => array('MaBox_Page_Batch_Replace', 'rollback_all'),
             'permission_callback' => function () {
                 return current_user_can('manage_options');
-            },},{
+            },
             'args'                => array(
                 'confirm' => array(
                     'required'          => true,

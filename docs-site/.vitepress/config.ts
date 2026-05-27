@@ -34,6 +34,14 @@ export default defineConfig({
           ],
         },
         {
+          text: '站点管理',
+          items: [
+            { text: '体检中心', link: '/guide/health-center' },
+            { text: '配置恢复', link: '/guide/config-recovery' },
+            { text: '推荐方案', link: '/guide/presets' },
+          ],
+        },
+        {
           text: '开发者',
           items: [
             { text: '开发规范', link: '/guide/development' },
