@@ -3,7 +3,7 @@
  * Plugin Name: WP Magick Toolbox
  * Description: 魔法工具箱，诸多实用且有趣的功能合集，简单易用；详情请见插件中的「关于」页内容
  * Plugin URI: https://www.npc.ink/277510.html
- * Version: 2.4.0
+ * Version: 2.5.0
  * Author: Npcink
  * Author URI: https://www.npc.ink/
  * Requires at least: 6.0

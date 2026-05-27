@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<ruleset name="WP Magick Toolbox">
+    <description>WP Magick Toolbox Coding Standards</description>
+
+    <!-- 扫描路径 -->
+    <file>admin</file>
+    <file>includes</file>
+    <file>public</file>
+    <file>magick-tool-box.php</file>
+    <file>uninstall.php</file>
+
+    <!-- 排除路径 -->
+    <exclude-pattern>*/node_modules/*</exclude-pattern>
+    <exclude-pattern>*/vendor/*</exclude-pattern>
+    <exclude-pattern>*/tests/*</exclude-pattern>
+    <exclude-pattern>admin/partials/function/b2/*</exclude-pattern>
+
+    <!-- 使用 WordPress 编码标准 -->
+    <rule ref="WordPress">
+        <!-- 适当放宽部分规则，避免过度干扰 -->
+        <exclude name="WordPress.Files.FileName.InvalidClassFileName"/>
+        <exclude name="WordPress.Files.FileName.NotHyphenatedLowercase"/>
+        <exclude name="WordPress.NamingConventions.ValidVariableName.VariableNotSnakeCase"/>
+        <exclude name="WordPress.NamingConventions.ValidVariableName.UsedPropertiesNotSnakeCase"/>
+        <exclude name="WordPress.NamingConventions.ValidVariableName.MemberNotSnakeCase"/>
+        <exclude name="WordPress.NamingConventions.ValidFunctionName.MethodNameInvalid"/>
+        <exclude name="WordPress.NamingConventions.ValidVariableName.NotSnakeCaseMemberVar"/>
+    </rule>
+
+    <!-- 额外安全规则 -->
+    <rule ref="WordPress.Security"/>
+
+    <!-- PHP 兼容性 -->
+    <config name="testVersion" value="7.4-"/>
+
+    <!-- 编码 -->
+    <config name="encoding" value="utf-8"/>
+
+    <!-- 显示进度 -->
+    <arg value="ps"/>
+
+    <!-- 显示颜色 -->
+    <arg name="colors"/>
+
+    <!-- 并行处理 -->
+    <arg name="parallel" value="8"/>
+</ruleset>

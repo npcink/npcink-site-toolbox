@@ -6,6 +6,25 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [2.5.0] - 2026-05-27
+
+### Added
+- 站点体检中心：后端 `MaBox_Diagnostics` 聚合诊断 + Dashboard 实时展示评分/风险/建议
+- 保存前 diff 确认弹窗：`diffConfig()` 递归比较 + 高风险路径自动标红
+- 单模块恢复默认值：支持 optimize/page/function/login 等 9 个顶层模块独立恢复
+- 诊断报告导出：基于 `DiagnosticSummary` 生成 Markdown，支持剪贴板/下载
+- REST 诊断端点 `GET /mabox/v1/diagnostics/summary`（权限 `manage_options`）
+- 诊断单元测试：15 测试用例 / 44 断言，覆盖分数/状态/推荐/风险/边界
+
+### Changed
+- 优化 3 个官方推荐方案：`blog_stable`、`company_compliance`、`content_seo_safe`
+- 统一 AI 审核与反馈组件的 REST response body 格式
+
+### Fixed
+- `vite/admin/src/axios/save.tsx` 导出命名错误（`saceOption` → `saveOption`）
+- 前端诊断类型定义补全（`DiagnosticSummary` / `DiagnosticItem` / `ConfigDiffItem`）
+- 批量替换/批量回滚/单篇回滚权限校验保持 `manage_options`
+
 ### Fixed
 - 文章统计功能 wp_localize_script 句柄不匹配
 - 小程序接口缺失错误提示处理

@@ -1,0 +1,47 @@
+# 版本控制
+.git
+.gitignore
+
+# GitHub
+.github
+
+# 开发工具
+.vscode
+.editorconfig
+.nvmrc
+
+# 开发依赖
+node_modules
+vendor
+
+# 构建源码（构建产物已包含在仓库中或CI中生成）
+vite/*/src
+vite/*/node_modules
+vite/*/*.json
+vite/*/*.config.*
+vite/*/*.yaml
+vite/pnpm-workspace.yaml
+
+# 测试
+tests
+phpunit.xml.dist
+phpstan.neon
+
+# 文档（非用户面向）
+docs
+docs-site
+ai
+.opencode
+.sisyphus
+
+# 其他配置文件
+composer.json
+composer.lock
+docker-compose.yml
+
+# 项目文档（readme.txt已包含）
+README.md
+CHANGELOG.md
+SECURITY.md
+功能清单.md
+技术架构与功能文档.md
