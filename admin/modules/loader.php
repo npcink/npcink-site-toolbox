@@ -12,6 +12,9 @@ defined('ABSPATH') || exit;
 // 加载模块接口契约
 require_once plugin_dir_path(dirname(dirname(__FILE__))) . 'includes/interface-mabox-module.php';
 
+// 加载元数据聚合层
+require_once plugin_dir_path(__FILE__) . 'metadata.php';
+
 if (!class_exists('MaBox_Module_Loader')) {
     class MaBox_Module_Loader {
 
@@ -19,7 +22,7 @@ if (!class_exists('MaBox_Module_Loader')) {
 
         public static function get_registry() {
             if (self::$registry === null) {
-                self::$registry = require plugin_dir_path(__FILE__) . 'registry.php';
+                self::$registry = MaBox_Module_Metadata::get_registry();
             }
             return self::$registry;
         }

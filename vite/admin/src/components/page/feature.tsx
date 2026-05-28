@@ -10,47 +10,24 @@ import FixedImage from "@/basic/fixedImage";
 import FeatureSwitch from "@/basic/feature-switch";
 import PixelChicken from "@/assets/page/feature/像素小鸡.png";
 import Preview from "@/basic/preview";
-import { checkRiskyFeature } from "@/tool/riskyFeature.tsx";
 
 type FieldType = PageFeature;
 
 const fromConfig = AntConfig.from;
-
-const RISKY_FIELDS: Record<string, string> = {
-  particle: "page-feature-particle",
-  background_effect: "page-feature-background_effect",
-  site_grey: "page-feature-site_grey",
-  lantern: "page-feature-lantern",
-};
 
 const App: React.FC = () => {
   const { optionData, updateOption } = useContext(DataContext);
   const publicData = optionData.page?.feature || defaultVarOption.page.feature;
   const [formData, setFormData] = useState(publicData || {});
 
-  const applyChange = (changedValues: Partial<FieldType>) => {
-    setFormData((prevState) => ({
-      ...prevState,
-      ...changedValues,
-    }));
-  };
-
   const onValuesChange = (
     changedValues: Partial<FieldType>,
     _allValues: FieldType
   ) => {
-    const fieldKey = Object.keys(changedValues)[0];
-    const featureId = RISKY_FIELDS[fieldKey];
-    if (featureId) {
-      const newValue = changedValues[fieldKey as keyof FieldType];
-      const shouldProceed = checkRiskyFeature(featureId, newValue, () => {
-        applyChange(changedValues);
-      });
-      if (!shouldProceed) {
-        return;
-      }
-    }
-    applyChange(changedValues);
+    setFormData((prevState) => ({
+      ...prevState,
+      ...changedValues,
+    }));
   };
 
   useEffect(() => {

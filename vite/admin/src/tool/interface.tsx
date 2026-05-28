@@ -606,3 +606,25 @@ export type Feedback = {
   telemetry_anonymous: boolean;
   show_insights: boolean;
 };
+
+export interface RiskInfo {
+  level: string;
+  title: string;
+  warning: string;
+  suggestion: string;
+  noDismiss?: boolean;
+}
+
+export interface UiSchemaEntry {
+  path: string;
+  type: string;
+  label?: string;
+  group?: string;
+  feature_id?: string;
+  risk?: RiskInfo;
+  depends_on?: string | string[];
+  preset_tags?: string[];
+  risk_tags?: string[];
+}
+
+export type UiSchemaMap = Record<string, UiSchemaEntry>;

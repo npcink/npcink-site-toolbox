@@ -14,17 +14,12 @@ import Email from "@/assets/page/function/share/email.png";
 import WeiBo from "@/assets/page/function/share/weibo.png";
 import Preview from "@/basic/preview";
 import FeatureSwitch from "@/basic/feature-switch";
-import { checkRiskyFeature } from "@/tool/riskyFeature.tsx";
 
 //选项类型
 type FieldType = PageFunction;
 
 //Ant 组件配置
 const fromConfig = AntConfig.from;
-
-const RISKY_FIELDS: Record<string, string> = {
-  top_ad: "page-function-top_ad",
-};
 
 const App: React.FC = () => {
   //拿到默认选项值和修改方法
@@ -41,20 +36,6 @@ const App: React.FC = () => {
     changedValues: Partial<FieldType>,
     _allValues: FieldType
   ) => {
-    const fieldKey = Object.keys(changedValues)[0];
-    const featureId = RISKY_FIELDS[fieldKey];
-    if (featureId) {
-      const newValue = changedValues[fieldKey as keyof FieldType];
-      const shouldProceed = checkRiskyFeature(featureId, newValue, () => {
-        setFormData((prevState) => ({
-          ...prevState,
-          ...changedValues,
-        }));
-      });
-      if (!shouldProceed) {
-        return;
-      }
-    }
     setFormData((prevState) => ({
       ...prevState,
       ...changedValues,

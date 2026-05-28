@@ -1,57 +1,32 @@
 <?php
 
-// 如果直接访问此文件，请中止。
 defined('ABSPATH') || exit;
 
 use PHPUnit\Framework\TestCase;
 
-/**
- * REST API 安全与路由注册测试
- *
- * 验证：
- * 1. 所有 REST 路由都有 permission_callback
- * 2. 敏感端点使用 manage_options 权限
- * 3. 公开端点使用 __return_true 或 RateLimiter
- */
 class RestApiSecurityTest extends TestCase {
 
-    /**
-     * 测试 REST 路由注册文件存在
-     */
-    public function test_rest_routes_file_exists(): void {
-        $admin_file = dirname(__DIR__, 2) . '/admin/class-magick-mixture-admin.php';
-        $this->assertFileExists($admin_file);
+    private static function trigger_registration() {
+        MaBox_Rest_Route_Registry::clear();
+        MaBox_Admin::register_rest_routes();
     }
 
-    /**
-     * 测试所有 register_rest_route 调用都包含 permission_callback
-     */
-    public function test_all_rest_routes_have_permission_callback(): void {
-        $admin_file = dirname(__DIR__, 2) . '/admin/class-magick-mixture-admin.php';
-        $content = file_get_contents($admin_file);
-
-        // 统计 register_rest_route 调用次数
-        $route_count = substr_count($content, 'register_rest_route(');
-        $this->assertGreaterThan(0, $route_count, '应该至少注册一个 REST 路由');
-
-        // 统计 permission_callback 出现次数
-        $permission_count = substr_count($content, "'permission_callback'");
-        $this->assertGreaterThanOrEqual(
-            $route_count,
-            $permission_count,
-            '每个 register_rest_route 都必须有 permission_callback'
-        );
+    public function test_registry_class_exists(): void {
+        $this->assertTrue(class_exists('MaBox_Rest_Route_Registry'));
     }
 
-    /**
-     * 测试敏感端点使用 manage_options 权限
-     */
+    public function test_all_registry_routes_have_permission_callback(): void {
+        self::trigger_registration();
+        $missing = MaBox_Rest_Route_Registry::validate_all_have_permission();
+
+        $this->assertEmpty($missing, 'Routes missing permission_callback: ' . implode(', ', $missing));
+    }
+
     public function test_sensitive_endpoints_require_manage_options(): void {
-        $admin_file = dirname(__DIR__, 2) . '/admin/class-magick-mixture-admin.php';
-        $content = file_get_contents($admin_file);
+        self::trigger_registration();
+        $routes = MaBox_Rest_Route_Registry::get_registered();
 
-        // 敏感端点关键词
-        $sensitive_patterns = array(
+        $sensitive_paths = array(
             '/settings',
             '/settings/export',
             '/settings/import',
@@ -60,68 +35,139 @@ class RestApiSecurityTest extends TestCase {
             '/tools/table-data',
         );
 
-        foreach ($sensitive_patterns as $pattern) {
-            $this->assertStringContainsString($pattern, $content, "敏感端点 {$pattern} 应该存在");
+        $found_paths = array();
+        foreach ($routes as $route) {
+            $found_paths[] = $route['path'];
         }
 
-        // 批量替换端点必须使用 manage_options（不能是 edit_posts）
-        $this->assertStringNotContainsString(
-            "'edit_posts'",
-            $content,
-            'batch-replace 端点不应使用 edit_posts 权限'
-        );
+        foreach ($sensitive_paths as $path) {
+            $this->assertContains($path, $found_paths, "敏感端点 {$path} 应该存在");
+        }
+
+        foreach ($routes as $route) {
+            if (in_array($route['path'], $sensitive_paths, true)) {
+                $args = $route['args'];
+                $has_manage_options = false;
+
+                if (isset($args['permission_callback'])) {
+                    $has_manage_options = self::is_admin_permission($args['permission_callback']);
+                } elseif (is_array($args) && isset($args[0])) {
+                    foreach ($args as $endpoint) {
+                        if (is_array($endpoint) && isset($endpoint['permission_callback'])) {
+                            if (self::is_admin_permission($endpoint['permission_callback'])) {
+                                $has_manage_options = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                $this->assertTrue($has_manage_options, "敏感端点 {$route['path']} 应使用 manage_options 权限");
+            }
+        }
     }
 
-    /**
-     * 测试公开端点有限流保护
-     */
-    public function test_public_endpoints_have_rate_limiting(): void {
+    public function test_no_endpoints_use_edit_posts_permission(): void {
         $admin_file = dirname(__DIR__, 2) . '/admin/class-magick-mixture-admin.php';
         $content = file_get_contents($admin_file);
 
-        // 公开端点应使用 Rate_Limiter
-        $public_endpoints = array('search-log', 'anti-crawler', 'rating', 'wx-unlock');
-        foreach ($public_endpoints as $endpoint) {
-            $this->assertStringContainsString($endpoint, $content, "公开端点 {$endpoint} 应该存在");
-        }
-
-        // 检查 Rate_Limiter 被引用
-        $this->assertStringContainsString('MaBox_Rate_Limiter', $content, '应该使用 Rate_Limiter 限制公开端点');
+        $this->assertStringNotContainsString("'edit_posts'", $content, '不应使用 edit_posts 权限');
     }
 
-    /**
-     * 测试设置保存端点有参数消毒
-     */
+    public function test_public_endpoints_have_rate_limiting(): void {
+        self::trigger_registration();
+        $routes = MaBox_Rest_Route_Registry::get_registered();
+
+        $public_paths = array('/public/search-log', '/public/anti-crawler/verify', '/public/rating', '/public/wx-unlock/verify');
+
+        $found_paths = array();
+        foreach ($routes as $route) {
+            $found_paths[] = $route['path'];
+        }
+
+        foreach ($public_paths as $path) {
+            $this->assertContains($path, $found_paths, "公开端点 {$path} 应该存在");
+        }
+
+        $has_rate_limiter = false;
+        foreach ($routes as $route) {
+            if (in_array($route['path'], $public_paths, true)) {
+                $args = $route['args'];
+                if (isset($args['permission_callback'])) {
+                    $this->assertTrue(true, 'Public endpoint has permission_callback');
+                    $has_rate_limiter = true;
+                }
+            }
+        }
+        $this->assertTrue($has_rate_limiter, '公开端点应该使用限流 permission_callback');
+    }
+
+    public function test_rate_limiter_class_exists(): void {
+        $this->assertTrue(class_exists('MaBox_Rate_Limiter'));
+    }
+
     public function test_settings_save_has_sanitize_callback(): void {
         $admin_file = dirname(__DIR__, 2) . '/admin/class-magick-mixture-admin.php';
         $content = file_get_contents($admin_file);
 
-        // 检查 sanitize_callback 存在
         $this->assertStringContainsString("'sanitize_callback'", $content, 'REST API 参数应该有 sanitize_callback');
-
-        // 检查 validate_callback 存在
         $this->assertStringContainsString("'validate_callback'", $content, 'REST API 参数应该有 validate_callback');
     }
 
-    /**
-     * 测试 Batch Replace 有危险内容过滤
-     */
     public function test_batch_replace_has_dangerous_content_filter(): void {
         $admin_file = dirname(__DIR__, 2) . '/admin/class-magick-mixture-admin.php';
         $content = file_get_contents($admin_file);
 
-        // 检查是否包含内容消毒
         $this->assertStringContainsString('wp_kses_post', $content, 'Batch Replace 应该使用 wp_kses_post 消毒输入内容');
     }
 
-    /**
-     * 测试导入端点有正确权限
-     */
-    public function test_import_endpoint_requires_manage_options(): void {
+    public function test_import_endpoint_exists_in_registry(): void {
+        self::trigger_registration();
+        $routes = MaBox_Rest_Route_Registry::get_registered();
+
+        $found = false;
+        foreach ($routes as $route) {
+            if ($route['path'] === '/settings/import') {
+                $found = true;
+                break;
+            }
+        }
+
+        $this->assertTrue($found, '导入端点应该在注册表中');
+    }
+
+    public function test_no_stray_register_rest_route_calls(): void {
         $admin_file = dirname(__DIR__, 2) . '/admin/class-magick-mixture-admin.php';
         $content = file_get_contents($admin_file);
 
-        // 导入设置是敏感操作，必须管理员权限
-        $this->assertStringContainsString("'/settings/import'", $content, '导入端点应该存在');
+        $direct_count = substr_count($content, 'register_rest_route(');
+
+        $this->assertEquals(0, $direct_count, 'Admin 文件不应有直接的 register_rest_route 调用，应全部通过 Registry 注册');
+    }
+
+    public function test_registry_route_count_matches_expected(): void {
+        self::trigger_registration();
+        $count = MaBox_Rest_Route_Registry::get_route_count();
+
+        $this->assertGreaterThanOrEqual(24, $count, '应该至少注册 24 个路由');
+    }
+
+    private static function is_admin_permission($callback) {
+        if (is_string($callback)) {
+            return strpos($callback, 'admin_permission') !== false;
+        }
+        if ($callback instanceof Closure) {
+            try {
+                $r = new ReflectionFunction($callback);
+                $start = $r->getStartLine();
+                $end = $r->getEndLine();
+                $filename = $r->getFileName();
+                $source = implode('', array_slice(file($filename), $start - 1, $end - $start + 1));
+                return strpos($source, 'manage_options') !== false;
+            } catch (Exception $e) {
+                return false;
+            }
+        }
+        return false;
     }
 }

@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Card, Row, Col, Tag } from "antd";
 import { StarFilled, MenuOutlined } from "@ant-design/icons";
 import { DndContext, closestCenter, KeyboardSensor, PointerSensor, useSensor, useSensors, DragEndEvent } from "@dnd-kit/core";
 import { arrayMove, SortableContext, sortableKeyboardCoordinates, useSortable, horizontalListSortingStrategy } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { getFavorites, reorderFavorites } from "@/tool/favorites";
-import { searchIndex } from "@/components/feature-search";
+import { fetchFeatureIndex, getFeatureIndexSync } from "@/tool/featureIndex";
+import { SearchItem } from "@/tool/featureIndexData";
 
 interface FavoritesPanelProps {
   optionData: any;
@@ -52,15 +53,26 @@ function SortableItem({ item }: { item: { id: string; label: string; tabKey: str
 }
 
 const FavoritesPanel: React.FC<FavoritesPanelProps> = ({ optionData }) => {
-  const [items, setItems] = useState(() => {
+  const [indexMap, setIndexMap] = useState<Record<string, SearchItem>>(() => {
+    const syncIndex = getFeatureIndexSync();
+    return Object.fromEntries(syncIndex.map((s) => [s.id, s]));
+  });
+
+  useEffect(() => {
+    fetchFeatureIndex().then((merged) => {
+      setIndexMap(Object.fromEntries(merged.map((s) => [s.id, s])));
+    });
+  }, []);
+
+  const buildItems = (): { id: string; label: string; tabKey: string; enabled: boolean }[] => {
     const favIds = getFavorites();
     return favIds.map((id: string) => {
-      const item = searchIndex.find((s: any) => s.id === id);
+      const item = indexMap[id];
       if (!item) return null;
       const parts = id.split("-");
       let enabled = false;
       try {
-        let current = optionData;
+        let current: any = optionData;
         for (let i = 0; i < parts.length; i++) {
           current = current[parts[i]];
         }
@@ -69,8 +81,14 @@ const FavoritesPanel: React.FC<FavoritesPanelProps> = ({ optionData }) => {
         enabled = false;
       }
       return { id, label: item.label, tabKey: item.tabKey, enabled };
-    }).filter(Boolean);
-  });
+    }).filter(Boolean) as { id: string; label: string; tabKey: string; enabled: boolean }[];
+  };
+
+  const [items, setItems] = useState(buildItems);
+
+  useEffect(() => {
+    setItems(buildItems());
+  }, [indexMap, optionData]);
 
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 8 } }),

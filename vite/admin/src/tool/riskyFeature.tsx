@@ -1,5 +1,7 @@
 import { Modal } from "antd";
 import { ExclamationCircleOutlined } from "@ant-design/icons";
+import { getUiSchemaSync, fetchUiSchema } from "@/tool/uiSchema";
+import { RiskInfo } from "@/tool/interface";
 
 const RISKY_FEATURES: Record<string, { title: string; warning: string; suggestion: string; noDismiss?: boolean }> = {
   "page-jurisdiction-ban_copy": {
@@ -79,6 +81,34 @@ const RISKY_FEATURES: Record<string, { title: string; warning: string; suggestio
 
 const STORAGE_KEY = "mabox_risky_dismissed";
 
+function resolveRiskInfoSync(featureId: string): { title: string; warning: string; suggestion: string; noDismiss?: boolean } | null {
+  const schema = getUiSchemaSync();
+  if (schema) {
+    const entry = schema[featureId];
+    if (entry?.risk) {
+      const r = entry.risk as RiskInfo;
+      return {
+        title: r.title,
+        warning: r.warning,
+        suggestion: r.suggestion,
+        noDismiss: r.noDismiss,
+      };
+    }
+    for (const [, val] of Object.entries(schema)) {
+      if (val.feature_id === featureId && val.risk) {
+        const r = val.risk as RiskInfo;
+        return {
+          title: r.title,
+          warning: r.warning,
+          suggestion: r.suggestion,
+          noDismiss: r.noDismiss,
+        };
+      }
+    }
+  }
+  return RISKY_FEATURES[featureId] || null;
+}
+
 function getDismissedFeatures(): string[] {
   try {
     const stored = localStorage.getItem(STORAGE_KEY);
@@ -108,12 +138,32 @@ export function checkRiskyFeature(
   newValue: unknown,
   onConfirm: () => void
 ): boolean {
-  const riskInfo = RISKY_FEATURES[featureId];
+  const riskInfo = resolveRiskInfoSync(featureId);
 
   if (!riskInfo) {
+    if (!getUiSchemaSync()) {
+      fetchUiSchema().then(() => {
+        const afterFetch = resolveRiskInfoSync(featureId);
+        if (afterFetch) {
+          showRiskConfirm(featureId, afterFetch, newValue, onConfirm);
+        } else {
+          onConfirm();
+        }
+      });
+      return false;
+    }
     return true;
   }
 
+  return showRiskConfirm(featureId, riskInfo, newValue, onConfirm);
+}
+
+function showRiskConfirm(
+  featureId: string,
+  riskInfo: { title: string; warning: string; suggestion: string; noDismiss?: boolean },
+  newValue: unknown,
+  onConfirm: () => void
+): boolean {
   const isEnabled = typeof newValue === "boolean" ? newValue : newValue !== "false" && newValue !== "";
   if (!isEnabled) {
     return true;

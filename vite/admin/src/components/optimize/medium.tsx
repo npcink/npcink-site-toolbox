@@ -5,17 +5,12 @@ import { OptimizeMedium } from "@/tool/interface";
 import { defaultVarOption } from "@/tool/defaultVar";
 import { AntConfig } from "@/tool/tool";
 import FeatureSwitch from "@/basic/feature-switch";
-import { checkRiskyFeature } from "@/tool/riskyFeature.tsx";
 
 //选项类型
 type FieldType = OptimizeMedium;
 
 //Ant 组件配置
 const fromConfig = AntConfig.from;
-
-const RISKY_FIELDS: Record<string, string> = {
-  no_auto_size: "optimize-medium-no_auto_size",
-};
 
 const App: React.FC = () => {
   //拿到默认选项值和修改方法
@@ -30,17 +25,6 @@ const App: React.FC = () => {
 
   //表单同步值
   const onValuesChange = (changedValues: Partial<FieldType>) => {
-    const fieldKey = Object.keys(changedValues)[0];
-    const featureId = RISKY_FIELDS[fieldKey];
-    if (featureId) {
-      const newValue = changedValues[fieldKey as keyof FieldType];
-      const shouldProceed = checkRiskyFeature(featureId, newValue, () => {
-        setFormData((prevState) => ({ ...prevState, ...changedValues }));
-      });
-      if (!shouldProceed) {
-        return;
-      }
-    }
     setFormData((prevState) => ({ ...prevState, ...changedValues }));
   };
 

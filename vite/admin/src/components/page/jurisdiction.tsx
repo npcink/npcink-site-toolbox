@@ -9,46 +9,25 @@ import { defaultVarOption } from "@/tool/defaultVar";
 import { AntConfig } from "@/tool/tool";
 import { getCategoryData } from "@/axios/axios";
 import TextAreaHtml from "@/basic/htmlInput";
-import { checkRiskyFeature } from "@/tool/riskyFeature.tsx";
 import FeatureSwitch from "@/basic/feature-switch";
 
 type FieldType = PageJurisdiction;
 
 const fromConfig = AntConfig.from;
 
-const RISKY_FIELDS: Record<string, string> = {
-  ban_copy: "page-jurisdiction-ban_copy",
-};
-
 const App: React.FC = () => {
   const { optionData, updateOption } = useContext(DataContext);
   const publicData =
     optionData.page?.jurisdiction || defaultVarOption.page.jurisdiction;
   const [formData, setFormData] = useState(publicData || {});
-
-  const applyChange = (changedValues: Partial<FieldType>) => {
-    setFormData((prevState) => ({
-      ...prevState,
-      ...changedValues,
-    }));
-  };
-
   const onValuesChange = (
     changedValues: Partial<FieldType>,
     _allValues: FieldType
   ) => {
-    const fieldKey = Object.keys(changedValues)[0];
-    const featureId = RISKY_FIELDS[fieldKey];
-    if (featureId) {
-      const newValue = changedValues[fieldKey as keyof FieldType];
-      const shouldProceed = checkRiskyFeature(featureId, newValue, () => {
-        applyChange(changedValues);
-      });
-      if (!shouldProceed) {
-        return;
-      }
-    }
-    applyChange(changedValues);
+    setFormData((prevState) => ({
+      ...prevState,
+      ...changedValues,
+    }));
   };
 
   //表单值发生变化时更新选项值

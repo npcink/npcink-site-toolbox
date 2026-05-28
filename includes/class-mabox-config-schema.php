@@ -42,8 +42,8 @@ if (!class_exists('MaBox_Config_Schema')) {
                     ),
                     'medium' => array(
                         'img_add_tag'     => array('type' => 'boolean', 'default' => false),
-                        'no_auto_size'    => array('type' => 'boolean', 'default' => false),
-                        'medium_add_svg'  => array('type' => 'boolean', 'default' => false),
+                        'no_auto_size'    => array('type' => 'boolean', 'default' => false, 'risk' => array('level' => 'low', 'title' => '禁止缩略图', 'warning' => '此功能可能与部分主题不兼容，导致图片显示异常。', 'suggestion' => '开启前请确认主题支持。'), 'feature_id' => 'optimize-medium-no_auto_size', 'label' => '禁止缩略图', 'group' => '媒体'),
+                        'medium_add_svg'  => array('type' => 'boolean', 'default' => false, 'risk' => array('level' => 'low', 'title' => 'SVG 上传支持', 'warning' => 'SVG 文件可能包含恶意脚本，已做安全过滤但仍需注意。', 'suggestion' => '仅允许可信用户上传 SVG 文件。'), 'feature_id' => 'optimize-medium-medium_add_svg', 'label' => 'SVG 上传支持', 'group' => '媒体'),
                         'upload_auto_name' => array('type' => 'string',  'default' => 'false', 'sanitize' => 'sanitize_text_field'),
                     ),
                     'admin' => array(
@@ -79,21 +79,21 @@ if (!class_exists('MaBox_Config_Schema')) {
                         'title_front'              => array('type' => 'string',  'default' => '(/≧▽≦/)你又回来啦！', 'sanitize' => 'sanitize_text_field'),
                         'title_after'              => array('type' => 'string',  'default' => '你别走吖 Σ(っ °Д °;)っ', 'sanitize' => 'sanitize_text_field'),
                         'top_loading'              => array('type' => 'boolean', 'default' => false),
-                        'particle'                 => array('type' => 'string',  'default' => 'false', 'sanitize' => 'sanitize_text_field'),
+                        'particle'                 => array('type' => 'string',  'default' => 'false', 'sanitize' => 'sanitize_text_field', 'risk' => array('level' => 'low', 'title' => '点击特效', 'warning' => '此功能会加载额外的 JS/CSS 资源，可能影响页面性能。', 'suggestion' => '移动端体验可能下降。'), 'feature_id' => 'page-feature-particle', 'label' => '点击特效', 'group' => '外观'),
                         'scrol'                    => array('type' => 'string',  'default' => 'false', 'sanitize' => 'sanitize_text_field'),
-                        'screen_hair'              => array('type' => 'boolean', 'default' => false),
-                        'site_grey'                => array('type' => 'boolean', 'default' => false),
-                        'lantern'                  => array('type' => 'boolean', 'default' => false),
+                        'screen_hair'              => array('type' => 'boolean', 'default' => false, 'risk' => array('level' => 'low', 'title' => '屏幕上的毛', 'warning' => '此功能会在页面上添加一根毛发装饰，可能分散用户注意力。', 'suggestion' => '正式商业站点建议关闭。'), 'feature_id' => 'page-feature-screen_hair', 'label' => '屏幕上的毛', 'group' => '外观'),
+                        'site_grey'                => array('type' => 'boolean', 'default' => false, 'risk' => array('level' => 'low', 'title' => '全站变灰', 'warning' => '此功能会将整个网站变为灰色，仅适合特殊纪念日使用。', 'suggestion' => '非特殊时间建议关闭。'), 'feature_id' => 'page-feature-site_grey', 'label' => '全站变灰', 'group' => '外观'),
+                        'lantern'                  => array('type' => 'boolean', 'default' => false, 'risk' => array('level' => 'low', 'title' => '灯笼效果', 'warning' => '此功能会加载额外资源，影响页面性能。', 'suggestion' => '仅在特殊节日短期开启。'), 'feature_id' => 'page-feature-lantern', 'label' => '灯笼效果', 'group' => '外观'),
                         'lantern_left'             => array('type' => 'string',  'default' => '春', 'sanitize' => 'sanitize_text_field'),
                         'lantern_right'            => array('type' => 'string',  'default' => '节', 'sanitize' => 'sanitize_text_field'),
-                        'pixel_chicken'            => array('type' => 'boolean', 'default' => false),
+                        'pixel_chicken'            => array('type' => 'boolean', 'default' => false, 'risk' => array('level' => 'low', 'title' => '像素小鸡', 'warning' => '此功能会在页脚添加动画元素，可能影响页面性能。', 'suggestion' => '移动端不显示，但性能敏感站点仍需谨慎。'), 'feature_id' => 'page-feature-pixel_chicken', 'label' => '像素小鸡', 'group' => '外观'),
                         'past_books'               => array('type' => 'boolean', 'default' => false),
                         'go_top'                   => array('type' => 'string',  'default' => 'false', 'sanitize' => 'sanitize_text_field'),
                         'page_back_top_cat_right'  => array('type' => 'number',  'default' => 60, 'min' => 0, 'max' => 200),
                         'copy_pop_up'              => array('type' => 'string',  'default' => 'false', 'sanitize' => 'sanitize_text_field'),
-                        'bottom_effect'            => array('type' => 'string',  'default' => 'false', 'sanitize' => 'sanitize_text_field'),
+                        'bottom_effect'            => array('type' => 'string',  'default' => 'false', 'sanitize' => 'sanitize_text_field', 'label' => '页底特效', 'group' => '外观'),
                         'page_scrolling'           => array('type' => 'boolean', 'default' => false),
-                        'background_effect'        => array('type' => 'string',  'default' => 'false', 'sanitize' => 'sanitize_text_field'),
+                        'background_effect'        => array('type' => 'string',  'default' => 'false', 'sanitize' => 'sanitize_text_field', 'risk' => array('level' => 'low', 'title' => '背景特效', 'warning' => '此功能可能消耗较多系统资源，影响页面加载速度和用户体验。', 'suggestion' => '性能敏感站点建议关闭。'), 'feature_id' => 'page-feature-background_effect', 'label' => '背景特效', 'group' => '外观'),
                         'reading_progress'         => array('type' => 'boolean', 'default' => false),
                         'reading_progress_color'    => array('type' => 'string',  'default' => '#1677ff', 'sanitize' => 'sanitize_hex_color'),
                         'reading_progress_height'  => array('type' => 'number',  'default' => 3, 'min' => 1, 'max' => 20),
@@ -129,7 +129,7 @@ if (!class_exists('MaBox_Config_Schema')) {
                         'default_thumbnail'       => array('type' => 'string',  'default' => '', 'sanitize' => 'esc_url_raw'),
                         'search_limit'            => array('type' => 'boolean', 'default' => false),
                         'search_limit_count'      => array('type' => 'number',  'default' => 10, 'min' => 1, 'max' => 100),
-                        'top_ad'                  => array('type' => 'boolean', 'default' => false),
+                        'top_ad'                  => array('type' => 'boolean', 'default' => false, 'risk' => array('level' => 'low', 'title' => '顶部广告位', 'warning' => '此功能允许插入自定义广告代码，请注意代码安全性。', 'suggestion' => '确保广告代码来源可信，避免 XSS 风险。'), 'feature_id' => 'page-function-top_ad', 'label' => '顶部广告位', 'group' => '功能'),
                         'top_ad_content'          => array('type' => 'string',  'default' => '', 'sanitize' => 'wp_kses_post'),
                         'top_ad_position'         => array('type' => 'string',  'default' => 'before_header', 'sanitize' => 'sanitize_text_field'),
                         'batch_replace'           => array('type' => 'boolean', 'default' => false),
@@ -160,7 +160,7 @@ if (!class_exists('MaBox_Config_Schema')) {
                         'wechat_xcx_link'         => array('type' => 'string',  'default' => '', 'sanitize' => 'esc_url_raw'),
                         'ban_open_qq'             => array('type' => 'boolean', 'default' => false),
                         'front_debug'             => array('type' => 'boolean', 'default' => false),
-                        'ban_copy'                => array('type' => 'boolean', 'default' => false),
+                        'ban_copy'                => array('type' => 'boolean', 'default' => false, 'risk' => array('level' => 'low', 'title' => '禁止复制', 'warning' => '此功能可能影响正常用户复制内容，导致用户无法复制文章中的代码或引用。', 'suggestion' => '内容站、教程站谨慎开启。'), 'feature_id' => 'page-jurisdiction-ban_copy', 'label' => '禁止复制', 'group' => '权限'),
                         'category_id'             => array('type' => 'array',   'default' => array()),
                         'tag_id'                  => array('type' => 'array',   'default' => array()),
                         'page_id'                => array('type' => 'array',   'default' => array()),
@@ -331,10 +331,10 @@ if (!class_exists('MaBox_Config_Schema')) {
                         'fail_limit_enabled'    => array('type' => 'boolean', 'default' => false),
                         'fail_limit_count'      => array('type' => 'number',  'default' => 5, 'min' => 1),
                         'fail_lock_duration'    => array('type' => 'number',  'default' => 30, 'min' => 1),
-                        'ip_lock_enabled'       => array('type' => 'boolean', 'default' => false),
+                        'ip_lock_enabled'       => array('type' => 'boolean', 'default' => false, 'risk' => array('level' => 'low', 'title' => 'IP 锁定', 'warning' => 'IP 锁定可能在反向代理环境下误判，导致正常用户被锁定。', 'suggestion' => '如使用 CDN 或反向代理，请配置可信代理 IP。'), 'feature_id' => 'domestic-login_security-ip_lock_enabled', 'label' => 'IP 锁定', 'group' => '登录安全'),
                         'ip_lock_count'         => array('type' => 'number',  'default' => 10, 'min' => 1),
                         'ip_lock_duration'      => array('type' => 'number',  'default' => 60, 'min' => 1),
-                        'custom_login_enabled'  => array('type' => 'boolean', 'default' => false),
+                        'custom_login_enabled'  => array('type' => 'boolean', 'default' => false, 'risk' => array('level' => 'high', 'title' => '自定义登录地址', 'warning' => '修改登录地址后，原 wp-login.php 将被重定向，配置错误可能导致无法登录。', 'suggestion' => '记住新的登录地址，避免锁定自己。', 'noDismiss' => true), 'feature_id' => 'domestic-login_security-custom_login_enabled', 'label' => '自定义登录地址', 'group' => '登录安全'),
                         'custom_login_slug'     => array('type' => 'string',  'default' => 'my-login', 'sanitize' => 'sanitize_title'),
                         'ban_enumeration_enabled' => array('type' => 'boolean', 'default' => false),
                         'login_notify_enabled'  => array('type' => 'boolean', 'default' => false),
@@ -367,7 +367,7 @@ if (!class_exists('MaBox_Config_Schema')) {
                         'hotwords_enabled'  => array('type' => 'boolean', 'default' => false),
                     ),
                     'db_clean' => array(
-                        'enabled'             => array('type' => 'boolean', 'default' => false),
+                        'enabled'             => array('type' => 'boolean', 'default' => false, 'risk' => array('level' => 'high', 'title' => '数据库清理', 'warning' => '数据库清理操作不可逆，删除的数据无法恢复。', 'suggestion' => '执行前务必先预览影响数量，并做好备份。', 'noDismiss' => true), 'feature_id' => 'performance-db_clean-enabled', 'label' => '数据库清理优化', 'group' => '数据库'),
                         'clean_revisions'    => array('type' => 'boolean', 'default' => false),
                         'clean_drafts'       => array('type' => 'boolean', 'default' => false),
                         'clean_spam_comments' => array('type' => 'boolean', 'default' => false),
@@ -435,6 +435,142 @@ if (!class_exists('MaBox_Config_Schema')) {
                 self::$schema = self::build_schema();
             }
             return self::$schema;
+        }
+
+        public static function get_ui_schema() {
+            $schema = self::get_schema();
+            $ui = array();
+
+            foreach ($schema as $module_key => $module_def) {
+                if ($module_key === '_option_key' || $module_key === '_flat') {
+                    continue;
+                }
+
+                if (!empty($module_def['_flat'])) {
+                    foreach ($module_def as $field_key => $field_def) {
+                        if ($field_key === '_option_key' || $field_key === '_flat') {
+                            continue;
+                        }
+                        if (!is_array($field_def) || !isset($field_def['type'])) {
+                            continue;
+                        }
+                        $ui_field = self::extract_ui_field($field_def, $module_key, '', $field_key);
+                        if ($ui_field !== null) {
+                            $ui[$module_key . '-' . $field_key] = $ui_field;
+                        }
+                    }
+                } else {
+                    foreach ($module_def as $sub_key => $sub_def) {
+                        if ($sub_key === '_option_key' || $sub_key === '_flat') {
+                            continue;
+                        }
+                        if (!is_array($sub_def)) {
+                            continue;
+                        }
+                        foreach ($sub_def as $field_key => $field_def) {
+                            if ($field_key === '_option_key' || $field_key === '_flat') {
+                                continue;
+                            }
+                            if (!is_array($field_def) || !isset($field_def['type'])) {
+                                continue;
+                            }
+                            $ui_field = self::extract_ui_field($field_def, $module_key, $sub_key, $field_key);
+                            if ($ui_field !== null) {
+                                $ui[$module_key . '-' . $sub_key . '-' . $field_key] = $ui_field;
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (class_exists('MaBox_Module_Metadata')) {
+                $module_ui = MaBox_Module_Metadata::get_ui_metadata();
+                $ui = self::merge_module_metadata($ui, $module_ui);
+            }
+
+            return $ui;
+        }
+
+        private static function merge_module_metadata($ui, $module_ui) {
+            foreach ($module_ui as $module_id => $meta) {
+                $matched = false;
+                foreach ($ui as $key => &$entry) {
+                    if (!empty($meta['feature_id']) && !empty($entry['feature_id']) && $entry['feature_id'] === $meta['feature_id']) {
+                        if (isset($meta['risk_tags']) && !empty($meta['risk_tags'])) {
+                            $entry['risk_tags'] = $meta['risk_tags'];
+                        }
+                        if (isset($meta['preset_tags']) && !empty($meta['preset_tags'])) {
+                            $entry['preset_tags'] = $meta['preset_tags'];
+                        }
+                        if (isset($meta['depends_on'])) {
+                            $entry['depends_on'] = $meta['depends_on'];
+                        }
+                        $matched = true;
+                        break;
+                    }
+                }
+                unset($entry);
+
+                if (!$matched && !empty($meta['feature_id'])) {
+                    $module_entry = array(
+                        'path'        => isset($meta['config_path']) ? $meta['config_path'] : $module_id,
+                        'type'        => 'module',
+                        'label'       => isset($meta['label']) ? $meta['label'] : '',
+                        'group'       => isset($meta['group']) ? $meta['group'] : '',
+                        'feature_id'  => $meta['feature_id'],
+                        'risk_tags'   => isset($meta['risk_tags']) ? $meta['risk_tags'] : array(),
+                        'risk'        => isset($meta['risk']) ? $meta['risk'] : array('level' => 'none'),
+                        'depends_on'  => isset($meta['depends_on']) ? $meta['depends_on'] : array(),
+                        'preset_tags' => isset($meta['preset_tags']) ? $meta['preset_tags'] : array(),
+                    );
+                    $ui[$meta['feature_id']] = $module_entry;
+                }
+            }
+
+            return $ui;
+        }
+
+        private static function extract_ui_field($field_def, $module_key, $sub_key, $field_key) {
+            $has_ui = isset($field_def['label']) || isset($field_def['risk']) ||
+                      isset($field_def['feature_id']) || isset($field_def['group']);
+            if (!$has_ui) {
+                return null;
+            }
+
+            $entry = array(
+                'path' => $module_key . ($sub_key ? '.' . $sub_key : '') . '.' . $field_key,
+                'type' => isset($field_def['type']) ? $field_def['type'] : 'string',
+            );
+
+            if (isset($field_def['label'])) {
+                $entry['label'] = $field_def['label'];
+            }
+            if (isset($field_def['group'])) {
+                $entry['group'] = $field_def['group'];
+            }
+            if (isset($field_def['feature_id'])) {
+                $entry['feature_id'] = $field_def['feature_id'];
+            }
+            if (isset($field_def['risk'])) {
+                $entry['risk'] = $field_def['risk'];
+            }
+            if (isset($field_def['depends_on'])) {
+                $entry['depends_on'] = $field_def['depends_on'];
+            }
+            if (isset($field_def['preset_tags'])) {
+                $entry['preset_tags'] = $field_def['preset_tags'];
+            }
+            if (isset($field_def['risk_tags'])) {
+                $entry['risk_tags'] = $field_def['risk_tags'];
+            } elseif (!empty($entry['risk']) && !empty($entry['risk']['level']) && $entry['risk']['level'] !== 'none') {
+                $tag_map = array('low' => '谨慎', 'high' => '安全');
+                $level = $entry['risk']['level'];
+                if (isset($tag_map[$level])) {
+                    $entry['risk_tags'] = array($tag_map[$level]);
+                }
+            }
+
+            return $entry;
         }
 
         /**

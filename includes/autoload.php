@@ -132,6 +132,7 @@ spl_autoload_register(function ($class) {
         'MaBox_Public' => 'public/class-magick-mixture-public.php',
         'MaBox_Public_Add_Share' => 'admin/partials/page/function/share/index.php',
         'MaBox_Rate_Limiter' => 'includes/class-magick-rate-limiter.php',
+        'MaBox_Rest_Route_Registry' => 'includes/class-mabox-rest-route-registry.php',
         'MaBox_Remove_Sitemap_Users' => 'admin/partials/optimize/site/remove_sitemap_users.php',
         'MaBox_Remove_WP_Version' => 'admin/partials/optimize/site/remove_wp_version.php',
         'MaBox_Search_Link_Simplify' => 'admin/partials/optimize/site/search_link_simplify.php',

@@ -1,27 +1,15 @@
-/**
- * FeatureSwitch - 封装 Switch + 收藏星标
- * 
- * 替代原生 Switch，为每个功能开关添加收藏功能。
- * 配合组件级的 RISKY_FIELDS + checkRiskyFeature 实现风险检测。
- * 
- * 用法：
- * <Form.Item label="功能名称" name="field_name">
- *   <FeatureSwitch featureId="category-field_name" />
- * </Form.Item>
- */
-import React from "react";
+import React, { useCallback } from "react";
 import { Switch } from "antd";
 import { StarOutlined, StarFilled } from "@ant-design/icons";
 import { isFavorite, toggleFavorite } from "@/tool/favorites";
+import { checkRiskyFeature } from "@/tool/riskyFeature";
 
 interface FeatureSwitchProps {
-  /** 功能唯一标识，格式: "category-field_name"，用于收藏和搜索定位 */
   featureId: string;
-  /** 传递给原生 Switch 的其他 props */
   [key: string]: any;
 }
 
-const FeatureSwitch: React.FC<FeatureSwitchProps> = ({ featureId, ...restProps }) => {
+const FeatureSwitch: React.FC<FeatureSwitchProps> = ({ featureId, onChange, ...restProps }) => {
   const favorited = isFavorite(featureId);
 
   const handleFavoriteClick = (e: React.MouseEvent) => {
@@ -30,9 +18,18 @@ const FeatureSwitch: React.FC<FeatureSwitchProps> = ({ featureId, ...restProps }
     toggleFavorite(featureId);
   };
 
+  const handleChange = useCallback((checked: boolean, event: any) => {
+    const shouldProceed = checkRiskyFeature(featureId, checked, () => {
+      onChange?.(checked, event);
+    });
+    if (shouldProceed) {
+      onChange?.(checked, event);
+    }
+  }, [featureId, onChange]);
+
   return (
     <div style={{ display: "inline-flex", alignItems: "center", gap: 8 }}>
-      <Switch {...restProps} />
+      <Switch {...restProps} onChange={handleChange} />
       <span
         onClick={handleFavoriteClick}
         style={{

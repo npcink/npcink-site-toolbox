@@ -449,12 +449,14 @@ class MaBox_Admin
 
         $schema = MaBox_Config_Schema::get_schema();
         $defaults = MaBox_Config_Schema::get_defaults();
+        $uiSchema = MaBox_Config_Schema::get_ui_schema();
 
         return rest_ensure_response([
             'success' => true,
             'data' => array(
                 'schema' => $schema,
                 'defaults' => $defaults,
+                'uiSchema' => $uiSchema,
             ),
         ]);
     }
@@ -562,21 +564,33 @@ class MaBox_Admin
      */
     public static function register_rest_routes()
     {
-        // 原有设置路由
-        register_rest_route('mabox/v1', '/settings', array(
+        MaBox_Rest_Route_Registry::clear();
+
+        self::register_settings_routes();
+        self::register_performance_routes();
+        self::register_page_routes();
+        self::register_tools_routes();
+        self::register_public_routes();
+        self::register_domestic_routes();
+        self::register_diagnostics_routes();
+
+        MaBox_Rest_Route_Registry::register_all();
+
+        do_action('mabox_register_rest_routes');
+    }
+
+    private static function register_settings_routes()
+    {
+        MaBox_Rest_Route_Registry::add('/settings', array(
             array(
                 'methods'             => \WP_REST_Server::READABLE,
                 'callback'            => array(__CLASS__, 'rest_get_settings'),
-                'permission_callback' => function () {
-                    return current_user_can('manage_options');
-                },
+                'permission_callback' => MaBox_Rest_Route_Registry::admin_permission(),
             ),
             array(
                 'methods'             => \WP_REST_Server::CREATABLE,
                 'callback'            => array(__CLASS__, 'rest_save_settings'),
-                'permission_callback' => function () {
-                    return current_user_can('manage_options');
-                },
+                'permission_callback' => MaBox_Rest_Route_Registry::admin_permission(),
                 'args'                => array(
                     'modules' => array(
                         'required'          => false,
@@ -596,48 +610,55 @@ class MaBox_Admin
                     ),
                 ),
             ),
-        ));
+        ), 'settings');
 
-        // Schema 路由
-        register_rest_route('mabox/v1', '/settings/schema', array(
+        MaBox_Rest_Route_Registry::add('/settings/schema', array(
             array(
                 'methods'             => \WP_REST_Server::READABLE,
                 'callback'            => array(__CLASS__, 'rest_get_schema'),
-                'permission_callback' => function () {
-                    return current_user_can('manage_options');
-                },
+                'permission_callback' => MaBox_Rest_Route_Registry::admin_permission(),
             ),
-        ));
+        ), 'settings');
 
-        // 导出设置
-        register_rest_route('mabox/v1', '/settings/export', array(
+        MaBox_Rest_Route_Registry::add('/settings/export', array(
             array(
                 'methods'             => \WP_REST_Server::READABLE,
                 'callback'            => array(__CLASS__, 'rest_export_settings'),
-                'permission_callback' => function () {
-                    return current_user_can('manage_options');
-                },
+                'permission_callback' => MaBox_Rest_Route_Registry::admin_permission(),
             ),
-        ));
+        ), 'settings');
 
-        // 导入设置
-        register_rest_route('mabox/v1', '/settings/import', array(
+        MaBox_Rest_Route_Registry::add('/settings/import', array(
             array(
                 'methods'             => \WP_REST_Server::CREATABLE,
                 'callback'            => array(__CLASS__, 'rest_import_settings'),
-                'permission_callback' => function () {
-                    return current_user_can('manage_options');
-                },
+                'permission_callback' => MaBox_Rest_Route_Registry::admin_permission(),
             ),
-        ));
+        ), 'settings');
 
-        // ===== Performance: Media Health =====
-        register_rest_route('mabox/v1', '/performance/media/check', array(
+        MaBox_Rest_Route_Registry::add('/settings/wizard-complete', array(
+            array(
+                'methods'             => \WP_REST_Server::CREATABLE,
+                'callback'            => array(__CLASS__, 'rest_wizard_complete'),
+                'permission_callback' => MaBox_Rest_Route_Registry::admin_permission(),
+                'args'                => array(
+                    'preset_id' => array(
+                        'required'          => false,
+                        'type'              => 'string',
+                        'description'       => '选用的配置方案 ID',
+                        'sanitize_callback' => 'sanitize_text_field',
+                    ),
+                ),
+            ),
+        ), 'settings');
+    }
+
+    private static function register_performance_routes()
+    {
+        MaBox_Rest_Route_Registry::add('/performance/media/check', array(
             'methods'             => \WP_REST_Server::CREATABLE,
             'callback'            => array('MaBox_Performance_Media_Health', 'ajax_check'),
-            'permission_callback' => function () {
-                return current_user_can('manage_options');
-            },
+            'permission_callback' => MaBox_Rest_Route_Registry::admin_permission(),
             'args'                => array(
                 'post_id' => array(
                     'required'          => false,
@@ -647,13 +668,12 @@ class MaBox_Admin
                     'sanitize_callback' => 'intval',
                 ),
             ),
-        ));
-        register_rest_route('mabox/v1', '/performance/media/fix-alt', array(
+        ), 'performance');
+
+        MaBox_Rest_Route_Registry::add('/performance/media/fix-alt', array(
             'methods'             => \WP_REST_Server::CREATABLE,
             'callback'            => array('MaBox_Performance_Media_Health', 'ajax_fix_alt'),
-            'permission_callback' => function () {
-                return current_user_can('manage_options');
-            },
+            'permission_callback' => MaBox_Rest_Route_Registry::admin_permission(),
             'args'                => array(
                 'post_id' => array(
                     'required'          => false,
@@ -662,15 +682,12 @@ class MaBox_Admin
                     },
                 ),
             ),
-        ));
+        ), 'performance');
 
-        // ===== Performance: SEO Checker =====
-        register_rest_route('mabox/v1', '/performance/seo/check', array(
+        MaBox_Rest_Route_Registry::add('/performance/seo/check', array(
             'methods'             => \WP_REST_Server::CREATABLE,
             'callback'            => array('MaBox_Performance_Seo_Checker', 'ajax_check'),
-            'permission_callback' => function () {
-                return current_user_can('manage_options');
-            },
+            'permission_callback' => MaBox_Rest_Route_Registry::admin_permission(),
             'args'                => array(
                 'post_id' => array(
                     'required'          => false,
@@ -679,13 +696,12 @@ class MaBox_Admin
                     },
                 ),
             ),
-        ));
-        register_rest_route('mabox/v1', '/performance/seo/fix-alt', array(
+        ), 'performance');
+
+        MaBox_Rest_Route_Registry::add('/performance/seo/fix-alt', array(
             'methods'             => \WP_REST_Server::CREATABLE,
             'callback'            => array('MaBox_Performance_Seo_Checker', 'ajax_fix_alt'),
-            'permission_callback' => function () {
-                return current_user_can('manage_options');
-            },
+            'permission_callback' => MaBox_Rest_Route_Registry::admin_permission(),
             'args'                => array(
                 'post_id' => array(
                     'required'          => false,
@@ -695,22 +711,18 @@ class MaBox_Admin
                     'sanitize_callback' => 'intval',
                 ),
             ),
-        ));
+        ), 'performance');
 
-        // ===== Performance: DB Clean =====
-        register_rest_route('mabox/v1', '/performance/db/stats', array(
+        MaBox_Rest_Route_Registry::add('/performance/db/stats', array(
             'methods'             => \WP_REST_Server::READABLE,
             'callback'            => array('MaBox_Performance_Db_Clean', 'ajax_stats'),
-            'permission_callback' => function () {
-                return current_user_can('manage_options');
-            },
-        ));
-        register_rest_route('mabox/v1', '/performance/db/preview', array(
+            'permission_callback' => MaBox_Rest_Route_Registry::admin_permission(),
+        ), 'performance');
+
+        MaBox_Rest_Route_Registry::add('/performance/db/preview', array(
             'methods'             => \WP_REST_Server::CREATABLE,
             'callback'            => array('MaBox_Performance_Db_Clean', 'ajax_preview'),
-            'permission_callback' => function () {
-                return current_user_can('manage_options');
-            },
+            'permission_callback' => MaBox_Rest_Route_Registry::admin_permission(),
             'args'                => array(
                 'type' => array(
                     'required'          => true,
@@ -720,13 +732,12 @@ class MaBox_Admin
                     },
                 ),
             ),
-        ));
-        register_rest_route('mabox/v1', '/performance/db/clean', array(
+        ), 'performance');
+
+        MaBox_Rest_Route_Registry::add('/performance/db/clean', array(
             'methods'             => \WP_REST_Server::CREATABLE,
             'callback'            => array('MaBox_Performance_Db_Clean', 'ajax_clean'),
-            'permission_callback' => function () {
-                return current_user_can('manage_options');
-            },
+            'permission_callback' => MaBox_Rest_Route_Registry::admin_permission(),
             'args'                => array(
                 'type' => array(
                     'required'          => true,
@@ -740,15 +751,15 @@ class MaBox_Admin
                     'sanitize_callback' => 'rest_sanitize_boolean',
                 ),
             ),
-        ));
+        ), 'performance');
+    }
 
-        // ===== Page: Batch Replace =====
-        register_rest_route('mabox/v1', '/page/batch-replace', array(
+    private static function register_page_routes()
+    {
+        MaBox_Rest_Route_Registry::add('/page/batch-replace', array(
             'methods'             => \WP_REST_Server::CREATABLE,
             'callback'            => array('MaBox_Page_Batch_Replace', 'manual_replace'),
-            'permission_callback' => function () {
-                return current_user_can('manage_options');
-            },
+            'permission_callback' => MaBox_Rest_Route_Registry::admin_permission(),
             'args'                => array(
                 'pairs' => array(
                     'required'          => true,
@@ -785,13 +796,12 @@ class MaBox_Admin
                     'sanitize_callback' => 'rest_sanitize_boolean',
                 ),
             ),
-        ));
-        register_rest_route('mabox/v1', '/page/batch-replace/rollback', array(
+        ), 'page');
+
+        MaBox_Rest_Route_Registry::add('/page/batch-replace/rollback', array(
             'methods'             => \WP_REST_Server::CREATABLE,
             'callback'            => array('MaBox_Page_Batch_Replace', 'rollback_all'),
-            'permission_callback' => function () {
-                return current_user_can('manage_options');
-            },
+            'permission_callback' => MaBox_Rest_Route_Registry::admin_permission(),
             'args'                => array(
                 'confirm' => array(
                     'required'          => true,
@@ -801,13 +811,12 @@ class MaBox_Admin
                     'sanitize_callback' => 'rest_sanitize_boolean',
                 ),
             ),
-        ));
-        register_rest_route('mabox/v1', '/page/batch-replace/rollback/(?P<post_id>\d+)', array(
+        ), 'page');
+
+        MaBox_Rest_Route_Registry::add('/page/batch-replace/rollback/(?P<post_id>\d+)', array(
             'methods'             => \WP_REST_Server::CREATABLE,
             'callback'            => array('MaBox_Page_Batch_Replace', 'rollback'),
-            'permission_callback' => function () {
-                return current_user_can('manage_options');
-            },
+            'permission_callback' => MaBox_Rest_Route_Registry::admin_permission(),
             'args'                => array(
                 'post_id' => array(
                     'required'          => true,
@@ -816,22 +825,21 @@ class MaBox_Admin
                     },
                 ),
             ),
-        ));
+        ), 'page');
+    }
 
-        // ===== Tools: Database Tables =====
-        register_rest_route('mabox/v1', '/tools/tables', array(
+    private static function register_tools_routes()
+    {
+        MaBox_Rest_Route_Registry::add('/tools/tables', array(
             'methods'             => \WP_REST_Server::READABLE,
             'callback'            => array('MaBox_Download_SQL_Table', 'get_all_table_names'),
-            'permission_callback' => function () {
-                return current_user_can('manage_options');
-            },
-        ));
-        register_rest_route('mabox/v1', '/tools/table-data', array(
+            'permission_callback' => MaBox_Rest_Route_Registry::admin_permission(),
+        ), 'tools');
+
+        MaBox_Rest_Route_Registry::add('/tools/table-data', array(
             'methods'             => \WP_REST_Server::CREATABLE,
             'callback'            => array('MaBox_Download_SQL_Table', 'get_table_data'),
-            'permission_callback' => function () {
-                return current_user_can('manage_options');
-            },
+            'permission_callback' => MaBox_Rest_Route_Registry::admin_permission(),
             'args'                => array(
                 'databaseName' => array(
                     'required'          => true,
@@ -855,20 +863,21 @@ class MaBox_Admin
                     'sanitize_callback' => 'intval',
                 ),
             ),
-        ));
+        ), 'tools');
 
-        // ===== Tools: Categories =====
-        register_rest_route('mabox/v1', '/tools/categories', array(
+        MaBox_Rest_Route_Registry::add('/tools/categories', array(
             'methods'             => \WP_REST_Server::READABLE,
             'callback'            => array('MaBox_Interface_Category_Data', 'get_all_category_names'),
-            'permission_callback' => '__return_true', // 公开分类数据，用于前端展示
-        ));
+            'permission_callback' => '__return_true',
+        ), 'tools');
+    }
 
-        // ===== Public: Search Log =====
-        register_rest_route('mabox/v1', '/public/search-log', array(
+    private static function register_public_routes()
+    {
+        MaBox_Rest_Route_Registry::add('/public/search-log', array(
             'methods'             => \WP_REST_Server::CREATABLE,
             'callback'            => array('MaBox_Performance_Search_Enhance', 'rest_log_search'),
-            'permission_callback' => MaBox_Rate_Limiter::permission_callback_with_nonce('search-log', 'mabox_public_api', array('max_requests' => 30, 'time_window' => 60)),
+            'permission_callback' => MaBox_Rest_Route_Registry::public_nonce_rate_limited('search-log', 'mabox_public_api', array('max_requests' => 30, 'time_window' => 60)),
             'args'                => array(
                 'keyword' => array(
                     'required'          => true,
@@ -878,13 +887,12 @@ class MaBox_Admin
                     'sanitize_callback' => 'sanitize_text_field',
                 ),
             ),
-        ));
+        ), 'public');
 
-        // ===== Public: Anti-Crawler Verify =====
-        register_rest_route('mabox/v1', '/public/anti-crawler/verify', array(
+        MaBox_Rest_Route_Registry::add('/public/anti-crawler/verify', array(
             'methods'             => \WP_REST_Server::CREATABLE,
             'callback'            => array('MaBox_Page_Anti_Crawler', 'ajax_verify'),
-            'permission_callback' => MaBox_Rate_Limiter::permission_callback_with_nonce('anti-crawler', 'mabox_public_api', array('max_requests' => 20, 'time_window' => 60)),
+            'permission_callback' => MaBox_Rest_Route_Registry::public_nonce_rate_limited('anti-crawler', 'mabox_public_api', array('max_requests' => 20, 'time_window' => 60)),
             'args'                => array(
                 'ticket' => array(
                     'required'          => true,
@@ -901,13 +909,12 @@ class MaBox_Admin
                     'sanitize_callback' => 'sanitize_text_field',
                 ),
             ),
-        ));
+        ), 'public');
 
-        // ===== Public: Article Rating =====
-        register_rest_route('mabox/v1', '/public/rating', array(
+        MaBox_Rest_Route_Registry::add('/public/rating', array(
             'methods'             => \WP_REST_Server::CREATABLE,
             'callback'            => array('MaBox_Page_Article_Rating', 'handle_rating'),
-            'permission_callback' => MaBox_Rate_Limiter::permission_callback_with_nonce('rating', 'mabox_public_api', array('max_requests' => 30, 'time_window' => 60)),
+            'permission_callback' => MaBox_Rest_Route_Registry::public_nonce_rate_limited('rating', 'mabox_public_api', array('max_requests' => 30, 'time_window' => 60)),
             'args'                => array(
                 'post_id' => array(
                     'required'          => true,
@@ -924,13 +931,12 @@ class MaBox_Admin
                     'sanitize_callback' => 'intval',
                 ),
             ),
-        ));
+        ), 'public');
 
-        // ===== Public: WX Unlock Verify =====
-        register_rest_route('mabox/v1', '/public/wx-unlock/verify', array(
+        MaBox_Rest_Route_Registry::add('/public/wx-unlock/verify', array(
             'methods'             => \WP_REST_Server::CREATABLE,
             'callback'            => array('MaBox_ShortCode_Wx_Unlock', 'ajax_verify'),
-            'permission_callback' => MaBox_Rate_Limiter::permission_callback_with_nonce('wx-unlock', 'mabox_public_api', array('max_requests' => 20, 'time_window' => 60)),
+            'permission_callback' => MaBox_Rest_Route_Registry::public_nonce_rate_limited('wx-unlock', 'mabox_public_api', array('max_requests' => 20, 'time_window' => 60)),
             'args'                => array(
                 'ticket' => array(
                     'required'          => true,
@@ -947,15 +953,15 @@ class MaBox_Admin
                     'sanitize_callback' => 'sanitize_text_field',
                 ),
             ),
-        ));
+        ), 'public');
+    }
 
-        // ===== Domestic: Baidu Push =====
-        register_rest_route('mabox/v1', '/domestic/baidu/push', array(
+    private static function register_domestic_routes()
+    {
+        MaBox_Rest_Route_Registry::add('/domestic/baidu/push', array(
             'methods'             => \WP_REST_Server::CREATABLE,
             'callback'            => array('MaBox_Domestic_Baidu_Push', 'rest_batch_push'),
-            'permission_callback' => function () {
-                return current_user_can('manage_options');
-            },
+            'permission_callback' => MaBox_Rest_Route_Registry::admin_permission(),
             'args'                => array(
                 'urls' => array(
                     'required'          => false,
@@ -970,27 +976,51 @@ class MaBox_Admin
                     'sanitize_callback' => 'intval',
                 ),
             ),
-        ));
+        ), 'domestic');
 
-        // ===== Diagnostics: Summary =====
-        register_rest_route('mabox/v1', '/diagnostics/summary', array(
+        MaBox_Rest_Route_Registry::add('/domestic/environment/check', array(
+            array(
+                'methods'             => \WP_REST_Server::READABLE,
+                'callback'            => array('MaBox_Domestic_Environment', 'rest_check'),
+                'permission_callback' => MaBox_Rest_Route_Registry::admin_permission(),
+            ),
+        ), 'domestic');
+
+        MaBox_Rest_Route_Registry::add('/domestic/environment/apply', array(
+            array(
+                'methods'             => \WP_REST_Server::CREATABLE,
+                'callback'            => array('MaBox_Domestic_Environment', 'rest_apply'),
+                'permission_callback' => MaBox_Rest_Route_Registry::admin_permission(),
+                'args'                => array(
+                    'fixes' => array(
+                        'required'          => true,
+                        'type'              => 'array',
+                        'description'       => '要修复的项目列表',
+                        'items'             => array('type' => 'string'),
+                        'sanitize_callback' => function ($value) {
+                            return is_array($value) ? array_map('sanitize_text_field', $value) : array();
+                        },
+                    ),
+                ),
+            ),
+        ), 'domestic');
+    }
+
+    private static function register_diagnostics_routes()
+    {
+        MaBox_Rest_Route_Registry::add('/diagnostics/summary', array(
             array(
                 'methods'             => \WP_REST_Server::READABLE,
                 'callback'            => array(__CLASS__, 'rest_get_diagnostics_summary'),
-                'permission_callback' => function () {
-                    return current_user_can('manage_options');
-                },
+                'permission_callback' => MaBox_Rest_Route_Registry::admin_permission(),
             ),
-        ));
+        ), 'diagnostics');
 
-        // ===== Search Health: Summary =====
-        register_rest_route('mabox/v1', '/search-health/summary', array(
+        MaBox_Rest_Route_Registry::add('/search-health/summary', array(
             array(
                 'methods'             => \WP_REST_Server::READABLE,
                 'callback'            => array('MaBox_Search_Health', 'rest_get_summary'),
-                'permission_callback' => function () {
-                    return current_user_can('manage_options');
-                },
+                'permission_callback' => MaBox_Rest_Route_Registry::admin_permission(),
                 'args'                => array(
                     'days' => array(
                         'required'          => false,
@@ -1004,60 +1034,7 @@ class MaBox_Admin
                     ),
                 ),
             ),
-        ));
-
-        // ===== Wizard: Complete =====
-        register_rest_route('mabox/v1', '/settings/wizard-complete', array(
-            array(
-                'methods'             => \WP_REST_Server::CREATABLE,
-                'callback'            => array(__CLASS__, 'rest_wizard_complete'),
-                'permission_callback' => function () {
-                    return current_user_can('manage_options');
-                },
-                'args'                => array(
-                    'preset_id' => array(
-                        'required'          => false,
-                        'type'              => 'string',
-                        'description'       => '选用的配置方案 ID',
-                        'sanitize_callback' => 'sanitize_text_field',
-                    ),
-                ),
-            ),
-        ));
-
-        // ===== Domestic: Environment =====
-        register_rest_route('mabox/v1', '/domestic/environment/check', array(
-            array(
-                'methods'             => \WP_REST_Server::READABLE,
-                'callback'            => array('MaBox_Domestic_Environment', 'rest_check'),
-                'permission_callback' => function () {
-                    return current_user_can('manage_options');
-                },
-            ),
-        ));
-        register_rest_route('mabox/v1', '/domestic/environment/apply', array(
-            array(
-                'methods'             => \WP_REST_Server::CREATABLE,
-                'callback'            => array('MaBox_Domestic_Environment', 'rest_apply'),
-                'permission_callback' => function () {
-                    return current_user_can('manage_options');
-                },
-                'args'                => array(
-                    'fixes' => array(
-                        'required'          => true,
-                        'type'              => 'array',
-                        'description'       => '要修复的项目列表',
-                        'items'             => array('type' => 'string'),
-                        'sanitize_callback' => function ($value) {
-                            return is_array($value) ? array_map('sanitize_text_field', $value) : array();
-                        },
-                    ),
-                ),
-            ),
-        ));
-
-        // 触发模块路由注册钩子（统一路由注册模式）
-        do_action('mabox_register_rest_routes');
+        ), 'diagnostics');
     }
 
     /**
