@@ -38,11 +38,6 @@ export type Option = {
     beautify: LoginBeautify; //美化
     security: LoginSecurity; //安全
   };
-  //短代码
-  shortcode: {
-    compose: CodeCompose; //板式
-    pendant: CodePendant; //挂件
-  };
   //国内生态
   domestic: {
     compliance: DomesticCompliance; //备案与合规
@@ -214,23 +209,15 @@ export type PageComment = {
 
 //页面 - 外观特效
 export type PageFeature = {
-  title: boolean; //动态标题
-  title_front: string; //回到当前标签
-  title_after: string; //离开标签后
   top_loading: boolean; //顶部加载进度条
 
   scrol: string; //美化滚动条
 
   site_grey: boolean; //网站变灰
 
-
-
-  go_top: string; //返回顶部
-  page_back_top_cat_right: number; //右边距
   copy_pop_up: string; //鼠标点击复制弹窗
 
   page_scrolling: boolean; //平滑滚动
-
 
   reading_progress: boolean; //页顶阅读进度条
   reading_progress_color: string; //进度条颜色
@@ -246,7 +233,6 @@ export type PageFunction = {
   add_inks: boolean; //关键词自动添加链接
   go_middle: string; //链接跳转中间页
   remove_single_link: boolean; //移除文章内超链接
-  color_tag: boolean; //彩色标签云特效
   add_last_update: boolean; //添加最后更新时间
   no_login_img: boolean; //未登录模糊图片
   maintenance_tips: string; //维护提示
@@ -270,25 +256,15 @@ export type PageFunction = {
   default_thumbnail: string; //默认文章缩略图
   search_limit: boolean; //限制搜索频次
   search_limit_count: number; //每分钟最大搜索次数
-  top_ad: boolean; //顶部广告位
-  top_ad_content: string; //广告内容
-  top_ad_position: string; //广告位置
   batch_replace: boolean; //文章批量替换
   batch_replace_pairs: Array<{find: string; replace: string}>; //替换规则
   login_search: boolean; //仅登录可搜索
 
-  header_notice: boolean; //页眉通知栏
-  header_notice_text: string; //通知文本
-  header_notice_color: string; //通知颜色
-  header_notice_link: string; //通知链接
-  header_notice_dismissible: boolean; //可关闭
   anti_crawler: boolean; //进阶防刷
   anti_crawler_max_requests: number; //最大请求数
   anti_crawler_time_window: number; //时间窗口(秒)
   anti_crawler_tecent_id: string; //腾讯防水墙AppID
   anti_crawler_tecent_key: string; //腾讯防水墙AppKey
-  link_source: boolean; //文章链接添加来源
-  source_key: string; //来源标识
 
 };
 
@@ -359,42 +335,10 @@ export type LoginSecurity = {
   tecent_key: string; //腾讯秘钥
 };
 
-//板式
-export type CodeCompose = {
-  single_list: boolean; //文章列表
-  single_copy: boolean; //复制
-  runcode: boolean; //运行代码
-  bilibili: boolean; //Bilibili视频嵌入
-  wx_unlock: boolean; //公众号解锁内容
-  wx_unlock_name: string; //公众号名称
-  wx_unlock_qrcode: string; //公众号二维码
-  wx_unlock_codes: string; //验证码列表
-  wx_unlock_tip: string; //解锁提示
-  wx_unlock_keyword_tip: string; //关键词提示
-  reward: boolean; //打赏模块
-  reward_wx_qr: string; //微信收款码
-  reward_ali_qr: string; //支付宝收款码
-  reward_title: string; //打赏标题
-  reward_wx_text: string; //微信标签
-  reward_ali_text: string; //支付宝标签
-  reward_btn_text: string; //按钮文字
-};
-
-//挂件
-export type CodePendant = {
-  merc_map: boolean; //足迹
-  merc_location: mapData[]; //地点
-};
 //下拉列表类型
 export type ListData = {
   label: string;
   value: string;
-};
-
-//地图数据表类型
-type mapData = {
-  latLng: number[];
-  name: string;
 };
 
 

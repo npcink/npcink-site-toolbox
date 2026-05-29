@@ -48,8 +48,8 @@ class MetadataAggregationTest extends TestCase {
         MaBox_Module_Metadata::reset_cache();
         $merged = MaBox_Module_Metadata::get_registry();
 
-        $this->assertArrayHasKey('shortcode.main', $merged);
-        $meta = $merged['shortcode.main'];
+        $this->assertArrayHasKey('optimize.widgets', $merged);
+        $meta = $merged['optimize.widgets'];
 
         $this->assertTrue($meta['always_load'], 'always_load from manifest should be preserved');
     }

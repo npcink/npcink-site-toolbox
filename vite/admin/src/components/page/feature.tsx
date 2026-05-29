@@ -47,23 +47,6 @@ const App: React.FC = () => {
         <h3 className="menu-header">特效</h3>
 
         <ModuleRow
-          title="动态标题"
-          description="离开当前页面后，在标签页上显示有趣的文本"
-          featureId="page-feature-title"
-          enabled={formData.title as boolean}
-          onChange={(checked: boolean) => {
-            onValuesChange({ title: checked } as Partial<FieldType>, formData);
-          }}
-        >
-          <Form.Item<FieldType> label="回到当前页" name="title_front">
-            <Input style={{ width: "50%" }} />
-          </Form.Item>
-          <Form.Item<FieldType> label="离开当前页" name="title_after">
-            <Input style={{ width: "50%" }} />
-          </Form.Item>
-        </ModuleRow>
-
-        <ModuleRow
           title="顶部加载进度条"
           description="火狐浏览器不显示"
           featureId="page-feature-top_loading"
@@ -168,30 +151,6 @@ const App: React.FC = () => {
         <h3 className="menu-header">挂件</h3>
 
 
-
-
-
-
-
-
-
-        <Form.Item<FieldType>
-          id="page-feature-go_top"
-          label="返回顶部"
-          name="go_top"
-          extra={<>屏幕底部右侧，添加返回顶部挂件</>}
-        >
-          <FixedImage alists={goTopList} />
-        </Form.Item>
-        {formData.go_top == "cord_cat" && (
-          <Form.Item<FieldType>
-            label="猫猫距离右边"
-            name="page_back_top_cat_right"
-            extra={"右边距离"}
-          >
-            <InputNumber addonAfter={"px"} style={{ width: "120px" }} />
-          </Form.Item>
-        )}
       </Form>
     </SettingsSection>
   );
@@ -211,16 +170,6 @@ import Sweetalert from "@/assets/page/feature/popUp/通用圆角.png";
 const popUpList = [
   { value: "concise", label: Concise, title: "原生弹窗" },
   { value: "sweetalert", label: Sweetalert, title: "通用圆角" },
-];
-
-//返回顶部
-import Smooth_arrow from "@/assets/page/feature/go_top/平滑箭头.png";
-import Peep_cat from "@/assets/page/feature/go_top/偷瞄猫猫.png";
-import Cord_cat from "@/assets/page/feature/go_top/抓绳猫猫.png";
-const goTopList = [
-  { value: "smooth_arrow", label: Smooth_arrow, title: "平滑箭头" },
-  { value: "peep_cat", label: Peep_cat, title: "偷瞄猫猫" },
-  { value: "cord_cat", label: Cord_cat, title: "抓绳猫猫" },
 ];
 
 export default App;

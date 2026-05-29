@@ -27,7 +27,6 @@ return array(
         'seo.seo_category_add_meat',
         'auxiliary.census_single', 'auxiliary.ban_malice_search',
         'login.login_verify',
-        'shortcode.main', 'shortcode.compose', 'shortcode.pendant',
 
         'domestic.compliance', 'domestic.baidu_push', 'domestic.wechat',
         'domestic.comment_security', 'domestic.login_security',
@@ -44,10 +43,9 @@ return array(
         'page.ban_pure_english', 'page.only_comment_once',
         'page.comment_sensitive_words', 'page.comment_baidu_moderation',
         'page.comment_modify_user_style',
-        'page.link_source', 'page.reading_progress', 'page.font_switch',
-        'page.go_top', 'page.scrolling', 'page.unlisted_vague_img',
+        'page.reading_progress', 'page.font_switch',
+        'page.scrolling', 'page.unlisted_vague_img',
         'page.jump_middle_page', 'page.share',
-        'page.header_notice', 'page.color_tags',
         'page.login_search',
         'page.anti_crawler',
 
@@ -56,7 +54,6 @@ return array(
     // ===== advanced: 进阶功能 =====
     'advanced' => array(
         'page.maintenance_tips',
-        'page.top_ad',
         'optimize.svg_support',
     ),
 
@@ -75,7 +72,7 @@ return array(
     // ===== experimental: 实验性功能 =====
     'experimental' => array(
         'page.top_loading', 'page.all_grey',
-        'page.copy_pop_up', 'page.dynamic_title',
+        'page.copy_pop_up',
         'page.add_scroll_bar', 'page.lang_jf',
         'page.hide_category', 'page.hide_tag', 'page.hide_page',
         'login.change_login_logo_link', 'login.remove_login_lang_select',

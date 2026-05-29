@@ -48,7 +48,6 @@ const LABEL_MAP: Record<string, string> = {
   "page.function.login_search": "仅登录可搜索",
   "page.function.anti_crawler": "防爬虫",
   "page.feature.page_scrolling": "平滑滚动",
-  "page.feature.go_top": "返回顶部",
   "page.feature.reading_progress": "阅读进度条",
   "page.feature.top_loading": "顶部加载条",
   "page.jurisdiction.ban_copy": "禁止复制",

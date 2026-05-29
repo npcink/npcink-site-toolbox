@@ -7,7 +7,6 @@ describe('defaultVar', () => {
     expect(defaultVarOption).toHaveProperty('page');
     expect(defaultVarOption).toHaveProperty('function');
     expect(defaultVarOption).toHaveProperty('login');
-    expect(defaultVarOption).toHaveProperty('shortcode');
     expect(defaultVarOption).toHaveProperty('domestic');
     expect(defaultVarOption).toHaveProperty('performance');
     expect(defaultVarOption).toHaveProperty('ai_review');
@@ -46,10 +45,5 @@ describe('defaultVar', () => {
     expect(Array.isArray(defaultVarOption.page.function.batch_replace_pairs)).toBe(true);
   });
 
-  it('should have valid merc_location array', () => {
-    const { merc_location } = defaultVarOption.shortcode.pendant;
-    expect(Array.isArray(merc_location)).toBe(true);
-    expect(merc_location[0]).toHaveProperty('latLng');
-    expect(merc_location[0]).toHaveProperty('name');
-  });
+
 });

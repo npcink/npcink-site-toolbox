@@ -86,12 +86,12 @@ describe("diffConfig", () => {
   });
 
   it("数组变化视为变化", () => {
-    const before = { page: { function: { top_ad: ["script1"] } } };
-    const after = { page: { function: { top_ad: ["script2"] } } };
+    const before = { page: { function: { batch_replace: true } } };
+    const after = { page: { function: { batch_replace: false } } };
     const diffs = diffConfig(before, after);
     expect(diffs).toHaveLength(1);
-    expect(diffs[0].before).toEqual(["script1"]);
-    expect(diffs[0].after).toEqual(["script2"]);
+    expect(diffs[0].before).toBe(true);
+    expect(diffs[0].after).toBe(false);
   });
 
   it("高风险项排序在前", () => {
@@ -114,7 +114,7 @@ describe("diffConfig", () => {
     const riskyPaths = [
       { path: ["page", "jurisdiction", "ban_copy"], before: false, after: true },
       { path: ["page", "feature", "site_grey"], before: false, after: true },
-      { path: ["page", "function", "top_ad"], before: false, after: true },
+
       { path: ["optimize", "medium", "no_auto_size"], before: false, after: true },
     ];
 

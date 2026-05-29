@@ -80,13 +80,6 @@ class ModuleRegistryConsistency_Test extends TestCase {
         $this->assertDirectoryDoesNotExist($dir);
     }
 
-    public function test_jvectormap_files_deleted(): void {
-        $map_dir = self::$plugin_dir . '/admin/partials/shortcode/pendant/merc_map/';
-        $this->assertFileDoesNotExist($map_dir . 'jquery-jvectormap-1.2.2.min.js');
-        $this->assertFileDoesNotExist($map_dir . 'jquery-jvectormap-cn-merc-en.js');
-        $this->assertFileDoesNotExist($map_dir . 'jquery-jvectormap-1.2.2.css');
-    }
-
     public function test_maintenance_deleted_templates_absent(): void {
         $maintenance_dir = self::$plugin_dir . '/admin/partials/page/function/maintenance/';
         $this->assertDirectoryDoesNotExist($maintenance_dir . 'purple');
@@ -99,19 +92,6 @@ class ModuleRegistryConsistency_Test extends TestCase {
         $maintenance_dir = self::$plugin_dir . '/admin/partials/page/function/maintenance/';
         $this->assertDirectoryExists($maintenance_dir . 'default');
         $this->assertFileExists($maintenance_dir . 'red.php');
-    }
-
-    public function test_merc_map_shortcode_handler_exists(): void {
-        $file = self::$plugin_dir . '/admin/partials/shortcode/pendant/merc_map/index.php';
-        $this->assertFileExists($file);
-    }
-
-    public function test_merc_map_implements_interface(): void {
-        require_once self::$plugin_dir . '/admin/partials/shortcode/pendant/merc_map/index.php';
-        $this->assertTrue(
-            is_subclass_of('MaBox_ShortCode_Merc_Map', 'MaBox_Module_Interface'),
-            'MaBox_ShortCode_Merc_Map should implement MaBox_Module_Interface'
-        );
     }
 
     public function test_schema_has_no_h5_branch(): void {
@@ -128,37 +108,6 @@ class ModuleRegistryConsistency_Test extends TestCase {
     public function test_config_manager_has_no_h5_mapping(): void {
         $map = MaBox_Config_Manager::get_module_map();
         $this->assertArrayNotHasKey('h5', $map);
-    }
-
-    public function test_merc_map_local_echarts_exists(): void {
-        $assets_dir = self::$plugin_dir . '/admin/partials/shortcode/pendant/merc_map/assets/';
-        $this->assertFileExists($assets_dir . 'echarts.min.js');
-    }
-
-    public function test_merc_map_local_china_geojson_exists(): void {
-        $assets_dir = self::$plugin_dir . '/admin/partials/shortcode/pendant/merc_map/assets/';
-        $this->assertFileExists($assets_dir . 'china.json');
-    }
-
-    public function test_merc_map_no_cdn_china_js_reference(): void {
-        $file = self::$plugin_dir . '/admin/partials/shortcode/pendant/merc_map/index.php';
-        $content = file_get_contents($file);
-        $this->assertStringNotContainsString('echarts@6/map/js/china.js', $content);
-        $this->assertStringNotContainsString('jquery-jvectormap', $content);
-    }
-
-    public function test_merc_map_uses_local_assets(): void {
-        $file = self::$plugin_dir . '/admin/partials/shortcode/pendant/merc_map/index.php';
-        $content = file_get_contents($file);
-        $this->assertStringContainsString("self::\$assets_url . 'echarts.min.js'", $content);
-        $this->assertStringContainsString('echarts.registerMap', $content);
-    }
-
-    public function test_merc_map_validates_coordinates(): void {
-        $file = self::$plugin_dir . '/admin/partials/shortcode/pendant/merc_map/index.php';
-        $content = file_get_contents($file);
-        $this->assertStringContainsString('lat >= -90 && lat <= 90', $content);
-        $this->assertStringContainsString('lng >= -180 && lng <= 180', $content);
     }
 
     public function test_no_escape_no_global_the_title_filter(): void {
@@ -197,6 +146,14 @@ class ModuleRegistryConsistency_Test extends TestCase {
         ];
     }
 
+    private static function removedP2Modules(): array {
+        return [
+            'page.dynamic_title', 'page.go_top', 'page.color_tags',
+            'page.top_ad', 'page.header_notice', 'page.link_source',
+            'shortcode.main', 'shortcode.compose', 'shortcode.pendant',
+        ];
+    }
+
     public function test_p0_modules_removed_from_registry(): void {
         $registry = MaBox_Module_Loader::get_registry();
         foreach (self::removedP0Modules() as $module_id) {
@@ -207,6 +164,13 @@ class ModuleRegistryConsistency_Test extends TestCase {
     public function test_p1_modules_removed_from_registry(): void {
         $registry = MaBox_Module_Loader::get_registry();
         foreach (self::removedP1Modules() as $module_id) {
+            $this->assertArrayNotHasKey($module_id, $registry, "$module_id should not be in registry");
+        }
+    }
+
+    public function test_p2_modules_removed_from_registry(): void {
+        $registry = MaBox_Module_Loader::get_registry();
+        foreach (self::removedP2Modules() as $module_id) {
             $this->assertArrayNotHasKey($module_id, $registry, "$module_id should not be in registry");
         }
     }
@@ -223,6 +187,15 @@ class ModuleRegistryConsistency_Test extends TestCase {
     public function test_p1_modules_removed_from_tiers(): void {
         $tiers = MaBox_Module_Loader::get_tiers();
         foreach (self::removedP1Modules() as $module_id) {
+            foreach ($tiers as $tier => $modules) {
+                $this->assertNotContains($module_id, $modules, "$module_id should not be in tier '$tier'");
+            }
+        }
+    }
+
+    public function test_p2_modules_removed_from_tiers(): void {
+        $tiers = MaBox_Module_Loader::get_tiers();
+        foreach (self::removedP2Modules() as $module_id) {
             foreach ($tiers as $tier => $modules) {
                 $this->assertNotContains($module_id, $modules, "$module_id should not be in tier '$tier'");
             }
@@ -259,6 +232,23 @@ class ModuleRegistryConsistency_Test extends TestCase {
             'page/jurisdiction/front_debug.php',
             'page/function/article_rating.php',
             'page/function/article_rating.js',
+        ];
+        foreach ($deleted_paths as $path) {
+            $full = $partials . $path;
+            $this->assertFileDoesNotExist($full, "$path should be deleted");
+        }
+    }
+
+    public function test_p2_module_files_deleted(): void {
+        $partials = self::$plugin_dir . '/admin/partials/';
+        $deleted_paths = [
+            'page/exterior/go_top',
+            'page/exterior/dynamic_title.php',
+            'page/function/top_ad.php',
+            'page/function/header_notice.php',
+            'page/function/link_source.php',
+            'page/function/color_tags.php',
+            'shortcode',
         ];
         foreach ($deleted_paths as $path) {
             $full = $partials . $path;
@@ -376,5 +366,54 @@ class ModuleRegistryConsistency_Test extends TestCase {
     public function test_frontend_assets_template_dir_deleted(): void {
         $dir = self::$plugin_dir . '/vite/admin/src/assets/template';
         $this->assertDirectoryDoesNotExist($dir);
+    }
+
+    public function test_schema_has_no_shortcode_branch(): void {
+        $schema = MaBox_Config_Schema::get_schema();
+        $this->assertArrayNotHasKey('shortcode', $schema);
+    }
+
+    public function test_schema_page_feature_has_no_p2_fields(): void {
+        $schema = MaBox_Config_Schema::get_schema();
+        $feature = $schema['page']['feature'];
+        $removed = ['title', 'go_top', 'page_back_top_cat_right'];
+        foreach ($removed as $field) {
+            $this->assertArrayNotHasKey($field, $feature, "page.feature.$field should not exist in schema");
+        }
+    }
+
+    public function test_schema_page_function_has_no_p2_fields(): void {
+        $schema = MaBox_Config_Schema::get_schema();
+        $func = $schema['page']['function'];
+        $removed = ['color_tag', 'top_ad', 'top_ad_content', 'top_ad_position', 'header_notice', 'header_notice_text', 'header_notice_color', 'header_notice_link', 'header_notice_dismissible', 'link_source', 'source_key'];
+        foreach ($removed as $field) {
+            $this->assertArrayNotHasKey($field, $func, "page.function.$field should not exist in schema");
+        }
+    }
+
+    public function test_config_manager_has_no_shortcode_mapping(): void {
+        $map = MaBox_Config_Manager::get_module_map();
+        $this->assertArrayNotHasKey('shortcode', $map);
+    }
+
+    public function test_shortcode_directory_deleted(): void {
+        $dir = self::$plugin_dir . '/admin/partials/shortcode';
+        $this->assertDirectoryDoesNotExist($dir);
+    }
+
+    public function test_docs_site_has_no_p2_feature_pages(): void {
+        $docs = self::$plugin_dir . '/docs-site/features/';
+        $deleted = [
+            'page-appearance/dynamic-title.md',
+            'page-appearance/back-to-top.md',
+            'page-function/top-ad-slot.md',
+            'page-function/header-notice.md',
+            'page-function/link-source.md',
+            'page-function/colorful-tag-cloud.md',
+        ];
+        foreach ($deleted as $path) {
+            $this->assertFileDoesNotExist($docs . $path, "$path should be deleted");
+        }
+        $this->assertDirectoryDoesNotExist($docs . 'shortcodes');
     }
 }

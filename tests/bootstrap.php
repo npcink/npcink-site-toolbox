@@ -25,7 +25,6 @@ if ( ! defined( 'MAGICK_MIXTURE_OPTION_OPTIMIZE' ) ) {
 	define( 'MAGICK_MIXTURE_OPTION_PAGE', 'Magick_ToolBox_Option_Page' );
 	define( 'MAGICK_MIXTURE_OPTION_FUNCTION', 'Magick_ToolBox_Option_Function' );
 	define( 'MAGICK_MIXTURE_OPTION_LOGIN', 'Magick_ToolBox_Option_Login' );
-	define( 'MAGICK_MIXTURE_OPTION_SHORTCODE', 'Magick_ToolBox_Option_Shortcode' );
 	define( 'MAGICK_MIXTURE_OPTION_DOMESTIC', 'Magick_ToolBox_Option_Domestic' );
 	define( 'MAGICK_MIXTURE_OPTION_PERFORMANCE', 'Magick_ToolBox_Option_Performance' );
 	define( 'MAGICK_MIXTURE_OPTION_AI_REVIEW', 'Magick_ToolBox_Option_AiReview' );

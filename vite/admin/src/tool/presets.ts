@@ -63,7 +63,6 @@ export const presets: Preset[] = [
         function: {
           add_last_update: true,
           remove_single_link: true,
-          color_tag: true,
         },
         feature: {
           page_scrolling: true,
@@ -99,7 +98,6 @@ export const presets: Preset[] = [
           page_scrolling: true,
         },
         function: {
-          top_ad: true,
           share: true,
           login_search: true,
         },
@@ -150,12 +148,9 @@ export const presets: Preset[] = [
       },
       page: {
         feature: {
-          title: false,
           top_loading: false,
 
           copy_pop_up: 'false',
-
-          go_top: 'false',
         },
         comment: {
           comment_emote: false,
@@ -224,7 +219,6 @@ export const presets: Preset[] = [
       },
       page: {
         function: {
-          top_ad: true,
           share: true,
         },
       },
@@ -264,7 +258,6 @@ export const presets: Preset[] = [
         },
         feature: {
           page_scrolling: true,
-          go_top: 'cat',
         },
       },
       function: {
@@ -359,7 +352,6 @@ export const presets: Preset[] = [
         },
         feature: {
           page_scrolling: true,
-          go_top: 'cat',
           reading_progress: true,
         },
       },

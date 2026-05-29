@@ -33,7 +33,6 @@ export default defineConfig({
           'tab-optimize': ['./src/components/optimize/index'],
           'tab-login': ['./src/components/login/index'],
           'tab-function': ['./src/components/function/index'],
-          'tab-shortcode': ['./src/components/shortcode/index'],
           'tab-about': ['./src/components/about/index'],
           // 公共依赖
           'vendor': ['react', 'react-dom'],

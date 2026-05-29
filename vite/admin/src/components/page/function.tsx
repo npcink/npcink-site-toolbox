@@ -53,15 +53,6 @@ const App: React.FC = () => {
         onValuesChange={onValuesChange}
       >
         <ModuleRow
-          title="彩色背景标签云"
-          description="可在小工具中添加圆角彩色背景标签云，前台即可看到效果"
-          featureId="page-function-color_tag"
-          enabled={formData.color_tag as boolean}
-          onChange={(checked: boolean) => {
-            onValuesChange({ color_tag: checked } as Partial<FieldType>, formData);
-          }}
-        />
-        <ModuleRow
           title="首图作特色图"
           description="初次发布文章，未设置特色图时，自动将第一张图设为特色图"
           featureId="page-function-first_picture"
@@ -306,19 +297,6 @@ const App: React.FC = () => {
           </Form.Item>
         </ModuleRow>
 
-        <ModuleRow
-          title="文章链接添加来源标识"
-          description="在文章内部链接后添加 from 参数，用于流量追踪"
-          featureId="page-function-link_source"
-          enabled={formData.link_source as boolean}
-          onChange={(checked: boolean) => {
-            onValuesChange({ link_source: checked } as Partial<FieldType>, formData);
-          }}
-        >
-          <Form.Item<FieldType> label="来源标识" name="source_key" extra={"默认为 npc"}>
-            <Input placeholder="npc" style={{ width: "200px" }} />
-          </Form.Item>
-        </ModuleRow>
 
 
       </Form>

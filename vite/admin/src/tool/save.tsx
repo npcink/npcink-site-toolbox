@@ -50,7 +50,6 @@ const App: React.FC<SaveProps> = ({ label = "保存" }) => {
     doSave();
   };
 
-  //返回顶部
   const [showButton, setShowButton] = useState(false);
   useEffect(() => {
     const handleScroll = () => {

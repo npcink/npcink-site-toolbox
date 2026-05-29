@@ -75,19 +75,12 @@ if (!class_exists('MaBox_Config_Schema')) {
                         'baidu_moderation_action'    => array('type' => 'string',  'default' => 'mark', 'enum' => array('block', 'mark')),
                     ),
                     'feature' => array(
-                        'title'                    => array('type' => 'boolean', 'default' => false),
-                        'title_front'              => array('type' => 'string',  'default' => '(/≧▽≦/)你又回来啦！', 'sanitize' => 'sanitize_text_field'),
-                        'title_after'              => array('type' => 'string',  'default' => '你别走吖 Σ(っ °Д °;)っ', 'sanitize' => 'sanitize_text_field'),
                         'top_loading'              => array('type' => 'boolean', 'default' => false),
 
                         'scrol'                    => array('type' => 'string',  'default' => 'false', 'sanitize' => 'sanitize_text_field'),
 
                         'site_grey'                => array('type' => 'boolean', 'default' => false, 'risk' => array('level' => 'low', 'title' => '全站变灰', 'warning' => '此功能会将整个网站变为灰色，仅适合特殊纪念日使用。', 'suggestion' => '非特殊时间建议关闭。'), 'feature_id' => 'page-feature-site_grey', 'label' => '全站变灰', 'group' => '外观'),
 
-
-
-                        'go_top'                   => array('type' => 'string',  'default' => 'false', 'sanitize' => 'sanitize_text_field'),
-                        'page_back_top_cat_right'  => array('type' => 'number',  'default' => 60, 'min' => 0, 'max' => 200),
                         'copy_pop_up'              => array('type' => 'string',  'default' => 'false', 'sanitize' => 'sanitize_text_field'),
 
                         'page_scrolling'           => array('type' => 'boolean', 'default' => false),
@@ -104,7 +97,6 @@ if (!class_exists('MaBox_Config_Schema')) {
                         'add_inks'                => array('type' => 'boolean', 'default' => false),
                         'go_middle'               => array('type' => 'string',  'default' => 'false', 'sanitize' => 'sanitize_text_field'),
                         'remove_single_link'       => array('type' => 'boolean', 'default' => false),
-                        'color_tag'                => array('type' => 'boolean', 'default' => false),
                         'add_last_update'         => array('type' => 'boolean', 'default' => false),
                         'no_login_img'            => array('type' => 'boolean', 'default' => false),
                         'maintenance_tips'        => array('type' => 'string',  'default' => 'false', 'sanitize' => 'sanitize_text_field'),
@@ -127,25 +119,15 @@ if (!class_exists('MaBox_Config_Schema')) {
                         'default_thumbnail'       => array('type' => 'string',  'default' => '', 'sanitize' => 'esc_url_raw'),
                         'search_limit'            => array('type' => 'boolean', 'default' => false),
                         'search_limit_count'      => array('type' => 'number',  'default' => 10, 'min' => 1, 'max' => 100),
-                        'top_ad'                  => array('type' => 'boolean', 'default' => false, 'risk' => array('level' => 'low', 'title' => '顶部广告位', 'warning' => '此功能允许插入自定义广告代码，请注意代码安全性。', 'suggestion' => '确保广告代码来源可信，避免 XSS 风险。'), 'feature_id' => 'page-function-top_ad', 'label' => '顶部广告位', 'group' => '功能'),
-                        'top_ad_content'          => array('type' => 'string',  'default' => '', 'sanitize' => 'wp_kses_post'),
-                        'top_ad_position'         => array('type' => 'string',  'default' => 'before_header', 'sanitize' => 'sanitize_text_field'),
                         'batch_replace'           => array('type' => 'boolean', 'default' => false),
                         'batch_replace_pairs'     => array('type' => 'array',   'default' => array()),
                         'login_search'            => array('type' => 'boolean', 'default' => false),
 
-                        'header_notice'           => array('type' => 'boolean', 'default' => false),
-                        'header_notice_text'      => array('type' => 'string',  'default' => '', 'sanitize' => 'sanitize_text_field'),
-                        'header_notice_color'     => array('type' => 'string',  'default' => '#1677ff', 'sanitize' => 'sanitize_hex_color'),
-                        'header_notice_link'      => array('type' => 'string',  'default' => '', 'sanitize' => 'esc_url_raw'),
-                        'header_notice_dismissible' => array('type' => 'boolean', 'default' => true),
                         'anti_crawler'            => array('type' => 'boolean', 'default' => false),
                         'anti_crawler_max_requests' => array('type' => 'number',  'default' => 60, 'min' => 1),
                         'anti_crawler_time_window' => array('type' => 'number',  'default' => 60, 'min' => 1),
                         'anti_crawler_tecent_id'  => array('type' => 'string',  'default' => '', 'sanitize' => 'sanitize_text_field'),
                         'anti_crawler_tecent_key'  => array('type' => 'string',  'default' => '', 'sanitize' => 'sanitize_text_field'),
-                        'link_source'             => array('type' => 'boolean', 'default' => false),
-                        'source_key'              => array('type' => 'string',  'default' => 'npc', 'sanitize' => 'sanitize_text_field'),
 
                     ),
                     'jurisdiction' => array(
@@ -208,32 +190,6 @@ if (!class_exists('MaBox_Config_Schema')) {
                         'login_code' => array('type' => 'string',  'default' => 'false', 'sanitize' => 'sanitize_text_field'),
                         'tecent_id'  => array('type' => 'string',  'default' => '', 'sanitize' => 'sanitize_text_field'),
                         'tecent_key' => array('type' => 'string',  'default' => '', 'sanitize' => 'sanitize_text_field'),
-                    ),
-                ),
-                'shortcode' => array(
-                    '_option_key' => MAGICK_MIXTURE_OPTION_SHORTCODE,
-                    'compose' => array(
-                        'single_list'        => array('type' => 'boolean', 'default' => false),
-                        'single_copy'        => array('type' => 'boolean', 'default' => false),
-                        'runcode'            => array('type' => 'boolean', 'default' => false),
-                        'bilibili'           => array('type' => 'boolean', 'default' => false),
-                        'wx_unlock'          => array('type' => 'boolean', 'default' => false),
-                        'wx_unlock_name'     => array('type' => 'string',  'default' => '', 'sanitize' => 'sanitize_text_field'),
-                        'wx_unlock_qrcode'   => array('type' => 'string',  'default' => '', 'sanitize' => 'esc_url_raw'),
-                        'wx_unlock_codes'    => array('type' => 'string',  'default' => '', 'sanitize' => 'sanitize_textarea_field'),
-                        'wx_unlock_tip'      => array('type' => 'string',  'default' => '关注公众号获取验证码', 'sanitize' => 'sanitize_text_field'),
-                        'wx_unlock_keyword_tip' => array('type' => 'string',  'default' => '关注公众号，发送关键词获取验证码', 'sanitize' => 'sanitize_text_field'),
-                        'reward'             => array('type' => 'boolean', 'default' => false),
-                        'reward_wx_qr'       => array('type' => 'string',  'default' => '', 'sanitize' => 'esc_url_raw'),
-                        'reward_ali_qr'      => array('type' => 'string',  'default' => '', 'sanitize' => 'esc_url_raw'),
-                        'reward_title'       => array('type' => 'string',  'default' => '感谢您的支持', 'sanitize' => 'sanitize_text_field'),
-                        'reward_wx_text'     => array('type' => 'string',  'default' => '微信', 'sanitize' => 'sanitize_text_field'),
-                        'reward_ali_text'    => array('type' => 'string',  'default' => '支付宝', 'sanitize' => 'sanitize_text_field'),
-                        'reward_btn_text'    => array('type' => 'string',  'default' => '打赏', 'sanitize' => 'sanitize_text_field'),
-                    ),
-                    'pendant' => array(
-                        'merc_map'      => array('type' => 'boolean', 'default' => false),
-                        'merc_location' => array('type' => 'array',  'default' => array()),
                     ),
                 ),
 

@@ -169,15 +169,6 @@ return array(
     ),
 
     // ========== 页面外观 ==========
-    'page.dynamic_title' => array(
-        'class'     => 'MaBox_Page_Dynamic_Title',
-        'file'      => 'page/exterior/dynamic_title.php',
-        'option_key'=> 'page.feature.title',
-        'category'  => 'page',
-        'scope'     => 'frontend',
-        'config_path' => 'page.feature',
-        'risk_tags' => array('仅前台'),
-    ),
     'page.top_loading' => array(
         'class'     => 'MaBox_Page_Top_Loading',
         'file'      => 'page/exterior/top_loading/index.php',
@@ -204,9 +195,6 @@ return array(
         'scope'     => 'frontend',
         'risk_tags' => array('仅前台'),
     ),
-
-
-
     'page.copy_pop_up' => array(
         'class'     => 'MaBox_Page_Copy_Pop_Up',
         'file'      => 'page/exterior/copy_pop_up/index.php',
@@ -225,15 +213,6 @@ return array(
         'risk_tags' => array('仅前台'),
     ),
 
-    'page.go_top' => array(
-        'class'     => 'MaBox_Page_Go_Top',
-        'file'      => 'page/exterior/go_top/index.php',
-        'option_key'=> 'page.feature.go_top',
-        'category'  => 'page',
-        'scope'     => 'frontend',
-        'config_path' => 'page.feature',
-        'risk_tags' => array('仅前台'),
-    ),
     'page.reading_progress' => array(
         'class'     => 'MaBox_Page_Reading_Progress',
         'file'      => 'page/exterior/reading_progress/index.php',
@@ -338,13 +317,6 @@ return array(
         'category'  => 'page',
         'scope'     => 'frontend',
     ),
-    'page.color_tags' => array(
-        'class'     => 'MaBox_Page_Color_Tags',
-        'file'      => 'page/function/color_tags.php',
-        'option_key'=> 'page.function.color_tag',
-        'category'  => 'page',
-        'scope'     => 'frontend',
-    ),
     'page.add_article_update_time' => array(
         'class'     => 'MaBox_Single_Add_Last_Updated_Date',
         'file'      => 'page/function/add_article_update_time.php',
@@ -404,14 +376,6 @@ return array(
         'scope'     => 'frontend',
         'config_path' => 'page.function',
     ),
-    'page.top_ad' => array(
-        'class'     => 'MaBox_Page_Top_Ad',
-        'file'      => 'page/function/top_ad.php',
-        'option_key'=> 'page.function.top_ad',
-        'category'  => 'page',
-        'scope'     => 'frontend',
-        'config_path' => 'page.function',
-    ),
     'page.batch_replace' => array(
         'class'     => 'MaBox_Page_Batch_Replace',
         'file'      => 'page/function/batch_replace.php',
@@ -427,25 +391,6 @@ return array(
         'category'  => 'page',
         'scope'     => 'frontend',
     ),
-
-    'page.header_notice' => array(
-        'class'     => 'MaBox_Page_Header_Notice',
-        'file'      => 'page/function/header_notice.php',
-        'option_key'=> 'page.function.header_notice',
-        'category'  => 'page',
-        'scope'     => 'frontend',
-        'config_path' => 'page.function',
-    ),
-    'page.link_source' => array(
-        'class'     => 'MaBox_Page_Link_Source',
-        'file'      => 'page/function/link_source.php',
-        'option_key'=> 'page.function.link_source',
-        'category'  => 'page',
-        'scope'     => 'frontend',
-        'config_path' => 'page.function',
-        'risk_tags' => array('SEO'),
-    ),
-
 
     'page.anti_crawler' => array(
         'class'     => 'MaBox_Page_Anti_Crawler',
@@ -622,38 +567,6 @@ return array(
         'risk_tags' => array('推荐', '安全', '仅后台'),
     ),
 
-    // ========== 短代码 ==========
-    'shortcode.main' => array(
-        'class'     => 'MaBox_ShortCode',
-        'file'      => 'shortcode/index.php',
-        'option_key'=> 'shortcode',
-        'category'  => 'shortcode',
-        'scope'     => 'both',
-        'always_load' => true,
-    ),
-    'shortcode.compose' => array(
-        'class'     => 'MaBox_ShortCode_Compose',
-        'file'      => 'shortcode/compose/index.php',
-        'option_key'=> 'shortcode.compose',
-        'category'  => 'shortcode',
-        'scope'     => 'both',
-        'always_load' => true,
-        'config_path' => 'shortcode.compose',
-    ),
-    'shortcode.pendant' => array(
-        'class'     => 'MaBox_ShortCode_Pendant',
-        'file'      => 'shortcode/pendant/index.php',
-        'option_key'=> 'shortcode.pendant',
-        'category'  => 'shortcode',
-        'scope'     => 'both',
-        'always_load' => true,
-        'config_path' => 'shortcode.pendant',
-    ),
-
-
-
-
-
     // ========== 导入导出 ==========
     'function.config' => array(
         'class'     => 'MaBox_Config',
@@ -663,8 +576,6 @@ return array(
         'scope'     => 'both',
         'config_path' => 'function.config',
     ),
-
-
 
     // ========== 页面 jurisdiction interface ==========
     'page.interface_category_data' => array(
@@ -795,7 +706,5 @@ return array(
         'config_path' => 'ai_review',
         'risk_tags' => array('推荐', '安全'),
     ),
-
-
 
 );

@@ -170,17 +170,6 @@ function getRecommendations(optionData: any): Recommendation[] {
     });
   }
 
-  if (optionData.page?.function?.top_ad) {
-    cautions.push({
-      id: "page-function-top_ad",
-      label: "顶部广告 Script",
-      tabKey: "1",
-      section: "功能",
-      reason: "注意广告代码安全，避免引入恶意脚本",
-      type: "caution",
-    });
-  }
-
   return [...recs, ...cautions];
 }
 

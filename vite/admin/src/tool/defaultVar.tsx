@@ -105,23 +105,15 @@ const PageComment = {
 
 //页面 - 外观特效
 const PageFeature = {
-  title: boo, //动态标题
-  title_front: "(/≧▽≦/)你又回来啦！", //回到当前标签
-  title_after: "你别走吖 Σ(っ °Д °;)っ", //离开标签后
   top_loading: boo, //顶部加载进度条
 
   scrol: "false", //美化滚动条
 
   site_grey: boo, //网站变灰
 
-
-
-  go_top: "false", //返回顶部
-  page_back_top_cat_right: 60, //右边距
   copy_pop_up: "false", //鼠标点击复制弹窗
 
   page_scrolling: boo, //平滑滚动
-
 
   reading_progress: boo, //页顶阅读进度条
   reading_progress_color: "#1677ff", //进度条颜色
@@ -137,7 +129,6 @@ const PageFunction = {
   add_inks: boo, //关键词自动添加链接
   go_middle: "false", //链接跳转中间页
   remove_single_link: boo, //移除文章内超链接
-  color_tag: boo, //彩色标签云特效
   add_last_update: boo, //添加最后更新时间
   no_login_img: boo, //未登录模糊图片
   maintenance_tips: "false", //维护提示
@@ -162,25 +153,15 @@ const PageFunction = {
   default_thumbnail: "", //默认文章缩略图
   search_limit: boo, //限制搜索频次
   search_limit_count: 10, //每分钟最大搜索次数
-  top_ad: boo, //顶部广告位
-  top_ad_content: "", //广告内容
-  top_ad_position: "before_header", //广告位置
   batch_replace: boo, //文章批量替换
   batch_replace_pairs: [], //替换规则
   login_search: boo, //仅登录可搜索
 
-  header_notice: boo, //页眉通知栏
-  header_notice_text: "", //通知文本
-  header_notice_color: "#1677ff", //通知颜色
-  header_notice_link: "", //通知链接
-  header_notice_dismissible: true, //可关闭
   anti_crawler: boo, //进阶防刷
   anti_crawler_max_requests: 60, //最大请求数
   anti_crawler_time_window: 60, //时间窗口(秒)
   anti_crawler_tecent_id: '', //腾讯防水墙AppID
   anti_crawler_tecent_key: '', //腾讯防水墙AppKey
-  link_source: boo, //文章链接添加来源
-  source_key: 'npc', //来源标识
 };
 
 // 页面 - 权限
@@ -250,44 +231,6 @@ const LoginSecurity = {
   tecent_id: str, //腾讯ID
   tecent_key: str, //腾讯秘钥
 };
-
-//短代码
-const CodeCompose = {
-  single_list: boo, //文章列表
-  single_copy: boo, //复制
-  runcode: boo, //运行代码
-  bilibili: boo, //Bilibili视频嵌入
-  wx_unlock: boo, //公众号解锁内容
-  wx_unlock_name: '', //公众号名称
-  wx_unlock_qrcode: '', //公众号二维码
-  wx_unlock_codes: '', //验证码列表
-  wx_unlock_tip: '关注公众号获取验证码', //解锁提示
-  wx_unlock_keyword_tip: '关注公众号，发送关键词获取验证码', //关键词提示
-  reward: boo, //打赏模块
-  reward_wx_qr: '', //微信收款码
-  reward_ali_qr: '', //支付宝收款码
-  reward_title: '感谢您的支持', //打赏标题
-  reward_wx_text: '微信', //微信标签
-  reward_ali_text: '支付宝', //支付宝标签
-  reward_btn_text: '打赏', //按钮文字
-};
-
-//挂件
-const CodePendant = {
-  merc_map: boo, //足迹
-  merc_location: [
-    {
-      latLng: [39.91, 116.47],
-      name: "北京",
-    },
-    {
-      latLng: [30.6, 114.42],
-      name: "武汉",
-    },
-  ], //地点
-};
-
-
 
 //国内生态 - 备案与合规
 const DomesticCompliance = {
@@ -454,12 +397,6 @@ export const defaultVarOption = {
     beautify: LoginBeautify, //美化
     security: LoginSecurity, //安全
   },
-  //短代码
-  shortcode: {
-    compose: CodeCompose, //短代码
-    pendant: CodePendant, //挂件
-  },
-
   //国内生态
   domestic: {
     compliance: DomesticCompliance,

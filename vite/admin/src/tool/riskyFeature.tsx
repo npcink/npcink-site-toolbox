@@ -15,11 +15,6 @@ const RISKY_FEATURES: Record<string, { title: string; warning: string; suggestio
     warning: "此功能会将整个网站变为灰色，仅适合特殊纪念日使用。",
     suggestion: "非特殊时间建议关闭。",
   },
-  "page-function-top_ad": {
-    title: "顶部广告位",
-    warning: "此功能允许插入自定义广告代码，请注意代码安全性。",
-    suggestion: "确保广告代码来源可信，避免 XSS 风险。",
-  },
   "optimize-medium-no_auto_size": {
     title: "禁止缩略图",
     warning: "此功能可能与部分主题不兼容，导致图片显示异常。",

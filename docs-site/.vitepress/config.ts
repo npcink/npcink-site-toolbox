@@ -93,14 +93,12 @@ export default defineConfig({
           text: '页面外观',
           collapsed: true,
           items: [
-            { text: '动态标题', link: '/features/page-appearance/dynamic-title' },
-            { text: '顶部加载进度条', link: '/features/page-appearance/top-progress-bar' },
+{ text: '顶部加载进度条', link: '/features/page-appearance/top-progress-bar' },
             { text: '美化滚动条', link: '/features/page-appearance/beautiful-scrollbar' },
             { text: '全站变灰', link: '/features/page-appearance/site-grayscale' },
             { text: '复制弹窗', link: '/features/page-appearance/copy-popup' },
             { text: '页底特效', link: '/features/page-appearance/footer-effect' },
             { text: '平滑滚动', link: '/features/page-appearance/smooth-scroll' },
-            { text: '返回顶部', link: '/features/page-appearance/back-to-top' },
           ],
         },
         {
@@ -122,7 +120,6 @@ export default defineConfig({
             { text: '关键词自动加链', link: '/features/page-function/auto-keyword-link' },
             { text: '外链跳转中间页', link: '/features/page-function/external-link-redirect' },
             { text: '移除文章内链接', link: '/features/page-function/remove-article-links' },
-            { text: '彩色标签云', link: '/features/page-function/colorful-tag-cloud' },
             { text: '文章显示更新时间', link: '/features/page-function/show-update-time' },
             { text: '未登录模糊图片', link: '/features/page-function/blur-image-for-guest' },
             { text: '维护提示页', link: '/features/page-function/maintenance-page' },
@@ -133,11 +130,8 @@ export default defineConfig({
             { text: '隐藏指定内容', link: '/features/page-function/hide-content' },
             { text: '默认文章缩略图', link: '/features/page-function/default-thumbnail' },
             { text: '限制搜索频次', link: '/features/page-function/search-limit' },
-            { text: '顶部广告位', link: '/features/page-function/top-ad-slot' },
             { text: '文章批量替换', link: '/features/page-function/batch-replace' },
             { text: '仅登录可搜索', link: '/features/page-function/login-only-search' },
-            { text: '页眉通知栏', link: '/features/page-function/header-notice' },
-            { text: '链接来源标识', link: '/features/page-function/link-source' },
           ],
         },
         {
@@ -172,16 +166,6 @@ export default defineConfig({
             { text: '失败锁定 IP', link: '/features/login-security/login-lock-ip' },
             { text: '自定义登录入口', link: '/features/login-security/custom-login-url' },
             { text: '登录日志', link: '/features/login-security/login-log' },
-          ],
-        },
-        {
-          text: '短代码',
-          items: [
-            { text: '文章列表短代码', link: '/features/shortcodes/article-list' },
-            { text: '复制短代码', link: '/features/shortcodes/copy-button' },
-            { text: '运行代码短代码', link: '/features/shortcodes/run-code' },
-            { text: '足迹地图', link: '/features/shortcodes/merc-map' },
-            { text: '古藤堡支持', link: '/features/shortcodes/gutenberg-support' },
           ],
         },
         {

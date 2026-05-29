@@ -37,7 +37,7 @@ class ConfigManagerBehaviorTest extends TestCase {
     public function test_merge_multiple_modules(): void {
         $GLOBALS['_test_option_store'] = array(
             'Magick_ToolBox_Option_Optimize' => array('enabled' => true, 'cdn' => array('enabled' => false)),
-            'Magick_ToolBox_Option_Page'     => array('header_notice' => array('enabled' => true)),
+            'Magick_ToolBox_Option_Page'     => array('comment' => array('comment_emote' => true)),
             'Magick_ToolBox_Option_Function' => array('maintenance' => array('enabled' => false)),
         );
 
