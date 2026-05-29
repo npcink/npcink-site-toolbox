@@ -21,7 +21,6 @@ class UiSchemaTest extends TestCase {
         $ui = MaBox_Config_Schema::get_ui_schema();
 
         $risky_feature_ids = array(
-            'page-jurisdiction-ban_copy',
             'optimize-medium-no_auto_size',
             'performance-db_clean-enabled',
             'optimize-medium-medium_add_svg',

@@ -91,15 +91,10 @@ const PageComment = {
   words_number_max: 120, //最多评论字数
   english: boo, //禁止纯英文评论
   only: boo, //单篇文章仅限评论一次
-  modify_comment_user: boo, //修改评论区管理员样式ID
   sensitive_words: boo, //敏感词过滤
   sensitive_words_list: '', //敏感词列表
   sensitive_words_action: 'replace', //处理方式
   sensitive_words_replace_char: '***', //替换字符
-  baidu_moderation: boo, //百度文本审核
-  baidu_moderation_api_key: '', //百度API Key
-  baidu_moderation_secret_key: '', //百度Secret Key
-  baidu_moderation_action: 'mark', //审核不通过处理
 };
 
 //页面 - 外观特效
@@ -113,8 +108,6 @@ const PageFeature = {
 const PageFunction = {
   first_picture: boo, //首图作特色图
   add_inks: boo, //关键词自动添加链接
-  go_middle: "false", //链接跳转中间页
-  remove_single_link: boo, //移除文章内超链接
   add_last_update: boo, //添加最后更新时间
   no_login_img: boo, //未登录模糊图片
   maintenance_tips: "false", //维护提示
@@ -139,15 +132,6 @@ const PageFunction = {
 
 // 页面 - 权限
 const PageJurisdiction = {
-  ban_open_weixing: boo, //禁止在微信中打开
-  ban_open_weixing_mode: 'alert', //微信处理方式
-  wechat_guide_text: '点击右上角 ··· 在浏览器中打开', //微信引导语
-  wechat_xcx_guide: boo, //显示小程序引导
-  wechat_xcx_guide_text: '在小程序中打开', //小程序引导文字
-  wechat_xcx_link: '', //小程序链接
-  ban_open_qq: boo, //禁止在QQ中打开
-
-  ban_copy: boo, //禁止复制
   category_id: [], //分类ID
   tag_id: [], //标签ID
   page_id: [], //页面ID
@@ -184,12 +168,6 @@ const FunctionTips = {
   tips_content: str, //提示内容
   tips_button: str, //按钮文字
   tips_link: str, //按钮链接
-};
-
-//登录页 美化
-const LoginBeautify = {
-  modify_login_link: boo, //登录页LOGO改首页链接
-  remove_langue: boo, //移除登录页语言选择框
 };
 
 //登录安全
@@ -361,7 +339,6 @@ export const defaultVarOption = {
   },
   //登录
   login: {
-    beautify: LoginBeautify, //美化
     security: LoginSecurity, //安全
   },
   //国内生态

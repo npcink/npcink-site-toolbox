@@ -135,11 +135,6 @@ if (!class_exists('MaBox_Diagnostics')) {
                 $score -= 3;
             }
 
-            $page_jurisdiction = self::get_nested($config, 'page', 'jurisdiction');
-            if (!empty($page_jurisdiction['ban_copy'])) {
-                $score -= 3;
-            }
-
             // ===== 环境分调整 =====
             if (version_compare($env['php_version'], '7.4', '<')) {
                 $score -= 10;
@@ -497,19 +492,6 @@ if (!class_exists('MaBox_Diagnostics')) {
         {
             $risks = array();
 
-            // 配置层面的高风险功能
-            $page_feature = self::get_nested($config, 'page', 'feature');
-
-            $page_jurisdiction = self::get_nested($config, 'page', 'jurisdiction');
-            if (!empty($page_jurisdiction['ban_copy'])) {
-                $risks[] = array(
-                    'module_id' => 'page.ban_copy',
-                    'tier'      => 'config',
-                    'title'     => __('禁止复制', 'magick-toolbox'),
-                    'message'   => __('禁止右键复制可能影响正常用户体验和可访问性。', 'magick-toolbox'),
-                );
-            }
-
             // 模块分层层面的高风险/实验性模块
             if (!empty($tiers) && !empty($active_modules)) {
                 $registry = class_exists('MaBox_Module_Loader') ? MaBox_Module_Loader::get_registry() : array();
@@ -657,7 +639,6 @@ if (!class_exists('MaBox_Diagnostics')) {
             'secret_key', 'secretkey', 'appsecret', 'app_key',
             'app_secret', 'password', 'passwd', 'tecent_key',
             'deepseek_api_key', 'aliyun_secret_key', 'aliyun_access_key',
-            'baidu_moderation_api_key', 'baidu_moderation_secret_key',
         );
 
         public static function sanitize_for_export($data)

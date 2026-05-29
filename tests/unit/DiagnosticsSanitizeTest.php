@@ -87,25 +87,6 @@ class DiagnosticsSanitizeTest extends TestCase
         $this->assertEquals('***已隐藏***', $result['ai_review']['aliyun_secret_key']);
     }
 
-    public function test_sanitize_hides_baidu_moderation_keys(): void
-    {
-        $data = array(
-            'page' => array(
-                'comment' => array(
-                    'baidu_moderation' => true,
-                    'baidu_moderation_api_key' => 'BAIDU_AK',
-                    'baidu_moderation_secret_key' => 'BAIDU_SK',
-                ),
-            ),
-        );
-
-        $result = MaBox_Diagnostics::sanitize_for_export($data);
-
-        $this->assertEquals('***已隐藏***', $result['page']['comment']['baidu_moderation_api_key']);
-        $this->assertEquals('***已隐藏***', $result['page']['comment']['baidu_moderation_secret_key']);
-        $this->assertTrue($result['page']['comment']['baidu_moderation']);
-    }
-
     public function test_sanitize_hides_wechat_appsecret(): void
     {
         $data = array(

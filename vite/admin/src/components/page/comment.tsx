@@ -101,15 +101,6 @@ const App: React.FC = () => {
           }}
         />
         <ModuleRow
-          title="安全 - 移除评论中的管理员ID"
-          description="默认的评论样式中，会包含管理员登录ID，移除后，可提升安全性"
-          featureId="page-comment-modify_comment_user"
-          enabled={formData.modify_comment_user as boolean}
-          onChange={(checked: boolean) => {
-            onValuesChange({ modify_comment_user: checked } as Partial<FieldType>, formData);
-          }}
-        />
-        <ModuleRow
           title="敏感词过滤"
           description="评论提交时检测敏感词，替换或拦截"
           featureId="page-comment-sensitive_words"
@@ -140,31 +131,6 @@ const App: React.FC = () => {
             extra={"选择替换方式时生效"}
           >
             <Input style={{ width: "30%" }} placeholder="***" />
-          </Form.Item>
-        </ModuleRow>
-        <ModuleRow
-          title="百度文本审核"
-          description="接入百度AI内容审核API，自动审核评论"
-          featureId="page-comment-baidu_moderation"
-          enabled={formData.baidu_moderation as boolean}
-          onChange={(checked: boolean) => {
-            onValuesChange({ baidu_moderation: checked } as Partial<FieldType>, formData);
-          }}
-        >
-          <Form.Item<FieldType> label="API Key" name="baidu_moderation_api_key">
-            <Input style={{ width: "50%" }} placeholder="百度AI开放平台 API Key" />
-          </Form.Item>
-          <Form.Item<FieldType> label="Secret Key" name="baidu_moderation_secret_key">
-            <Input style={{ width: "50%" }} placeholder="百度AI开放平台 Secret Key" />
-          </Form.Item>
-          <Form.Item<FieldType>
-            label="审核不通过处理"
-            name="baidu_moderation_action"
-          >
-            <Radio.Group>
-              <Radio value="mark">标记为待审核</Radio>
-              <Radio value="block">直接拦截</Radio>
-            </Radio.Group>
           </Form.Item>
         </ModuleRow>
       </Form>

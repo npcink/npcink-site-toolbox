@@ -79,16 +79,12 @@ class DiagnosticsTest extends TestCase {
     }
 
     /**
-     * 测试分数计算：启用重型特效减分
+     * 测试分数计算：缺少 CDN 适配减分
      */
-    public function test_calculate_score_with_heavy_effects(): void {
+    public function test_calculate_score_without_cdn_adaptation(): void {
         $method = new ReflectionMethod('MaBox_Diagnostics', 'calculate_score');
 
-        $config = array(
-            'page' => array(
-                'jurisdiction'=> array('ban_copy' => true),
-            ),
-        );
+        $config = array();
 
         $env = array(
             'php_version'        => '8.1',
@@ -99,8 +95,8 @@ class DiagnosticsTest extends TestCase {
         );
 
         $score = $method->invoke(null, $config, $env);
-        // 基础 60 - 3(ban_copy) - 3(no CDN) = 54
-        $this->assertEquals(54, $score);
+        // 基础 60 - 3(no CDN) = 57
+        $this->assertEquals(57, $score);
     }
 
     /**
@@ -195,22 +191,16 @@ class DiagnosticsTest extends TestCase {
     }
 
     /**
-     * 测试风险项：配置风险被正确识别
+     * 测试风险项：空配置不产生配置风险
      */
-    public function test_risks_include_config_risks(): void {
+    public function test_risks_empty_for_empty_config(): void {
         $method = new ReflectionMethod('MaBox_Diagnostics', 'get_risks');
 
-        $config = array(
-            'page' => array(
-                'jurisdiction' => array('ban_copy' => true),
-            ),
-        );
+        $config = array();
 
         $risks = $method->invoke(null, $config, array(), array());
         $this->assertIsArray($risks);
-
-        $module_ids = array_column($risks, 'module_id');
-        $this->assertContains('page.ban_copy', $module_ids);
+        $this->assertEmpty($risks);
     }
 
     /**
@@ -286,11 +276,7 @@ class DiagnosticsTest extends TestCase {
         $this->assertLessThanOrEqual(100, $method->invoke(null, $max_config, $max_env));
 
         // 全部负向配置 + 最差环境
-        $min_config = array(
-            'page' => array(
-                'jurisdiction' => array('ban_copy' => true),
-            ),
-        );
+        $min_config = array();
         $min_env = array(
             'php_version'        => '5.6',
             'wp_version'         => '5.0',

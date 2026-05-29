@@ -2,15 +2,14 @@
  * 页面优化 - 权限
  */
 import { useState, useContext, useEffect } from "react";
-import { Form, Select, Input, Radio } from "antd";
+import { Form, Select } from "antd";
 import { DataContext } from "@/tool/dataContext";
 import { PageJurisdiction, ListData } from "@/tool/interface";
 import { defaultVarOption } from "@/tool/defaultVar";
 import { AntConfig } from "@/tool/tool";
 import { getCategoryData } from "@/axios/axios";
 import TextAreaHtml from "@/basic/htmlInput";
-import FeatureSwitch from "@/basic/feature-switch";
-import { SettingsSection, ModuleRow } from "@/components/settings-ui";
+import { SettingsSection } from "@/components/settings-ui";
 
 type FieldType = PageJurisdiction;
 
@@ -65,67 +64,6 @@ const App: React.FC = () => {
         onFinish={() => {}}
         onValuesChange={onValuesChange}
       >
-        <h3 className="menu-header">隐私权限</h3>
-        <ModuleRow
-          title="禁止在微信中打开"
-          description="可能有防红功能"
-          featureId="page-jurisdiction-ban_open_weixing"
-          enabled={formData.ban_open_weixing as boolean}
-          onChange={(checked: boolean) => {
-            onValuesChange({ ban_open_weixing: checked } as Partial<FieldType>, formData);
-          }}
-        >
-          <Form.Item<FieldType>
-            label="处理方式"
-            name="ban_open_weixing_mode"
-          >
-            <Radio.Group>
-              <Radio value="alert">弹窗提示</Radio>
-              <Radio value="optimize">优化体验+引导</Radio>
-            </Radio.Group>
-          </Form.Item>
-          {formData.ban_open_weixing_mode === 'optimize' && (
-            <>
-              <Form.Item<FieldType> label="引导文字" name="wechat_guide_text">
-                <Input style={{ width: "70%" }} placeholder="点击右上角 ··· 在浏览器中打开" />
-              </Form.Item>
-              <Form.Item<FieldType>
-                label="小程序引导"
-                name="wechat_xcx_guide"
-                valuePropName="checked"
-              >
-                <FeatureSwitch featureId="page-jurisdiction-wechat_xcx_guide" />
-              </Form.Item>
-              {formData.wechat_xcx_guide && (
-                <>
-                  <Form.Item<FieldType> label="小程序引导文字" name="wechat_xcx_guide_text">
-                    <Input style={{ width: "50%" }} placeholder="在小程序中打开" />
-                  </Form.Item>
-                  <Form.Item<FieldType> label="小程序链接" name="wechat_xcx_link">
-                    <Input style={{ width: "70%" }} placeholder="weixin://dl/business/..." />
-                  </Form.Item>
-                </>
-              )}
-            </>
-          )}
-        </ModuleRow>
-        <ModuleRow
-          title="禁止在 QQ 中打开"
-          description="可能有防红功能"
-          featureId="page-jurisdiction-ban_open_qq"
-          enabled={formData.ban_open_qq as boolean}
-          onChange={(checked: boolean) => {
-            onValuesChange({ ban_open_qq: checked } as Partial<FieldType>, formData);
-          }}
-        />
-        <ModuleRow
-          title="禁止复制"
-          featureId="page-jurisdiction-ban_copy"
-          enabled={formData.ban_copy as boolean}
-          onChange={(checked: boolean) => {
-            onValuesChange({ ban_copy: checked } as Partial<FieldType>, formData);
-          }}
-        />
         <h3 className="menu-header">未登录权限</h3>
 
         <Form.Item<FieldType>

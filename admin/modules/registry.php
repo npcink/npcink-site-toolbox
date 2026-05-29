@@ -211,13 +211,6 @@ return array(
         'category'  => 'page',
         'scope'     => 'frontend',
     ),
-    'page.comment_modify_user_style' => array(
-        'class'     => 'MaBox_Comment_Modify_User_Style',
-        'file'      => 'page/comment/comment_modify_user_style.php',
-        'option_key'=> 'page.comment.modify_comment_user',
-        'category'  => 'page',
-        'scope'     => 'frontend',
-    ),
     'page.comment_sensitive_words' => array(
         'class'     => 'MaBox_Comment_Sensitive_Words',
         'file'      => 'page/comment/sensitive_words.php',
@@ -226,15 +219,6 @@ return array(
         'scope'     => 'frontend',
         'config_path' => 'page.comment',
     ),
-    'page.comment_baidu_moderation' => array(
-        'class'     => 'MaBox_Comment_Baidu_Moderation',
-        'file'      => 'page/comment/baidu_moderation/index.php',
-        'option_key'=> 'page.comment.baidu_moderation',
-        'category'  => 'page',
-        'scope'     => 'frontend',
-        'config_path' => 'page.comment',
-    ),
-
     // ========== 页面功能 ==========
     'page.first_picture' => array(
         'class'     => 'MaBox_Single_First_Picture',
@@ -250,13 +234,6 @@ return array(
         'category'  => 'page',
         'scope'     => 'frontend',
     ),
-    'page.single_remove_link' => array(
-        'class'     => 'MaBox_Single_Remove_Link',
-        'file'      => 'page/function/single_remove_link.php',
-        'option_key'=> 'page.function.remove_single_link',
-        'category'  => 'page',
-        'scope'     => 'frontend',
-    ),
     'page.add_article_update_time' => array(
         'class'     => 'MaBox_Single_Add_Last_Updated_Date',
         'file'      => 'page/function/add_article_update_time.php',
@@ -268,13 +245,6 @@ return array(
         'class'     => 'MaBox_Unlisted_Vague_Img',
         'file'      => 'page/function/unlisted_vague_img.php',
         'option_key'=> 'page.function.no_login_img',
-        'category'  => 'page',
-        'scope'     => 'frontend',
-    ),
-    'page.jump_middle_page' => array(
-        'class'     => 'MaBox_Jump_Middle_Page',
-        'file'      => 'page/function/jump_middle_page.php',
-        'option_key'=> 'page.function.go_middle',
         'category'  => 'page',
         'scope'     => 'frontend',
     ),
@@ -327,31 +297,6 @@ return array(
     ),
 
     // ========== 页面权限 ==========
-    'page.ban_open_weixing' => array(
-        'class'     => 'MaBox_Page_Ban_Open_WeiXing',
-        'file'      => 'page/jurisdiction/ban_open_weixing.php',
-        'option_key'=> 'page.jurisdiction.ban_open_weixing',
-        'category'  => 'page',
-        'scope'     => 'frontend',
-        'risk_tags' => array('谨慎', '仅前台'),
-    ),
-    'page.ban_open_qq' => array(
-        'class'     => 'MaBox_Page_Ban_Open_QQ',
-        'file'      => 'page/jurisdiction/ban_open_qq.php',
-        'option_key'=> 'page.jurisdiction.ban_open_qq',
-        'category'  => 'page',
-        'scope'     => 'frontend',
-        'risk_tags' => array('谨慎', '仅前台'),
-    ),
-    'page.ban_copy' => array(
-        'class'     => 'MaBox_Page_Ban_Copy',
-        'file'      => 'page/jurisdiction/ban_copy.php',
-        'option_key'=> 'page.jurisdiction.ban_copy',
-        'category'  => 'page',
-        'scope'     => 'frontend',
-        'risk_tags' => array('谨慎', '仅前台'),
-    ),
-
     'page.hide_category' => array(
         'class'     => 'MaBox_Page_Hide_Category',
         'file'      => 'page/jurisdiction/hide_category.php',
@@ -458,22 +403,6 @@ return array(
     ),
 
     // ========== 登录页 ==========
-    'login.change_login_logo_link' => array(
-        'class'     => 'MaBox_Login_Change_Logo_Link',
-        'file'      => 'login/beautify/change_login_logo_link.php',
-        'option_key'=> 'login.beautify.modify_login_link',
-        'category'  => 'login',
-        'scope'     => 'admin',
-        'risk_tags' => array('仅后台'),
-    ),
-    'login.remove_login_lang_select' => array(
-        'class'     => 'MaBox_Login_Remove_Lang_Select',
-        'file'      => 'login/beautify/remove_login_lang_select.php',
-        'option_key'=> 'login.beautify.remove_langue',
-        'category'  => 'login',
-        'scope'     => 'admin',
-        'risk_tags' => array('仅后台'),
-    ),
     'login.login_verify' => array(
         'class'     => 'MaBox_Login_Verify',
         'file'      => 'login/security/login_verify.php',

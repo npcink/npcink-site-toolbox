@@ -157,19 +157,6 @@ function getRecommendations(optionData: any): Recommendation[] {
     });
   }
 
-
-
-  if (optionData.page?.jurisdiction?.ban_copy) {
-    cautions.push({
-      id: "page-jurisdiction-ban_copy",
-      label: "禁止复制",
-      tabKey: "1",
-      section: "权限",
-      reason: "可能影响正常用户复制代码或引用内容",
-      type: "caution",
-    });
-  }
-
   return [...recs, ...cautions];
 }
 

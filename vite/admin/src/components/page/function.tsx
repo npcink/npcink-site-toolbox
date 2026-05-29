@@ -69,15 +69,6 @@ const App: React.FC = () => {
           onDetails={() => window.open("https://www.npc.ink/15286.html?=magick-mami", "_blank")}
         />
         <ModuleRow
-          title="移除文章内超链接"
-          description="关闭此选项可恢复"
-          featureId="page-function-remove_single_link"
-          enabled={formData.remove_single_link as boolean}
-          onChange={(checked: boolean) => {
-            onValuesChange({ remove_single_link: checked } as Partial<FieldType>, formData);
-          }}
-        />
-        <ModuleRow
           title="未登录模糊文章内图片"
           featureId="page-function-no_login_img"
           enabled={formData.no_login_img as boolean}
@@ -94,25 +85,6 @@ const App: React.FC = () => {
             onValuesChange({ add_last_update: checked } as Partial<FieldType>, formData);
           }}
         />
-        <Form.Item<FieldType>
-          label="外链跳转中间页"
-          name="go_middle"
-          extra={
-            <>
-              文章中的外链会先跳转到中间页，再跳转第三方，
-              <br />
-              此选项仅外观不同，功能相同;
-              <br /> 推荐给robots.txt添加内容：
-              <pre className="pre-meat">Disallow: /go_to/=*</pre>
-              屏蔽搜索引擎对中间页的抓取,
-              <a href="https://www.dujin.org/12762.html" target="_blank">
-                详情
-              </a>
-            </>
-          }
-        >
-          <FixedImage alists={goLink} />
-        </Form.Item>
         <Form.Item<FieldType>
           label="维护提示"
           name="maintenance_tips"
@@ -208,27 +180,6 @@ const App: React.FC = () => {
     </SettingsSection>
   );
 };
-
-//准备跳转链接用数组对象
-import Zhihu from "@/assets/page/function/go/知乎.png";
-import Tencent from "@/assets/page/function/go/腾讯云.png";
-import Shimo from "@/assets/page/function/go/石墨文档.png";
-import Jianshu from "@/assets/page/function/go/简书.png";
-import Wx_community from "@/assets/page/function/go/微信社区.png";
-import CSDN from "@/assets/page/function/go/CSDN.png";
-import SSP from "@/assets/page/function/go/少数派.png";
-import WPS from "@/assets/page/function/go/WPS.png";
-
-const goLink = [
-  { value: "zhihu", label: Zhihu, title: "知乎" },
-  { value: "tencent", label: Tencent, title: "腾讯云" },
-  { value: "shimo", label: Shimo, title: "石墨" },
-  { value: "jianshu", label: Jianshu, title: "简书" },
-  { value: "ssp", label: SSP, title: "少数派" },
-  { value: "wx_community", label: Wx_community, title: "微信社区" },
-  { value: "csdn", label: CSDN, title: "CSDN" },
-  { value: "wps", label: WPS, title: "WPS" },
-];
 
 //准备维护界面
 import Default from "@/assets/page/function/service/默认简洁.png";

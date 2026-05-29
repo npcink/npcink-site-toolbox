@@ -5,7 +5,6 @@ import { ConfigDiffItem } from "@/tool/interface";
  * key: path 格式（点分隔），与 riskyFeature.tsx 中的 featureId 对应
  */
 const RISKY_PATHS: Record<string, { label: string; title: string }> = {
-  "page.jurisdiction.ban_copy": { label: "禁止复制", title: "禁止复制" },
   "optimize.medium.no_auto_size": { label: "禁止缩略图", title: "禁止缩略图" },
 };
 

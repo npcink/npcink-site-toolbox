@@ -35,7 +35,6 @@ export type Option = {
   };
   //登录
   login: {
-    beautify: LoginBeautify; //美化
     security: LoginSecurity; //安全
   };
   //国内生态
@@ -195,15 +194,10 @@ export type PageComment = {
   words_number_max: number; //最多评论字数
   english: boolean; //禁止纯英文评论
   only: boolean; //单篇文章仅限评论一次
-  modify_comment_user: boolean; //修改评论区管理员样式ID
   sensitive_words: boolean; //敏感词过滤
   sensitive_words_list: string; //敏感词列表
   sensitive_words_action: string; //处理方式: replace/block
   sensitive_words_replace_char: string; //替换字符
-  baidu_moderation: boolean; //百度文本审核
-  baidu_moderation_api_key: string; //百度API Key
-  baidu_moderation_secret_key: string; //百度Secret Key
-  baidu_moderation_action: string; //审核不通过处理: block/mark
 };
 
 //页面 - 外观特效
@@ -217,8 +211,6 @@ export type PageFeature = {
 export type PageFunction = {
   first_picture: boolean; //首图作特色图
   add_inks: boolean; //关键词自动添加链接
-  go_middle: string; //链接跳转中间页
-  remove_single_link: boolean; //移除文章内超链接
   add_last_update: boolean; //添加最后更新时间
   no_login_img: boolean; //未登录模糊图片
   maintenance_tips: string; //维护提示
@@ -243,15 +235,6 @@ export type PageFunction = {
 
 // 页面 - 权限
 export type PageJurisdiction = {
-  ban_open_weixing: boolean; //禁止在微信中打开
-  ban_open_weixing_mode: string; //微信处理方式: alert/optimize
-  wechat_guide_text: string; //微信引导语
-  wechat_xcx_guide: boolean; //显示小程序引导
-  wechat_xcx_guide_text: string; //小程序引导文字
-  wechat_xcx_link: string; //小程序链接
-  ban_open_qq: boolean; //禁止在QQ中打开
-
-  ban_copy: boolean; //禁止复制
   category_id: number[]; //分类ID
   tag_id: number[]; //标签ID
   page_id: number[]; //页面ID
@@ -287,12 +270,6 @@ export type FunctionSeo = {
   description: string; //网站描述
   seo_single: boolean; //文章SEO
   seo_category: boolean; //分类和标签SEO
-};
-
-//登录 美化
-export type LoginBeautify = {
-  modify_login_link: boolean;
-  remove_langue: boolean;
 };
 
 //登录安全

@@ -93,7 +93,7 @@ export default defineConfig({
           text: '页面外观',
           collapsed: true,
           items: [
-            { text: '页底特效', link: '/features/page-appearance/footer-effect' },
+            { text: '阅读进度条', link: '/features/page-appearance/reading-progress' },
           ],
         },
         {
@@ -103,7 +103,7 @@ export default defineConfig({
             { text: '评论字数限制', link: '/features/page-comment/comment-length-limit' },
             { text: '禁止纯英文评论', link: '/features/page-comment/no-english-comment' },
             { text: '单篇文章限评一次', link: '/features/page-comment/one-comment-per-post' },
-            { text: '管理员评论样式', link: '/features/page-comment/admin-comment-style' },
+            { text: '敏感词过滤', link: '/features/page-comment/sensitive-words' },
           ],
         },
         {
@@ -112,18 +112,15 @@ export default defineConfig({
           items: [
             { text: '首图作特色图', link: '/features/page-function/first-image-featured' },
             { text: '关键词自动加链', link: '/features/page-function/auto-keyword-link' },
-            { text: '外链跳转中间页', link: '/features/page-function/external-link-redirect' },
-            { text: '移除文章内链接', link: '/features/page-function/remove-article-links' },
             { text: '文章显示更新时间', link: '/features/page-function/show-update-time' },
             { text: '未登录模糊图片', link: '/features/page-function/blur-image-for-guest' },
             { text: '维护提示页', link: '/features/page-function/maintenance-page' },
-            { text: '禁止微信/QQ 打开', link: '/features/page-function/block-wechat-qq' },
-            { text: '禁止复制', link: '/features/page-function/disable-copy' },
             { text: '隐藏指定内容', link: '/features/page-function/hide-content' },
             { text: '默认文章缩略图', link: '/features/page-function/default-thumbnail' },
             { text: '限制搜索频次', link: '/features/page-function/search-limit' },
             { text: '文章批量替换', link: '/features/page-function/batch-replace' },
             { text: '仅登录可搜索', link: '/features/page-function/login-only-search' },
+            { text: '进阶防刷', link: '/features/page-function/anti-crawler' },
           ],
         },
         {
@@ -149,8 +146,6 @@ export default defineConfig({
         {
           text: '登录安全',
           items: [
-            { text: 'LOGO 改首页链接', link: '/features/login-security/logo-home-link' },
-            { text: '移除语言选择', link: '/features/login-security/remove-language-selector' },
             { text: '数学验证码', link: '/features/login-security/math-captcha' },
             { text: '随机混合验证码', link: '/features/login-security/random-captcha' },
             { text: '腾讯防水墙', link: '/features/login-security/tencent-captcha' },

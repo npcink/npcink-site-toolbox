@@ -163,6 +163,15 @@ class ModuleRegistryConsistency_Test extends TestCase {
         ];
     }
 
+    private static function removedP4Modules(): array {
+        return [
+            'page.jump_middle_page', 'page.ban_open_weixing', 'page.ban_open_qq',
+            'page.comment_modify_user_style', 'page.comment_baidu_moderation',
+            'page.single_remove_link', 'page.ban_copy',
+            'login.change_login_logo_link', 'login.remove_login_lang_select',
+        ];
+    }
+
     public function test_p0_modules_removed_from_registry(): void {
         $registry = MaBox_Module_Loader::get_registry();
         foreach (self::removedP0Modules() as $module_id) {
@@ -227,6 +236,22 @@ class ModuleRegistryConsistency_Test extends TestCase {
         }
     }
 
+    public function test_p4_modules_removed_from_registry(): void {
+        $registry = MaBox_Module_Loader::get_registry();
+        foreach (self::removedP4Modules() as $module_id) {
+            $this->assertArrayNotHasKey($module_id, $registry, "$module_id should not be in registry");
+        }
+    }
+
+    public function test_p4_modules_removed_from_tiers(): void {
+        $tiers = MaBox_Module_Loader::get_tiers();
+        foreach (self::removedP4Modules() as $module_id) {
+            foreach ($tiers as $tier => $modules) {
+                $this->assertNotContains($module_id, $modules, "$module_id should not be in tier '$tier'");
+            }
+        }
+    }
+
     public function test_p3_module_files_deleted(): void {
         $partials = self::$plugin_dir . '/admin/partials/';
         $deleted_paths = [
@@ -242,6 +267,27 @@ class ModuleRegistryConsistency_Test extends TestCase {
             'page/function/lang_jf',
             'login/beautify/custom_login_page.php',
             'login/beautify/style-login.css',
+        ];
+        foreach ($deleted_paths as $path) {
+            $full = $partials . $path;
+            $this->assertFileDoesNotExist($full, "$path should be deleted");
+        }
+    }
+
+    public function test_p4_module_files_deleted(): void {
+        $partials = self::$plugin_dir . '/admin/partials/';
+        $deleted_paths = [
+            'page/function/jump_middle_page.php',
+            'page/function/go',
+            'page/function/single_remove_link.php',
+            'page/jurisdiction/ban_open_weixing.php',
+            'page/jurisdiction/ban_open_qq.php',
+            'page/jurisdiction/ban_copy.php',
+            'page/jurisdiction/WxqqJump',
+            'page/comment/comment_modify_user_style.php',
+            'page/comment/baidu_moderation',
+            'login/beautify/change_login_logo_link.php',
+            'login/beautify/remove_login_lang_select.php',
         ];
         foreach ($deleted_paths as $path) {
             $full = $partials . $path;
@@ -343,13 +389,9 @@ class ModuleRegistryConsistency_Test extends TestCase {
         $this->assertArrayNotHasKey('comment_emote', $schema['page']['comment'], 'page.comment.comment_emote should not exist in schema');
     }
 
-    public function test_schema_login_beautify_has_no_p3_fields(): void {
+    public function test_schema_login_beautify_branch_removed(): void {
         $schema = MaBox_Config_Schema::get_schema();
-        $beautify = $schema['login']['beautify'];
-        $removed = ['custom_login_page', 'background_left', 'background_right', 'logo_size', 'top_logo', 'background_img'];
-        foreach ($removed as $field) {
-            $this->assertArrayNotHasKey($field, $beautify, "login.beautify.$field should not exist in schema");
-        }
+        $this->assertArrayNotHasKey('beautify', $schema['login']);
     }
 
     public function test_schema_page_function_has_no_removed_fields(): void {
@@ -358,11 +400,31 @@ class ModuleRegistryConsistency_Test extends TestCase {
         $this->assertArrayNotHasKey('article_rating', $func);
         $this->assertArrayNotHasKey('ticket', $func);
         $this->assertArrayNotHasKey('diary', $func);
+        $this->assertArrayNotHasKey('go_middle', $func);
+        $this->assertArrayNotHasKey('remove_single_link', $func);
     }
 
-    public function test_schema_page_jurisdiction_has_no_front_debug(): void {
+    public function test_schema_page_jurisdiction_has_no_removed_fields(): void {
         $schema = MaBox_Config_Schema::get_schema();
         $this->assertArrayNotHasKey('front_debug', $schema['page']['jurisdiction']);
+        $this->assertArrayNotHasKey('ban_open_weixing', $schema['page']['jurisdiction']);
+        $this->assertArrayNotHasKey('ban_open_qq', $schema['page']['jurisdiction']);
+        $this->assertArrayNotHasKey('ban_copy', $schema['page']['jurisdiction']);
+    }
+
+    public function test_schema_page_comment_has_no_p4_fields(): void {
+        $schema = MaBox_Config_Schema::get_schema();
+        $comment = $schema['page']['comment'];
+        $removed = [
+            'modify_comment_user',
+            'baidu_moderation',
+            'baidu_moderation_api_key',
+            'baidu_moderation_secret_key',
+            'baidu_moderation_action',
+        ];
+        foreach ($removed as $field) {
+            $this->assertArrayNotHasKey($field, $comment, "page.comment.$field should not exist in schema");
+        }
     }
 
     public function test_config_manager_has_no_removed_mappings(): void {

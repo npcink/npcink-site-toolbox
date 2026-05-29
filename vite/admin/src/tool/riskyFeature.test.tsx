@@ -53,21 +53,21 @@ describe("riskyFeature", () => {
   describe("checkRiskyFeature - schema cached", () => {
     it("uses schema risk info when cached", async () => {
       mockGetUiSchemaSync.mockReturnValue({
-        "page-jurisdiction-ban_copy": {
-          path: "page.jurisdiction.ban_copy",
+        "optimize-medium-no_auto_size": {
+          path: "optimize.medium.no_auto_size",
           type: "boolean",
-          feature_id: "page-jurisdiction-ban_copy",
+          feature_id: "optimize-medium-no_auto_size",
           risk: {
             level: "low",
-            title: "禁止复制",
-            warning: "此功能可能影响正常用户复制内容。",
-            suggestion: "内容站谨慎开启。",
+            title: "禁止缩略图",
+            warning: "此功能可能与部分主题不兼容。",
+            suggestion: "开启前请确认主题支持。",
           },
         },
       });
       const { checkRiskyFeature } = await import("@/tool/riskyFeature");
       const onConfirm = vi.fn();
-      const result = checkRiskyFeature("page-jurisdiction-ban_copy", true, onConfirm);
+      const result = checkRiskyFeature("optimize-medium-no_auto_size", true, onConfirm);
       expect(result).toBe(false);
     });
 
@@ -134,7 +134,7 @@ describe("riskyFeature", () => {
       mockFetchUiSchema.mockResolvedValue(null);
       const { checkRiskyFeature } = await import("@/tool/riskyFeature");
       const onConfirm = vi.fn();
-      const result = checkRiskyFeature("page-jurisdiction-ban_copy", true, onConfirm);
+      const result = checkRiskyFeature("optimize-medium-no_auto_size", true, onConfirm);
       expect(result).toBe(false);
     });
   });
@@ -142,21 +142,21 @@ describe("riskyFeature", () => {
   describe("checkRiskyFeature - disabling feature", () => {
     it("returns true when disabling a risky feature (no warning needed)", async () => {
       mockGetUiSchemaSync.mockReturnValue({
-        "page-jurisdiction-ban_copy": {
-          path: "page.jurisdiction.ban_copy",
+        "optimize-medium-no_auto_size": {
+          path: "optimize.medium.no_auto_size",
           type: "boolean",
-          feature_id: "page-jurisdiction-ban_copy",
+          feature_id: "optimize-medium-no_auto_size",
           risk: {
             level: "low",
-            title: "禁止复制",
-            warning: "此功能可能影响正常用户复制内容。",
-            suggestion: "内容站谨慎开启。",
+            title: "禁止缩略图",
+            warning: "此功能可能与部分主题不兼容。",
+            suggestion: "开启前请确认主题支持。",
           },
         },
       });
       const { checkRiskyFeature } = await import("@/tool/riskyFeature");
       const onConfirm = vi.fn();
-      const result = checkRiskyFeature("page-jurisdiction-ban_copy", false, onConfirm);
+      const result = checkRiskyFeature("optimize-medium-no_auto_size", false, onConfirm);
       expect(result).toBe(true);
     });
   });
@@ -164,22 +164,22 @@ describe("riskyFeature", () => {
   describe("dismissed features", () => {
     it("skips modal for dismissed low-risk feature", async () => {
       mockGetUiSchemaSync.mockReturnValue({
-        "page-jurisdiction-ban_copy": {
-          path: "page.jurisdiction.ban_copy",
+        "optimize-medium-no_auto_size": {
+          path: "optimize.medium.no_auto_size",
           type: "boolean",
-          feature_id: "page-jurisdiction-ban_copy",
+          feature_id: "optimize-medium-no_auto_size",
           risk: {
             level: "low",
-            title: "禁止复制",
-            warning: "此功能可能影响正常用户复制内容。",
-            suggestion: "内容站谨慎开启。",
+            title: "禁止缩略图",
+            warning: "此功能可能与部分主题不兼容。",
+            suggestion: "开启前请确认主题支持。",
           },
         },
       });
-      localStorage.setItem("mabox_risky_dismissed", JSON.stringify(["page-jurisdiction-ban_copy"]));
+      localStorage.setItem("mabox_risky_dismissed", JSON.stringify(["optimize-medium-no_auto_size"]));
       const { checkRiskyFeature } = await import("@/tool/riskyFeature");
       const onConfirm = vi.fn();
-      const result = checkRiskyFeature("page-jurisdiction-ban_copy", true, onConfirm);
+      const result = checkRiskyFeature("optimize-medium-no_auto_size", true, onConfirm);
       expect(result).toBe(true);
     });
   });

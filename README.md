@@ -1,7 +1,7 @@
 # WP Magick Toolbox
 
 > 面向中国 WordPress 站长的一站式实用工具箱插件
-> 版本：**2.6.1** | 功能数：**90+** | 授权：**GPL-2.0**
+> 版本：**2.6.1** | 功能数：**60+** | 授权：**GPL-2.0**
 
 [![CI](https://github.com/npcink/wp-magick-toolbox/actions/workflows/ci.yml/badge.svg)](https://github.com/npcink/wp-magick-toolbox/actions/workflows/ci.yml)
 [![WordPress Plugin](https://img.shields.io/badge/WordPress-4.6%2B-blue)](https://wordpress.org)
@@ -12,7 +12,7 @@
 
 ## 简介
 
-WP Magick Toolbox 是一款面向中国 WordPress 站长的免费工具箱插件，集成了 **90+ 实用功能**，涵盖站点优化、SEO、安全防护、国内生态对接（百度推送、微信生态、备案合规）、性能优化等多个维度。
+WP Magick Toolbox 是一款面向中国 WordPress 站长的免费工具箱插件，集成了 **60+ 实用功能**，涵盖站点优化、SEO、安全防护、国内生态对接（百度推送、微信生态、备案合规）、性能优化等多个维度。
 
 **核心理念**：一个插件，解决站长 80% 的日常需求。
 
@@ -67,9 +67,9 @@ cd vite/admin && npm run dev
 | 站点优化 | 8 | 禁止 Title 转义、分类去 category、搜索链接优化等 |
 | 媒体优化 | 4 | 自动 Alt、禁止缩略图、SVG 支持、上传重命名 |
 | 后台优化 | 4 | 作者/日期筛选、列表显示 ID、缩略图切换 |
-| 页面外观 | 1 | 页底特效 |
+| 页面外观 | 1 | 阅读进度条 |
 | 页面评论 | 5 | 间隔限制、字数限制、禁止纯英文等 |
-| 页面功能 | 14 | 外链跳转、维护页、禁止复制等 |
+| 页面功能 | 11 | 维护页、搜索防护、内容隐藏等 |
 | SEO 功能 | 5 | 首页 TDK、文章 SEO、分类/标签 SEO |
 | 辅助功能 | 5 | 文章统计、屏蔽恶意搜索、百度/谷歌/必应统计 |
 | 国内生态 | 10 | 备案合规、百度推送、微信 JSSDK、Cookie 弹窗、OSS 对接 |
@@ -111,7 +111,7 @@ cd vite/admin && npm run dev
 
 - 修复百度推送 REST API（实现 `rest_batch_push`，替代缺失回调导致的致命错误）
 - 修复 SVG 安全清洗（移除属性值中的 `javascript:`/`vbscript:`/`expression(` 协议）
-- 修正首次配置向导（移除高风险功能默认开启：`cdn_replace`/`ban_copy`/`ban_open_weixing`）
+- 修正首次配置向导（移除高风险功能默认开启项）
 - 修正国内环境适配（一键修复返回建议变更 diff，不再直接落库；CDN 替换标记为高风险需确认）
 - 修正数据库清理执行链路（前端必须传 `dry_run: false` 才执行；按类型预览门控；显示真实影响数量）
 - 修正审计日志调用签名（`MaBox_Audit_Logger::log($level, $category, $message, $context)`）

@@ -41,13 +41,11 @@ return array(
         'page.search_limit', 'page.default_thumbnail',
         'page.comment_interval', 'page.limit_word_count',
         'page.ban_pure_english', 'page.only_comment_once',
-        'page.comment_sensitive_words', 'page.comment_baidu_moderation',
-        'page.comment_modify_user_style',
-'page.reading_progress',
-         'page.unlisted_vague_img',
-         'page.jump_middle_page',
-         'page.login_search',
-         'page.anti_crawler',
+        'page.comment_sensitive_words',
+        'page.reading_progress',
+        'page.unlisted_vague_img',
+        'page.login_search',
+        'page.anti_crawler',
 
     ),
 
@@ -61,10 +59,8 @@ return array(
     'high_risk' => array(
         'optimize.ban_update', 'optimize.ban_auto_size',
         'optimize.cdn_replace',
-        'page.ban_open_weixing', 'page.ban_open_qq', 'page.ban_copy',
-
         'page.batch_replace',
-        'page.single_keyword_add_link', 'page.single_remove_link',
+        'page.single_keyword_add_link',
         'performance.db_clean',
 
     ),
@@ -72,7 +68,6 @@ return array(
     // ===== experimental: 实验性功能 =====
     'experimental' => array(
         'page.hide_category', 'page.hide_tag', 'page.hide_page',
-        'login.change_login_logo_link', 'login.remove_login_lang_select',
         'auxiliary.baidu_tonji', 'auxiliary.google_tonji', 'auxiliary.biying_tonji',
     ),
 );

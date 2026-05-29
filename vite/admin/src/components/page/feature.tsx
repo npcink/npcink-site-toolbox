@@ -65,9 +65,6 @@ const App: React.FC = () => {
             <InputNumber addonAfter={"px"} style={{ width: "120px" }} min={1} max={10} />
           </Form.Item>
         </ModuleRow>
-
-        <h3 className="menu-header">挂件</h3>
-
       </Form>
     </SettingsSection>
   );

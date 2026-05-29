@@ -63,15 +63,10 @@ if (!class_exists('MaBox_Config_Schema')) {
                         'words_number_max'           => array('type' => 'number',  'default' => 120, 'min' => 1),
                         'english'                    => array('type' => 'boolean', 'default' => false),
                         'only'                       => array('type' => 'boolean', 'default' => false),
-                        'modify_comment_user'        => array('type' => 'boolean', 'default' => false),
                         'sensitive_words'            => array('type' => 'boolean', 'default' => false),
                         'sensitive_words_list'       => array('type' => 'string',  'default' => '', 'sanitize' => 'sanitize_textarea_field'),
                         'sensitive_words_action'     => array('type' => 'string',  'default' => 'replace', 'enum' => array('replace', 'block')),
                         'sensitive_words_replace_char' => array('type' => 'string',  'default' => '***', 'sanitize' => 'sanitize_text_field'),
-                        'baidu_moderation'           => array('type' => 'boolean', 'default' => false),
-                        'baidu_moderation_api_key'   => array('type' => 'string',  'default' => '', 'sanitize' => 'sanitize_text_field'),
-                        'baidu_moderation_secret_key' => array('type' => 'string',  'default' => '', 'sanitize' => 'sanitize_text_field'),
-                        'baidu_moderation_action'    => array('type' => 'string',  'default' => 'mark', 'enum' => array('block', 'mark')),
                     ),
                     'feature' => array(
                         'reading_progress'         => array('type' => 'boolean', 'default' => false),
@@ -81,8 +76,6 @@ if (!class_exists('MaBox_Config_Schema')) {
                     'function' => array(
                         'first_picture'           => array('type' => 'boolean', 'default' => false),
                         'add_inks'                => array('type' => 'boolean', 'default' => false),
-                        'go_middle'               => array('type' => 'string',  'default' => 'false', 'sanitize' => 'sanitize_text_field'),
-                        'remove_single_link'       => array('type' => 'boolean', 'default' => false),
                         'add_last_update'         => array('type' => 'boolean', 'default' => false),
                         'no_login_img'            => array('type' => 'boolean', 'default' => false),
                         'maintenance_tips'        => array('type' => 'string',  'default' => 'false', 'sanitize' => 'sanitize_text_field'),
@@ -105,15 +98,6 @@ if (!class_exists('MaBox_Config_Schema')) {
 
                     ),
                     'jurisdiction' => array(
-                        'ban_open_weixing'         => array('type' => 'boolean', 'default' => false),
-                        'ban_open_weixing_mode'    => array('type' => 'string',  'default' => 'alert', 'enum' => array('alert', 'optimize'), 'sanitize' => 'sanitize_text_field'),
-                        'wechat_guide_text'        => array('type' => 'string',  'default' => '点击右上角 ··· 在浏览器中打开', 'sanitize' => 'sanitize_text_field'),
-                        'wechat_xcx_guide'        => array('type' => 'boolean', 'default' => false),
-                        'wechat_xcx_guide_text'   => array('type' => 'string',  'default' => '在小程序中打开', 'sanitize' => 'sanitize_text_field'),
-                        'wechat_xcx_link'         => array('type' => 'string',  'default' => '', 'sanitize' => 'esc_url_raw'),
-                        'ban_open_qq'             => array('type' => 'boolean', 'default' => false),
-
-                        'ban_copy'                => array('type' => 'boolean', 'default' => false, 'risk' => array('level' => 'low', 'title' => '禁止复制', 'warning' => '此功能可能影响正常用户复制内容，导致用户无法复制文章中的代码或引用。', 'suggestion' => '内容站、教程站谨慎开启。'), 'feature_id' => 'page-jurisdiction-ban_copy', 'label' => '禁止复制', 'group' => '权限'),
                         'category_id'             => array('type' => 'array',   'default' => array()),
                         'tag_id'                  => array('type' => 'array',   'default' => array()),
                         'page_id'                => array('type' => 'array',   'default' => array()),
@@ -150,10 +134,6 @@ if (!class_exists('MaBox_Config_Schema')) {
                 ),
                 'login' => array(
                     '_option_key' => MAGICK_MIXTURE_OPTION_LOGIN,
-                    'beautify' => array(
-                        'modify_login_link' => array('type' => 'boolean', 'default' => false),
-                        'remove_langue'     => array('type' => 'boolean', 'default' => false),
-                    ),
                     'security' => array(
                         'login_code' => array('type' => 'string',  'default' => 'false', 'sanitize' => 'sanitize_text_field'),
                         'tecent_id'  => array('type' => 'string',  'default' => '', 'sanitize' => 'sanitize_text_field'),

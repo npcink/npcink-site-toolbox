@@ -22,8 +22,6 @@ export const searchIndex: SearchItem[] = [
   { id: "optimize-admin-show_id", label: "列表显示 ID 列", tabKey: "2", tabLabel: "优化", section: "后台", keywords: ["id", "列表"] },
   { id: "optimize-admin-thumbnail_switcher", label: "缩略图切换", tabKey: "2", tabLabel: "优化", section: "后台", keywords: ["thumbnail", "缩略图"] },
 
-  { id: "page-jurisdiction-ban_copy", label: "禁止复制", tabKey: "1", tabLabel: "页面", section: "权限", keywords: ["copy", "复制"], tags: ["谨慎"] },
-  { id: "page-jurisdiction-ban_open_weixing", label: "禁止微信打开", tabKey: "1", tabLabel: "页面", section: "权限", keywords: ["wechat", "微信"], tags: ["谨慎"] },
   { id: "page-function-maintenance_tips", label: "维护提示页", tabKey: "1", tabLabel: "页面", section: "功能", keywords: ["maintenance", "维护", "闭站"], tags: ["谨慎"] },
   { id: "function-seo-seo_home", label: "首页 TDK", tabKey: "5", tabLabel: "功能", section: "SEO", keywords: ["tdk", "首页", "seo", "标题", "描述"], tags: ["推荐", "SEO"] },
   { id: "function-seo-seo_single", label: "文章 SEO", tabKey: "5", tabLabel: "功能", section: "SEO", keywords: ["seo", "文章", "关键词"], tags: ["推荐", "SEO"] },

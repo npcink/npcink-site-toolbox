@@ -57,7 +57,6 @@ export const presets: Preset[] = [
         },
         function: {
           add_last_update: true,
-          remove_single_link: true,
         },
       },
       function: {
@@ -72,7 +71,7 @@ export const presets: Preset[] = [
   {
     id: 'company',
     name: '企业官网推荐',
-    description: 'TDK、登录美化、统计，关闭评论表情包',
+    description: 'TDK、登录安全、统计，适合企业官网',
     config: {
       optimize: {
         site: {
@@ -88,9 +87,6 @@ export const presets: Preset[] = [
         function: {
           login_search: true,
         },
-        jurisdiction: {
-          ban_copy: true,
-        },
       },
       function: {
         seo: {
@@ -103,9 +99,6 @@ export const presets: Preset[] = [
         },
       },
       login: {
-        beautify: {
-          modify_login_link: true,
-        },
         security: {
           login_code: 'math',
         },
@@ -153,7 +146,6 @@ export const presets: Preset[] = [
           words_number_min: 5,
           english: true,
           sensitive_words: true,
-          baidu_moderation: true,
         },
         function: {
           search_limit: true,
@@ -162,10 +154,6 @@ export const presets: Preset[] = [
           anti_crawler: true,
           anti_crawler_max_requests: 60,
           anti_crawler_time_window: 60,
-        },
-        jurisdiction: {
-          ban_open_weixing: true,
-          ban_open_qq: true,
         },
       },
       login: {
@@ -244,7 +232,7 @@ export const presets: Preset[] = [
   {
     id: 'wizard_company',
     name: '企业官网',
-    description: '登录安全 + 禁复制 + SEO + 统计，适合正式商业站点',
+    description: '登录安全 + SEO + 统计，适合正式商业站点',
     wizard: true,
     icon: '🏢',
     config: {
@@ -304,7 +292,6 @@ export const presets: Preset[] = [
           words_number: true,
           words_number_min: 5,
           sensitive_words: true,
-          baidu_moderation: true,
         },
         function: {
           add_last_update: true,

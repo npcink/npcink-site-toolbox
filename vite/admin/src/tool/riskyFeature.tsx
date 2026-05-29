@@ -4,11 +4,6 @@ import { getUiSchemaSync, fetchUiSchema } from "@/tool/uiSchema";
 import { RiskInfo } from "@/tool/interface";
 
 const RISKY_FEATURES: Record<string, { title: string; warning: string; suggestion: string; noDismiss?: boolean }> = {
-  "page-jurisdiction-ban_copy": {
-    title: "禁止复制",
-    warning: "此功能可能影响正常用户复制内容，导致用户无法复制文章中的代码或引用。",
-    suggestion: "内容站、教程站谨慎开启。",
-  },
   "optimize-medium-no_auto_size": {
     title: "禁止缩略图",
     warning: "此功能可能与部分主题不兼容，导致图片显示异常。",
