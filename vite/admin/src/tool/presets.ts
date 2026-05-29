@@ -28,11 +28,6 @@ export const presets: Preset[] = [
           show_id: true,
         },
       },
-      page: {
-        feature: {
-          copy_pop_up: 'native',
-        },
-      },
     },
   },
   {
@@ -64,9 +59,6 @@ export const presets: Preset[] = [
           add_last_update: true,
           remove_single_link: true,
         },
-        feature: {
-          page_scrolling: true,
-        },
       },
       function: {
         seo: {
@@ -93,12 +85,7 @@ export const presets: Preset[] = [
         },
       },
       page: {
-        feature: {
-          top_loading: true,
-          page_scrolling: true,
-        },
         function: {
-          share: true,
           login_search: true,
         },
         jurisdiction: {
@@ -117,7 +104,6 @@ export const presets: Preset[] = [
       },
       login: {
         beautify: {
-          custom_login_page: true,
           modify_login_link: true,
         },
         security: {
@@ -144,16 +130,6 @@ export const presets: Preset[] = [
           no_auto_size: true,
           img_add_tag: true,
           upload_auto_name: 'md5',
-        },
-      },
-      page: {
-        feature: {
-          top_loading: false,
-
-          copy_pop_up: 'false',
-        },
-        comment: {
-          comment_emote: false,
         },
       },
     },
@@ -217,11 +193,6 @@ export const presets: Preset[] = [
           biying_tonji: '请填写必应统计ID',
         },
       },
-      page: {
-        function: {
-          share: true,
-        },
-      },
     },
   },
   {
@@ -256,9 +227,6 @@ export const presets: Preset[] = [
           search_limit: true,
           search_limit_count: 10,
         },
-        feature: {
-          page_scrolling: true,
-        },
       },
       function: {
         seo: {
@@ -292,12 +260,7 @@ export const presets: Preset[] = [
         },
       },
       page: {
-        feature: {
-          top_loading: true,
-          page_scrolling: true,
-        },
         function: {
-          share: true,
           login_search: true,
         },
       },
@@ -351,7 +314,6 @@ export const presets: Preset[] = [
           anti_crawler_max_requests: 60,
         },
         feature: {
-          page_scrolling: true,
           reading_progress: true,
         },
       },

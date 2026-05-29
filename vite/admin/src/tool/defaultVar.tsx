@@ -84,7 +84,6 @@ const OptimizeAdmin = {
 
 //页面 功能特效
 const PageComment = {
-  comment_emote: boo, //评论区表情包特效
   interval: boo, //两次评论间隔
   interval_time: 5, //两次评论间隔
   words_number: boo, //是否开启字数控制
@@ -105,22 +104,9 @@ const PageComment = {
 
 //页面 - 外观特效
 const PageFeature = {
-  top_loading: boo, //顶部加载进度条
-
-  scrol: "false", //美化滚动条
-
-  site_grey: boo, //网站变灰
-
-  copy_pop_up: "false", //鼠标点击复制弹窗
-
-  page_scrolling: boo, //平滑滚动
-
   reading_progress: boo, //页顶阅读进度条
   reading_progress_color: "#1677ff", //进度条颜色
   reading_progress_height: 3, //进度条高度
-  font_switch: boo, //字体切换
-  fonts: "Microsoft YaHei,Simsun,PingFang SC,Noto Sans SC", //字体列表
-  font_position: "bottom-right", //按钮位置
 };
 
 //页面 功能
@@ -137,19 +123,6 @@ const PageFunction = {
   countdown_title: "", //维护标题
   countdown_image: "", //维护图片
   countdown_content: "", //维护内容
-  share: boo, //分享
-  share_position: "right", //按钮位置
-  share_top: "200", //按钮距离顶部距离
-  share_margins: "20", //按钮距离侧边位置
-  share_text: "发现一个蛮有意思的网站，分享给你看看 - ", //分享用文本
-  share_email_email: "test@npc.ink", //邮箱地址
-  share_email_title: "发现有趣的链接", //邮箱标题
-  share_email_content: "发现一个有趣的网站，分享给你看看", //邮箱内容
-  share_img_home: "", //首页默认图
-  share_img_page: "", //页面默认图
-  share_img_about: "", //其他默认图
-
-  switch_lang_jf: boo, //简繁切换
   default_thumbnail: "", //默认文章缩略图
   search_limit: boo, //限制搜索频次
   search_limit_count: 10, //每分钟最大搜索次数
@@ -217,12 +190,6 @@ const FunctionTips = {
 const LoginBeautify = {
   modify_login_link: boo, //登录页LOGO改首页链接
   remove_langue: boo, //移除登录页语言选择框
-  custom_login_page: boo, //自定义登录页
-  background_left: str, //左下角颜色
-  background_right: str, //右上角颜色
-  logo_size: 84, //LOGO尺寸
-  top_logo: str, //顶部LOGO
-  background_img: str, //文字背景图
 };
 
 //登录安全

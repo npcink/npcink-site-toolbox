@@ -31,7 +31,7 @@ describe('defaultVar', () => {
 
   it('should have boolean values for feature toggles', () => {
     expect(typeof defaultVarOption.optimize.site.hide_top_toolbar).toBe('boolean');
-    expect(typeof defaultVarOption.page.comment.comment_emote).toBe('boolean');
+    expect(typeof defaultVarOption.page.comment.interval).toBe('boolean');
     expect(typeof defaultVarOption.ai_review.enabled).toBe('boolean');
   });
 

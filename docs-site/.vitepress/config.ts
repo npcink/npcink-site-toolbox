@@ -93,18 +93,12 @@ export default defineConfig({
           text: '页面外观',
           collapsed: true,
           items: [
-{ text: '顶部加载进度条', link: '/features/page-appearance/top-progress-bar' },
-            { text: '美化滚动条', link: '/features/page-appearance/beautiful-scrollbar' },
-            { text: '全站变灰', link: '/features/page-appearance/site-grayscale' },
-            { text: '复制弹窗', link: '/features/page-appearance/copy-popup' },
             { text: '页底特效', link: '/features/page-appearance/footer-effect' },
-            { text: '平滑滚动', link: '/features/page-appearance/smooth-scroll' },
           ],
         },
         {
           text: '页面评论',
           items: [
-            { text: '评论表情包', link: '/features/page-comment/comment-emoji' },
             { text: '评论间隔限制', link: '/features/page-comment/comment-interval' },
             { text: '评论字数限制', link: '/features/page-comment/comment-length-limit' },
             { text: '禁止纯英文评论', link: '/features/page-comment/no-english-comment' },
@@ -123,8 +117,6 @@ export default defineConfig({
             { text: '文章显示更新时间', link: '/features/page-function/show-update-time' },
             { text: '未登录模糊图片', link: '/features/page-function/blur-image-for-guest' },
             { text: '维护提示页', link: '/features/page-function/maintenance-page' },
-            { text: '分享按钮', link: '/features/page-function/share-buttons' },
-            { text: '简繁切换', link: '/features/page-function/simplified-traditional-switch' },
             { text: '禁止微信/QQ 打开', link: '/features/page-function/block-wechat-qq' },
             { text: '禁止复制', link: '/features/page-function/disable-copy' },
             { text: '隐藏指定内容', link: '/features/page-function/hide-content' },
@@ -159,7 +151,6 @@ export default defineConfig({
           items: [
             { text: 'LOGO 改首页链接', link: '/features/login-security/logo-home-link' },
             { text: '移除语言选择', link: '/features/login-security/remove-language-selector' },
-            { text: '自定义登录页', link: '/features/login-security/custom-login-page' },
             { text: '数学验证码', link: '/features/login-security/math-captcha' },
             { text: '随机混合验证码', link: '/features/login-security/random-captcha' },
             { text: '腾讯防水墙', link: '/features/login-security/tencent-captcha' },
@@ -189,7 +180,6 @@ export default defineConfig({
           collapsed: true,
           items: [
             { text: 'AI 审核引擎', link: '/features/other/ai-review' },
-            { text: '字体切换', link: '/features/other/font-switch' },
             { text: '小工具选项', link: '/features/other/widgets' },
             { text: '隐藏邮件 IP', link: '/features/other/hide-email-ip' },
           ],

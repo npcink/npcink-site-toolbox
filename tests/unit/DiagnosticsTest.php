@@ -86,7 +86,6 @@ class DiagnosticsTest extends TestCase {
 
         $config = array(
             'page' => array(
-                'feature'     => array('site_grey' => true),
                 'jurisdiction'=> array('ban_copy' => true),
             ),
         );
@@ -100,8 +99,8 @@ class DiagnosticsTest extends TestCase {
         );
 
         $score = $method->invoke(null, $config, $env);
-        // 基础 60 - 2(site_grey) - 3(ban_copy) - 3(no CDN) = 52
-        $this->assertEquals(52, $score);
+        // 基础 60 - 3(ban_copy) - 3(no CDN) = 54
+        $this->assertEquals(54, $score);
     }
 
     /**
@@ -289,7 +288,6 @@ class DiagnosticsTest extends TestCase {
         // 全部负向配置 + 最差环境
         $min_config = array(
             'page' => array(
-                'feature'      => array('site_grey' => true),
                 'jurisdiction' => array('ban_copy' => true),
             ),
         );

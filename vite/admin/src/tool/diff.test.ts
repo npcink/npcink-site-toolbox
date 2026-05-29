@@ -20,28 +20,28 @@ describe("diffConfig", () => {
   });
 
   it("高风险功能从关闭到开启时标记为 high", () => {
-    const before = { page: { feature: { site_grey: false } } };
-    const after = { page: { feature: { site_grey: true } } };
+    const before = { page: { jurisdiction: { ban_copy: false } } };
+    const after = { page: { jurisdiction: { ban_copy: true } } };
     const diffs = diffConfig(before, after);
     expect(diffs).toHaveLength(1);
-    expect(diffs[0].path).toBe("page.feature.site_grey");
+    expect(diffs[0].path).toBe("page.jurisdiction.ban_copy");
     expect(diffs[0].riskLevel).toBe("high");
   });
 
   it("高风险功能从开启到关闭时标记为 none", () => {
-    const before = { page: { feature: { site_grey: true } } };
-    const after = { page: { feature: { site_grey: false } } };
+    const before = { page: { jurisdiction: { ban_copy: true } } };
+    const after = { page: { jurisdiction: { ban_copy: false } } };
     const diffs = diffConfig(before, after);
     expect(diffs).toHaveLength(1);
     expect(diffs[0].riskLevel).toBe("none");
   });
 
   it("字符串 'false' 到非 false 视为开启", () => {
-    const before = { page: { feature: { site_grey: "false" } } };
-    const after = { page: { feature: { site_grey: true } } };
+    const before = { page: { jurisdiction: { ban_copy: "false" } } };
+    const after = { page: { jurisdiction: { ban_copy: true } } };
     const diffs = diffConfig(before, after);
     expect(diffs).toHaveLength(1);
-    expect(diffs[0].path).toBe("page.feature.site_grey");
+    expect(diffs[0].path).toBe("page.jurisdiction.ban_copy");
     expect(diffs[0].riskLevel).toBe("high");
   });
 
@@ -97,14 +97,14 @@ describe("diffConfig", () => {
   it("高风险项排序在前", () => {
     const before = {
       optimize: { site: { remove_RSS_version: false } },
-      page: { feature: { site_grey: false } },
+      page: { jurisdiction: { ban_copy: false } },
     };
     const after = {
       optimize: { site: { remove_RSS_version: true } },
-      page: { feature: { site_grey: true } },
+      page: { jurisdiction: { ban_copy: true } },
     };
     const diffs = diffConfig(before, after);
-    expect(diffs[0].path).toBe("page.feature.site_grey");
+    expect(diffs[0].path).toBe("page.jurisdiction.ban_copy");
     expect(diffs[0].riskLevel).toBe("high");
     expect(diffs[1].path).toBe("optimize.site.remove_RSS_version");
     expect(diffs[1].riskLevel).toBe("none");
@@ -113,8 +113,6 @@ describe("diffConfig", () => {
   it("所有已知高风险路径都被识别", () => {
     const riskyPaths = [
       { path: ["page", "jurisdiction", "ban_copy"], before: false, after: true },
-      { path: ["page", "feature", "site_grey"], before: false, after: true },
-
       { path: ["optimize", "medium", "no_auto_size"], before: false, after: true },
     ];
 

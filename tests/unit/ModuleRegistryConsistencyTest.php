@@ -154,6 +154,15 @@ class ModuleRegistryConsistency_Test extends TestCase {
         ];
     }
 
+    private static function removedP3Modules(): array {
+        return [
+            'page.top_loading', 'page.add_scroll_bar', 'page.all_grey',
+            'page.copy_pop_up', 'page.scrolling', 'page.font_switch',
+            'page.comment_emoji', 'page.share', 'page.lang_jf',
+            'login.custom_login_page',
+        ];
+    }
+
     public function test_p0_modules_removed_from_registry(): void {
         $registry = MaBox_Module_Loader::get_registry();
         foreach (self::removedP0Modules() as $module_id) {
@@ -199,6 +208,44 @@ class ModuleRegistryConsistency_Test extends TestCase {
             foreach ($tiers as $tier => $modules) {
                 $this->assertNotContains($module_id, $modules, "$module_id should not be in tier '$tier'");
             }
+        }
+    }
+
+    public function test_p3_modules_removed_from_registry(): void {
+        $registry = MaBox_Module_Loader::get_registry();
+        foreach (self::removedP3Modules() as $module_id) {
+            $this->assertArrayNotHasKey($module_id, $registry, "$module_id should not be in registry");
+        }
+    }
+
+    public function test_p3_modules_removed_from_tiers(): void {
+        $tiers = MaBox_Module_Loader::get_tiers();
+        foreach (self::removedP3Modules() as $module_id) {
+            foreach ($tiers as $tier => $modules) {
+                $this->assertNotContains($module_id, $modules, "$module_id should not be in tier '$tier'");
+            }
+        }
+    }
+
+    public function test_p3_module_files_deleted(): void {
+        $partials = self::$plugin_dir . '/admin/partials/';
+        $deleted_paths = [
+            'page/exterior/top_loading',
+            'page/exterior/copy_pop_up',
+            'page/exterior/scrolling',
+            'page/exterior/font_switch',
+            'page/exterior/add_scroll_bar.php',
+            'page/exterior/all_grey.php',
+            'page/comment/comment_emoji.php',
+            'page/comment/emoji',
+            'page/function/share',
+            'page/function/lang_jf',
+            'login/beautify/custom_login_page.php',
+            'login/beautify/style-login.css',
+        ];
+        foreach ($deleted_paths as $path) {
+            $full = $partials . $path;
+            $this->assertFileDoesNotExist($full, "$path should be deleted");
         }
     }
 
@@ -270,6 +317,38 @@ class ModuleRegistryConsistency_Test extends TestCase {
         $removed_feature_fields = ['particle', 'screen_hair', 'lantern', 'lantern_left', 'lantern_right', 'pixel_chicken', 'past_books', 'bottom_effect', 'background_effect'];
         foreach ($removed_feature_fields as $field) {
             $this->assertArrayNotHasKey($field, $feature, "page.feature.$field should not exist in schema");
+        }
+    }
+
+    public function test_schema_page_feature_has_no_p3_fields(): void {
+        $schema = MaBox_Config_Schema::get_schema();
+        $feature = $schema['page']['feature'];
+        $removed = ['top_loading', 'scrol', 'site_grey', 'copy_pop_up', 'page_scrolling', 'font_switch', 'fonts', 'font_position'];
+        foreach ($removed as $field) {
+            $this->assertArrayNotHasKey($field, $feature, "page.feature.$field should not exist in schema");
+        }
+    }
+
+    public function test_schema_page_function_has_no_p3_fields(): void {
+        $schema = MaBox_Config_Schema::get_schema();
+        $func = $schema['page']['function'];
+        $removed = ['share', 'share_position', 'share_top', 'share_margins', 'share_text', 'share_email_email', 'share_email_title', 'share_email_content', 'share_img_home', 'share_img_page', 'share_img_about', 'switch_lang_jf'];
+        foreach ($removed as $field) {
+            $this->assertArrayNotHasKey($field, $func, "page.function.$field should not exist in schema");
+        }
+    }
+
+    public function test_schema_page_comment_has_no_p3_fields(): void {
+        $schema = MaBox_Config_Schema::get_schema();
+        $this->assertArrayNotHasKey('comment_emote', $schema['page']['comment'], 'page.comment.comment_emote should not exist in schema');
+    }
+
+    public function test_schema_login_beautify_has_no_p3_fields(): void {
+        $schema = MaBox_Config_Schema::get_schema();
+        $beautify = $schema['login']['beautify'];
+        $removed = ['custom_login_page', 'background_left', 'background_right', 'logo_size', 'top_logo', 'background_img'];
+        foreach ($removed as $field) {
+            $this->assertArrayNotHasKey($field, $beautify, "login.beautify.$field should not exist in schema");
         }
     }
 

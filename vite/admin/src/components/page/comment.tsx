@@ -46,15 +46,6 @@ const App: React.FC = () => {
         onValuesChange={onValuesChange}
       >
         <ModuleRow
-          title="添加OWO表情包"
-          description="评论区添加OWO表情包"
-          featureId="page-comment-comment_emote"
-          enabled={formData.comment_emote as boolean}
-          onChange={(checked: boolean) => {
-            onValuesChange({ comment_emote: checked } as Partial<FieldType>, formData);
-          }}
-        />
-        <ModuleRow
           title="两次评论间隔时间"
           description="避免短时间内重复灌水评论，对管理员无效"
           featureId="page-comment-interval"

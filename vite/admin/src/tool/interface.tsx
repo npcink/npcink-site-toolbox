@@ -188,7 +188,6 @@ export type OptimizeAdmin = {
 
 //页面 - 评论
 export type PageComment = {
-  comment_emote: boolean; //评论区表情包特效
   interval: boolean; //两次评论间隔
   interval_time: number; //间隔时间
   words_number: boolean; //是否开启字数控制
@@ -209,22 +208,9 @@ export type PageComment = {
 
 //页面 - 外观特效
 export type PageFeature = {
-  top_loading: boolean; //顶部加载进度条
-
-  scrol: string; //美化滚动条
-
-  site_grey: boolean; //网站变灰
-
-  copy_pop_up: string; //鼠标点击复制弹窗
-
-  page_scrolling: boolean; //平滑滚动
-
-  reading_progress: boolean; //页顶阅读进度条
-  reading_progress_color: string; //进度条颜色
-  reading_progress_height: number; //进度条高度
-  font_switch: boolean; //字体切换
-  fonts: string; //字体列表
-  font_position: string; //按钮位置
+  reading_progress: boolean;
+  reading_progress_color: string;
+  reading_progress_height: number;
 };
 
 //页面 - 功能
@@ -240,19 +226,6 @@ export type PageFunction = {
   countdown_title: string; //维护标题
   countdown_image: string; //维护图片
   countdown_content: string; //维护内容
-  share: boolean; //分享
-  share_position: string; //按钮位置
-  share_top: string; //按钮距离顶部距离
-  share_margins: string; //按钮距离侧边位置
-  share_text: string; //分享用文本
-  share_email_email: string; //邮箱地址
-  share_email_title: string; //邮箱标题
-  share_email_content: string; //邮箱内容
-  share_img_home: string; //首页默认图
-  share_img_page: string; //页面默认图
-  share_img_about: string; //其他默认图
-
-  switch_lang_jf: boolean; //简繁切换
   default_thumbnail: string; //默认文章缩略图
   search_limit: boolean; //限制搜索频次
   search_limit_count: number; //每分钟最大搜索次数
@@ -318,14 +291,8 @@ export type FunctionSeo = {
 
 //登录 美化
 export type LoginBeautify = {
-  modify_login_link: boolean; //登录页LOGO改首页链接
-  remove_langue: boolean; //移除登录页语言选择框
-  custom_login_page: boolean; //自定义登录页
-  background_left: string; //左下角颜色
-  background_right: string; //右上角颜色
-  logo_size: number; //LOGO尺寸
-  top_logo: string; //顶部LOGO
-  background_img: string; //文字背景图
+  modify_login_link: boolean;
+  remove_langue: boolean;
 };
 
 //登录安全

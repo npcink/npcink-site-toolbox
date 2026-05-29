@@ -6,7 +6,6 @@ import { ConfigDiffItem } from "@/tool/interface";
  */
 const RISKY_PATHS: Record<string, { label: string; title: string }> = {
   "page.jurisdiction.ban_copy": { label: "禁止复制", title: "禁止复制" },
-  "page.feature.site_grey": { label: "全站变灰", title: "全站变灰" },
   "optimize.medium.no_auto_size": { label: "禁止缩略图", title: "禁止缩略图" },
 };
 

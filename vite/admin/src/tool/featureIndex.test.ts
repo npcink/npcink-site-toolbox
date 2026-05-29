@@ -33,24 +33,23 @@ describe("featureIndex", () => {
       expect(index[0].id).toBe("optimize-site-hide_top_toolbar");
     });
 
-    it("returns merged index when schema is cached", async () => {
+it("returns merged index when schema is cached", async () => {
       mockGetUiSchemaSync.mockReturnValue({
-    "page-feature-top_loading": {
-      path: "page.feature.top_loading",
+    "page-feature-reading_progress": {
+      path: "page.feature.reading_progress",
       type: "boolean",
-      label: "顶部加载进度条",
+      label: "页顶阅读进度条",
       group: "外观",
-      feature_id: "page-feature-top_loading",
-      risk_tags: ["谨慎"],
-      preset_tags: ["performance"],
+      feature_id: "page-feature-reading_progress",
+      risk_tags: ["仅前台"],
     },
   });
       const { getFeatureIndexSync } = await import("@/tool/featureIndex");
       const index = getFeatureIndexSync();
-  const topLoadingItem = index.find((i) => i.id === "page-feature-top_loading");
-  expect(topLoadingItem).toBeDefined();
-  expect(topLoadingItem!.label).toBe("顶部加载进度条");
-});
+  const readingProgressItem = index.find((i) => i.id === "page-feature-reading_progress");
+      expect(readingProgressItem).toBeDefined();
+      expect(readingProgressItem!.label).toBe("页顶阅读进度条");
+    });
   });
 
   describe("fetchFeatureIndex", () => {

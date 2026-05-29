@@ -1,7 +1,7 @@
 //页面 - 功能
 import React from "react";
 import { useState, useContext, useEffect } from "react";
-import { Form, Input, Radio, InputNumber } from "antd";
+import { Form, Input, InputNumber } from "antd";
 import TimePeriod from "@/basic/timeInput";
 import TextAreaHtml from "@/basic/htmlInput";
 import { DataContext } from "@/tool/dataContext";
@@ -10,9 +10,6 @@ import { AntConfig } from "@/tool/tool";
 import { PageFunction } from "@/tool/interface";
 import SelectImage from "@/basic/selectImage";
 import FixedImage from "@/basic/fixedImage";
-import Email from "@/assets/page/function/share/email.png";
-import WeiBo from "@/assets/page/function/share/weibo.png";
-import Preview from "@/basic/preview";
 import { SettingsSection, ModuleRow } from "@/components/settings-ui";
 
 type FieldType = PageFunction;
@@ -174,98 +171,6 @@ const App: React.FC = () => {
             </Form.Item>
           </>
         )}
-        <ModuleRow
-          title="分享"
-          description="开启侧边悬浮按钮，提供画报分享，复制链接，发送邮件等功能"
-          featureId="page-function-share"
-          enabled={formData.share as boolean}
-          onChange={(checked: boolean) => {
-            onValuesChange({ share: checked } as Partial<FieldType>, formData);
-          }}
-        >
-          <Form.Item label="分享">
-            <h3>按钮位置</h3>
-          </Form.Item>
-          <Form.Item<FieldType> label="分享按钮位置" name="share_position">
-            <Radio.Group
-              options={[
-                { label: "左边", value: "left" },
-                { label: "右边", value: "right" },
-              ]}
-              optionType="button"
-              buttonStyle="solid"
-            />
-          </Form.Item>
-          <Form.Item<FieldType> label="按钮距离顶部" name="share_top">
-            <InputNumber addonAfter="px" style={{ width: "120px" }} />
-          </Form.Item>
-          <Form.Item<FieldType> label="按钮距离侧边" name="share_margins">
-            <InputNumber addonAfter="px" style={{ width: "120px" }} />
-          </Form.Item>
-          <Form.Item<FieldType>
-            label="分享文本"
-            name="share_text"
-            extra={
-              <>
-                前往第三方平台分享时展示的文本：
-                <Preview title="分享文本" img={WeiBo} />
-              </>
-            }
-          >
-            <Input />
-          </Form.Item>
-          <Form.Item label="分享">
-            <h3>
-              邮箱 -
-              <Preview title="邮箱" img={Email} />
-            </h3>
-          </Form.Item>
-          <Form.Item<FieldType>
-            label="邮箱地址"
-            name="share_email_email"
-            rules={[
-              {
-                type: "email",
-                message: "请输入有效的邮箱地址!",
-              },
-              {
-                required: true,
-                message: "请输入邮箱地址!",
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
-          <Form.Item<FieldType> label="邮箱标题" name="share_email_title">
-            <Input />
-          </Form.Item>
-          <Form.Item<FieldType> label="邮箱内容" name="share_email_content">
-            <Input />
-          </Form.Item>
-          <Form.Item label="分享">
-            <h3>主图</h3>
-          </Form.Item>
-
-          <Form.Item<FieldType> label="首页默认图" name="share_img_home">
-            <SelectImage />
-          </Form.Item>
-          <Form.Item<FieldType> label="页面默认图" name="share_img_page">
-            <SelectImage />
-          </Form.Item>
-          <Form.Item<FieldType> label="其他默认图" name="share_img_about">
-            <SelectImage />
-          </Form.Item>
-        </ModuleRow>
-
-        <ModuleRow
-          title="简繁切换"
-          description="屏幕右下角添加简体繁体切换按钮"
-          featureId="page-function-switch_lang_jf"
-          enabled={formData.switch_lang_jf as boolean}
-          onChange={(checked: boolean) => {
-            onValuesChange({ switch_lang_jf: checked } as Partial<FieldType>, formData);
-          }}
-        />
         <ModuleRow
           title="进阶防刷"
           description="对频繁访问的异常 IP 触发腾讯防水墙验证"

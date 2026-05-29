@@ -39,15 +39,15 @@ return array(
 
         'page.first_picture', 'page.add_article_update_time',
         'page.search_limit', 'page.default_thumbnail',
-        'page.comment_emoji', 'page.comment_interval', 'page.limit_word_count',
+        'page.comment_interval', 'page.limit_word_count',
         'page.ban_pure_english', 'page.only_comment_once',
         'page.comment_sensitive_words', 'page.comment_baidu_moderation',
         'page.comment_modify_user_style',
-        'page.reading_progress', 'page.font_switch',
-        'page.scrolling', 'page.unlisted_vague_img',
-        'page.jump_middle_page', 'page.share',
-        'page.login_search',
-        'page.anti_crawler',
+'page.reading_progress',
+         'page.unlisted_vague_img',
+         'page.jump_middle_page',
+         'page.login_search',
+         'page.anti_crawler',
 
     ),
 
@@ -71,12 +71,8 @@ return array(
 
     // ===== experimental: 实验性功能 =====
     'experimental' => array(
-        'page.top_loading', 'page.all_grey',
-        'page.copy_pop_up',
-        'page.add_scroll_bar', 'page.lang_jf',
         'page.hide_category', 'page.hide_tag', 'page.hide_page',
         'login.change_login_logo_link', 'login.remove_login_lang_select',
-        'login.custom_login_page',
         'auxiliary.baidu_tonji', 'auxiliary.google_tonji', 'auxiliary.biying_tonji',
     ),
 );

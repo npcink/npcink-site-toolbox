@@ -9,12 +9,6 @@ const RISKY_FEATURES: Record<string, { title: string; warning: string; suggestio
     warning: "此功能可能影响正常用户复制内容，导致用户无法复制文章中的代码或引用。",
     suggestion: "内容站、教程站谨慎开启。",
   },
-
-  "page-feature-site_grey": {
-    title: "全站变灰",
-    warning: "此功能会将整个网站变为灰色，仅适合特殊纪念日使用。",
-    suggestion: "非特殊时间建议关闭。",
-  },
   "optimize-medium-no_auto_size": {
     title: "禁止缩略图",
     warning: "此功能可能与部分主题不兼容，导致图片显示异常。",

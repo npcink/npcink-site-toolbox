@@ -135,11 +135,6 @@ if (!class_exists('MaBox_Diagnostics')) {
                 $score -= 3;
             }
 
-            $page_feature = self::get_nested($config, 'page', 'feature');
-            if (!empty($page_feature['site_grey'])) {
-                $score -= 2;
-            }
-
             $page_jurisdiction = self::get_nested($config, 'page', 'jurisdiction');
             if (!empty($page_jurisdiction['ban_copy'])) {
                 $score -= 3;
@@ -512,15 +507,6 @@ if (!class_exists('MaBox_Diagnostics')) {
                     'tier'      => 'config',
                     'title'     => __('禁止复制', 'magick-toolbox'),
                     'message'   => __('禁止右键复制可能影响正常用户体验和可访问性。', 'magick-toolbox'),
-                );
-            }
-
-            if (!empty($page_feature['site_grey'])) {
-                $risks[] = array(
-                    'module_id' => 'page.site_grey',
-                    'tier'      => 'config',
-                    'title'     => __('全站置灰', 'magick-toolbox'),
-                    'message'   => __('全站灰度滤镜影响视觉体验和性能。', 'magick-toolbox'),
                 );
             }
 

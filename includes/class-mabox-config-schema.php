@@ -56,7 +56,6 @@ if (!class_exists('MaBox_Config_Schema')) {
                 'page' => array(
                     '_option_key' => MAGICK_MIXTURE_OPTION_PAGE,
                     'comment' => array(
-                        'comment_emote'              => array('type' => 'boolean', 'default' => false),
                         'interval'                   => array('type' => 'boolean', 'default' => false),
                         'interval_time'              => array('type' => 'number',  'default' => 5, 'min' => 1, 'max' => 3600),
                         'words_number'               => array('type' => 'boolean', 'default' => false),
@@ -75,22 +74,9 @@ if (!class_exists('MaBox_Config_Schema')) {
                         'baidu_moderation_action'    => array('type' => 'string',  'default' => 'mark', 'enum' => array('block', 'mark')),
                     ),
                     'feature' => array(
-                        'top_loading'              => array('type' => 'boolean', 'default' => false),
-
-                        'scrol'                    => array('type' => 'string',  'default' => 'false', 'sanitize' => 'sanitize_text_field'),
-
-                        'site_grey'                => array('type' => 'boolean', 'default' => false, 'risk' => array('level' => 'low', 'title' => '全站变灰', 'warning' => '此功能会将整个网站变为灰色，仅适合特殊纪念日使用。', 'suggestion' => '非特殊时间建议关闭。'), 'feature_id' => 'page-feature-site_grey', 'label' => '全站变灰', 'group' => '外观'),
-
-                        'copy_pop_up'              => array('type' => 'string',  'default' => 'false', 'sanitize' => 'sanitize_text_field'),
-
-                        'page_scrolling'           => array('type' => 'boolean', 'default' => false),
-
                         'reading_progress'         => array('type' => 'boolean', 'default' => false),
                         'reading_progress_color'    => array('type' => 'string',  'default' => '#1677ff', 'sanitize' => 'sanitize_hex_color'),
                         'reading_progress_height'  => array('type' => 'number',  'default' => 3, 'min' => 1, 'max' => 20),
-                        'font_switch'              => array('type' => 'boolean', 'default' => false),
-                        'fonts'                    => array('type' => 'string',  'default' => 'Microsoft YaHei,Simsun,PingFang SC,Noto Sans SC', 'sanitize' => 'sanitize_text_field'),
-                        'font_position'            => array('type' => 'string',  'default' => 'bottom-right', 'sanitize' => 'sanitize_text_field'),
                     ),
                     'function' => array(
                         'first_picture'           => array('type' => 'boolean', 'default' => false),
@@ -104,18 +90,6 @@ if (!class_exists('MaBox_Config_Schema')) {
                         'countdown_title'         => array('type' => 'string',  'default' => '', 'sanitize' => 'sanitize_text_field'),
                         'countdown_image'         => array('type' => 'string',  'default' => '', 'sanitize' => 'esc_url_raw'),
                         'countdown_content'       => array('type' => 'string',  'default' => '', 'sanitize' => 'sanitize_textarea_field'),
-                        'share'                   => array('type' => 'boolean', 'default' => false),
-                        'share_position'          => array('type' => 'string',  'default' => 'right', 'sanitize' => 'sanitize_text_field'),
-                        'share_top'               => array('type' => 'string',  'default' => '200', 'sanitize' => 'sanitize_text_field'),
-                        'share_margins'           => array('type' => 'string',  'default' => '20', 'sanitize' => 'sanitize_text_field'),
-                        'share_text'              => array('type' => 'string',  'default' => '发现一个蛮有意思的网站，分享给你看看 - ', 'sanitize' => 'sanitize_text_field'),
-                        'share_email_email'       => array('type' => 'string',  'default' => 'test@npc.ink', 'sanitize' => 'sanitize_email'),
-                        'share_email_title'       => array('type' => 'string',  'default' => '发现有趣的链接', 'sanitize' => 'sanitize_text_field'),
-                        'share_email_content'     => array('type' => 'string',  'default' => '发现一个有趣的网站，分享给你看看', 'sanitize' => 'sanitize_textarea_field'),
-                        'share_img_home'          => array('type' => 'string',  'default' => '', 'sanitize' => 'esc_url_raw'),
-                        'share_img_page'          => array('type' => 'string',  'default' => '', 'sanitize' => 'esc_url_raw'),
-                        'share_img_about'         => array('type' => 'string',  'default' => '', 'sanitize' => 'esc_url_raw'),
-                        'switch_lang_jf'          => array('type' => 'boolean', 'default' => false),
                         'default_thumbnail'       => array('type' => 'string',  'default' => '', 'sanitize' => 'esc_url_raw'),
                         'search_limit'            => array('type' => 'boolean', 'default' => false),
                         'search_limit_count'      => array('type' => 'number',  'default' => 10, 'min' => 1, 'max' => 100),
@@ -179,12 +153,6 @@ if (!class_exists('MaBox_Config_Schema')) {
                     'beautify' => array(
                         'modify_login_link' => array('type' => 'boolean', 'default' => false),
                         'remove_langue'     => array('type' => 'boolean', 'default' => false),
-                        'custom_login_page' => array('type' => 'boolean', 'default' => false),
-                        'background_left'   => array('type' => 'string',  'default' => '', 'sanitize' => 'sanitize_hex_color'),
-                        'background_right'  => array('type' => 'string',  'default' => '', 'sanitize' => 'sanitize_hex_color'),
-                        'logo_size'         => array('type' => 'number',  'default' => 84, 'min' => 20, 'max' => 300),
-                        'top_logo'          => array('type' => 'string',  'default' => '', 'sanitize' => 'esc_url_raw'),
-                        'background_img'    => array('type' => 'string',  'default' => '', 'sanitize' => 'esc_url_raw'),
                     ),
                     'security' => array(
                         'login_code' => array('type' => 'string',  'default' => 'false', 'sanitize' => 'sanitize_text_field'),

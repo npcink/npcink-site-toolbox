@@ -21,7 +21,6 @@ export const searchIndex: SearchItem[] = [
   { id: "optimize-admin-add_time", label: "文章日期筛选", tabKey: "2", tabLabel: "优化", section: "后台", keywords: ["date", "日期", "筛选"] },
   { id: "optimize-admin-show_id", label: "列表显示 ID 列", tabKey: "2", tabLabel: "优化", section: "后台", keywords: ["id", "列表"] },
   { id: "optimize-admin-thumbnail_switcher", label: "缩略图切换", tabKey: "2", tabLabel: "优化", section: "后台", keywords: ["thumbnail", "缩略图"] },
-  { id: "page-feature-top_loading", label: "顶部加载进度条", tabKey: "1", tabLabel: "页面", section: "外观", keywords: ["loading", "进度条", "加载"] },
 
   { id: "page-jurisdiction-ban_copy", label: "禁止复制", tabKey: "1", tabLabel: "页面", section: "权限", keywords: ["copy", "复制"], tags: ["谨慎"] },
   { id: "page-jurisdiction-ban_open_weixing", label: "禁止微信打开", tabKey: "1", tabLabel: "页面", section: "权限", keywords: ["wechat", "微信"], tags: ["谨慎"] },

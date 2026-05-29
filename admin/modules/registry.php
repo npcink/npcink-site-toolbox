@@ -169,49 +169,6 @@ return array(
     ),
 
     // ========== 页面外观 ==========
-    'page.top_loading' => array(
-        'class'     => 'MaBox_Page_Top_Loading',
-        'file'      => 'page/exterior/top_loading/index.php',
-        'option_key'=> 'page.feature.top_loading',
-        'category'  => 'page',
-        'scope'     => 'frontend',
-        'risk_tags' => array('仅前台'),
-    ),
-
-    'page.add_scroll_bar' => array(
-        'class'     => 'MaBox_Page_Add_Scroll_Bar',
-        'file'      => 'page/exterior/add_scroll_bar.php',
-        'option_key'=> 'page.feature.scrol',
-        'category'  => 'page',
-        'scope'     => 'frontend',
-        'risk_tags' => array('仅前台'),
-    ),
-
-    'page.all_grey' => array(
-        'class'     => 'MaBox_Page_All_Grey',
-        'file'      => 'page/exterior/all_grey.php',
-        'option_key'=> 'page.feature.site_grey',
-        'category'  => 'page',
-        'scope'     => 'frontend',
-        'risk_tags' => array('仅前台'),
-    ),
-    'page.copy_pop_up' => array(
-        'class'     => 'MaBox_Page_Copy_Pop_Up',
-        'file'      => 'page/exterior/copy_pop_up/index.php',
-        'option_key'=> 'page.feature.copy_pop_up',
-        'category'  => 'page',
-        'scope'     => 'frontend',
-        'risk_tags' => array('仅前台'),
-    ),
-
-    'page.scrolling' => array(
-        'class'     => 'MaBox_Page_Scrolling',
-        'file'      => 'page/exterior/scrolling/index.php',
-        'option_key'=> 'page.feature.page_scrolling',
-        'category'  => 'page',
-        'scope'     => 'frontend',
-        'risk_tags' => array('仅前台'),
-    ),
 
     'page.reading_progress' => array(
         'class'     => 'MaBox_Page_Reading_Progress',
@@ -222,24 +179,7 @@ return array(
         'config_path' => 'page.feature',
         'risk_tags' => array('仅前台'),
     ),
-    'page.font_switch' => array(
-        'class'     => 'MaBox_Page_Font_Switch',
-        'file'      => 'page/exterior/font_switch/index.php',
-        'option_key'=> 'page.feature.font_switch',
-        'category'  => 'page',
-        'scope'     => 'frontend',
-        'config_path' => 'page.feature',
-        'risk_tags' => array('仅前台'),
-    ),
-
     // ========== 页面评论 ==========
-    'page.comment_emoji' => array(
-        'class'     => 'MaBox_Page_Comment_Emoji',
-        'file'      => 'page/comment/comment_emoji.php',
-        'option_key'=> 'page.comment.comment_emote',
-        'category'  => 'page',
-        'scope'     => 'frontend',
-    ),
     'page.comment_interval' => array(
         'class'     => 'MaBox_Page_Comment_Interval',
         'file'      => 'page/comment/comment_interval.php',
@@ -342,21 +282,6 @@ return array(
         'class'     => 'MaBox_Maintenance_Tips',
         'file'      => 'page/function/maintenance_tips.php',
         'option_key'=> 'page.function.maintenance_tips',
-        'category'  => 'page',
-        'scope'     => 'frontend',
-    ),
-    'page.share' => array(
-        'class'     => 'MaBox_Public_Add_Share',
-        'file'      => 'page/function/share/index.php',
-        'option_key'=> 'page.function.share',
-        'category'  => 'page',
-        'scope'     => 'frontend',
-        'config_path' => 'page.function',
-    ),
-    'page.lang_jf' => array(
-        'class'     => 'MaBox_Single_Lang_Jf',
-        'file'      => 'page/function/lang_jf/index.php',
-        'option_key'=> 'page.function.switch_lang_jf',
         'category'  => 'page',
         'scope'     => 'frontend',
     ),
@@ -547,15 +472,6 @@ return array(
         'option_key'=> 'login.beautify.remove_langue',
         'category'  => 'login',
         'scope'     => 'admin',
-        'risk_tags' => array('仅后台'),
-    ),
-    'login.custom_login_page' => array(
-        'class'     => 'MaBox_Login_Custom_Page',
-        'file'      => 'login/beautify/custom_login_page.php',
-        'option_key'=> 'login.beautify.custom_login_page',
-        'category'  => 'login',
-        'scope'     => 'admin',
-        'config_path' => 'login.beautify',
         'risk_tags' => array('仅后台'),
     ),
     'login.login_verify' => array(
