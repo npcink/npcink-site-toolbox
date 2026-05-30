@@ -42,7 +42,8 @@ const FeatureSearch: React.FC<FeatureSearchProps> = ({ onNavigate, className, st
       (item) =>
         item.label.toLowerCase().includes(kw) ||
         (item.keywords && item.keywords.some((k) => k.toLowerCase().includes(kw))) ||
-        (item.section && item.section.toLowerCase().includes(kw))
+        (item.section && item.section.toLowerCase().includes(kw)) ||
+        (item.aliases && item.aliases.some((a) => a.toLowerCase().includes(kw)))
     );
   }, [keyword, mergedIndex]);
 

@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { aiReviewApi } from "@/api";
-import { Table, Tag, Button, Space, Popconfirm, message, Typography } from "antd";
-import type { ColumnsType } from "antd/es/table";
-
-
-const { Text } = Typography;
+import { Button, Space, Popconfirm, message } from "antd";
+import { CheckTable, DetailDrawer, StatusTag } from "@/components/settings-ui";
 
 interface LogEntry {
   comment_author: string;
@@ -20,21 +17,16 @@ interface LogEntry {
   reviewer_action: string;
 }
 
-const riskColor: Record<string, string> = {
-  safe: "green",
-  medium: "orange",
-  high: "red",
+const riskStatusMap: Record<string, "安全" | "谨慎" | "高风险"> = {
+  safe: "安全",
+  medium: "谨慎",
+  high: "高风险",
 };
 
-const statusTag = (status: string) => {
-  switch (status) {
-    case "approved":
-      return <Tag color="green">已通过</Tag>;
-    case "rejected":
-      return <Tag color="red">已拒绝</Tag>;
-    default:
-      return <Tag color="blue">待复核</Tag>;
-  }
+const statusMap: Record<string, "已通过" | "已拒绝" | "待复核"> = {
+  approved: "已通过",
+  rejected: "已拒绝",
+  pending_review: "待复核",
 };
 
 const App: React.FC = () => {
@@ -42,6 +34,8 @@ const App: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [total, setTotal] = useState(0);
   const [page, setPage] = useState(1);
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const [selectedLog, setSelectedLog] = useState<LogEntry | null>(null);
 
   const fetchLogs = async (p = 1) => {
     setLoading(true);
@@ -90,70 +84,76 @@ const App: React.FC = () => {
     }
   };
 
-  const columns: ColumnsType<LogEntry> = [
+  const openDetail = (record: LogEntry) => {
+    setSelectedLog(record);
+    setDrawerOpen(true);
+  };
+
+  const columns = [
     {
       title: "评论者",
       dataIndex: "comment_author",
+      key: "comment_author",
       width: 100,
-      render: (text: string, record: LogEntry) => (
-        <div>
-          <div>{text || "匿名"}</div>
-          <Text type="secondary" style={{ fontSize: 12 }}>
-            {record.comment_email}
-          </Text>
-        </div>
-      ),
+      render: (text: string) => text || "匿名",
     },
     {
       title: "评论内容",
       dataIndex: "comment_text",
-      ellipsis: true,
-      width: 250,
+      key: "comment_text",
+      width: 200,
+      render: (text: string, record: LogEntry) => (
+        <span style={{ cursor: "pointer" }} onClick={() => openDetail(record)}>
+          {text.length > 40 ? text.slice(0, 40) + "..." : text}
+        </span>
+      ),
     },
     {
       title: "风险等级",
       dataIndex: "risk_level",
-      width: 90,
-      render: (level: string) => (
-        <Tag color={riskColor[level] || "default"}>
-          {level === "safe" ? "安全" : level === "medium" ? "中等" : "高危"}
-        </Tag>
-      ),
+      key: "risk_level",
+      width: 80,
+      render: (level: string) => <StatusTag status={riskStatusMap[level] || "谨慎"} />,
     },
     {
       title: "置信度",
       dataIndex: "confidence",
-      width: 80,
+      key: "confidence",
+      width: 70,
       render: (v: number) => `${(v * 100).toFixed(0)}%`,
-    },
-    {
-      title: "审核原因",
-      dataIndex: "reason",
-      ellipsis: true,
-      width: 200,
     },
     {
       title: "引擎",
       dataIndex: "provider",
-      width: 100,
+      key: "provider",
+      width: 80,
     },
     {
       title: "状态",
       dataIndex: "status",
-      width: 90,
-      render: statusTag,
+      key: "status",
+      width: 80,
+      render: (status: string) => <StatusTag status={statusMap[status] || "待复核"} />,
     },
     {
       title: "时间",
       dataIndex: "reviewed_at",
-      width: 150,
+      key: "reviewed_at",
+      width: 140,
     },
     {
       title: "操作",
-      width: 160,
+      key: "action",
+      width: 180,
       render: (_: any, record: LogEntry, index: number) => {
         const globalIndex = (page - 1) * 20 + index;
-        if (record.status !== "pending_review") return null;
+        if (record.status !== "pending_review") {
+          return (
+            <Button type="link" size="small" onClick={() => openDetail(record)}>
+              详情
+            </Button>
+          );
+        }
         return (
           <Space>
             <Button
@@ -171,11 +171,19 @@ const App: React.FC = () => {
                 拒绝
               </Button>
             </Popconfirm>
+            <Button type="link" size="small" onClick={() => openDetail(record)}>
+              详情
+            </Button>
           </Space>
         );
       },
     },
   ];
+
+  const dataSource = logs.map((item, i) => ({
+    ...item,
+    key: String((page - 1) * 20 + i),
+  }));
 
   return (
     <div>
@@ -187,20 +195,70 @@ const App: React.FC = () => {
           </Button>
         </Popconfirm>
       </div>
-      <Table
+      <CheckTable
         columns={columns}
-        dataSource={logs}
+        dataSource={dataSource}
         loading={loading}
-        rowKey={(_, i) => String(i)}
-        pagination={{
-          current: page,
-          total,
-          pageSize: 20,
-          onChange: (p) => fetchLogs(p),
-        }}
-        scroll={{ x: 1200 }}
-        size="small"
       />
+      {total > 20 && (
+        <div style={{ marginTop: 12, textAlign: "center" }}>
+          <Space>
+            <Button disabled={page <= 1} onClick={() => fetchLogs(page - 1)}>上一页</Button>
+            <span style={{ fontSize: 12, color: "#666" }}>第 {page} 页 / 共 {Math.ceil(total / 20)} 页</span>
+            <Button disabled={page >= Math.ceil(total / 20)} onClick={() => fetchLogs(page + 1)}>下一页</Button>
+          </Space>
+        </div>
+      )}
+      <DetailDrawer
+        title="审核详情"
+        visible={drawerOpen}
+        onClose={() => setDrawerOpen(false)}
+        width={560}
+      >
+        {selectedLog && (
+          <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+            <div>
+              <strong>评论者：</strong>
+              {selectedLog.comment_author || "匿名"}
+              {selectedLog.comment_email && (
+                <span style={{ color: "#999", marginLeft: 8 }}>({selectedLog.comment_email})</span>
+              )}
+            </div>
+            <div>
+              <strong>评论全文：</strong>
+              <div style={{ background: "#f5f5f5", padding: 8, borderRadius: 4, marginTop: 4 }}>
+                {selectedLog.comment_text}
+              </div>
+            </div>
+            <div>
+              <strong>风险等级：</strong>
+              <StatusTag status={riskStatusMap[selectedLog.risk_level] || "谨慎"} />
+            </div>
+            <div>
+              <strong>置信度：</strong>
+              {(selectedLog.confidence * 100).toFixed(0)}%
+            </div>
+            <div>
+              <strong>审核原因：</strong>
+              <div style={{ background: "#fffbe6", padding: 8, borderRadius: 4, marginTop: 4 }}>
+                {selectedLog.reason || "无"}
+              </div>
+            </div>
+            <div>
+              <strong>审核引擎：</strong>
+              {selectedLog.provider}
+            </div>
+            <div>
+              <strong>审核状态：</strong>
+              <StatusTag status={statusMap[selectedLog.status] || "待复核"} />
+            </div>
+            <div>
+              <strong>审核时间：</strong>
+              {selectedLog.reviewed_at}
+            </div>
+          </div>
+        )}
+      </DetailDrawer>
     </div>
   );
 };

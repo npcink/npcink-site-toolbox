@@ -6,6 +6,7 @@ export interface SearchItem {
   section?: string;
   keywords?: string[];
   tags?: string[];
+  aliases?: string[];
 }
 
 export const searchIndex: SearchItem[] = [
@@ -22,24 +23,28 @@ export const searchIndex: SearchItem[] = [
   { id: "optimize-admin-show_id", label: "列表显示 ID 列", tabKey: "2", tabLabel: "优化", section: "后台", keywords: ["id", "列表"] },
   { id: "optimize-admin-thumbnail_switcher", label: "缩略图切换", tabKey: "2", tabLabel: "优化", section: "后台", keywords: ["thumbnail", "缩略图"] },
 
-  { id: "page-function-maintenance_tips", label: "维护提示页", tabKey: "1", tabLabel: "页面", section: "功能", keywords: ["maintenance", "维护", "闭站"], tags: ["谨慎"] },
+  { id: "page-function-maintenance_tips", label: "维护提示页", tabKey: "1", tabLabel: "页面", section: "功能", keywords: ["maintenance", "维护", "闭站"], tags: ["谨慎"], aliases: ["page-feature-maintenance_tips"] },
   { id: "function-seo-seo_home", label: "首页 TDK", tabKey: "5", tabLabel: "功能", section: "SEO", keywords: ["tdk", "首页", "seo", "标题", "描述"], tags: ["推荐", "SEO"] },
   { id: "function-seo-seo_single", label: "文章 SEO", tabKey: "5", tabLabel: "功能", section: "SEO", keywords: ["seo", "文章", "关键词"], tags: ["推荐", "SEO"] },
-  { id: "login-security-login_code", label: "登录验证码", tabKey: "3", tabLabel: "登录页", section: "安全", keywords: ["captcha", "验证码"], tags: ["推荐", "安全"] },
-  { id: "login-security-tecent", label: "腾讯防水墙", tabKey: "3", tabLabel: "登录页", section: "安全", keywords: ["tencent", "腾讯", "防水墙"] },
+  { id: "login-security-login_code", label: "登录验证码", tabKey: "3", tabLabel: "登录安全", section: "安全", keywords: ["captcha", "验证码"], tags: ["推荐", "安全"] },
+  { id: "login-security-tecent", label: "腾讯防水墙", tabKey: "3", tabLabel: "登录安全", section: "安全", keywords: ["tencent", "腾讯", "防水墙"] },
   { id: "domestic-compliance-icp", label: "ICP 备案号", tabKey: "10", tabLabel: "国内生态", section: "合规", keywords: ["icp", "备案", "合规"], tags: ["推荐"] },
-  { id: "domestic-compliance-police", label: "公安网备号", tabKey: "10", tabLabel: "国内生态", section: "合规", keywords: ["公安", "网备", "备案"], tags: ["推荐"] },
-  { id: "domestic-compliance-cookie", label: "Cookie 同意弹窗", tabKey: "10", tabLabel: "国内生态", section: "合规", keywords: ["cookie", "隐私", "弹窗"] },
-  { id: "domestic-compliance-copyright", label: "版权信息", tabKey: "10", tabLabel: "国内生态", section: "合规", keywords: ["copyright", "版权"] },
+  { id: "domestic-compliance-police_enabled", label: "公安网备号", tabKey: "10", tabLabel: "国内生态", section: "合规", keywords: ["公安", "网备", "备案"], tags: ["推荐"], aliases: ["domestic-compliance-police"] },
+  { id: "domestic-compliance-cookie_enabled", label: "Cookie 同意弹窗", tabKey: "10", tabLabel: "国内生态", section: "合规", keywords: ["cookie", "隐私", "弹窗"], aliases: ["domestic-compliance-cookie"] },
+  { id: "domestic-compliance-copyright_enabled", label: "版权信息", tabKey: "10", tabLabel: "国内生态", section: "合规", keywords: ["copyright", "版权"], aliases: ["domestic-compliance-copyright"] },
   { id: "domestic-baidu-push", label: "百度收录推送", tabKey: "10", tabLabel: "国内生态", section: "百度推送", keywords: ["baidu", "百度", "推送", "收录"], tags: ["推荐", "SEO"] },
+  { id: "domestic-baidu_push-batch_push_enabled", label: "批量推送", tabKey: "10", tabLabel: "国内生态", section: "百度推送", keywords: ["baidu", "百度", "批量", "推送"], aliases: ["domestic-baidu_push-batch_push"] },
   { id: "domestic-wechat-jssdk", label: "微信 JSSDK 分享", tabKey: "10", tabLabel: "国内生态", section: "微信生态", keywords: ["wechat", "微信", "分享", "jssdk"] },
   { id: "domestic-wechat-guide", label: "微信打开引导", tabKey: "10", tabLabel: "国内生态", section: "微信生态", keywords: ["wechat", "微信", "引导", "遮层"] },
-  { id: "domestic-comment-blacklist", label: "评论敏感词过滤", tabKey: "10", tabLabel: "国内生态", section: "评论安全", keywords: ["comment", "评论", "敏感词", "黑名单"], tags: ["推荐", "安全"] },
-  { id: "domestic-comment-link-limit", label: "评论链接限制", tabKey: "10", tabLabel: "国内生态", section: "评论安全", keywords: ["comment", "评论", "链接", "垃圾"] },
-  { id: "domestic-comment-ip-rate", label: "评论 IP 频率限制", tabKey: "10", tabLabel: "国内生态", section: "评论安全", keywords: ["comment", "评论", "ip", "频率"] },
-  { id: "domestic-login-fail-limit", label: "登录失败限制", tabKey: "10", tabLabel: "国内生态", section: "登录安全", keywords: ["login", "登录", "限制", "暴力破解"], tags: ["推荐", "安全"] },
-  { id: "domestic-login-custom-url", label: "自定义登录地址", tabKey: "10", tabLabel: "国内生态", section: "登录安全", keywords: ["login", "登录", "地址", "隐藏"] },
-  { id: "domestic-login-ip-whitelist", label: "后台 IP 白名单", tabKey: "10", tabLabel: "国内生态", section: "登录安全", keywords: ["login", "登录", "ip", "白名单"], tags: ["安全"] },
+  { id: "domestic-comment-blacklist", label: "评论敏感词过滤", tabKey: "10", tabLabel: "国内生态", section: "评论安全", keywords: ["comment", "评论", "敏感词", "黑名单"], tags: ["推荐", "安全"], aliases: ["domestic-comment_security-blacklist_enabled"] },
+  { id: "domestic-comment-link-limit", label: "评论链接限制", tabKey: "10", tabLabel: "国内生态", section: "评论安全", keywords: ["comment", "评论", "链接", "垃圾"], aliases: ["domestic-comment_security-link_limit"] },
+  { id: "domestic-comment_security-duplicate_enabled", label: "重复评论拦截", tabKey: "10", tabLabel: "国内生态", section: "评论安全", keywords: ["comment", "评论", "重复", "拦截"] },
+  { id: "domestic-comment-ip-rate", label: "评论 IP 频率限制", tabKey: "10", tabLabel: "国内生态", section: "评论安全", keywords: ["comment", "评论", "ip", "频率"], aliases: ["domestic-comment_security-ip_rate_limit"] },
+  { id: "domestic-comment_security-log_enabled", label: "记录拦截日志", tabKey: "10", tabLabel: "国内生态", section: "评论安全", keywords: ["comment", "评论", "日志", "拦截"] },
+  { id: "domestic-login-fail-limit", label: "登录失败限制", tabKey: "10", tabLabel: "国内生态", section: "登录安全", keywords: ["login", "登录", "限制", "暴力破解"], tags: ["推荐", "安全"], aliases: ["domestic-login_security-fail_limit_enabled"] },
+  { id: "domestic-login-custom-url", label: "自定义登录地址", tabKey: "10", tabLabel: "国内生态", section: "登录安全", keywords: ["login", "登录", "地址", "隐藏"], aliases: ["domestic-login_security-custom_login_enabled"] },
+  { id: "domestic-login_security-ban_enumeration_enabled", label: "禁止用户名枚举", tabKey: "10", tabLabel: "国内生态", section: "登录安全", keywords: ["login", "登录", "枚举", "用户名", "安全"], tags: ["安全"] },
+  { id: "domestic-login-ip-whitelist", label: "后台 IP 白名单", tabKey: "10", tabLabel: "国内生态", section: "登录安全", keywords: ["login", "登录", "ip", "白名单"], tags: ["安全"], aliases: ["domestic-login_security-ip_whitelist_enabled"] },
   { id: "performance-oss", label: "对象存储 / OSS", tabKey: "11", tabLabel: "性能优化", section: "云存储", keywords: ["oss", "cos", "云存储", "阿里云", "腾讯云"], tags: ["性能"] },
   { id: "performance-seo-checker", label: "SEO 检查助手", tabKey: "11", tabLabel: "性能优化", section: "SEO", keywords: ["seo", "检查", "alt", "健康度"], tags: ["SEO"] },
   { id: "performance-media-health", label: "媒体库体检", tabKey: "11", tabLabel: "性能优化", section: "媒体", keywords: ["media", "媒体", "图片", "alt", "体检"] },

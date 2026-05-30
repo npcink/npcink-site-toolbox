@@ -3,7 +3,7 @@ import { Table } from "antd";
 
 interface CheckTableColumn {
   title: string;
-  dataIndex: string;
+  dataIndex?: string;
   key: string;
   width?: number;
   render?: (value: any, record: any, index: number) => React.ReactNode;

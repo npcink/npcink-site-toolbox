@@ -47,7 +47,7 @@ const App: React.FC = () => {
         />
         <ModuleRow
           title="禁用自动图片尺寸"
-          description="禁用自动生成的图片尺寸、禁用缩放尺寸、禁用其他图片尺寸"
+          description="禁用自动生成的图片尺寸、禁用缩略尺寸，可能导致部分主题或插件无法获取所需尺寸"
           featureId="optimize-medium-no_auto_size"
           enabled={formData.no_auto_size as boolean}
           onChange={(checked: boolean) => onValuesChange({ no_auto_size: checked } as Partial<FieldType>)}
@@ -55,10 +55,11 @@ const App: React.FC = () => {
         />
         <ModuleRow
           title="添加SVG图标支持"
-          description="选中后可在媒体库上传SVG图标"
+          description="选中后可在媒体库上传SVG图标，SVG文件可能包含脚本，存在安全风险"
           featureId="optimize-medium-medium_add_svg"
           enabled={formData.medium_add_svg as boolean}
           onChange={(checked: boolean) => onValuesChange({ medium_add_svg: checked } as Partial<FieldType>)}
+          tags={["谨慎"]}
         />
         <Form.Item<FieldType>
           label="上传图片自动重命名"

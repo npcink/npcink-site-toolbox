@@ -58,6 +58,7 @@ const App: React.FC = () => {
           featureId="optimize-site-renew"
           enabled={formData.renew as boolean}
           onChange={(checked: boolean) => onValuesChange({ renew: checked } as Partial<FieldType>, formData)}
+          tags={["谨慎"]}
         />
         <ModuleRow
           title="移除版本信息"
@@ -65,6 +66,7 @@ const App: React.FC = () => {
           featureId="optimize-site-remove_RSS_version"
           enabled={formData.remove_RSS_version as boolean}
           onChange={(checked: boolean) => onValuesChange({ remove_RSS_version: checked } as Partial<FieldType>, formData)}
+          tags={["安全"]}
         />
         <ModuleRow
           title={'禁止title中的 "-" 被转义'}
@@ -75,17 +77,19 @@ const App: React.FC = () => {
         />
         <ModuleRow
           title="分类链接简化"
-          description="去掉分类目录链接中的 category 字符。"
+          description="去掉分类目录链接中的 category 字符，修改后旧链接可能失效"
           featureId="optimize-site-category_link_simplify"
           enabled={formData.category_link_simplify as boolean}
           onChange={(checked: boolean) => onValuesChange({ category_link_simplify: checked } as Partial<FieldType>, formData)}
+          tags={["谨慎"]}
         />
         <ModuleRow
           title="搜索链接优化"
-          description='将 ?s=关键词 改为 域名/search/关键词'
+          description='将 ?s=关键词 改为 域名/search/关键词，部分主题可能不兼容'
           featureId="optimize-site-search_link_simplify"
           enabled={formData.search_link_simplify as boolean}
           onChange={(checked: boolean) => onValuesChange({ search_link_simplify: checked } as Partial<FieldType>, formData)}
+          tags={["SEO"]}
         />
         <ModuleRow
           title="安全 - 移除 wp-sitemap-users"
@@ -93,6 +97,7 @@ const App: React.FC = () => {
           featureId="optimize-site-remove_sitemap_users"
           enabled={formData.remove_sitemap_users as boolean}
           onChange={(checked: boolean) => onValuesChange({ remove_sitemap_users: checked } as Partial<FieldType>, formData)}
+          tags={["安全"]}
         />
         <ModuleRow
           title="用户列表展示昵称"
@@ -107,6 +112,7 @@ const App: React.FC = () => {
           featureId="optimize-site-cdn_replace"
           enabled={formData.cdn_replace as boolean}
           onChange={(checked: boolean) => onValuesChange({ cdn_replace: checked } as Partial<FieldType>, formData)}
+          tags={["性能"]}
         />
         <ModuleRow
           title="Gravatar 头像替换"
@@ -114,6 +120,7 @@ const App: React.FC = () => {
           featureId="optimize-site-cdn_gravatar"
           enabled={formData.cdn_gravatar as boolean}
           onChange={(checked: boolean) => onValuesChange({ cdn_gravatar: checked } as Partial<FieldType>, formData)}
+          tags={["性能"]}
         />
 
         <Form.Item<FieldType>
@@ -126,10 +133,11 @@ const App: React.FC = () => {
 
         <ModuleRow
           title="Google Fonts 替换"
-          description="将 fonts.googleapis.com 替换为国内镜像"
+          description="将 fonts.googleapis.com 替换为国内镜像，需确认镜像站可用性"
           featureId="optimize-site-cdn_google_fonts"
           enabled={formData.cdn_google_fonts as boolean}
           onChange={(checked: boolean) => onValuesChange({ cdn_google_fonts: checked } as Partial<FieldType>, formData)}
+          tags={["性能"]}
         />
 
         <Form.Item<FieldType>
@@ -162,6 +170,7 @@ const App: React.FC = () => {
           featureId="optimize-site-hide_email_ip"
           enabled={formData.hide_email_ip as boolean}
           onChange={(checked: boolean) => onValuesChange({ hide_email_ip: checked } as Partial<FieldType>, formData)}
+          tags={["安全"]}
         />
       </Form>
     </SettingsSection>

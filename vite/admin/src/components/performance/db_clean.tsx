@@ -1,9 +1,9 @@
 import React, { useContext, useState, useEffect } from "react";
-import { Form, Button, Select, List, message, Modal, Typography, Alert } from "antd";
+import { Form, Button, Select, message, Modal, Typography, Alert } from "antd";
 import { ExclamationCircleOutlined } from "@ant-design/icons";
 import { DataContext } from "@/tool/dataContext";
 import { AntConfig } from "@/tool/tool";
-import { SettingsSection, ModuleRow, RiskNotice } from "@/components/settings-ui";
+import { SettingsSection, ModuleRow, RiskNotice, CheckTable, StatusTag } from "@/components/settings-ui";
 import FeatureSwitch from "@/basic/feature-switch";
 import { performanceApi } from "@/api";
 
@@ -124,6 +124,52 @@ const App: React.FC = () => {
     });
   };
 
+  const statsColumns = [
+    { title: "检测项", dataIndex: "name", key: "name", width: 120 },
+    {
+      title: "状态",
+      key: "status",
+      width: 80,
+      render: (_: any, record: any) => <StatusTag status={record.statusLabel} />,
+    },
+    {
+      title: "值",
+      key: "value",
+      width: 80,
+      render: (_: any, record: any) => record.valueLabel,
+    },
+    {
+      title: "操作",
+      key: "action",
+      width: 160,
+      render: (_: any, record: any) => {
+        if (record.noAction) return null;
+        return (
+          <span>
+            <Button size="small" onClick={() => handlePreview(record.type)} loading={previewLoading}>预览</Button>
+            <Button size="small" style={{ marginLeft: 4 }} onClick={() => handleClean(record.type)} loading={cleanLoadingType === record.type} disabled={!previewData[record.type]}>清理</Button>
+          </span>
+        );
+      },
+    },
+  ];
+
+  const formatSize = (bytes: number): string => {
+    if (bytes < 1024) return `${bytes} B`;
+    if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
+    return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+  };
+
+  const statsDataSource = stats.db_size
+    ? [
+        { key: "db", name: "数据库大小", statusLabel: "正常" as const, valueLabel: formatSize(stats.db_size), type: "all", noAction: true },
+        { key: "revisions", name: "修订版本", statusLabel: stats.revisions > 0 ? "待处理" as const : "正常" as const, valueLabel: `${stats.revisions} 条`, type: "revisions" },
+        { key: "drafts", name: "自动草稿", statusLabel: stats.drafts > 0 ? "待处理" as const : "正常" as const, valueLabel: `${stats.drafts} 条`, type: "drafts" },
+        { key: "spam", name: "垃圾评论", statusLabel: stats.spam > 0 ? "待处理" as const : "正常" as const, valueLabel: `${stats.spam} 条`, type: "spam" },
+        { key: "transients", name: "Transient", statusLabel: stats.transients > 0 ? "待处理" as const : "正常" as const, valueLabel: `${stats.transients} 条`, type: "transients" },
+      ]
+    : [];
+
   return (
     <SettingsSection title="数据库清理" description="数据库清理与优化">
       <Form
@@ -144,7 +190,7 @@ const App: React.FC = () => {
           onChange={(checked) => {
             setFormData((prev: any) => ({ ...prev, enabled: checked }));
           }}
-          tags={["高风险"]}
+          tags={["高风险", "不可逆"]}
         />
 
         <Form.Item label="清理修订版本" name="clean_revisions" valuePropName="checked">
@@ -208,32 +254,8 @@ const App: React.FC = () => {
           </Form.Item>
         )}
 
-        {stats.db_size && (
-          <Form.Item wrapperCol={fromConfig.wrapperCol}>
-            <List size="small" bordered>
-              <List.Item>数据库大小：{stats.db_size}</List.Item>
-              <List.Item>
-                修订版本：{stats.revisions}{" "}
-                <Button size="small" onClick={() => handlePreview("revisions")} loading={previewLoading}>预览</Button>
-                <Button size="small" style={{ marginLeft: 4 }} onClick={() => handleClean("revisions")} loading={cleanLoadingType === "revisions"} disabled={!previewData["revisions"]}>清理</Button>
-              </List.Item>
-              <List.Item>
-                自动草稿：{stats.drafts}{" "}
-                <Button size="small" onClick={() => handlePreview("drafts")} loading={previewLoading}>预览</Button>
-                <Button size="small" style={{ marginLeft: 4 }} onClick={() => handleClean("drafts")} loading={cleanLoadingType === "drafts"} disabled={!previewData["drafts"]}>清理</Button>
-              </List.Item>
-              <List.Item>
-                垃圾评论：{stats.spam}{" "}
-                <Button size="small" onClick={() => handlePreview("spam")} loading={previewLoading}>预览</Button>
-                <Button size="small" style={{ marginLeft: 4 }} onClick={() => handleClean("spam")} loading={cleanLoadingType === "spam"} disabled={!previewData["spam"]}>清理</Button>
-              </List.Item>
-              <List.Item>
-                Transient：{stats.transients}{" "}
-                <Button size="small" onClick={() => handlePreview("transients")} loading={previewLoading}>预览</Button>
-                <Button size="small" style={{ marginLeft: 4 }} onClick={() => handleClean("transients")} loading={cleanLoadingType === "transients"} disabled={!previewData["transients"]}>清理</Button>
-              </List.Item>
-            </List>
-          </Form.Item>
+        {statsDataSource.length > 0 && (
+          <CheckTable columns={statsColumns} dataSource={statsDataSource} />
         )}
       </Form>
     </SettingsSection>

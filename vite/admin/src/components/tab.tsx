@@ -55,7 +55,7 @@ const navGroups: NavGroup[] = [
     groupLabel: "站点增强",
     items: [
       { key: "2", label: "优化", icon: "dashicons-admin-tools", component: Optimize },
-      { key: "3", label: "登录页", icon: "dashicons-lock", component: Login },
+      { key: "3", label: "登录安全", icon: "dashicons-lock", component: Login },
       { key: "11", label: "性能优化", icon: "dashicons-performance", component: Performance },
     ],
   },
@@ -116,18 +116,25 @@ const App: React.FC = () => {
     setLastSavedOption(freshData);
   };
 
+  const [targetItemId, setTargetItemId] = useState<string | null>(null);
+
   const handleSearchNavigate = useCallback((tabKey: string, itemId: string) => {
     setActiveTab(tabKey);
     setMobileMenuOpen(false);
+    setTargetItemId(itemId);
     setTimeout(() => {
-      const el = document.getElementById(itemId);
+      let el = document.getElementById(itemId);
+      if (!el) {
+        const aliasEl = document.querySelector(`[data-search-aliases~="${itemId}"]`);
+        if (aliasEl) el = aliasEl as HTMLElement;
+      }
       if (el) {
         el.scrollIntoView({ behavior: "smooth", block: "center" });
         el.style.transition = "background 0.3s";
         el.style.background = "#e6f4ff";
         setTimeout(() => { el.style.background = ""; }, 2000);
       }
-    }, 100);
+    }, 300);
   }, []);
 
   const activeNavItem = allNavItems.find((item) => item.key === activeTab);
@@ -157,7 +164,12 @@ const App: React.FC = () => {
     const item = allNavItems.find((i) => i.key === activeTab);
     if (!item) return null;
     const Comp = item.component;
-    const extraProps = item.key === "0" ? { onNavigate: handleSearchNavigate } : {};
+    const extraProps: Record<string, any> = item.key === "0" ? { onNavigate: handleSearchNavigate } : {};
+    if (targetItemId) {
+      if (item.key === "1" || item.key === "5" || item.key === "10") {
+        extraProps.targetItemId = targetItemId;
+      }
+    }
     return (
       <Suspense fallback={TabFallback}>
         <Comp {...extraProps} />

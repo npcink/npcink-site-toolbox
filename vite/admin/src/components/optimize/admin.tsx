@@ -67,10 +67,11 @@ const App: React.FC = () => {
         />
         <ModuleRow
           title="缩略图切换"
-          description="展示、添加、删除缩略图"
+          description="展示、添加、删除缩略图，仅经典编辑器可用"
           featureId="optimize-admin-thumbnail_switcher"
           enabled={formData.thumbnail_switcher as boolean}
           onChange={(checked: boolean) => onValuesChange({ thumbnail_switcher: checked } as Partial<FieldType>, formData)}
+          tags={["经典编辑器"]}
         />
       </Form>
     </SettingsSection>

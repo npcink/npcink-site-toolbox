@@ -1,47 +1,53 @@
-import { Anchor, Affix } from "antd";
+import { useState, useEffect } from "react";
 import Comment from "@/components/page/comment";
 import Feature from "@/components/page/feature";
 import Function from "@/components/page/function";
 import Jurisdiction from "@/components/page/jurisdiction";
-const App: React.FC = () => {
-  const menuList = [
-    {
-      key: "part-1",
-      href: "#part-1",
-      title: "外观",
-    },
-    {
-      key: "part-2",
-      href: "#part-2",
-      title: "权限",
-    },
-    {
-      key: "part-3",
-      href: "#part-3",
-      title: "功能",
-    },
-    {
-      key: "part-4",
-      href: "#part-4",
-      title: "评论",
-    },
-  ];
+
+const tabs = [
+  { key: "aspect", label: "外观", prefixes: ["page-feature-"] },
+  { key: "permission", label: "权限", prefixes: ["page-jurisdiction-"] },
+  { key: "func", label: "功能", prefixes: ["page-function-"] },
+  { key: "comment", label: "评论", prefixes: ["page-comment-"] },
+] as const;
+
+type TabKey = (typeof tabs)[number]["key"];
+
+interface PageProps {
+  targetItemId?: string;
+}
+
+const App: React.FC<PageProps> = ({ targetItemId }) => {
+  const [active, setActive] = useState<TabKey>("aspect");
+
+  useEffect(() => {
+    if (!targetItemId) return;
+    const matchedTab = tabs.find((t) =>
+      t.prefixes.some((prefix) => targetItemId.startsWith(prefix))
+    );
+    if (matchedTab) {
+      setActive(matchedTab.key);
+    }
+  }, [targetItemId]);
+
   return (
     <>
-      <Affix offsetTop={100}>
-        <Anchor direction="horizontal" targetOffset={150} items={menuList} className="bg-[#f5f5f5]"/>
-      </Affix>
-      <div id="part-1">
-        <Feature />
+      <div className="mabox-page-tabs">
+        {tabs.map((t) => (
+          <button
+            key={t.key}
+            className={`mabox-page-tab ${active === t.key ? "mabox-page-tab--active" : ""}`}
+            onClick={() => setActive(t.key)}
+          >
+            {t.label}
+          </button>
+        ))}
       </div>
-      <div id="part-2">
-        <Jurisdiction />
-      </div>
-      <div id="part-3">
-        <Function />
-      </div>
-      <div id="part-4">
-        <Comment />
+      <div className="mabox-page-panel">
+        {active === "aspect" && <Feature />}
+        {active === "permission" && <Jurisdiction />}
+        {active === "func" && <Function />}
+        {active === "comment" && <Comment />}
       </div>
     </>
   );

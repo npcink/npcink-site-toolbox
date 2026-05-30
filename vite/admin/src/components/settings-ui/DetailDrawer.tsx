@@ -27,6 +27,7 @@ const DetailDrawer: React.FC<DetailDrawerProps> = ({
       onClose={onClose}
       open={visible}
       width={width}
+      rootClassName="mabox-detail-drawer"
       styles={{ body: { paddingTop: 12 } }}
     >
       {description && (

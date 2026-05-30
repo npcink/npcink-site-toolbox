@@ -1,8 +1,9 @@
 import React, { useContext, useState, useEffect } from "react";
-import { Form, Button, List, Alert, message } from "antd";
+import { Form, Button, message } from "antd";
 import { DataContext } from "@/tool/dataContext";
 import { AntConfig } from "@/tool/tool";
-import { SettingsSection, ModuleRow } from "@/components/settings-ui";
+import { SettingsSection, ModuleRow, CheckTable } from "@/components/settings-ui";
+import StatusTag from "@/components/settings-ui/StatusTag";
 
 const fromConfig = AntConfig.from;
 
@@ -62,6 +63,39 @@ const App: React.FC = () => {
       .catch(() => message.error("修复失败"));
   };
 
+  const columns = [
+    {
+      title: "检测项",
+      dataIndex: "type",
+      key: "type",
+      width: 120,
+    },
+    {
+      title: "状态",
+      dataIndex: "severity",
+      key: "severity",
+      width: 80,
+      render: (severity: string) => {
+        if (severity === "error") return <StatusTag status="异常" />;
+        return <StatusTag status="待处理" />;
+      },
+    },
+    {
+      title: "数量",
+      dataIndex: "count",
+      key: "count",
+      width: 80,
+      render: (count: number) => `${count} 个`,
+    },
+  ];
+
+  const dataSource = issues.map((item: any, i: number) => ({
+    key: String(i),
+    type: item.type,
+    severity: item.severity || "warning",
+    count: item.count || 0,
+  }));
+
   return (
     <SettingsSection title="媒体库体检" description="媒体库健康体检">
       <Form
@@ -93,18 +127,7 @@ const App: React.FC = () => {
         </Form.Item>
 
         {issues.length > 0 && (
-          <Form.Item wrapperCol={fromConfig.wrapperCol}>
-            <Alert message={"发现 " + issues.length + " 类问题"} type="warning" />
-            <List
-              size="small"
-              dataSource={issues}
-              renderItem={(item: any) => (
-                <List.Item>
-                  <strong>{item.type}：</strong>{item.count} 个
-                </List.Item>
-              )}
-            />
-          </Form.Item>
+          <CheckTable columns={columns} dataSource={dataSource} />
         )}
       </Form>
     </SettingsSection>
