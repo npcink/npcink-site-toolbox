@@ -32,8 +32,7 @@ delete_option('Magick_ToolBox_Config_Version');
 delete_option('Magick_ToolBox_Option_Domestic');
 delete_option('Magick_ToolBox_Option_Performance');
 
-// 删除 2.3.0+ 新增模块选项键
-delete_option('Magick_ToolBox_Option_AiReview');
+// 删除其他独立模块选项键
 delete_option('Magick_ToolBox_Option_Services');
 delete_option('Magick_ToolBox_Option_Feedback');
 
@@ -59,9 +58,6 @@ delete_option('mabox_telemetry_user_count');
 
 // 删除搜索日志
 delete_option('mabox_search_log');
-
-// 删除 AI 审核日志
-delete_option('mabox_ai_review_log');
 
 // 删除链接统计自定义表（如果存在）
 $table_name = $wpdb->prefix . 'link_counter';

@@ -56,37 +56,6 @@ class DiagnosticsSanitizeTest extends TestCase
         $this->assertEquals('my-bucket', $result['performance']['oss']['bucket']);
     }
 
-    public function test_sanitize_hides_deepseek_api_key(): void
-    {
-        $data = array(
-            'ai_review' => array(
-                'enabled' => true,
-                'deepseek_api_key' => 'sk-deep123456',
-                'provider' => 'deepseek',
-            ),
-        );
-
-        $result = MaBox_Diagnostics::sanitize_for_export($data);
-
-        $this->assertEquals('***已隐藏***', $result['ai_review']['deepseek_api_key']);
-        $this->assertEquals('deepseek', $result['ai_review']['provider']);
-    }
-
-    public function test_sanitize_hides_aliyun_keys(): void
-    {
-        $data = array(
-            'ai_review' => array(
-                'aliyun_access_key' => 'LTAI5tABC',
-                'aliyun_secret_key' => 'SECRET_ALIYUN',
-            ),
-        );
-
-        $result = MaBox_Diagnostics::sanitize_for_export($data);
-
-        $this->assertEquals('***已隐藏***', $result['ai_review']['aliyun_access_key']);
-        $this->assertEquals('***已隐藏***', $result['ai_review']['aliyun_secret_key']);
-    }
-
     public function test_sanitize_hides_wechat_appsecret(): void
     {
         $data = array(

@@ -289,33 +289,6 @@ const PerformanceDbClean = {
   auto_clean_schedule: 'weekly',
 };
 
-// AI 审核 - Provider
-const AiReview = {
-  enabled: boo,
-  provider: 'local',
-  mode: 'mark',
-  deepseek_api_key: '',
-  deepseek_api_url: 'https://api.deepseek.com/v1/chat/completions',
-  deepseek_model: 'deepseek-chat',
-  aliyun_access_key: '',
-  aliyun_secret_key: '',
-  aliyun_region: 'cn-shanghai',
-  custom_api_url: '',
-  custom_api_method: 'POST',
-  custom_api_headers: '',
-  custom_api_body_template: '',
-  local_rules_enabled: boo,
-  local_keywords: '',
-  local_regex: '',
-  strict_mode: boo,
-  log_enabled: boo,
-  log_max_entries: 500,
-};
-
-
-
-
-
 export const defaultVarOption = {
   //优化
   optimize: {
@@ -357,9 +330,6 @@ export const defaultVarOption = {
     search_enhance: PerformanceSearchEnhance,
     db_clean: PerformanceDbClean,
   },
-  // AI 审核
-  ai_review: AiReview,
-
 };
 export const defaultVarData = {
   option: defaultVarOption,

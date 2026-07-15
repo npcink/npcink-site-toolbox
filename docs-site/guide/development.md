@@ -130,13 +130,15 @@ vite/
 使用 pnpm workspaces 统一管理：
 
 ```bash
+# 在仓库根目录启用 Corepack，并安装整个 workspace
+corepack enable
+cd vite
+pnpm install --frozen-lockfile
+
 # 启动单个项目
 pnpm dev:admin
 pnpm dev:count
 pnpm dev:public
-
-# 或直接进入目录
-cd vite/admin && npm run dev
 ```
 
 代理配置在 `vite.config.ts` 中，将 `target` 替换为本地 WordPress 地址。

@@ -5,15 +5,7 @@ updates:
     schedule:
       interval: "weekly"
   - package-ecosystem: "npm"
-    directory: "/vite/admin"
-    schedule:
-      interval: "weekly"
-  - package-ecosystem: "npm"
-    directory: "/vite/count"
-    schedule:
-      interval: "weekly"
-  - package-ecosystem: "npm"
-    directory: "/vite/public"
+    directory: "/vite"
     schedule:
       interval: "weekly"
   - package-ecosystem: "composer"

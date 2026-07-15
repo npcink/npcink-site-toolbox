@@ -32,19 +32,29 @@
 }
 
 .mabox-shell {
+  --mabox-accent: #3858e9;
+  --mabox-accent-soft: #f0f3ff;
+  --mabox-background: #f6f7f7;
+  --mabox-surface: #fff;
+  --mabox-border: #dcdcde;
+  --mabox-text: #1d2327;
+  --mabox-muted: #646970;
   min-height: 100vh;
-  background: #f0f0f1;
+  color: var(--mabox-text);
+  background: var(--mabox-background);
 }
 
 .mabox-header {
+  position: sticky;
+  top: 32px;
+  z-index: 90;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 56px;
+  min-height: 64px;
   padding: 0 24px;
-  background: #fff;
-  border-bottom: 1px solid #e0e0e0;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  background: rgba(255, 255, 255, 0.98);
+  border-bottom: 1px solid var(--mabox-border);
   gap: 16px;
 }
 
@@ -55,25 +65,24 @@
 }
 
 .mabox-header-icon {
-  font-size: 22px;
-  width: 22px;
-  height: 22px;
-  color: #1677ff;
+  font-size: 24px;
+  width: 24px;
+  height: 24px;
+  color: var(--mabox-accent);
 }
 
 .mabox-header-title {
-  font-size: 18px;
+  font-size: 17px;
   font-weight: 600;
   margin: 0;
-  color: #1d2327;
-  line-height: 1;
+  color: var(--mabox-text);
+  line-height: 1.3;
 }
 
 .mabox-header-subtitle {
-  font-size: 11px;
-  font-weight: 300;
-  color: #999;
-  margin-left: 8px;
+  margin: 2px 0 0;
+  font-size: 12px;
+  color: var(--mabox-muted);
 }
 
 .mabox-header-center {
@@ -84,63 +93,98 @@
 .mabox-header-right {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
 }
 
 .mabox-help-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  min-height: 34px;
+  padding: 4px 10px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  background: transparent;
   font-size: 13px;
-  color: #666;
+  color: var(--mabox-muted);
+  cursor: pointer;
+}
+
+.mabox-help-btn:hover {
+  border-color: var(--mabox-border);
+  color: var(--mabox-text);
+  background: #f6f7f7;
+}
+
+.mabox-help-btn:focus-visible,
+.mabox-mobile-toggle:focus-visible,
+.mabox-nav-item:focus-visible,
+.mabox-mobile-nav-overlay:focus-visible {
+  outline: 2px solid var(--mabox-accent);
+  outline-offset: 2px;
 }
 
 .mabox-body {
   display: flex;
-  max-width: 1400px;
+  align-items: flex-start;
+  max-width: 1440px;
   margin: 0 auto;
-  padding: 20px 24px 80px;
-  gap: 0;
+  padding: 24px;
+  gap: 24px;
 }
 
 .mabox-sidebar {
-  width: 220px;
-  min-width: 220px;
-  background: #fff;
-  border-radius: 8px;
-  padding: 12px 0;
-  margin-right: 20px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  position: sticky;
+  top: 120px;
+  width: 216px;
+  min-width: 216px;
+  max-height: calc(100vh - 144px);
+  padding: 10px 8px;
+  background: var(--mabox-surface);
+  border: 1px solid var(--mabox-border);
+  border-radius: 6px;
   overflow-y: auto;
 }
 
 .mabox-nav-group {
-  margin-bottom: 4px;
+  margin-bottom: 8px;
+}
+
+.mabox-nav-group:last-child {
+  margin-bottom: 0;
 }
 
 .mabox-nav-group-label {
-  padding: 8px 16px 4px;
+  padding: 8px 8px 5px;
   font-size: 11px;
   font-weight: 600;
-  color: #999;
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
+  color: var(--mabox-muted);
+  letter-spacing: 0.02em;
 }
 
 .mabox-nav-item {
+  width: 100%;
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 8px 16px;
-  cursor: pointer;
+  min-height: 36px;
+  padding: 7px 10px;
+  border: 0;
   border-radius: 4px;
-  margin: 2px 8px;
+  margin: 1px 0;
+  background: transparent;
   font-size: 13px;
-  color: #50575e;
-  transition: all 0.2s;
+  line-height: 1.4;
+  color: var(--mabox-muted);
+  text-align: left;
+  cursor: pointer;
+  transition: color 120ms ease, background-color 120ms ease;
   position: relative;
 }
 
 .mabox-nav-item:hover {
-  background: #f0f6fc;
-  color: #1677ff;
+  background: #f0f0f1;
+  color: var(--mabox-text);
 }
 
 .mabox-nav-item .dashicons {
@@ -148,32 +192,32 @@
   width: 16px;
   height: 16px;
   line-height: 16px;
-  color: #999;
+  color: currentColor;
 }
 
 .mabox-nav-item:hover .dashicons {
-  color: #1677ff;
+  color: currentColor;
 }
 
 .mabox-nav-item--active {
-  background: #e7f1ff;
-  color: #1677ff;
-  font-weight: 500;
+  background: var(--mabox-accent-soft);
+  color: var(--mabox-accent);
+  font-weight: 600;
 }
 
 .mabox-nav-item--active::before {
   content: "";
   position: absolute;
   left: -8px;
-  top: 4px;
-  bottom: 4px;
+  top: 7px;
+  bottom: 7px;
   width: 3px;
-  background: #1677ff;
-  border-radius: 2px;
+  background: var(--mabox-accent);
+  border-radius: 0 2px 2px 0;
 }
 
 .mabox-nav-item--active .dashicons {
-  color: #1677ff;
+  color: currentColor;
 }
 
 .mabox-main {
@@ -183,68 +227,118 @@
 
 .mabox-breadcrumb {
   font-size: 12px;
-  color: #999;
-  margin-bottom: 16px;
-  padding: 0;
+  color: var(--mabox-muted);
+  margin: 2px 0 12px;
 }
 
-.mabox-breadcrumb-sep {
-  margin: 0 6px;
-  color: #ccc;
+.mabox-breadcrumb ol {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.mabox-breadcrumb li:not(:last-child)::after {
+  content: "/";
+  margin: 0 7px;
+  color: #a7aaad;
 }
 
 .mabox-breadcrumb-current {
-  color: #1d2327;
+  color: var(--mabox-text);
   font-weight: 500;
 }
 
 .mabox-content {
-  background: #fff;
-  border-radius: 8px;
+  min-height: 440px;
   padding: 24px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
-  min-height: 400px;
+  background: var(--mabox-surface);
+  border: 1px solid var(--mabox-border);
+  border-radius: 6px;
 }
 
 .mabox-footer {
+  position: sticky;
+  bottom: 0;
+  z-index: 80;
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  height: 48px;
-  padding: 0 24px;
-  background: #fff;
-  border-top: 1px solid #e0e0e0;
-  box-shadow: 0 -1px 3px rgba(0,0,0,0.06);
+  min-height: 52px;
+  padding: 8px 16px;
+  background: rgba(255, 255, 255, 0.98);
+  border-top: 1px solid var(--mabox-border);
 }
 
 .mabox-mobile-toggle {
   display: none;
   width: 100%;
-  padding: 10px 16px;
-  background: #fff;
-  border: 1px solid #e0e0e0;
-  border-radius: 8px;
-  margin-bottom: 12px;
-  cursor: pointer;
-  font-size: 14px;
-  color: #1d2327;
-  gap: 8px;
   align-items: center;
+  gap: 8px;
+  min-height: 42px;
+  padding: 8px 12px;
+  background: var(--mabox-surface);
+  border: 1px solid var(--mabox-border);
+  border-radius: 4px;
+  margin-bottom: 12px;
+  font-size: 14px;
+  color: var(--mabox-text);
+  cursor: pointer;
 }
 
 .mabox-mobile-nav-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.3);
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  background: rgba(29, 35, 39, 0.42);
   z-index: 99;
 }
 
-@media (max-width: 768px) {
+.mabox-view-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 240px;
+  color: var(--mabox-muted);
+}
+
+.mabox-view-loading-spinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--mabox-border);
+  border-top-color: var(--mabox-accent);
+  border-radius: 50%;
+  animation: mabox-spin 800ms linear infinite;
+}
+
+.mabox-search-target {
+  background-color: #fff8e5 !important;
+  transition: background-color 300ms ease;
+}
+
+@keyframes mabox-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mabox-view-loading-spinner {
+    animation-duration: 1600ms;
+  }
+}
+
+@media (max-width: 782px) {
   .mabox-header {
-    padding: 0 12px;
-    height: auto;
-    min-height: 48px;
-    flex-wrap: wrap;
+    top: 46px;
+    min-height: 54px;
+    padding: 7px 12px;
     gap: 8px;
   }
 
@@ -260,29 +354,36 @@
     flex-shrink: 0;
   }
 
+  .mabox-help-btn span:last-child {
+    display: none;
+  }
+
   .mabox-mobile-search {
     width: 100%;
     margin-bottom: 8px;
   }
 
   .mabox-body {
-    padding: 12px 12px 80px;
+    padding: 12px 10px 72px;
     flex-direction: column;
+    gap: 0;
   }
 
   .mabox-sidebar {
     display: none;
-    width: 100%;
+    width: min(284px, calc(100vw - 40px));
     min-width: unset;
-    margin-right: 0;
     position: fixed;
     left: 0;
-    top: 0;
+    top: 46px;
     bottom: 0;
     z-index: 100;
-    max-width: 260px;
-    padding: 16px 0;
-    box-shadow: 2px 0 8px rgba(0,0,0,0.12);
+    max-width: none;
+    max-height: none;
+    padding: 16px 10px;
+    border-width: 0 1px 0 0;
+    border-radius: 0;
+    box-shadow: 4px 0 16px rgba(0, 0, 0, 0.12);
   }
 
   .mabox-sidebar--open {
@@ -294,12 +395,14 @@
   }
 
   .mabox-content {
-    padding: 16px;
+    min-height: 360px;
+    padding: 16px 14px;
   }
 
   .mabox-nav-item {
-    padding: 10px 16px;
-    margin: 2px 12px;
+    min-height: 42px;
+    padding: 10px 12px;
+    margin: 1px 0;
     font-size: 14px;
   }
 

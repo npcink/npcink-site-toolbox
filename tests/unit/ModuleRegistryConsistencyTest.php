@@ -70,6 +70,19 @@ class ModuleRegistryConsistency_Test extends TestCase {
         }
     }
 
+    public function test_ai_review_runtime_removed_from_backend_contracts(): void {
+        $schema = MaBox_Config_Schema::get_schema();
+        $map = MaBox_Config_Manager::get_module_map();
+        $registry = MaBox_Module_Loader::get_registry();
+        $autoload = file_get_contents(self::$plugin_dir . '/includes/autoload.php');
+
+        $this->assertArrayNotHasKey('ai_review', $schema);
+        $this->assertArrayNotHasKey('ai_review', $map);
+        $this->assertArrayNotHasKey('ai_review.main', $registry);
+        $this->assertStringNotContainsString('MaBox_Ai_', $autoload);
+        $this->assertDirectoryDoesNotExist(self::$plugin_dir . '/admin/partials/ai_review');
+    }
+
     public function test_h5_php_file_deleted(): void {
         $file = self::$plugin_dir . '/admin/partials/h5.php';
         $this->assertFileDoesNotExist($file);

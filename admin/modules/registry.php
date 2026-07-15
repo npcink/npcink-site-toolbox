@@ -540,16 +540,4 @@ return array(
         'config_path' => 'performance.db_clean',
         'risk_tags' => array('高风险', '不可逆'),
     ),
-
-    // ========== AI 审核引擎 ==========
-    'ai_review.main' => array(
-        'class'     => 'MaBox_Ai_Review',
-        'file'      => 'ai_review/index.php',
-        'option_key'=> 'ai_review.enabled',
-        'category'  => 'ai_review',
-        'scope'     => 'frontend',
-        'config_path' => 'ai_review',
-        'risk_tags' => array('推荐', '安全'),
-    ),
-
 );

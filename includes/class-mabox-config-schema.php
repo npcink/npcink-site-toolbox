@@ -239,31 +239,6 @@ if (!class_exists('MaBox_Config_Schema')) {
                         'auto_clean_schedule' => array('type' => 'string',  'default' => 'weekly', 'enum' => array('daily', 'weekly', 'monthly'), 'sanitize' => 'sanitize_text_field'),
                     ),
                 ),
-                'ai_review' => array(
-                    '_option_key' => MAGICK_MIXTURE_OPTION_AI_REVIEW,
-                    '_flat' => true,
-                    'enabled'              => array('type' => 'boolean', 'default' => false),
-                    'provider'            => array('type' => 'string',  'default' => 'local', 'sanitize' => 'sanitize_text_field'),
-                    'mode'                => array('type' => 'string',  'default' => 'mark', 'enum' => array('mark', 'block'), 'sanitize' => 'sanitize_text_field'),
-                    'deepseek_api_key'    => array('type' => 'string',  'default' => '', 'sanitize' => 'sanitize_text_field'),
-                    'deepseek_api_url'    => array('type' => 'string',  'default' => 'https://api.deepseek.com/v1/chat/completions', 'sanitize' => 'esc_url_raw'),
-                    'deepseek_model'      => array('type' => 'string',  'default' => 'deepseek-chat', 'sanitize' => 'sanitize_text_field'),
-                    'aliyun_access_key'   => array('type' => 'string',  'default' => '', 'sanitize' => 'sanitize_text_field'),
-                    'aliyun_secret_key'   => array('type' => 'string',  'default' => '', 'sanitize' => 'sanitize_text_field'),
-                    'aliyun_region'       => array('type' => 'string',  'default' => 'cn-shanghai', 'sanitize' => 'sanitize_text_field'),
-                    'custom_api_url'      => array('type' => 'string',  'default' => '', 'sanitize' => 'esc_url_raw'),
-                    'custom_api_method'   => array('type' => 'string',  'default' => 'POST', 'sanitize' => 'sanitize_text_field'),
-                    'custom_api_headers'  => array('type' => 'string',  'default' => '', 'sanitize' => 'sanitize_textarea_field'),
-                    'custom_api_body_template' => array('type' => 'string',  'default' => '', 'sanitize' => 'sanitize_textarea_field'),
-                    'local_rules_enabled' => array('type' => 'boolean', 'default' => false),
-                    'local_keywords'      => array('type' => 'string',  'default' => '', 'sanitize' => 'sanitize_textarea_field'),
-                    'local_regex'         => array('type' => 'string',  'default' => '', 'sanitize' => 'sanitize_textarea_field'),
-                    'strict_mode'         => array('type' => 'boolean', 'default' => false),
-                    'log_enabled'         => array('type' => 'boolean', 'default' => false),
-                    'log_max_entries'     => array('type' => 'number',  'default' => 500, 'min' => 10, 'max' => 10000),
-                ),
-
-
             );
         }
 

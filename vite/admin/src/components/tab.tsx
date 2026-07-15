@@ -1,11 +1,15 @@
-import React from "react";
-import { useState, lazy, Suspense, useEffect, useCallback } from "react";
-import { Affix, Spin, Dropdown, Button } from "antd";
-import { QuestionCircleOutlined } from "@ant-design/icons";
+import React, { lazy, Suspense, useCallback, useEffect, useState } from "react";
 
-import { defaultOption, DataContext, fetchSettings } from "@/tool/dataContext";
-import Save from "@/tool/save";
 import FeatureSearch from "@/components/feature-search";
+import { defaultOption, DataContext, fetchSettings } from "@/tool/dataContext";
+import {
+  AdminView,
+  getAdminViewFromSearch,
+  isAdminView,
+  normalizeAdminView,
+  writeAdminViewToHistory,
+} from "@/tool/navigation";
+import Save from "@/tool/save";
 
 const Dashboard = lazy(() => import("@/components/dashboard/index"));
 const Page = lazy(() => import("@/components/page/index"));
@@ -14,22 +18,20 @@ const Login = lazy(() => import("@/components/login/index"));
 const Function = lazy(() => import("@/components/function/index"));
 const Domestic = lazy(() => import("@/components/domestic/index"));
 const Performance = lazy(() => import("@/components/performance/index"));
-const AiReview = lazy(() => import("@/components/ai_review/index"));
-
 const About = lazy(() => import("@/components/about/index"));
 
 const TabFallback = (
-  <div style={{ display: "flex", justifyContent: "center", padding: "48px" }}>
-    <Spin size="large" />
+  <div className="mabox-view-loading" role="status" aria-live="polite">
+    <span className="mabox-view-loading-spinner" aria-hidden="true" />
+    <span>正在加载设置…</span>
   </div>
 );
 
 interface NavItem {
-  key: string;
+  key: AdminView;
   label: string;
   icon: string;
   component: React.LazyExoticComponent<React.FC<any>>;
-  props?: Record<string, any>;
 }
 
 interface NavGroup {
@@ -39,57 +41,66 @@ interface NavGroup {
 
 const navGroups: NavGroup[] = [
   {
-    groupLabel: "概览",
+    groupLabel: "工作台",
     items: [
-      { key: "0", label: "仪表盘", icon: "dashicons-dashboard", component: Dashboard },
+      { key: "overview", label: "概览", icon: "dashicons-dashboard", component: Dashboard },
     ],
   },
   {
-    groupLabel: "内容与页面",
+    groupLabel: "站点设置",
     items: [
-      { key: "1", label: "页面", icon: "dashicons-admin-page", component: Page },
-
+      { key: "site", label: "站点与媒体", icon: "dashicons-admin-site-alt3", component: Optimize },
+      { key: "content", label: "内容与页面", icon: "dashicons-admin-page", component: Page },
+      { key: "seo", label: "SEO 与增强", icon: "dashicons-search", component: Function },
+      { key: "security", label: "登录与安全", icon: "dashicons-lock", component: Login },
+      { key: "china", label: "国内生态", icon: "dashicons-location-alt", component: Domestic },
     ],
   },
   {
-    groupLabel: "站点增强",
+    groupLabel: "工具与支持",
     items: [
-      { key: "2", label: "优化", icon: "dashicons-admin-tools", component: Optimize },
-      { key: "3", label: "登录安全", icon: "dashicons-lock", component: Login },
-      { key: "11", label: "性能优化", icon: "dashicons-performance", component: Performance },
-    ],
-  },
-  {
-    groupLabel: "AI 与生态",
-    items: [
-      { key: "5", label: "功能", icon: "dashicons-admin-plugins", component: Function },
-      { key: "10", label: "国内生态", icon: "dashicons-location-alt", component: Domestic },
-      { key: "12", label: "AI 审核", icon: "dashicons-shield", component: AiReview },
+      { key: "maintenance", label: "维护工具", icon: "dashicons-admin-tools", component: Performance },
+      { key: "about", label: "关于与帮助", icon: "dashicons-info-outline", component: About },
     ],
   },
 ];
 
-const helpItems = [
-
-  { key: "9", label: "关于", icon: "dashicons-info", component: About },
-];
-
-const allNavItems: NavItem[] = [
-  ...navGroups.flatMap((g) => g.items),
-  ...helpItems,
-];
+const allNavItems = navGroups.flatMap((group) => group.items);
 
 const App: React.FC = () => {
   const [optionData, setOptionData] = useState(defaultOption);
   const [lastSavedOption, setLastSavedOption] = useState(defaultOption);
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
-  const [activeTab, setActiveTab] = useState("0");
+  const [isMobile, setIsMobile] = useState(() => window.innerWidth <= 782);
+  const [activeView, setActiveView] = useState<AdminView>(() =>
+    getAdminViewFromSearch(window.location.search),
+  );
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [targetItemId, setTargetItemId] = useState<string | null>(null);
 
   useEffect(() => {
-    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    const handleResize = () => setIsMobile(window.innerWidth <= 782);
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  useEffect(() => {
+    const requestedView = new URLSearchParams(window.location.search).get("view");
+    if (!isAdminView(requestedView)) {
+      writeAdminViewToHistory("overview", "replace");
+    }
+
+    const handlePopState = () => {
+      const requestedView = new URLSearchParams(window.location.search).get("view");
+      const nextView = normalizeAdminView(requestedView);
+      setActiveView(nextView);
+      if (!isAdminView(requestedView)) {
+        writeAdminViewToHistory(nextView, "replace");
+      }
+      setTargetItemId(null);
+      setMobileMenuOpen(false);
+    };
+    window.addEventListener("popstate", handlePopState);
+    return () => window.removeEventListener("popstate", handlePopState);
   }, []);
 
   useEffect(() => {
@@ -99,9 +110,19 @@ const App: React.FC = () => {
     });
   }, []);
 
+  useEffect(() => {
+    if (!mobileMenuOpen) return;
+
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setMobileMenuOpen(false);
+    };
+    window.addEventListener("keydown", handleEscape);
+    return () => window.removeEventListener("keydown", handleEscape);
+  }, [mobileMenuOpen]);
+
   const updateOption = (father: string, son: string, newValue: any) => {
-    setOptionData((prevOptionData) => {
-      const updatedOptionData = { ...prevOptionData };
+    setOptionData((previousOptionData) => {
+      const updatedOptionData = { ...previousOptionData };
       if (!updatedOptionData[father]) {
         updatedOptionData[father] = {};
       }
@@ -116,167 +137,200 @@ const App: React.FC = () => {
     setLastSavedOption(freshData);
   };
 
-  const [targetItemId, setTargetItemId] = useState<string | null>(null);
+  const navigateToView = useCallback((requestedView: string, itemId?: string) => {
+    const nextView = normalizeAdminView(requestedView);
+    const currentView = getAdminViewFromSearch(window.location.search);
 
-  const handleSearchNavigate = useCallback((tabKey: string, itemId: string) => {
-    setActiveTab(tabKey);
+    setActiveView(nextView);
+    setTargetItemId(itemId || null);
     setMobileMenuOpen(false);
-    setTargetItemId(itemId);
-    setTimeout(() => {
-      let el = document.getElementById(itemId);
-      if (!el) {
-        const aliasEl = document.querySelector(`[data-search-aliases~="${itemId}"]`);
-        if (aliasEl) el = aliasEl as HTMLElement;
-      }
-      if (el) {
-        el.scrollIntoView({ behavior: "smooth", block: "center" });
-        el.style.transition = "background 0.3s";
-        el.style.background = "#e6f4ff";
-        setTimeout(() => { el.style.background = ""; }, 2000);
-      }
-    }, 300);
+
+    if (nextView !== currentView || !isAdminView(new URLSearchParams(window.location.search).get("view"))) {
+      writeAdminViewToHistory(nextView);
+    }
+    window.requestAnimationFrame(() => {
+      document.getElementById("mabox-main-content")?.focus({ preventScroll: true });
+    });
   }, []);
 
-  const activeNavItem = allNavItems.find((item) => item.key === activeTab);
-  const activeGroup = navGroups.find((g) => g.items.some((i) => i.key === activeTab));
+  const handleSearchNavigate = useCallback((view: string, itemId?: string) => {
+    navigateToView(view, itemId);
+  }, [navigateToView]);
 
-  const handleNavClick = (key: string) => {
-    setActiveTab(key);
-    setMobileMenuOpen(false);
-  };
+  useEffect(() => {
+    if (!targetItemId) return;
 
-  const helpDropdownItems = {
-    items: helpItems.map((item) => ({
-      key: item.key,
-      label: (
-        <span style={{ display: "flex", alignItems: "center", gap: 8 }}>
-          <span className={`dashicons ${item.icon}`} style={{ fontSize: 16, width: 16, height: 16, lineHeight: "16px" }} />
-          {item.label}
-        </span>
-      ),
-    })),
-    onClick: ({ key }: { key: string }) => {
-      setActiveTab(key);
-    },
-  };
+    let attempts = 0;
+    let retryTimer: number | undefined;
+    let highlightTimer: number | undefined;
+
+    const locateTarget = () => {
+      const itemId = targetItemId;
+      let element = document.getElementById(itemId);
+      if (!element) {
+        element = document.querySelector(`[data-search-aliases~="${itemId}"]`);
+      }
+      if (!element && attempts < 20) {
+        attempts += 1;
+        retryTimer = window.setTimeout(locateTarget, 100);
+        return;
+      }
+      if (!element) return;
+
+      element.scrollIntoView({ behavior: "smooth", block: "center" });
+      element.classList.add("mabox-search-target");
+      highlightTimer = window.setTimeout(() => element?.classList.remove("mabox-search-target"), 2000);
+    };
+
+    locateTarget();
+    return () => {
+      if (retryTimer) window.clearTimeout(retryTimer);
+      if (highlightTimer) window.clearTimeout(highlightTimer);
+    };
+  }, [activeView, targetItemId]);
+
+  const activeNavItem = allNavItems.find((item) => item.key === activeView);
+  const activeGroup = navGroups.find((group) =>
+    group.items.some((item) => item.key === activeView),
+  );
 
   const renderContent = () => {
-    const item = allNavItems.find((i) => i.key === activeTab);
+    const item = allNavItems.find((navItem) => navItem.key === activeView);
     if (!item) return null;
-    const Comp = item.component;
-    const extraProps: Record<string, any> = item.key === "0" ? { onNavigate: handleSearchNavigate } : {};
-    if (targetItemId) {
-      if (item.key === "1" || item.key === "5" || item.key === "10") {
-        extraProps.targetItemId = targetItemId;
-      }
+
+    const Component = item.component;
+    const extraProps: Record<string, unknown> = {};
+    if (item.key === "overview") {
+      extraProps.onNavigate = handleSearchNavigate;
     }
+    if (targetItemId && ["content", "seo", "china"].includes(item.key)) {
+      extraProps.targetItemId = targetItemId;
+    }
+
     return (
       <Suspense fallback={TabFallback}>
-        <Comp {...extraProps} />
+        <Component {...extraProps} />
       </Suspense>
     );
   };
 
   const breadcrumbs = [
     "魔法工具箱",
-    activeGroup ? activeGroup.groupLabel : "帮助",
-    activeNavItem?.label || "",
+    activeGroup?.groupLabel || "工作台",
+    activeNavItem?.label || "概览",
   ];
 
   return (
-    <>
-      <DataContext.Provider value={{ optionData, updateOption, refreshOption, lastSavedOption, setLastSavedOption }}>
-        <div className="mabox-shell">
-          <Affix offsetTop={32}>
-            <header className="mabox-header">
-              <div className="mabox-header-left">
-                <span className="dashicons dashicons-admin-generic mabox-header-icon" />
-                <h1 className="mabox-header-title">
-                  魔法工具箱
-                  <small className="mabox-header-subtitle">
-                    <a target="_blank" href="https://www.npc.ink">For Npcink</a>
-                  </small>
-                </h1>
-              </div>
-              {!isMobile && (
-                <div className="mabox-header-center">
-                  <FeatureSearch onNavigate={handleSearchNavigate} style={{ maxWidth: 280 }} />
-                </div>
-              )}
-              <div className="mabox-header-right">
-                <Dropdown menu={helpDropdownItems} placement="bottomRight">
-                  <Button type="text" icon={<QuestionCircleOutlined />} className="mabox-help-btn">
-                    帮助
-                  </Button>
-                </Dropdown>
-                {!isMobile && <Save />}
-              </div>
-            </header>
-          </Affix>
-
-          <div className="mabox-body">
-            {isMobile && (
-              <div className="mabox-mobile-search">
-                <FeatureSearch onNavigate={handleSearchNavigate} style={{ maxWidth: "100%" }} />
-              </div>
-            )}
-            {isMobile && (
-              <button
-                className="mabox-mobile-toggle"
-                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              >
-                <span className="dashicons dashicons-menu" />
-                {activeNavItem?.label || "导航"}
-              </button>
-            )}
-
-            {isMobile && mobileMenuOpen && (
-              <div className="mabox-mobile-nav-overlay" onClick={() => setMobileMenuOpen(false)} />
-            )}
-
-            <aside className={`mabox-sidebar ${isMobile && mobileMenuOpen ? "mabox-sidebar--open" : ""}`}>
-              {navGroups.map((group) => (
-                <div className="mabox-nav-group" key={group.groupLabel}>
-                  <div className="mabox-nav-group-label">{group.groupLabel}</div>
-                  {group.items.map((item) => (
-                    <div
-                      key={item.key}
-                      className={`mabox-nav-item ${activeTab === item.key ? "mabox-nav-item--active" : ""}`}
-                      onClick={() => handleNavClick(item.key)}
-                    >
-                      <span className={`dashicons ${item.icon}`} />
-                      <span className="mabox-nav-item-label">{item.label}</span>
-                    </div>
-                  ))}
-                </div>
-              ))}
-            </aside>
-
-            <main className="mabox-main">
-              <div className="mabox-breadcrumb">
-                {breadcrumbs.map((crumb, idx) => (
-                  <span key={idx}>
-                    {idx > 0 && <span className="mabox-breadcrumb-sep">/</span>}
-                    <span className={idx === breadcrumbs.length - 1 ? "mabox-breadcrumb-current" : ""}>
-                      {crumb}
-                    </span>
-                  </span>
-                ))}
-              </div>
-              <div className="mabox-content">
-                {renderContent()}
-              </div>
-            </main>
+    <DataContext.Provider
+      value={{ optionData, updateOption, refreshOption, lastSavedOption, setLastSavedOption }}
+    >
+      <div className="mabox-shell">
+        <header className="mabox-header">
+          <div className="mabox-header-left">
+            <span className="dashicons dashicons-admin-generic mabox-header-icon" aria-hidden="true" />
+            <div>
+              <h1 className="mabox-header-title">魔法工具箱</h1>
+              <p className="mabox-header-subtitle">站点设置与维护</p>
+            </div>
           </div>
 
-          <Affix offsetBottom={0}>
-            <footer className="mabox-footer">
-              <Save label="保存更改" />
-            </footer>
-          </Affix>
+          {!isMobile && (
+            <div className="mabox-header-center">
+              <FeatureSearch onNavigate={handleSearchNavigate} style={{ maxWidth: 320 }} />
+            </div>
+          )}
+
+          <div className="mabox-header-right">
+            <button
+              type="button"
+              className="mabox-help-btn"
+              aria-label="打开帮助"
+              onClick={() => navigateToView("about")}
+            >
+              <span className="dashicons dashicons-editor-help" aria-hidden="true" />
+              <span>帮助</span>
+            </button>
+            {!isMobile && <Save />}
+          </div>
+        </header>
+
+        <div className="mabox-body">
+          {isMobile && (
+            <div className="mabox-mobile-search">
+              <FeatureSearch onNavigate={handleSearchNavigate} style={{ maxWidth: "100%" }} />
+            </div>
+          )}
+
+          {isMobile && (
+            <button
+              type="button"
+              className="mabox-mobile-toggle"
+              aria-controls="mabox-primary-navigation"
+              aria-expanded={mobileMenuOpen}
+              onClick={() => setMobileMenuOpen((isOpen) => !isOpen)}
+            >
+              <span className="dashicons dashicons-menu" aria-hidden="true" />
+              <span>{activeNavItem?.label || "导航"}</span>
+            </button>
+          )}
+
+          {isMobile && mobileMenuOpen && (
+            <button
+              type="button"
+              className="mabox-mobile-nav-overlay"
+              aria-label="关闭导航"
+              onClick={() => setMobileMenuOpen(false)}
+            />
+          )}
+
+          <nav
+            id="mabox-primary-navigation"
+            className={`mabox-sidebar ${isMobile && mobileMenuOpen ? "mabox-sidebar--open" : ""}`}
+            aria-label="魔法工具箱主导航"
+          >
+            {navGroups.map((group) => (
+              <div className="mabox-nav-group" key={group.groupLabel}>
+                <div className="mabox-nav-group-label">{group.groupLabel}</div>
+                {group.items.map((item) => (
+                  <button
+                    type="button"
+                    key={item.key}
+                    className={`mabox-nav-item ${activeView === item.key ? "mabox-nav-item--active" : ""}`}
+                    aria-current={activeView === item.key ? "page" : undefined}
+                    onClick={() => navigateToView(item.key)}
+                  >
+                    <span className={`dashicons ${item.icon}`} aria-hidden="true" />
+                    <span className="mabox-nav-item-label">{item.label}</span>
+                  </button>
+                ))}
+              </div>
+            ))}
+          </nav>
+
+          <main className="mabox-main" id="mabox-main-content" tabIndex={-1}>
+            <nav className="mabox-breadcrumb" aria-label="面包屑">
+              <ol>
+                {breadcrumbs.map((crumb, index) => (
+                  <li
+                    key={crumb}
+                    className={index === breadcrumbs.length - 1 ? "mabox-breadcrumb-current" : ""}
+                  >
+                    {crumb}
+                  </li>
+                ))}
+              </ol>
+            </nav>
+            <div className="mabox-content">{renderContent()}</div>
+          </main>
         </div>
-      </DataContext.Provider>
-    </>
+
+        {isMobile && (
+          <footer className="mabox-footer">
+            <Save label="保存更改" />
+          </footer>
+        )}
+      </div>
+    </DataContext.Provider>
   );
 };
 

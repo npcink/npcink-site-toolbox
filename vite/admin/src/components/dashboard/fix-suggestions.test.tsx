@@ -1,56 +1,48 @@
-import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
-import { render, screen, fireEvent, waitFor, cleanup } from "@testing-library/react";
-import type { DiagnosticFixSuggestion, DiagnosticFixChange, DiagnosticSummary } from "@/tool/interface";
+import { cleanup, fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+
 import Dashboard from "@/components/dashboard";
 import { DataContext } from "@/tool/dataContext";
 import { defaultVarOption } from "@/tool/defaultVar";
+import type { DiagnosticSummary, SearchHealthSummary } from "@/tool/interface";
 
 const apiMocks = vi.hoisted(() => ({
   getDiagnosticsSummary: vi.fn(),
   getSearchSummary: vi.fn(),
-  getSettings: vi.fn(),
 }));
 
 vi.mock("@/api", () => ({
-  diagnosticsApi: {
-    getSummary: apiMocks.getDiagnosticsSummary,
-  },
-  searchHealthApi: {
-    getSummary: apiMocks.getSearchSummary,
-  },
-  settingsApi: {
-    get: apiMocks.getSettings,
-  },
+  diagnosticsApi: { getSummary: apiMocks.getDiagnosticsSummary },
+  searchHealthApi: { getSummary: apiMocks.getSearchSummary },
 }));
 
-vi.mock("@/components/favorites-panel", () => ({
-  default: () => <div data-testid="favorites-panel" />,
-}));
+const diagnosticSummary: DiagnosticSummary = {
+  score: 92,
+  status: "good",
+  items: [
+    { id: "rest", title: "REST API", status: "good", message: "可用" },
+    { id: "cache", title: "对象缓存", status: "warning", message: "未启用" },
+  ],
+  recommendations: [],
+  risks: [],
+  service_hints: [],
+  generated_at: "2026-07-15 10:30:00",
+};
 
-vi.mock("@/components/wizard", () => ({
-  default: () => <div data-testid="wizard-modal" />,
-}));
+const searchSummary: SearchHealthSummary = {
+  range_days: 30,
+  total_searches: 128,
+  unique_terms: 24,
+  top_terms: [{ term: "WordPress", count: 18, no_result_count: 0 }],
+  no_result_terms: [
+    { term: "站点地图", count: 7, no_result_count: 7 },
+    { term: "对象缓存", count: 3, no_result_count: 3 },
+  ],
+  suspicious_terms: [],
+  recommendations: [],
+};
 
-vi.mock("@/tool/presets", async () => {
-  const actual = await vi.importActual<typeof import("@/tool/presets")>("@/tool/presets");
-  return {
-    ...actual,
-    getAllPresets: () => [],
-    saveCustomPreset: () => true,
-    deleteCustomPreset: () => true,
-  };
-});
-
-vi.mock("@/tool/snapshot", async () => {
-  const actual = await vi.importActual<typeof import("@/tool/snapshot")>("@/tool/snapshot");
-  return {
-    ...actual,
-    getSnapshots: () => [],
-    getDefaultConfig: () => ({}),
-  };
-});
-
-const emptySearchHealth = {
+const emptySearchSummary: SearchHealthSummary = {
   range_days: 30,
   total_searches: 0,
   unique_terms: 0,
@@ -60,43 +52,26 @@ const emptySearchHealth = {
   recommendations: [],
 };
 
+function renderDashboard(onNavigate = vi.fn()) {
+  render(
+    <DataContext.Provider
+      value={{
+        optionData: defaultVarOption,
+        updateOption: vi.fn(),
+        refreshOption: vi.fn(),
+        lastSavedOption: defaultVarOption,
+        setLastSavedOption: vi.fn(),
+      }}
+    >
+      <Dashboard onNavigate={onNavigate} />
+    </DataContext.Provider>,
+  );
+  return onNavigate;
+}
+
 beforeEach(() => {
   apiMocks.getDiagnosticsSummary.mockReset();
   apiMocks.getSearchSummary.mockReset();
-  apiMocks.getSettings.mockReset();
-
-  apiMocks.getSearchSummary.mockResolvedValue({ success: true, data: emptySearchHealth });
-  apiMocks.getSettings.mockResolvedValue({});
-
-  Object.defineProperty(window, "matchMedia", {
-    writable: true,
-    value: vi.fn().mockImplementation((query) => ({
-      matches: false,
-      media: query,
-      onchange: null,
-      addListener: vi.fn(),
-      removeListener: vi.fn(),
-      addEventListener: vi.fn(),
-      removeEventListener: vi.fn(),
-      dispatchEvent: vi.fn(),
-    })),
-  });
-
-  class ResizeObserverMock {
-    observe() {}
-    unobserve() {}
-    disconnect() {}
-  }
-  Object.defineProperty(window, "ResizeObserver", {
-    writable: true,
-    value: ResizeObserverMock,
-  });
-
-  const originalGetComputedStyle = window.getComputedStyle;
-  Object.defineProperty(window, "getComputedStyle", {
-    writable: true,
-    value: (element: Element) => originalGetComputedStyle(element),
-  });
 });
 
 afterEach(() => {
@@ -104,312 +79,91 @@ afterEach(() => {
   vi.clearAllMocks();
 });
 
-describe("DiagnosticFixSuggestion 类型结构", () => {
-  it(" DiagnosticFixChange 包含必要字段", () => {
-    const change: DiagnosticFixChange = {
-      path: "optimize.site.remove_RSS_version",
-      label: "移除 WP 版本号",
-      before: false,
-      after: true,
-      risk_level: "low",
-    };
-    expect(change.path).toBe("optimize.site.remove_RSS_version");
-    expect(change.before).toBe(false);
-    expect(change.after).toBe(true);
-    expect(change.risk_level).toBe("low");
+describe("现代概览页", () => {
+  it("分别展示站点诊断和搜索健康的加载状态", () => {
+    apiMocks.getDiagnosticsSummary.mockReturnValue(new Promise(() => {}));
+    apiMocks.getSearchSummary.mockReturnValue(new Promise(() => {}));
+
+    renderDashboard();
+
+    expect(screen.getByText("正在读取站点诊断")).toBeInTheDocument();
+    expect(screen.getByText("正在汇总搜索数据")).toBeInTheDocument();
   });
 
-  it("DiagnosticFixSuggestion 包含必要字段", () => {
-    const suggestion: DiagnosticFixSuggestion = {
-      id: "fix_remove_wp_version",
-      title: "移除 WP 版本号",
-      reason: "减少信息泄露，提升安全性。",
-      severity: "low",
-      module: "optimize",
-      requires_confirmation: false,
-      changes: [
-        {
-          path: "optimize.site.remove_RSS_version",
-          label: "移除 WP 版本号",
-          before: false,
-          after: true,
-          risk_level: "low",
-        },
-      ],
-    };
-    expect(suggestion.id).toBe("fix_remove_wp_version");
-    expect(suggestion.changes).toHaveLength(1);
-    expect(suggestion.requires_confirmation).toBe(false);
+  it("使用接口返回的真实诊断分数和搜索统计", async () => {
+    apiMocks.getDiagnosticsSummary.mockResolvedValue({ success: true, data: diagnosticSummary });
+    apiMocks.getSearchSummary.mockResolvedValue({ success: true, data: searchSummary });
+
+    renderDashboard();
+
+    expect(await screen.findByLabelText("站点诊断得分 92 分")).toBeInTheDocument();
+    expect(screen.getByText("状态良好")).toBeInTheDocument();
+    expect(screen.getByText("128")).toBeInTheDocument();
+    expect(screen.getByText("24")).toBeInTheDocument();
+    expect(screen.getByText("2", { selector: "dd" })).toBeInTheDocument();
   });
 
-  it("DiagnosticSummary 包含新增字段", () => {
-    const summary: DiagnosticSummary = {
-      score: 60,
-      status: "warning",
-      items: [],
-      recommendations: [],
-      risks: [],
-      service_hints: [],
-      generated_at: "2026-05-29 10:00:00",
-      environment: {
-        php_version: "8.1",
-        wp_version: "6.4",
-        plugin_version: "2.5.0",
-        permalink: "/%postname%/",
-        object_cache: false,
-        rest_api_available: true,
-        site_url: "https://example.com",
-      },
-      fix_suggestions: [
-        {
-          id: "fix_remove_wp_version",
-          title: "移除 WP 版本号",
-          reason: "减少信息泄露",
-          severity: "low",
-          module: "optimize",
-          requires_confirmation: false,
-          changes: [
-            {
-              path: "optimize.site.remove_RSS_version",
-              label: "移除 WP 版本号",
-              before: false,
-              after: true,
-              risk_level: "low",
-            },
-          ],
-        },
-      ],
-    };
-    expect(summary.generated_at).toBe("2026-05-29 10:00:00");
-    expect(summary.environment?.php_version).toBe("8.1");
-    expect(summary.fix_suggestions).toHaveLength(1);
-  });
-});
+  it("接口失败时明确标记不可用且不显示默认 60 分", async () => {
+    apiMocks.getDiagnosticsSummary.mockRejectedValue(new Error("diagnostics unavailable"));
+    apiMocks.getSearchSummary.mockRejectedValue(new Error("search unavailable"));
 
-describe("修复建议变更路径解析", () => {
-  it("三级路径正确拆分为 father/son/fieldKey", () => {
-    const path = "optimize.site.remove_RSS_version";
-    const parts = path.split(".");
-    expect(parts).toHaveLength(3);
-    expect(parts[0]).toBe("optimize");
-    expect(parts[1]).toBe("site");
-    expect(parts.slice(2).join(".")).toBe("remove_RSS_version");
+    renderDashboard();
+
+    expect(await screen.findByText("站点诊断暂时不可用")).toBeInTheDocument();
+    expect(screen.getByText("搜索健康暂时不可用")).toBeInTheDocument();
+    expect(screen.queryByLabelText("站点诊断得分 60 分")).not.toBeInTheDocument();
   });
 
-  it("二级路径不满足三级路径条件", () => {
-    const path = "optimize.remove_RSS_version";
-    const parts = path.split(".");
-    expect(parts.length).toBeLessThan(3);
+  it("成功响应没有有效数据时分别展示空状态", async () => {
+    apiMocks.getDiagnosticsSummary.mockResolvedValue({ success: true });
+    apiMocks.getSearchSummary.mockResolvedValue({ success: true, data: emptySearchSummary });
+
+    renderDashboard();
+
+    expect(await screen.findByText("暂无诊断数据")).toBeInTheDocument();
+    expect(screen.getByText("暂无搜索数据")).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "检查搜索设置" })).toBeInTheDocument();
   });
 
-  it("变更合并到 optionData 后字段正确覆盖", () => {
-    const optionData: Record<string, any> = {
-      optimize: {
-        site: {
-          remove_RSS_version: false,
-          hide_top_toolbar: false,
-        },
-      },
-    };
-
-    const changes: DiagnosticFixChange[] = [
-      {
-        path: "optimize.site.remove_RSS_version",
-        label: "移除 WP 版本号",
-        before: false,
-        after: true,
-        risk_level: "low",
-      },
-    ];
-
-    const updates: Record<string, Record<string, any>> = {};
-    changes.forEach((change) => {
-      const parts = change.path.split(".");
-      const father = parts[0];
-      const son = parts[1];
-      const fieldKey = parts.slice(2).join(".");
-      if (!updates[father]) updates[father] = {};
-      if (!updates[father][son]) updates[father][son] = { ...(optionData[father]?.[son] || {}) };
-      updates[father][son][fieldKey] = change.after;
-    });
-
-    expect(updates.optimize.site.remove_RSS_version).toBe(true);
-    expect(updates.optimize.site.hide_top_toolbar).toBe(false);
-  });
-
-  it("多个变更合并后保留其他字段", () => {
-    const optionData: Record<string, any> = {
-      optimize: {
-        site: {
-          remove_RSS_version: false,
-          hide_top_toolbar: false,
-          cdn_gravatar: false,
-        },
-      },
-    };
-
-    const changes: DiagnosticFixChange[] = [
-      {
-        path: "optimize.site.remove_RSS_version",
-        label: "移除 WP 版本号",
-        before: false,
-        after: true,
-        risk_level: "low",
-      },
-      {
-        path: "optimize.site.hide_top_toolbar",
-        label: "隐藏顶部工具条",
-        before: false,
-        after: true,
-        risk_level: "low",
-      },
-    ];
-
-    const updates: Record<string, Record<string, any>> = {};
-    changes.forEach((change) => {
-      const parts = change.path.split(".");
-      const father = parts[0];
-      const son = parts[1];
-      const fieldKey = parts.slice(2).join(".");
-      if (!updates[father]) updates[father] = {};
-      if (!updates[father][son]) updates[father][son] = { ...(optionData[father]?.[son] || {}) };
-      updates[father][son][fieldKey] = change.after;
-    });
-
-    expect(updates.optimize.site.remove_RSS_version).toBe(true);
-    expect(updates.optimize.site.hide_top_toolbar).toBe(true);
-    expect(updates.optimize.site.cdn_gravatar).toBe(false);
-  });
-});
-
-describe("高风险变更检测", () => {
-  it("包含 high risk_level 的变更被检测到", () => {
-    const suggestions: DiagnosticFixSuggestion[] = [
-      {
-        id: "fix_low_risk",
-        title: "低风险修复",
-        reason: "低风险",
-        severity: "low",
-        module: "optimize",
-        requires_confirmation: false,
-        changes: [
-          { path: "optimize.site.remove_RSS_version", label: "低风险", before: false, after: true, risk_level: "low" },
-        ],
-      },
-      {
-        id: "fix_high_risk",
-        title: "高风险修复",
-        reason: "高风险",
-        severity: "high",
-        module: "optimize",
-        requires_confirmation: true,
-        changes: [
-          { path: "optimize.medium.no_auto_size", label: "高风险", before: false, after: true, risk_level: "high" },
-        ],
-      },
-    ];
-
-    const hasHighRisk = suggestions.some((f) =>
-      f.changes.some((c) => c.risk_level === "high")
-    );
-    expect(hasHighRisk).toBe(true);
-  });
-
-  it("仅包含 low risk_level 的变更不被检测为高风险", () => {
-    const suggestions: DiagnosticFixSuggestion[] = [
-      {
-        id: "fix_low_risk",
-        title: "低风险修复",
-        reason: "低风险",
-        severity: "low",
-        module: "optimize",
-        requires_confirmation: false,
-        changes: [
-          { path: "optimize.site.remove_RSS_version", label: "低风险", before: false, after: true, risk_level: "low" },
-        ],
-      },
-    ];
-
-    const hasHighRisk = suggestions.some((f) =>
-      f.changes.some((c) => c.risk_level === "high")
-    );
-    expect(hasHighRisk).toBe(false);
-  });
-});
-
-describe("Dashboard 一键优化交互", () => {
-  it("应用登录验证码修复建议时写入 math 模式到当前配置", async () => {
+  it("成功响应缺少必需数组时降级为空状态而不是渲染崩溃", async () => {
     apiMocks.getDiagnosticsSummary.mockResolvedValue({
       success: true,
-      data: {
-        score: 70,
-        status: "warning",
-        items: [],
-        recommendations: [],
-        risks: [],
-        service_hints: [],
-        generated_at: "2026-05-29 10:00:00",
-        environment: {
-          php_version: "8.1",
-          wp_version: "6.4",
-          plugin_version: "2.6.1",
-          permalink: "/%postname%/",
-          object_cache: false,
-          rest_api_available: true,
-          site_url: "https://example.com",
-        },
-        fix_suggestions: [
-          {
-            id: "fix_login_code",
-            title: "登录验证码",
-            reason: "防御暴力破解登录后台。",
-            severity: "low",
-            module: "login",
-            requires_confirmation: false,
-            changes: [
-              {
-                path: "login.security.login_code",
-                label: "登录验证码",
-                before: "false",
-                after: "math",
-                risk_level: "low",
-              },
-            ],
-          },
-        ],
-      },
+      data: { score: 88, status: "good" },
+    });
+    apiMocks.getSearchSummary.mockResolvedValue({
+      success: true,
+      data: { total_searches: 9, unique_terms: 3 },
     });
 
-    const updateOption = vi.fn();
-    render(
-      <DataContext.Provider
-        value={{
-          optionData: defaultVarOption,
-          updateOption,
-          refreshOption: vi.fn(),
-          lastSavedOption: defaultVarOption,
-          setLastSavedOption: vi.fn(),
-        }}
-      >
-        <Dashboard />
-      </DataContext.Provider>
-    );
+    renderDashboard();
 
-    const openButton = await screen.findByRole("button", { name: /可一键优化 1 项/ });
-    fireEvent.click(openButton);
+    expect(await screen.findByText("暂无诊断数据")).toBeInTheDocument();
+    expect(screen.getByText("暂无搜索数据")).toBeInTheDocument();
+  });
 
-    expect(await screen.findByText("一键优化预览")).toBeInTheDocument();
-    expect(screen.getByText(/"false"/)).toBeInTheDocument();
-    expect(screen.getByText(/"math"/)).toBeInTheDocument();
+  it("错误状态可以分别重试", async () => {
+    apiMocks.getDiagnosticsSummary.mockRejectedValueOnce(new Error("offline"));
+    apiMocks.getSearchSummary.mockRejectedValueOnce(new Error("offline"));
 
-    fireEvent.click(screen.getByRole("button", { name: /应用选中项/ }));
+    renderDashboard();
+    fireEvent.click(await screen.findAllByRole("button", { name: "重新获取" }).then((buttons) => buttons[0]));
 
-    await waitFor(() => {
-      expect(updateOption).toHaveBeenCalledWith(
-        "login",
-        "security",
-        expect.objectContaining({ login_code: "math" })
-      );
-    });
+    await waitFor(() => expect(apiMocks.getDiagnosticsSummary).toHaveBeenCalledTimes(2));
+    expect(apiMocks.getSearchSummary).toHaveBeenCalledTimes(1);
+  });
+
+  it("下一步与维护入口只发送语义化 view", async () => {
+    apiMocks.getDiagnosticsSummary.mockResolvedValue({ success: true, data: diagnosticSummary });
+    apiMocks.getSearchSummary.mockResolvedValue({ success: true, data: emptySearchSummary });
+    const onNavigate = renderDashboard();
+
+    fireEvent.click(await screen.findByRole("button", { name: "前往安全设置" }));
+    fireEvent.click(screen.getByRole("button", { name: "打开维护工具" }));
+    fireEvent.click(screen.getByRole("button", { name: "检查搜索设置" }));
+
+    expect(onNavigate).toHaveBeenNthCalledWith(1, "security");
+    expect(onNavigate).toHaveBeenNthCalledWith(2, "maintenance");
+    expect(onNavigate).toHaveBeenNthCalledWith(3, "content");
+    expect(onNavigate).not.toHaveBeenCalledWith("13", expect.anything());
   });
 });

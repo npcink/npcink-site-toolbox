@@ -85,6 +85,9 @@ const FeatureSearch: React.FC<FeatureSearchProps> = ({ onNavigate, className, st
   return (
     <div className={className} style={{ position: "relative", width: "100%", ...style }}>
       <Input
+        aria-controls="mabox-feature-search-results"
+        aria-expanded={open && results.length > 0}
+        aria-label="搜索功能或设置"
         prefix={<SearchOutlined style={{ color: "#bfbfbf" }} />}
         placeholder="搜索功能或设置..."
         value={keyword}
@@ -98,6 +101,8 @@ const FeatureSearch: React.FC<FeatureSearchProps> = ({ onNavigate, className, st
       />
       {open && results.length > 0 && (
         <div
+          id="mabox-feature-search-results"
+          aria-label="功能搜索结果"
           style={{
             position: "absolute",
             top: "100%",
@@ -118,31 +123,43 @@ const FeatureSearch: React.FC<FeatureSearchProps> = ({ onNavigate, className, st
             renderItem={(item) => (
               <List.Item
                 style={{
-                  cursor: "pointer",
                   padding: "8px 16px",
-                }}
-                onClick={() => handleSelect(item)}
-                onMouseEnter={(e) => {
-                  (e.currentTarget as HTMLElement).style.background = "#f5f5f5";
-                }}
-                onMouseLeave={(e) => {
-                  (e.currentTarget as HTMLElement).style.background = "transparent";
                 }}
               >
                 <div style={{ display: "flex", alignItems: "center", gap: 8, width: "100%" }}>
                   <Button
+                    aria-label={`${isFavorite(item.id) ? "取消收藏" : "收藏"}${item.label}`}
                     type="text"
                     size="small"
                     icon={isFavorite(item.id) ? <StarFilled style={{ color: "#faad14" }} /> : <StarOutlined />}
                     onClick={(e) => handleToggleFavorite(e, item.id)}
                     style={{ padding: 0, minWidth: 24 }}
                   />
-                  <span style={{ flex: 1 }}>{highlightText(item.label)}</span>
-                  {item.tags && item.tags.map((tag) => (
-                    <Tag color={tagColorMap[tag] || "default"} key={tag} style={{ margin: 0, fontSize: 11 }}>
-                      {tag}
-                    </Tag>
-                  ))}
+                  <button
+                    type="button"
+                    aria-label={`打开${item.label}`}
+                    onClick={() => handleSelect(item)}
+                    style={{
+                      alignItems: "center",
+                      background: "transparent",
+                      border: 0,
+                      color: "inherit",
+                      cursor: "pointer",
+                      display: "flex",
+                      flex: 1,
+                      gap: 8,
+                      minWidth: 0,
+                      padding: "4px 0",
+                      textAlign: "left",
+                    }}
+                  >
+                    <span style={{ flex: 1 }}>{highlightText(item.label)}</span>
+                    {item.tags && item.tags.map((tag) => (
+                      <Tag color={tagColorMap[tag] || "default"} key={tag} style={{ margin: 0, fontSize: 11 }}>
+                        {tag}
+                      </Tag>
+                    ))}
+                  </button>
                 </div>
               </List.Item>
             )}

@@ -9,7 +9,6 @@ describe('defaultVar', () => {
     expect(defaultVarOption).toHaveProperty('login');
     expect(defaultVarOption).toHaveProperty('domestic');
     expect(defaultVarOption).toHaveProperty('performance');
-    expect(defaultVarOption).toHaveProperty('ai_review');
   });
 
   it('should have correct optimize sub-modules', () => {
@@ -32,7 +31,6 @@ describe('defaultVar', () => {
   it('should have boolean values for feature toggles', () => {
     expect(typeof defaultVarOption.optimize.site.hide_top_toolbar).toBe('boolean');
     expect(typeof defaultVarOption.page.comment.interval).toBe('boolean');
-    expect(typeof defaultVarOption.ai_review.enabled).toBe('boolean');
   });
 
   it('should have valid countdown array format', () => {

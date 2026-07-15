@@ -27,7 +27,6 @@ class MaBox_Config_Manager_Test extends TestCase {
         $expected_keys = array(
             'optimize', 'page', 'function', 'login',
             'domestic', 'performance',
-            'ai_review',
         );
 
         foreach ($expected_keys as $key) {
@@ -49,11 +48,11 @@ class MaBox_Config_Manager_Test extends TestCase {
     }
 
     /**
-     * 测试 module_map 键数量为 12
+     * 测试 module_map 键数量
      */
     public function test_module_map_has_correct_count(): void {
         $map = MaBox_Config_Manager::get_module_map();
-        $this->assertCount(7, $map);
+        $this->assertCount(6, $map);
     }
 
     /**

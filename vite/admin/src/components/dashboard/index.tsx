@@ -1,1254 +1,459 @@
-import React, { useContext, useState, useMemo, useCallback, useEffect } from "react";
-import {
-  Card,
-  Statistic,
-  Row,
-  Col,
-  Button,
-  Space,
-  Typography,
-  message,
-  Progress,
-  List,
-  Tag,
-  Modal,
-  Divider,
-  Badge,
-  Input,
-  Alert,
-  Switch,
-} from "antd";
-import {
-  SafetyOutlined,
-  ThunderboltOutlined,
-  ExclamationCircleOutlined,
-  StarOutlined,
-  ArrowRightOutlined,
-  CustomerServiceOutlined,
-  FileTextOutlined,
-  RocketOutlined,
-  SearchOutlined,
-  CheckCircleOutlined,
-} from "@ant-design/icons";
-import { DataContext, serverDefaults } from "@/tool/dataContext";
-import { saveOption } from "@/axios/save";
-import { diagnosticsApi, searchHealthApi, settingsApi } from "@/api";
-import { DiagnosticSummary, DiagnosticItem, DiagnosticFixSuggestion, SearchHealthSummary } from "@/tool/interface";
-import { getAllPresets, Preset, saveCustomPreset, deleteCustomPreset } from "@/tool/presets";
-import { getSnapshots, deleteSnapshot, restoreSnapshot, clearSnapshots, Snapshot, getDefaultConfig } from "@/tool/snapshot";
-import { Dropdown } from "antd";
-import FavoritesPanel from "@/components/favorites-panel";
-import WizardModal from "@/components/wizard";
+import React, { useCallback, useContext, useEffect, useMemo, useState } from "react";
 
-const { Title, Text, Paragraph } = Typography;
-const { confirm } = Modal;
+import { diagnosticsApi, searchHealthApi } from "@/api";
+import { DataContext } from "@/tool/dataContext";
+import type { DiagnosticSummary, Option, SearchHealthSummary } from "@/tool/interface";
 
-interface FeatureStats {
-  total: number;
+import "./overview.css";
+
+type OverviewView = "site" | "content" | "seo" | "security" | "china" | "maintenance";
+
+interface DashboardProps {
+  onNavigate?: (view: OverviewView, itemId?: string) => void;
+}
+
+type RemoteState<T> =
+  | { status: "loading"; data: null }
+  | { status: "success"; data: T }
+  | { status: "empty"; data: null }
+  | { status: "error"; data: null };
+
+interface ToggleStats {
   enabled: number;
-  disabled: number;
+  total: number;
 }
 
-function countFeatures(data: any): FeatureStats {
-  let total = 0;
-  let enabled = 0;
-  let disabled = 0;
-
-  function traverse(obj: any) {
-    if (obj === null || typeof obj !== "object" || Array.isArray(obj)) return;
-
-    Object.values(obj).forEach((value) => {
-      if (typeof value === "boolean") {
-        total++;
-        if (value) enabled++;
-        else disabled++;
-      } else if (typeof value === "string") {
-        total++;
-        if (value !== "false" && value !== "") enabled++;
-        else disabled++;
-      } else if (
-        typeof value === "object" &&
-        value !== null &&
-        !Array.isArray(value)
-      ) {
-        traverse(value);
-      }
-    });
-  }
-
-  traverse(data);
-  return { total, enabled, disabled };
-}
-
-interface Recommendation {
-  id: string;
+interface SecurityCheck {
   label: string;
-  tabKey: string;
-  section: string;
-  reason: string;
-  type: "recommend" | "caution";
+  detail: string;
+  status: "good" | "partial" | "attention";
 }
 
-function getRecommendations(optionData: any): Recommendation[] {
-  const recs: Recommendation[] = [];
-  const cautions: Recommendation[] = [];
+interface NextStep {
+  id: string;
+  title: string;
+  description: string;
+  view: OverviewView;
+  action: string;
+}
 
-  if (!optionData.optimize?.site?.remove_RSS_version) {
-    recs.push({
-      id: "optimize-site-remove_RSS_version",
-      label: "移除 WP 版本号",
-      tabKey: "2",
-      section: "站点",
-      reason: "隐藏 WordPress 版本信息，提升安全性",
-      type: "recommend",
-    });
-  }
+const diagnosticStatusLabels: Record<DiagnosticSummary["status"], string> = {
+  good: "状态良好",
+  warning: "需要关注",
+  critical: "需要处理",
+};
 
-  if (!optionData.page?.function?.search_limit) {
-    recs.push({
-      id: "page-function-search_limit",
-      label: "限制搜索频次",
-      tabKey: "1",
-      section: "功能",
-      reason: "防止恶意搜索攻击，减轻服务器压力",
-      type: "recommend",
+function countBooleanToggles(value: unknown): ToggleStats {
+  const stats: ToggleStats = { enabled: 0, total: 0 };
+
+  const visit = (current: unknown) => {
+    if (typeof current === "boolean") {
+      stats.total += 1;
+      if (current) stats.enabled += 1;
+      return;
+    }
+
+    if (!current || typeof current !== "object" || Array.isArray(current)) return;
+    Object.values(current).forEach(visit);
+  };
+
+  visit(value);
+  return stats;
+}
+
+function isEnabled(value: unknown): boolean {
+  return value === true || (typeof value === "string" && value !== "" && value !== "false");
+}
+
+function getSecurityChecks(optionData: Option): SecurityCheck[] {
+  const loginProtected =
+    isEnabled(optionData.login?.security?.login_code) ||
+    Boolean(optionData.domestic?.login_security?.fail_limit_enabled) ||
+    Boolean(optionData.domestic?.login_security?.ban_enumeration_enabled);
+
+  const commentProtections = [
+    optionData.page?.comment?.interval,
+    optionData.page?.comment?.words_number,
+    optionData.page?.comment?.sensitive_words,
+    optionData.domestic?.comment_security?.blacklist_enabled,
+    optionData.domestic?.comment_security?.ip_rate_enabled,
+  ].filter(Boolean).length;
+
+  const exposureProtections = [
+    optionData.optimize?.site?.remove_RSS_version,
+    optionData.optimize?.site?.remove_sitemap_users,
+  ].filter(Boolean).length;
+
+  return [
+    {
+      label: "登录保护",
+      detail: loginProtected ? "已启用至少一项登录防护" : "尚未启用登录防护",
+      status: loginProtected ? "good" : "attention",
+    },
+    {
+      label: "评论防护",
+      detail:
+        commentProtections >= 2
+          ? "评论限制与过滤已配置"
+          : commentProtections === 1
+            ? "已启用一项基础防护"
+            : "尚未启用评论防护",
+      status: commentProtections >= 2 ? "good" : commentProtections === 1 ? "partial" : "attention",
+    },
+    {
+      label: "信息暴露",
+      detail:
+        exposureProtections === 2
+          ? "版本与作者站点地图均已隐藏"
+          : exposureProtections === 1
+            ? "仍有一项暴露面可收紧"
+            : "建议隐藏版本和作者站点地图",
+      status: exposureProtections === 2 ? "good" : exposureProtections === 1 ? "partial" : "attention",
+    },
+  ];
+}
+
+function buildNextSteps(
+  optionData: Option,
+  diagnosticState: RemoteState<DiagnosticSummary>,
+  searchState: RemoteState<SearchHealthSummary>,
+): NextStep[] {
+  const steps: NextStep[] = [];
+  const loginProtected =
+    isEnabled(optionData.login?.security?.login_code) ||
+    Boolean(optionData.domestic?.login_security?.fail_limit_enabled);
+
+  if (!loginProtected) {
+    steps.push({
+      id: "login-protection",
+      title: "补齐登录防护",
+      description: "启用验证码或失败次数限制，降低后台暴力破解风险。",
+      view: "security",
+      action: "前往安全设置",
     });
   }
 
   if (!optionData.optimize?.medium?.img_add_tag) {
-    recs.push({
-      id: "optimize-medium-img_add_tag",
-      label: "图片 Alt 自动补全",
-      tabKey: "2",
-      section: "媒体",
-      reason: "提升图片 SEO，增加搜索引擎收录概率",
-      type: "recommend",
+    steps.push({
+      id: "media-alt",
+      title: "检查媒体基础设置",
+      description: "确认图片替代文本策略，减少内容可访问性与 SEO 缺口。",
+      view: "site",
+      action: "检查站点与媒体",
     });
   }
 
-  if (!optionData.function?.seo?.seo_home) {
-    recs.push({
-      id: "function-seo-seo_home",
-      label: "首页 TDK",
-      tabKey: "5",
-      section: "SEO",
-      reason: "优化首页搜索引擎展示效果",
-      type: "recommend",
+  if (!optionData.function?.seo?.seo_single) {
+    steps.push({
+      id: "content-seo",
+      title: "确认内容 SEO 策略",
+      description: "按站点实际情况决定是否启用文章级 SEO，而不是套用预设方案。",
+      view: "seo",
+      action: "管理内容与 SEO",
     });
   }
 
-  if (!optionData.login?.security?.login_code || optionData.login?.security?.login_code === "false") {
-    recs.push({
-      id: "login-security-login_code",
-      label: "登录验证码",
-      tabKey: "3",
-      section: "安全",
-      reason: "防止暴力破解登录密码",
-      type: "recommend",
+  if (diagnosticState.status === "success" && diagnosticState.data.status !== "good") {
+    steps.push({
+      id: "diagnostics",
+      title: "处理站点诊断项",
+      description: `当前诊断为“${diagnosticStatusLabels[diagnosticState.data.status]}”，请逐项核对后再调整设置。`,
+      view: "maintenance",
+      action: "查看维护工具",
     });
   }
 
-  if (!optionData.optimize?.site?.hide_top_toolbar) {
-    recs.push({
-      id: "optimize-site-hide_top_toolbar",
-      label: "隐藏顶部工具条",
-      tabKey: "2",
-      section: "站点",
-      reason: "前台页面更清爽，提升用户体验",
-      type: "recommend",
+  if (
+    searchState.status === "success" &&
+    (searchState.data.no_result_terms.length > 0 || searchState.data.suspicious_terms.length > 0)
+  ) {
+    steps.push({
+      id: "search-health",
+      title: "处理站内搜索问题",
+      description: "存在无结果或可疑搜索词，建议检查内容覆盖与搜索限制。",
+      view: "content",
+      action: "查看内容工具",
     });
   }
 
-  return [...recs, ...cautions];
+  if (steps.length < 2) {
+    steps.push({
+      id: "china-services",
+      title: "核对国内访问与合规",
+      description: "按实际业务检查备案、Cookie、百度推送和微信能力，不必全部开启。",
+      view: "china",
+      action: "查看国内生态",
+    });
+  }
+
+  if (steps.length < 2) {
+    steps.push({
+      id: "maintenance-review",
+      title: "定期检查维护状态",
+      description: "查看数据库、媒体与站点服务状态，只执行已经确认影响范围的维护任务。",
+      view: "maintenance",
+      action: "检查维护状态",
+    });
+  }
+
+  return steps.slice(0, 4);
 }
 
-function getSecurityStatus(optionData: any) {
-  const items = [];
+function StateIcon({ name }: { name: "loading" | "success" | "empty" | "error" }) {
+  const icon = {
+    loading: "dashicons-update",
+    success: "dashicons-yes-alt",
+    empty: "dashicons-info-outline",
+    error: "dashicons-warning",
+  }[name];
 
-  const hasLoginProtection = optionData.login?.security?.login_code && optionData.login?.security?.login_code !== "false";
-  items.push({
-    label: "登录保护",
-    status: hasLoginProtection ? "active" : "inactive",
-    detail: hasLoginProtection ? "已启用验证码" : "未启用",
-  });
-
-  const hasCommentProtection = optionData.page?.comment?.interval || optionData.page?.comment?.sensitive_words;
-  items.push({
-    label: "评论防护",
-    status: hasCommentProtection ? "partial" : "inactive",
-    detail: hasCommentProtection ? "部分启用" : "未启用",
-  });
-
-  const hasSeo = optionData.function?.seo?.seo_home || optionData.function?.seo?.seo_single;
-  items.push({
-    label: "SEO 优化",
-    status: hasSeo ? "active" : "inactive",
-    detail: hasSeo ? "已启用" : "未启用",
-  });
-
-  return items;
-}
-
-
-function deepMerge(target: any, source: any): any {
-  if (source === null || typeof source !== "object") return source;
-  if (target === null || typeof target !== "object") return source;
-
-  const result = { ...target };
-
-  Object.keys(source).forEach((key) => {
-    if (
-      source[key] &&
-      typeof source[key] === "object" &&
-      !Array.isArray(source[key])
-    ) {
-      result[key] = deepMerge(result[key] || {}, source[key]);
-    } else {
-      result[key] = source[key];
-    }
-  });
-
-  return result;
-}
-
-
-interface DashboardProps {
-  onNavigate?: (tabKey: string, itemId: string) => void;
+  return <span className={`dashicons ${icon} mabox-overview__state-icon`} aria-hidden="true" />;
 }
 
 const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
-  const { optionData, updateOption } = useContext(DataContext);
-  const [applying, setApplying] = useState<string | null>(null);
-  const [saveModalVisible, setSaveModalVisible] = useState(false);
-  const [presetName, setPresetName] = useState("");
-  const [presetDesc, setPresetDesc] = useState("");
-  const [allPresets, setAllPresets] = useState<Preset[]>(getAllPresets());
-  const [backupVisible, setBackupVisible] = useState(false);
-  const [snapshots, setSnapshots] = useState<Snapshot[]>(getSnapshots());
-  const [diagnosticSummary, setDiagnosticSummary] = useState<DiagnosticSummary | null>(null);
-  const [diagnosticLoading, setDiagnosticLoading] = useState(false);
-  const [searchHealth, setSearchHealth] = useState<SearchHealthSummary | null>(null);
-  const [searchHealthLoading, setSearchHealthLoading] = useState(false);
-  const [searchHealthError, setSearchHealthError] = useState(false);
-  const [wizardVisible, setWizardVisible] = useState(false);
-  const [wizardCompleted, setWizardCompleted] = useState(false);
-  const [fixModalVisible, setFixModalVisible] = useState(false);
-  const [selectedFixIds, setSelectedFixIds] = useState<Set<string>>(new Set());
-
-  useEffect(() => {
-    setDiagnosticLoading(true);
-    diagnosticsApi
-      .getSummary()
-      .then((res: any) => {
-        if (res?.success && res?.data) {
-          setDiagnosticSummary(res.data as DiagnosticSummary);
-        }
-      })
-      .catch((err: any) => {
-        console.error("获取诊断摘要失败:", err);
-      })
-      .finally(() => {
-        setDiagnosticLoading(false);
-      });
-
-    settingsApi.get().then((res: any) => {
-      if (res?.wizard_completed) {
-        setWizardCompleted(true);
-      }
-    }).catch(() => {});
-
-    setSearchHealthLoading(true);
-    searchHealthApi
-      .getSummary(30)
-      .then((res: any) => {
-        if (res?.success && res?.data) {
-          setSearchHealth(res.data as SearchHealthSummary);
-          setSearchHealthError(false);
-        }
-      })
-      .catch(() => {
-        setSearchHealthError(true);
-      })
-      .finally(() => {
-        setSearchHealthLoading(false);
-      });
-  }, []);
-
-  const stats = useMemo(() => countFeatures(optionData), [optionData]);
-  const recommendations = useMemo(() => getRecommendations(optionData), [optionData]);
-  const securityItems = useMemo(() => getSecurityStatus(optionData), [optionData]);
-
-  const recommendList = recommendations.filter((r) => r.type === "recommend");
-  const cautionList = recommendations.filter((r) => r.type === "caution");
-
-  const [snapshotCount, setSnapshotCount] = useState(() => {
-    try {
-      const stored = localStorage.getItem("mabox_snapshots");
-      if (stored) {
-        return JSON.parse(stored).length;
-      }
-    } catch (e) {
-      return 0;
-    }
-    return 0;
+  const { optionData } = useContext(DataContext);
+  const [diagnosticState, setDiagnosticState] = useState<RemoteState<DiagnosticSummary>>({
+    status: "loading",
+    data: null,
+  });
+  const [searchState, setSearchState] = useState<RemoteState<SearchHealthSummary>>({
+    status: "loading",
+    data: null,
   });
 
-  const refreshPresets = useCallback(() => {
-    setAllPresets(getAllPresets());
+  const loadDiagnostics = useCallback(async () => {
+    setDiagnosticState({ status: "loading", data: null });
+    try {
+      const response = await diagnosticsApi.getSummary();
+      if (!response?.success) {
+        setDiagnosticState({ status: "error", data: null });
+        return;
+      }
+      if (
+        !response.data ||
+        typeof response.data.score !== "number" ||
+        !["good", "warning", "critical"].includes(response.data.status) ||
+        !Array.isArray(response.data.items) ||
+        !Array.isArray(response.data.risks)
+      ) {
+        setDiagnosticState({ status: "empty", data: null });
+        return;
+      }
+      setDiagnosticState({ status: "success", data: response.data });
+    } catch {
+      setDiagnosticState({ status: "error", data: null });
+    }
   }, []);
 
-  const refreshSnapshots = useCallback(() => {
-    setSnapshots(getSnapshots());
-    setSnapshotCount(getSnapshots().length);
+  const loadSearchHealth = useCallback(async () => {
+    setSearchState({ status: "loading", data: null });
+    try {
+      const response = await searchHealthApi.getSummary(30);
+      if (!response?.success) {
+        setSearchState({ status: "error", data: null });
+        return;
+      }
+      if (
+        !response.data ||
+        typeof response.data.total_searches !== "number" ||
+        typeof response.data.unique_terms !== "number" ||
+        !Array.isArray(response.data.no_result_terms) ||
+        !Array.isArray(response.data.suspicious_terms)
+      ) {
+        setSearchState({ status: "empty", data: null });
+        return;
+      }
+      if (response.data.total_searches === 0) {
+        setSearchState({ status: "empty", data: null });
+        return;
+      }
+      setSearchState({ status: "success", data: response.data });
+    } catch {
+      setSearchState({ status: "error", data: null });
+    }
   }, []);
 
-  const handleRestoreSnapshot = (snapshotId: string) => {
-    confirm({
-      title: "确认恢复快照？",
-      icon: <ExclamationCircleOutlined />,
-      content: "此操作将覆盖当前配置，请确认。",
-      onOk: () => {
-        const data = restoreSnapshot(snapshotId);
-        if (data) {
-          Object.keys(data).forEach((father) => {
-            if (typeof data[father] === "object" && data[father] !== null) {
-              Object.keys(data[father]).forEach((son) => {
-                updateOption(father, son, data[father][son]);
-              });
-            }
-          });
-          message.success("快照已恢复，请点击保存按钮保存到服务器");
-        } else {
-          message.error("恢复快照失败");
-        }
-      },
-    });
-  };
+  useEffect(() => {
+    void loadDiagnostics();
+    void loadSearchHealth();
+  }, [loadDiagnostics, loadSearchHealth]);
 
-  const handleDeleteSnapshot = (snapshotId: string) => {
-    confirm({
-      title: "确认删除此快照？",
-      icon: <ExclamationCircleOutlined />,
-      onOk: () => {
-        deleteSnapshot(snapshotId);
-        refreshSnapshots();
-        message.success("已删除");
-      },
-    });
-  };
-
-  const handleRestoreDefault = () => {
-    confirm({
-      title: "确认恢复默认配置？",
-      icon: <ExclamationCircleOutlined />,
-      content: "此操作将重置所有设置为默认值，不可撤销。",
-      onOk: () => {
-        const defaultData = getDefaultConfig();
-        Object.keys(defaultData).forEach((father) => {
-          if (typeof defaultData[father] === "object" && defaultData[father] !== null) {
-            Object.keys(defaultData[father]).forEach((son) => {
-              updateOption(father, son, defaultData[father][son]);
-            });
-          }
-        });
-        message.success("已恢复默认配置，请点击保存按钮保存到服务器");
-      },
-    });
-  };
-
-  const handleExportReport = () => {
-    if (!diagnosticSummary) {
-      message.info("诊断数据加载中，请稍后再试");
-      return;
-    }
-
-    const lines: string[] = [];
-    lines.push("# WP Magick Toolbox 诊断报告");
-    lines.push("");
-    lines.push(`- 生成时间：${diagnosticSummary.generated_at || new Date().toLocaleString()}`);
-    lines.push(`- 体检评分：${diagnosticSummary.score} / 100`);
-    lines.push(`- 总体状态：${diagnosticSummary.status === "good" ? "优秀" : diagnosticSummary.status === "warning" ? "良好" : "需优化"}`);
-    lines.push("");
-
-    lines.push("## 环境信息");
-    if (diagnosticSummary.environment) {
-      lines.push(`- PHP 版本：${diagnosticSummary.environment.php_version}`);
-      lines.push(`- WordPress 版本：${diagnosticSummary.environment.wp_version}`);
-      lines.push(`- 插件版本：${diagnosticSummary.environment.plugin_version}`);
-      lines.push(`- 固定链接：${diagnosticSummary.environment.permalink || "默认"}`);
-      lines.push(`- 对象缓存：${diagnosticSummary.environment.object_cache ? "已启用" : "未启用"}`);
-      lines.push(`- REST API：${diagnosticSummary.environment.rest_api_available ? "正常" : "不可用"}`);
-      lines.push(`- 站点地址：${diagnosticSummary.environment.site_url}`);
-    } else {
-      const envItem = diagnosticSummary.items?.find((i: DiagnosticItem) => i.id === "php_version");
-      if (envItem) lines.push(`- PHP 版本：${envItem.message}`);
-      const wpItem = diagnosticSummary.items?.find((i: DiagnosticItem) => i.id === "wp_version");
-      if (wpItem) lines.push(`- WordPress 版本：${wpItem.message}`);
-      const moduleItem = diagnosticSummary.items?.find((i: DiagnosticItem) => i.id === "module_count");
-      if (moduleItem) lines.push(`- ${moduleItem.message}`);
-    }
-    lines.push("");
-
-    lines.push("## 体检项");
-    if (diagnosticSummary.items) {
-      diagnosticSummary.items.forEach((item: DiagnosticItem) => {
-        const statusLabel = item.status === "good" ? "✓" : item.status === "warning" ? "⚠" : "✗";
-        lines.push(`- ${statusLabel} **${item.title}**：${item.message}`);
-      });
-    }
-    lines.push("");
-
-    if (diagnosticSummary.risks && diagnosticSummary.risks.length > 0) {
-      lines.push("## 风险模块/配置");
-      diagnosticSummary.risks.forEach((risk: any) => {
-        lines.push(`- **${risk.title}**（${risk.tier}）`);
-        lines.push(`  ${risk.message}`);
-      });
-      lines.push("");
-    }
-
-    if (diagnosticSummary.fix_suggestions && diagnosticSummary.fix_suggestions.length > 0) {
-      lines.push("## 可一键修复的建议");
-      diagnosticSummary.fix_suggestions.forEach((fix: DiagnosticFixSuggestion) => {
-        lines.push(`- **${fix.title}**：${fix.reason}`);
-        fix.changes.forEach((change) => {
-          lines.push(`  - ${change.label}：${JSON.stringify(change.before)} → ${JSON.stringify(change.after)}（风险：${change.risk_level}）`);
-        });
-      });
-      lines.push("");
-    }
-
-    if (diagnosticSummary.recommendations && diagnosticSummary.recommendations.length > 0) {
-      lines.push("## 关键建议");
-      diagnosticSummary.recommendations.forEach((rec: any) => {
-        lines.push(`- ${rec.title}：${rec.reason}`);
-      });
-      lines.push("");
-    }
-
-    if (diagnosticSummary.service_hints && diagnosticSummary.service_hints.length > 0) {
-      lines.push("## 需要人工处理");
-      diagnosticSummary.service_hints.forEach((hint: any) => {
-        lines.push(`- ${hint.message}`);
-      });
-      lines.push("");
-    }
-
-    if (searchHealth && searchHealth.total_searches > 0) {
-      lines.push("## 搜索健康摘要");
-      lines.push(`- 统计范围：近 ${searchHealth.range_days} 天`);
-      lines.push(`- 总搜索量：${searchHealth.total_searches}`);
-      lines.push(`- 唯一关键词：${searchHealth.unique_terms}`);
-      const noResultTotal = searchHealth.no_result_terms.reduce((s, t) => s + t.no_result_count, 0);
-      const ratio = searchHealth.total_searches > 0 ? Math.round((noResultTotal / searchHealth.total_searches) * 100) : 0;
-      lines.push(`- 无结果比例：${ratio}%`);
-      if (searchHealth.top_terms.length > 0) {
-        lines.push("- 热门搜索词：" + searchHealth.top_terms.slice(0, 10).map((t) => `${t.term}(${t.count})`).join("、"));
-      }
-      if (searchHealth.no_result_terms.length > 0) {
-        lines.push("- 无结果搜索词：" + searchHealth.no_result_terms.slice(0, 10).map((t) => `${t.term}(${t.no_result_count})`).join("、"));
-      }
-      lines.push("");
-    }
-
-    lines.push("---");
-    lines.push("*本报告由 WP Magick Toolbox 体检中心自动生成*");
-    lines.push("*报告不含任何 API Key、Secret 等敏感信息*");
-
-    const reportText = lines.join("\n");
-
-    navigator.clipboard.writeText(reportText).then(() => {
-      message.success("诊断报告已复制到剪贴板");
-      Modal.info({
-        title: "导出报告并反馈",
-        content: "诊断报告已复制到剪贴板，您可以将报告粘贴到反馈页面提交问题或建议。",
-        okText: "前往反馈",
-        onOk: () => {
-          if (onNavigate) onNavigate("13", "");
-        },
-      });
-    }).catch(() => {
-      const blob = new Blob([reportText], { type: "text/markdown" });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = `mabox-diagnostic-report-${Date.now()}.md`;
-      a.click();
-      URL.revokeObjectURL(url);
-      message.success("诊断报告已下载");
-    });
-  };
-
-  const handleOpenFixModal = () => {
-    if (!diagnosticSummary?.fix_suggestions?.length) return;
-    setSelectedFixIds(new Set(diagnosticSummary.fix_suggestions.map((f) => f.id)));
-    setFixModalVisible(true);
-  };
-
-  const handleToggleFix = (fixId: string) => {
-    setSelectedFixIds((prev) => {
-      const next = new Set(prev);
-      if (next.has(fixId)) {
-        next.delete(fixId);
-      } else {
-        next.add(fixId);
-      }
-      return next;
-    });
-  };
-
-  const handleApplyFixes = () => {
-    if (!diagnosticSummary?.fix_suggestions) return;
-
-    const selectedFixes = diagnosticSummary.fix_suggestions.filter((f) =>
-      selectedFixIds.has(f.id)
-    );
-
-    if (selectedFixes.length === 0) {
-      message.info("请至少选择一项修复建议");
-      return;
-    }
-
-    const hasHighRisk = selectedFixes.some((f) =>
-      f.changes.some((c) => c.risk_level === "high")
-    );
-
-    const doApply = () => {
-      const updates: Record<string, Record<string, any>> = {};
-      selectedFixes.forEach((fix) => {
-        fix.changes.forEach((change) => {
-          const parts = change.path.split(".");
-          if (parts.length >= 3) {
-            const father = parts[0];
-            const son = parts[1];
-            const fieldKey = parts.slice(2).join(".");
-            if (!updates[father]) updates[father] = {};
-            if (!updates[father][son]) updates[father][son] = { ...(optionData[father]?.[son] || {}) };
-            updates[father][son][fieldKey] = change.after;
-          }
-        });
-      });
-      Object.keys(updates).forEach((father) => {
-        Object.keys(updates[father]).forEach((son) => {
-          updateOption(father, son, updates[father][son]);
-        });
-      });
-      setFixModalVisible(false);
-      message.success(`已应用 ${selectedFixes.length} 项修复到当前配置，请点击保存生效`);
-    };
-
-    if (hasHighRisk) {
-      confirm({
-        title: "确认应用高风险修改？",
-        icon: <ExclamationCircleOutlined />,
-        content: "选中的修复中包含高风险变更，请确认您了解其影响。",
-        okText: "确认应用",
-        cancelText: "取消",
-        onOk: doApply,
-      });
-    } else {
-      doApply();
-    }
-  };
-
-  const handleRestoreModuleDefault = (moduleKey: string) => {
-    const source = serverDefaults || getDefaultConfig();
-    const moduleDefault = source[moduleKey];
-
-    if (!moduleDefault || typeof moduleDefault !== "object") {
-      message.error(`模块 ${moduleKey} 没有可恢复的默认值`);
-      return;
-    }
-
-    confirm({
-      title: `恢复「${moduleKey}」模块默认值？`,
-      icon: <ExclamationCircleOutlined />,
-      content: `此操作将重置「${moduleKey}」模块为默认值，不影响其他模块。`,
-      onOk: () => {
-        Object.keys(moduleDefault).forEach((son) => {
-          updateOption(moduleKey, son, moduleDefault[son]);
-        });
-        message.success(`已恢复「${moduleKey}」模块默认值，请点击保存按钮保存到服务器`);
-      },
-    });
-  };
-
-  const applyPreset = useCallback(
-    async (presetId: string) => {
-      const preset = allPresets.find((p: Preset) => p.id === presetId);
-      if (!preset) return;
-
-      confirm({
-        title: `应用「${preset.name}」配置方案？`,
-        icon: <ExclamationCircleOutlined />,
-        content: (
-          <div>
-            <p>{preset.description}</p>
-            <Text type="warning">此操作将覆盖当前部分配置，建议先导出备份。</Text>
-          </div>
-        ),
-        okText: "确认应用",
-        cancelText: "取消",
-        onOk: async () => {
-          setApplying(presetId);
-          try {
-            const merged = deepMerge(
-              JSON.parse(JSON.stringify(optionData)),
-              preset.config
-            );
-
-            Object.keys(preset.config).forEach((father) => {
-              if (typeof merged[father] === "object" && merged[father] !== null) {
-                Object.keys(merged[father]).forEach((son) => {
-                  updateOption(father, son, merged[father][son]);
-                });
-              }
-            });
-
-            await saveOption(merged);
-            message.success(`已应用预设：${preset.name}`);
-          } catch (error) {
-            message.error("应用预设失败，请重试");
-          } finally {
-            setApplying(null);
-          }
-        },
-      });
-    },
-    [optionData, updateOption, allPresets]
+  const stats = useMemo(() => countBooleanToggles(optionData), [optionData]);
+  const securityChecks = useMemo(() => getSecurityChecks(optionData), [optionData]);
+  const nextSteps = useMemo(
+    () => buildNextSteps(optionData, diagnosticState, searchState),
+    [diagnosticState, optionData, searchState],
   );
+  const securityReady = securityChecks.filter((item) => item.status === "good").length;
 
-  const handleSavePreset = () => {
-    if (!presetName.trim()) {
-      message.error("请输入方案名称");
-      return;
-    }
-    const id = `custom_${Date.now()}`;
-    const success = saveCustomPreset({
-      id,
-      name: presetName,
-      description: presetDesc || "自定义配置方案",
-      config: JSON.parse(JSON.stringify(optionData)),
-    });
-    if (success) {
-      message.success("自定义方案已保存");
-      setSaveModalVisible(false);
-      setPresetName("");
-      setPresetDesc("");
-      refreshPresets();
-    } else {
-      message.error("保存失败");
-    }
+  const navigate = (view: OverviewView) => {
+    onNavigate?.(view);
   };
-
-  const handleDeletePreset = (presetId: string) => {
-    confirm({
-      title: "确认删除此自定义方案？",
-      icon: <ExclamationCircleOutlined />,
-      onOk: () => {
-        deleteCustomPreset(presetId);
-        refreshPresets();
-        message.success("已删除");
-      },
-    });
-  };
-
-  const handleRecommendationClick = (item: Recommendation) => {
-    if (onNavigate) {
-      onNavigate(item.tabKey, item.id);
-    }
-  };
-
-const diagnosticScore = diagnosticSummary?.score ?? 60;
-  const diagnosticStatus = diagnosticSummary?.status ?? "warning";
-
-  const getScoreColor = (score: number) => {
-    if (score >= 80) return "#52c41a";
-    if (score >= 60) return "#faad14";
-    return "#f5222d";
-  };
-
-  const getDiagnosticStatusText = (status: string) => {
-    if (status === "good") return "优秀";
-    if (status === "warning") return "良好";
-    return "需优化";
-  };
-
-  const getDiagnosticStatusColor = (status: string) => {
-    if (status === "good") return "success";
-    if (status === "warning") return "warning";
-    return "error";
-  };
-
-  const criticalItems = diagnosticSummary?.items?.filter((i: DiagnosticItem) => i.status === "critical") || [];
-  const warningItems = diagnosticSummary?.items?.filter((i: DiagnosticItem) => i.status === "warning") || [];
 
   return (
-    <div className="space-y-6">
-      {!wizardCompleted && (
-        <Alert
-          message="欢迎使用 WP Magick Toolbox！"
-          description="首次使用？让我们帮您快速配置推荐方案，3 分钟搞定核心设置。"
-          type="info"
-          showIcon
-          icon={<RocketOutlined />}
-          action={
-            <Button type="primary" size="small" icon={<RocketOutlined />} onClick={() => setWizardVisible(true)}>
-              开始配置
-            </Button>
-          }
-          closable
-          onClose={() => setWizardCompleted(true)}
-        />
-      )}
-      {wizardCompleted && (
-        <div style={{ textAlign: "right", marginBottom: -8 }}>
-          <Button size="small" type="link" icon={<RocketOutlined />} onClick={() => setWizardVisible(true)}>
-            配置向导
-          </Button>
+    <div className="mabox-overview">
+      <header className="mabox-overview__intro">
+        <div>
+          <p className="mabox-overview__eyebrow">站点概览</p>
+          <h2>先处理重要事项，再进入具体设置</h2>
+          <p>
+            这里展示当前配置和站点服务的真实状态。所有调整仍需进入对应页面确认并保存。
+          </p>
         </div>
-      )}
+        <button className="mabox-overview__quiet-button" type="button" onClick={() => navigate("maintenance")}>
+          <span className="dashicons dashicons-admin-tools" aria-hidden="true" />
+          打开维护工具
+        </button>
+      </header>
 
-      <WizardModal
-        open={wizardVisible}
-        onCancel={() => setWizardVisible(false)}
-        onComplete={() => setWizardCompleted(true)}
-        onNavigate={onNavigate}
-      />
-      {/* ===== 体检中心（后端诊断数据驱动） ===== */}
-      <Card loading={diagnosticLoading}>
-        <Row gutter={[24, 24]} align="middle">
-          <Col xs={24} md={6}>
-            <div style={{ textAlign: "center" }}>
-              <Progress
-                type="circle"
-                percent={diagnosticScore}
-                strokeColor={getScoreColor(diagnosticScore)}
-                size={120}
-                format={(percent) => (
-                  <div>
-                    <div style={{ fontSize: 28, fontWeight: "bold", color: getScoreColor(diagnosticScore) }}>
-                      {percent}
-                    </div>
-                    <div style={{ fontSize: 12, color: "#999" }}>体检评分</div>
-                  </div>
-                )}
-              />
-              <div style={{ marginTop: 8 }}>
-                <Tag color={getDiagnosticStatusColor(diagnosticStatus)}>
-                  {getDiagnosticStatusText(diagnosticStatus)}
-                </Tag>
+      <section className="mabox-overview__summary" aria-label="配置摘要">
+        <article className="mabox-overview__metric">
+          <span className="mabox-overview__metric-label">已启用配置</span>
+          <strong>{stats.enabled}</strong>
+          <span>共 {stats.total} 个布尔开关</span>
+        </article>
+        <article className="mabox-overview__metric">
+          <span className="mabox-overview__metric-label">安全检查</span>
+          <strong>{securityReady} / {securityChecks.length}</strong>
+          <span>{securityReady === securityChecks.length ? "基础防护完整" : "仍有项目需要确认"}</span>
+        </article>
+        <article className="mabox-overview__metric">
+          <span className="mabox-overview__metric-label">下一步</span>
+          <strong>{nextSteps.length}</strong>
+          <span>按当前状态生成的建议</span>
+        </article>
+      </section>
+
+      <div className="mabox-overview__status-grid">
+        <section className="mabox-overview__panel" aria-labelledby="diagnostic-heading">
+          <div className="mabox-overview__panel-heading">
+            <div>
+              <p className="mabox-overview__eyebrow">站点服务</p>
+              <h3 id="diagnostic-heading">站点诊断</h3>
+            </div>
+            {diagnosticState.status === "success" && (
+              <span className={`mabox-overview__badge mabox-overview__badge--${diagnosticState.data.status}`}>
+                {diagnosticStatusLabels[diagnosticState.data.status]}
+              </span>
+            )}
+          </div>
+
+          {diagnosticState.status === "loading" && (
+            <div className="mabox-overview__state" role="status">
+              <StateIcon name="loading" />
+              <div><strong>正在读取站点诊断</strong><span>请稍候，当前不会显示估算分数。</span></div>
+            </div>
+          )}
+          {diagnosticState.status === "error" && (
+            <div className="mabox-overview__state mabox-overview__state--error" role="alert">
+              <StateIcon name="error" />
+              <div><strong>站点诊断暂时不可用</strong><span>请求失败，当前没有可展示的诊断分数。</span></div>
+              <button type="button" onClick={() => void loadDiagnostics()}>重新获取</button>
+            </div>
+          )}
+          {diagnosticState.status === "empty" && (
+            <div className="mabox-overview__state">
+              <StateIcon name="empty" />
+              <div><strong>暂无诊断数据</strong><span>服务已响应，但没有返回有效诊断结果。</span></div>
+              <button type="button" onClick={() => void loadDiagnostics()}>重新检查</button>
+            </div>
+          )}
+          {diagnosticState.status === "success" && (
+            <div className="mabox-overview__diagnostic-result">
+              <div className="mabox-overview__score" aria-label={`站点诊断得分 ${diagnosticState.data.score} 分`}>
+                <strong>{diagnosticState.data.score}</strong><span>/ 100</span>
+              </div>
+              <div>
+                <p>{diagnosticState.data.items.length} 个检查项，{diagnosticState.data.risks.length} 个风险提示。</p>
+                {diagnosticState.data.generated_at && <span>生成于 {diagnosticState.data.generated_at}</span>}
               </div>
             </div>
-          </Col>
-          <Col xs={24} md={18}>
-            <Row gutter={[16, 16]}>
-              <Col span={8}>
-                <Statistic
-                  title="关键风险"
-                  value={criticalItems.length}
-                  valueStyle={{ color: criticalItems.length > 0 ? "#f5222d" : "#52c41a", fontSize: 24 }}
-                />
-              </Col>
-              <Col span={8}>
-                <Statistic
-                  title="建议优化"
-                  value={warningItems.length}
-                  valueStyle={{ color: warningItems.length > 0 ? "#faad14" : "#52c41a", fontSize: 24 }}
-                />
-              </Col>
-              <Col span={8}>
-                <Statistic
-                  title="建议开启"
-                  value={diagnosticSummary?.recommendations?.length ?? recommendList.length}
-                  valueStyle={{ fontSize: 24 }}
-                />
-              </Col>
-              <Col span={24}>
-                <div style={{ marginTop: 4 }}>
-                  {diagnosticSummary?.risks && diagnosticSummary.risks.length > 0 ? (
-                    <Text type="danger">
-                      <ExclamationCircleOutlined style={{ marginRight: 4 }} />
-                      检测到 {diagnosticSummary.risks.length} 个风险项，建议检查后再保存配置。
-                    </Text>
-                  ) : (
-                    <Text type="success">
-                      <SafetyOutlined style={{ marginRight: 4 }} />
-                      当前未检测到配置风险，站点运行状态安全。
-                    </Text>
-                  )}
-                </div>
-                <div style={{ marginTop: 8 }}>
-                  <Space wrap>
-                    {diagnosticSummary?.fix_suggestions && diagnosticSummary.fix_suggestions.length > 0 && (
-                      <Button
-                        size="small"
-                        type="primary"
-                        icon={<CheckCircleOutlined />}
-                        onClick={handleOpenFixModal}
-                      >
-                        可一键优化 {diagnosticSummary.fix_suggestions.length} 项
-                      </Button>
-                    )}
-                    <Button
-                      size="small"
-                      icon={<FileTextOutlined />}
-                      onClick={() => handleExportReport()}
-                    >
-                      导出诊断报告
-                    </Button>
-                    {diagnosticSummary?.service_hints && diagnosticSummary.service_hints.length > 0 && (
-                      <Button
-                        type="primary"
-                        size="small"
-                        icon={<CustomerServiceOutlined />}
-                        onClick={() => onNavigate && onNavigate("13", "")}
-                      >
-                        联系技术支持
-                      </Button>
-                    )}
-                  </Space>
-                </div>
-              </Col>
-            </Row>
-          </Col>
-        </Row>
-      </Card>
+          )}
+        </section>
 
-      {/* ===== 搜索健康摘要 ===== */}
-      <Card
-        title={<span><SearchOutlined style={{ marginRight: 8 }} />搜索健康</span>}
-        loading={searchHealthLoading}
-        extra={searchHealth && searchHealth.total_searches > 0 ? <Tag color="blue">近 {searchHealth.range_days} 天</Tag> : null}
-      >
-        {searchHealthError ? (
-          <Alert type="warning" message="搜索健康数据加载失败" showIcon banner={false} style={{ marginBottom: 0 }} />
-        ) : !searchHealth || searchHealth.total_searches === 0 ? (
-          <div style={{ textAlign: "center", padding: "24px 0" }}>
-            <SearchOutlined style={{ fontSize: 32, color: "#d9d9d9" }} />
-            <div style={{ marginTop: 8, color: "#999" }}>暂无搜索数据</div>
-            <div style={{ fontSize: 12, color: "#bbb" }}>开启搜索增强并积累搜索数据后，这里会展示搜索健康分析</div>
+        <section className="mabox-overview__panel" aria-labelledby="search-heading">
+          <div className="mabox-overview__panel-heading">
+            <div>
+              <p className="mabox-overview__eyebrow">近 30 天</p>
+              <h3 id="search-heading">搜索健康</h3>
+            </div>
+            {searchState.status === "success" && <span className="mabox-overview__badge">已有数据</span>}
           </div>
-        ) : (
-          <>
-            <Row gutter={[16, 16]} style={{ marginBottom: 16 }}>
-              <Col span={8}>
-                <Statistic title="总搜索量" value={searchHealth.total_searches} valueStyle={{ fontSize: 24 }} />
-              </Col>
-              <Col span={8}>
-                <Statistic title="唯一关键词" value={searchHealth.unique_terms} valueStyle={{ fontSize: 24 }} />
-              </Col>
-              <Col span={8}>
-                <Statistic
-                  title="无结果词比例"
-                  value={searchHealth.total_searches > 0 ? Math.round((searchHealth.no_result_terms.reduce((s, t) => s + t.no_result_count, 0) / searchHealth.total_searches) * 100) : 0}
-                  suffix="%"
-                  valueStyle={{ fontSize: 24, color: searchHealth.no_result_terms.length > 0 ? "#faad14" : "#52c41a" }}
-                />
-              </Col>
-            </Row>
-            <Row gutter={[16, 16]}>
-              {searchHealth.top_terms.length > 0 && (
-                <Col span={12}>
-                  <Text strong style={{ marginBottom: 8, display: "block" }}>热门搜索词</Text>
-                  <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
-                    {searchHealth.top_terms.slice(0, 10).map((t) => (
-                      <Tag key={t.term} color="blue">{t.term} ({t.count})</Tag>
-                    ))}
-                  </div>
-                </Col>
-              )}
-              {searchHealth.no_result_terms.length > 0 && (
-                <Col span={12}>
-                  <Text strong style={{ marginBottom: 8, display: "block" }}>无结果搜索词</Text>
-                  <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
-                    {searchHealth.no_result_terms.slice(0, 10).map((t) => (
-                      <Tag key={t.term} color="orange">{t.term} ({t.no_result_count})</Tag>
-                    ))}
-                  </div>
-                </Col>
-              )}
-            </Row>
-            {searchHealth.recommendations && searchHealth.recommendations.length > 0 && (
-              <div style={{ marginTop: 12 }}>
-                <Divider style={{ margin: "8px 0" }} />
-                {searchHealth.recommendations.map((r) => (
-                  <div key={r.id} style={{ marginBottom: 4 }}>
-                    <Text type="warning"><ExclamationCircleOutlined style={{ marginRight: 4 }} />{r.title}：</Text>
-                    <Text type="secondary">{r.reason}</Text>
-                  </div>
-                ))}
-              </div>
-            )}
-          </>
-        )}
-      </Card>
 
-      {/* ===== 功能统计 ===== */}
-      <Card>
-        <Row gutter={[16, 16]}>
-          <Col span={6}>
-            <Statistic
-              title="总功能数"
-              value={stats.total}
-              valueStyle={{ fontSize: 24 }}
-            />
-          </Col>
-          <Col span={6}>
-            <Statistic
-              title="已启用"
-              value={stats.enabled}
-              valueStyle={{ color: "#52c41a", fontSize: 24 }}
-            />
-          </Col>
-          <Col span={6}>
-            <Statistic
-              title="已禁用"
-              value={stats.disabled}
-              valueStyle={{ color: "#f5222d", fontSize: 24 }}
-            />
-          </Col>
-          <Col span={6}>
-            <Statistic
-              title="配置快照"
-              value={snapshotCount}
-              suffix="个"
-              valueStyle={{ fontSize: 24 }}
-            />
-          </Col>
-        </Row>
-        <div style={{ marginTop: 12 }}>
-          <Text type="secondary">
-            <SafetyOutlined /> 安全状态：
-            {securityItems.map((item: any, idx: number) => (
-              <span key={item.label} style={{ marginLeft: 8 }}>
-                <Badge
-                  status={
-                    item.status === "active"
-                      ? "success"
-                      : item.status === "partial"
-                      ? "warning"
-                      : "error"
-                  }
-                  text={item.label}
-                />
-                {idx < securityItems.length - 1 && <Divider type="vertical" />}
-              </span>
+          {searchState.status === "loading" && (
+            <div className="mabox-overview__state" role="status">
+              <StateIcon name="loading" />
+              <div><strong>正在汇总搜索数据</strong><span>搜索健康与站点诊断分别加载。</span></div>
+            </div>
+          )}
+          {searchState.status === "error" && (
+            <div className="mabox-overview__state mabox-overview__state--error" role="alert">
+              <StateIcon name="error" />
+              <div><strong>搜索健康暂时不可用</strong><span>诊断其他区域不受影响，可以单独重试。</span></div>
+              <button type="button" onClick={() => void loadSearchHealth()}>重新获取</button>
+            </div>
+          )}
+          {searchState.status === "empty" && (
+            <div className="mabox-overview__state">
+              <StateIcon name="empty" />
+              <div><strong>暂无搜索数据</strong><span>近 30 天没有可汇总的站内搜索记录。</span></div>
+              <button type="button" onClick={() => navigate("content")}>检查搜索设置</button>
+            </div>
+          )}
+          {searchState.status === "success" && (
+            <dl className="mabox-overview__search-metrics">
+              <div><dt>总搜索量</dt><dd>{searchState.data.total_searches}</dd></div>
+              <div><dt>关键词</dt><dd>{searchState.data.unique_terms}</dd></div>
+              <div><dt>无结果词</dt><dd>{searchState.data.no_result_terms.length}</dd></div>
+            </dl>
+          )}
+        </section>
+      </div>
+
+      <div className="mabox-overview__work-grid">
+        <section className="mabox-overview__panel" aria-labelledby="next-steps-heading">
+          <div className="mabox-overview__panel-heading">
+            <div>
+              <p className="mabox-overview__eyebrow">建议操作</p>
+              <h3 id="next-steps-heading">接下来可以做什么</h3>
+            </div>
+          </div>
+          <ol className="mabox-overview__steps">
+            {nextSteps.map((step, index) => (
+              <li key={step.id}>
+                <span className="mabox-overview__step-index" aria-hidden="true">{index + 1}</span>
+                <div><strong>{step.title}</strong><p>{step.description}</p></div>
+                <button type="button" onClick={() => navigate(step.view)}>
+                  {step.action}<span className="dashicons dashicons-arrow-right-alt2" aria-hidden="true" />
+                </button>
+              </li>
             ))}
-          </Text>
-        </div>
-      </Card>
+          </ol>
+        </section>
 
-      <FavoritesPanel optionData={optionData} />
-
-      <Row gutter={[16, 16]}>
-        <Col xs={24} lg={12}>
-          <Card
-            title={
-              <span>
-                <StarOutlined style={{ color: "#52c41a", marginRight: 8 }} />
-                建议开启 ({recommendList.length}项)
-              </span>
-            }
-          >
-            <List
-              size="small"
-              dataSource={recommendList}
-              renderItem={(item) => (
-                <List.Item
-                  actions={[
-                    <Button
-                      type="link"
-                      size="small"
-                      onClick={() => handleRecommendationClick(item)}
-                    >
-                      去开启 <ArrowRightOutlined />
-                    </Button>,
-                  ]}
-                >
-                  <List.Item.Meta
-                    title={item.label}
-                    description={
-                      <Text type="secondary" style={{ fontSize: 12 }}>
-                        {item.reason}
-                      </Text>
-                    }
-                  />
-                </List.Item>
-              )}
-              locale={{ emptyText: "暂无任何建议，您的配置已经很完善了！" }}
-            />
-          </Card>
-        </Col>
-        <Col xs={24} lg={12}>
-          <Card
-            title={
-              <span>
-                <ExclamationCircleOutlined style={{ color: "#faad14", marginRight: 8 }} />
-                建议谨慎 ({cautionList.length}项)
-              </span>
-            }
-          >
-            <List
-              size="small"
-              dataSource={cautionList}
-              renderItem={(item) => (
-                <List.Item
-                  actions={[
-                    <Button
-                      type="link"
-                      size="small"
-                      onClick={() => handleRecommendationClick(item)}
-                    >
-                      查看 <ArrowRightOutlined />
-                    </Button>,
-                  ]}
-                >
-                  <List.Item.Meta
-                    title={
-                      <span>
-                        {item.label}
-                        <Tag color="orange" style={{ marginLeft: 8, fontSize: 11 }}>
-                          谨慎
-                        </Tag>
-                      </span>
-                    }
-                    description={
-                      <Text type="secondary" style={{ fontSize: 12 }}>
-                        {item.reason}
-                      </Text>
-                    }
-                  />
-                </List.Item>
-              )}
-              locale={{ emptyText: "暂无需要谨慎的功能，继续保持！" }}
-            />
-          </Card>
-        </Col>
-      </Row>
-
-      <Card
-        title={
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-            <span><ThunderboltOutlined style={{ marginRight: 8 }} />一键配置方案</span>
-            <Space>
-              <Button size="small" onClick={() => setBackupVisible(true)}>
-                配置备份中心
-              </Button>
-              <Dropdown
-                menu={{
-                  items: [
-                    { key: "optimize", label: "站点优化" },
-                    { key: "page", label: "页面功能" },
-                    { key: "function", label: "SEO / 功能" },
-                    { key: "login", label: "登录页" },
-                    { key: "domestic", label: "国内生态" },
-                    { key: "performance", label: "性能优化" },
-                    { key: "ai_review", label: "AI 审核" },
-
-                  ],
-                  onClick: ({ key }) => handleRestoreModuleDefault(key),
-                }}
-              >
-                <Button size="small">恢复模块默认值</Button>
-              </Dropdown>
-              <Button size="small" onClick={() => setSaveModalVisible(true)}>
-                保存当前为方案
-              </Button>
-            </Space>
+        <section className="mabox-overview__panel" aria-labelledby="security-heading">
+          <div className="mabox-overview__panel-heading">
+            <div>
+              <p className="mabox-overview__eyebrow">基础防护</p>
+              <h3 id="security-heading">安全状态</h3>
+            </div>
           </div>
-        }
-      >
-        <Row gutter={[16, 16]}>
-          {allPresets.map((preset: Preset) => {
-            const isCustom = preset.id.startsWith("custom_");
-            return (
-              <Col xs={24} sm={12} md={8} lg={6} key={preset.id}>
-                <Card className="h-full" size="small" hoverable>
-                  <Space direction="vertical" className="w-full" size="small">
-                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                      <Title level={5} style={{ margin: 0 }}>{preset.name}</Title>
-                      {isCustom && (
-                        <Button
-                          type="text"
-                          size="small"
-                          danger
-                          onClick={() => handleDeletePreset(preset.id)}
-                        >
-                          删除
-                        </Button>
-                      )}
-                    </div>
-                    <Paragraph type="secondary" style={{ fontSize: 13, margin: 0, minHeight: 40 }}>
-                      {preset.description}
-                    </Paragraph>
-                    <Button
-                      type="primary"
-                      block
-                      loading={applying === preset.id}
-                      onClick={() => applyPreset(preset.id)}
-                      size="small"
-                    >
-                      应用此配置
-                    </Button>
-                  </Space>
-                </Card>
-              </Col>
-            );
-          })}
-        </Row>
-      </Card>
-
-      <Modal
-        title="配置备份中心"
-        open={backupVisible}
-        onCancel={() => setBackupVisible(false)}
-        footer={null}
-        width={700}
-      >
-        <Space direction="vertical" className="w-full" style={{ marginTop: 16 }}>
-          <div style={{ marginBottom: 16 }}>
-            <Button onClick={handleRestoreDefault} danger style={{ marginRight: 8 }}>
-              恢复默认配置
-            </Button>
-            <Button onClick={() => { clearSnapshots(); refreshSnapshots(); message.success("已清除所有快照"); }}>
-              清除所有快照
-            </Button>
-          </div>
-          <List
-            size="small"
-            header={<Text strong>自动快照（最近5次保存）</Text>}
-            dataSource={snapshots}
-            renderItem={(item) => (
-              <List.Item
-                actions={[
-                  <Button type="link" size="small" onClick={() => handleRestoreSnapshot(item.id)}>
-                    恢复
-                  </Button>,
-                  <Button type="link" size="small" danger onClick={() => handleDeleteSnapshot(item.id)}>
-                    删除
-                  </Button>,
-                ]}
-              >
-                <List.Item.Meta
-                  title={item.dateStr}
-                  description={`包含 ${Object.keys(item.data).length} 个模块`}
-                />
-              </List.Item>
-            )}
-            locale={{ emptyText: "暂无快照，保存配置后将自动生成" }}
-          />
-        </Space>
-      </Modal>
-
-      <Modal
-        title="保存当前配置为自定义方案"
-        open={saveModalVisible}
-        onOk={handleSavePreset}
-        onCancel={() => setSaveModalVisible(false)}
-        okText="保存"
-        cancelText="取消"
-      >
-        <Space direction="vertical" className="w-full" style={{ marginTop: 16 }}>
-          <div>
-            <Text>方案名称</Text>
-            <Input
-              placeholder="例如：我的博客配置"
-              value={presetName}
-              onChange={(e) => setPresetName(e.target.value)}
-              style={{ marginTop: 8 }}
-            />
-          </div>
-          <div>
-            <Text>方案描述</Text>
-            <Input.TextArea
-              placeholder="描述此配置方案的用途..."
-              value={presetDesc}
-              onChange={(e) => setPresetDesc(e.target.value)}
-              rows={3}
-              style={{ marginTop: 8 }}
-            />
-          </div>
-        </Space>
-      </Modal>
-
-      <Modal
-        title="一键优化预览"
-        open={fixModalVisible}
-        onCancel={() => setFixModalVisible(false)}
-        width={680}
-        footer={
-          <Space>
-            <Button onClick={() => setFixModalVisible(false)}>取消</Button>
-            <Button
-              type="primary"
-              onClick={handleApplyFixes}
-              disabled={selectedFixIds.size === 0}
-            >
-              应用选中项（{selectedFixIds.size}）
-            </Button>
-          </Space>
-        }
-      >
-        <div style={{ marginBottom: 12 }}>
-          <Text type="secondary">
-            以下修复建议将应用到当前配置，应用后需点击"保存更改"才会生效。
-          </Text>
-        </div>
-        <List
-          size="small"
-          dataSource={diagnosticSummary?.fix_suggestions || []}
-          renderItem={(fix: DiagnosticFixSuggestion) => {
-            const checked = selectedFixIds.has(fix.id);
-            return (
-              <List.Item
-                style={{ padding: "8px 0" }}
-                actions={[
-                  <Switch
-                    key="toggle"
-                    size="small"
-                    checked={checked}
-                    onChange={() => handleToggleFix(fix.id)}
-                  />,
-                ]}
-              >
-                <List.Item.Meta
-                  title={
-                    <span>
-                      {fix.title}
-                      {fix.changes.some((c) => c.risk_level === "high") && (
-                        <Tag color="red" style={{ marginLeft: 8 }}>高风险</Tag>
-                      )}
-                      {fix.changes.some((c) => c.risk_level === "low") && (
-                        <Tag color="blue" style={{ marginLeft: 8 }}>低风险</Tag>
-                      )}
-                    </span>
-                  }
-                  description={
-                    <div>
-                      <Text type="secondary" style={{ fontSize: 12 }}>{fix.reason}</Text>
-                      <div style={{ marginTop: 4 }}>
-                        {fix.changes.map((change) => (
-                          <div key={change.path} style={{ fontSize: 12, marginTop: 2 }}>
-                            <Text type="secondary">{change.label}：</Text>
-                            <Text code style={{ color: "#f5222d", fontSize: 11 }}>
-                              {JSON.stringify(change.before)}
-                            </Text>
-                            <Text type="secondary"> → </Text>
-                            <Text code style={{ color: "#52c41a", fontSize: 11 }}>
-                              {JSON.stringify(change.after)}
-                            </Text>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  }
-                />
-              </List.Item>
-            );
-          }}
-        />
-      </Modal>
+          <ul className="mabox-overview__security-list">
+            {securityChecks.map((check) => (
+              <li key={check.label}>
+                <span className={`mabox-overview__status-dot mabox-overview__status-dot--${check.status}`} aria-hidden="true" />
+                <div><strong>{check.label}</strong><span>{check.detail}</span></div>
+                <span className="screen-reader-text">
+                  {check.status === "good" ? "状态良好" : check.status === "partial" ? "部分配置" : "需要关注"}
+                </span>
+              </li>
+            ))}
+          </ul>
+          <button className="mabox-overview__full-button" type="button" onClick={() => navigate("security")}>
+            管理安全设置
+          </button>
+        </section>
+      </div>
     </div>
   );
 };

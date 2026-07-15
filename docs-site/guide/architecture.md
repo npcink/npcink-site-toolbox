@@ -14,12 +14,11 @@ WP Magick Toolbox
 │   │   │   ├── registry.php          # 功能注册表
 │   │   │   └── loader.php            # 统一加载器
 │   │   └── partials/                 # 各功能实现
-│   │       ├── ai_review/            # AI 审核
 │   │       ├── domestic/             # 国内生态
 │   │       ├── performance/          # 性能优化
 │   │       └── ...                   # 其他功能模块
 │   └── public/                       # 前端资源
-├── React 前端（3 个独立 Vite 项目）
+├── React 前端（单一 pnpm workspace，含 3 个 Vite 项目）
 │   ├── vite/admin/                   # 后台设置界面
 │   ├── vite/count/                   # 图表展示
 │   └── vite/public/                  # 前端展示

@@ -38,25 +38,25 @@ WP Magick Toolbox 是一款面向中国 WordPress 站长的免费工具箱插件
 git clone https://github.com/muze-page/wp-magick-toolbox.git
 cd wp-magick-toolbox
 
-# 安装前端依赖（3 个独立 Vite 项目）
-cd vite/admin && npm install && cd ../..
-cd vite/count && npm install && cd ../..
-cd vite/public && npm install && cd ../..
+# 安装前端依赖（单一 pnpm workspace）
+corepack enable
+cd vite
+pnpm install --frozen-lockfile
 
 # 启动开发服务器（已配置代理到本地 WordPress）
-cd vite/admin && npm run dev
+pnpm dev:admin
 ```
 
 > 代理地址在 `vite.config.ts` 底部，替换为您的本地开发地址即可。
 
 ### 打包部署
 
-`vite/` 文件夹下包含 3 个独立项目：
+`vite/` 是一个 pnpm workspace，包含 3 个 Vite 项目：
 - `admin/` — 后台设置界面（React + Ant Design）
 - `count/` — 图表展示组件
 - `public/` — 前端展示组件
 
-修改后分别执行 `npm run build`，仅保留各项目中 `dist/` 目录下的文件即可。
+在 `vite/` 下执行 `pnpm build` 可统一构建；仅保留各项目中 `dist/` 目录下的文件即可。
 
 ---
 
@@ -73,7 +73,7 @@ cd vite/admin && npm run dev
 | SEO 功能 | 5 | 首页 TDK、文章 SEO、分类/标签 SEO |
 | 辅助功能 | 5 | 文章统计、屏蔽恶意搜索、百度/谷歌/必应统计 |
 | 国内生态 | 10 | 备案合规、百度推送、微信 JSSDK、Cookie 弹窗、OSS 对接 |
-| 其他 | 3 | AI 审核、小工具选项、隐藏邮件 IP |
+| 其他 | 2 | 小工具选项、隐藏邮件 IP |
 
 > 完整功能清单见 [功能清单.md](功能清单.md)
 

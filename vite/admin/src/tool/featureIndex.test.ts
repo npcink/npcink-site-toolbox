@@ -1,21 +1,14 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 
+import { searchIndex } from "@/tool/featureIndexData";
+import { ADMIN_VIEWS } from "@/tool/navigation";
+
 const mockFetchUiSchema = vi.fn();
 const mockGetUiSchemaSync = vi.fn();
 
 vi.mock("@/tool/uiSchema", () => ({
   fetchUiSchema: () => mockFetchUiSchema(),
   getUiSchemaSync: () => mockGetUiSchemaSync(),
-}));
-
-const staticIndex = [
-  { id: "optimize-site-hide_top_toolbar", label: "隐藏顶部工具条", tabKey: "2", tabLabel: "优化", section: "站点", keywords: ["toolbar"], tags: ["推荐", "仅后台"] },
-  { id: "optimize-medium-no_auto_size", label: "禁止缩略图", tabKey: "2", tabLabel: "优化", section: "媒体", keywords: ["thumbnail"], tags: ["谨慎"] },
-];
-
-vi.mock("@/tool/featureIndexData", () => ({
-  searchIndex: staticIndex,
-  SearchItem: {} as any,
 }));
 
 describe("featureIndex", () => {
@@ -33,22 +26,23 @@ describe("featureIndex", () => {
       expect(index[0].id).toBe("optimize-site-hide_top_toolbar");
     });
 
-it("returns merged index when schema is cached", async () => {
+    it("returns merged index when schema is cached", async () => {
       mockGetUiSchemaSync.mockReturnValue({
-    "page-feature-reading_progress": {
-      path: "page.feature.reading_progress",
-      type: "boolean",
-      label: "页顶阅读进度条",
-      group: "外观",
-      feature_id: "page-feature-reading_progress",
-      risk_tags: ["仅前台"],
-    },
-  });
+        "page-feature-reading_progress": {
+          path: "page.feature.reading_progress",
+          type: "boolean",
+          label: "页顶阅读进度条",
+          group: "外观",
+          feature_id: "page-feature-reading_progress",
+          risk_tags: ["仅前台"],
+        },
+      });
       const { getFeatureIndexSync } = await import("@/tool/featureIndex");
       const index = getFeatureIndexSync();
-  const readingProgressItem = index.find((i) => i.id === "page-feature-reading_progress");
+      const readingProgressItem = index.find((i) => i.id === "page-feature-reading_progress");
       expect(readingProgressItem).toBeDefined();
       expect(readingProgressItem!.label).toBe("页顶阅读进度条");
+      expect(readingProgressItem!.tabKey).toBe("content");
     });
   });
 
@@ -71,6 +65,7 @@ it("returns merged index when schema is cached", async () => {
       const loginItem = index.find((i) => i.id === "domestic-login_security-custom_login_enabled");
       expect(loginItem).toBeDefined();
       expect(loginItem!.tags).toEqual(["安全"]);
+      expect(loginItem!.tabKey).toBe("china");
     });
 
     it("returns base index when schema fetch fails", async () => {
@@ -102,6 +97,7 @@ it("returns merged index when schema is cached", async () => {
       const item = index.find((i) => i.id === "optimize-test-risk_item");
       expect(item).toBeDefined();
       expect(item!.tags).toEqual(["谨慎"]);
+      expect(item!.tabKey).toBe("site");
     });
 
     it("maps preset_tags to display tags when no risk_tags", async () => {
@@ -129,6 +125,12 @@ it("returns merged index when schema is cached", async () => {
     it("is the static searchIndex", async () => {
       const { baseFeatureIndex } = await import("@/tool/featureIndex");
       expect(baseFeatureIndex.length).toBeGreaterThanOrEqual(2);
+    });
+
+    it("uses semantic destinations for every static search item", () => {
+      const validViews = new Set<string>(ADMIN_VIEWS);
+      expect(searchIndex.every((item) => validViews.has(item.tabKey))).toBe(true);
+      expect(searchIndex.some((item) => /^\d+$/.test(item.tabKey))).toBe(false);
     });
   });
 });

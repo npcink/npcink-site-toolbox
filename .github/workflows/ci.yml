@@ -84,10 +84,10 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v4
         with:
-          version: 8
+          package_json_file: vite/package.json
 
       - name: Install Dependencies
-        working-directory: vite/${{ matrix.project }}
+        working-directory: vite
         run: pnpm install --frozen-lockfile
 
       - name: Type Check
@@ -117,10 +117,10 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v4
         with:
-          version: 8
+          package_json_file: vite/package.json
 
       - name: Install Dependencies
-        working-directory: vite/admin
+        working-directory: vite
         run: pnpm install --frozen-lockfile
 
       - name: Run Vitest
@@ -142,7 +142,7 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v4
         with:
-          version: 8
+          package_json_file: vite/package.json
 
       - name: Install Dependencies
         working-directory: vite
@@ -154,8 +154,41 @@ jobs:
 
       - name: Create ZIP archive
         run: |
-          EXCLUDE=".git .github .opencode .sisyphus .vscode ai docs docs-site vite/*/src vite/*/node_modules vite/*/*.json vite/*/*.config.* vite/*/*.yaml vite/pnpm-workspace.yaml tests node_modules vendor .gitignore .editorconfig .nvmrc composer.json composer.lock phpstan.neon phpunit.xml.dist CHANGELOG.md SECURITY.md 功能清单.md 项目现状与开发指南.md docker-compose.yml"
-          zip -r wp-magick-toolbox.zip . -x $EXCLUDE "*/node_modules/*" "*/.git/*"
+          EXCLUDE=(
+            ".git/*"
+            ".github/*"
+            ".opencode/*"
+            ".sisyphus/*"
+            ".vscode/*"
+            "ai/*"
+            "docs/*"
+            "docs-site/*"
+            "vite/*/src/*"
+            "vite/*/node_modules/*"
+            "vite/*/*.json"
+            "vite/*/*.config.*"
+            "vite/*/*.yaml"
+            "vite/package.json"
+            "vite/pnpm-lock.yaml"
+            "vite/pnpm-workspace.yaml"
+            "tests/*"
+            "node_modules/*"
+            "vendor/*"
+            ".gitignore"
+            ".editorconfig"
+            ".nvmrc"
+            "composer.json"
+            "composer.lock"
+            "phpstan.neon"
+            "phpunit.xml.dist"
+            "CHANGELOG.md"
+            "SECURITY.md"
+            "功能清单.md"
+            "项目现状与开发指南.md"
+            "docker-compose.yml"
+            "wp-magick-toolbox-*.zip"
+          )
+          zip -r wp-magick-toolbox.zip . -x "${EXCLUDE[@]}"
 
       - name: Upload ZIP artifact
         uses: actions/upload-artifact@v4

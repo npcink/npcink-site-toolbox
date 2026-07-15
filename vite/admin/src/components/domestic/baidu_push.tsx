@@ -3,6 +3,7 @@ import { Form, Input, Button, message } from "antd";
 import { DataContext } from "@/tool/dataContext";
 import { AntConfig } from "@/tool/tool";
 import { SettingsSection, ModuleRow } from "@/components/settings-ui";
+import { domesticApi, runBaiduBatchPush } from "@/api";
 
 const fromConfig = AntConfig.from;
 
@@ -20,33 +21,16 @@ const App: React.FC = () => {
     updateOption("domestic", "baidu_push", formData);
   }, [formData]);
 
-  const handleBatchPush = () => {
+  const handleBatchPush = async () => {
     setPushing(true);
-    const doPush = (offset: number) => {
-      fetch("/wp-json/mabox/v1/domestic/baidu/push", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "X-WP-Nonce": window.dataLocal?.nonce || "",
-        },
-        credentials: "same-origin",
-        body: JSON.stringify({ offset }),
-      })
-        .then((r) => r.json())
-        .then((res) => {
-          if (res.success && !res.data?.done) {
-            doPush(res.data.offset);
-          } else {
-            setPushing(false);
-            message.success(res.data?.message || "批量推送完成");
-          }
-        })
-        .catch(() => {
-          setPushing(false);
-          message.error("推送失败");
-        });
-    };
-    doPush(0);
+    try {
+      const response = await runBaiduBatchPush((offset) => domesticApi.baiduPush(undefined, offset));
+      if (response.success) message.success(response.data?.message || "批量推送完成");
+    } catch (error) {
+      message.error(error instanceof Error ? error.message : "推送失败");
+    } finally {
+      setPushing(false);
+    }
   };
 
   return (

@@ -32,7 +32,6 @@ return array(
         'domestic.comment_security', 'domestic.login_security',
         'performance.oss', 'performance.seo_checker', 'performance.media_health',
         'performance.search_enhance',
-        'ai_review.main',
 
         'function.config',
         'page.interface_category_data',

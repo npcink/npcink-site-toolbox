@@ -27,8 +27,6 @@ if (!class_exists('MaBox_Config_Manager')) {
             'login'       => MAGICK_MIXTURE_OPTION_LOGIN,
             'domestic'    => MAGICK_MIXTURE_OPTION_DOMESTIC,
             'performance' => MAGICK_MIXTURE_OPTION_PERFORMANCE,
-            'ai_review'   => MAGICK_MIXTURE_OPTION_AI_REVIEW,
-
         );
 
         /**

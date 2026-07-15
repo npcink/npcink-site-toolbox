@@ -53,9 +53,6 @@ export type Option = {
     search_enhance: PerformanceSearchEnhance; //搜索增强
     db_clean: PerformanceDbClean; //数据库清理
   };
-  // AI 审核
-  ai_review: AiReview; //AI 审核助手
-
 };
 
 /**
@@ -421,31 +418,6 @@ export type PerformanceDbClean = {
   auto_clean: boolean;
   auto_clean_schedule: string;
 };
-
-// ===== AI 审核 =====
-export type AiReview = {
-  enabled: boolean;
-  provider: string;
-  mode: string;
-  deepseek_api_key: string;
-  deepseek_api_url: string;
-  deepseek_model: string;
-  aliyun_access_key: string;
-  aliyun_secret_key: string;
-  aliyun_region: string;
-  custom_api_url: string;
-  custom_api_method: string;
-  custom_api_headers: string;
-  custom_api_body_template: string;
-  local_rules_enabled: boolean;
-  local_keywords: string;
-  local_regex: string;
-  strict_mode: boolean;
-  log_enabled: boolean;
-  log_max_entries: number;
-};
-
-
 
 export interface RiskInfo {
   level: string;

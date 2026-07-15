@@ -5,19 +5,28 @@ import { DataContext } from "@/tool/dataContext";
 import { AntConfig } from "@/tool/tool";
 import { SettingsSection, ModuleRow, RiskNotice, CheckTable, StatusTag } from "@/components/settings-ui";
 import FeatureSwitch from "@/basic/feature-switch";
-import { performanceApi } from "@/api";
+import { DbCleanType, DbPreview, DbStats, performanceApi } from "@/api";
 
 const { Text } = Typography;
 const fromConfig = AntConfig.from;
+
+interface StatsRow {
+  key: string;
+  name: string;
+  statusLabel: "正常" | "待处理";
+  valueLabel: string;
+  type: DbCleanType;
+  noAction?: boolean;
+}
 
 const App: React.FC = () => {
   const { optionData, updateOption } = useContext(DataContext);
   const publicData = optionData.performance?.db_clean || {};
   const [formData, setFormData] = useState(publicData || {});
-  const [stats, setStats] = useState<any>({});
-  const [previewData, setPreviewData] = useState<Record<string, any>>({});
+  const [stats, setStats] = useState<DbStats | null>(null);
+  const [previewData, setPreviewData] = useState<Partial<Record<DbCleanType, DbPreview>>>({});
   const [previewLoading, setPreviewLoading] = useState(false);
-  const [cleanLoadingType, setCleanLoadingType] = useState<string | null>(null);
+  const [cleanLoadingType, setCleanLoadingType] = useState<DbCleanType | null>(null);
 
   const onValuesChange = (changedValues: any, _allValues: any) => {
     setFormData((prev: any) => ({ ...prev, ...changedValues }));
@@ -27,45 +36,39 @@ const App: React.FC = () => {
     updateOption("performance", "db_clean", formData);
   }, [formData]);
 
-  const fetchStats = () => {
-    performanceApi.getDbStats().then((res: any) => {
-      if (res?.success) setStats(res.data);
-    });
+  const fetchStats = async () => {
+    try {
+      const res = await performanceApi.getDbStats();
+      if (res.success && res.data) setStats(res.data);
+    } catch {
+      message.error("统计请求失败");
+    }
   };
 
-  const handlePreview = (type: string) => {
+  const handlePreview = async (type: DbCleanType) => {
     setPreviewLoading(true);
-    fetch("/wp-json/mabox/v1/performance/db/preview", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "X-WP-Nonce": window.dataLocal?.nonce || "",
-      },
-      credentials: "same-origin",
-      body: JSON.stringify({ type, dry_run: true }),
-    })
-      .then((r) => r.json())
-      .then((res: any) => {
-        setPreviewLoading(false);
-        if (res?.success) {
-          setPreviewData((prev: Record<string, any>) => ({ ...prev, [type]: res.data }));
-        } else {
-          message.error("预览失败");
-        }
-      })
-      .catch(() => {
-        setPreviewLoading(false);
-        message.error("预览请求失败");
-      });
+    try {
+      const res = await performanceApi.previewDb(type);
+      if (res.success && res.data) {
+        setPreviewData((prev) => ({ ...prev, [type]: res.data }));
+      } else {
+        message.error("预览失败");
+      }
+    } catch {
+      message.error("预览请求失败");
+    } finally {
+      setPreviewLoading(false);
+    }
   };
 
-  const getAffectedCount = (type: string, data: any): number => {
+  const getAffectedCount = (type: DbCleanType, data?: DbPreview): number => {
     if (!data) return 0;
     if (type === "all") return data.total || 0;
-    return data.affected || 0;
+    const typeCount = data[type as keyof DbPreview];
+    return data.affected ?? (typeof typeCount === "number" ? typeCount : 0);
   };
 
-  const handleClean = (type: string) => {
+  const handleClean = (type: DbCleanType) => {
     const preview = previewData[type];
     const affectedCount = getAffectedCount(type, preview);
     Modal.confirm({
@@ -91,21 +94,12 @@ const App: React.FC = () => {
       onOk: () => {
         return new Promise<void>((resolve) => {
           setCleanLoadingType(type);
-          fetch("/wp-json/mabox/v1/performance/db/clean", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              "X-WP-Nonce": window.dataLocal?.nonce || "",
-            },
-            credentials: "same-origin",
-            body: JSON.stringify({ type, dry_run: false }),
-          })
-            .then((r) => r.json())
-            .then((res: any) => {
+          performanceApi.cleanDb(type, false)
+            .then((res) => {
               setCleanLoadingType(null);
-              if (res?.success) {
+              if (res.success) {
                 message.success("清理完成" + (res?.data?.deleted ? "，删除 " + res.data.deleted + " 条" : ""));
-                setPreviewData((prev: Record<string, any>) => {
+                setPreviewData((prev) => {
                   const next = { ...prev };
                   delete next[type];
                   return next;
@@ -130,19 +124,19 @@ const App: React.FC = () => {
       title: "状态",
       key: "status",
       width: 80,
-      render: (_: any, record: any) => <StatusTag status={record.statusLabel} />,
+      render: (_: unknown, record: StatsRow) => <StatusTag status={record.statusLabel} />,
     },
     {
       title: "值",
       key: "value",
       width: 80,
-      render: (_: any, record: any) => record.valueLabel,
+      render: (_: unknown, record: StatsRow) => record.valueLabel,
     },
     {
       title: "操作",
       key: "action",
       width: 160,
-      render: (_: any, record: any) => {
+      render: (_: unknown, record: StatsRow) => {
         if (record.noAction) return null;
         return (
           <span>
@@ -154,13 +148,14 @@ const App: React.FC = () => {
     },
   ];
 
-  const formatSize = (bytes: number): string => {
+  const formatSize = (bytes: number | string): string => {
+    if (typeof bytes === "string") return bytes;
     if (bytes < 1024) return `${bytes} B`;
     if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
     return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
   };
 
-  const statsDataSource = stats.db_size
+  const statsDataSource: StatsRow[] = stats?.db_size
     ? [
         { key: "db", name: "数据库大小", statusLabel: "正常" as const, valueLabel: formatSize(stats.db_size), type: "all", noAction: true },
         { key: "revisions", name: "修订版本", statusLabel: stats.revisions > 0 ? "待处理" as const : "正常" as const, valueLabel: `${stats.revisions} 条`, type: "revisions" },
@@ -249,7 +244,7 @@ const App: React.FC = () => {
               type="warning"
               showIcon
               closable
-              onClose={() => setPreviewData((prev: Record<string, any>) => { const next = { ...prev }; delete next["all"]; return next; })}
+              onClose={() => setPreviewData((prev) => { const next = { ...prev }; delete next.all; return next; })}
             />
           </Form.Item>
         )}

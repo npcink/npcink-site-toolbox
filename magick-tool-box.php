@@ -49,12 +49,6 @@ define('MAGICK_MIXTURE_CONFIG_VERSION', 'Magick_ToolBox_Config_Version');
 define('MAGICK_MIXTURE_CONFIG_BACKUP', 'Magick_ToolBox_Option_Backup_v210');
 
 /**
- * 第四阶段：AI 审核引擎模块 Option 键名
- * @since 2.3.0
- */
-define('MAGICK_MIXTURE_OPTION_AI_REVIEW', 'Magick_ToolBox_Option_AiReview');
-
-/**
  * 第三阶段：国内生态 & 性能优化模块 Option 键名
  * @since 2.2.0
  */

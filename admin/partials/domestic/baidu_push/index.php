@@ -47,6 +47,7 @@ if (!class_exists('MaBox_Domestic_Baidu_Push')) {
             if (is_array($urls) && !empty($urls)) {
                 $push_urls = array_map('esc_url_raw', $urls);
                 $count = count($push_urls);
+                $next_offset = $offset + $count;
             } else {
                 $batch_size = 100;
                 $posts = get_posts(array(
@@ -68,6 +69,8 @@ if (!class_exists('MaBox_Domestic_Baidu_Push')) {
                     if ($url) $push_urls[] = $url;
                 }
                 $count = count($push_urls);
+                // 即使某篇文章无法生成 permalink，也必须推进查询游标，避免客户端重复请求同一批文章。
+                $next_offset = $offset + count($posts);
             }
 
             $api = 'http://data.zz.baidu.com/urls?site=' . urlencode(self::$config['site']) . '&token=' . urlencode(self::$config['token']);
@@ -87,7 +90,7 @@ if (!class_exists('MaBox_Domestic_Baidu_Push')) {
                 'success' => true,
                 'data'    => array(
                     'done'   => false,
-                    'offset' => $offset + $count,
+                    'offset' => $next_offset,
                     'result' => $body,
                     'count'  => $count,
                 ),

@@ -50,15 +50,6 @@ if (!class_exists('MaBox_Privacy')) {
                 'config_key'  => 'performance.oss',
             ),
             array(
-                'name'        => 'AI 审核引擎',
-                'provider'    => 'DeepSeek/阿里云/自定义',
-                'purpose'     => '使用 AI 对评论、内容进行安全审核',
-                'data_sent'   => '待审核的文本内容',
-                'data_stored' => '用户配置的 API Key',
-                'opt_in'      => true,
-                'config_key'  => 'ai_review',
-            ),
-            array(
                 'name'        => '百度统计',
                 'provider'    => '百度',
                 'purpose'     => '网站流量统计分析',

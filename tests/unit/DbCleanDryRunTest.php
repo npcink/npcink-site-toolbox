@@ -76,13 +76,26 @@ class MaBox_Db_Clean_DryRun_Test extends TestCase {
         $this->assertStringContainsString("'default'           => true", $content);
     }
 
-    public function test_db_clean_frontend_passes_dry_run_false(): void {
+    public function test_db_clean_frontend_passes_dry_run_false_through_api(): void {
         $frontend_file = dirname(__FILE__) . '/../../vite/admin/src/components/performance/db_clean.tsx';
+        $api_file = dirname(__FILE__) . '/../../vite/admin/src/api/index.ts';
         $this->assertFileExists($frontend_file);
+        $this->assertFileExists($api_file);
 
-        $content = file_get_contents($frontend_file);
+        $frontend_content = file_get_contents($frontend_file);
+        $api_content = file_get_contents($api_file);
 
-        $this->assertStringContainsString("dry_run: false", $content);
+        $this->assertStringContainsString('performanceApi.cleanDb(type, false)', $frontend_content);
+        $this->assertStringContainsString('dry_run: dryRun', $api_content);
+    }
+
+    public function test_db_clean_reads_json_from_rest_request(): void {
+        $db_clean_file = dirname(__FILE__) . '/../../admin/partials/performance/db_clean/index.php';
+        $content = file_get_contents($db_clean_file);
+
+        $this->assertStringContainsString('ajax_clean(\\WP_REST_Request $request)', $content);
+        $this->assertStringContainsString('$request->get_json_params()', $content);
+        $this->assertStringNotContainsString('rest_get_request()', $content);
     }
 
     public function test_db_clean_frontend_uses_per_type_preview_gating(): void {

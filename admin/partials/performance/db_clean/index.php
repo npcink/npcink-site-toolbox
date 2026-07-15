@@ -54,11 +54,10 @@ if (!class_exists('MaBox_Performance_Db_Clean')) {
             wp_send_json_success($preview);
         }
 
-        public static function ajax_clean() {
+        public static function ajax_clean(\WP_REST_Request $request) {
             if (!current_user_can('manage_options')) wp_send_json_error('权限不足', 403);
 
-            // 支持 REST API 和 AJAX 两种参数传递方式
-            $params = function_exists('rest_get_request') ? rest_get_request()->get_json_params() : $_POST;
+            $params = $request->get_json_params();
             $type = isset($params['type']) ? sanitize_text_field($params['type']) : '';
             $dry_run = isset($params['dry_run']) ? rest_sanitize_boolean($params['dry_run']) : true; // 默认 dry-run
 

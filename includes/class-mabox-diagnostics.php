@@ -804,7 +804,6 @@ if (!class_exists('MaBox_Diagnostics')) {
             'token', 'secret', 'api_key', 'apikey', 'access_key',
             'secret_key', 'secretkey', 'appsecret', 'app_key',
             'app_secret', 'password', 'passwd', 'tecent_key',
-            'deepseek_api_key', 'aliyun_secret_key', 'aliyun_access_key',
         );
 
         public static function sanitize_for_export($data)

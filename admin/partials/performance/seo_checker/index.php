@@ -21,7 +21,11 @@ if (!class_exists('MaBox_Performance_Seo_Checker')) {
             if ($missing_seo > 0) {
                 $issues[] = array('type' => '文章SEO', 'message' => $missing_seo . ' 篇文章缺少标题或摘要');
             }
-            $missing_alt = $wpdb->get_var($wpdb->prepare("SELECT COUNT(*) FROM {$wpdb->posts} WHERE post_type = %s AND post_excerpt = ''", 'attachment'));
+            $missing_alt = $wpdb->get_var($wpdb->prepare(
+                "SELECT COUNT(*) FROM {$wpdb->posts} p LEFT JOIN {$wpdb->postmeta} pm ON p.ID = pm.post_id AND pm.meta_key = %s WHERE p.post_type = %s AND (pm.meta_value IS NULL OR pm.meta_value = '')",
+                '_wp_attachment_image_alt',
+                'attachment'
+            ));
             if ($missing_alt > 0) {
                 $issues[] = array('type' => '图片Alt', 'message' => $missing_alt . ' 张图片缺少 Alt 文本');
             }
@@ -38,11 +42,15 @@ if (!class_exists('MaBox_Performance_Seo_Checker')) {
         public static function ajax_fix_alt() {
             if (!current_user_can('manage_options')) wp_send_json_error('权限不足', 403);
             global $wpdb;
-            $images = $wpdb->get_results($wpdb->prepare("SELECT ID, post_title FROM {$wpdb->posts} WHERE post_type = %s AND post_excerpt = '' LIMIT 50", 'attachment'));
+            $images = $wpdb->get_results($wpdb->prepare(
+                "SELECT p.ID, p.post_title FROM {$wpdb->posts} p LEFT JOIN {$wpdb->postmeta} pm ON p.ID = pm.post_id AND pm.meta_key = %s WHERE p.post_type = %s AND (pm.meta_value IS NULL OR pm.meta_value = '') LIMIT 50",
+                '_wp_attachment_image_alt',
+                'attachment'
+            ));
             $fixed = 0;
             foreach ($images as $img) {
                 $alt = !empty($img->post_title) ? $img->post_title : '图片';
-                wp_update_post(array('ID' => $img->ID, 'post_excerpt' => $alt));
+                update_post_meta($img->ID, '_wp_attachment_image_alt', sanitize_text_field($alt));
                 $fixed++;
             }
             wp_send_json_success(array('fixed' => $fixed));

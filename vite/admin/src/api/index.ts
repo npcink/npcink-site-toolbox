@@ -8,42 +8,115 @@
 import { restInstance, ApiResponse } from "@/axios/public";
 import { DiagnosticSummary, SearchHealthSummary } from "@/tool/interface";
 
-// ========== AI 审核 ==========
-export const aiReviewApi = {
-  getLogs: (page = 1, perPage = 20): Promise<ApiResponse<{ items: any[]; total: number; page: number; per_page: number }>> =>
-    restInstance.get(`/ai-review/logs?page=${page}&per_page=${perPage}`) as Promise<any>,
-  reviewItem: (index: number, action: string): Promise<ApiResponse> =>
-    restInstance.post(`/ai-review/review/${index}`, { action }) as Promise<any>,
-  clearLogs: (): Promise<ApiResponse> =>
-    restInstance.post("/ai-review/clear-logs") as Promise<any>,
-  testProvider: (provider: string, config: any): Promise<ApiResponse<{ provider: string; result: any; test_text: string }>> =>
-    restInstance.post("/ai-review/test", { provider, config }) as Promise<any>,
-};
+export type DbCleanType =
+  | "revisions"
+  | "drafts"
+  | "spam"
+  | "transients"
+  | "optimize"
+  | "all"
+  | "pending"
+  | "trash";
+
+export interface DbStats {
+  revisions: number;
+  drafts: number;
+  spam: number;
+  transients: number;
+  db_size: number | string;
+}
+
+export interface DbPreview {
+  revisions?: number;
+  drafts?: number;
+  spam?: number;
+  transients?: number;
+  pending?: number;
+  trash?: number;
+  affected?: number;
+  total?: number;
+  message?: string;
+  dry_run?: boolean;
+}
+
+export interface DbCleanResult {
+  deleted?: number;
+  message?: string;
+  dry_run: boolean;
+}
+
+export interface MediaHealthIssue {
+  type: string;
+  count: number;
+  severity?: string;
+}
+
+export interface SeoIssue {
+  type: string;
+  message: string;
+  severity?: string;
+}
+
+export interface BaiduPushResult {
+  done: boolean;
+  offset?: number;
+  message?: string;
+  count?: number;
+  result?: unknown;
+}
 
 // ========== 性能优化 ==========
 export const performanceApi = {
-  getDbStats: () => restInstance.get("/performance/db/stats"),
-  cleanDb: (type: string, dryRun = true) =>
-    restInstance.post("/performance/db/clean", { type, dry_run: dryRun }),
-  checkSeo: (postId?: number) =>
-    restInstance.post("/performance/seo/check", { post_id: postId }),
-  fixSeoAlt: (postId?: number) =>
-    restInstance.post("/performance/seo/fix-alt", { post_id: postId }),
-  checkMedia: (postId?: number) =>
-    restInstance.post("/performance/media/check", { post_id: postId }),
-  fixMediaAlt: (postId?: number) =>
-    restInstance.post("/performance/media/fix-alt", { post_id: postId }),
+  getDbStats: (): Promise<ApiResponse<DbStats>> =>
+    restInstance.get<ApiResponse<DbStats>, ApiResponse<DbStats>>("/performance/db/stats"),
+  previewDb: (type: DbCleanType): Promise<ApiResponse<DbPreview>> =>
+    restInstance.post<ApiResponse<DbPreview>, ApiResponse<DbPreview>>("/performance/db/preview", {
+      type,
+      dry_run: true,
+    }),
+  cleanDb: (type: DbCleanType, dryRun = true): Promise<ApiResponse<DbCleanResult>> =>
+    restInstance.post<ApiResponse<DbCleanResult>, ApiResponse<DbCleanResult>>("/performance/db/clean", {
+      type,
+      dry_run: dryRun,
+    }),
+  checkSeo: (postId?: number): Promise<ApiResponse<{ issues: SeoIssue[]; total: number }>> =>
+    restInstance.post<ApiResponse<{ issues: SeoIssue[]; total: number }>, ApiResponse<{ issues: SeoIssue[]; total: number }>>("/performance/seo/check", { post_id: postId }),
+  fixSeoAlt: (postId?: number): Promise<ApiResponse<{ fixed: number }>> =>
+    restInstance.post<ApiResponse<{ fixed: number }>, ApiResponse<{ fixed: number }>>("/performance/seo/fix-alt", { post_id: postId }),
+  checkMedia: (postId?: number): Promise<ApiResponse<{ issues: MediaHealthIssue[] }>> =>
+    restInstance.post<ApiResponse<{ issues: MediaHealthIssue[] }>, ApiResponse<{ issues: MediaHealthIssue[] }>>("/performance/media/check", { post_id: postId }),
+  fixMediaAlt: (postId?: number): Promise<ApiResponse<{ fixed: number }>> =>
+    restInstance.post<ApiResponse<{ fixed: number }>, ApiResponse<{ fixed: number }>>("/performance/media/fix-alt", { post_id: postId }),
 };
 
 // ========== 国内生态 ==========
 export const domesticApi = {
-  baiduPush: (urls?: string[], offset?: number) =>
-    restInstance.post("/domestic/baidu/push", { urls, offset }),
+  baiduPush: (urls?: string[], offset?: number): Promise<ApiResponse<BaiduPushResult>> =>
+    restInstance.post<ApiResponse<BaiduPushResult>, ApiResponse<BaiduPushResult>>("/domestic/baidu/push", { urls, offset }),
   checkEnvironment: (): Promise<ApiResponse<Record<string, { service: string; reachable: boolean; latency: number; suggestion: string }>>> =>
     restInstance.get("/domestic/environment/check") as Promise<any>,
   applyEnvironmentFix: (fixes: string[]): Promise<ApiResponse<{ applied: string[]; new_config: any }>> =>
     restInstance.post("/domestic/environment/apply", { fixes }) as Promise<any>,
 };
+
+export async function runBaiduBatchPush(
+  pushBatch: (offset: number) => Promise<ApiResponse<BaiduPushResult>>,
+): Promise<ApiResponse<BaiduPushResult>> {
+  let offset = 0;
+
+  for (let batch = 0; batch < 10000; batch += 1) {
+    const response = await pushBatch(offset);
+    if (!response.success || response.data?.done) return response;
+
+    const nextOffset = response.data?.offset;
+    if (typeof nextOffset !== "number" || nextOffset <= offset) {
+      throw new Error("推送响应没有推进下一批偏移量");
+    }
+    offset = nextOffset;
+  }
+
+  throw new Error("推送批次数超过安全上限");
+}
 
 // ========== 工具 ==========
 export const toolsApi = {

@@ -174,7 +174,6 @@ export default defineConfig({
           text: '其他功能',
           collapsed: true,
           items: [
-            { text: 'AI 审核引擎', link: '/features/other/ai-review' },
             { text: '小工具选项', link: '/features/other/widgets' },
             { text: '隐藏邮件 IP', link: '/features/other/hide-email-ip' },
           ],

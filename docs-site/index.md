@@ -25,7 +25,7 @@ features:
     details: 备案合规、百度推送、微信 JSSDK、OSS 对接、Cookie 弹窗，专为中国站长设计
   - icon: 🛡️
     title: 安全防护
-    details: 登录失败锁定、自定义入口、AI 审核引擎、评论安全中心，全方位保护您的站点
+    details: 登录失败锁定、自定义入口、评论敏感词过滤和评论安全中心，全方位保护您的站点
   - icon: 🎨
     title: 精美后台界面
     details: React + Ant Design 构建的设置界面，支持仪表盘、一键配置、收藏、快照备份

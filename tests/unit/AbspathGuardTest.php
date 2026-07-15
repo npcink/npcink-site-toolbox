@@ -19,7 +19,8 @@ class AbspathGuardTest extends TestCase {
             new RecursiveDirectoryIterator($root, RecursiveDirectoryIterator::SKIP_DOTS)
         );
 
-        $exclude_dirs = array('vendor', 'node_modules', '.git', '.opencode', '.sisyphus', '.vscode', '.github', 'tests', 'vite', 'admin/partials');
+        // ai/ 保存 reference-only 快照，并由发布包规则整体排除，不属于插件运行源码。
+        $exclude_dirs = array('vendor', 'node_modules', '.git', '.opencode', '.sisyphus', '.vscode', '.github', 'tests', 'vite', 'admin/partials', 'ai');
 
         foreach ($iterator as $file) {
             if ($file->getExtension() !== 'php') {
