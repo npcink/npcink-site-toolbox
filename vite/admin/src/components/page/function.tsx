@@ -1,7 +1,7 @@
 //页面 - 功能
 import React from "react";
 import { useState, useContext, useEffect } from "react";
-import { Form, Input, InputNumber } from "antd";
+import { Form, Input } from "antd";
 import TimePeriod from "@/basic/timeInput";
 import TextAreaHtml from "@/basic/htmlInput";
 import { DataContext } from "@/tool/dataContext";
@@ -143,39 +143,6 @@ const App: React.FC = () => {
             </Form.Item>
           </>
         )}
-        <ModuleRow
-          title="进阶防刷"
-          description="对频繁访问的异常 IP 触发腾讯防水墙验证"
-          featureId="page-function-anti_crawler"
-          enabled={formData.anti_crawler as boolean}
-          onChange={(checked: boolean) => {
-            onValuesChange({ anti_crawler: checked } as Partial<FieldType>, formData);
-          }}
-        >
-          <Form.Item<FieldType>
-            label="最大请求数"
-            name="anti_crawler_max_requests"
-            extra={"时间窗口内超过此次数将触发验证"}
-          >
-            <InputNumber addonAfter={"次"} style={{ width: "120px" }} min={10} />
-          </Form.Item>
-          <Form.Item<FieldType>
-            label="时间窗口"
-            name="anti_crawler_time_window"
-            extra={"统计请求的时间范围"}
-          >
-            <InputNumber addonAfter={"秒"} style={{ width: "120px" }} min={10} />
-          </Form.Item>
-          <Form.Item<FieldType> label="腾讯防水墙 AppID" name="anti_crawler_tecent_id">
-            <Input style={{ width: "50%" }} placeholder="腾讯防水墙 AppID" />
-          </Form.Item>
-          <Form.Item<FieldType> label="腾讯防水墙 AppKey" name="anti_crawler_tecent_key">
-            <Input style={{ width: "50%" }} placeholder="腾讯防水墙 AppKey" />
-          </Form.Item>
-        </ModuleRow>
-
-
-
       </Form>
     </SettingsSection>
   );

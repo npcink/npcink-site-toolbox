@@ -1,5 +1,6 @@
 import { describe, it, expect } from "vitest";
-import { diffConfig, getDiffSummary, hasConfigChanged } from "./diff";
+import { diffConfig, diffSecretChanges, getDiffSummary, hasConfigChanged } from "./diff";
+import { emptySecretStatus } from "./dataContext";
 
 describe("diffConfig", () => {
   it("返回空数组当配置完全相同时", () => {
@@ -161,5 +162,24 @@ describe("hasConfigChanged", () => {
 
   it("不同配置返回 true", () => {
     expect(hasConfigChanged({ a: 1 }, { a: 2 })).toBe(true);
+  });
+});
+
+describe("diffSecretChanges", () => {
+  it("凭据 diff 只包含状态词，不包含替换值", () => {
+    const canary = "canary-must-not-leak";
+    const status = emptySecretStatus();
+    status["domestic.wechat.appsecret"] = { configured: true };
+
+    const diffs = diffSecretChanges(status, {
+      "domestic.wechat.appsecret": { operation: "replace", value: canary },
+      "performance.oss.access_key": { operation: "clear" },
+    });
+
+    expect(diffs).toEqual([
+      expect.objectContaining({ before: "已配置", after: "将替换" }),
+      expect.objectContaining({ before: "未配置", after: "将清除" }),
+    ]);
+    expect(JSON.stringify(diffs)).not.toContain(canary);
   });
 });

@@ -18,6 +18,7 @@ class ConfigManagerBehaviorTest extends TestCase {
 
         // 清理全局 option store
         $GLOBALS['_test_option_store'] = array();
+        $GLOBALS['_test_update_option_failures'] = array();
     }
 
     /**
@@ -84,15 +85,49 @@ class ConfigManagerBehaviorTest extends TestCase {
         $this->assertIsArray($result1);
     }
 
-    /**
-     * 测试导入配置的备份回滚机制
-     */
-    public function test_import_rollback_on_failure(): void {
-        $method = new ReflectionMethod('MaBox_Config_Manager', 'import_config');
-        
-        // 空配置应该失败
-        $result = $method->invoke(null, array());
+    public function test_same_value_is_not_treated_as_save_failure(): void {
+        $current = array('enabled' => true);
+        $GLOBALS['_test_option_store']['Magick_ToolBox_Option_Optimize'] = $current;
+
+        $result = MaBox_Config_Manager::save_full_config(array('optimize' => $current));
+
+        $this->assertTrue($result['success']);
+        $this->assertSame(array('optimize'), $result['saved_modules']);
+    }
+
+    public function test_cross_module_failure_rolls_back_changed_modules(): void {
+        $GLOBALS['_test_option_store'] = array(
+            'Magick_ToolBox_Option_Optimize' => array('enabled' => false),
+            'Magick_ToolBox_Option_Page' => array('feature' => array('reading_progress' => false)),
+        );
+        $GLOBALS['_test_update_option_failures']['Magick_ToolBox_Option_Page'] = true;
+
+        $result = MaBox_Config_Manager::save_full_config(array(
+            'optimize' => array('enabled' => true),
+            'page' => array('feature' => array('reading_progress' => true)),
+        ));
+
         $this->assertFalse($result['success']);
-        $this->assertStringContainsString('无效', $result['error']);
+        $this->assertSame(array('page'), $result['failed_modules']);
+        $this->assertSame(array('enabled' => false), $GLOBALS['_test_option_store']['Magick_ToolBox_Option_Optimize']);
+        $this->assertSame(
+            array('feature' => array('reading_progress' => false)),
+            $GLOBALS['_test_option_store']['Magick_ToolBox_Option_Page']
+        );
+    }
+
+    public function test_cross_module_failure_removes_newly_created_module_option(): void {
+        $GLOBALS['_test_option_store'] = array(
+            'Magick_ToolBox_Option_Page' => array('feature' => array('reading_progress' => false)),
+        );
+        $GLOBALS['_test_update_option_failures']['Magick_ToolBox_Option_Page'] = true;
+
+        $result = MaBox_Config_Manager::save_full_config(array(
+            'optimize' => array('enabled' => true),
+            'page' => array('feature' => array('reading_progress' => true)),
+        ));
+
+        $this->assertFalse($result['success']);
+        $this->assertArrayNotHasKey('Magick_ToolBox_Option_Optimize', $GLOBALS['_test_option_store']);
     }
 }

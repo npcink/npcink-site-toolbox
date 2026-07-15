@@ -37,8 +37,6 @@ export default defineConfig({
           text: '站点管理',
           items: [
             { text: '体检中心', link: '/guide/health-center' },
-            { text: '配置恢复', link: '/guide/config-recovery' },
-            { text: '推荐方案', link: '/guide/presets' },
           ],
         },
         {
@@ -120,7 +118,6 @@ export default defineConfig({
             { text: '限制搜索频次', link: '/features/page-function/search-limit' },
             { text: '文章批量替换', link: '/features/page-function/batch-replace' },
             { text: '仅登录可搜索', link: '/features/page-function/login-only-search' },
-            { text: '进阶防刷', link: '/features/page-function/anti-crawler' },
           ],
         },
         {
@@ -148,7 +145,6 @@ export default defineConfig({
           items: [
             { text: '数学验证码', link: '/features/login-security/math-captcha' },
             { text: '随机混合验证码', link: '/features/login-security/random-captcha' },
-            { text: '腾讯防水墙', link: '/features/login-security/tencent-captcha' },
             { text: '失败锁定 IP', link: '/features/login-security/login-lock-ip' },
             { text: '自定义登录入口', link: '/features/login-security/custom-login-url' },
             { text: '登录日志', link: '/features/login-security/login-log' },
@@ -161,7 +157,6 @@ export default defineConfig({
             { text: 'ICP/公安网备', link: '/features/domestic-ecosystem/icp-filing' },
             { text: 'Cookie 同意弹窗', link: '/features/domestic-ecosystem/cookie-consent' },
             { text: '版权信息模板', link: '/features/domestic-ecosystem/copyright-template' },
-            { text: '百度推送', link: '/features/domestic-ecosystem/baidu-push' },
             { text: '微信 JSSDK 分享', link: '/features/domestic-ecosystem/wechat-jssdk' },
             { text: '微信引导遮层', link: '/features/domestic-ecosystem/wechat-overlay' },
             { text: 'OSS 对接', link: '/features/domestic-ecosystem/oss-integration' },

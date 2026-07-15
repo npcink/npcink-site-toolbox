@@ -33,26 +33,25 @@ WP Magick Toolbox
 
 | Option 键 | 存储内容 |
 |-----------|----------|
-| `Magick_ToolBox_Option_Core` | 核心设置、仪表盘、一键配置、备份 |
-| `Magick_ToolBox_Option_SEO` | SEO 相关功能配置 |
-| `Magick_ToolBox_Option_Page` | 页面功能、外观、评论 |
-| `Magick_ToolBox_Option_Media` | 媒体优化配置 |
-| `Magick_ToolBox_Option_Comment` | 评论安全配置 |
-| `Magick_ToolBox_Option_Security` | 登录安全配置 |
-| `Magick_ToolBox_Option_Appearance` | 外观特效配置 |
+| `Magick_ToolBox_Option_Optimize` | 站点、媒体和后台优化 |
+| `Magick_ToolBox_Option_Page` | 页面功能、外观和评论 |
+| `Magick_ToolBox_Option_Function` | SEO、统计与辅助功能 |
+| `Magick_ToolBox_Option_Login` | 登录安全配置 |
+| `Magick_ToolBox_Option_Domestic` | 国内生态配置 |
+| `Magick_ToolBox_Option_Performance` | OSS 和维护工具配置 |
 
 ### 数据流
 
 ```
-PHP 端                        React 端
-  │                             │
-  ├─ wp_localize_script ───────►│ window.dataLocal
-  │                             │
-  │◄──── REST API POST ─────────┤ 保存配置
-  │   /wp-json/mabox/v1/options │
-  │                             │
-  ├─ 写入 wp_options ───────────┤
-  │                             │
+PHP 端                                  React 端
+  │                                       │
+  ├─ REST 基址 + nonce ──────────────────►│ window.dataLocal
+  │                                       │
+  ├─ GET /mabox/v1/settings ─────────────►│ 非敏感设置 + secretStatus
+  │                                       │
+  │◄─ POST { settings, secretChanges } ───┤ 显式保存
+  │                                       │
+  ├─ Schema 校验 + 凭据合并 + 原子写入 ──►│ wp_options
 ```
 
 ## 模块加载机制
@@ -77,7 +76,7 @@ loader.php（统一加载器）
 
 | 端点前缀 | 用途 |
 |----------|------|
-| `/mabox/v1/options` | 配置读写 |
+| `/mabox/v1/settings` | 非敏感配置读取与显式保存 |
 | `/mabox/v1/performance/*` | 性能检查与修复 |
 | `/mabox/v1/domestic/*` | 国内生态功能 |
 | `/mabox/v1/public/*` | 公开端点（前端交互） |
@@ -94,3 +93,5 @@ loader.php（统一加载器）
     ├─ $wpdb->prepare()         # SQL 防注入
     └─ esc_html() / esc_url()   # 输出转义
 ```
+
+保存的微信与 OSS 凭据只在服务端运行时读取。设置 GET、页面启动数据、错误信息和浏览器存储不得包含原值；管理端通过 `secretStatus` 显示配置状态，并以 `replace` 或 `clear` 表达变更。

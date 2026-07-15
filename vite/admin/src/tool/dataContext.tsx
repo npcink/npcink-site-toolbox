@@ -1,79 +1,121 @@
 import { createContext } from "react";
-import { DataLocal, Option } from "@/tool/interface";
-import { defaultVarData } from "@/tool/defaultVar";
-import { restInstance } from "@/axios/public";
 import axios from "axios";
+
+import { restInstance } from "@/axios/public";
+import { defaultVarData, defaultVarOption } from "@/tool/defaultVar";
+import { assertValidOption } from "@/tool/option";
+import {
+  DataLocal,
+  Option,
+  SECRET_PATHS,
+  SecretChange,
+  SecretChanges,
+  SecretPath,
+  SecretStatus,
+  SettingsResponse,
+} from "@/tool/interface";
 
 const state: boolean = import.meta.env.VITE_STATE;
 
 function getDataLocal(): DataLocal {
   if (state) {
     axios.defaults.baseURL = "/api";
-    return defaultVarData as DataLocal;
-  } else {
-    return window.dataLocal ? (window.dataLocal as unknown as DataLocal) : (defaultVarData as DataLocal);
+    return defaultVarData;
   }
+
+  return window.dataLocal || defaultVarData;
 }
 
 function getAjaxurl(): string {
-  if (state) {
-    return "/wp-admin/admin-ajax.php";
-  } else {
-    return window.dataLocal?.ajaxurl || "/wp-admin/admin-ajax.php";
-  }
+  if (state) return "/wp-admin/admin-ajax.php";
+  return window.dataLocal?.ajaxurl || "/wp-admin/admin-ajax.php";
 }
 
 function getApiBase(): string {
-  if (state) {
-    return "/api";
-  } else {
-    const dl = window.dataLocal as any;
-    return dl?.apiBase || "/wp-json/mabox/v1";
-  }
+  if (state) return "/api";
+  return window.dataLocal?.apiBase || "/wp-json/mabox/v1";
 }
 
 function getRestNonce(): string {
-  if (state) {
-    return "";
-  }
-  const dl = window.dataLocal as any;
-  return dl?.restNonce || "";
+  if (state) return "";
+  return window.dataLocal?.restNonce || "";
 }
 
-const dataObject: DataLocal = getDataLocal();
+const dataObject = getDataLocal();
 
-export const defaultOption = dataObject?.option;
-export const url_site = dataObject?.url_site;
-export const serverDefaults = dataObject?.defaults || null;
-
+export const url_site = dataObject.url_site;
 export const Ajaxurl = getAjaxurl();
 export const ApiBase = getApiBase();
 export const RestNonce = getRestNonce();
 
-export const fetchSettings = async (): Promise<Option> => {
-  try {
-    const response: any = await restInstance.get("/settings");
-    if (response?.success && response?.data) {
-      return response.data as Option;
-    }
-  } catch (error) {
-    console.error("从 REST API 拉取配置失败，使用本地注入数据:", error);
+export const emptySecretStatus = (): SecretStatus => ({
+  "domestic.wechat.appsecret": { configured: false },
+  "performance.oss.access_key": { configured: false },
+  "performance.oss.secret_key": { configured: false },
+});
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
+export function parseSettingsResponse(value: unknown): SettingsResponse {
+  if (!isRecord(value) || value.success !== true || !isRecord(value.data)) {
+    throw new Error("设置接口返回格式无效");
   }
-  return defaultOption;
+
+  if (!isRecord(value.secretStatus)) {
+    throw new Error("设置接口缺少凭据状态");
+  }
+
+  assertValidOption(value.data);
+
+  const secretStatus = emptySecretStatus();
+  for (const path of SECRET_PATHS) {
+    const entry = value.secretStatus[path];
+    if (!isRecord(entry) || typeof entry.configured !== "boolean") {
+      throw new Error(`设置接口的凭据状态无效：${path}`);
+    }
+    secretStatus[path] = { configured: entry.configured };
+  }
+
+  return {
+    success: true,
+    data: value.data,
+    secretStatus,
+  };
+}
+
+export const fetchSettings = async (): Promise<SettingsResponse> => {
+  const response: unknown = await restInstance.get("/settings");
+  return parseSettingsResponse(response);
 };
 
-interface OptionContextType {
+export type SettingsLoadState = "loading" | "ready" | "error";
+
+export interface OptionContextType {
   optionData: Option;
   updateOption: (father: string, son: string, newValue: unknown) => void;
   refreshOption: () => Promise<void>;
   lastSavedOption: Option;
   setLastSavedOption: (data: Option) => void;
+  secretStatus: SecretStatus;
+  secretChanges: SecretChanges;
+  setSecretChange: (path: SecretPath, change?: SecretChange) => void;
+  clearSecretChanges: () => void;
+  settingsState: SettingsLoadState;
+  settingsError: string | null;
 }
 
 export const DataContext = createContext<OptionContextType>({
-  optionData: defaultOption,
+  optionData: defaultVarOption,
   updateOption: () => {},
   refreshOption: async () => {},
-  lastSavedOption: defaultOption,
+  lastSavedOption: defaultVarOption,
   setLastSavedOption: () => {},
+  secretStatus: emptySecretStatus(),
+  secretChanges: {},
+  setSecretChange: () => {},
+  clearSecretChanges: () => {},
+  settingsState: "loading",
+  settingsError: null,
 });

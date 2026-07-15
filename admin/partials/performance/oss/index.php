@@ -1,8 +1,8 @@
 <?php
 if (!class_exists('MaBox_Performance_Oss')) {
-    class MaBox_Performance_Oss {
+    class MaBox_Performance_Oss implements MaBox_Module_Interface {
         private static $config;
-        public static function run($config) {
+        public static function run($config = array()) {
             self::$config = $config;
             if (empty($config['enabled'])) return;
             add_filter('wp_handle_upload', array(__CLASS__, 'upload_to_oss'));

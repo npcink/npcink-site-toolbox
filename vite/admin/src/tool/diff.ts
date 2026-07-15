@@ -1,4 +1,29 @@
-import { ConfigDiffItem } from "@/tool/interface";
+import { ConfigDiffItem, SecretChanges, SecretPath, SecretStatus } from "@/tool/interface";
+
+const SECRET_LABELS: Record<SecretPath, string> = {
+  "domestic.wechat.appsecret": "微信 AppSecret",
+  "performance.oss.access_key": "对象存储 Access Key",
+  "performance.oss.secret_key": "对象存储 Secret Key",
+};
+
+export function diffSecretChanges(
+  status: SecretStatus,
+  changes: SecretChanges,
+): ConfigDiffItem[] {
+  return (Object.keys(changes) as SecretPath[]).flatMap((path) => {
+    const change = changes[path];
+    if (!change) return [];
+
+    return [{
+      path,
+      label: SECRET_LABELS[path],
+      module: path.split(".")[0],
+      before: status[path].configured ? "已配置" : "未配置",
+      after: change.operation === "replace" ? "将替换" : "将清除",
+      riskLevel: "none" as const,
+    }];
+  });
+}
 
 /**
  * 高风险功能路径映射

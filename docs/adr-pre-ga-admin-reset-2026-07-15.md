@@ -1,6 +1,6 @@
 # ADR: Pre-GA 管理后台清场式重构
 
-- 状态：已接受，首个垂直切片已验收
+- 状态：已接受，工作包 1-4 已验收（含真实 Local 站点烟测）
 - 日期：2026-07-15
 - 决策范围：WP Magick Toolbox 管理后台应用外壳
 
@@ -178,6 +178,46 @@
 - admin Vitest 11 个文件、68 项测试，三项目 TypeScript、三项目 Vite build、PHPUnit 303 项测试/2422 个断言、PHPStan、Composer 校验、YAML 解析、ZIP 内容检查和 `git diff --check` 均通过。
 - ESLint 为 0 error，仍有 admin 167 个、count 4 个历史 warning；admin/count 大 chunk warning 保留为后续性能工作。npm registry audit 端点返回 HTTP 410，本轮没有形成新的依赖审计结论。
 
+## 工作包 4：敏感设置契约变更信封
+
+| 项目 | 决定 |
+| --- | --- |
+| 目标仓库 | `/Users/muze/gitee/wp-magick-toolbox` |
+| 聚焦模块 | WordPress 设置读取/保存契约，以及直接承载凭据的管理端字段 |
+| 失败证据 | 管理页注入、`GET /settings`、React 状态、diff 和 `localStorage` 快照均可获得已保存凭据；百度 Token 还会通过 HTTP 查询串发送 |
+| 预期变更 | GET 只返回非敏感设置和 `secretStatus`；保存以 `settings + secretChanges` 表达保留/替换/清除；删除浏览器快照、设置导入导出和旧迁移备份；清退失效腾讯集成与不安全百度推送 |
+| 保留凭据 | `domestic.wechat.appsecret`、`performance.oss.access_key`、`performance.oss.secret_key` |
+| 清退能力 | `page.anti_crawler` 腾讯防刷整条链路；登录验证码中的腾讯分支；`domestic.baidu_push` 及其 REST/Hook/UI/文档 |
+| 明确非目标 | 不修改数学/随机登录验证码、不重写微信或 OSS 运行时、不建设外部密钥服务、不修改兄弟仓库、不升级前端组件库 |
+| 公共契约 | `GET /mabox/v1/settings -> { success, data, secretStatus }`；`POST /mabox/v1/settings -> { settings, secretChanges }`；secret operation 仅允许 `replace`/`clear`，缺省表示保留 |
+| 安全规则 | 页面注入、GET、diff、日志、快照、导出和错误信息不得出现已保存原值；读取失败禁用保存；未知路径、未知操作和空替换必须拒绝 |
+| 预期文件 | 配置 Schema/Manager、Admin REST、模块 registry/autoload、凭据运行模块、React DataContext/Save/SecretField/表单/API/测试、当前事实文档 |
+| 不得改变 | 其他站点工具、用户未跟踪排障文档、`ai/reference/**`、pnpm/CI 基线、兄弟仓库 |
+| 必需门禁 | canary 泄露测试、保留/替换/清除/回滚测试、REST 权限与参数测试、admin Vitest/TypeScript/lint/build、PHPUnit/PHPStan、残留扫描、`git diff --check` |
+| 跨仓矩阵 | 不需要；设置最终真相和 WordPress 权限都在本插件内 |
+| 回滚计划 | 本工作包保持为独立未提交变更；验收后单独提交，回滚该提交即可恢复旧设置契约，不建立兼容写入口 |
+
+### 工作包 4 结果复核
+
+- `window.dataLocal` 不再注入配置或默认值；`GET /mabox/v1/settings` 通过服务端 Schema 补齐完整非敏感设置，只额外返回三条凭据的 `configured` 状态。新安装不会因空配置树进入可编辑状态后崩溃。
+- `POST /mabox/v1/settings` 只接受 `{ settings, secretChanges }`。凭据路径从 Schema 的 `sensitive` 标记派生；缺省表示保留，操作只允许 `replace` 或 `clear`，未知路径/操作、空白值、控制字符、超长值和普通设置夹带凭据均被拒绝。
+- Config Manager 将“同值写入返回 false”视为成功；实际跨模块写入失败时回滚本次已更新模块，并覆盖了首次创建 Option 后失败的删除回滚。
+- React 只在设置 GET 成功且响应不含敏感键时进入可编辑状态；失败、畸形响应或意外凭据回显都会禁用保存。通用 `SecretField` 提供已配置状态、替换、清除和撤销，diff 只显示状态词。
+- 删除浏览器配置快照、设置导入导出、旧迁移/备份/rollback、预设向导遗留端点，以及百度推送、整套 anti-crawler 和登录腾讯验证码链路。微信与 OSS 运行时保留，原值只在服务端读取。
+- 写入端进一步要求完整、无未知字段且 JSON 类型正确的非敏感设置树；空对象、部分成功响应、缺字段、未知字段或错类型均不得进入可编辑/可保存状态，避免默认值补齐演变成静默重置。国内环境修复也只加入统一编辑态，不再绕过全局 diff 直接写入。
+- 主代理组合门禁：PHPUnit 301 项测试/2502 个断言，PHPStan 0 error，全仓 PHP lint；admin Vitest 14 个文件/86 项测试、TypeScript、ESLint 0 error、Vite build；VitePress build、残留扫描和 `git diff --check` 全部通过。数组字段的元素契约同样由 PHP Schema 强制执行，不能绕过前端提交畸形列表。
+- 真实 Local 站点登录态烟测已完成；admin 主 chunk 约 1.255 MB、145 个历史 ESLint warning 继续作为后续工作，不在本安全契约中混改。
+
+### 工作包 4 真实 Local 站点复验
+
+- 在 `http://magick-toolbox.local/wp-admin/` 的真实管理员登录态中，设置页、语义导航和维护工具正常加载；浏览器 console 没有 error 或 warning，设置加载没有进入错误态。
+- `GET /mabox/v1/settings` 返回 HTTP 200，顶层精确为 `success`、`data`、`secretStatus`。三个敏感路径只返回 `configured`，完整非敏感设置中没有 `appsecret`、`access_key` 或 `secret_key`。
+- 使用一次性本地 canary 完成微信 AppSecret 和 OSS 双密钥的替换、保留、清除闭环。POST 顶层只包含 `settings` 与 `secretChanges`；替换操作包含 `operation: replace`，清除只包含 `operation: clear`；diff 只显示状态变化，不显示值。
+- 保留路径没有产生设置 POST；清除后回读三个 `configured` 均为 `false`，对象存储开关恢复为关闭。数据库扫描确认没有残留 `codex-local-` canary。
+- 首页请求返回 HTTP 200，未登录后台请求按 WordPress 规则返回 HTTP 302；修复 `MaBox_Widgets` 与 `MaBox_Performance_Oss` 的接口声明和 `run($config = array())` 签名后，新的真实请求没有追加 PHP fatal 或模块接口 warning。
+- 本轮没有使用真实微信或 OSS 凭据，也没有向外部 Provider 发起上传/JSSDK 鉴权请求；验证范围是 WordPress 设置契约、模块加载和禁用态安全短路。
+- 注册表静态复核另发现：59 个注册模块中仍有 56 个未实现 `MaBox_Module_Interface`，其中 10 个模块的必传参数与 loader 调用方式不匹配，启用后可能触发 `ArgumentCountError`。这是独立的运行时模块契约工作包，不在本安全设置提交中机械修改 56 个模块。
+
 ## 结果复核
 
 首个垂直切片已完成独立代码审查和浏览器烟测，改进假说成立：
@@ -192,6 +232,6 @@
 
 验收快照：admin Vitest 11 个文件、68 项测试通过；TypeScript、Vite build、PHP 语法、PHPUnit 304 项测试、PHPStan、Composer 校验和 `git diff --check` 通过；ESLint 0 error，仍有 179 个历史 warning。生产依赖 `npm audit --omit=dev` 为 0，开发依赖仍有需要升级工具链才能消除的 advisory。
 
-浏览器烟测使用 Vite 默认数据完成，验证了桌面/移动结构、语义路由、浏览器返回、未知路由、搜索定位和接口失败状态。由于本机没有运行对应 WordPress 实例，真实 WordPress 管理栏、字体和服务端成功响应仍需在后续人工验收中确认。
+浏览器烟测先使用 Vite 默认数据验证桌面/移动结构、语义路由、浏览器返回、未知路由、搜索定位和接口失败状态；工作包 4 又在真实 Local WordPress 管理员登录态中验证了 WordPress 管理栏、服务端成功响应和敏感设置闭环。
 
-整个 Pre-GA Reset 尚未完成；AI Provider Runtime 清退已由工作包 2 收口，pnpm/CI 可重复基线已由工作包 3 收口。其余发布阻断项仍包括非 AI 模块的浏览器端敏感配置注入、重复 manifest/schema，以及 Ant Design/Tailwind 和大 chunk 带来的前端维护与性能成本。
+整个 Pre-GA Reset 尚未完成；AI Provider Runtime 清退已由工作包 2 收口，pnpm/CI 可重复基线已由工作包 3 收口，敏感设置契约已由工作包 4 收口。其余发布阻断项包括注册模块与 loader 的运行时契约不一致、重复 manifest/schema，以及 Ant Design/Tailwind 和大 chunk 带来的前端维护与性能成本。

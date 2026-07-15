@@ -28,7 +28,7 @@ return array(
         'auxiliary.census_single', 'auxiliary.ban_malice_search',
         'login.login_verify',
 
-        'domestic.compliance', 'domestic.baidu_push', 'domestic.wechat',
+        'domestic.compliance', 'domestic.wechat',
         'domestic.comment_security', 'domestic.login_security',
         'performance.oss', 'performance.seo_checker', 'performance.media_health',
         'performance.search_enhance',
@@ -44,7 +44,6 @@ return array(
         'page.reading_progress',
         'page.unlisted_vague_img',
         'page.login_search',
-        'page.anti_crawler',
 
     ),
 

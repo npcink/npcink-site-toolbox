@@ -3,11 +3,10 @@ import { Form, Input, InputNumber, Select, Button, Card, Row, Col, Tag, Space, T
 import { ReloadOutlined, ThunderboltOutlined, CheckCircleOutlined, CloseCircleOutlined } from "@ant-design/icons";
 import { DataContext } from "@/tool/dataContext";
 import { AntConfig } from "@/tool/tool";
-import { domesticApi, runBaiduBatchPush } from "@/api";
+import { domesticApi } from "@/api";
 import DiffModal from "@/components/diff-modal";
-import { createSnapshot } from "@/tool/snapshot";
-import { saveOption } from "@/axios/save";
-import { ModuleCard, DetailDrawer, RiskNotice, ModuleRow } from "@/components/settings-ui";
+import { mergeEnvironmentProposal } from "@/components/domestic/environment-plan";
+import { ModuleCard, DetailDrawer, RiskNotice, ModuleRow, SecretField } from "@/components/settings-ui";
 
 const fromConfig = AntConfig.from;
 const { TextArea } = Input;
@@ -21,12 +20,12 @@ interface CheckResult {
 }
 
 const EnvironmentCard: React.FC<{ drawerOpen?: boolean; onDrawerOpenChange?: (open: boolean) => void }> = ({ drawerOpen: extDrawerOpen, onDrawerOpenChange }) => {
-  const { optionData, refreshOption } = useContext(DataContext);
+  const { optionData, updateOption } = useContext(DataContext);
   const [results, setResults] = useState<Record<string, CheckResult> | null>(null);
   const [loading, setLoading] = useState(false);
   const [diffVisible, setDiffVisible] = useState(false);
   const [pendingDiffs, setPendingDiffs] = useState<any[]>([]);
-  const [pendingProposed, setPendingProposed] = useState<Record<string, any> | null>(null);
+  const [pendingProposed, setPendingProposed] = useState<Record<string, unknown> | null>(null);
   const [intDrawerOpen, setIntDrawerOpen] = useState(false);
   const drawerOpen = extDrawerOpen ?? intDrawerOpen;
   const setDrawerOpen = onDrawerOpenChange ?? setIntDrawerOpen;
@@ -85,27 +84,19 @@ const EnvironmentCard: React.FC<{ drawerOpen?: boolean; onDrawerOpenChange?: (op
     }
   }, [results]);
 
-  const handleApplyFixes = useCallback(async () => {
+  const handleApplyFixes = useCallback(() => {
     if (!pendingProposed) return;
     try {
-      const merged: any = JSON.parse(JSON.stringify(optionData));
-      if (!merged.optimize) merged.optimize = {};
-      if (!merged.optimize.site) merged.optimize.site = {};
-      Object.entries(pendingProposed).forEach(([key, value]) => {
-        merged.optimize.site[key] = value;
-      });
-      createSnapshot(optionData);
-      await saveOption(merged);
-      await refreshOption();
-      message.success("已应用修复");
+      const nextSite = mergeEnvironmentProposal(optionData.optimize.site, pendingProposed);
+      updateOption("optimize", "site", nextSite);
+      message.success("修复建议已加入待保存更改，请使用全局保存按钮确认");
       setDiffVisible(false);
       setPendingDiffs([]);
       setPendingProposed(null);
-      handleCheck();
     } catch (err) {
-      message.error("修复请求失败");
+      message.error(err instanceof Error ? err.message : "修复建议格式无效");
     }
-  }, [pendingProposed, optionData, refreshOption, handleCheck]);
+  }, [pendingProposed, optionData.optimize.site, updateOption]);
 
   return (
     <>
@@ -128,7 +119,7 @@ const EnvironmentCard: React.FC<{ drawerOpen?: boolean; onDrawerOpenChange?: (op
       >
         <Space style={{ marginBottom: 16 }}>
           <Button size="small" icon={<ReloadOutlined />} onClick={handleCheck} loading={loading}>检测</Button>
-          {results && <Button type="primary" size="small" icon={<ThunderboltOutlined />} onClick={handleOneClickFix}>一键修复</Button>}
+          {results && <Button type="primary" size="small" icon={<ThunderboltOutlined />} onClick={handleOneClickFix}>生成修复建议</Button>}
         </Space>
         {results && !loading && (
           <Row gutter={[16, 16]}>
@@ -152,7 +143,14 @@ const EnvironmentCard: React.FC<{ drawerOpen?: boolean; onDrawerOpenChange?: (op
             ))}
           </Row>
         )}
-        <DiffModal visible={diffVisible} onCancel={() => { setDiffVisible(false); setPendingDiffs([]); setPendingProposed(null); }} onConfirm={handleApplyFixes} diffs={pendingDiffs} />
+        <DiffModal
+          visible={diffVisible}
+          onCancel={() => { setDiffVisible(false); setPendingDiffs([]); setPendingProposed(null); }}
+          onConfirm={handleApplyFixes}
+          diffs={pendingDiffs}
+          title="确认加入以下待保存更改？"
+          confirmText="加入待保存更改"
+        />
       </DetailDrawer>
     </>
   );
@@ -225,76 +223,6 @@ const ComplianceCard: React.FC<{ drawerOpen?: boolean; onDrawerOpenChange?: (ope
   );
 };
 
-const BaiduPushCard: React.FC<{ drawerOpen?: boolean; onDrawerOpenChange?: (open: boolean) => void }> = ({ drawerOpen: extDrawerOpen, onDrawerOpenChange }) => {
-  const { optionData, updateOption } = useContext(DataContext);
-  const publicData = optionData.domestic?.baidu_push || {};
-  const [formData, setFormData] = useState(publicData || {});
-  const [intDrawerOpen, setIntDrawerOpen] = useState(false);
-  const drawerOpen = extDrawerOpen ?? intDrawerOpen;
-  const setDrawerOpen = onDrawerOpenChange ?? setIntDrawerOpen;
-  const [pushing, setPushing] = useState(false);
-
-  const onValuesChange = (changedValues: any, _allValues?: any) => {
-    setFormData((prev: any) => ({ ...prev, ...changedValues }));
-  };
-
-  useEffect(() => { updateOption("domestic", "baidu_push", formData); }, [formData]);
-
-  const handleBatchPush = async () => {
-    setPushing(true);
-    try {
-      const response = await runBaiduBatchPush((offset) => domesticApi.baiduPush(undefined, offset));
-      if (response.success) message.success(response.data?.message || "批量推送完成");
-    } catch (error) {
-      message.error(error instanceof Error ? error.message : "推送失败");
-    } finally {
-      setPushing(false);
-    }
-  };
-
-  return (
-    <>
-      <ModuleCard
-        title="百度推送"
-        description="文章发布自动推送到百度搜索资源平台"
-        featureId="domestic-baidu_push-active_push_enabled"
-        switchable={false}
-        actionLabel="配置"
-        onAction={() => setDrawerOpen(true)}
-        aliases={["domestic-baidu-push", "domestic-baidu_push-auto_push_enabled", "domestic-baidu_push-batch_push", "domestic-baidu_push-batch_push_enabled"]}
-      />
-      <DetailDrawer title="百度推送配置" visible={drawerOpen} onClose={() => setDrawerOpen(false)} description="主动推送和自动推送文章到百度">
-        <Form labelCol={fromConfig.labelCol} wrapperCol={fromConfig.wrapperCol} style={{ maxWidth: fromConfig.maxWidth }} initialValues={publicData} onValuesChange={onValuesChange}>
-          <ModuleRow
-            title="主动推送"
-            featureId="domestic-baidu_push-active_push_enabled"
-            enabled={!!formData.active_push_enabled}
-            onChange={(checked: boolean) => onValuesChange({ active_push_enabled: checked })}
-          />
-          <Form.Item label="Site" name="site"><Input placeholder="如：https://www.example.com" /></Form.Item>
-          <Form.Item label="Token" name="token"><Input placeholder="百度搜索资源平台提供的 Token" /></Form.Item>
-          <ModuleRow
-            title="自动推送 JS"
-            description="在页面底部插入百度自动推送代码"
-            featureId="domestic-baidu_push-auto_push_enabled"
-            enabled={!!formData.auto_push_enabled}
-            onChange={(checked: boolean) => onValuesChange({ auto_push_enabled: checked })}
-          />
-          <ModuleRow
-            title="批量推送入口"
-            featureId="domestic-baidu_push-batch_push_enabled"
-            enabled={!!formData.batch_push_enabled}
-            onChange={(checked: boolean) => onValuesChange({ batch_push_enabled: checked })}
-          />
-          {formData.batch_push_enabled && (
-            <Form.Item label="批量推送"><Button type="primary" onClick={handleBatchPush} loading={pushing}>开始批量推送</Button></Form.Item>
-          )}
-        </Form>
-      </DetailDrawer>
-    </>
-  );
-};
-
 const WechatCard: React.FC<{ drawerOpen?: boolean; onDrawerOpenChange?: (open: boolean) => void }> = ({ drawerOpen: extDrawerOpen, onDrawerOpenChange }) => {
   const { optionData, updateOption } = useContext(DataContext);
   const publicData = optionData.domestic?.wechat || {};
@@ -329,7 +257,7 @@ const WechatCard: React.FC<{ drawerOpen?: boolean; onDrawerOpenChange?: (open: b
             onChange={(checked: boolean) => onValuesChange({ jssdk_enabled: checked })}
           />
           <Form.Item label="AppID" name="appid"><Input /></Form.Item>
-          <Form.Item label="AppSecret" name="appsecret"><Input /></Form.Item>
+          <SecretField label="AppSecret" path="domestic.wechat.appsecret" />
           <ModuleRow
             title="微信/QQ 打开引导"
             featureId="domestic-wechat-guide_overlay"
@@ -521,7 +449,6 @@ const LoginSecurityCard: React.FC<{ drawerOpen?: boolean; onDrawerOpenChange?: (
 const App: React.FC<{ targetItemId?: string }> = ({ targetItemId }) => {
   const [envDrawerOpen, setEnvDrawerOpen] = useState(false);
   const [complianceDrawerOpen, setComplianceDrawerOpen] = useState(false);
-  const [baiduDrawerOpen, setBaiduDrawerOpen] = useState(false);
   const [wechatDrawerOpen, setWechatDrawerOpen] = useState(false);
   const [commentDrawerOpen, setCommentDrawerOpen] = useState(false);
   const [loginDrawerOpen, setLoginDrawerOpen] = useState(false);
@@ -530,7 +457,6 @@ const App: React.FC<{ targetItemId?: string }> = ({ targetItemId }) => {
     if (!targetItemId) return;
     if (targetItemId.startsWith("domestic-environment-")) setEnvDrawerOpen(true);
     else if (targetItemId.startsWith("domestic-compliance-")) setComplianceDrawerOpen(true);
-    else if (targetItemId.startsWith("domestic-baidu")) setBaiduDrawerOpen(true);
     else if (targetItemId.startsWith("domestic-wechat-")) setWechatDrawerOpen(true);
     else if (targetItemId.startsWith("domestic-comment")) setCommentDrawerOpen(true);
     else if (targetItemId.startsWith("domestic-login")) setLoginDrawerOpen(true);
@@ -540,7 +466,6 @@ const App: React.FC<{ targetItemId?: string }> = ({ targetItemId }) => {
     <div className="mabox-module-grid">
       <EnvironmentCard drawerOpen={envDrawerOpen} onDrawerOpenChange={setEnvDrawerOpen} />
       <ComplianceCard drawerOpen={complianceDrawerOpen} onDrawerOpenChange={setComplianceDrawerOpen} />
-      <BaiduPushCard drawerOpen={baiduDrawerOpen} onDrawerOpenChange={setBaiduDrawerOpen} />
       <WechatCard drawerOpen={wechatDrawerOpen} onDrawerOpenChange={setWechatDrawerOpen} />
       <CommentSecurityCard drawerOpen={commentDrawerOpen} onDrawerOpenChange={setCommentDrawerOpen} />
       <LoginSecurityCard drawerOpen={loginDrawerOpen} onDrawerOpenChange={setLoginDrawerOpen} />

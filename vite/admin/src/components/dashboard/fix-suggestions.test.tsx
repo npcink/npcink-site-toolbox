@@ -2,7 +2,7 @@ import { cleanup, fireEvent, render, screen, waitFor } from "@testing-library/re
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import Dashboard from "@/components/dashboard";
-import { DataContext } from "@/tool/dataContext";
+import { DataContext, emptySecretStatus } from "@/tool/dataContext";
 import { defaultVarOption } from "@/tool/defaultVar";
 import type { DiagnosticSummary, SearchHealthSummary } from "@/tool/interface";
 
@@ -61,6 +61,12 @@ function renderDashboard(onNavigate = vi.fn()) {
         refreshOption: vi.fn(),
         lastSavedOption: defaultVarOption,
         setLastSavedOption: vi.fn(),
+        secretStatus: emptySecretStatus(),
+        secretChanges: {},
+        setSecretChange: vi.fn(),
+        clearSecretChanges: vi.fn(),
+        settingsState: "ready",
+        settingsError: null,
       }}
     >
       <Dashboard onNavigate={onNavigate} />

@@ -2,14 +2,43 @@
 
 //准备类型
 export type DataLocal = {
-  option: Option;
   url_site: string;
   ajaxurl?: string;
   nonce?: string;
   apiBase?: string;
   restNonce?: string;
-  defaults?: Option;
 };
+
+export const SECRET_PATHS = [
+  "domestic.wechat.appsecret",
+  "performance.oss.access_key",
+  "performance.oss.secret_key",
+] as const;
+
+export type SecretPath = (typeof SECRET_PATHS)[number];
+
+export interface SecretStatusEntry {
+  configured: boolean;
+}
+
+export type SecretStatus = Record<SecretPath, SecretStatusEntry>;
+
+export type SecretChange =
+  | { operation: "replace"; value: string }
+  | { operation: "clear" };
+
+export type SecretChanges = Partial<Record<SecretPath, SecretChange>>;
+
+export interface SettingsResponse {
+  success: boolean;
+  data: Option;
+  secretStatus: SecretStatus;
+}
+
+export interface SettingsSavePayload {
+  settings: Option;
+  secretChanges: SecretChanges;
+}
 
 //选项
 export type Option = {
@@ -40,7 +69,6 @@ export type Option = {
   //国内生态
   domestic: {
     compliance: DomesticCompliance; //备案与合规
-    baidu_push: DomesticBaiduPush; //百度推送
     wechat: DomesticWechat; //微信生态
     comment_security: DomesticCommentSecurity; //评论安全
     login_security: DomesticLoginSecurity; //登录安全
@@ -252,13 +280,6 @@ export type PageFunction = {
   batch_replace: boolean; //文章批量替换
   batch_replace_pairs: Array<{find: string; replace: string}>; //替换规则
   login_search: boolean; //仅登录可搜索
-
-  anti_crawler: boolean; //进阶防刷
-  anti_crawler_max_requests: number; //最大请求数
-  anti_crawler_time_window: number; //时间窗口(秒)
-  anti_crawler_tecent_id: string; //腾讯防水墙AppID
-  anti_crawler_tecent_key: string; //腾讯防水墙AppKey
-
 };
 
 // 页面 - 权限
@@ -303,8 +324,6 @@ export type FunctionSeo = {
 //登录安全
 export type LoginSecurity = {
   login_code: string; //登录验证码
-  tecent_id: string; //腾讯ID
-  tecent_key: string; //腾讯秘钥
 };
 
 //下拉列表类型
@@ -332,18 +351,9 @@ export type DomesticCompliance = {
   copyright_html: string;
 };
 
-export type DomesticBaiduPush = {
-  active_push_enabled: boolean;
-  site: string;
-  token: string;
-  auto_push_enabled: boolean;
-  batch_push_enabled: boolean;
-};
-
 export type DomesticWechat = {
   jssdk_enabled: boolean;
   appid: string;
-  appsecret: string;
   guide_overlay_enabled: boolean;
   guide_mode: string;
   guide_text: string;
@@ -387,8 +397,6 @@ export type DomesticLoginSecurity = {
 export type PerformanceOss = {
   enabled: boolean;
   provider: string;
-  access_key: string;
-  secret_key: string;
   bucket: string;
   region: string;
   domain: string;

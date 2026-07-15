@@ -180,7 +180,7 @@ function buildNextSteps(
     steps.push({
       id: "china-services",
       title: "核对国内访问与合规",
-      description: "按实际业务检查备案、Cookie、百度推送和微信能力，不必全部开启。",
+      description: "按实际业务检查备案、Cookie、微信与评论安全能力，不必全部开启。",
       view: "china",
       action: "查看国内生态",
     });

@@ -2,8 +2,7 @@ import { useContext, useState, useEffect } from "react";
 import { Button, Space, message } from "antd";
 import { DataContext } from "@/tool/dataContext";
 import { saveOption } from "@/axios/save";
-import { createSnapshot } from "@/tool/snapshot";
-import { diffConfig, getDiffSummary } from "@/tool/diff";
+import { diffConfig, diffSecretChanges, getDiffSummary } from "@/tool/diff";
 import DiffModal from "@/components/diff-modal";
 import { ConfigDiffItem } from "@/tool/interface";
 import { UpOutlined } from "@ant-design/icons";
@@ -13,27 +12,44 @@ interface SaveProps {
 }
 
 const App: React.FC<SaveProps> = ({ label = "保存" }) => {
-  const { optionData, refreshOption, lastSavedOption } = useContext(DataContext);
+  const {
+    optionData,
+    refreshOption,
+    lastSavedOption,
+    secretStatus,
+    secretChanges,
+    clearSecretChanges,
+    settingsState,
+  } = useContext(DataContext);
   const [saving, setSaving] = useState(false);
   const [diffVisible, setDiffVisible] = useState(false);
   const [diffs, setDiffs] = useState<ConfigDiffItem[]>([]);
 
   const doSave = async () => {
     setSaving(true);
+    let saved = false;
     try {
-      createSnapshot(optionData);
-      await saveOption(optionData);
+      await saveOption(optionData, secretChanges);
+      saved = true;
+      clearSecretChanges();
       await refreshOption();
       message.success("保存成功");
     } catch (error) {
-      message.error("保存失败，请重试");
+      if (saved) {
+        message.warning("设置已保存，但重新读取失败；保存功能已禁用，请重新读取后继续");
+      } else {
+        message.error("保存失败，请重试");
+      }
     } finally {
       setSaving(false);
     }
   };
 
   const handleSaveClick = () => {
-    const changes = diffConfig(lastSavedOption, optionData);
+    const changes = [
+      ...diffConfig(lastSavedOption, optionData),
+      ...diffSecretChanges(secretStatus, secretChanges),
+    ];
     const summary = getDiffSummary(changes);
 
     if (!summary.hasChanges) {
@@ -87,7 +103,12 @@ const App: React.FC<SaveProps> = ({ label = "保存" }) => {
             icon={<UpOutlined />}
           ></Button>
         )}
-        <Button type="primary" onClick={handleSaveClick} loading={saving}>
+        <Button
+          type="primary"
+          onClick={handleSaveClick}
+          loading={saving}
+          disabled={settingsState !== "ready"}
+        >
           {label}
         </Button>
       </Space>

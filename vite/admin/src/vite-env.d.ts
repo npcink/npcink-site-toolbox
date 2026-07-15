@@ -1,9 +1,11 @@
 /// <reference types="vite/client" />
 
 interface DataLocal {
-  option?: Record<string, unknown>;
+  url_site: string;
   ajaxurl?: string;
   nonce?: string;
+  apiBase?: string;
+  restNonce?: string;
   countData?: Record<string, unknown>;
   single_arr?: unknown[];
   cat_arr?: unknown[];

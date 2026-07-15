@@ -83,6 +83,28 @@ class ModuleRegistryConsistency_Test extends TestCase {
         $this->assertDirectoryDoesNotExist(self::$plugin_dir . '/admin/partials/ai_review');
     }
 
+    public function test_retired_credential_integrations_are_removed_from_backend_contracts(): void {
+        $schema = MaBox_Config_Schema::get_schema();
+        $registry = MaBox_Module_Loader::get_registry();
+        $tiers = MaBox_Module_Loader::get_tiers();
+        $autoload = file_get_contents(self::$plugin_dir . '/includes/autoload.php');
+
+        $this->assertArrayNotHasKey('baidu_push', $schema['domestic']);
+        $this->assertArrayNotHasKey('anti_crawler', $schema['page']['function']);
+        $this->assertArrayNotHasKey('tecent_id', $schema['login']['security']);
+        $this->assertArrayNotHasKey('tecent_key', $schema['login']['security']);
+        $this->assertArrayNotHasKey('domestic.baidu_push', $registry);
+        $this->assertArrayNotHasKey('page.anti_crawler', $registry);
+        foreach ($tiers as $modules) {
+            $this->assertNotContains('domestic.baidu_push', $modules);
+            $this->assertNotContains('page.anti_crawler', $modules);
+        }
+        $this->assertStringNotContainsString('MaBox_Domestic_Baidu_Push', $autoload);
+        $this->assertStringNotContainsString('MaBox_Page_Anti_Crawler', $autoload);
+        $this->assertDirectoryDoesNotExist(self::$plugin_dir . '/admin/partials/domestic/baidu_push');
+        $this->assertDirectoryDoesNotExist(self::$plugin_dir . '/admin/partials/page/function/anti_crawler');
+    }
+
     public function test_h5_php_file_deleted(): void {
         $file = self::$plugin_dir . '/admin/partials/h5.php';
         $this->assertFileDoesNotExist($file);

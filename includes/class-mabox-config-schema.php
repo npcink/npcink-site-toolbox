@@ -18,6 +18,26 @@ if (!class_exists('MaBox_Config_Schema')) {
 
         private static $schema = null;
 
+        private static function string_list_items() {
+            return array('type' => 'string');
+        }
+
+        private static function number_list_items() {
+            return array('type' => 'number', 'finite' => true);
+        }
+
+        private static function batch_replace_items() {
+            return array(
+                'type' => 'object',
+                'required' => array('find', 'replace'),
+                'additionalProperties' => false,
+                'properties' => array(
+                    'find' => array('type' => 'string'),
+                    'replace' => array('type' => 'string'),
+                ),
+            );
+        }
+
         private static function build_schema() {
             return array(
                 'optimize' => array(
@@ -79,7 +99,7 @@ if (!class_exists('MaBox_Config_Schema')) {
                         'add_last_update'         => array('type' => 'boolean', 'default' => false),
                         'no_login_img'            => array('type' => 'boolean', 'default' => false),
                         'maintenance_tips'        => array('type' => 'string',  'default' => 'false', 'sanitize' => 'sanitize_text_field'),
-                        'countdown'               => array('type' => 'array',   'default' => array()),
+                        'countdown'               => array('type' => 'array',   'default' => array(), 'items' => self::string_list_items()),
                         'countdown_title'         => array('type' => 'string',  'default' => '', 'sanitize' => 'sanitize_text_field'),
                         'countdown_image'         => array('type' => 'string',  'default' => '', 'sanitize' => 'esc_url_raw'),
                         'countdown_content'       => array('type' => 'string',  'default' => '', 'sanitize' => 'sanitize_textarea_field'),
@@ -87,21 +107,14 @@ if (!class_exists('MaBox_Config_Schema')) {
                         'search_limit'            => array('type' => 'boolean', 'default' => false),
                         'search_limit_count'      => array('type' => 'number',  'default' => 10, 'min' => 1, 'max' => 100),
                         'batch_replace'           => array('type' => 'boolean', 'default' => false),
-                        'batch_replace_pairs'     => array('type' => 'array',   'default' => array()),
+                        'batch_replace_pairs'     => array('type' => 'array',   'default' => array(), 'items' => self::batch_replace_items()),
                         'login_search'            => array('type' => 'boolean', 'default' => false),
-
-                        'anti_crawler'            => array('type' => 'boolean', 'default' => false),
-                        'anti_crawler_max_requests' => array('type' => 'number',  'default' => 60, 'min' => 1),
-                        'anti_crawler_time_window' => array('type' => 'number',  'default' => 60, 'min' => 1),
-                        'anti_crawler_tecent_id'  => array('type' => 'string',  'default' => '', 'sanitize' => 'sanitize_text_field'),
-                        'anti_crawler_tecent_key'  => array('type' => 'string',  'default' => '', 'sanitize' => 'sanitize_text_field'),
-
                     ),
                     'jurisdiction' => array(
-                        'category_id'             => array('type' => 'array',   'default' => array()),
-                        'tag_id'                  => array('type' => 'array',   'default' => array()),
-                        'page_id'                => array('type' => 'array',   'default' => array()),
-                        'single_id'              => array('type' => 'array',   'default' => array()),
+                        'category_id'             => array('type' => 'array',   'default' => array(), 'items' => self::number_list_items()),
+                        'tag_id'                  => array('type' => 'array',   'default' => array(), 'items' => self::number_list_items()),
+                        'page_id'                => array('type' => 'array',   'default' => array(), 'items' => self::number_list_items()),
+                        'single_id'              => array('type' => 'array',   'default' => array(), 'items' => self::number_list_items()),
                         'tip_content'             => array('type' => 'string',  'default' => '', 'sanitize' => 'sanitize_textarea_field'),
                     ),
                 ),
@@ -136,8 +149,6 @@ if (!class_exists('MaBox_Config_Schema')) {
                     '_option_key' => MAGICK_MIXTURE_OPTION_LOGIN,
                     'security' => array(
                         'login_code' => array('type' => 'string',  'default' => 'false', 'sanitize' => 'sanitize_text_field'),
-                        'tecent_id'  => array('type' => 'string',  'default' => '', 'sanitize' => 'sanitize_text_field'),
-                        'tecent_key' => array('type' => 'string',  'default' => '', 'sanitize' => 'sanitize_text_field'),
                     ),
                 ),
 
@@ -158,17 +169,10 @@ if (!class_exists('MaBox_Config_Schema')) {
                         'copyright_enabled' => array('type' => 'boolean', 'default' => false),
                         'copyright_html' => array('type' => 'string',  'default' => '', 'sanitize' => 'wp_kses_post'),
                     ),
-                    'baidu_push' => array(
-                        'active_push_enabled' => array('type' => 'boolean', 'default' => false),
-                        'site'                => array('type' => 'string',  'default' => '', 'sanitize' => 'esc_url_raw'),
-                        'token'               => array('type' => 'string',  'default' => '', 'sanitize' => 'sanitize_text_field'),
-                        'auto_push_enabled'   => array('type' => 'boolean', 'default' => false),
-                        'batch_push_enabled'   => array('type' => 'boolean', 'default' => false),
-                    ),
                     'wechat' => array(
                         'jssdk_enabled'          => array('type' => 'boolean', 'default' => false),
                         'appid'                  => array('type' => 'string',  'default' => '', 'sanitize' => 'sanitize_text_field'),
-                        'appsecret'              => array('type' => 'string',  'default' => '', 'sanitize' => 'sanitize_text_field'),
+                        'appsecret'              => array('type' => 'string',  'default' => '', 'sanitize' => 'sanitize_text_field', 'sensitive' => true),
                         'guide_overlay_enabled'  => array('type' => 'boolean', 'default' => false),
                         'guide_mode'             => array('type' => 'string',  'default' => 'guide', 'sanitize' => 'sanitize_text_field'),
                         'guide_text'             => array('type' => 'string',  'default' => '点击右上角 ··· 在浏览器中打开', 'sanitize' => 'sanitize_text_field'),
@@ -211,8 +215,8 @@ if (!class_exists('MaBox_Config_Schema')) {
                     'oss' => array(
                         'enabled'      => array('type' => 'boolean', 'default' => false),
                         'provider'     => array('type' => 'string',  'default' => 'aliyun', 'sanitize' => 'sanitize_text_field'),
-                        'access_key'   => array('type' => 'string',  'default' => '', 'sanitize' => 'sanitize_text_field'),
-                        'secret_key'   => array('type' => 'string',  'default' => '', 'sanitize' => 'sanitize_text_field'),
+                        'access_key'   => array('type' => 'string',  'default' => '', 'sanitize' => 'sanitize_text_field', 'sensitive' => true),
+                        'secret_key'   => array('type' => 'string',  'default' => '', 'sanitize' => 'sanitize_text_field', 'sensitive' => true),
                         'bucket'       => array('type' => 'string',  'default' => '', 'sanitize' => 'sanitize_text_field'),
                         'region'       => array('type' => 'string',  'default' => '', 'sanitize' => 'sanitize_text_field'),
                         'domain'       => array('type' => 'string',  'default' => '', 'sanitize' => 'esc_url_raw'),
@@ -431,6 +435,191 @@ if (!class_exists('MaBox_Config_Schema')) {
         }
 
         /**
+         * 严格验证浏览器提交的非敏感设置树。
+         *
+         * 读取端可以用 defaults 补齐新安装结构，但写入端不得将缺失、
+         * 未知键或错误 JSON 类型静默修正后整包落库。敏感字段不属于
+         * settings 树，只能通过 secretChanges 提交。
+         *
+         * @param mixed $settings
+         * @return array{valid: bool, errors: array<int, string>}
+         */
+        public static function validate_browser_settings($settings) {
+            if (!is_array($settings)) {
+                return array('valid' => false, 'errors' => array('settings 必须为对象'));
+            }
+
+            $schema = self::get_schema();
+            $expected_modules = array();
+            foreach ($schema as $module_key => $module_def) {
+                if ($module_key !== '_option_key' && $module_key !== '_flat') {
+                    $expected_modules[] = $module_key;
+                }
+            }
+
+            $errors = array();
+            self::validate_exact_keys($settings, $expected_modules, 'settings', $errors);
+
+            foreach ($expected_modules as $module_key) {
+                if (!array_key_exists($module_key, $settings) || !is_array($settings[$module_key])) {
+                    if (array_key_exists($module_key, $settings)) {
+                        $errors[] = "settings.{$module_key} 必须为对象";
+                    }
+                    continue;
+                }
+
+                $module_def = $schema[$module_key];
+                if (!empty($module_def['_flat'])) {
+                    self::validate_browser_fields($settings[$module_key], $module_def, "settings.{$module_key}", $errors);
+                    continue;
+                }
+
+                $expected_submodules = array();
+                foreach ($module_def as $sub_key => $sub_def) {
+                    if ($sub_key !== '_option_key' && $sub_key !== '_flat') {
+                        $expected_submodules[] = $sub_key;
+                    }
+                }
+                self::validate_exact_keys($settings[$module_key], $expected_submodules, "settings.{$module_key}", $errors);
+
+                foreach ($expected_submodules as $sub_key) {
+                    if (!array_key_exists($sub_key, $settings[$module_key]) || !is_array($settings[$module_key][$sub_key])) {
+                        if (array_key_exists($sub_key, $settings[$module_key])) {
+                            $errors[] = "settings.{$module_key}.{$sub_key} 必须为对象";
+                        }
+                        continue;
+                    }
+                    self::validate_browser_fields(
+                        $settings[$module_key][$sub_key],
+                        $module_def[$sub_key],
+                        "settings.{$module_key}.{$sub_key}",
+                        $errors
+                    );
+                }
+            }
+
+            return array('valid' => empty($errors), 'errors' => $errors);
+        }
+
+        private static function validate_browser_fields($values, $field_definitions, $path, &$errors) {
+            $expected_fields = array();
+            foreach ($field_definitions as $field_key => $field_def) {
+                if ($field_key === '_option_key' || $field_key === '_flat' || !is_array($field_def)) {
+                    continue;
+                }
+                if (empty($field_def['sensitive'])) {
+                    $expected_fields[] = $field_key;
+                }
+            }
+            self::validate_exact_keys($values, $expected_fields, $path, $errors);
+
+            foreach ($expected_fields as $field_key) {
+                if (!array_key_exists($field_key, $values)) {
+                    continue;
+                }
+                $field_def = $field_definitions[$field_key];
+                $type = isset($field_def['type']) ? $field_def['type'] : 'string';
+                if (!self::matches_json_type($values[$field_key], $type)) {
+                    $errors[] = "{$path}.{$field_key} 必须为 {$type} 类型";
+                    continue;
+                }
+                if ($type === 'array' && isset($field_def['items']) && is_array($field_def['items'])) {
+                    self::validate_array_items(
+                        $values[$field_key],
+                        $field_def['items'],
+                        "{$path}.{$field_key}",
+                        $errors
+                    );
+                }
+            }
+        }
+
+        private static function validate_array_items($values, $item_contract, $path, &$errors) {
+            if (!self::is_list_array($values)) {
+                $errors[] = "{$path} 必须为 JSON 列表";
+                return;
+            }
+
+            foreach ($values as $index => $value) {
+                self::validate_array_item($value, $item_contract, "{$path}[{$index}]", $errors);
+            }
+        }
+
+        private static function validate_array_item($value, $contract, $path, &$errors) {
+            $type = isset($contract['type']) ? $contract['type'] : '';
+            if ($type !== 'object') {
+                if (!self::matches_json_type($value, $type)) {
+                    $errors[] = "{$path} 必须为 {$type} 类型";
+                }
+                return;
+            }
+
+            if (!is_array($value)) {
+                $errors[] = "{$path} 必须为对象";
+                return;
+            }
+
+            $properties = isset($contract['properties']) && is_array($contract['properties'])
+                ? $contract['properties']
+                : array();
+            $required = isset($contract['required']) && is_array($contract['required'])
+                ? $contract['required']
+                : array();
+
+            foreach ($required as $required_key) {
+                if (!array_key_exists($required_key, $value)) {
+                    $errors[] = "{$path}.{$required_key} 缺失";
+                }
+            }
+            if (isset($contract['additionalProperties']) && $contract['additionalProperties'] === false) {
+                foreach (array_diff(array_keys($value), array_keys($properties)) as $unknown_key) {
+                    $errors[] = "{$path}.{$unknown_key} 不是已知字段";
+                }
+            }
+
+            foreach ($properties as $property_key => $property_contract) {
+                if (!array_key_exists($property_key, $value)) {
+                    continue;
+                }
+                $property_type = isset($property_contract['type']) ? $property_contract['type'] : '';
+                if (!self::matches_json_type($value[$property_key], $property_type)) {
+                    $errors[] = "{$path}.{$property_key} 必须为 {$property_type} 类型";
+                }
+            }
+        }
+
+        private static function is_list_array($value) {
+            if (empty($value)) {
+                return true;
+            }
+            return array_keys($value) === range(0, count($value) - 1);
+        }
+
+        private static function validate_exact_keys($values, $expected_keys, $path, &$errors) {
+            foreach (array_diff($expected_keys, array_keys($values)) as $missing_key) {
+                $errors[] = "{$path}.{$missing_key} 缺失";
+            }
+            foreach (array_diff(array_keys($values), $expected_keys) as $unknown_key) {
+                $errors[] = "{$path}.{$unknown_key} 不是已知字段";
+            }
+        }
+
+        private static function matches_json_type($value, $type) {
+            switch ($type) {
+                case 'boolean':
+                    return is_bool($value);
+                case 'string':
+                    return is_string($value);
+                case 'number':
+                    return is_int($value) || (is_float($value) && is_finite($value));
+                case 'array':
+                    return is_array($value);
+                default:
+                    return false;
+            }
+        }
+
+        /**
          * 校验并清洗单个字段值
          *
          * @param mixed  $value     原始值
@@ -466,6 +655,11 @@ if (!class_exists('MaBox_Config_Schema')) {
                     $sanitized = (string) $value;
                     if (!empty($field_def['enum']) && !in_array($sanitized, $field_def['enum'], true)) {
                         $sanitized = $field_def['default'];
+                    }
+                    // 凭据是不透明字符串：它们已在 secretChanges 边界严格验证，
+                    // 不应再被 sanitize_text_field() 静默改写。
+                    if (!empty($field_def['sensitive'])) {
+                        return array('valid' => true, 'value' => $sanitized, 'error' => null);
                     }
                     $sanitize_fn = !empty($field_def['sanitize']) ? $field_def['sanitize'] : 'sanitize_text_field';
                     if (is_callable($sanitize_fn)) {

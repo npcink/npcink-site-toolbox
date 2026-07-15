@@ -28,8 +28,6 @@ class RestApiSecurityTest extends TestCase {
 
         $sensitive_paths = array(
             '/settings',
-            '/settings/export',
-            '/settings/import',
             '/performance/db/clean',
             '/page/batch-replace',
             '/tools/table-data',
@@ -78,7 +76,7 @@ class RestApiSecurityTest extends TestCase {
         self::trigger_registration();
         $routes = MaBox_Rest_Route_Registry::get_registered();
 
-        $public_paths = array('/public/search-log', '/public/anti-crawler/verify', '/public/rating', '/public/wx-unlock/verify');
+        $public_paths = array('/public/search-log', '/public/rating', '/public/wx-unlock/verify');
 
         $found_paths = array();
         foreach ($routes as $route) {
@@ -132,19 +130,32 @@ class RestApiSecurityTest extends TestCase {
         $this->assertStringContainsString('wp_kses_post', $content, 'Batch Replace 应该使用 wp_kses_post 消毒输入内容');
     }
 
-    public function test_import_endpoint_exists_in_registry(): void {
+    public function test_removed_settings_and_external_service_routes_are_absent(): void {
         self::trigger_registration();
         $routes = MaBox_Rest_Route_Registry::get_registered();
 
-        $found = false;
+        $paths = array_column($routes, 'path');
+        $this->assertNotContains('/settings/import', $paths);
+        $this->assertNotContains('/settings/export', $paths);
+        $this->assertNotContains('/settings/wizard-complete', $paths);
+        $this->assertNotContains('/public/anti-crawler/verify', $paths);
+        $this->assertNotContains('/domestic/baidu/push', $paths);
+    }
+
+    public function test_settings_post_contract_uses_only_settings_and_secret_changes(): void {
+        self::trigger_registration();
+        $routes = MaBox_Rest_Route_Registry::get_registered();
+
         foreach ($routes as $route) {
-            if ($route['path'] === '/settings/import') {
-                $found = true;
-                break;
+            if ($route['path'] !== '/settings' || !isset($route['args'][1]['args'])) {
+                continue;
             }
+            $this->assertSame(array('settings', 'secretChanges'), array_keys($route['args'][1]['args']));
+            $this->assertTrue($route['args'][1]['args']['settings']['required']);
+            return;
         }
 
-        $this->assertTrue($found, '导入端点应该在注册表中');
+        $this->fail('Settings POST route was not registered');
     }
 
     public function test_no_stray_register_rest_route_calls(): void {
@@ -160,7 +171,7 @@ class RestApiSecurityTest extends TestCase {
         self::trigger_registration();
         $count = MaBox_Rest_Route_Registry::get_route_count();
 
-        $this->assertGreaterThanOrEqual(24, $count, '应该至少注册 24 个路由');
+        $this->assertGreaterThanOrEqual(19, $count, '应该至少注册 19 个路由');
     }
 
     private static function is_admin_permission($callback) {

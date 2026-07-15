@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect } from "react";
 import { Form, Input, Select } from "antd";
 import { DataContext } from "@/tool/dataContext";
 import { AntConfig } from "@/tool/tool";
-import { SettingsSection, ModuleRow } from "@/components/settings-ui";
+import { SettingsSection, ModuleRow, SecretField } from "@/components/settings-ui";
 import FeatureSwitch from "@/basic/feature-switch";
 
 const fromConfig = AntConfig.from;
@@ -49,12 +49,8 @@ const App: React.FC = () => {
                 { label: "七牛云", value: "qiniu" },
               ]} />
             </Form.Item>
-            <Form.Item label="Access Key" name="access_key">
-              <Input />
-            </Form.Item>
-            <Form.Item label="Secret Key" name="secret_key">
-              <Input.Password />
-            </Form.Item>
+            <SecretField label="Access Key" path="performance.oss.access_key" />
+            <SecretField label="Secret Key" path="performance.oss.secret_key" />
             <Form.Item label="Bucket" name="bucket">
               <Input />
             </Form.Item>

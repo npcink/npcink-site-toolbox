@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * MaBox_Config_Manager 单元测试
  *
- * 测试配置迁移、读取、保存、导出/导入功能
+ * 测试配置读取、保存与敏感设置契约
  */
 class MaBox_Config_Manager_Test extends TestCase {
 
@@ -60,17 +60,15 @@ class MaBox_Config_Manager_Test extends TestCase {
      */
     public function test_all_required_methods_exist(): void {
         $methods = array(
-            'needs_migration',
-            'migrate',
-            'rollback',
             'get_merged_config',
+            'get_browser_config',
+            'merge_secret_changes',
             'get_module_config',
             'save_full_config',
             'save_module_config',
-            'export_config',
-            'import_config',
             'clear_cache',
             'get_module_map',
+            'get_secret_paths',
         );
 
         foreach ($methods as $method) {
@@ -79,17 +77,10 @@ class MaBox_Config_Manager_Test extends TestCase {
         }
     }
 
-    /**
-     * 测试 import_config 拒绝无效输入
-     */
-    public function test_import_config_rejects_invalid_input(): void {
-        $this->assertTrue(method_exists('MaBox_Config_Manager', 'import_config'));
-
-        // 验证方法签名
-        $method = new ReflectionMethod('MaBox_Config_Manager', 'import_config');
-        $params = $method->getParameters();
-        $this->assertCount(1, $params);
-        $this->assertEquals('config', $params[0]->getName());
+    public function test_legacy_migration_and_import_export_methods_are_removed(): void {
+        foreach (array('needs_migration', 'migrate', 'rollback', 'export_config', 'import_config') as $method) {
+            $this->assertFalse(method_exists('MaBox_Config_Manager', $method), "Method '$method' should be removed");
+        }
     }
 
     /**

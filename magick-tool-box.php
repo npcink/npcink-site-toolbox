@@ -27,8 +27,6 @@ if (!defined('WPINC')) {
 define('MAGICK_MIXTURE_NAME', 'magick-optimize');
 //定义插件版本
 define('MAGICK_MIXTURE_VERSION', '2.6.1');
-//定义保存选项字段
-define('MAGICK_MIXTURE_OPTION', "Magick_ToolBox_Option");
 define('MAGICK_TOOLBOX_ACTIVE_MODULES', 'Magick_ToolBox_Active_Modules');
 
 /**
@@ -40,13 +38,6 @@ define('MAGICK_MIXTURE_OPTION_PAGE', 'Magick_ToolBox_Option_Page');
 define('MAGICK_MIXTURE_OPTION_FUNCTION', 'Magick_ToolBox_Option_Function');
 define('MAGICK_MIXTURE_OPTION_LOGIN', 'Magick_ToolBox_Option_Login');
 
-
-/**
- * 配置迁移版本标记
- * @since 2.1.0
- */
-define('MAGICK_MIXTURE_CONFIG_VERSION', 'Magick_ToolBox_Config_Version');
-define('MAGICK_MIXTURE_CONFIG_BACKUP', 'Magick_ToolBox_Option_Backup_v210');
 
 /**
  * 第三阶段：国内生态 & 性能优化模块 Option 键名

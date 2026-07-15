@@ -1,7 +1,7 @@
 # WP Magick Toolbox
 
 > 面向中国 WordPress 站长的一站式实用工具箱插件
-> 版本：**2.6.1** | 功能数：**60+** | 授权：**GPL-2.0**
+> 版本：**2.6.1** | 阶段：**Pre-GA 重构中** | 授权：**GPL-2.0**
 
 [![CI](https://github.com/muze-page/wp-magick-toolbox/actions/workflows/ci.yml/badge.svg)](https://github.com/muze-page/wp-magick-toolbox/actions/workflows/ci.yml)
 [![WordPress Plugin](https://img.shields.io/badge/WordPress-4.6%2B-blue)](https://wordpress.org)
@@ -12,7 +12,7 @@
 
 ## 简介
 
-WP Magick Toolbox 是一款面向中国 WordPress 站长的免费工具箱插件，集成了 **60+ 实用功能**，涵盖站点优化、SEO、安全防护、国内生态对接（百度推送、微信生态、备案合规）、性能优化等多个维度。
+WP Magick Toolbox 是一款面向中国 WordPress 站长的免费工具箱插件，涵盖站点优化、SEO、安全防护、微信生态、备案合规和性能维护等常用场景。
 
 **核心理念**：一个插件，解决站长 80% 的日常需求。
 
@@ -29,7 +29,7 @@ WP Magick Toolbox 是一款面向中国 WordPress 站长的免费工具箱插件
 1. 下载本插件 ZIP 包
 2. WordPress 后台 → 插件 → 安装插件 → 上传并安装
 3. 启用插件
-4. 在左侧菜单找到「魔法工具箱」，进入后点击一次「保存」按钮即可生效
+4. 在左侧菜单找到「魔法工具箱」并按需启用功能
 
 ### 本地开发
 
@@ -62,18 +62,13 @@ pnpm dev:admin
 
 ## 功能概览
 
-| 模块 | 功能数 | 核心能力 |
-|------|--------|----------|
-| 站点优化 | 8 | 禁止 Title 转义、分类去 category、搜索链接优化等 |
-| 媒体优化 | 4 | 自动 Alt、禁止缩略图、SVG 支持、上传重命名 |
-| 后台优化 | 4 | 作者/日期筛选、列表显示 ID、缩略图切换 |
-| 页面外观 | 1 | 阅读进度条 |
-| 页面评论 | 5 | 间隔限制、字数限制、禁止纯英文等 |
-| 页面功能 | 11 | 维护页、搜索防护、内容隐藏等 |
-| SEO 功能 | 5 | 首页 TDK、文章 SEO、分类/标签 SEO |
-| 辅助功能 | 5 | 文章统计、屏蔽恶意搜索、百度/谷歌/必应统计 |
-| 国内生态 | 10 | 备案合规、百度推送、微信 JSSDK、Cookie 弹窗、OSS 对接 |
-| 其他 | 2 | 小工具选项、隐藏邮件 IP |
+| 模块 | 核心能力 |
+|------|----------|
+| 站点与媒体 | 链接、上传、图片和后台列表优化 |
+| 内容与 SEO | 评论治理、TDK、统计和内容维护 |
+| 安全 | 登录验证码、失败锁定、自定义登录入口和日志 |
+| 国内生态 | 备案合规、微信 JSSDK、Cookie 弹窗和 OSS 对接 |
+| 维护工具 | 站点体检、SEO 检查、媒体体检和数据库清理 |
 
 > 完整功能清单见 [功能清单.md](功能清单.md)
 
@@ -85,7 +80,7 @@ pnpm dev:admin
 - **前端设置页**：React + TypeScript + Vite + Ant Design + TailwindCSS
 - **前端展示**：React + TypeScript + Vite（按需加载）
 - **图表**：ECharts + 自研统计组件
-- **数据存储**：WordPress `wp_options` 表（按模块拆分，支持快照备份）
+- **数据存储**：WordPress `wp_options` 表（按模块拆分）
 - **通信方式**：WordPress REST API 为主，少量独立后台交互使用 WordPress AJAX
 
 ### 安全加固
@@ -94,6 +89,7 @@ pnpm dev:admin
 - CSRF 防护（nonce 验证）
 - XSS 防护（输出转义 `esc_html()` / `esc_url()` / `esc_attr()`）
 - 权限检查（`current_user_can('manage_options')`）
+- 敏感设置不注入页面、不随读取接口返回；管理端只显示配置状态，替换或清除必须显式提交
 
 ---
 

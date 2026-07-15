@@ -800,36 +800,5 @@ if (!class_exists('MaBox_Diagnostics')) {
             return $current;
         }
 
-        private static $sensitive_patterns = array(
-            'token', 'secret', 'api_key', 'apikey', 'access_key',
-            'secret_key', 'secretkey', 'appsecret', 'app_key',
-            'app_secret', 'password', 'passwd', 'tecent_key',
-        );
-
-        public static function sanitize_for_export($data)
-        {
-            if (!is_array($data)) {
-                return $data;
-            }
-            foreach ($data as $key => &$value) {
-                if (is_array($value)) {
-                    $value = self::sanitize_for_export($value);
-                } elseif (is_string($value) && self::is_sensitive_key($key) && !empty($value)) {
-                    $value = '***已隐藏***';
-                }
-            }
-            return $data;
-        }
-
-        private static function is_sensitive_key($key)
-        {
-            $lower = strtolower($key);
-            foreach (self::$sensitive_patterns as $pattern) {
-                if ($lower === $pattern || strpos($lower, $pattern) !== false) {
-                    return true;
-                }
-            }
-            return false;
-        }
     }
 }

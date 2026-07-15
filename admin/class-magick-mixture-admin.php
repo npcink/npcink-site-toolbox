@@ -188,15 +188,12 @@ class MaBox_Admin
 
 
         $MaBox_array = array(
-            'option' => MaBox_Config_Manager::get_merged_config(),
             'cat_arr' => self::get_cat_data(),
             'single_arr' => self::get_single_data(),
             'url_site' => get_site_url(),
             'ajaxurl' => admin_url('admin-ajax.php'),
             'apiBase' => esc_url_raw(rest_url('mabox/v1')),
             'restNonce' => wp_create_nonce('wp_rest'),
-            'defaults' => MaBox_Config_Schema::get_defaults(),
-
         );
         wp_localize_script($name, 'dataLocal', $MaBox_array);
 
@@ -245,64 +242,32 @@ class MaBox_Admin
 
 
     /**
-     * 添加选项接口 (AJAX)
-     * @deprecated 2.5.0 使用 REST API POST /mabox/v1/settings 替代
-     */
-    public static function save_option_wmt_callback()
-    {
-        if (!current_user_can('manage_options')) {
-            wp_send_json_error(['error' => '权限不足，仅管理员可操作'], 403);
-        }
-
-        check_ajax_referer('mabox_save_nonce', 'nonce');
-
-        if (empty($_POST['object_data'])) {
-            wp_send_json_error(['error' => '未接收到有效的设置数据'], 400);
-        }
-
-        $raw_data = wp_unslash($_POST['object_data']);
-        $object = json_decode($raw_data, true);
-
-        if (!is_array($object) || empty($object)) {
-            wp_send_json_error(['error' => '设置数据格式无效'], 400);
-        }
-
-        $result = self::do_save_config($object);
-
-        if (!$result['success']) {
-            wp_send_json_error(['error' => '保存失败，已恢复为之前的设置'], 500);
-        }
-
-        wp_send_json_success(['message' => '保存成功']);
-    }
-
-    /**
      * 统一配置保存入口
      *
-     * @param array $config 完整配置数据
-     * @return array ['success' => bool, 'message' => string]
+     * @param array $settings 不含凭据的完整配置数据
+     * @param array $secret_changes 凭据 replace/clear 操作
+     * @return array ['success' => bool, 'message' => string, 'status' => int]
      */
-    private static function do_save_config($config)
+    private static function do_save_config($settings, $secret_changes)
     {
-        if (!is_array($config) || empty($config)) {
-            return array('success' => false, 'message' => '设置数据格式无效');
+        $merge = MaBox_Config_Manager::merge_secret_changes($settings, $secret_changes);
+        if (!$merge['success']) {
+            return array('success' => false, 'message' => $merge['error'], 'status' => 400);
         }
 
+        $config = $merge['data'];
         $validation = MaBox_Config_Schema::validate_full_config($config);
         $config = $validation['data'];
-
-        $old_option_backup = MaBox_Config_Manager::get_merged_config();
 
         $result = MaBox_Config_Manager::save_full_config($config);
 
         if (!$result['success']) {
-            MaBox_Config_Manager::save_full_config($old_option_backup);
             if (class_exists('MaBox_Audit_Logger')) {
                 MaBox_Audit_Logger::config('保存配置失败，已回滚');
             } else {
                 error_log('[MaBox] Failed to update option, rolled back to previous state');
             }
-            return array('success' => false, 'message' => '保存失败，已恢复为之前的设置');
+            return array('success' => false, 'message' => '保存失败，已恢复为之前的设置', 'status' => 500);
         }
 
         $active_modules = MaBox_Module_Loader::get_active_modules($config);
@@ -325,69 +290,7 @@ class MaBox_Admin
             $message .= '（部分字段已自动修正）';
         }
 
-        return array('success' => true, 'message' => $message);
-    }
-
-    /**
-     * 导出设置
-     */
-    public static function export_settings_callback()
-    {
-        if (!current_user_can('manage_options')) {
-            wp_send_json_error('权限不足', 403);
-        }
-
-        $settings = MaBox_Config_Manager::export_config();
-        $json = json_encode($settings, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
-
-        header('Content-Type: application/json');
-        header('Content-Disposition: attachment; filename="mabox-settings-' . date('Y-m-d') . '.json"');
-        header('Content-Length: ' . strlen($json));
-        echo $json;
-        wp_die();
-    }
-
-    /**
-     * 导入设置
-     */
-    public static function import_settings_callback()
-    {
-        if (!current_user_can('manage_options')) {
-            wp_send_json_error('权限不足', 403);
-        }
-
-        if (empty($_FILES['settings_file'])) {
-            wp_send_json_error('未上传文件', 400);
-        }
-
-        $file = $_FILES['settings_file'];
-        if ($file['type'] !== 'application/json' && pathinfo($file['name'], PATHINFO_EXTENSION) !== 'json') {
-            wp_send_json_error('仅支持 JSON 文件', 400);
-        }
-
-        $json_content = file_get_contents($file['tmp_name']);
-        $settings = json_decode($json_content, true);
-
-        if (!is_array($settings)) {
-            wp_send_json_error('JSON 格式无效', 400);
-        }
-
-        $result = MaBox_Config_Manager::import_config($settings);
-
-        if (!$result['success']) {
-            wp_send_json_error($result['error'], 500);
-        }
-
-        $active_modules = MaBox_Module_Loader::get_active_modules($settings);
-        update_option(MAGICK_TOOLBOX_ACTIVE_MODULES, $active_modules);
-
-        if (function_exists('wp_cache_set')) {
-            wp_cache_set('mabox_active_modules', $active_modules, 'mabox', HOUR_IN_SECONDS);
-        }
-
-        self::clear_config_cache();
-
-        wp_send_json_success('导入成功');
+        return array('success' => true, 'message' => $message, 'status' => 200);
     }
 
     /**
@@ -400,14 +303,24 @@ class MaBox_Admin
         }
 
         $body = $request->get_json_params();
-        if (empty($body) || !is_array($body)) {
+        if (!is_array($body)) {
             return new \WP_Error('rest_invalid_data', '设置数据格式无效', array('status' => 400));
         }
 
-        $result = self::do_save_config($body);
+        $allowed_keys = array('settings', 'secretChanges');
+        if (!empty(array_diff(array_keys($body), $allowed_keys))
+            || !array_key_exists('settings', $body)
+            || !is_array($body['settings'])
+            || (isset($body['secretChanges']) && !is_array($body['secretChanges']))) {
+            return new \WP_Error('rest_invalid_data', '请求仅允许 settings 和 secretChanges', array('status' => 400));
+        }
+
+        $secret_changes = isset($body['secretChanges']) ? $body['secretChanges'] : array();
+        $result = self::do_save_config($body['settings'], $secret_changes);
 
         if (!$result['success']) {
-            return new \WP_Error('rest_save_failed', $result['message'], array('status' => 500));
+            $code = $result['status'] === 400 ? 'rest_invalid_data' : 'rest_save_failed';
+            return new \WP_Error($code, $result['message'], array('status' => $result['status']));
         }
 
         return rest_ensure_response([
@@ -422,12 +335,11 @@ class MaBox_Admin
             return new \WP_Error('rest_forbidden', '权限不足', array('status' => 403));
         }
 
-        $settings = MaBox_Config_Manager::get_merged_config();
-        $wizard_completed = get_option('mabox_wizard_completed', null);
+        $browser_config = MaBox_Config_Manager::get_browser_config();
         return rest_ensure_response([
             'success' => true,
-            'data' => $settings,
-            'wizard_completed' => $wizard_completed,
+            'data' => $browser_config['data'],
+            'secretStatus' => $browser_config['secretStatus'],
         ]);
     }
 
@@ -455,63 +367,6 @@ class MaBox_Admin
     }
 
     /**
-     * REST API: 导出设置
-     */
-    public static function rest_export_settings($request)
-    {
-        if (!current_user_can('manage_options')) {
-            return new \WP_Error('rest_forbidden', '权限不足', array('status' => 403));
-        }
-
-        $settings = MaBox_Config_Manager::export_config();
-
-        if (class_exists('MaBox_Diagnostics')) {
-            $settings = MaBox_Diagnostics::sanitize_for_export($settings);
-        }
-
-        return rest_ensure_response([
-            'success' => true,
-            'data' => $settings,
-        ]);
-    }
-
-    /**
-     * REST API: 导入设置
-     */
-    public static function rest_import_settings($request)
-    {
-        if (!current_user_can('manage_options')) {
-            return new \WP_Error('rest_forbidden', '权限不足', array('status' => 403));
-        }
-
-        $body = $request->get_json_params();
-        if (empty($body) || !is_array($body)) {
-            return new \WP_Error('rest_invalid_data', '导入数据格式无效', array('status' => 400));
-        }
-
-        $result = MaBox_Config_Manager::import_config($body);
-
-        if (!$result['success']) {
-            return new \WP_Error('rest_import_failed', $result['error'], array('status' => 500));
-        }
-
-        $active_modules = MaBox_Module_Loader::get_active_modules($body);
-        update_option(MAGICK_TOOLBOX_ACTIVE_MODULES, $active_modules);
-
-        if (function_exists('wp_cache_set')) {
-            wp_cache_set('mabox_active_modules', $active_modules, 'mabox', HOUR_IN_SECONDS);
-        }
-
-        self::clear_config_cache();
-
-        return rest_ensure_response([
-            'success' => true,
-            'message' => '导入成功',
-            'saved_modules' => $result['saved_modules'],
-        ]);
-    }
-
-    /**
      * 获取诊断摘要
      */
     public static function rest_get_diagnostics_summary(\WP_REST_Request $request)
@@ -529,26 +384,6 @@ class MaBox_Admin
         return rest_ensure_response(array(
             'success' => true,
             'data'    => $summary,
-        ));
-    }
-
-    public static function rest_wizard_complete(\WP_REST_Request $request)
-    {
-        $preset_id = $request->get_param('preset_id');
-        update_option('mabox_wizard_completed', array(
-            'completed_at' => current_time('mysql'),
-            'preset_id'    => $preset_id ? sanitize_text_field($preset_id) : '',
-        ));
-
-        if (class_exists('MaBox_Audit_Logger')) {
-            MaBox_Audit_Logger::log('wizard_completed', 'config', array(
-                'preset_id' => $preset_id,
-            ));
-        }
-
-        return rest_ensure_response(array(
-            'success' => true,
-            'message' => '向导完成标记已保存',
         ));
     }
 
@@ -585,20 +420,27 @@ class MaBox_Admin
                 'callback'            => array(__CLASS__, 'rest_save_settings'),
                 'permission_callback' => MaBox_Rest_Route_Registry::admin_permission(),
                 'args'                => array(
-                    'modules' => array(
-                        'required'          => false,
+                    'settings' => array(
+                        'required'          => true,
                         'type'              => 'object',
-                        'description'       => '模块配置对象',
+                        'description'       => '不含凭据的完整设置',
                         'sanitize_callback' => function ($value) {
                             return is_array($value) ? $value : array();
                         },
+                        'validate_callback' => function ($value) {
+                            return is_array($value);
+                        },
                     ),
-                    'global' => array(
+                    'secretChanges' => array(
                         'required'          => false,
                         'type'              => 'object',
-                        'description'       => '全局配置',
+                        'description'       => '凭据 replace/clear 操作',
+                        'default'           => array(),
                         'sanitize_callback' => function ($value) {
                             return is_array($value) ? $value : array();
+                        },
+                        'validate_callback' => function ($value) {
+                            return is_array($value);
                         },
                     ),
                 ),
@@ -613,37 +455,6 @@ class MaBox_Admin
             ),
         ), 'settings');
 
-        MaBox_Rest_Route_Registry::add('/settings/export', array(
-            array(
-                'methods'             => \WP_REST_Server::READABLE,
-                'callback'            => array(__CLASS__, 'rest_export_settings'),
-                'permission_callback' => MaBox_Rest_Route_Registry::admin_permission(),
-            ),
-        ), 'settings');
-
-        MaBox_Rest_Route_Registry::add('/settings/import', array(
-            array(
-                'methods'             => \WP_REST_Server::CREATABLE,
-                'callback'            => array(__CLASS__, 'rest_import_settings'),
-                'permission_callback' => MaBox_Rest_Route_Registry::admin_permission(),
-            ),
-        ), 'settings');
-
-        MaBox_Rest_Route_Registry::add('/settings/wizard-complete', array(
-            array(
-                'methods'             => \WP_REST_Server::CREATABLE,
-                'callback'            => array(__CLASS__, 'rest_wizard_complete'),
-                'permission_callback' => MaBox_Rest_Route_Registry::admin_permission(),
-                'args'                => array(
-                    'preset_id' => array(
-                        'required'          => false,
-                        'type'              => 'string',
-                        'description'       => '选用的配置方案 ID',
-                        'sanitize_callback' => 'sanitize_text_field',
-                    ),
-                ),
-            ),
-        ), 'settings');
     }
 
     private static function register_performance_routes()
@@ -882,28 +693,6 @@ class MaBox_Admin
             ),
         ), 'public');
 
-        MaBox_Rest_Route_Registry::add('/public/anti-crawler/verify', array(
-            'methods'             => \WP_REST_Server::CREATABLE,
-            'callback'            => array('MaBox_Page_Anti_Crawler', 'ajax_verify'),
-            'permission_callback' => MaBox_Rest_Route_Registry::public_nonce_rate_limited('anti-crawler', 'mabox_public_api', array('max_requests' => 20, 'time_window' => 60)),
-            'args'                => array(
-                'ticket' => array(
-                    'required'          => true,
-                    'validate_callback' => function ($value) {
-                        return is_string($value) && !empty($value);
-                    },
-                    'sanitize_callback' => 'sanitize_text_field',
-                ),
-                'randstr' => array(
-                    'required'          => true,
-                    'validate_callback' => function ($value) {
-                        return is_string($value) && !empty($value);
-                    },
-                    'sanitize_callback' => 'sanitize_text_field',
-                ),
-            ),
-        ), 'public');
-
         MaBox_Rest_Route_Registry::add('/public/rating', array(
             'methods'             => \WP_REST_Server::CREATABLE,
             'callback'            => array('MaBox_Page_Article_Rating', 'handle_rating'),
@@ -951,26 +740,6 @@ class MaBox_Admin
 
     private static function register_domestic_routes()
     {
-        MaBox_Rest_Route_Registry::add('/domestic/baidu/push', array(
-            'methods'             => \WP_REST_Server::CREATABLE,
-            'callback'            => array('MaBox_Domestic_Baidu_Push', 'rest_batch_push'),
-            'permission_callback' => MaBox_Rest_Route_Registry::admin_permission(),
-            'args'                => array(
-                'urls' => array(
-                    'required'          => false,
-                    'type'              => 'array',
-                    'description'       => '要推送的 URL 列表',
-                    'items'             => array('type' => 'string'),
-                ),
-                'offset' => array(
-                    'required'          => false,
-                    'type'              => 'integer',
-                    'description'       => '文章批量推送的偏移量',
-                    'sanitize_callback' => array(__CLASS__, 'sanitize_int_arg'),
-                ),
-            ),
-        ), 'domestic');
-
         MaBox_Rest_Route_Registry::add('/domestic/environment/check', array(
             array(
                 'methods'             => \WP_REST_Server::READABLE,
@@ -1074,8 +843,6 @@ class MaBox_Admin
 
     public function load()
     {
-        MaBox_Config_Manager::migrate();
-
         $option = MaBox_Config_Manager::get_merged_config();
         if (empty($option)) {
             return;

@@ -2,6 +2,7 @@ export { default as SettingsSection } from "./SettingsSection";
 export { default as ModuleCard } from "./ModuleCard";
 export { default as ModuleRow } from "./ModuleRow";
 export { default as StatusTag } from "./StatusTag";
+export { default as SecretField } from "./SecretField";
 export type { StatusType } from "./StatusTag";
 export { default as RiskNotice } from "./RiskNotice";
 export { default as DetailDrawer } from "./DetailDrawer";

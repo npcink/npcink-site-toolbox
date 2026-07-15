@@ -287,15 +287,6 @@ return array(
         'scope'     => 'frontend',
     ),
 
-    'page.anti_crawler' => array(
-        'class'     => 'MaBox_Page_Anti_Crawler',
-        'file'      => 'page/function/anti_crawler/index.php',
-        'option_key'=> 'page.function.anti_crawler',
-        'category'  => 'page',
-        'scope'     => 'frontend',
-        'config_path' => 'page.function',
-    ),
-
     // ========== 页面权限 ==========
     'page.hide_category' => array(
         'class'     => 'MaBox_Page_Hide_Category',
@@ -440,17 +431,6 @@ return array(
         'scope'     => 'frontend',
         'config_path' => 'domestic.compliance',
         'risk_tags' => array('推荐'),
-    ),
-
-    // ========== 国内生态 - 百度推送 ==========
-    'domestic.baidu_push' => array(
-        'class'     => 'MaBox_Domestic_Baidu_Push',
-        'file'      => 'domestic/baidu_push/index.php',
-        'option_key'=> 'domestic.baidu_push.active_push_enabled',
-        'category'  => 'domestic',
-        'scope'     => 'both',
-        'config_path' => 'domestic.baidu_push',
-        'risk_tags' => array('推荐', 'SEO'),
     ),
 
     // ========== 国内生态 - 微信生态 ==========

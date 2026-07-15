@@ -57,14 +57,6 @@ export interface SeoIssue {
   severity?: string;
 }
 
-export interface BaiduPushResult {
-  done: boolean;
-  offset?: number;
-  message?: string;
-  count?: number;
-  result?: unknown;
-}
-
 // ========== 性能优化 ==========
 export const performanceApi = {
   getDbStats: (): Promise<ApiResponse<DbStats>> =>
@@ -91,32 +83,11 @@ export const performanceApi = {
 
 // ========== 国内生态 ==========
 export const domesticApi = {
-  baiduPush: (urls?: string[], offset?: number): Promise<ApiResponse<BaiduPushResult>> =>
-    restInstance.post<ApiResponse<BaiduPushResult>, ApiResponse<BaiduPushResult>>("/domestic/baidu/push", { urls, offset }),
   checkEnvironment: (): Promise<ApiResponse<Record<string, { service: string; reachable: boolean; latency: number; suggestion: string }>>> =>
     restInstance.get("/domestic/environment/check") as Promise<any>,
   applyEnvironmentFix: (fixes: string[]): Promise<ApiResponse<{ applied: string[]; new_config: any }>> =>
     restInstance.post("/domestic/environment/apply", { fixes }) as Promise<any>,
 };
-
-export async function runBaiduBatchPush(
-  pushBatch: (offset: number) => Promise<ApiResponse<BaiduPushResult>>,
-): Promise<ApiResponse<BaiduPushResult>> {
-  let offset = 0;
-
-  for (let batch = 0; batch < 10000; batch += 1) {
-    const response = await pushBatch(offset);
-    if (!response.success || response.data?.done) return response;
-
-    const nextOffset = response.data?.offset;
-    if (typeof nextOffset !== "number" || nextOffset <= offset) {
-      throw new Error("推送响应没有推进下一批偏移量");
-    }
-    offset = nextOffset;
-  }
-
-  throw new Error("推送批次数超过安全上限");
-}
 
 // ========== 工具 ==========
 export const toolsApi = {
@@ -128,17 +99,7 @@ export const toolsApi = {
 
 // ========== 设置 ==========
 export const settingsApi = {
-  get: () => restInstance.get("/settings"),
-  save: (data: any) => restInstance.post("/settings", data),
   getSchema: () => restInstance.get("/settings/schema"),
-  export: () => restInstance.get("/settings/export"),
-  import: (file: File) => {
-    const formData = new FormData();
-    formData.append("file", file);
-    return restInstance.post("/settings/import", formData, {
-      headers: { "Content-Type": "multipart/form-data" },
-    });
-  },
 };
 
 // ========== 站点诊断 ==========

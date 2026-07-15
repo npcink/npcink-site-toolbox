@@ -8,6 +8,8 @@ interface DiffModalProps {
   diffs: ConfigDiffItem[];
   onConfirm: () => void;
   onCancel: () => void;
+  title?: string;
+  confirmText?: string;
 }
 
 const { Text } = Typography;
@@ -25,7 +27,14 @@ function formatValue(value: unknown): string {
   return String(value);
 }
 
-const DiffModal: React.FC<DiffModalProps> = ({ visible, diffs, onConfirm, onCancel }) => {
+const DiffModal: React.FC<DiffModalProps> = ({
+  visible,
+  diffs,
+  onConfirm,
+  onCancel,
+  title = "确认保存以下更改？",
+  confirmText = "确认保存",
+}) => {
   const highRiskCount = diffs.filter((d) => d.riskLevel === "high").length;
 
   return (
@@ -35,13 +44,13 @@ const DiffModal: React.FC<DiffModalProps> = ({ visible, diffs, onConfirm, onCanc
           {highRiskCount > 0 && (
             <ExclamationCircleOutlined style={{ color: "#f5222d", marginRight: 8 }} />
           )}
-          确认保存以下更改？
+          {title}
         </span>
       }
       open={visible}
       onOk={onConfirm}
       onCancel={onCancel}
-      okText="确认保存"
+      okText={confirmText}
       cancelText="取消"
       okButtonProps={{ danger: highRiskCount > 0 }}
       width={600}

@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useContext, useEffect } from "react";
-import { Form, Input, Select } from "antd";
+import { Form, Select } from "antd";
 import { DataContext } from "@/tool/dataContext";
 import { LoginSecurity } from "@/tool/interface";
 import { defaultVarOption } from "@/tool/defaultVar";
@@ -57,29 +57,9 @@ const App: React.FC = () => {
                 { value: "false", label: "禁用" },
                 { value: "math", label: "数学验证码" },
                 { value: "random", label: "随机混合验证码" },
-                { value: "tecent", label: "腾讯验证码（功能未验证）" },
               ]}
             />
           </Form.Item>
-
-          {formData.login_code === "tecent" && (
-            <>
-              <Form.Item<FieldType>
-                label="App ID"
-                name="tecent_id"
-                extra={"貌似随便填也能用"}
-              >
-                <Input />
-              </Form.Item>
-              <Form.Item<FieldType>
-                label="App Secret Key"
-                name="tecent_key"
-                extra={"貌似随便填也能用"}
-              >
-                <Input.Password />
-              </Form.Item>
-            </>
-          )}
         </Form>
       </SettingsSection>
 

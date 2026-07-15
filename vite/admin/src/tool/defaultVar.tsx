@@ -122,12 +122,6 @@ const PageFunction = {
   batch_replace: boo, //文章批量替换
   batch_replace_pairs: [], //替换规则
   login_search: boo, //仅登录可搜索
-
-  anti_crawler: boo, //进阶防刷
-  anti_crawler_max_requests: 60, //最大请求数
-  anti_crawler_time_window: 60, //时间窗口(秒)
-  anti_crawler_tecent_id: '', //腾讯防水墙AppID
-  anti_crawler_tecent_key: '', //腾讯防水墙AppKey
 };
 
 // 页面 - 权限
@@ -173,8 +167,6 @@ const FunctionTips = {
 //登录安全
 const LoginSecurity = {
   login_code: "false", //登录验证码
-  tecent_id: str, //腾讯ID
-  tecent_key: str, //腾讯秘钥
 };
 
 //国内生态 - 备案与合规
@@ -194,20 +186,10 @@ const DomesticCompliance = {
   copyright_html: '',
 };
 
-//国内生态 - 百度推送
-const DomesticBaiduPush = {
-  active_push_enabled: boo,
-  site: '',
-  token: '',
-  auto_push_enabled: boo,
-  batch_push_enabled: boo,
-};
-
 //国内生态 - 微信生态
 const DomesticWechat = {
   jssdk_enabled: boo,
   appid: '',
-  appsecret: '',
   guide_overlay_enabled: boo,
   guide_mode: 'guide',
   guide_text: '点击右上角 ··· 在浏览器中打开',
@@ -253,8 +235,6 @@ const DomesticLoginSecurity = {
 const PerformanceOss = {
   enabled: boo,
   provider: 'aliyun',
-  access_key: '',
-  secret_key: '',
   bucket: '',
   region: '',
   domain: '',
@@ -317,7 +297,6 @@ export const defaultVarOption = {
   //国内生态
   domestic: {
     compliance: DomesticCompliance,
-    baidu_push: DomesticBaiduPush,
     wechat: DomesticWechat,
     comment_security: DomesticCommentSecurity,
     login_security: DomesticLoginSecurity,
@@ -332,6 +311,5 @@ export const defaultVarOption = {
   },
 };
 export const defaultVarData = {
-  option: defaultVarOption,
   url_site: "http://localhost:10029",
 };

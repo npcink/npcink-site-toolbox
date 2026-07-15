@@ -16,8 +16,7 @@ global $wpdb;
 // 删除自定义字段
 delete_post_meta_by_key('mabox_trends_special');
 
-// 删除插件选项（旧版单键 + 2.1.0 拆分后的模块键）
-delete_option('Magick_ToolBox_Option');
+// 删除插件的模块配置
 delete_option('Magick_ToolBox_Option_Optimize');
 delete_option('Magick_ToolBox_Option_Page');
 delete_option('Magick_ToolBox_Option_Function');
@@ -25,9 +24,6 @@ delete_option('Magick_ToolBox_Option_H5');
 delete_option('Magick_ToolBox_Option_Login');
 delete_option('Magick_ToolBox_Option_Shortcode');
 delete_option('Magick_ToolBox_Option_Template');
-delete_option('Magick_ToolBox_Option_Backup_v210');
-delete_option('Magick_ToolBox_Config_Version');
-
 // 删除 2.2.0+ 新增模块选项键
 delete_option('Magick_ToolBox_Option_Domestic');
 delete_option('Magick_ToolBox_Option_Performance');

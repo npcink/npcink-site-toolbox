@@ -5,9 +5,9 @@
  * 提供多个实用小工具，可在侧边栏或页脚使用。
  */
 if (!class_exists('MaBox_Widgets')) {
-    class MaBox_Widgets {
+    class MaBox_Widgets implements MaBox_Module_Interface {
 
-        public static function run() {
+        public static function run($config = array()) {
             add_action('widgets_init', array(__CLASS__, 'register_widgets'));
         }
 

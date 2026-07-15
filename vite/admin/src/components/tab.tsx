@@ -1,7 +1,16 @@
 import React, { lazy, Suspense, useCallback, useEffect, useState } from "react";
+import { Alert, Spin } from "antd";
 
 import FeatureSearch from "@/components/feature-search";
-import { defaultOption, DataContext, fetchSettings } from "@/tool/dataContext";
+import {
+  DataContext,
+  emptySecretStatus,
+  fetchSettings,
+  SettingsLoadState,
+} from "@/tool/dataContext";
+import { defaultVarOption } from "@/tool/defaultVar";
+import { Option, SecretChange, SecretChanges, SecretPath } from "@/tool/interface";
+import { updateOptionValue } from "@/tool/option";
 import {
   AdminView,
   getAdminViewFromSearch,
@@ -68,8 +77,12 @@ const navGroups: NavGroup[] = [
 const allNavItems = navGroups.flatMap((group) => group.items);
 
 const App: React.FC = () => {
-  const [optionData, setOptionData] = useState(defaultOption);
-  const [lastSavedOption, setLastSavedOption] = useState(defaultOption);
+  const [optionData, setOptionData] = useState<Option>(defaultVarOption);
+  const [lastSavedOption, setLastSavedOption] = useState<Option>(defaultVarOption);
+  const [secretStatus, setSecretStatus] = useState(emptySecretStatus);
+  const [secretChanges, setSecretChanges] = useState<SecretChanges>({});
+  const [settingsState, setSettingsState] = useState<SettingsLoadState>("loading");
+  const [settingsError, setSettingsError] = useState<string | null>(null);
   const [isMobile, setIsMobile] = useState(() => window.innerWidth <= 782);
   const [activeView, setActiveView] = useState<AdminView>(() =>
     getAdminViewFromSearch(window.location.search),
@@ -103,12 +116,28 @@ const App: React.FC = () => {
     return () => window.removeEventListener("popstate", handlePopState);
   }, []);
 
-  useEffect(() => {
-    fetchSettings().then((data) => {
-      setOptionData(data);
-      setLastSavedOption(data);
-    });
+  const loadSettings = useCallback(async () => {
+    setSettingsState("loading");
+    setSettingsError(null);
+
+    try {
+      const response = await fetchSettings();
+      setOptionData(response.data);
+      setLastSavedOption(response.data);
+      setSecretStatus(response.secretStatus);
+      setSecretChanges({});
+      setSettingsState("ready");
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "无法读取设置";
+      setSettingsError(message);
+      setSettingsState("error");
+      throw error;
+    }
   }, []);
+
+  useEffect(() => {
+    loadSettings().catch(() => {});
+  }, [loadSettings]);
 
   useEffect(() => {
     if (!mobileMenuOpen) return;
@@ -121,21 +150,23 @@ const App: React.FC = () => {
   }, [mobileMenuOpen]);
 
   const updateOption = (father: string, son: string, newValue: any) => {
-    setOptionData((previousOptionData) => {
-      const updatedOptionData = { ...previousOptionData };
-      if (!updatedOptionData[father]) {
-        updatedOptionData[father] = {};
-      }
-      updatedOptionData[father][son] = newValue;
-      return updatedOptionData;
-    });
+    setOptionData((previousOptionData) =>
+      updateOptionValue(previousOptionData, father, son, newValue),
+    );
   };
 
-  const refreshOption = async () => {
-    const freshData = await fetchSettings();
-    setOptionData(freshData);
-    setLastSavedOption(freshData);
-  };
+  const refreshOption = loadSettings;
+
+  const setSecretChange = useCallback((path: SecretPath, change?: SecretChange) => {
+    setSecretChanges((previous) => {
+      const next = { ...previous };
+      if (change) next[path] = change;
+      else delete next[path];
+      return next;
+    });
+  }, []);
+
+  const clearSecretChanges = useCallback(() => setSecretChanges({}), []);
 
   const navigateToView = useCallback((requestedView: string, itemId?: string) => {
     const nextView = normalizeAdminView(requestedView);
@@ -207,6 +238,27 @@ const App: React.FC = () => {
       extraProps.targetItemId = targetItemId;
     }
 
+    if (settingsState === "loading") {
+      return (
+        <div className="mabox-view-loading" role="status" aria-live="polite">
+          <Spin size="small" />
+          <span>正在读取站点设置…</span>
+        </div>
+      );
+    }
+
+    if (settingsState === "error") {
+      return (
+        <Alert
+          type="error"
+          showIcon
+          message="无法读取站点设置"
+          description={`${settingsError || "设置接口请求失败"}。为避免覆盖真实配置，保存功能已禁用。`}
+          action={<button type="button" className="button" onClick={() => loadSettings().catch(() => {})}>重新读取</button>}
+        />
+      );
+    }
+
     return (
       <Suspense fallback={TabFallback}>
         <Component {...extraProps} />
@@ -222,7 +274,19 @@ const App: React.FC = () => {
 
   return (
     <DataContext.Provider
-      value={{ optionData, updateOption, refreshOption, lastSavedOption, setLastSavedOption }}
+      value={{
+        optionData,
+        updateOption,
+        refreshOption,
+        lastSavedOption,
+        setLastSavedOption,
+        secretStatus,
+        secretChanges,
+        setSecretChange,
+        clearSecretChanges,
+        settingsState,
+        settingsError,
+      }}
     >
       <div className="mabox-shell">
         <header className="mabox-header">

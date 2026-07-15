@@ -11,15 +11,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // 定义插件常量（供纯单元测试使用）
-if ( ! defined( 'MAGICK_MIXTURE_OPTION' ) ) {
-	define( 'MAGICK_MIXTURE_OPTION', 'Magick_ToolBox_Option' );
-}
-if ( ! defined( 'MAGICK_MIXTURE_CONFIG_VERSION' ) ) {
-	define( 'MAGICK_MIXTURE_CONFIG_VERSION', 'Magick_ToolBox_Config_Version' );
-}
-if ( ! defined( 'MAGICK_MIXTURE_CONFIG_BACKUP' ) ) {
-	define( 'MAGICK_MIXTURE_CONFIG_BACKUP', 'Magick_ToolBox_Config_Backup' );
-}
 if ( ! defined( 'MAGICK_MIXTURE_OPTION_OPTIMIZE' ) ) {
 	define( 'MAGICK_MIXTURE_OPTION_OPTIMIZE', 'Magick_ToolBox_Option_Optimize' );
 	define( 'MAGICK_MIXTURE_OPTION_PAGE', 'Magick_ToolBox_Option_Page' );
@@ -45,6 +36,13 @@ if ( ! function_exists( 'get_option' ) ) {
 if ( ! function_exists( 'update_option' ) ) {
 	function update_option( $option, $value, $autoload = null ) {
 		global $_test_option_store;
+		global $_test_update_option_failures;
+		if ( ! empty( $_test_update_option_failures[ $option ] ) ) {
+			return false;
+		}
+		if ( array_key_exists( $option, $_test_option_store ) && $_test_option_store[ $option ] === $value ) {
+			return false;
+		}
 		$_test_option_store[ $option ] = $value;
 		return true;
 	}

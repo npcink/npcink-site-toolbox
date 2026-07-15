@@ -14,24 +14,6 @@ if (!class_exists('MaBox_Privacy')) {
          */
         private static $external_services = array(
             array(
-                'name'        => '百度推送',
-                'provider'    => '百度',
-                'purpose'     => '主动推送文章链接至百度搜索引擎，加快收录速度',
-                'data_sent'   => '文章 URL',
-                'data_stored' => '无',
-                'opt_in'      => false,
-                'config_key'  => 'domestic.baidu_push',
-            ),
-            array(
-                'name'        => '腾讯防水墙',
-                'provider'    => '腾讯',
-                'purpose'     => '反爬虫验证，防止恶意访问',
-                'data_sent'   => '用户 IP、验证票据',
-                'data_stored' => '无',
-                'opt_in'      => false,
-                'config_key'  => 'page.function.anti_crawler',
-            ),
-            array(
                 'name'        => '微信 JSSDK',
                 'provider'    => '腾讯（微信）',
                 'purpose'     => '微信内分享自定义标题、描述、图标',
