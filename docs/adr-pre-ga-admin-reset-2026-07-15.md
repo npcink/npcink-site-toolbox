@@ -1,6 +1,6 @@
 # ADR: Pre-GA 管理后台清场式重构
 
-- 状态：已接受；工作包 1-6 已验收，工作包 7 实施中（待自动化门禁与真实 Local 恢复验收）
+- 状态：已接受；工作包 1-7 已验收，工作包 8A 已完成自动化与 Local 验收
 - 日期：2026-07-15
 - 决策范围：WP Magick Toolbox 管理后台应用外壳
 
@@ -125,7 +125,7 @@
 ## 后续工作包
 
 1. 完成工作包 7 的自动化门禁、紧急恢复和真实 Local 登录烟测。
-2. 狭窄修复 `category_link_simplify` 生命周期 Hook 和 `ban_auto_size` 缺少过滤返回值两项已确认行为债务。
+2. 完成 `category_link_simplify` 生命周期修复后，继续狭窄修复 `ban_auto_size` 缺少过滤返回值的已确认行为债务。
 3. 建立单一模块 manifest/config schema，并生成或校验前端类型与搜索索引，继续减少手写重复真相。
 4. 逐步缩减 Ant Design、Tailwind 和大体积共享 chunk，稳定到更轻的 WordPress 管理界面组件边界。
 5. 完成发布前人工验收、风险功能恢复路径验证和打包检查。
@@ -321,6 +321,31 @@
 - Local 最终状态已清理：临时用户、测试 Cookie、紧急常量和登录 transient 均不存在；登录安全配置保留六个当前字段并恢复为两开关关闭、`5/15/30` 默认数值和空可信代理，激活模块中不再包含 `domestic.login_security`。PHP 日志只新增两条预期配置更新 INFO，PHP-FPM 与 Nginx 错误日志无增量。
 - 已知剩余风险：失败计数仍使用 WordPress transient 的读、加、写序列，极端并发请求可能丢失增量。数据库 transient 与外部对象缓存没有统一 CAS 契约，本包没有用仅覆盖部分后端的 `wp_cache_incr` 或临时 Option 锁伪装成原子实现；如发布定位要求强限流保证，应另立存储与原子后端工作包。
 
+## 工作包 8A：分类链接简化生命周期修复
+
+| 项目 | 决定 |
+| --- | --- |
+| 目标仓库 | `/Users/muze/gitee/wp-magick-toolbox` |
+| 聚焦模块 | `optimize.site.category_link_simplify` 的插件激活、停用和设置更新生命周期 |
+| 失败证据 | 旧实现只在前台模块 `run()` 时注册以模块文件为入口的激活/停用 Hook，无法可靠收到主插件生命周期事件；停用时又使用了错误的字符串回调，且没有恢复 WordPress Core 分类 permastruct |
+| 预期变更 | 在主插件文件顶层注册生命周期 Hook；启用时按配置应用并刷新规则；停用时移除精确回调、恢复 Core 分类结构并刷新；Optimize Option 只在目标布尔值实际双向变化后刷新 |
+| 明确非目标 | 不修改分类 URL 算法、设置 Schema、其他模块、前端、数据库结构或兄弟仓库 |
+| 公共契约 | `Magick_ToolBox_Option_Optimize.site.category_link_simplify` 保持布尔字段；只修正该字段与 WordPress rewrite 生命周期的同步语义 |
+| 预期文件 | `magick-tool-box.php`、`admin/partials/optimize/site/category_link_simplify.php`、聚焦 PHPUnit 回归测试与本 ADR |
+| 不得改变 | 其他 URL/Rewrite 模块、前端构建产物、用户未跟踪排障文档、兄弟仓库 |
+| 必需门禁 | 聚焦 PHPUnit、`composer test`、PHPStan、变更 PHP 语法检查、`git diff --check` |
+| 跨仓矩阵 | 不需要；生命周期与设置 Option 均由本插件拥有 |
+| 回滚计划 | 回滚本工作包局部变更即可恢复旧行为；不新增迁移器、兼容回调或双轨状态 |
+
+### 工作包 8A 决策与结果
+
+1. `register_activation_hook()` 与 `register_deactivation_hook()` 由 `magick-tool-box.php` 在顶层注册，回调统一指向分类链接模块；模块 `run()` 只负责请求期 Hook，不再伪装插件生命周期入口。
+2. 插件激活只在已保存值严格为布尔 `true` 时注册自定义回调、应用 `%category%` permastruct 并刷新规则；关闭、缺失或非布尔值均不产生无意义刷新。
+3. 停用或设置从 `true` 转为 `false` 时，以完整的静态类回调移除该模块注册的 actions/filters，再调用 Core `category` taxonomy 的 `add_rewrite_rules()` 恢复原生 permastruct，最后刷新规则。
+4. 监听 WordPress 成功更新后的动态 `update_option_Magick_ToolBox_Option_Optimize` action；仅当目标字段在严格布尔 `false` 与 `true` 间转换时处理，其他 Optimize 字段变化、同值保存和非布尔漂移均不刷新。
+5. 新增 6 项聚焦回归测试、28 个断言，覆盖主入口注册、激活开关、精确停用清理、Core 恢复、双向设置转换和无转换不刷新。聚焦测试通过；全量 PHPUnit 336 项测试/3351 个断言通过，PHPStan 0 error，3 个变更 PHP 文件语法检查通过。
+6. Local WordPress 7.0.1 四阶段烟测通过：设置开启后分类链接由 `/category/uncategorized/` 变为 `/uncategorized/` 且直接规则存在；停用插件后恢复 Core 链接并删除直接规则；保留开启配置重新激活后再次应用简化规则；设置关闭后再次恢复 Core。烟测清理脚本末尾因 zsh 保留的只读变量名 `status` 中止自动恢复，随后已显式重建激活模块表并刷新缓存；最终确认插件启用、该设置为 `false`、激活模块仅 `optimize.widgets`，PHP、PHP-FPM 与 Nginx 错误日志均无增量。
+
 ## 结果复核
 
 首个垂直切片已完成独立代码审查和浏览器烟测，改进假说成立：
@@ -337,4 +362,4 @@
 
 浏览器烟测先使用 Vite 默认数据验证桌面/移动结构、语义路由、浏览器返回、未知路由、搜索定位和接口失败状态；工作包 4 又在真实 Local WordPress 管理员登录态中验证了 WordPress 管理栏、服务端成功响应和敏感设置闭环。
 
-整个 Pre-GA Reset 尚未完成；AI Provider Runtime 清退已由工作包 2 收口，pnpm/CI 可重复基线已由工作包 3 收口，敏感设置契约已由工作包 4 收口，注册模块与 Loader 的运行时契约已由工作包 5 收口，不可信登录验证码已由工作包 6 清退。工作包 7 已冻结登录安全的最小最终契约，旧复合模块单一激活门槛不再作为后续设计债务；发布前仍须完成本包自动化与 Local 恢复验收。其余主要问题是两项已确认模块行为债务、重复 manifest/schema，以及 Ant Design/Tailwind 和大 chunk 带来的前端维护与性能成本。
+整个 Pre-GA Reset 尚未完成；AI Provider Runtime 清退已由工作包 2 收口，pnpm/CI 可重复基线已由工作包 3 收口，敏感设置契约已由工作包 4 收口，注册模块与 Loader 的运行时契约已由工作包 5 收口，不可信登录验证码已由工作包 6 清退。工作包 7 已冻结登录安全的最小最终契约，工作包 8A 已修复分类链接简化的生命周期债务。其余主要问题是 `ban_auto_size` 已确认行为债务、重复 manifest/schema，以及 Ant Design/Tailwind 和大 chunk 带来的前端维护与性能成本。

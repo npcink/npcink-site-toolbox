@@ -51,6 +51,16 @@ define('MAGICK_MIXTURE_OPTION_PERFORMANCE', 'Magick_ToolBox_Option_Performance')
 require_once plugin_dir_path(__FILE__) . 'includes/autoload.php';
 require_once plugin_dir_path(__FILE__) . 'includes/class-magick-mixture.php';
 
+// 生命周期 Hook 必须由主插件文件在顶层注册，模块按需加载时注册会错过事件。
+register_activation_hook(__FILE__, array('MaBox_Category_Link_Simplify', 'activate'));
+register_deactivation_hook(__FILE__, array('MaBox_Category_Link_Simplify', 'deactivate'));
+add_action(
+    'update_option_' . MAGICK_MIXTURE_OPTION_OPTIMIZE,
+    array('MaBox_Category_Link_Simplify', 'handle_optimize_option_update'),
+    10,
+    2
+);
+
 
 
 

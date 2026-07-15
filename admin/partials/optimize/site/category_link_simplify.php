@@ -12,9 +12,70 @@ if (!class_exists('MaBox_Category_Link_Simplify')) {
          */
         public static function run($config = array())
         {
-            /* hooks */
-            register_activation_hook(__FILE__,    array(__CLASS__, 'no_category_base_refresh_rules'));
-            register_deactivation_hook(__FILE__,  array(__CLASS__, 'no_category_base_deactivate'));
+            self::register_runtime_hooks();
+        }
+
+        /**
+         * Apply rewrite rules on plugin activation only when the feature is enabled.
+         */
+        public static function activate()
+        {
+            $config = get_option(MAGICK_MIXTURE_OPTION_OPTIMIZE, array());
+            if (!self::is_enabled($config)) {
+                return;
+            }
+
+            self::enable();
+        }
+
+        /**
+         * Restore WordPress category rewrite behavior before plugin deactivation.
+         */
+        public static function deactivate()
+        {
+            self::disable();
+        }
+
+        /**
+         * Refresh rewrite rules after a successful Optimize Option update only
+         * when category_link_simplify changes between boolean false and true.
+         *
+         * @param mixed $old_value Previous Optimize Option value.
+         * @param mixed $new_value Updated Optimize Option value.
+         */
+        public static function handle_optimize_option_update($old_value, $new_value)
+        {
+            $was_enabled = self::get_enabled_value($old_value);
+            $is_enabled = self::get_enabled_value($new_value);
+
+            if (!is_bool($was_enabled) || !is_bool($is_enabled) || $was_enabled === $is_enabled) {
+                return;
+            }
+
+            if ($is_enabled) {
+                self::enable();
+                return;
+            }
+
+            self::disable();
+        }
+
+        private static function enable()
+        {
+            self::register_runtime_hooks();
+            self::no_category_base_permastruct();
+            self::no_category_base_refresh_rules();
+        }
+
+        private static function disable()
+        {
+            self::unregister_runtime_hooks();
+            self::restore_category_permastruct();
+            self::no_category_base_refresh_rules();
+        }
+
+        private static function register_runtime_hooks()
+        {
 
             /* actions */
             add_action('created_category',   array(__CLASS__, 'no_category_base_refresh_rules'));
@@ -28,16 +89,46 @@ if (!class_exists('MaBox_Category_Link_Simplify')) {
             add_filter('request',                array(__CLASS__, 'no_category_base_request'));       // Redirects if 'category_redirect' is set
         }
 
+        private static function unregister_runtime_hooks()
+        {
+            remove_action('created_category', array(__CLASS__, 'no_category_base_refresh_rules'));
+            remove_action('delete_category', array(__CLASS__, 'no_category_base_refresh_rules'));
+            remove_action('edited_category', array(__CLASS__, 'no_category_base_refresh_rules'));
+            remove_action('init', array(__CLASS__, 'no_category_base_permastruct'));
+
+            remove_filter('category_rewrite_rules', array(__CLASS__, 'no_category_base_rewrite_rules'));
+            remove_filter('query_vars', array(__CLASS__, 'no_category_base_query_vars'));
+            remove_filter('request', array(__CLASS__, 'no_category_base_request'));
+        }
+
+        private static function restore_category_permastruct()
+        {
+            $category_taxonomy = get_taxonomy('category');
+            if ($category_taxonomy && is_callable(array($category_taxonomy, 'add_rewrite_rules'))) {
+                call_user_func(array($category_taxonomy, 'add_rewrite_rules'));
+            }
+        }
+
+        private static function is_enabled($config)
+        {
+            return self::get_enabled_value($config) === true;
+        }
+
+        private static function get_enabled_value($config)
+        {
+            return is_array($config)
+                && isset($config['site'])
+                && is_array($config['site'])
+                && array_key_exists('category_link_simplify', $config['site'])
+                && is_bool($config['site']['category_link_simplify'])
+                ? $config['site']['category_link_simplify']
+                : null;
+        }
+
         public static function no_category_base_refresh_rules()
         {
             global $wp_rewrite;
             $wp_rewrite->flush_rules();
-        }
-
-        public static function no_category_base_deactivate()
-        {
-            remove_filter('category_rewrite_rules', 'no_category_base_rewrite_rules'); // We don't want to insert our custom rules again
-            self::no_category_base_refresh_rules();
         }
 
         /**
