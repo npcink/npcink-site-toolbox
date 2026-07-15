@@ -126,7 +126,7 @@ const App: React.FC = () => {
                 <>
                   可使用HTML，例如：
                   <br />
-                  <pre className="pre-meat">
+                  <pre className="mabox-preformatted-hint">
                     &lt;p&gt; 抱歉，我们的网站正在维护中...
                     <br />
                     &lt;h5 class="dull-text"&gt; <br />

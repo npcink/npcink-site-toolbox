@@ -64,7 +64,7 @@ const App: React.FC = () => {
         onFinish={() => {}}
         onValuesChange={onValuesChange}
       >
-        <h3 className="menu-header">未登录权限</h3>
+        <h3 className="mabox-menu-header">未登录权限</h3>
 
         <Form.Item<FieldType>
           label="隐藏指定分类下的内容"

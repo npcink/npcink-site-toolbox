@@ -43,7 +43,7 @@ const App: React.FC = () => {
         onFinish={() => {}}
         onValuesChange={onValuesChange}
       >
-        <h3 className="menu-header">特效</h3>
+        <h3 className="mabox-menu-header">特效</h3>
 
         <ModuleRow
           title="阅读进度条"

@@ -56,9 +56,17 @@ const FixedImage: React.FC<FixedImageProps> = (props: any) => {
         ) : (
           <>
             {result && result.label ? (
-              <Image src={result.label} width={120} />
+              <Image
+                src={result.label}
+                width={120}
+                preview={{ rootClassName: "mabox-admin-modal" }}
+              />
             ) : (
-              <Image src={Disabled} width={120} />
+              <Image
+                src={Disabled}
+                width={120}
+                preview={{ rootClassName: "mabox-admin-modal" }}
+              />
             )}
           </>
         )}
@@ -66,6 +74,7 @@ const FixedImage: React.FC<FixedImageProps> = (props: any) => {
       </Space>
 
       <Modal
+        rootClassName="mabox-admin-modal"
         title="选择您需要的样式"
         open={isModalOpen}
         onOk={handleOk}
@@ -78,9 +87,15 @@ const FixedImage: React.FC<FixedImageProps> = (props: any) => {
               <Radio.Group onChange={onChange} value={imageValue}>
                 <Radio value={item.value}>
                   <Popover
+                    rootClassName="mabox-admin-modal"
                     placement="rightTop"
                     content={
-                      <Image src={item.label} width={200} alt={item.title} />
+                      <Image
+                        src={item.label}
+                        width={200}
+                        alt={item.title}
+                        preview={{ rootClassName: "mabox-admin-modal" }}
+                      />
                     }
                     title={"预览样式：" + item.title}
                   >

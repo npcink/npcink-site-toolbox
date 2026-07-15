@@ -132,6 +132,7 @@ function showRiskConfirm(
   }
 
   Modal.confirm({
+    rootClassName: "mabox-admin-modal",
     title: `您正在开启「${riskInfo.title}」`,
     icon: <ExclamationCircleOutlined style={{ color: "#faad14" }} />,
     content: (

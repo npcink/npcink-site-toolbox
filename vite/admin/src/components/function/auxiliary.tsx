@@ -154,7 +154,7 @@ const App: React.FC = () => {
                 谷歌统计
               </a>
               ：
-              <pre className="pre-meat">
+              <pre className="mabox-preformatted-hint">
                 &lt;meta name="google-site-verification" content="HB..." /&gt;
               </pre>
             </span>
@@ -172,7 +172,7 @@ const App: React.FC = () => {
                 必应统计
               </a>
               ：
-              <pre className="pre-meat">
+              <pre className="mabox-preformatted-hint">
                 &lt;meta name="msvalidate.01" content="CF..." /&gt;
               </pre>
             </span>

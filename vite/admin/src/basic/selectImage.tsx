@@ -63,12 +63,20 @@ const SelectImage: React.FC = (props: any) => {
 
   //准备图片预览内容
   const content = (
-    <>{props.value ? <Image src={imageValue} width={200} /> : "暂无选中图片"}</>
+    <>
+      {props.value ? (
+        <Image
+          src={imageValue}
+          width={200}
+          preview={{ rootClassName: "mabox-admin-modal" }}
+        />
+      ) : "暂无选中图片"}
+    </>
   );
   return (
     <>
       <Space.Compact style={{ width: "100%" }}>
-        <Popover content={content} title="预览">
+        <Popover rootClassName="mabox-admin-modal" content={content} title="预览">
           <Input
             {...props}
             placeholder="图片地址"
@@ -80,6 +88,7 @@ const SelectImage: React.FC = (props: any) => {
       </Space.Compact>
 
       <Modal
+        rootClassName="mabox-admin-modal"
         title="选择您需要的图片"
         open={isModalOpen}
         onOk={handleOk}

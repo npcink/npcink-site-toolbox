@@ -39,6 +39,7 @@ const DiffModal: React.FC<DiffModalProps> = ({
 
   return (
     <Modal
+      rootClassName="mabox-admin-modal"
       title={
         <span>
           {highRiskCount > 0 && (
@@ -55,7 +56,7 @@ const DiffModal: React.FC<DiffModalProps> = ({
       okButtonProps={{ danger: highRiskCount > 0 }}
       width={600}
     >
-      <Space direction="vertical" className="w-full" style={{ marginTop: 8 }}>
+      <Space direction="vertical" className="mabox-full-width" style={{ marginTop: 8 }}>
         {highRiskCount > 0 && (
           <Text type="danger">
             检测到 {highRiskCount} 项高风险功能将被开启，请谨慎确认。
@@ -67,7 +68,7 @@ const DiffModal: React.FC<DiffModalProps> = ({
           dataSource={diffs}
           renderItem={(item) => (
             <List.Item>
-              <div className="w-full">
+              <div className="mabox-full-width">
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                   <Text strong>
                     {item.label}

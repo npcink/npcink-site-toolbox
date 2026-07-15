@@ -1,6 +1,6 @@
 # ADR: Pre-GA 管理后台清场式重构
 
-- 状态：已接受；工作包 1-7 已验收，工作包 8A-8B 已完成自动化与 Local 验收
+- 状态：已接受；工作包 1-7 已验收，工作包 8A-8B 已完成自动化与 Local 验收，工作包 9A 已完成自动化验收
 - 日期：2026-07-15
 - 决策范围：WP Magick Toolbox 管理后台应用外壳
 
@@ -369,6 +369,31 @@
 3. 新增 2 项行为回归测试、3 个断言，旧实现会分别因错误 hook 类型和 `null` 返回失败。聚焦测试通过；全量 PHPUnit 338 项测试/3354 个断言通过，PHPStan 0 error，2 个变更 PHP 文件语法检查通过。
 4. Local WordPress 7.0.1 真实过滤链验收通过：临时开启模块后，以预加载 `WP_ADMIN=true` 的普通 WordPress 引导确认目标回调已注册，过滤结果仍为数组，六个 Core 尺寸被删除，`theme-hero` 自定义尺寸及配置原样保留，既有大图阈值过滤仍返回 `false`。WP-CLI 2.12.0 的 `--context=admin` 会在加载 Core 后台菜单时因缺少全局菜单数组触发 `uksort(null)`，故未将该工具基线错误误判为插件故障。最终已恢复 `no_auto_size=false`、激活模块仅 `optimize.widgets` 且插件保持启用，PHP、PHP-FPM 与 Nginx 错误日志无增量。
 
+## 工作包 9A：WordPress 后台嵌入隔离
+
+| 项目 | 决定 |
+| --- | --- |
+| 目标仓库 | `/Users/muze/gitee/wp-magick-toolbox` |
+| 聚焦模块 | `vite/admin` 的 CSS 选择器与浏览器事件边界 |
+| 失败证据 | Tailwind preflight 会重置整个 WordPress 后台文档，utilities 又会向生产 CSS 输出 `.fixed`、`.table`、`.border`、`.filter` 等裸全局类；`App.css` 另有裸 `a`/`h2`、`.ant-btn-primary`、`.ant-form-item` 和 `.menu-header`；PHP 还通过 `wp_add_inline_style()` 注入裸 `#root`/`.ant-*` 响应式旁路，入口加载 `default-passive-events` 后会修改宿主事件监听语义 |
+| 预期变更 | 将仅有的三类 Tailwind utility 使用改为 `.mabox-*` 局部 CSS，以 `.mabox-shell` 内最小 normalization 保留应用布局，删除 admin Tailwind/PostCSS 管线和 PHP 内联 CSS 旁路；所有自有规则限定在 `.mabox-*` 命名空间；删除 admin 全局事件补丁；增加 clean-checkout 源契约和 build 后递归产物扫描 |
+| 明确非目标 | 不改 UI 结构、Ant Design、业务表单、代码分块、PHP 功能、`count` 子项目仍在使用的事件补丁或兄弟仓库 |
+| 公共契约 | WordPress 后台宿主的全局元素样式和事件监听选项不再被 admin bundle 改写；插件内部业务与设置契约不变 |
+| 预期文件 | 删除 admin Tailwind/PostCSS 配置；修改 `admin/class-magick-mixture-admin.php`、`src/App.css`、三类 utility 消费者、portal 消费者、`src/main.tsx`、admin manifest、工作区 lockfile、聚焦测试、构建扫描脚本与本 ADR |
+| 不得改变 | 其他前端项目、后台 UI 结构、PHP/REST、用户未跟踪排障文档和兄弟仓库 |
+| 必需门禁 | admin Vitest、TypeScript、Vite build、build 后所有 CSS 的 `.mabox-*` 选择器扫描、ESLint 0 error、frozen lockfile 检查、PHP 语法、PHPUnit、PHPStan 和 `git diff --check` |
+| 跨仓矩阵 | 不需要；改动只约束本仓库 admin bundle 的宿主嵌入行为 |
+| 回滚计划 | 回滚本切片即可恢复旧样式/事件入口；不引入 feature flag 或双轨加载 |
+
+### 工作包 9A 实施事实
+
+1. admin 已删除全部 `@tailwind`/`@apply`、Tailwind/PostCSS 配置和 `tailwindcss`/`autoprefixer`/`postcss` 三个直接开发依赖；`count` 与 `public` 子项目未改动。
+2. 原 `pre-meat`、`cursor-pointer font-bold` 和 `w-full` 分别改为 `mabox-preformatted-hint`、`mabox-preview-trigger` 和 `mabox-full-width`，以少量普通 CSS 保留现有视觉与布局。
+3. `App.css` 在 `.mabox-shell` 内保留最小 normalization：box sizing、标题/段落/pre、列表和表单控件只影响插件后代；元素 reset 使用低特异性的 `:where()`，不会覆盖后续组件类。Drawer 使用 `.mabox-detail-drawer`，Modal/Popover/Image Preview 与 `Modal.confirm` 使用 `.mabox-admin-modal`，因此挂载到 `body` 的 portal 也进入同一 scoped normalization 和响应式 Ant 覆盖；通用 `.menu-header` 改为 `.mabox-menu-header`。原 PHP `wp_add_inline_style()` 旁路已删除，`#root` 外边距和仍需保留的 Ant 响应式规则均迁入可扫描的 bundle；源契约会读取 PHP 文件阻止旁路复活，并拒绝不以 `.mabox-` 起始的 CSS 选择器。Local 320px 复核确认 SEO 模块网格的 300px 最小列宽会造成横向滚动，移动断点现强制使用 `minmax(0, 1fr)`，并允许模块卡片收缩；未打开和打开 Drawer 时，`body`/document 的 `scrollWidth` 均为 320px。
+4. admin 入口不再导入 `default-passive-events`，admin manifest/lock importer 同步删除该直接依赖；`count` 子项目仍有真实入口引用，因此共享 lockfile 中的包快照按需保留。
+5. `vite build` 后由 `vite/admin/src/check-admin-css-isolation.mjs` 递归发现 `dist` 下全部 CSS，并以 jsdom/CSSOM 解析普通规则及媒体规则；选择器列表只在顶层逗号处分隔，不会误拆 `:where()`、`:is()`、属性或字符串中的逗号。若构建工具重新生成裸全局类、元素或 reset，构建会直接失败。脚本位于发布 ZIP 已排除的 `src/`，普通 Vitest 不依赖被忽略的 `dist`，可在 clean checkout 独立运行。
+6. 自动化门禁：admin Vitest 16 个文件/104 项测试通过；TypeScript 与 Vite build 通过；构建扫描确认 2 个 CSS 文件/286 个选择器全部位于 `.mabox-*` 命名空间，`index.css` 从旧基线约 15.20 kB 收口为 13.63 kB；ESLint 0 error、frozen offline install、PHP 语法、PHPUnit 338 项测试/3354 个断言、PHPStan 0 error 和 `git diff --check` 通过。
+
 ## 结果复核
 
 首个垂直切片已完成独立代码审查和浏览器烟测，改进假说成立：
@@ -385,4 +410,4 @@
 
 浏览器烟测先使用 Vite 默认数据验证桌面/移动结构、语义路由、浏览器返回、未知路由、搜索定位和接口失败状态；工作包 4 又在真实 Local WordPress 管理员登录态中验证了 WordPress 管理栏、服务端成功响应和敏感设置闭环。
 
-整个 Pre-GA Reset 尚未完成；AI Provider Runtime 清退已由工作包 2 收口，pnpm/CI 可重复基线已由工作包 3 收口，敏感设置契约已由工作包 4 收口，注册模块与 Loader 的运行时契约已由工作包 5 收口，不可信登录验证码已由工作包 6 清退。工作包 7 已冻结登录安全的最小最终契约，工作包 8A-8B 已修复分类链接简化生命周期和自动图片尺寸过滤器两项行为债务。其余主要问题是重复 manifest/schema，以及 Ant Design/Tailwind 和大 chunk 带来的前端维护与性能成本。
+整个 Pre-GA Reset 尚未完成；AI Provider Runtime 清退已由工作包 2 收口，pnpm/CI 可重复基线已由工作包 3 收口，敏感设置契约已由工作包 4 收口，注册模块与 Loader 的运行时契约已由工作包 5 收口，不可信登录验证码已由工作包 6 清退。工作包 7 已冻结登录安全的最小最终契约，工作包 8A-8B 已修复分类链接简化生命周期和自动图片尺寸过滤器两项行为债务，工作包 9A 已移除 admin Tailwind 管线并建立宿主隔离门禁。其余主要问题是重复 manifest/schema，以及 Ant Design 和大 chunk 带来的前端维护与性能成本。

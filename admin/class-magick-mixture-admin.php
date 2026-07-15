@@ -160,33 +160,6 @@ class MaBox_Admin
         wp_enqueue_style($name, $index_css, array(), $ver, false);
         wp_enqueue_script($name, $index_js, array(), $ver, true);
 
-        // 移动端适配
-        wp_add_inline_style($name, '
-            @media (max-width: 768px) {
-                #root { margin: 0 -10px; }
-                .ant-form-item-label { width: 100% !important; padding-right: 0 !important; }
-                .ant-form-item-control-wrapper { width: 100% !important; }
-                .ant-tabs-nav { overflow-x: auto !important; }
-                .ant-tabs-nav-list { white-space: nowrap !important; }
-                .ant-anchor { display: none !important; }
-                .ant-form { max-width: 100% !important; }
-                .ant-card-body { padding: 12px !important; }
-                .ant-statistic { margin-bottom: 12px !important; }
-                .ant-layout-header { padding-inline: 16px !important; height: auto !important; line-height: 1.5 !important; flex-wrap: wrap !important; }
-                .ant-layout-header h1 { font-size: 18px !important; width: 100%; margin-bottom: 8px; }
-                .ant-tabs-tabpane { padding: 8px !important; }
-                .ant-form-item { margin-bottom: 16px !important; }
-                .ant-switch { min-width: 36px; height: 20px; }
-                .ant-btn { font-size: 13px; padding: 4px 12px; }
-            }
-            @media (min-width: 769px) and (max-width: 1024px) {
-                .ant-form-item-label { width: 120px !important; }
-                .ant-form-item-control-wrapper { width: calc(100% - 120px) !important; }
-            }
-        ');
-
-
-
         $MaBox_array = array(
             'cat_arr' => self::get_cat_data(),
             'single_arr' => self::get_single_data(),

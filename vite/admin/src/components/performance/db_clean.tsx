@@ -72,6 +72,7 @@ const App: React.FC = () => {
     const preview = previewData[type];
     const affectedCount = getAffectedCount(type, preview);
     Modal.confirm({
+      rootClassName: "mabox-admin-modal",
       title: "确认执行数据库清理？",
       icon: <ExclamationCircleOutlined />,
       content: (

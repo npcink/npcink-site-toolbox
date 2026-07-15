@@ -11,13 +11,19 @@ const App: React.FC<PreviewProps> = (props: any) => {
   return (
     <>
       <Popover
+        rootClassName="mabox-admin-modal"
         placement="rightTop"
         content={
-          <Image src={props.img || Disabled} width={200} alt={props.title} />
+          <Image
+            src={props.img || Disabled}
+            width={200}
+            alt={props.title}
+            preview={{ rootClassName: "mabox-admin-modal" }}
+          />
         }
         title={"预览样式：" + props.title}
       >
-        <span className="cursor-pointer font-bold">预览效果</span>
+        <span className="mabox-preview-trigger">预览效果</span>
         
         {
           //props.title

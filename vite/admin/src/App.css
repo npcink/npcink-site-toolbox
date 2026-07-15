@@ -1,33 +1,91 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-@layer base {
-  button,
-  [type="button"],
-  [type="reset"],
-  [type="submit"] {
-  }
-  a {
-    color: #1677ff;
-  }
-  h2 {
-    display: block;
-    font-size: 1.5em;
-    margin-block-start: 0.83em;
-    margin-block-end: 0.83em;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
-    font-weight: bold;
-  }
-}
-@layer components {
-  .pre-meat {
-    @apply inline-block text-xs text-orange-500 mx-2;
-  }
+.mabox-shell,
+.mabox-detail-drawer,
+.mabox-admin-modal,
+.mabox-shell *,
+.mabox-detail-drawer *,
+.mabox-admin-modal *,
+.mabox-shell *::before,
+.mabox-detail-drawer *::before,
+.mabox-admin-modal *::before,
+.mabox-shell *::after,
+.mabox-detail-drawer *::after,
+.mabox-admin-modal *::after {
+  box-sizing: border-box;
 }
 
-.ant-btn-primary {
+.mabox-shell :where(h1, h2, h3, h4, h5, h6),
+.mabox-detail-drawer :where(h1, h2, h3, h4, h5, h6),
+.mabox-admin-modal :where(h1, h2, h3, h4, h5, h6) {
+  margin: 0;
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+.mabox-shell :where(p),
+.mabox-detail-drawer :where(p),
+.mabox-admin-modal :where(p) {
+  margin: 0;
+  font: inherit;
+}
+
+.mabox-shell :where(pre),
+.mabox-detail-drawer :where(pre),
+.mabox-admin-modal :where(pre) {
+  margin: 0;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 1em;
+}
+
+.mabox-shell :where(ol, ul, menu),
+.mabox-detail-drawer :where(ol, ul, menu),
+.mabox-admin-modal :where(ol, ul, menu) {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.mabox-shell :where(button, input, optgroup, select, textarea),
+.mabox-detail-drawer :where(button, input, optgroup, select, textarea),
+.mabox-admin-modal :where(button, input, optgroup, select, textarea) {
+  margin: 0;
+  color: inherit;
+  font-family: inherit;
+  font-size: 100%;
+  font-weight: inherit;
+  line-height: inherit;
+  letter-spacing: inherit;
+}
+
+.mabox-shell :where(a),
+.mabox-detail-drawer :where(a),
+.mabox-admin-modal :where(a) {
+  color: #1677ff;
+}
+
+.mabox-shell :where(h2),
+.mabox-detail-drawer :where(h2),
+.mabox-admin-modal :where(h2) {
+  display: block;
+  font-size: 1.5em;
+  margin-block-start: 0.83em;
+  margin-block-end: 0.83em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  font-weight: bold;
+}
+
+.mabox-preformatted-hint {
+  display: inline-block;
+  margin-right: 0.5rem;
+  margin-left: 0.5rem;
+  color: #f97316;
+  font-size: 0.75rem;
+  line-height: 1rem;
+}
+
+.mabox-shell .ant-btn-primary,
+.mabox-detail-drawer .ant-btn-primary,
+.mabox-admin-modal .ant-btn-primary {
   background-color: #1677ff;
 }
 
@@ -406,20 +464,120 @@
     font-size: 14px;
   }
 
-  .ant-form-item .ant-form-item-label {
+  .mabox-shell .ant-form-item .ant-form-item-label,
+  .mabox-detail-drawer .ant-form-item .ant-form-item-label,
+  .mabox-admin-modal .ant-form-item .ant-form-item-label {
     padding-bottom: 4px;
   }
 
-  .ant-form-item .ant-form-item-control {
+  .mabox-shell .ant-form-item .ant-form-item-control,
+  .mabox-detail-drawer .ant-form-item .ant-form-item-control,
+  .mabox-admin-modal .ant-form-item .ant-form-item-control {
     margin-top: 4px;
   }
 }
 
-.menu-header {
+.mabox-menu-header {
   font-weight: bold;
 }
 
 @media (max-width: 768px) {
+  .mabox-shell {
+    margin: 0 -10px;
+  }
+
+  .mabox-shell .ant-form-item-label,
+  .mabox-detail-drawer .ant-form-item-label,
+  .mabox-admin-modal .ant-form-item-label {
+    width: 100% !important;
+    padding-right: 0 !important;
+  }
+
+  .mabox-shell .ant-form-item-control-wrapper,
+  .mabox-detail-drawer .ant-form-item-control-wrapper,
+  .mabox-admin-modal .ant-form-item-control-wrapper {
+    width: 100% !important;
+  }
+
+  .mabox-shell .ant-tabs-nav,
+  .mabox-detail-drawer .ant-tabs-nav,
+  .mabox-admin-modal .ant-tabs-nav {
+    overflow-x: auto !important;
+  }
+
+  .mabox-shell .ant-tabs-nav-list,
+  .mabox-detail-drawer .ant-tabs-nav-list,
+  .mabox-admin-modal .ant-tabs-nav-list {
+    white-space: nowrap !important;
+  }
+
+  .mabox-shell .ant-anchor,
+  .mabox-detail-drawer .ant-anchor,
+  .mabox-admin-modal .ant-anchor {
+    display: none !important;
+  }
+
+  .mabox-shell .ant-form,
+  .mabox-detail-drawer .ant-form,
+  .mabox-admin-modal .ant-form {
+    max-width: 100% !important;
+  }
+
+  .mabox-shell .ant-card-body,
+  .mabox-detail-drawer .ant-card-body,
+  .mabox-admin-modal .ant-card-body {
+    padding: 12px !important;
+  }
+
+  .mabox-shell .ant-statistic,
+  .mabox-detail-drawer .ant-statistic,
+  .mabox-admin-modal .ant-statistic {
+    margin-bottom: 12px !important;
+  }
+
+  .mabox-shell .ant-layout-header,
+  .mabox-detail-drawer .ant-layout-header,
+  .mabox-admin-modal .ant-layout-header {
+    height: auto !important;
+    padding-inline: 16px !important;
+    line-height: 1.5 !important;
+    flex-wrap: wrap !important;
+  }
+
+  .mabox-shell .ant-layout-header h1,
+  .mabox-detail-drawer .ant-layout-header h1,
+  .mabox-admin-modal .ant-layout-header h1 {
+    width: 100%;
+    margin-bottom: 8px;
+    font-size: 18px !important;
+  }
+
+  .mabox-shell .ant-tabs-tabpane,
+  .mabox-detail-drawer .ant-tabs-tabpane,
+  .mabox-admin-modal .ant-tabs-tabpane {
+    padding: 8px !important;
+  }
+
+  .mabox-shell .ant-form-item,
+  .mabox-detail-drawer .ant-form-item,
+  .mabox-admin-modal .ant-form-item {
+    margin-bottom: 16px !important;
+  }
+
+  .mabox-shell .ant-switch,
+  .mabox-detail-drawer .ant-switch,
+  .mabox-admin-modal .ant-switch {
+    min-width: 36px;
+    height: 20px;
+  }
+
+  .mabox-shell .ant-btn,
+  .mabox-detail-drawer .ant-btn,
+  .mabox-admin-modal .ant-btn {
+    padding: 4px 12px;
+    font-size: 13px;
+  }
+
   .mabox-module-row-header {
     flex-wrap: wrap;
   }
@@ -450,6 +608,20 @@
 
   .mabox-section {
     margin-bottom: 24px;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .mabox-shell .ant-form-item-label,
+  .mabox-detail-drawer .ant-form-item-label,
+  .mabox-admin-modal .ant-form-item-label {
+    width: 120px !important;
+  }
+
+  .mabox-shell .ant-form-item-control-wrapper,
+  .mabox-detail-drawer .ant-form-item-control-wrapper,
+  .mabox-admin-modal .ant-form-item-control-wrapper {
+    width: calc(100% - 120px) !important;
   }
 }
 
@@ -644,6 +816,15 @@
   min-height: 80px;
 }
 
+.mabox-preview-trigger {
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.mabox-full-width {
+  width: 100%;
+}
+
 .mabox-check-table {
   margin-bottom: 16px;
 }
@@ -700,6 +881,14 @@
   flex-shrink: 0;
 }
 @media (max-width: 768px) {
+  .mabox-module-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .mabox-module-card {
+    min-width: 0;
+  }
+
   .mabox-login-layout {
     flex-direction: column;
   }
