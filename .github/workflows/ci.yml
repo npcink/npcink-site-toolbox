@@ -150,14 +150,14 @@ jobs:
         run: composer release:build
 
       - name: Verify release ZIP
-        run: composer release:verify -- wp-magick-toolbox.zip
+        run: composer release:verify -- magick-toolbox.zip
 
       - name: Upload ZIP artifact
         uses: actions/upload-artifact@v7
         with:
-          name: wp-magick-toolbox
+          name: magick-toolbox
           path: |
-            wp-magick-toolbox.zip
-            wp-magick-toolbox.zip.sha256
+            magick-toolbox.zip
+            magick-toolbox.zip.sha256
           if-no-files-found: error
           retention-days: 30

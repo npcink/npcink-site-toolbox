@@ -6,6 +6,8 @@ use PHPUnit\Framework\TestCase;
 
 class ReleasePackageContractTest extends TestCase
 {
+    private const PACKAGE_SLUG = 'magick-toolbox';
+
     /** @var string */
     private $temporary_root;
 
@@ -38,12 +40,50 @@ class ReleasePackageContractTest extends TestCase
         ), static function (string $line): bool {
             return $line !== '' && strpos($line, '#') !== 0;
         }));
-        foreach (array('bin', 'tests', 'docs', 'docs-site', 'vendor', 'node_modules', 'stubs', 'vite/*/src', 'vite/*/dist/.vite', '*.zip', '*.sha256') as $rule) {
+        foreach (array(
+            'bin',
+            'tests',
+            'docs',
+            'docs-site',
+            'vendor',
+            'node_modules',
+            'stubs',
+            'vite/*/src',
+            'vite/*/dist/.vite',
+            'magick-toolbox-*.zip',
+            'magick-toolbox.zip',
+            'wp-magick-toolbox-*.zip',
+            'wp-magick-toolbox.zip',
+            '*.zip',
+            '*.sha256',
+        ) as $rule) {
             $this->assertContains($rule, $rules);
         }
 
+        $gitignore_rules = array_values(array_filter(array_map(
+            'trim',
+            preg_split('/\R/', (string) file_get_contents($root . '/.gitignore')) ?: array()
+        ), static function (string $line): bool {
+            return $line !== '' && strpos($line, '#') !== 0;
+        }));
+        foreach (array(
+            'magick-toolbox-*.zip',
+            'magick-toolbox.zip',
+            'magick-toolbox.zip.sha256',
+            'wp-magick-toolbox-*.zip',
+            'wp-magick-toolbox.zip',
+            'wp-magick-toolbox.zip.sha256',
+        ) as $rule) {
+            $this->assertContains($rule, $gitignore_rules);
+        }
+
         $build = (string) file_get_contents($root . '/bin/build-release-zip.sh');
-        $this->assertStringContainsString('wp-magick-toolbox.zip', $build);
+        $verify = (string) file_get_contents($root . '/bin/verify-release-zip.sh');
+        $this->assertStringContainsString('PLUGIN_SLUG="magick-toolbox"', $build);
+        $this->assertStringContainsString('magick-toolbox.zip', $build);
+        $this->assertStringNotContainsString('PLUGIN_SLUG="wp-magick-toolbox"', $build);
+        $this->assertStringContainsString('PLUGIN_SLUG="magick-toolbox"', $verify);
+        $this->assertStringNotContainsString('PLUGIN_SLUG="wp-magick-toolbox"', $verify);
         $this->assertStringContainsString('rsync -a --exclude-from="$DISTIGNORE"', $build);
         $this->assertStringContainsString('mktemp -d', $build);
         $this->assertStringContainsString('trap cleanup', $build);
@@ -160,7 +200,7 @@ class ReleasePackageContractTest extends TestCase
     {
         $missing_archive = $this->createArchive('9.8.7');
         $delete_result = $this->runCommand(array(
-            'zip', '-q', '-d', $missing_archive, 'wp-magick-toolbox/LICENSE',
+            'zip', '-q', '-d', $missing_archive, self::PACKAGE_SLUG . '/LICENSE',
         ));
         $this->assertSame(0, $delete_result['status'], $delete_result['output']);
         $missing_result = $this->runCommand(array('bash', $this->root() . '/bin/verify-release-zip.sh', $missing_archive));
@@ -169,7 +209,7 @@ class ReleasePackageContractTest extends TestCase
 
         $activation_archive = $this->createArchive('9.8.7');
         $delete_activation_result = $this->runCommand(array(
-            'zip', '-q', '-d', $activation_archive, 'wp-magick-toolbox/includes/class-magick-mixture.php',
+            'zip', '-q', '-d', $activation_archive, self::PACKAGE_SLUG . '/includes/class-magick-mixture.php',
         ));
         $this->assertSame(0, $delete_activation_result['status'], $delete_activation_result['output']);
         $activation_result = $this->runCommand(array(
@@ -187,7 +227,7 @@ class ReleasePackageContractTest extends TestCase
             '-q',
             '-d',
             $rest_registry_archive,
-            'wp-magick-toolbox/includes/class-mabox-rest-route-registry.php',
+            self::PACKAGE_SLUG . '/includes/class-mabox-rest-route-registry.php',
         ));
         $this->assertSame(0, $delete_rest_registry_result['status'], $delete_rest_registry_result['output']);
         $rest_registry_result = $this->runCommand(array(
@@ -205,7 +245,7 @@ class ReleasePackageContractTest extends TestCase
             '-q',
             '-d',
             $activation_callback_archive,
-            'wp-magick-toolbox/admin/partials/optimize/site/category_link_simplify.php',
+            self::PACKAGE_SLUG . '/admin/partials/optimize/site/category_link_simplify.php',
         ));
         $this->assertSame(0, $delete_callback_result['status'], $delete_callback_result['output']);
         $activation_callback_result = $this->runCommand(array(
@@ -224,7 +264,10 @@ class ReleasePackageContractTest extends TestCase
         $this->assertSame(0, $add_root_result['status'], $add_root_result['output']);
         $multiple_roots_result = $this->runCommand(array('bash', $this->root() . '/bin/verify-release-zip.sh', $multiple_roots_archive));
         $this->assertNotSame(0, $multiple_roots_result['status']);
-        $this->assertStringContainsString('outside the single wp-magick-toolbox/ root', $multiple_roots_result['output']);
+        $this->assertStringContainsString(
+            'outside the single ' . self::PACKAGE_SLUG . '/ root',
+            $multiple_roots_result['output']
+        );
 
         $traversal_archive = $this->createArchive('9.8.7');
         $traversal_directory = $this->temporary_root . '/traversal';
@@ -295,7 +338,7 @@ BASH
             'bash', $project . '/bin/verify-release-zip.sh', $output,
         ));
         $this->assertSame(0, $verify_result['status'], $verify_result['output']);
-        $this->assertSame(array(), glob($output_directory . '/.wp-magick-toolbox-release.*') ?: array());
+        $this->assertSame(array(), glob($output_directory . '/.' . self::PACKAGE_SLUG . '-release.*') ?: array());
     }
 
     /**
@@ -308,14 +351,14 @@ BASH
 
         $constant_version = $constant_version ?? $header_version;
         $fixture = $this->temporary_root . '/fixture ' . $fixture_number;
-        $package = $fixture . '/wp-magick-toolbox';
+        $package = $fixture . '/' . self::PACKAGE_SLUG;
         $archive = $this->temporary_root . '/release package ' . $fixture_number . '.zip';
 
         $files = $this->requiredFixtureFiles($header_version, $constant_version) + $extra_files;
 
         $this->writeFixtureFiles($package, $files);
 
-        $zip_result = $this->runCommand(array('zip', '-q', '-r', '-X', $archive, 'wp-magick-toolbox'), $fixture);
+        $zip_result = $this->runCommand(array('zip', '-q', '-r', '-X', $archive, self::PACKAGE_SLUG), $fixture);
         $this->assertSame(0, $zip_result['status'], $zip_result['output']);
 
         $checksum = hash_file('sha256', $archive);
@@ -351,8 +394,8 @@ BASH
     private function requiredFixtureFiles(string $header_version, string $constant_version): array
     {
         return array(
-            'magick-tool-box.php' => "<?php\n/*\n * Plugin Name: WP Magick Toolbox\n * Version: {$header_version}\n */\ndefine('MAGICK_MIXTURE_VERSION', '{$constant_version}');\n",
-            'readme.txt' => "=== WP Magick Toolbox ===\nStable tag: {$header_version}\n",
+            'magick-tool-box.php' => "<?php\n/*\n * Plugin Name: Magick Toolbox\n * Version: {$header_version}\n */\ndefine('MAGICK_MIXTURE_VERSION', '{$constant_version}');\n",
+            'readme.txt' => "=== Magick Toolbox ===\nStable tag: {$header_version}\n",
             'LICENSE' => 'GPL-2.0-or-later',
             'index.php' => "<?php\n",
             'uninstall.php' => "<?php\n",

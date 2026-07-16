@@ -2,12 +2,12 @@
 
 set -Eeuo pipefail
 
-PLUGIN_SLUG="wp-magick-toolbox"
+PLUGIN_SLUG="magick-toolbox"
 SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd -P)"
 PROJECT_ROOT="$(cd -- "$SCRIPT_DIR/.." && pwd -P)"
 DISTIGNORE="$PROJECT_ROOT/.distignore"
 VERIFY_SCRIPT="$SCRIPT_DIR/verify-release-zip.sh"
-DEFAULT_OUTPUT="$PROJECT_ROOT/wp-magick-toolbox.zip"
+DEFAULT_OUTPUT="$PROJECT_ROOT/magick-toolbox.zip"
 
 fail() {
   printf 'release:build: %s\n' "$*" >&2
@@ -135,7 +135,7 @@ trap 'exit 129' HUP
 trap 'exit 130' INT
 trap 'exit 143' TERM
 
-temporary_root="$(mktemp -d "${TMPDIR:-/tmp}/wp-magick-toolbox-release.XXXXXX")"
+temporary_root="$(mktemp -d "${TMPDIR:-/tmp}/magick-toolbox-release.XXXXXX")"
 staging_root="$temporary_root/$PLUGIN_SLUG"
 mkdir -p -- "$staging_root"
 
@@ -148,7 +148,7 @@ done
 included_symlink="$(find "$staging_root" -type l -print -quit)"
 [ -z "$included_symlink" ] || fail "release staging contains a symlink: $included_symlink"
 
-output_temporary_dir="$(mktemp -d "$output_dir/.wp-magick-toolbox-release.XXXXXX")"
+output_temporary_dir="$(mktemp -d "$output_dir/.magick-toolbox-release.XXXXXX")"
 new_release_dir="$output_temporary_dir/new"
 mkdir -p -- "$new_release_dir"
 temporary_zip="$new_release_dir/$output_name"

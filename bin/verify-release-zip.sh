@@ -2,7 +2,7 @@
 
 set -Eeuo pipefail
 
-PLUGIN_SLUG="wp-magick-toolbox"
+PLUGIN_SLUG="magick-toolbox"
 
 fail() {
   printf 'release:verify: %s\n' "$*" >&2
@@ -44,7 +44,7 @@ cleanup() {
 }
 trap cleanup EXIT HUP INT TERM
 
-temporary_root="$(mktemp -d "${TMPDIR:-/tmp}/wp-magick-toolbox-verify.XXXXXX")"
+temporary_root="$(mktemp -d "${TMPDIR:-/tmp}/magick-toolbox-verify.XXXXXX")"
 entries_file="$temporary_root/entries.txt"
 extract_root="$temporary_root/extracted"
 mkdir -p -- "$extract_root"
