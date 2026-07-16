@@ -412,10 +412,10 @@ export type PerformanceDbClean = {
 };
 
 export interface RiskInfo {
-  level: string;
-  title: string;
-  warning: string;
-  suggestion: string;
+  level: "none" | "low" | "high";
+  title?: string;
+  warning?: string;
+  suggestion?: string;
   noDismiss?: boolean;
 }
 

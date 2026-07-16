@@ -1,11 +1,14 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
+import settingsContract from "@/generated/settings-contract.json";
 
 const mockFetchUiSchema = vi.fn();
 const mockGetUiSchemaSync = vi.fn();
+const mockHasFetchedUiSchemaSync = vi.fn();
 
 vi.mock("@/tool/uiSchema", () => ({
   fetchUiSchema: () => mockFetchUiSchema(),
   getUiSchemaSync: () => mockGetUiSchemaSync(),
+  hasFetchedUiSchemaSync: () => mockHasFetchedUiSchemaSync(),
 }));
 
 vi.mock("antd", () => ({
@@ -42,6 +45,7 @@ describe("riskyFeature", () => {
   beforeEach(() => {
     vi.clearAllMocks();
     vi.resetModules();
+    mockHasFetchedUiSchemaSync.mockReturnValue(true);
 
     storageMock = createStorageMock();
     Object.defineProperty(globalThis, "localStorage", {
@@ -112,6 +116,7 @@ describe("riskyFeature", () => {
 
   describe("checkRiskyFeature - schema not cached", () => {
     it("fetches schema when not cached and calls onConfirm if no risk found", async () => {
+      mockHasFetchedUiSchemaSync.mockReturnValue(false);
       mockGetUiSchemaSync.mockReturnValue(null);
       mockFetchUiSchema.mockResolvedValue({
         "optimize-test-nonexistent": {
@@ -130,6 +135,7 @@ describe("riskyFeature", () => {
     });
 
     it("fetches schema and shows risk modal when risk found after fetch", async () => {
+      mockHasFetchedUiSchemaSync.mockReturnValue(false);
       mockGetUiSchemaSync.mockReturnValue(null);
       mockFetchUiSchema.mockResolvedValue({
         "optimize-test-new_risk": {
@@ -151,7 +157,45 @@ describe("riskyFeature", () => {
       expect(mockFetchUiSchema).toHaveBeenCalled();
     });
 
+    it("fetches a module-only risk missing from the generated fallback before proceeding", async () => {
+      let schema: Record<string, unknown> = settingsContract.uiSchema;
+      mockHasFetchedUiSchemaSync.mockReturnValue(false);
+      mockGetUiSchemaSync.mockImplementation(() => schema);
+      mockFetchUiSchema.mockImplementation(async () => {
+        schema = {
+          ...schema,
+          "module-only-risk": {
+            path: "module.only.risk",
+            type: "module",
+            feature_id: "module-only-risk",
+            risk: {
+              level: "low",
+              title: "模块风险",
+              warning: "需要确认。",
+              suggestion: "确认配置后再开启。",
+            },
+          },
+        };
+        return schema;
+      });
+      const { Modal } = await import("antd");
+      const { checkRiskyFeature } = await import("@/tool/riskyFeature");
+      const onConfirm = vi.fn();
+
+      const result = checkRiskyFeature("module-only-risk", true, onConfirm);
+
+      expect(result).toBe(false);
+      expect(mockFetchUiSchema).toHaveBeenCalledTimes(1);
+      await vi.waitFor(() => {
+        expect(Modal.confirm).toHaveBeenCalledWith(expect.objectContaining({
+          title: "您正在开启「模块风险」",
+        }));
+      });
+      expect(onConfirm).not.toHaveBeenCalled();
+    });
+
     it("continues without a modal when fetched schema marks the feature as level none", async () => {
+      mockHasFetchedUiSchemaSync.mockReturnValue(false);
       let cachedSchema: Record<string, unknown> | null = null;
       const fetchedSchema = {
         "domestic-login_security-anonymous_author_guard_enabled": {
@@ -184,6 +228,7 @@ describe("riskyFeature", () => {
     });
 
     it("continues a non-risky change when schema fetch resolves without data", async () => {
+      mockHasFetchedUiSchemaSync.mockReturnValue(false);
       mockGetUiSchemaSync.mockReturnValue(null);
       mockFetchUiSchema.mockResolvedValue(null);
       const { Modal } = await import("antd");
@@ -200,19 +245,18 @@ describe("riskyFeature", () => {
     });
   });
 
-  describe("checkRiskyFeature - static RISKY_FEATURES fallback", () => {
-    it("uses static fallback when schema fetch returns null and feature is in RISKY_FEATURES", async () => {
-      mockGetUiSchemaSync.mockReturnValue(null);
-      mockFetchUiSchema.mockResolvedValue(null);
+  describe("checkRiskyFeature - generated Schema fallback", () => {
+    it("uses generated risk metadata without fetching", async () => {
+      mockGetUiSchemaSync.mockReturnValue(settingsContract.uiSchema);
       const { checkRiskyFeature } = await import("@/tool/riskyFeature");
       const onConfirm = vi.fn();
       const result = checkRiskyFeature("optimize-medium-no_auto_size", true, onConfirm);
       expect(result).toBe(false);
+      expect(mockFetchUiSchema).not.toHaveBeenCalled();
     });
 
-    it("keeps login protection confirmation available when schema is unavailable", async () => {
-      mockGetUiSchemaSync.mockReturnValue(null);
-      mockFetchUiSchema.mockResolvedValue(null);
+    it("keeps login protection confirmation available from the generated contract", async () => {
+      mockGetUiSchemaSync.mockReturnValue(settingsContract.uiSchema);
       const { Modal } = await import("antd");
       const { checkRiskyFeature } = await import("@/tool/riskyFeature");
       const onConfirm = vi.fn();

@@ -1,6 +1,6 @@
 # ADR: Pre-GA 管理后台清场式重构
 
-- 状态：已接受；工作包 1-7 已验收，工作包 8A-8B 已完成自动化与 Local 验收，工作包 9A-9C 已完成自动化与 Local 验收
+- 状态：已接受；工作包 1-7 已验收，工作包 8A-8B 已完成自动化与 Local 验收，工作包 9A-9C 已完成自动化与 Local 验收，工作包 10A 已完成自动化与 Local 验收
 - 日期：2026-07-15
 - 决策范围：WP Magick Toolbox 管理后台应用外壳
 
@@ -448,6 +448,33 @@
 6. Scanner 10 项聚焦测试覆盖配置源契约、PHP 固定入口 mtime/module 契约、bootstrap→hashed app、空 bootstrap 与错误 hashed app 产物、hash chunk 禁止反向 import fixed bootstrap、initial/dynamic 图、路径与 manifest 缺失、raw/gzip 预算异构反例、hash/孤儿 vendor/硬编码路径、单 CSS 与 HTML 固定入口。全量 admin Vitest 18 个文件/126 项测试、TypeScript/Vite build、1 个 CSS 文件/308 个选择器隔离扫描、构建契约扫描、ESLint quiet error gate 和 `git diff --check` 均通过；PHPUnit 338 项/3354 个断言、PHPStan 0 error 已通过。
 7. 首次 Local 验收出现空白页，先后排除了 MIME、`type="module"`、相对 URL、文件 404、`dataLocal` 和固定入口缓存。浏览器最终捕获 React #321 invalid hook call：WP 只给固定入口 URL 加 `?ver=`，而 Vite 旧图让 hashed app/route chunks 反向 import 无 query 的 `../index.js`，浏览器把两种 URL 当作两个模块 identity，导致两份 React dispatcher/Context。显式 hashed app entry 与构建期 bootstrap 隔离现保证固定入口没有共享导出，manifest 和 scanner 同时禁止反向边。
 8. 登录态最终 Local 验收使用新鲜页面确认固定入口为 `index.js?ver=2.6.1-1784128230`，React #321 与后续 `removeChild` NotFoundError 均消失。`overview/site/content/seo/china/maintenance/about` 七个语义路由逐一硬刷新，均有一份 shell、状态为“已保存”、内容非空且无设置读取失败；1280px 下无横向溢出，320px 的 maintenance 页面同样保持 shell、已保存状态及 `body/document=320px`。控制台没有新增 warning/error，只有 WordPress JQMIGRATE 普通日志。
+
+## 工作包 10A：最小生成式设置契约
+
+| 项目 | 决定 |
+| --- | --- |
+| 目标仓库 | `/Users/muze/gitee/wp-magick-toolbox` |
+| 聚焦模块 | `MaBox_Config_Schema` 到 `vite/admin` 的浏览器默认值与 UI 风险元数据同步 |
+| 失败证据 | PHP Schema 将 `page.function.countdown` 默认值定义为空数组，前端却按浏览器当天动态生成“昨天 9–12 点”；前端另有 `CURRENT_HIGH_PATHS` 和四条风险确认文案镜像，已发生风险等级误判 |
+| 预期变更 | 从 PHP Schema 确定性导出去敏浏览器 defaults 与 schema-only UI 风险元数据；前端消费受检生成物；生成物漂移与敏感字段泄漏 fail closed |
+| 明确非目标 | 不生成 TypeScript 类型、不改 REST 路由/响应或保存 payload、不做契约 hash 握手、不改 Registry、搜索关键词/别名、业务表单、Ant Design、构建产物或兄弟仓库 |
+| 公共契约 | `Option` 类型和设置 GET/POST 不变；新增 `composer settings-contract:generate` 与 `composer settings-contract:check` 开发门禁；tracked JSON 仅作为构建期同步快照 |
+| 预期文件 | Config Schema、dev-only PHP exporter、tracked JSON、默认值/UI Schema/风险消费点、聚焦 PHP/Vitest、README 与本 ADR |
+| 不得改变 | 插件运行时设置存储与敏感凭据操作、模块 Registry、发布 `dist`、用户未跟踪排障文档、兄弟仓库 |
+| 必需门禁 | generator `--check`、聚焦与全量 PHPUnit、PHPStan、admin Vitest/TypeScript/lint/build、`git diff --check` |
+| 跨仓矩阵 | 不需要；Schema 及全部生成物消费者均在本仓库 |
+| 回滚计划 | 回滚本工作包即可恢复旧手写前端默认值/风险 fallback；不保留双轨兼容层或运行时 feature flag |
+
+### 工作包 10A 实施事实
+
+1. `MaBox_Config_Schema::get_schema_ui_schema()` 现在提供不合并 Registry/模块 metadata 的 schema-only UI 视图；原 `get_ui_schema()` 仍在此基础上可选合并模块 metadata，因此现有 REST 端点用途和搜索增强能力不变。
+2. `get_admin_settings_contract()` 从同一 Schema 导出浏览器默认值和 UI 风险元数据。三个敏感字段的键和值均从 defaults 与 UI Schema 排除；回归测试另用 synthetic flat Schema 锁定未来 flat 模块和“敏感字段带 label/risk”场景仍会完整去敏。
+3. dev-only PHP CLI 位于发布包已排除的 `tests/support/`，不加载 WordPress 或 PHPUnit bootstrap，自带 PHP 7.4 可用的最小常量环境；递归稳定排序 JSON object、保留 list 顺序、UTF-8/斜线不转义并固定末尾换行。生成模式通过目标同目录临时文件和 `rename()` 原子替换，失败时清理临时文件；`--check` 只比较 tracked JSON，不写文件。
+4. 前端 `defaultVarOption` 直接消费生成 defaults 并由 TypeScript 赋值检查，删除约 250 行手写默认树和日期计算；`countdown` 首次值恢复为 Schema 定义的空数组。`Option` 类型、保存 payload 和业务表单保持不变。
+5. 生成 UI Schema 作为同步 fallback，风险等级由窄类型与运行时 type guard 共同约束，不再使用双重类型断言；服务端 Schema 获取状态与 generated fallback 是否存在明确分离。若目标不在 generated 且服务端尚未取，首次风险检查会继续请求 `/settings/schema`，再按 Registry-only 风险弹出确认；FeatureIndex 也仍会执行真实请求并合并模块 metadata。`CURRENT_HIGH_PATHS` 与 `riskyFeature.tsx` 的四条风险文案镜像已删除，高风险等级、标题、警告、建议和不可忽略标记均来自 PHP Schema。
+6. Node CI/build 不依赖隐含 PHP 环境；漂移门禁由 `composer settings-contract:check` 和 PHPUnit parity 测试放在 PHP 工具链中执行，admin 测试独立验证生成物的默认值、风险 fallback 和 REST 合并行为。
+7. 自动化门禁：生成物 `--check`、Composer validate、PHP 语法检查、PHPUnit 341 项测试/3367 个断言、PHPStan 0 error、admin Vitest 19 个文件/130 项测试、TypeScript/Vite build、308 个 CSS 选择器隔离扫描、构建契约扫描、ESLint 0 error 和 `git diff --check` 均通过。独立复审 build 的首次 JS 为 792,862 B / gzip 258,453 B，最大 app chunk 为 791,786 B / gzip 257,792 B，仍低于工作包 9C 的 900/300 KiB 预算；本工作包没有修改或跟踪 `dist`。
+8. Local WordPress 7.0.1 真实验收通过，一次性管理员已删除。`overview/site/content/seo/china/maintenance/about` 七个 view 均正常渲染并显示“已保存”，无设置读取失败、可见错误或横向溢出；generated `optimize-medium-no_auto_size` 会弹出“禁止缩略图”风险确认，取消后开关保持 `false`；`performance-db_clean-enabled` 会弹出不可忽略的高风险确认且没有“不再提示”，取消后同样保持 `false`。浏览器 error/warn 均为 0，验收过程未保存设置。
 
 ## 结果复核
 

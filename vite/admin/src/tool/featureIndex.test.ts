@@ -2,6 +2,7 @@ import { describe, it, expect, vi, beforeEach } from "vitest";
 
 import { searchIndex } from "@/tool/featureIndexData";
 import { ADMIN_VIEWS } from "@/tool/navigation";
+import settingsContract from "@/generated/settings-contract.json";
 
 const mockFetchUiSchema = vi.fn();
 const mockGetUiSchemaSync = vi.fn();
@@ -113,12 +114,12 @@ describe("featureIndex", () => {
   });
 
   describe("getFeatureRiskLevelForPath", () => {
-    it("Schema 未缓存时仍把当前真实 high 识别为 high", async () => {
-      mockGetUiSchemaSync.mockReturnValue(null);
+    it("使用生成的 Schema fallback 识别当前真实风险等级", async () => {
+      mockGetUiSchemaSync.mockReturnValue(settingsContract.uiSchema);
       const { getFeatureRiskLevelForPath } = await import("@/tool/featureIndex");
 
       expect(getFeatureRiskLevelForPath("performance.db_clean.enabled")).toBe("high");
-      expect(getFeatureRiskLevelForPath("optimize.medium.no_auto_size")).toBe("none");
+      expect(getFeatureRiskLevelForPath("optimize.medium.no_auto_size")).toBe("low");
     });
 
     it("已加载时以 UI Schema 的精确 path 风险等级为权威", async () => {
@@ -158,7 +159,7 @@ describe("featureIndex", () => {
           label: "数据库清理优化",
         },
       });
-      expect(getFeatureRiskLevelForPath("performance.db_clean.enabled")).toBe("high");
+      expect(getFeatureRiskLevelForPath("performance.db_clean.enabled")).toBe("none");
 
       mockGetUiSchemaSync.mockReturnValue({
         "performance-db_clean-enabled": {

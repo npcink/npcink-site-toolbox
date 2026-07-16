@@ -17,12 +17,6 @@ const PRESET_TO_DISPLAY_TAG: Record<string, string | undefined> = {
   security: "安全",
 };
 
-// UI Schema 未缓存或返回不完整时的安全兜底。仅镜像当前 PHP Schema 中的 high 路径；
-// 后续应由单一 Schema 生成该契约，避免长期手工同步。
-const CURRENT_HIGH_PATHS = new Set([
-  "performance.db_clean.enabled",
-]);
-
 type FeatureRiskLevel = "none" | "low" | "high";
 
 function parseRiskLevel(level: unknown): FeatureRiskLevel | null {
@@ -70,14 +64,12 @@ export function getFeatureIndexSync(): SearchItem[] {
 }
 
 export async function fetchFeatureIndex(): Promise<SearchItem[]> {
-  if (cachedIndex) return cachedIndex;
-
   const schema = await fetchUiSchema();
   if (schema) {
     cachedIndex = mergeIndex(schema);
     return cachedIndex;
   }
-  return searchIndex;
+  return cachedIndex || searchIndex;
 }
 
 export function getFeatureLabelForPath(path: string): string | null {
@@ -102,7 +94,7 @@ export function getFeatureRiskLevelForPath(path: string): FeatureRiskLevel {
     if (schemaRiskLevel) return schemaRiskLevel;
   }
 
-  return CURRENT_HIGH_PATHS.has(path) ? "high" : "none";
+  return "none";
 }
 
 function mergeIndex(schema: UiSchemaMap): SearchItem[] {

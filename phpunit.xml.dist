@@ -10,6 +10,7 @@
     <testsuites>
         <testsuite name="WP Magick Toolbox Test Suite">
             <directory suffix=".php">./tests/</directory>
+            <exclude>./tests/support/</exclude>
         </testsuite>
     </testsuites>
 

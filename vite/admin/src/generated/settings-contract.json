@@ -1,0 +1,261 @@
+{
+    "defaults": {
+        "domestic": {
+            "comment_security": {
+                "blacklist_action": "block",
+                "blacklist_enabled": false,
+                "blacklist_words": "",
+                "duplicate_enabled": false,
+                "email_domain_blacklist": "10minutemail.com,guerrillamail.com,temp-mail.org",
+                "email_domain_enabled": false,
+                "ip_rate_enabled": false,
+                "ip_rate_limit": 5,
+                "ip_rate_window": 60,
+                "link_limit_count": 2,
+                "link_limit_enabled": false,
+                "log_enabled": false,
+                "nickname_filter_enabled": false,
+                "nickname_filter_words": ""
+            },
+            "compliance": {
+                "cookie_button": "我知道了",
+                "cookie_content": "本网站使用 Cookie 来改善您的体验。继续浏览即表示您同意我们的 Cookie 政策。",
+                "cookie_enabled": false,
+                "cookie_style": "bottom",
+                "cookie_title": "Cookie 同意",
+                "copyright_enabled": false,
+                "copyright_html": "",
+                "icp_enabled": false,
+                "icp_link": "https://beian.miit.gov.cn/",
+                "icp_number": "",
+                "police_enabled": false,
+                "police_link": "https://www.beian.gov.cn/portal/registerSystemInfo",
+                "police_number": ""
+            },
+            "login_security": {
+                "anonymous_author_guard_enabled": false,
+                "attempt_limit_count": 5,
+                "attempt_limit_enabled": false,
+                "attempt_window_minutes": 15,
+                "lock_duration_minutes": 30,
+                "trusted_proxies": ""
+            },
+            "wechat": {
+                "appid": "",
+                "guide_mode": "guide",
+                "guide_overlay_enabled": false,
+                "guide_qrcode": "",
+                "guide_text": "点击右上角 ··· 在浏览器中打开",
+                "jssdk_enabled": false
+            }
+        },
+        "function": {
+            "auxiliary": {
+                "baidu_tonji": "",
+                "biying_tonji": "",
+                "google_tonji": "",
+                "malice_keu_content": "",
+                "no_malice_key": false,
+                "single_count": false,
+                "uniqueKey": 0
+            },
+            "config": {
+                "pop_tips": false,
+                "tips_button": "",
+                "tips_content": "",
+                "tips_link": "",
+                "tips_time": 0
+            },
+            "seo": {
+                "description": "",
+                "keywords": "",
+                "seo_category": false,
+                "seo_single": false,
+                "title": ""
+            }
+        },
+        "optimize": {
+            "admin": {
+                "add_time": false,
+                "add_user": false,
+                "show_id": false,
+                "thumbnail_switcher": false
+            },
+            "medium": {
+                "img_add_tag": false,
+                "medium_add_svg": false,
+                "no_auto_size": false,
+                "upload_auto_name": "false"
+            },
+            "site": {
+                "category_link_simplify": false,
+                "cdn_custom": "",
+                "cdn_google_ajax": false,
+                "cdn_google_fonts": false,
+                "cdn_google_fonts_mirror": "fonts.loli.net",
+                "cdn_gravatar": false,
+                "cdn_gravatar_mirror": "gravatar.loli.net/avatar/",
+                "cdn_replace": false,
+                "hide_email_ip": false,
+                "hide_top_toolbar": false,
+                "no_escape": false,
+                "remove_RSS_version": false,
+                "remove_sitemap_users": false,
+                "renew": false,
+                "search_link_simplify": false,
+                "user_list_show_nickname": false
+            }
+        },
+        "page": {
+            "comment": {
+                "english": false,
+                "interval": false,
+                "interval_time": 5,
+                "only": false,
+                "sensitive_words": false,
+                "sensitive_words_action": "replace",
+                "sensitive_words_list": "",
+                "sensitive_words_replace_char": "***",
+                "words_number": false,
+                "words_number_max": 120,
+                "words_number_min": 0
+            },
+            "feature": {
+                "reading_progress": false,
+                "reading_progress_color": "#1677ff",
+                "reading_progress_height": 3
+            },
+            "function": {
+                "add_inks": false,
+                "add_last_update": false,
+                "batch_replace": false,
+                "batch_replace_pairs": [],
+                "countdown": [],
+                "countdown_content": "",
+                "countdown_image": "",
+                "countdown_title": "",
+                "default_thumbnail": "",
+                "first_picture": false,
+                "login_search": false,
+                "maintenance_tips": "false",
+                "no_login_img": false,
+                "search_limit": false,
+                "search_limit_count": 10
+            },
+            "jurisdiction": {
+                "category_id": [],
+                "page_id": [],
+                "single_id": [],
+                "tag_id": [],
+                "tip_content": ""
+            }
+        },
+        "performance": {
+            "db_clean": {
+                "auto_clean": false,
+                "auto_clean_schedule": "weekly",
+                "clean_drafts": false,
+                "clean_revisions": false,
+                "clean_spam_comments": false,
+                "clean_transients": false,
+                "enabled": false
+            },
+            "media_health": {
+                "enabled": false
+            },
+            "oss": {
+                "bucket": "",
+                "delete_local": false,
+                "domain": "",
+                "enabled": false,
+                "provider": "aliyun",
+                "region": ""
+            },
+            "search_enhance": {
+                "highlight_enabled": false,
+                "hotwords_enabled": false,
+                "recommend_enabled": false
+            },
+            "seo_checker": {
+                "enabled": false
+            }
+        }
+    },
+    "uiSchema": {
+        "domestic-login_security-anonymous_author_guard_enabled": {
+            "feature_id": "domestic-login_security-anonymous_author_guard_enabled",
+            "group": "登录安全",
+            "label": "限制匿名作者枚举",
+            "path": "domestic.login_security.anonymous_author_guard_enabled",
+            "risk": {
+                "level": "none"
+            },
+            "type": "boolean"
+        },
+        "domestic-login_security-attempt_limit_enabled": {
+            "feature_id": "domestic-login_security-attempt_limit_enabled",
+            "group": "登录安全",
+            "label": "登录尝试保护",
+            "path": "domestic.login_security.attempt_limit_enabled",
+            "risk": {
+                "level": "low",
+                "suggestion": "确认开启后请在保存前核对可信代理；如发生误锁，可在 wp-config.php 中将 MABOX_DISABLE_LOGIN_PROTECTION 定义为 true 后恢复。",
+                "title": "登录尝试保护",
+                "warning": "可信代理配置错误可能让多个访客共享同一来源 IP，造成账号误锁。"
+            },
+            "risk_tags": [
+                "谨慎"
+            ],
+            "type": "boolean"
+        },
+        "optimize-medium-medium_add_svg": {
+            "feature_id": "optimize-medium-medium_add_svg",
+            "group": "媒体",
+            "label": "SVG 上传支持",
+            "path": "optimize.medium.medium_add_svg",
+            "risk": {
+                "level": "low",
+                "suggestion": "仅允许可信用户上传 SVG 文件。",
+                "title": "SVG 上传支持",
+                "warning": "SVG 文件可能包含恶意脚本，已做安全过滤但仍需注意。"
+            },
+            "risk_tags": [
+                "谨慎"
+            ],
+            "type": "boolean"
+        },
+        "optimize-medium-no_auto_size": {
+            "feature_id": "optimize-medium-no_auto_size",
+            "group": "媒体",
+            "label": "禁止缩略图",
+            "path": "optimize.medium.no_auto_size",
+            "risk": {
+                "level": "low",
+                "suggestion": "开启前请确认主题支持。",
+                "title": "禁止缩略图",
+                "warning": "此功能可能与部分主题不兼容，导致图片显示异常。"
+            },
+            "risk_tags": [
+                "谨慎"
+            ],
+            "type": "boolean"
+        },
+        "performance-db_clean-enabled": {
+            "feature_id": "performance-db_clean-enabled",
+            "group": "数据库",
+            "label": "数据库清理优化",
+            "path": "performance.db_clean.enabled",
+            "risk": {
+                "level": "high",
+                "noDismiss": true,
+                "suggestion": "执行前务必先预览影响数量，并做好备份。",
+                "title": "数据库清理",
+                "warning": "数据库清理操作不可逆，删除的数据无法恢复。"
+            },
+            "risk_tags": [
+                "安全"
+            ],
+            "type": "boolean"
+        }
+    }
+}

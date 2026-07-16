@@ -55,11 +55,17 @@ describe('defaultVar', () => {
   it('should have valid countdown array format', () => {
     const { countdown } = defaultVarOption.page.function;
     expect(Array.isArray(countdown)).toBe(true);
-    expect(countdown.length).toBe(2);
+    expect(countdown).toEqual([]);
   });
 
   it('should have valid batch_replace_pairs array', () => {
     expect(Array.isArray(defaultVarOption.page.function.batch_replace_pairs)).toBe(true);
+  });
+
+  it('does not expose sensitive schema fields', () => {
+    expect(defaultVarOption.domestic.wechat).not.toHaveProperty('appsecret');
+    expect(defaultVarOption.performance.oss).not.toHaveProperty('access_key');
+    expect(defaultVarOption.performance.oss).not.toHaveProperty('secret_key');
   });
 
 

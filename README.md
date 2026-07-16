@@ -185,8 +185,9 @@ pnpm dev:admin
 
 1. **PHP 后端**：在 `admin/partials/[category]/` 下创建功能文件，使用静态类 + `run($config)` 方法
 2. **注册模块**：在 `admin/modules/registry.php` 中添加模块注册记录
-3. **React 前端**：在 `vite/admin/src/tool/interface.tsx` 添加类型定义，在 `defaultVar.tsx` 添加默认值，在对应 Tab 组件中添加 UI 控件
-4. **详细规范**：见 [项目现状与开发指南.md](项目现状与开发指南.md)
+3. **设置契约**：在 `MaBox_Config_Schema` 添加类型、默认值和必要的 UI 风险元数据，然后运行 `composer settings-contract:generate`
+4. **React 前端**：在 `vite/admin/src/tool/interface.tsx` 添加类型定义，并在对应 Tab 组件中添加 UI 控件；搜索关键词和别名仍由前端维护
+5. **详细规范**：见 [项目现状与开发指南.md](项目现状与开发指南.md)
 
 ### CI/CD
 

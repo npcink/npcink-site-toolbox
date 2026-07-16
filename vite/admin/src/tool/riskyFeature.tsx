@@ -1,33 +1,7 @@
 import { Modal } from "antd";
 import { ExclamationCircleOutlined } from "@ant-design/icons";
-import { getUiSchemaSync, fetchUiSchema } from "@/tool/uiSchema";
+import { getUiSchemaSync, fetchUiSchema, hasFetchedUiSchemaSync } from "@/tool/uiSchema";
 import { RiskInfo } from "@/tool/interface";
-
-const RISKY_FEATURES: Record<string, { title: string; warning: string; suggestion: string; noDismiss?: boolean }> = {
-  "optimize-medium-no_auto_size": {
-    title: "禁止缩略图",
-    warning: "此功能可能与部分主题不兼容，导致图片显示异常。",
-    suggestion: "开启前请确认主题支持。",
-  },
-
-  "performance-db_clean-enabled": {
-    title: "数据库清理",
-    warning: "数据库清理操作不可逆，删除的数据无法恢复。",
-    suggestion: "执行前务必先预览影响数量，并做好备份。",
-    noDismiss: true,
-  },
-
-  "optimize-medium-medium_add_svg": {
-    title: "SVG 上传支持",
-    warning: "SVG 文件可能包含恶意脚本，已做安全过滤但仍需注意。",
-    suggestion: "仅允许可信用户上传 SVG 文件。",
-  },
-  "domestic-login_security-attempt_limit_enabled": {
-    title: "登录尝试保护",
-    warning: "可信代理配置错误可能让多个访客共享同一来源 IP，造成账号误锁。",
-    suggestion: "确认开启后请在保存前核对可信代理；如发生误锁，可在 wp-config.php 中将 MABOX_DISABLE_LOGIN_PROTECTION 定义为 true 后恢复。",
-  },
-};
 
 const STORAGE_KEY = "mabox_risky_dismissed";
 
@@ -55,15 +29,15 @@ function resolveRiskInfoSync(featureId: string): { title: string; warning: strin
   if (schema) {
     const entry = schema[featureId];
     if (entry?.risk) {
-      return normalizeRiskInfo(entry.risk as RiskInfo);
+      return normalizeRiskInfo(entry.risk);
     }
     for (const [, val] of Object.entries(schema)) {
       if (val.feature_id === featureId && val.risk) {
-        return normalizeRiskInfo(val.risk as RiskInfo);
+        return normalizeRiskInfo(val.risk);
       }
     }
   }
-  return RISKY_FEATURES[featureId] || null;
+  return null;
 }
 
 function getDismissedFeatures(): string[] {
@@ -98,7 +72,7 @@ export function checkRiskyFeature(
   const riskInfo = resolveRiskInfoSync(featureId);
 
   if (!riskInfo) {
-    if (!getUiSchemaSync()) {
+    if (!hasFetchedUiSchemaSync()) {
       fetchUiSchema().then(() => {
         const afterFetch = resolveRiskInfoSync(featureId);
         if (afterFetch) {

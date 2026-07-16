@@ -49,16 +49,16 @@ describe("diffConfig", () => {
     }));
   });
 
-  it("Schema 未缓存时不会把低风险功能硬编码为 high", () => {
+  it("使用生成 Schema fallback 标记低风险功能", () => {
     const before = { optimize: { medium: { no_auto_size: false } } };
     const after = { optimize: { medium: { no_auto_size: true } } };
     const diffs = diffConfig(before, after);
     expect(diffs).toHaveLength(1);
     expect(diffs[0].path).toBe("optimize.medium.no_auto_size");
-    expect(diffs[0].riskLevel).toBe("none");
+    expect(diffs[0].riskLevel).toBe("low");
   });
 
-  it("高风险功能从开启到关闭时标记为 none", () => {
+  it("风险功能从开启到关闭时标记为 none", () => {
     const before = { optimize: { medium: { no_auto_size: true } } };
     const after = { optimize: { medium: { no_auto_size: false } } };
     const diffs = diffConfig(before, after);
@@ -72,7 +72,7 @@ describe("diffConfig", () => {
     const diffs = diffConfig(before, after);
     expect(diffs).toHaveLength(1);
     expect(diffs[0].path).toBe("optimize.medium.no_auto_size");
-    expect(diffs[0].riskLevel).toBe("none");
+    expect(diffs[0].riskLevel).toBe("low");
   });
 
   it("普通字符串变化标记为 none", () => {
@@ -108,7 +108,7 @@ describe("diffConfig", () => {
       expect.objectContaining({
         path: "domestic.login_security.attempt_limit_enabled",
         label: "登录尝试保护",
-        riskLevel: "none",
+        riskLevel: "low",
       }),
       expect.objectContaining({
         path: "domestic.login_security.attempt_window_minutes",

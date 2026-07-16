@@ -261,7 +261,12 @@ if (!class_exists('MaBox_Config_Schema')) {
             return self::$schema;
         }
 
-        public static function get_ui_schema() {
+        /**
+         * 获取仅由配置 Schema 定义的 UI 元数据。
+         *
+         * 此视图不合并模块 Registry/metadata，供确定性前端契约导出使用。
+         */
+        public static function get_schema_ui_schema() {
             $schema = self::get_schema();
             $ui = array();
 
@@ -306,6 +311,12 @@ if (!class_exists('MaBox_Config_Schema')) {
                     }
                 }
             }
+
+            return $ui;
+        }
+
+        public static function get_ui_schema() {
+            $ui = self::get_schema_ui_schema();
 
             if (class_exists('MaBox_Module_Metadata')) {
                 $module_ui = MaBox_Module_Metadata::get_ui_metadata();
@@ -437,6 +448,51 @@ if (!class_exists('MaBox_Config_Schema')) {
             }
 
             return $defaults;
+        }
+
+        /**
+         * 获取前端构建使用的最小设置契约。
+         *
+         * 敏感字段的键和值都不会进入生成物；运行时 REST 契约仍由
+         * MaBox_Config_Manager 独立负责，不读取此构建期快照。
+         */
+        public static function get_admin_settings_contract() {
+            $schema = self::get_schema();
+            $defaults = self::get_defaults();
+            $ui_schema = self::get_schema_ui_schema();
+
+            foreach ($schema as $module_key => $module_def) {
+                if (!is_array($module_def) || !isset($defaults[$module_key])) {
+                    continue;
+                }
+
+                if (!empty($module_def['_flat'])) {
+                    foreach ($module_def as $field_key => $field_def) {
+                        if (is_array($field_def) && !empty($field_def['sensitive'])) {
+                            unset($defaults[$module_key][$field_key]);
+                            unset($ui_schema[$module_key . '-' . $field_key]);
+                        }
+                    }
+                    continue;
+                }
+
+                foreach ($module_def as $sub_key => $sub_def) {
+                    if (!is_array($sub_def) || !isset($defaults[$module_key][$sub_key])) {
+                        continue;
+                    }
+                    foreach ($sub_def as $field_key => $field_def) {
+                        if (is_array($field_def) && !empty($field_def['sensitive'])) {
+                            unset($defaults[$module_key][$sub_key][$field_key]);
+                            unset($ui_schema[$module_key . '-' . $sub_key . '-' . $field_key]);
+                        }
+                    }
+                }
+            }
+
+            return array(
+                'defaults' => $defaults,
+                'uiSchema' => $ui_schema,
+            );
         }
 
         /**
