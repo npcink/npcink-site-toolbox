@@ -105,6 +105,11 @@ describe('WordPress admin embed isolation', () => {
     expect(appStyleSource).toContain(
       '.mabox-module-grid {\n    grid-template-columns: minmax(0, 1fr);\n  }',
     );
+    expect(appStyleSource.lastIndexOf(
+      '.mabox-feature-switch-control,\n  .mabox-favorite-action {\n    min-height: 44px;\n  }',
+    )).toBeGreaterThan(appStyleSource.indexOf(
+      '.mabox-feature-switch-control {\n  min-width: 44px;\n  min-height: 32px;',
+    ));
     expect(
       collectStyleSelectors(`${appStyleSource}\n.fixed { position: fixed; }`)
         .filter((selector) => !selector.startsWith('.mabox-')),

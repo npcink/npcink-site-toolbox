@@ -61,7 +61,7 @@ const App: React.FC = () => {
               <Input placeholder="如：https://cdn.example.com" />
             </Form.Item>
             <Form.Item label="上传后删除本地文件" name="delete_local" valuePropName="checked">
-              <FeatureSwitch featureId="performance-oss-delete_local" />
+              <FeatureSwitch featureId="performance-oss-delete_local" label="上传后删除本地文件" />
             </Form.Item>
           </>
         )}

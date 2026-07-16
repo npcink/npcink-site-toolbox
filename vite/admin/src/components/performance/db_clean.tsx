@@ -190,20 +190,20 @@ const App: React.FC = () => {
         />
 
         <Form.Item label="清理修订版本" name="clean_revisions" valuePropName="checked">
-          <FeatureSwitch featureId="performance-db_clean-clean_revisions" />
+          <FeatureSwitch featureId="performance-db_clean-clean_revisions" label="清理修订版本" />
         </Form.Item>
         <Form.Item label="清理自动草稿" name="clean_drafts" valuePropName="checked">
-          <FeatureSwitch featureId="performance-db_clean-clean_drafts" />
+          <FeatureSwitch featureId="performance-db_clean-clean_drafts" label="清理自动草稿" />
         </Form.Item>
         <Form.Item label="清理垃圾评论" name="clean_spam_comments" valuePropName="checked">
-          <FeatureSwitch featureId="performance-db_clean-clean_spam_comments" />
+          <FeatureSwitch featureId="performance-db_clean-clean_spam_comments" label="清理垃圾评论" />
         </Form.Item>
         <Form.Item label="清理过期 Transient" name="clean_transients" valuePropName="checked">
-          <FeatureSwitch featureId="performance-db_clean-clean_transients" />
+          <FeatureSwitch featureId="performance-db_clean-clean_transients" label="清理过期 Transient" />
         </Form.Item>
 
         <Form.Item label="定时自动清理" name="auto_clean" valuePropName="checked">
-          <FeatureSwitch featureId="performance-db_clean-auto_clean" />
+          <FeatureSwitch featureId="performance-db_clean-auto_clean" label="定时自动清理" />
         </Form.Item>
         {formData.auto_clean && (
           <Form.Item label="清理周期" name="auto_clean_schedule">

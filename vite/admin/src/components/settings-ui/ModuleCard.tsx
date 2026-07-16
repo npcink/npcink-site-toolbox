@@ -57,10 +57,16 @@ const ModuleCard: React.FC<ModuleCardProps> = ({
         </div>
         <div className="mabox-module-card-actions">
           {switchable && (
-            <FeatureSwitch featureId={featureId} checked={enabled} onChange={onChange} />
+            <FeatureSwitch featureId={featureId} label={title} checked={enabled} onChange={onChange} />
           )}
           {actionLabel && onAction && (
-            <Button size="small" type="primary" onClick={onAction} loading={actionLoading}>
+            <Button
+              aria-label={`${actionLabel}：${title}`}
+              size="small"
+              type="primary"
+              onClick={onAction}
+              loading={actionLoading}
+            >
               {actionLabel}
             </Button>
           )}

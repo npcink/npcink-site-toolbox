@@ -49,7 +49,7 @@ const ModuleRow: React.FC<ModuleRowProps> = ({
           )}
         </div>
         <div className="mabox-module-row-actions">
-          <FeatureSwitch featureId={featureId} checked={enabled} onChange={onChange} />
+          <FeatureSwitch featureId={featureId} label={title} checked={enabled} onChange={onChange} />
           {preview && <Preview title={preview.title} img={preview.img} />}
           {onDetails && (
             <button className="mabox-module-row-details-btn" onClick={onDetails}>

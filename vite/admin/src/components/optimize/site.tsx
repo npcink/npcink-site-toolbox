@@ -46,7 +46,7 @@ const App: React.FC = () => {
       >
         <ModuleRow
           title="隐藏顶部工具条"
-          description="WordPress、主题和插件不再提示更新"
+          description="对无法编辑文章的登录用户隐藏前台顶部工具条"
           featureId="optimize-site-hide_top_toolbar"
           enabled={formData.hide_top_toolbar as boolean}
           onChange={(checked: boolean) => onValuesChange({ hide_top_toolbar: checked } as Partial<FieldType>, formData)}
@@ -101,7 +101,7 @@ const App: React.FC = () => {
         />
         <ModuleRow
           title="用户列表展示昵称"
-          description="移除原生站点地图中的用户信息部分，可减少用户信息暴露风险"
+          description="在用户列表中以“昵称”列替代“姓名”列"
           featureId="optimize-site-user_list_show_nickname"
           enabled={formData.user_list_show_nickname as boolean}
           onChange={(checked: boolean) => onValuesChange({ user_list_show_nickname: checked } as Partial<FieldType>, formData)}
@@ -114,55 +114,63 @@ const App: React.FC = () => {
           onChange={(checked: boolean) => onValuesChange({ cdn_replace: checked } as Partial<FieldType>, formData)}
           tags={["性能"]}
         />
-        <ModuleRow
-          title="Gravatar 头像替换"
-          description="将 gravatar.com 替换为国内镜像，解决头像无法加载的问题"
-          featureId="optimize-site-cdn_gravatar"
-          enabled={formData.cdn_gravatar as boolean}
-          onChange={(checked: boolean) => onValuesChange({ cdn_gravatar: checked } as Partial<FieldType>, formData)}
-          tags={["性能"]}
-        />
+        {formData.cdn_replace && (
+          <>
+            <ModuleRow
+              title="Gravatar 头像替换"
+              description="将 gravatar.com 替换为国内镜像，解决头像无法加载的问题"
+              featureId="optimize-site-cdn_gravatar"
+              enabled={formData.cdn_gravatar as boolean}
+              onChange={(checked: boolean) => onValuesChange({ cdn_gravatar: checked } as Partial<FieldType>, formData)}
+              tags={["性能"]}
+            />
 
-        <Form.Item<FieldType>
-          label="Gravatar 镜像地址"
-          name="cdn_gravatar_mirror"
-          extra={"默认: gravatar.loli.net/avatar/"}
-        >
-          <Input placeholder="gravatar.loli.net/avatar/" />
-        </Form.Item>
+            {formData.cdn_gravatar && (
+              <Form.Item<FieldType>
+                label="Gravatar 镜像地址"
+                name="cdn_gravatar_mirror"
+                extra={"默认: gravatar.loli.net/avatar/"}
+              >
+                <Input placeholder="gravatar.loli.net/avatar/" />
+              </Form.Item>
+            )}
 
-        <ModuleRow
-          title="Google Fonts 替换"
-          description="将 fonts.googleapis.com 替换为国内镜像，需确认镜像站可用性"
-          featureId="optimize-site-cdn_google_fonts"
-          enabled={formData.cdn_google_fonts as boolean}
-          onChange={(checked: boolean) => onValuesChange({ cdn_google_fonts: checked } as Partial<FieldType>, formData)}
-          tags={["性能"]}
-        />
+            <ModuleRow
+              title="Google Fonts 替换"
+              description="将 fonts.googleapis.com 替换为国内镜像，需确认镜像站可用性"
+              featureId="optimize-site-cdn_google_fonts"
+              enabled={formData.cdn_google_fonts as boolean}
+              onChange={(checked: boolean) => onValuesChange({ cdn_google_fonts: checked } as Partial<FieldType>, formData)}
+              tags={["性能"]}
+            />
 
-        <Form.Item<FieldType>
-          label="Google Fonts 镜像地址"
-          name="cdn_google_fonts_mirror"
-          extra={"默认: fonts.loli.net"}
-        >
-          <Input placeholder="fonts.loli.net" />
-        </Form.Item>
+            {formData.cdn_google_fonts && (
+              <Form.Item<FieldType>
+                label="Google Fonts 镜像地址"
+                name="cdn_google_fonts_mirror"
+                extra={"默认: fonts.loli.net"}
+              >
+                <Input placeholder="fonts.loli.net" />
+              </Form.Item>
+            )}
 
-        <ModuleRow
-          title="Google Ajax 替换"
-          description="将 ajax.googleapis.com 替换为 ajax.loli.net"
-          featureId="optimize-site-cdn_google_ajax"
-          enabled={formData.cdn_google_ajax as boolean}
-          onChange={(checked: boolean) => onValuesChange({ cdn_google_ajax: checked } as Partial<FieldType>, formData)}
-        />
+            <ModuleRow
+              title="Google Ajax 替换"
+              description="将 ajax.googleapis.com 替换为 ajax.loli.net"
+              featureId="optimize-site-cdn_google_ajax"
+              enabled={formData.cdn_google_ajax as boolean}
+              onChange={(checked: boolean) => onValuesChange({ cdn_google_ajax: checked } as Partial<FieldType>, formData)}
+            />
 
-        <Form.Item<FieldType>
-          label="自定义 CDN 替换"
-          name="cdn_custom"
-          extra={"每行一条规则，格式: 原地址 => 新地址，支持 style_loader_src 和 script_loader_src"}
-        >
-          <Input.TextArea rows={4} placeholder={"example.com/cdn/ => cdn.example.com/"} />
-        </Form.Item>
+            <Form.Item<FieldType>
+              label="自定义 CDN 替换"
+              name="cdn_custom"
+              extra={"每行一条规则，格式: 原地址 => 新地址，支持 style_loader_src 和 script_loader_src"}
+            >
+              <Input.TextArea rows={4} placeholder={"example.com/cdn/ => cdn.example.com/"} />
+            </Form.Item>
+          </>
+        )}
 
         <ModuleRow
           title="隐藏邮件中的 IP"
