@@ -303,12 +303,14 @@ if (!class_exists('MaBox_Search_Health')) {
                     $recommendations[] = array(
                         'id' => 'rec_no_result_high',
                         'title' => __('无结果搜索比例过高', 'magick-toolbox'),
+                        /* translators: %.0f: Percentage of searches with no results. */
                         'reason' => sprintf(__('超过 %.0f%% 的搜索无结果，建议为热门无结果词补充相关内容。', 'magick-toolbox'), $no_result_ratio * 100),
                     );
                 } elseif ($no_result_ratio > 0.2) {
                     $recommendations[] = array(
                         'id' => 'rec_no_result_moderate',
                         'title' => __('关注无结果搜索词', 'magick-toolbox'),
+                        /* translators: %.0f: Percentage of searches with no results. */
                         'reason' => sprintf(__('约 %.0f%% 的搜索无结果，可考虑补充相关内容。', 'magick-toolbox'), $no_result_ratio * 100),
                     );
                 }
@@ -318,6 +320,7 @@ if (!class_exists('MaBox_Search_Health')) {
                 $recommendations[] = array(
                     'id' => 'rec_suspicious_search',
                     'title' => __('检测到异常高频搜索', 'magick-toolbox'),
+                    /* translators: %d: Number of suspicious high-frequency search terms. */
                     'reason' => sprintf(__('发现 %d 个异常高频搜索词，可能为爬虫或恶意行为，建议开启搜索频次限制。', 'magick-toolbox'), count($suspicious_terms)),
                 );
             }

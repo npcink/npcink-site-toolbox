@@ -446,6 +446,52 @@ class DiagnosticsTest extends TestCase {
         $this->assertGreaterThanOrEqual(0, $method->invoke(null, $min_config, $min_env));
     }
 
+    public function test_placeholder_translations_have_comments_and_ordered_multi_placeholders(): void {
+        $source = file_get_contents(dirname(__FILE__) . '/../../includes/class-mabox-diagnostics.php');
+        $this->assertIsString($source);
+
+        preg_match_all(
+            '/\/\* translators: [^\r\n]+ \*\/\R\s*__\([^\r\n]*%/',
+            $source,
+            $documented_placeholders
+        );
+
+        $this->assertCount(13, $documented_placeholders[0]);
+        $this->assertStringContainsString(
+            '当前已激活 %1$d 个模块，共 %2$d 个可用模块。',
+            $source
+        );
+        $this->assertStringNotContainsString(
+            '当前已激活 %d 个模块，共 %d 个可用模块。',
+            $source
+        );
+    }
+
+    public function test_module_count_message_preserves_placeholder_argument_order(): void {
+        $this->mockWordPressFunctions(array());
+
+        $method = new ReflectionMethod('MaBox_Diagnostics', 'get_diagnostic_items');
+        $env = array(
+            'php_version'        => '8.2',
+            'wp_version'         => '6.9',
+            'permalink'          => '/%postname%/',
+            'object_cache'       => true,
+            'rest_api_available' => true,
+        );
+        $active_modules = array('module.one', 'module.two');
+        $items = $method->invoke(null, array(), $env, $active_modules, array());
+        $items_by_id = array_column($items, null, 'id');
+        $total_modules = class_exists('MaBox_Module_Loader')
+            ? count(MaBox_Module_Loader::get_all_module_ids())
+            : 0;
+
+        $this->assertArrayHasKey('module_count', $items_by_id);
+        $this->assertSame(
+            sprintf('当前已激活 %1$d 个模块，共 %2$d 个可用模块。', 2, $total_modules),
+            $items_by_id['module_count']['message']
+        );
+    }
+
     /**
      * 辅助：Mock WordPress 全局函数
      */

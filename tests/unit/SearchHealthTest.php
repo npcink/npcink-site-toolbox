@@ -191,6 +191,28 @@ class SearchHealthTest extends TestCase
         $this->assertContains('rec_search_rate_limit', $rec_ids);
     }
 
+    public function test_recommendation_placeholders_have_translator_context(): void
+    {
+        $source = file_get_contents(dirname(__FILE__) . '/../../includes/class-mabox-search-health.php');
+        $this->assertIsString($source);
+
+        $this->assertStringContainsString(
+            "/* translators: %.0f: Percentage of searches with no results. */\n"
+                . "                        'reason' => sprintf(__('超过 %.0f%% 的搜索无结果，建议为热门无结果词补充相关内容。'",
+            $source
+        );
+        $this->assertStringContainsString(
+            "/* translators: %.0f: Percentage of searches with no results. */\n"
+                . "                        'reason' => sprintf(__('约 %.0f%% 的搜索无结果，可考虑补充相关内容。'",
+            $source
+        );
+        $this->assertStringContainsString(
+            "/* translators: %d: Number of suspicious high-frequency search terms. */\n"
+                . "                    'reason' => sprintf(__('发现 %d 个异常高频搜索词",
+            $source
+        );
+    }
+
     public function test_rest_summary_structure(): void
     {
         $this->assertTrue(method_exists('MaBox_Search_Health', 'rest_get_summary'));

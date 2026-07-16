@@ -179,8 +179,16 @@ if (!class_exists('MaBox_Diagnostics')) {
                 'title'   => __('PHP 版本', 'magick-toolbox'),
                 'status'  => $php_ok ? 'good' : 'critical',
                 'message' => $php_ok
-                    ? sprintf(__('当前 PHP 版本 %s，满足最低要求（7.4+）。', 'magick-toolbox'), $env['php_version'])
-                    : sprintf(__('当前 PHP 版本 %s，低于最低要求 7.4。', 'magick-toolbox'), $env['php_version']),
+                    ? sprintf(
+                        /* translators: %s: Current PHP version. */
+                        __('当前 PHP 版本 %s，满足最低要求（7.4+）。', 'magick-toolbox'),
+                        $env['php_version']
+                    )
+                    : sprintf(
+                        /* translators: %s: Current PHP version. */
+                        __('当前 PHP 版本 %s，低于最低要求 7.4。', 'magick-toolbox'),
+                        $env['php_version']
+                    ),
                 'action'  => $php_ok ? '' : __('升级 PHP 版本', 'magick-toolbox'),
             );
 
@@ -192,8 +200,16 @@ if (!class_exists('MaBox_Diagnostics')) {
                 'title'   => __('WordPress 版本', 'magick-toolbox'),
                 'status'  => $wp_ok ? 'good' : 'warning',
                 'message' => $wp_ok
-                    ? sprintf(__('当前 WordPress 版本 %s。', 'magick-toolbox'), $env['wp_version'])
-                    : sprintf(__('当前 WordPress 版本 %s，建议升级至 6.0+。', 'magick-toolbox'), $env['wp_version']),
+                    ? sprintf(
+                        /* translators: %s: Current WordPress version. */
+                        __('当前 WordPress 版本 %s。', 'magick-toolbox'),
+                        $env['wp_version']
+                    )
+                    : sprintf(
+                        /* translators: %s: Current WordPress version. */
+                        __('当前 WordPress 版本 %s，建议升级至 6.0+。', 'magick-toolbox'),
+                        $env['wp_version']
+                    ),
                 'action'  => $wp_ok ? '' : __('检查更新', 'magick-toolbox'),
             );
 
@@ -204,7 +220,11 @@ if (!class_exists('MaBox_Diagnostics')) {
                 'title'   => __('固定链接（伪静态）', 'magick-toolbox'),
                 'status'  => $permalink_ok ? 'good' : 'warning',
                 'message' => $permalink_ok
-                    ? sprintf(__('当前固定链接结构：%s', 'magick-toolbox'), $env['permalink'])
+                    ? sprintf(
+                        /* translators: %s: Current permalink structure. */
+                        __('当前固定链接结构：%s', 'magick-toolbox'),
+                        $env['permalink']
+                    )
                     : __('当前使用默认固定链接（?p=123），不利于 SEO。', 'magick-toolbox'),
                 'action'  => $permalink_ok ? '' : __('设置固定链接', 'magick-toolbox'),
             );
@@ -237,7 +257,12 @@ if (!class_exists('MaBox_Diagnostics')) {
                 'id'      => 'module_count',
                 'title'   => __('已激活模块数', 'magick-toolbox'),
                 'status'  => 'good',
-                'message' => sprintf(__('当前已激活 %d 个模块，共 %d 个可用模块。', 'magick-toolbox'), count($active_modules), $total_modules),
+                'message' => sprintf(
+                    /* translators: %1$d: Number of active modules. %2$d: Total number of available modules. */
+                    __('当前已激活 %1$d 个模块，共 %2$d 个可用模块。', 'magick-toolbox'),
+                    count($active_modules),
+                    $total_modules
+                ),
                 'action'  => '',
             );
 
@@ -265,12 +290,24 @@ if (!class_exists('MaBox_Diagnostics')) {
             if ($total_risky > 0) {
                 $parts = array();
                 if (!empty($high_risk_active)) {
-                    $parts[] = sprintf(__('高风险 %d 个', 'magick-toolbox'), count($high_risk_active));
+                    $parts[] = sprintf(
+                        /* translators: %d: Number of active high-risk modules. */
+                        __('高风险 %d 个', 'magick-toolbox'),
+                        count($high_risk_active)
+                    );
                 }
                 if (!empty($experimental_active)) {
-                    $parts[] = sprintf(__('实验性 %d 个', 'magick-toolbox'), count($experimental_active));
+                    $parts[] = sprintf(
+                        /* translators: %d: Number of active experimental modules. */
+                        __('实验性 %d 个', 'magick-toolbox'),
+                        count($experimental_active)
+                    );
                 }
-                $risk_msg = sprintf(__('已启用 %s，建议谨慎评估。', 'magick-toolbox'), implode('、', $parts));
+                $risk_msg = sprintf(
+                    /* translators: %s: Summary of active high-risk and experimental modules. */
+                    __('已启用 %s，建议谨慎评估。', 'magick-toolbox'),
+                    implode('、', $parts)
+                );
             }
 
             $items[] = array(
@@ -319,7 +356,11 @@ if (!class_exists('MaBox_Diagnostics')) {
                 $cdn_status = 'good';
                 $cdn_msg = __('已全部开启国内 CDN 替换（Gravatar、Google Fonts、Google Ajax）。', 'magick-toolbox');
             } elseif ($cdn_replaced > 0) {
-                $cdn_msg = sprintf(__('已开启 %d/3 项国内 CDN 替换，建议补全。', 'magick-toolbox'), $cdn_replaced);
+                $cdn_msg = sprintf(
+                    /* translators: %d: Number of enabled domestic CDN replacements out of three. */
+                    __('已开启 %d/3 项国内 CDN 替换，建议补全。', 'magick-toolbox'),
+                    $cdn_replaced
+                );
             } else {
                 $cdn_msg = __('未开启任何国内 CDN 替换，国内访问可能受影响。', 'magick-toolbox');
             }
@@ -356,8 +397,16 @@ if (!class_exists('MaBox_Diagnostics')) {
                     'title'   => __('搜索无结果比例', 'magick-toolbox'),
                     'status'  => $nr_status,
                     'message' => $nr_status === 'warning'
-                        ? sprintf(__('近 30 天 %.0f%% 的搜索无结果，建议补充相关内容。', 'magick-toolbox'), $no_result_ratio * 100)
-                        : sprintf(__('近 30 天 %.0f%% 的搜索无结果，比例正常。', 'magick-toolbox'), $no_result_ratio * 100),
+                        ? sprintf(
+                            /* translators: %.0f: Percentage of searches with no results in the last 30 days. */
+                            __('近 30 天 %.0f%% 的搜索无结果，建议补充相关内容。', 'magick-toolbox'),
+                            $no_result_ratio * 100
+                        )
+                        : sprintf(
+                            /* translators: %.0f: Percentage of searches with no results in the last 30 days. */
+                            __('近 30 天 %.0f%% 的搜索无结果，比例正常。', 'magick-toolbox'),
+                            $no_result_ratio * 100
+                        ),
                     'action'  => $nr_status === 'warning' ? __('查看无结果搜索词', 'magick-toolbox') : '',
                 );
             }
@@ -679,7 +728,11 @@ if (!class_exists('MaBox_Diagnostics')) {
             if ($high_risk_count > 0) {
                 $hints[] = array(
                     'type'    => 'high_risk_modules',
-                    'message' => sprintf(__('已启用 %d 个高风险模块，如需稳定性评估可联系技术支持。', 'magick-toolbox'), $high_risk_count),
+                    'message' => sprintf(
+                        /* translators: %d: Number of active high-risk modules. */
+                        __('已启用 %d 个高风险模块，如需稳定性评估可联系技术支持。', 'magick-toolbox'),
+                        $high_risk_count
+                    ),
                 );
             }
 
