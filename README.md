@@ -1,10 +1,10 @@
 # WP Magick Toolbox
 
 > 面向中国 WordPress 站长的一站式实用工具箱插件
-> 版本：**2.6.1** | 阶段：**Pre-GA 重构中** | 授权：**GPL-2.0**
+> 版本：**3.0.0** | 阶段：**预备发布** | 授权：**GPL-2.0**
 
 [![CI](https://github.com/muze-page/wp-magick-toolbox/actions/workflows/ci.yml/badge.svg)](https://github.com/muze-page/wp-magick-toolbox/actions/workflows/ci.yml)
-[![WordPress Plugin](https://img.shields.io/badge/WordPress-4.6%2B-blue)](https://wordpress.org)
+[![WordPress Plugin](https://img.shields.io/badge/WordPress-6.0%2B-blue)](https://wordpress.org)
 [![PHP](https://img.shields.io/badge/PHP-7.4%2B-green)](https://php.net)
 [![License](https://img.shields.io/badge/License-GPL%202.0-orange)](LICENSE)
 
@@ -12,9 +12,9 @@
 
 ## 简介
 
-WP Magick Toolbox 是一款面向中国 WordPress 站长的免费工具箱插件，涵盖站点优化、SEO、安全防护、微信生态、备案合规和性能维护等常用场景。
+WP Magick Toolbox 是一款面向中国 WordPress 站长的免费工具箱插件。3.0.0 以 57 个注册模块为运行边界，通过七个语义化管理视图提供站点优化、内容与 SEO、登录安全、国内生态和维护诊断等能力。
 
-**核心理念**：一个插件，解决站长 80% 的日常需求。
+**核心定位**：在一个插件内集中提供可按需启用的常见站点设置与维护工具。
 
 - 📖 **在线文档**：[docs.npc.ink](https://docs.npc.ink)（搭建中）
 - 🌐 **作者博客**：[npc.ink](https://www.npc.ink)
@@ -91,9 +91,23 @@ pnpm dev:admin
 - 权限检查（`current_user_can('manage_options')`）
 - 敏感设置不注入页面、不随读取接口返回；管理端只显示配置状态，替换或清除必须显式提交
 
+### 隐私与外部请求
+
+- 启用搜索健康后，热词与无结果统计会在站点本地数据库记录搜索词和计数；这些数据不由插件自动上传给作者。
+- 启用相关能力后，登录安全、审计与诊断可能在站点本地记录登录失败、IP 地址、操作事件和诊断结果，站点管理员应按自身隐私政策和保留周期管理这些数据。
+- 第三方集成只在管理员显式启用并配置后发起请求；国内访问连通性检测只在管理员主动运行检查时请求目标服务。传输内容及后续处理受所选服务和站点配置约束。
+
 ---
 
 ## 更新记录
+
+### 3.0.0 — 2026-07-16
+
+- Pre-GA clean break：后台收口为七个语义化视图和 57 个注册模块，不保留旧数字导航或已清退功能的兼容入口
+- 模块 Registry 与配置 Schema 成为单一事实源，前端设置类型、敏感路径和搜索索引由契约生成
+- 敏感设置改为只读配置状态及显式替换/清除；保存前展示真实差异和高风险确认
+- 移除 AI Provider Runtime、不可信登录验证码、防爬虫/防水墙遗留、百度推送及无消费者 REST 表面
+- 统一管理 REST 客户端、现代化后台外壳、错误/空状态、键盘路径与响应式体验
 
 ### 2.6.1 — 2026-05-28
 

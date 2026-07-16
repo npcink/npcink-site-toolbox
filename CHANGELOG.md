@@ -6,11 +6,25 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [3.0.0] - 2026-07-16
+
+### Changed
+- 以 Pre-GA clean break 重建管理后台：七个语义化视图承载 57 个注册模块，旧数字导航不再作为兼容入口
+- 模块 Registry 与配置 Schema 成为单一事实源；前端设置类型、敏感路径和 33 条功能搜索索引由 PHP 契约生成
+- 设置读取不再返回敏感原值，凭据保存明确区分保留、替换和清除；普通设置继续经过完整 Schema 校验和差异确认
+- 管理 REST 请求统一经过一个客户端，并补齐可信的加载、错误、空状态、键盘路径和移动端反馈
+- 前端收敛为一个 pnpm 前端工程、Admin 与 Count 两个独立产物；Admin 外壳改用原生 React/WordPress 样式并按需加载复杂表单
+
 ### Removed
+- 删除 AI Provider Runtime 正式产品代码；移植思路与核心实现只保留在不进入发布包的只读参考目录
+- 删除不可信登录验证码、anti-crawler/腾讯防水墙遗留、百度推送以及对应设置、REST 和前端入口
+- 删除旧 Dashboard 默认分、首次向导、预设市场、收藏拖拽、浏览器设置快照及旧迁移/备份兼容层
 - 删除没有可用管理界面或真实消费者的文章批量替换模块及 3 条手动 REST 路由
 - 删除数据库表导出、文章评分和微信解锁遗留的 4 条不可调用 REST 路由
 
 ### Fixed
+- 登录失败限制、可信代理 IP、匿名作者枚举保护和锁定恢复路径按独立设置正确加载，并补齐回归门禁
+- 模块 Loader、Registry、设置 Schema、生成式前端契约和发布 ZIP 均增加精确一致性验证
 - 分类、标签和页面选项接口改用受管理员权限保护的标准 WordPress REST 响应
 - REST Registry 增加 callback 可调用性与精确产品表面回归门禁
 

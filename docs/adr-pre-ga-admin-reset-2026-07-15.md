@@ -586,6 +586,33 @@
 8. 自动化门禁：Admin coverage 25 个文件/147 项测试，语句覆盖率 47.97%；Admin/Count TypeScript 与 ESLint 0 error（Admin 129/Count 3 个既有 warning）；Admin/Count build、CSS/构建扫描、PHPUnit 345 项测试/3711 个断言、PHPStan 0 error、设置契约检查、Composer strict validate 和 `git diff --check` 通过。
 9. Local WordPress 7.0.1 登录态烟测覆盖七个语义视图且均无错误状态或横向溢出；搜索框的展开/关闭、Escape 后首次 ArrowDown、数据库清理跳转与目标高亮通过。风险确认和保存差异 Modal 均只取消：前者保持开关关闭，后者在关闭动画后恢复“查看并保存”焦点；测试用关键词高亮开关与收藏状态均已还原，最终 overview 为“已保存”且保存禁用。320 px 下 document/wpcontent/shell 均无溢出，移动导航与搜索可见，console warning/error 为 0，未写入任何设置。
 
+## 工作包 14B：单一发布候选包与 3.0.0 版本事实
+
+| 项目 | 决定 |
+| --- | --- |
+| 目标仓库 | `/Users/muze/gitee/wp-magick-toolbox` |
+| 聚焦模块 | 发布 ZIP 的本地/CI 单一构建合同、候选包验证、3.0.0 版本与当前产品事实 |
+| 失败证据 | 旧 CI 在仓库根目录直接 `zip -r`，没有固定 `wp-magick-toolbox/` 插件根；排除和校验规则内联在 CI，本地无法复用；Header/常量/Stable tag 仍是 2.6.1，发布指南又误称创建 GitHub Release 会自动生成 ZIP |
+| 预期变更 | 新增唯一 Composer 构建/验证入口；强制单根、路径安全、必需文件、前端产物边界、禁止项、三处版本一致和 SHA-256；CI 只调用同一合同；同步 3.0.0 当前文档 |
+| 明确非目标 | 不改插件业务、设置/REST/数据库、Admin/Count 源码或依赖；不推送、不打标签、不创建 Release、不上传 WordPress.org |
+| 公共契约 | `composer release:build` 生成根目录 `wp-magick-toolbox.zip` 与同名 `.sha256`；`composer release:verify -- <zip>` 可独立复验；ZIP 只有 `wp-magick-toolbox/` 单根，`vite/` 只允许 Admin/Count 的 `dist` |
+| 预期文件 | 两个发布脚本、`.distignore`/`.gitignore`、Composer、聚焦 PHPUnit、CI、版本/发布/当前功能文档与本 ADR |
+| 不得改变 | 生产运行时代码、生成式设置契约、前端构建图、历史发布记录、用户未跟踪排障文档和兄弟仓库 |
+| 必需门禁 | Shell 语法、合成 ZIP 正/反例、真实 ZIP/校验文件/解压 PHP 语法、Composer validate、设置契约、PHPUnit/PHPStan/全仓 PHP lint、前端 typecheck/lint/coverage/build、VitePress、CI YAML、独立审查和 `git diff --check` |
+| 跨仓矩阵 | 不需要；发布源码、产物和 CI 消费者都在本仓库 |
+| 回滚计划 | 回滚本工作包即恢复 2.6.1 与旧 CI 打包；不保留两套发布脚本或双排除清单 |
+
+### 工作包 14B 实施事实
+
+1. `composer release:build` 使用 `.distignore` 与 `rsync` 建立临时 staging，看到 Admin/Count 四个固定 JS/CSS 后才生成 `wp-magick-toolbox/` 单根 ZIP。临时产物自验通过后才成对安装 ZIP 与 `.sha256`；同步失败会恢复旧产物，可捕获 HUP/INT/TERM 在短暂提交窗口内不会留下持久的半提交状态。
+2. `composer release:verify -- <zip>` 验证完整性、重复/特殊条目、单根与路径穿越；解压后再拒绝符号链接，强制主入口、核心启动链、REST Registry、四个前端固定文件，并拒绝 tests/docs/vendor/node_modules/源码、`.env*`、`.DS_Store`、PHPUnit 缓存和 Vite `.vite` 元数据。
+3. Header、`MAGICK_MIXTURE_VERSION`、Stable tag 必须唯一且一致；sidecar 若存在，必须恰好一行 `<64hex><两个空格><ZIP basename>`，支持文件名空格并拒绝错文件名或额外行。macOS 使用 `shasum -a 256`，Linux 使用 `sha256sum`。
+4. 8 项发布契约测试/988 个断言包含含空格正例、敏感 dotfile/Vite 元数据、版本/checksum 漂移、必需文件、第二根、`../` 穿越，以及在第 3 次 `mv`——新 ZIP 已安装而 sidecar 尚未安装——时真实注入 TERM 的事务反例。
+5. CI 不再维护内联 `EXCLUDE` 和弱 unzip 检查；前端 job 一次生成受检 Admin/Count `dist`，发布 job 下载后调用同一 Composer 合同，并一起上传 ZIP 和 SHA-256。工作流仍只由 push/PR 触发，没有虚构 Release 自动化。
+6. 主文件 Header、运行时常量、Stable tag、README 和当前功能清单统一到 3.0.0，`Tested up to` 依据已验收的 Local WordPress 7.0.1 写为 7.0。readme 删除已清退功能宣传，并明确本地搜索词/IP/审计诊断与显式第三方请求的隐私边界。
+7. 当前功能清单以 60 个用户可理解的能力/任务入口为口径，并用内部 provider、合并/拆分能力与两个非 Registry 用户任务对账 57 个运行模块（19/18/11/4/5），不再把过期的 56 与 Registry 混为同一统计。
+8. 真实候选包为 189 个条目、896,690 bytes、版本 3.0.0；根目录只有运行文件和两份 `dist`，`.vite` manifest 不入包。ZIP/sidecar 校验通过，解压后 88 个 PHP 文件语法通过，四个中文图片/SVG 文件名原样恢复。最终独立复审 P0–P3 均清零并 Approve。
+
 ## 结果复核
 
 首个垂直切片已完成独立代码审查和浏览器烟测，改进假说成立：
@@ -602,4 +629,4 @@
 
 浏览器烟测先使用 Vite 默认数据验证桌面/移动结构、语义路由、浏览器返回、未知路由、搜索定位和接口失败状态；工作包 4 又在真实 Local WordPress 管理员登录态中验证了 WordPress 管理栏、服务端成功响应和敏感设置闭环。
 
-整个 Pre-GA Reset 尚未完成；AI Provider Runtime 清退已由工作包 2 收口，pnpm/CI 可重复基线已由工作包 3 收口，敏感设置契约已由工作包 4 收口，注册模块与 Loader 的运行时契约已由工作包 5 收口，不可信登录验证码已由工作包 6 清退。工作包 7 已冻结登录安全的最小最终契约，工作包 8A-8B 已修复分类链接简化生命周期和自动图片尺寸过滤器两项行为债务，工作包 9A-9C 已建立宿主隔离、保存信任反馈及可审计构建/缓存契约，工作包 10A-11 已收口生成式设置契约和前端工程/发布边界，工作包 12 删除 7 条死或无消费者路由并修复分类数据 REST 闭环，工作包 13 完成单一 Manifest/Schema 与生成式前端合同，工作包 14A 又把 Admin 首屏 Ant 成本降低约 57%–59%，同时保留复杂表单的按需复用。当前主要剩余问题已收敛为正式发布的版本事实、真实 ZIP/CI 合同和最终人工验收；不建议为了“纯粹去 Ant”继续重写稳定业务控件。
+整个 Pre-GA Reset 的代码与本地候选包已收口：工作包 2–13 依次清退 AI Runtime 正式表面、固化设置/模块/安全/构建/REST/Manifest 契约，工作包 14A 把 Admin 首屏 Ant 成本降低约 57%–59%，工作包 14B 又统一了 3.0.0 版本事实和发布 ZIP/CI 合同。下一阶段不再横向重构：提交/推送后只核对该提交 SHA 的 Linux CI artifact，再做一次从 ZIP 全新安装并激活 WordPress 的人工验收；两关都通过才进入 tag/Release。SIGKILL/断电不在 shell 可捕获事务保证内，也不建议为了“纯粹去 Ant”继续重写稳定业务控件。
