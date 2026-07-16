@@ -18,12 +18,13 @@ WP Magick Toolbox
 │   │       ├── performance/          # 性能优化
 │   │       └── ...                   # 其他功能模块
 │   └── public/                       # 前端资源
-├── React 前端（单一 pnpm workspace，含 3 个 Vite 项目）
-│   ├── vite/admin/                   # 后台设置界面
-│   ├── vite/count/                   # 图表展示
-│   └── vite/public/                  # 前端展示
+├── React 前端（单一工程，共享依赖与质量工具链）
+│   ├── vite/admin/                   # 后台设置源码与独立产物
+│   └── vite/count/                   # 发文统计源码与独立产物
 └── docs-site/                        # VitePress 文档站
 ```
+
+`admin` 与 `count` 使用各自的 Vite 配置，避免后台设置页的自定义 bootstrap、CSS 合并与构建扫描规则污染统计页；两者仍由 `vite/package.json` 统一安装、检查和构建。已删除的 `vite/public` 没有 WordPress 运行时消费者，不能与仍在使用的仓库根目录 `public/` 混淆。
 
 ## 配置管理
 

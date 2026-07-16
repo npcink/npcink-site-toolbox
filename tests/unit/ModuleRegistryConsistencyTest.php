@@ -286,10 +286,40 @@ class ModuleRegistryConsistency_Test extends TestCase {
         $this->assertStringNotContainsString('MaBox_b2_shop_count', $content);
     }
 
-    public function test_vite_count_dist_exists(): void {
-        $dist_dir = self::$plugin_dir . '/vite/count/dist/';
-        $this->assertFileExists($dist_dir . 'index.css');
-        $this->assertFileExists($dist_dir . 'index.js');
+    public function test_count_frontend_source_and_php_asset_contract_exist(): void {
+        $this->assertFileExists(self::$plugin_dir . '/vite/count/src/main.tsx');
+        $this->assertFileExists(self::$plugin_dir . '/vite/count/vite.config.ts');
+
+        $loader = file_get_contents(self::$plugin_dir . '/admin/partials/function/auxiliary/census-single.php');
+        $this->assertStringContainsString("'index_page_magick-census-single'", $loader);
+        $this->assertStringContainsString("'vite/count/dist/index.css'", $loader);
+        $this->assertStringContainsString("'vite/count/dist/index.js'", $loader);
+        $this->assertStringContainsString('filemtime($build_css_path)', $loader);
+        $this->assertStringContainsString('filemtime($build_js_path)', $loader);
+        $this->assertStringContainsString("MAGICK_MIXTURE_NAME . '_census_css'", $loader);
+        $this->assertSame(2, substr_count($loader, "MAGICK_MIXTURE_NAME . '_census_js'"));
+        $this->assertStringContainsString("wp_localize_script(MAGICK_MIXTURE_NAME . '_census_js', 'dataLocal'", $loader);
+        $this->assertStringContainsString("'countData' => self::deliver_data()", $loader);
+        $this->assertStringContainsString('id="mabox_census_count"', $loader);
+    }
+
+    public function test_retired_vite_public_project_is_absent(): void {
+        $this->assertDirectoryDoesNotExist(self::$plugin_dir . '/vite/public');
+    }
+
+    public function test_current_frontend_docs_do_not_restore_vite_public(): void {
+        $files = [
+            'README.md',
+            'docs/构建与发布指南.md',
+            'docs-site/guide/development.md',
+            'docs-site/guide/architecture.md',
+        ];
+
+        foreach ($files as $file) {
+            $content = file_get_contents(self::$plugin_dir . '/' . $file);
+            $this->assertStringNotContainsString('dev:public', $content, "$file must not document the retired dev target");
+            $this->assertStringNotContainsString('build:public', $content, "$file must not document the retired build target");
+        }
     }
 
     private static function removedP0Modules(): array {

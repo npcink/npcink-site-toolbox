@@ -80,7 +80,7 @@ describe('WordPress admin embed isolation', () => {
     const appStyleSource = readRelativeFile('./App.css');
     const selectors = collectStyleSelectors(appStyleSource);
     const packageManifest = JSON.parse(
-      readRelativeFile('../package.json'),
+      readRelativeFile('../../package.json'),
     ) as { devDependencies?: Record<string, string> };
 
     expect(appStyleSource).not.toMatch(/@(tailwind|apply)\b/);
@@ -156,7 +156,7 @@ describe('WordPress admin embed isolation', () => {
   it('does not patch document events from the admin entry point', () => {
     const mainEntry = readRelativeFile('./main.tsx');
     const packageManifest = JSON.parse(
-      readRelativeFile('../package.json'),
+      readRelativeFile('../../package.json'),
     ) as { dependencies?: Record<string, string> };
 
     expect(mainEntry).not.toContain('default-passive-events');

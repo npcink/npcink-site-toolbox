@@ -1,11 +1,15 @@
 import { spawnSync } from 'node:child_process';
 import { randomBytes } from 'node:crypto';
 import { mkdtempSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
-import { join, resolve } from 'node:path';
+import { join } from 'node:path';
 import { tmpdir } from 'node:os';
+import { fileURLToPath } from 'node:url';
 import { afterEach, describe, expect, it } from 'vitest';
 
-const scanner = resolve(process.cwd(), 'src/check-admin-build-contract.mjs');
+const readRelativeFile = (relativePath: string): string =>
+  readFileSync(fileURLToPath(new URL(relativePath, import.meta.url)), 'utf8');
+const scannerRelativePath = './check-admin-build-contract.mjs';
+const scanner = fileURLToPath(new URL(scannerRelativePath, import.meta.url));
 const temporaryDirectories: string[] = [];
 
 type ManifestRecord = {
@@ -71,12 +75,12 @@ afterEach(() => {
 
 describe('admin build contract scanner', () => {
   it('locks relative base, manifest graph, fixed entry/CSS and hashed lazy assets', () => {
-    const config = readFileSync(resolve(process.cwd(), 'vite.config.ts'), 'utf8');
-    const packageManifest = readFileSync(resolve(process.cwd(), 'package.json'), 'utf8');
-    const adminPhp = readFileSync(resolve(process.cwd(), '../../admin/class-magick-mixture-admin.php'), 'utf8');
-    const pluginPhp = readFileSync(resolve(process.cwd(), '../../includes/class-magick-mixture.php'), 'utf8');
-    const htmlSource = readFileSync(resolve(process.cwd(), 'index.html'), 'utf8');
-    const bootstrapSource = readFileSync(resolve(process.cwd(), 'src/bootstrap.ts'), 'utf8');
+    const config = readRelativeFile('../vite.config.ts');
+    const packageManifest = readRelativeFile('../../package.json');
+    const adminPhp = readRelativeFile('../../../admin/class-magick-mixture-admin.php');
+    const pluginPhp = readRelativeFile('../../../includes/class-magick-mixture.php');
+    const htmlSource = readRelativeFile('../index.html');
+    const bootstrapSource = readRelativeFile('./bootstrap.ts');
 
     expect(config).toContain('base: "./"');
     expect(config).toContain('manifest: ".vite/manifest.json"');
@@ -87,7 +91,7 @@ describe('admin build contract scanner', () => {
     expect(config).toContain('chunkFileNames: "assets/[name]-[hash].js"');
     expect(config).not.toContain('manualChunks');
     expect(config).not.toContain('/wp-content/plugins/');
-    expect(packageManifest).toContain('node src/check-admin-build-contract.mjs');
+    expect(packageManifest).toContain('node admin/src/check-admin-build-contract.mjs');
     expect(adminPhp).toContain("filemtime($index_js_path)");
     expect(adminPhp).toContain("filemtime($index_css_path)");
     expect(adminPhp).toContain("wp_enqueue_script($name, $index_js, array(), $index_js_version, true)");

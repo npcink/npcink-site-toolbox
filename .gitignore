@@ -10,6 +10,7 @@ vite/*/node_modules/
 
 # Build output
 vite/*/dist/
+vite/*/coverage/
 docs-site/.vitepress/dist/
 
 # Environment

@@ -1,31 +1,4 @@
-#MaBox_b2_shop_count {
-  max-width: 1200px;
-}
-.tab .tab-header .tab-button {
-  padding: 0.6em 1.2em;
-  margin: 0 1.6em 0 0;
-  border-radius: 6px;
-  transition: all 0.3s;
-  border: 0;
-  cursor: pointer;
-}
-.tab .tab-header .tab-button.active {
-  color: #fff;
-  background-color: #3ac569;
-  box-shadow: 5px 5px 10px #d9d9d9, -5px -5px 10px #ffffff;
-}
-.tab .describe {
-  text-align: end;
-  font-size: 12px;
-  color: #818181;
-}
-.count-box {
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  flex-wrap: wrap;
-}
-.box {
+#mabox_census_count .box {
   min-width: 180px;
   padding: 10px 20px;
   margin: 20px 10px;
@@ -34,63 +7,41 @@
   background-color: #f6f7f7;
   box-shadow: 5px 5px 10px #d1d2d2, -5px -5px 10px #ffffff;
 }
-.box > span {
+#mabox_census_count .box > span {
   font-size: 16px;
   font-weight: bold;
   text-align: center;
   cursor: pointer;
 }
-.box .child {
+#mabox_census_count .box .child {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-.box .child p {
+#mabox_census_count .box .child p {
   line-height: 1.5;
 }
-.box .child p span {
+#mabox_census_count .box .child p span {
   margin: 0 6px 0 0;
   font-size: 28px;
   font-weight: bold;
 }
-.box .child > span {
+#mabox_census_count .box .child > span {
   font-size: 28px;
   width: 36px;
   height: 36px;
 }
-.form-box {
-  display: flex;
-  flex-wrap: wrap;
-}
-.single-box {
+#mabox_census_count .single-box {
   display: flex;
 }
-.single-box .right {
+#mabox_census_count .single-box .right {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
 }
 @media screen and (max-width: 768px) {
-  .single-box {
+  #mabox_census_count .single-box {
     flex-wrap: wrap;
   }
-}
-.calendar-box {
-  padding: 0 10px;
-  font-size: large;
-  border-radius: 6px;
-  line-height: 50px;
-  background-color: var(--bgColor, #fff);
-}
-.ant-picker-cell-inner.ant-picker-calendar-date {
-  width: 80% !important;
-  padding: 0 !important;
-}
-.month-box {
-  line-height: 50px;
-  font-weight: bold;
-  font-size: 20px;
-  background-color: #ef4444;
-  border-radius: 6px;
 }

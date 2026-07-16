@@ -38,7 +38,7 @@ WP Magick Toolbox 是一款面向中国 WordPress 站长的免费工具箱插件
 git clone https://github.com/muze-page/wp-magick-toolbox.git
 cd wp-magick-toolbox
 
-# 安装前端依赖（单一 pnpm workspace）
+# 安装前端依赖（单一前端工程）
 corepack enable
 cd vite
 pnpm install --frozen-lockfile
@@ -47,16 +47,16 @@ pnpm install --frozen-lockfile
 pnpm dev:admin
 ```
 
-> 代理地址在 `vite.config.ts` 底部，替换为您的本地开发地址即可。
+> Admin 开发代理位于 `vite/admin/vite.config.ts`；Count 当前只消费页面注入数据，不依赖开发代理。
 
 ### 打包部署
 
-`vite/` 是一个 pnpm workspace，包含 3 个 Vite 项目：
-- `admin/` — 后台设置界面（React + Ant Design）
-- `count/` — 图表展示组件
-- `public/` — 前端展示组件
+`vite/` 是唯一的前端工程，共享一份 `package.json`、锁文件和质量工具链，并生成两个按页面加载的独立产物：
 
-在 `vite/` 下执行 `pnpm build` 可统一构建；仅保留各项目中 `dist/` 目录下的文件即可。
+- `admin/dist/` — 后台设置界面（React + Ant Design）
+- `count/dist/` — 发文统计图表（React + ECharts）
+
+在 `vite/` 下执行 `pnpm build` 会构建两个目标；也可使用 `pnpm build:admin` 或 `pnpm build:count` 单独构建。已退役的 `vite/public` 不属于发布包；仓库根目录 `public/` 仍是 WordPress 前台 PHP/CSS 运行层，二者不要混淆。
 
 ---
 
@@ -77,8 +77,8 @@ pnpm dev:admin
 ## 技术架构
 
 - **后端**：PHP 7.4+，WordPress Plugin Boilerplate 变体，模块注册表机制
-- **前端设置页**：React + TypeScript + Vite + Ant Design + TailwindCSS
-- **前端展示**：React + TypeScript + Vite（按需加载）
+- **前端工程**：React + TypeScript + Vite，共享依赖与工具链
+- **独立产物**：后台设置页使用 Ant Design；发文统计页使用 ECharts，均只在对应后台页面加载
 - **图表**：ECharts + 自研统计组件
 - **数据存储**：WordPress `wp_options` 表（按模块拆分）
 - **通信方式**：WordPress REST API 为主，少量独立后台交互使用 WordPress AJAX

@@ -13,24 +13,38 @@
 .vscode
 .editorconfig
 .nvmrc
+AGENTS.md
 
 # 开发依赖
 node_modules
 vendor
 
 # 构建源码（构建产物已包含在仓库中或CI中生成）
+vite/public
+vite/node_modules
+vite/package.json
+vite/pnpm-lock.yaml
+vite/.eslintrc.*
+vite/eslint.config.*
 vite/*/src
 vite/*/node_modules
+vite/*/coverage
+vite/*/public
+vite/*/scripts
+vite/*/.env*
+vite/*/.gitignore
+vite/*/README.md
+vite/admin/index.html
+vite/count/index.html
 vite/*/*.json
 vite/*/*.config.*
 vite/*/*.yaml
-vite/pnpm-workspace.yaml
-vite/*/README.md
 
 # 测试
 tests
 phpunit.xml.dist
 phpstan.neon
+phpstan-bootstrap.php
 .phpunit.result.cache
 
 # 文档（非用户面向）

@@ -476,6 +476,34 @@
 7. 自动化门禁：生成物 `--check`、Composer validate、PHP 语法检查、PHPUnit 341 项测试/3367 个断言、PHPStan 0 error、admin Vitest 19 个文件/130 项测试、TypeScript/Vite build、308 个 CSS 选择器隔离扫描、构建契约扫描、ESLint 0 error 和 `git diff --check` 均通过。独立复审 build 的首次 JS 为 792,862 B / gzip 258,453 B，最大 app chunk 为 791,786 B / gzip 257,792 B，仍低于工作包 9C 的 900/300 KiB 预算；本工作包没有修改或跟踪 `dist`。
 8. Local WordPress 7.0.1 真实验收通过，一次性管理员已删除。`overview/site/content/seo/china/maintenance/about` 七个 view 均正常渲染并显示“已保存”，无设置读取失败、可见错误或横向溢出；generated `optimize-medium-no_auto_size` 会弹出“禁止缩略图”风险确认，取消后开关保持 `false`；`performance-db_clean-enabled` 会弹出不可忽略的高风险确认且没有“不再提示”，取消后同样保持 `false`。浏览器 error/warn 均为 0，验收过程未保存设置。
 
+## 工作包 11：前端工程与发布边界收口
+
+| 项目 | 决定 |
+| --- | --- |
+| 目标仓库 | `/Users/muze/gitee/wp-magick-toolbox` |
+| 聚焦模块 | `vite/` 的依赖与质量工具链、Admin/Count 构建入口，以及 CI、发布 ZIP、当前开发文档和边界测试 |
+| 失败证据 | 三个 Vite 子项目重复维护 React/Vite/TypeScript/ESLint/Ant Design 依赖；`vite/public` 没有 PHP enqueue、DOM 挂载或模块 Registry 消费者，却仍参与安装、CI、构建与发布；Count 的 ignored `dist` 被 PHPUnit 当作 fresh-checkout 前置条件 |
+| 预期变更 | 收口为一份根 `package.json`、锁文件与 ESLint 工具链；删除无人消费的 `vite/public`；保留 Admin/Count 两份专用 Vite 配置和独立 `dist/index.js`、`dist/index.css`；CI 只构建一次并把受检产物交给 ZIP job |
+| 明确非目标 | 不合并 Admin 与 Count 的运行时应用、不改变设置/统计业务、不删除仓库根 `public/`、不改变 Admin 固定 bootstrap/单 CSS/相对路径/预算契约、不引入新的前端框架或兄弟仓库改动 |
+| 公共契约 | 根命令为 `dev/typecheck/lint/build` 的 Admin/Count 目标；PHP 继续分别 enqueue `vite/admin/dist/index.{js,css}` 与 `vite/count/dist/index.{js,css}`；两组固定资源均使用“插件版本 + 对应文件 mtime”刷新 URL |
+| 预期文件 | `vite/package.json`、lockfile、根 ESLint 配置、Admin/Count 配置与源码、`vite/public/**`、Count PHP consumer、CI/ZIP、README/当前构建/VitePress 文档和聚焦 PHPUnit |
+| 不得改变 | Admin/Count hook、handle、DOM mount、`dataLocal` 数据契约、设置 REST/Schema、数据库结构、历史 release wrap-up/阶段总结、用户未跟踪排障文档和兄弟仓库 |
+| 必需门禁 | frozen install、根 typecheck/lint/test/build、Admin CSS/构建扫描、Count 固定产物、PHP lint、聚焦与全量 PHPUnit、PHPStan、VitePress build、当前引用扫描、ZIP 内容检查和 `git diff --check` |
+| 跨仓矩阵 | 不需要；构建配置与全部 WordPress 消费者均在本仓库 |
+| 回滚计划 | 回滚本工作包即可恢复三项目工具链；不保留双 package、双 lockfile、空 `vite/public` 壳或发布兼容入口 |
+
+本工作包不采用“一个 Vite 配置同时构建两个入口”。Admin 的 tiny bootstrap、`cssCodeSplit=false`、manifest 扫描与资源预算是专用契约；Count 是按独立后台页面加载的简单图表入口。共享依赖和质量工具链、保留两份窄构建配置，可以消除重复维护，同时避免一次构建清理另一个 `outDir` 或把 Admin 规则错误施加给 Count。
+
+### 工作包 11 实施事实
+
+1. `vite/` 只保留一份依赖清单、pnpm lockfile 与 ESLint 配置；Admin/Count 不再是子 package，但仍保留各自的源码、TypeScript/Vite 配置和独立输出目录。
+2. 无 WordPress 运行时消费者的 `vite/public` 整体删除；仍由插件 bootstrap 使用的仓库根 `public/` 完整保留，二者边界已在当前文档中明确。
+3. Count PHP consumer 保持 `index_page_magick-census-single`、`_census_css`/`_census_js` handle、`#mabox_census_count` 与 `dataLocal.countData` 不变；CSS 和 JS 各自改用文件 mtime 形成缓存版本，缺少构建文件时安全回退插件版本。
+4. CI 的前端 job 在根目录一次安装并依次执行共享 typecheck、lint、coverage 和 build；受检的 Admin/Count `dist` 作为 artifact 直接交给 ZIP job，避免发布阶段再次安装和构建。ZIP 门禁明确要求四个固定文件存在，只允许两份 `dist` 进入 `vite/` 发布边界，并拒绝 `vite/public`、源码或配置文件。
+5. PHPUnit 不再要求 gitignore 的 Count `dist` 预先存在，而是锁定源码入口与 PHP consumer 契约；真实构建文件存在性由前端 build 与 ZIP 两层门禁负责。
+6. README、当前构建指南和 VitePress 已统一为“一套前端工程、两个独立产物”；早期开发手册和按需加载规范只增加权威边界提示，历史 release wrap-up 与阶段总结保持原文。
+7. 自动化门禁通过：frozen install、根 typecheck、ESLint 0 error（Admin 133/Count 4 个既有 warning）、Admin Vitest 与 coverage 23 个文件/136 项测试；Admin CSS 319 个选择器隔离和构建图扫描通过，首次 JS 774,809 B / gzip 252,139 B，tiny bootstrap 41 B；Count 构建扫描通过，`index.js` 621,299 B / gzip 206,360 B，`index.css` 826 B / gzip 370 B。PHP 语法、3 项聚焦 PHPUnit/21 个断言、全量 PHPUnit 343 项/3386 个断言、PHPStan、VitePress build、CI YAML 解析、ZIP 内容模拟和 `git diff --check` 均通过。
+
 ## 结果复核
 
 首个垂直切片已完成独立代码审查和浏览器烟测，改进假说成立：

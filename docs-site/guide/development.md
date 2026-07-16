@@ -118,42 +118,45 @@ const PageFunction = {
 
 ```
 vite/
-├── package.json          # workspace 根配置
-├── pnpm-workspace.yaml   # workspace 成员
-├── admin/                # 后台设置界面
-├── count/                # 统计图表组件
-└── public/               # 前端展示组件
+├── package.json          # 唯一依赖与命令入口
+├── pnpm-lock.yaml        # 唯一前端锁文件
+├── admin/                # 后台设置源码、专用配置与 dist
+└── count/                # 发文统计源码、专用配置与 dist
 ```
 
 ### 开发服务器
 
-使用 pnpm workspaces 统一管理：
+在单一前端工程中统一管理：
 
 ```bash
-# 在仓库根目录启用 Corepack，并安装整个 workspace
+# 在仓库根目录启用 Corepack，并安装前端依赖
 corepack enable
 cd vite
 pnpm install --frozen-lockfile
 
-# 启动单个项目
+# 启动单个目标
 pnpm dev:admin
 pnpm dev:count
-pnpm dev:public
 ```
 
-代理配置在 `vite.config.ts` 中，将 `target` 替换为本地 WordPress 地址。
+Admin 开发代理位于 `vite/admin/vite.config.ts`，可将 `target` 替换为本地 WordPress 地址；Count 当前只消费页面注入数据，不依赖开发代理。
 
 ### 构建
 
 ```bash
-# 构建所有项目
+# 构建全部目标
 pnpm build
 
-# 构建单个项目
+# 构建单个目标
 pnpm build:admin
+pnpm build:count
+
+# 共享质量门禁
+pnpm typecheck
+pnpm lint
 ```
 
-构建产物在 `dist/` 目录，仅保留此目录即可部署。
+构建产物分别位于 `vite/admin/dist/` 与 `vite/count/dist/`，发布包只保留这两个目录。`vite/public/` 已退役；仓库根目录 `public/` 仍是 WordPress 前台 PHP/CSS 运行层。
 
 ### 类型安全
 

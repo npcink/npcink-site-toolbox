@@ -44,20 +44,29 @@ if (!class_exists('MaBox_Census_Single')) {
                 return;
             }
 
+            $plugin_root_path = plugin_dir_path(dirname(dirname(dirname(__DIR__))));
+            $build_css_path = $plugin_root_path . 'vite/count/dist/index.css';
+            $build_js_path = $plugin_root_path . 'vite/count/dist/index.js';
             $build_css = plugin_dir_url(dirname(dirname(dirname(__DIR__)))) . 'vite/count/dist/index.css';
             $build_js = plugin_dir_url(dirname(dirname(dirname(__DIR__)))) . 'vite/count/dist/index.js';
+            $build_css_version = is_file($build_css_path)
+                ? MAGICK_MIXTURE_VERSION . '-' . (string) filemtime($build_css_path)
+                : MAGICK_MIXTURE_VERSION;
+            $build_js_version = is_file($build_js_path)
+                ? MAGICK_MIXTURE_VERSION . '-' . (string) filemtime($build_js_path)
+                : MAGICK_MIXTURE_VERSION;
             wp_enqueue_style(
                 MAGICK_MIXTURE_NAME . '_census_css',
                 $build_css,
                 array(),
-                MAGICK_MIXTURE_VERSION,
+                $build_css_version,
                 'all'
             );
             wp_enqueue_script(
                 MAGICK_MIXTURE_NAME . '_census_js',
                 $build_js,
                 array(),
-                MAGICK_MIXTURE_VERSION,
+                $build_js_version,
                 true
             );
 
