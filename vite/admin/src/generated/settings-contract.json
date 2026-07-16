@@ -101,7 +101,6 @@
                 "no_escape": false,
                 "remove_RSS_version": false,
                 "remove_sitemap_users": false,
-                "renew": false,
                 "search_link_simplify": false,
                 "user_list_show_nickname": false
             }
@@ -224,20 +223,6 @@
             "tags": [
                 "推荐",
                 "安全"
-            ]
-        },
-        {
-            "id": "optimize-site-renew",
-            "keywords": [
-                "update",
-                "更新"
-            ],
-            "label": "禁用自动更新",
-            "section": "站点",
-            "tabKey": "site",
-            "tabLabel": "站点与媒体",
-            "tags": [
-                "谨慎"
             ]
         },
         {

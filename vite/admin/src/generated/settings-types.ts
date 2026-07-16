@@ -13,7 +13,6 @@ export type OptimizeSite = {
   hide_top_toolbar: boolean;
   no_escape: boolean;
   remove_RSS_version: boolean;
-  renew: boolean;
   category_link_simplify: boolean;
   search_link_simplify: boolean;
   remove_sitemap_users: boolean;

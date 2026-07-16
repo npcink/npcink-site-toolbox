@@ -48,14 +48,6 @@ return array(
         'scope'     => 'both',
         'risk_tags' => array('推荐', '安全'),
     ),
-    'optimize.ban_update' => array(
-        'class'     => 'MaBox_Ban_Update',
-        'file'      => 'optimize/site/ban_update.php',
-        'option_key'=> 'optimize.site.renew',
-        'category'  => 'optimize',
-        'scope'     => 'admin',
-        'risk_tags' => array('谨慎', '仅后台'),
-    ),
     'optimize.category_link_simplify' => array(
         'class'     => 'MaBox_Category_Link_Simplify',
         'file'      => 'optimize/site/category_link_simplify.php',

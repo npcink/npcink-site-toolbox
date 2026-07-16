@@ -370,9 +370,9 @@ class DiagnosticsTest extends TestCase {
         $method = new ReflectionMethod('MaBox_Diagnostics', 'get_risks');
 
         $config = array();
-        $active_modules = array('optimize.ban_update');
+        $active_modules = array('performance.db_clean');
         $tiers = array(
-            'high_risk'     => array('optimize.ban_update'),
+            'high_risk'     => array('performance.db_clean'),
         );
 
         $risks = $method->invoke(null, $config, $active_modules, $tiers);

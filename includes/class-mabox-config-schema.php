@@ -60,7 +60,6 @@ if (!class_exists('MaBox_Config_Schema')) {
                         'hide_top_toolbar'       => array('type' => 'boolean', 'default' => false, 'search' => self::search_metadata('optimize-site-hide_top_toolbar', '隐藏顶部工具条', 'site', '站点与媒体', '站点', array('toolbar', '顶部', '工具栏'), array('推荐', '仅后台'))),
                         'no_escape'              => array('type' => 'boolean', 'default' => false, 'search' => self::search_metadata('optimize-site-no_escape', '禁止 Title 转义', 'site', '站点与媒体', '站点', array('title', '转义'), array('推荐'))),
                         'remove_RSS_version'     => array('type' => 'boolean', 'default' => false, 'search' => self::search_metadata('optimize-site-remove_RSS_version', '移除 WP 版本号', 'site', '站点与媒体', '站点', array('version', '版本', 'rss'), array('推荐', '安全'))),
-                        'renew'                 => array('type' => 'boolean', 'default' => false, 'search' => self::search_metadata('optimize-site-renew', '禁用自动更新', 'site', '站点与媒体', '站点', array('update', '更新'), array('谨慎'))),
                         'category_link_simplify' => array('type' => 'boolean', 'default' => false),
                         'search_link_simplify'   => array('type' => 'boolean', 'default' => false),
                         'remove_sitemap_users'   => array('type' => 'boolean', 'default' => false),

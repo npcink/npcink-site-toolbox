@@ -51,6 +51,8 @@ describe("站点优化设置", () => {
 
     expect(screen.getByText("对无法编辑文章的登录用户隐藏前台顶部工具条")).toBeInTheDocument();
     expect(screen.getByText("在用户列表中以“昵称”列替代“姓名”列")).toBeInTheDocument();
+    expect(screen.queryByRole("switch", { name: "禁用自动更新" })).not.toBeInTheDocument();
+    expect(screen.queryByText("禁用自动更新可能导致安全风险")).not.toBeInTheDocument();
     expect(screen.queryByRole("switch", { name: "Gravatar 头像替换" })).not.toBeInTheDocument();
     expect(screen.queryByLabelText("Gravatar 镜像地址")).not.toBeInTheDocument();
     expect(screen.queryByLabelText("自定义 CDN 替换")).not.toBeInTheDocument();

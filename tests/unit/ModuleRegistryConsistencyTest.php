@@ -595,7 +595,7 @@ class ModuleRegistryConsistency_Test extends TestCase {
         $uninstall = file_get_contents(self::$plugin_dir . '/uninstall.php');
         $phpstan = file_get_contents(self::$plugin_dir . '/phpstan.neon');
 
-        $this->assertCount(57, $registry, 'The registry should contain 57 modules after retiring batch replacement');
+        $this->assertCount(56, $registry, 'The registry should contain 56 modules after removing the update blocker');
         $this->assertArrayNotHasKey('login.login_verify', $registry);
         foreach ($tiers as $modules) {
             $this->assertNotContains('login.login_verify', $modules);

@@ -5,7 +5,7 @@ import { DataContext } from "@/tool/dataContext";
 import { OptimizeSite } from "@/tool/interface";
 import { defaultVarOption } from "@/tool/defaultVar";
 import { AntConfig } from "@/tool/tool";
-import { SettingsSection, ModuleRow, RiskNotice } from "@/components/settings-ui";
+import { SettingsSection, ModuleRow } from "@/components/settings-ui";
 
 type FieldType = OptimizeSite;
 
@@ -50,15 +50,6 @@ const App: React.FC = () => {
           featureId="optimize-site-hide_top_toolbar"
           enabled={formData.hide_top_toolbar as boolean}
           onChange={(checked: boolean) => onValuesChange({ hide_top_toolbar: checked } as Partial<FieldType>, formData)}
-        />
-        <RiskNotice warning="禁用自动更新可能导致安全风险" suggestion="建议仅在测试环境使用" />
-        <ModuleRow
-          title="禁用自动更新"
-          description="WordPress、主题和插件不再提示更新"
-          featureId="optimize-site-renew"
-          enabled={formData.renew as boolean}
-          onChange={(checked: boolean) => onValuesChange({ renew: checked } as Partial<FieldType>, formData)}
-          tags={["谨慎"]}
         />
         <ModuleRow
           title="移除版本信息"

@@ -80,11 +80,11 @@ class AdminSettingsContractTest extends TestCase
         $actual = $generated['searchIndex'];
         $expected = mabox_normalize_contract(MaBox_Config_Schema::get_admin_settings_contract()['searchIndex']);
 
-        $this->assertCount(33, $actual);
+        $this->assertCount(32, $actual);
         $this->assertSame($expected, $actual);
 
         $ids = array_column($actual, 'id');
-        $this->assertCount(33, array_unique($ids));
+        $this->assertCount(32, array_unique($ids));
 
         $valid_views = array('site', 'content', 'seo', 'china', 'maintenance');
         foreach ($actual as $item) {

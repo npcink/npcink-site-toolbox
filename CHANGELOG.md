@@ -13,6 +13,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - 插件 Header 补齐 GPL 许可证和文本域，WordPress.org readme 补齐英文产品说明、第三方服务披露、公开源码和可复现 Vite 构建命令
 - 删除没有对应资产的 Screenshots 说明；品牌资产留待目录审核通过并取得 SVN 后提交
 
+### Removed
+- 移除会阻断 WordPress 核心、插件和主题更新检查的 `optimize.ban_update` 模块；WordPress.org 版本不再提供禁用更新能力
+
 ### Fixed
 - 恢复国内访问连通性检测的 TLS 证书校验，并把自动镜像建议统一为已披露的 Loli.net 默认值
 

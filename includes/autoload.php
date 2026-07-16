@@ -23,7 +23,6 @@ spl_autoload_register(function ($class) {
         'MaBox_Audit_Logger' => 'includes/class-magick-audit-logger.php',
         'MaBox_Baidu_Tonji' => 'admin/partials/function/auxiliary/baidu_tonji.php',
         'MaBox_Ban_Malice_Search' => 'admin/partials/function/auxiliary/ban_malice_search.php',
-        'MaBox_Ban_Update' => 'admin/partials/optimize/site/ban_update.php',
         'MaBox_Biying_Tonji' => 'admin/partials/function/auxiliary/biying_tonji.php',
         'MaBox_CDN_Replace' => 'admin/partials/optimize/site/cdn_replace.php',
         'MaBox_Category_Link_Simplify' => 'admin/partials/optimize/site/category_link_simplify.php',

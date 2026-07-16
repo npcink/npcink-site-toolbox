@@ -12,7 +12,7 @@ An opt-in toolbox for WordPress site settings, media, SEO, security, China-focus
 
 == Description ==
 
-Magick Toolbox is a utility plugin for WordPress site owners. Version 3.0.1 provides 57 opt-in modules in seven task-oriented admin views. Features cover site and media settings, content and SEO, login and comment safeguards, China-focused integrations, diagnostics, and maintenance.
+Magick Toolbox is a utility plugin for WordPress site owners. Version 3.0.1 provides 56 opt-in modules in seven task-oriented admin views. Features cover site and media settings, content and SEO, login and comment safeguards, China-focused integrations, diagnostics, and maintenance.
 
 = Current features =
 

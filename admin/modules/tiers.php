@@ -54,7 +54,7 @@ return array(
 
     // ===== high_risk: 高风险功能 =====
     'high_risk' => array(
-        'optimize.ban_update', 'optimize.ban_auto_size',
+        'optimize.ban_auto_size',
         'optimize.cdn_replace',
         'page.single_keyword_add_link',
         'performance.db_clean',
