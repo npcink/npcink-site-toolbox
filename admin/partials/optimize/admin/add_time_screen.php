@@ -37,7 +37,7 @@ if (!class_exists('MaBox_Admin_Add_Time_Screen')) {
             }
 
             //http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.min.css
-            wp_enqueue_style('jquery-ui', plugin_dir_url(dirname(__DIR__)) . 'css/jquery-ui.min.css');
+            wp_enqueue_style('jquery-ui', plugin_dir_url(dirname(__DIR__)) . 'css/jquery-ui.min.css', array(), MAGICK_MIXTURE_VERSION);
             wp_enqueue_script('jquery-ui-datepicker');
         }
 

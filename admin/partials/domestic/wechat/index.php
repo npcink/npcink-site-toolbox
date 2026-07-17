@@ -47,8 +47,8 @@ if (!class_exists('MaBox_Domestic_Wechat')) {
             $img = get_the_post_thumbnail_url(get_the_ID(), 'thumbnail') ?: '';
             $js = "wx.config({appId:'" . esc_js($appid) . "',timestamp:$timestamp,nonceStr:'" . esc_js($nonce) . "',signature:'" . esc_js($signature) . "',jsApiList:['onMenuShareTimeline','onMenuShareAppMessage','updateAppMessageShareData','updateTimelineShareData']});";
             $js .= "wx.ready(function(){var shareData={title:'" . esc_js($title) . "',desc:'" . esc_js($desc) . "',link:'" . esc_js($url) . "',imgUrl:'" . esc_js($img) . "'};wx.onMenuShareAppMessage(shareData);wx.onMenuShareTimeline(shareData);});";
+            wp_register_script('mabox-wechat-jssdk', 'https://res.wx.qq.com/open/js/jweixin-1.6.0.js', array(), '1.6.0', true);
             wp_add_inline_script('mabox-wechat-jssdk', $js);
-            wp_register_script('mabox-wechat-jssdk', 'https://res.wx.qq.com/open/js/jweixin-1.6.0.js', array(), false, true);
             wp_enqueue_script('mabox-wechat-jssdk');
         }
         public static function guide_overlay() {
@@ -58,8 +58,8 @@ if (!class_exists('MaBox_Domestic_Wechat')) {
             $css = '.mabox-wechat-guide{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.9);z-index:99999;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;text-align:center;padding:20px;}';
             $css .= '.mabox-wechat-guide .arrow{position:absolute;top:20px;right:30px;font-size:40px;transform:rotate(-45deg);}';
             $css .= '.mabox-wechat-guide .text{font-size:18px;margin-top:60px;line-height:1.6;}';
+            wp_register_style('mabox-wechat-guide-style', false, array(), MAGICK_MIXTURE_VERSION);
             wp_add_inline_style('mabox-wechat-guide-style', $css);
-            wp_register_style('mabox-wechat-guide-style', false);
             wp_enqueue_style('mabox-wechat-guide-style');
             $html = '<div class="mabox-wechat-guide"><div class="arrow">↗</div><div class="text">' . esc_html($text) . '</div></div>';
             if (!empty(self::$config['guide_qrcode'])) {
@@ -69,8 +69,8 @@ if (!class_exists('MaBox_Domestic_Wechat')) {
             if ($mode === 'redirect') {
                 $js .= "if(document.querySelector('.mabox-wechat-guide')){document.body.style.overflow='hidden';}";
             }
+            wp_register_script('mabox-wechat-guide-script', false, array(), MAGICK_MIXTURE_VERSION, true);
             wp_add_inline_script('mabox-wechat-guide-script', $js);
-            wp_register_script('mabox-wechat-guide-script', false, array(), false, true);
             wp_enqueue_script('mabox-wechat-guide-script');
         }
         private static function is_wechat_qq() {

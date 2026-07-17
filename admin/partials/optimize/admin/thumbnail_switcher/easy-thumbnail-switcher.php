@@ -70,7 +70,7 @@ $this->add_new_str = __( '添加', 'npcink-site-toolbox' );
 
         wp_enqueue_media();
 
-        wp_enqueue_style( 'ts-ets-css', plugins_url( '\css\styles.css', __FILE__ ) );
+        wp_enqueue_style( 'ts-ets-css', plugins_url( '\css\styles.css', __FILE__ ), array(), MAGICK_MIXTURE_VERSION );
 
         wp_enqueue_script( 'ts-ets-js', plugins_url( '\js\script.js', __FILE__ ), array( 'jquery', 'media-upload', 'thickbox' ), '1.0', true );
 
