@@ -18,7 +18,7 @@
     "lint": "pnpm run lint:admin && pnpm run lint:count",
     "test:admin": "vitest run --root admin",
     "test": "pnpm run test:admin",
-    "test:coverage": "vitest run --root admin --coverage --maxWorkers=2 --minWorkers=2",
+    "test:coverage": "vitest run --root admin --coverage --maxWorkers=1 --minWorkers=1",
     "preview:admin": "vite preview admin --config admin/vite.config.ts",
     "preview:count": "vite preview count --config count/vite.config.ts"
   },

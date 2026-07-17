@@ -1,5 +1,6 @@
-import { Form } from "antd";
+import { ConfigProvider, Form } from "antd";
 import axios from "axios";
+import type { ReactElement, ReactNode } from "react";
 import {
   cleanup,
   fireEvent,
@@ -25,6 +26,15 @@ vi.mock("@/tool/dataContext", () => ({
 }));
 
 import SelectImage from "@/basic/selectImage";
+
+const WithoutMotion = ({ children }: { children: ReactNode }) => (
+  <ConfigProvider theme={{ token: { motion: false } }}>
+    {children}
+  </ConfigProvider>
+);
+
+const renderSelectImage = (ui: ReactElement) =>
+  render(ui, { wrapper: WithoutMotion });
 
 const media = [
   {
@@ -78,23 +88,40 @@ describe("SelectImage", () => {
       "/api",
       "/api/wp-json/wp/v2/media?per_page=12",
     ],
-  ])("从现有 API 契约推导媒体端点：%s", async (apiBase, expected) => {
+  ])("从现有 API 契约推导媒体端点：%s", (apiBase, expected) => {
     dataContextMock.apiBase = apiBase;
-    vi.mocked(axios.get).mockResolvedValueOnce({ data: [] });
-    render(<SelectImage aria-label="媒体图片" value="" onChange={vi.fn()} />);
+    vi.mocked(axios.get).mockReturnValueOnce(
+      new Promise<never>(() => undefined),
+    );
+    renderSelectImage(
+      <SelectImage aria-label="媒体图片" value="" onChange={vi.fn()} />,
+    );
 
     fireEvent.click(screen.getByRole("button", { name: "为媒体图片选择图片" }));
 
-    await waitFor(() => {
-      expect(axios.get).toHaveBeenCalledWith(expected, {
-        headers: { "X-WP-Nonce": "rest-nonce" },
-      });
+    expect(axios.get).toHaveBeenCalledWith(expected, {
+      headers: { "X-WP-Nonce": "rest-nonce" },
     });
+    expect(screen.getByRole("status")).toHaveTextContent("正在加载媒体库");
+  });
+
+  it("媒体库为空时显示可访问状态", async () => {
+    vi.mocked(axios.get).mockResolvedValueOnce({ data: [] });
+    renderSelectImage(
+      <SelectImage aria-label="媒体图片" value="" onChange={vi.fn()} />,
+    );
+
+    fireEvent.click(screen.getByRole("button", { name: "为媒体图片选择图片" }));
+
+    expect(await screen.findByText("媒体库中暂无可选图片。")).toHaveAttribute(
+      "role",
+      "status",
+    );
   });
 
   it("保留 Form 标签和说明关联，并以字符串报告手动输入", () => {
     const onChange = vi.fn();
-    render(
+    renderSelectImage(
       <Form initialValues={{ image: "https://example.com/old.jpg" }}>
         <Form.Item label="倒计时图片" name="image" extra="建议使用横向图片">
           <SelectImage onChange={onChange} />
@@ -115,16 +142,10 @@ describe("SelectImage", () => {
     expect(onChange).toHaveBeenCalledWith("https://example.com/new.jpg");
   });
 
-  it("从 ApiBase 推导媒体端点、携带 nonce，并在单个有名称的选项组中确认 URL", async () => {
-    let resolveRequest: ((value: { data: typeof media }) => void) | undefined;
-    vi.mocked(axios.get).mockReturnValueOnce(
-      new Promise((resolve) => {
-        resolveRequest = resolve;
-      }),
-    );
+  it("在单个有名称的选项组中选择并确认媒体 URL", async () => {
     const onChange = vi.fn();
 
-    render(
+    renderSelectImage(
       <SelectImage
         aria-label="专题头图"
         value="https://example.com/uploads/second.jpg"
@@ -133,25 +154,24 @@ describe("SelectImage", () => {
     );
 
     fireEvent.click(screen.getByRole("button", { name: "为专题头图选择图片" }));
+    const dialog = screen.getByRole("dialog");
 
-    expect(axios.get).toHaveBeenCalledWith(
-      "https://example.com/subdirectory/wp-json/wp/v2/media?per_page=12",
-      { headers: { "X-WP-Nonce": "rest-nonce" } },
-    );
-    expect(screen.getByRole("status")).toHaveTextContent("正在加载媒体库");
-
-    resolveRequest?.({ data: media });
-
-    const group = await screen.findByRole("radiogroup", { name: "媒体库图片" });
+    const group = await within(dialog).findByRole("radiogroup", {
+      name: "媒体库图片",
+    });
     expect(within(group).getAllByRole("radio")).toHaveLength(2);
-    expect(screen.getByRole("img", { name: "精选封面" })).toHaveAttribute(
+    expect(within(dialog).getByRole("img", { name: "精选封面" })).toHaveAttribute(
       "src",
       "https://example.com/uploads/first-medium.jpg",
     );
-    expect(screen.getByRole("img", { name: "第二张图片" })).toBeInTheDocument();
+    expect(
+      within(dialog).getByRole("img", { name: "第二张图片" }),
+    ).toBeInTheDocument();
 
-    fireEvent.click(screen.getByRole("radio", { name: "精选封面" }));
-    fireEvent.click(screen.getByRole("button", { name: "使用所选图片" }));
+    fireEvent.click(within(dialog).getByRole("radio", { name: "精选封面" }));
+    fireEvent.click(
+      within(dialog).getByRole("button", { name: "使用所选图片" }),
+    );
 
     expect(onChange).toHaveBeenCalledWith("https://example.com/uploads/first.jpg");
     await waitFor(() => {
@@ -159,8 +179,8 @@ describe("SelectImage", () => {
     });
   });
 
-  it("取消时丢弃草稿，重新打开和外部值变化时同步当前值", async () => {
-    const { rerender } = render(
+  it("取消时丢弃草稿，重新打开时恢复当前值", async () => {
+    renderSelectImage(
       <SelectImage
         aria-label="文章头图"
         value="https://example.com/uploads/first.jpg"
@@ -169,12 +189,38 @@ describe("SelectImage", () => {
     );
 
     fireEvent.click(screen.getByRole("button", { name: "为文章头图选择图片" }));
-    await screen.findByRole("radiogroup", { name: "媒体库图片" });
-    fireEvent.click(screen.getByRole("radio", { name: "第二张图片" }));
-    fireEvent.click(screen.getByRole("button", { name: "取消" }));
+    const dialog = await screen.findByRole("dialog");
+    await within(dialog).findByRole("radiogroup", { name: "媒体库图片" });
+    fireEvent.click(
+      within(dialog).getByRole("radio", { name: "第二张图片" }),
+    );
+    fireEvent.click(within(dialog).getByRole("button", { name: "取消" }));
+
+    await waitFor(() => {
+      expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+    });
 
     fireEvent.click(screen.getByRole("button", { name: "为文章头图选择图片" }));
-    expect(await screen.findByRole("radio", { name: "精选封面" })).toBeChecked();
+    const reopenedDialog = await screen.findByRole("dialog");
+    expect(
+      await within(reopenedDialog).findByRole("radio", { name: "精选封面" }),
+    ).toBeChecked();
+  });
+
+  it("打开时跟随外部值变化同步当前选项", async () => {
+    const { rerender } = renderSelectImage(
+      <SelectImage
+        aria-label="文章头图"
+        value="https://example.com/uploads/first.jpg"
+        onChange={vi.fn()}
+      />,
+    );
+
+    fireEvent.click(screen.getByRole("button", { name: "为文章头图选择图片" }));
+    const dialog = await screen.findByRole("dialog");
+    expect(
+      await within(dialog).findByRole("radio", { name: "精选封面" }),
+    ).toBeChecked();
 
     rerender(
       <SelectImage
@@ -183,7 +229,9 @@ describe("SelectImage", () => {
         onChange={vi.fn()}
       />,
     );
-    expect(screen.getByRole("radio", { name: "第二张图片" })).toBeChecked();
+    expect(
+      within(dialog).getByRole("radio", { name: "第二张图片" }),
+    ).toBeChecked();
   });
 
   it("加载失败时提供可访问错误和重试操作", async () => {
@@ -191,13 +239,22 @@ describe("SelectImage", () => {
       .mockRejectedValueOnce(new Error("network unavailable"))
       .mockResolvedValueOnce({ data: media });
 
-    render(<SelectImage aria-label="封面" value="" onChange={vi.fn()} />);
+    renderSelectImage(
+      <SelectImage aria-label="封面" value="" onChange={vi.fn()} />,
+    );
     fireEvent.click(screen.getByRole("button", { name: "为封面选择图片" }));
+    const dialog = await screen.findByRole("dialog");
 
-    expect(await screen.findByRole("alert")).toHaveTextContent("媒体库加载失败");
-    fireEvent.click(screen.getByRole("button", { name: "重试加载媒体库" }));
+    expect(await within(dialog).findByRole("alert")).toHaveTextContent(
+      "媒体库加载失败",
+    );
+    fireEvent.click(
+      within(dialog).getByRole("button", { name: "重试加载媒体库" }),
+    );
 
-    expect(await screen.findByRole("radiogroup", { name: "媒体库图片" })).toBeInTheDocument();
+    expect(
+      await within(dialog).findByRole("radiogroup", { name: "媒体库图片" }),
+    ).toBeInTheDocument();
     expect(axios.get).toHaveBeenCalledTimes(2);
   });
 });
