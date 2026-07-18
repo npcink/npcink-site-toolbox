@@ -11,6 +11,8 @@ if (!defined('WP_UNINSTALL_PLUGIN')) {
 	exit;
 }
 
+wp_clear_scheduled_hook('npcink_site_toolbox_auto_db_clean');
+
 global $wpdb;
 
 // 固定 Option 使用核心 API 删除，确保对象缓存同步失效。

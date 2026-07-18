@@ -15,7 +15,6 @@ if (!class_exists('Npcink_Toolbox_Performance_Search_Enhance')) {
             if (!empty($config['hotwords_enabled'])) {
                 add_action('pre_get_posts', array(__CLASS__, 'frontend_log_search'));
                 add_action('loop_no_results', array(__CLASS__, 'mark_no_result'));
-                add_action('loop_no_results', array(__CLASS__, 'mark_no_result'));
             }
         }
         public static function highlight_search($text) {

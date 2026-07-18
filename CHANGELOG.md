@@ -23,6 +23,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Added a compact overview guide that links directly to the post and page editors for using the bundled patterns and site-statistics block.
 - Grouped the live block and bundled patterns under matching `Npcink Site Toolbox` inserter categories.
 
+### Fixed
+
+- Registered automatic database cleanup for WP-Cron requests, synchronized schedule changes, and cleared stale events when settings or the plugin are disabled or removed.
+- Removed the duplicate no-result search hook that could count one empty search twice.
+- Validated `permission_callback` on every endpoint variant in multi-method REST routes.
+
 ## [3.1.1] - 2026-07-18
 
 ### Fixed

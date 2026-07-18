@@ -6,26 +6,89 @@ if (!class_exists('Npcink_Toolbox_Performance_Db_Clean')) {
     class Npcink_Toolbox_Performance_Db_Clean implements Npcink_Toolbox_Module_Interface
     {
         private const BATCH_SIZE = 100;
+        private const CRON_HOOK = 'npcink_site_toolbox_auto_db_clean';
 
         private static $config = array();
 
         public static function run($config = array())
         {
-            self::$config = $config;
-            add_filter('cron_schedules', array(__CLASS__, 'add_cron_schedules'));
+            self::$config = is_array($config) ? $config : array();
+            self::sync_schedule(self::$config);
+        }
 
-            if (!empty($config['auto_clean'])) {
-                $schedule = !empty($config['auto_clean_schedule']) ? $config['auto_clean_schedule'] : 'weekly';
-                if (!wp_next_scheduled('npcink_site_toolbox_auto_db_clean')) {
-                    wp_schedule_event(time(), $schedule, 'npcink_site_toolbox_auto_db_clean');
-                }
-                add_action('npcink_site_toolbox_auto_db_clean', array(__CLASS__, 'auto_clean'));
-            } else {
-                $timestamp = wp_next_scheduled('npcink_site_toolbox_auto_db_clean');
-                if ($timestamp) {
-                    wp_unschedule_event($timestamp, 'npcink_site_toolbox_auto_db_clean');
-                }
+        /**
+         * Keep the scheduled event aligned with the persisted performance option.
+         *
+         * @param mixed $old_value Previous performance option value.
+         * @param mixed $new_value New performance option value.
+         */
+        public static function handle_performance_option_update($old_value, $new_value)
+        {
+            $config = is_array($new_value) && isset($new_value['db_clean']) && is_array($new_value['db_clean'])
+                ? $new_value['db_clean']
+                : array();
+
+            self::sync_schedule($config);
+        }
+
+        /**
+         * Schedule, reschedule, or clear the automatic cleanup event.
+         *
+         * @param array $config Database cleanup configuration.
+         */
+        private static function sync_schedule($config = array())
+        {
+            if (empty($config['enabled']) || empty($config['auto_clean'])) {
+                self::clear_schedule();
+                return;
             }
+
+            $allowed_schedules = array('daily', 'weekly', 'monthly');
+            $schedule = isset($config['auto_clean_schedule']) && in_array($config['auto_clean_schedule'], $allowed_schedules, true)
+                ? $config['auto_clean_schedule']
+                : 'weekly';
+            $event = wp_get_scheduled_event(self::CRON_HOOK);
+
+            if ($event && isset($event->schedule) && $event->schedule === $schedule) {
+                return;
+            }
+
+            if ($event) {
+                self::clear_schedule();
+            }
+
+            // Do not create a duplicate event when an existing event could not be cleared.
+            if (!wp_get_scheduled_event(self::CRON_HOOK)) {
+                wp_schedule_event(time(), $schedule, self::CRON_HOOK);
+            }
+        }
+
+        /**
+         * Remove every scheduled occurrence for this plugin hook.
+         */
+        public static function clear_schedule()
+        {
+            wp_clear_scheduled_hook(self::CRON_HOOK);
+        }
+
+        /**
+         * Run from WP-Cron using the latest persisted configuration.
+         */
+        public static function run_scheduled_cleanup()
+        {
+            $performance = get_option(NPCINK_SITE_TOOLBOX_OPTION_PERFORMANCE, array());
+            $config = is_array($performance) && isset($performance['db_clean']) && is_array($performance['db_clean'])
+                ? $performance['db_clean']
+                : array();
+
+            if (empty($config['enabled']) || empty($config['auto_clean'])) {
+                self::clear_schedule();
+                return;
+            }
+
+            self::$config = $config;
+            self::sync_schedule($config);
+            self::auto_clean();
         }
 
         public static function add_cron_schedules($schedules)

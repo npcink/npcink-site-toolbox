@@ -22,6 +22,30 @@ class RestApiSecurityTest extends TestCase {
         $this->assertEmpty($missing, 'Routes missing permission_callback: ' . implode(', ', $missing));
     }
 
+    public function test_multi_endpoint_route_requires_permission_on_every_endpoint(): void {
+        Npcink_Toolbox_Rest_Route_Registry::clear();
+        Npcink_Toolbox_Rest_Route_Registry::add('/mixed-permissions', array(
+            array(
+                'methods' => 'GET',
+                'permission_callback' => static function () {
+                    return true;
+                },
+            ),
+            array(
+                'methods' => 'POST',
+            ),
+        ));
+
+        try {
+            $this->assertSame(
+                array('/mixed-permissions[1]'),
+                Npcink_Toolbox_Rest_Route_Registry::validate_all_have_permission()
+            );
+        } finally {
+            self::trigger_registration();
+        }
+    }
+
     public function test_all_registered_route_callbacks_are_callable(): void {
         self::trigger_registration();
         $invalid = array();

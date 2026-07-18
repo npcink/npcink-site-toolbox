@@ -57,23 +57,20 @@ if (!class_exists('Npcink_Toolbox_Rest_Route_Registry')) {
         public static function validate_all_have_permission() {
             $missing = array();
             foreach (self::$routes as $route) {
-                $has_permission = false;
+                $args = $route['args'];
+                $is_multi_endpoint = is_array($args) && isset($args[0]);
+                $endpoints = $is_multi_endpoint ? $args : array($args);
 
-                if (is_array($route['args'])) {
-                    if (isset($route['args']['permission_callback'])) {
-                        $has_permission = true;
-                    } elseif (isset($route['args'][0])) {
-                        foreach ($route['args'] as $endpoint) {
-                            if (is_array($endpoint) && isset($endpoint['permission_callback'])) {
-                                $has_permission = true;
-                                break;
-                            }
-                        }
+                foreach ($endpoints as $index => $endpoint) {
+                    if ($is_multi_endpoint && !is_int($index)) {
+                        continue;
                     }
-                }
+                    if (is_array($endpoint) && isset($endpoint['permission_callback'])) {
+                        continue;
+                    }
 
-                if (!$has_permission) {
-                    $missing[] = $route['path'];
+                    $suffix = $is_multi_endpoint ? '[' . $index . ']' : '';
+                    $missing[] = $route['path'] . $suffix;
                 }
             }
             return $missing;

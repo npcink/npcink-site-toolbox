@@ -299,6 +299,17 @@ class SearchHealthTest extends TestCase
         $this->assertEquals(1, $found['no_result_count']);
     }
 
+    public function test_hotwords_registers_no_result_hook_once(): void
+    {
+        $source = file_get_contents(dirname(__FILE__) . '/../../admin/partials/performance/search_enhance/index.php');
+
+        $this->assertIsString($source);
+        $this->assertSame(
+            1,
+            substr_count($source, "add_action('loop_no_results', array(__CLASS__, 'mark_no_result'));")
+        );
+    }
+
     public function test_increment_no_result_count_on_unlogged_term_skipped(): void
     {
         $method = new ReflectionMethod('Npcink_Toolbox_Search_Health', 'increment_no_result_count');

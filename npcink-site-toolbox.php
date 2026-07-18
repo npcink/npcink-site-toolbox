@@ -54,9 +54,26 @@ define('NPCINK_SITE_TOOLBOX_OPTION_PERFORMANCE', 'npcink_site_toolbox_performanc
 require_once plugin_dir_path(__FILE__) . 'includes/autoload.php';
 require_once plugin_dir_path(__FILE__) . 'includes/class-npcink-site-toolbox.php';
 
+// Cron 回调必须在所有请求上下文中注册；类本身仍由自动加载器按需加载。
+add_filter('cron_schedules', array('Npcink_Toolbox_Performance_Db_Clean', 'add_cron_schedules'));
+add_action('npcink_site_toolbox_auto_db_clean', array('Npcink_Toolbox_Performance_Db_Clean', 'run_scheduled_cleanup'));
+add_action(
+    'update_option_' . NPCINK_SITE_TOOLBOX_OPTION_PERFORMANCE,
+    array('Npcink_Toolbox_Performance_Db_Clean', 'handle_performance_option_update'),
+    10,
+    2
+);
+add_action(
+    'delete_option_' . NPCINK_SITE_TOOLBOX_OPTION_PERFORMANCE,
+    array('Npcink_Toolbox_Performance_Db_Clean', 'clear_schedule'),
+    10,
+    0
+);
+
 // 生命周期 Hook 必须由主插件文件在顶层注册，模块按需加载时注册会错过事件。
 register_activation_hook(__FILE__, array('Npcink_Toolbox_Category_Link_Simplify', 'activate'));
 register_deactivation_hook(__FILE__, array('Npcink_Toolbox_Category_Link_Simplify', 'deactivate'));
+register_deactivation_hook(__FILE__, array('Npcink_Toolbox_Performance_Db_Clean', 'clear_schedule'));
 add_action(
     'update_option_' . NPCINK_SITE_TOOLBOX_OPTION_OPTIMIZE,
     array('Npcink_Toolbox_Category_Link_Simplify', 'handle_optimize_option_update'),
