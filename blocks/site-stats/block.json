@@ -4,7 +4,7 @@
   "name": "npcink/site-stats",
   "version": "3.2.0",
   "title": "站点数据",
-  "category": "widgets",
+  "category": "npcink-site-toolbox",
   "icon": "chart-bar",
   "description": "展示文章、评论、分类和用户数量，并始终读取当前站点数据。",
   "keywords": [ "统计", "数据", "站点" ],

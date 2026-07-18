@@ -42,6 +42,37 @@ final class BlockPatternsContractTest extends TestCase
         );
     }
 
+    public function test_block_and_pattern_categories_share_the_product_identity(): void
+    {
+        $core = $this->source('includes/class-magick-mixture.php');
+        $this->assertStringContainsString(
+            "add_filter('block_categories_all', array('MaBox_Block_Patterns', 'add_block_category'))",
+            $core
+        );
+
+        $categories = array(
+            array('slug' => 'text', 'title' => '文本'),
+        );
+        $with_toolbox = MaBox_Block_Patterns::add_block_category($categories);
+
+        $this->assertSame(
+            array(
+                'slug'  => 'npcink-site-toolbox',
+                'title' => 'Npcink Site Toolbox',
+            ),
+            $with_toolbox[1]
+        );
+        $this->assertSame(
+            $with_toolbox,
+            MaBox_Block_Patterns::add_block_category($with_toolbox),
+            'The shared category must not be duplicated.'
+        );
+
+        foreach (MaBox_Block_Patterns::definitions() as $definition) {
+            $this->assertContains('npcink-site-toolbox', $definition['categories']);
+        }
+    }
+
     /**
      * @dataProvider patternProvider
      */

@@ -91,6 +91,7 @@ final class SiteStatsBlockTest extends TestCase
 
         $this->assertSame('npcink/site-stats', $metadata['name']);
         $this->assertSame(3, $metadata['apiVersion']);
+        $this->assertSame('npcink-site-toolbox', $metadata['category']);
         $this->assertSame('file:./index.js', $metadata['editorScript']);
         $this->assertSame('file:./style.css', $metadata['style']);
         $this->assertStringContainsString("dirname(__DIR__) . '/blocks/site-stats'", $source);

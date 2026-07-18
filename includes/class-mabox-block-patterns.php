@@ -3,10 +3,32 @@
 defined('ABSPATH') || exit;
 
 /**
- * Register reusable editorial patterns made exclusively from core blocks.
+ * Register shared editor categories and reusable core-block patterns.
  */
 final class MaBox_Block_Patterns
 {
+    /**
+     * Add the plugin category to the block inserter without disturbing core order.
+     *
+     * @param array<int,array<string,mixed>> $categories Registered block categories.
+     * @return array<int,array<string,mixed>>
+     */
+    public static function add_block_category($categories)
+    {
+        foreach ($categories as $category) {
+            if (isset($category['slug']) && $category['slug'] === 'npcink-site-toolbox') {
+                return $categories;
+            }
+        }
+
+        $categories[] = array(
+            'slug'  => 'npcink-site-toolbox',
+            'title' => __('Npcink Site Toolbox', 'npcink-site-toolbox'),
+        );
+
+        return $categories;
+    }
+
     /**
      * Register the plugin pattern category and patterns.
      */

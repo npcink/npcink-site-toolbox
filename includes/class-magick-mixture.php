@@ -129,6 +129,7 @@ class Magick_Mixture
      */
     public function run()
     {
+        add_filter('block_categories_all', array('MaBox_Block_Patterns', 'add_block_category'));
         add_action('init', array('MaBox_Block_Patterns', 'register'));
         add_action('init', array('MaBox_Site_Stats', 'register_block'));
 
