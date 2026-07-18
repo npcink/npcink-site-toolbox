@@ -12,12 +12,24 @@ export type AdminView = (typeof ADMIN_VIEWS)[number];
 
 export const DEFAULT_ADMIN_VIEW: AdminView = "overview";
 
+export const TARGETABLE_ADMIN_VIEWS: readonly AdminView[] = [
+  "site",
+  "content",
+  "seo",
+  "china",
+  "maintenance",
+];
+
 export function isAdminView(value: string | null | undefined): value is AdminView {
   return ADMIN_VIEWS.includes(value as AdminView);
 }
 
 export function normalizeAdminView(value: string | null | undefined): AdminView {
   return isAdminView(value) ? value : DEFAULT_ADMIN_VIEW;
+}
+
+export function adminViewSupportsTargetItem(view: AdminView): boolean {
+  return TARGETABLE_ADMIN_VIEWS.includes(view);
 }
 
 export function getAdminViewFromSearch(search: string): AdminView {

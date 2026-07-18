@@ -12,6 +12,7 @@ import { Option, SecretChange, SecretChanges, SecretPath } from "@/tool/interfac
 import { updateOptionValue } from "@/tool/option";
 import {
   AdminView,
+  adminViewSupportsTargetItem,
   getAdminViewFromSearch,
   isAdminView,
   normalizeAdminView,
@@ -235,7 +236,7 @@ const App: React.FC = () => {
     if (item.key === "overview") {
       extraProps.onNavigate = handleSearchNavigate;
     }
-    if (targetItemId && ["content", "seo", "china"].includes(item.key)) {
+    if (targetItemId && adminViewSupportsTargetItem(item.key)) {
       extraProps.targetItemId = targetItemId;
     }
 

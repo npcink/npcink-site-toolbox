@@ -112,6 +112,7 @@ The site-statistics block editor script is shipped as readable source in `blocks
 * Added a dynamic site-statistics block with live article, comment, category, and user counts.
 * Reused one statistics provider across the block and legacy widget instead of duplicating count logic.
 * Kept the editor script as readable, build-free source so the block does not create another Vite target or Node dependency.
+* Unified long admin settings pages with accessible, search-aware secondary tabs while keeping compact views direct.
 
 = 3.1.1 =
 * Release date: 2026-07-18.

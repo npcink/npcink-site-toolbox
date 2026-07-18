@@ -17,6 +17,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - Reused one request-scoped statistics provider across the dynamic block and legacy widget.
 - Raised the minimum WordPress version to 6.3 and kept the editor script as readable, build-free source instead of adding another Vite target.
+- Unified long admin settings pages with accessible, search-aware secondary tabs while keeping compact views direct.
 
 ## [3.1.1] - 2026-07-18
 

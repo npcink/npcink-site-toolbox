@@ -35,4 +35,11 @@ describe("内容与页面标签页", () => {
     fireEvent.keyDown(comment, { key: "Home" });
     expect(appearance).toHaveAttribute("aria-selected", "true");
   });
+
+  it("根据搜索目标自动打开所属分组", () => {
+    render(<Page targetItemId="page-comment-sensitive_words" />);
+
+    expect(screen.getByRole("tab", { name: "评论" })).toHaveAttribute("aria-selected", "true");
+    expect(screen.getByText("评论内容")).toBeInTheDocument();
+  });
 });

@@ -1150,15 +1150,20 @@
   gap: 16px;
 }
 
-.mabox-page-tabs {
+.mabox-settings-tabs {
   display: flex;
   gap: 4px;
   margin-bottom: 20px;
   border-bottom: 1px solid #f0f0f0;
   padding-bottom: 0;
+  max-width: 100%;
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+  scrollbar-width: thin;
 }
 
-.mabox-page-tab {
+.mabox-settings-tab {
+  flex: 0 0 auto;
   min-height: 44px;
   padding: 8px 16px;
   font-size: 13px;
@@ -1168,19 +1173,25 @@
   border-bottom: 2px solid transparent;
   cursor: pointer;
   transition: all 0.2s;
+  white-space: nowrap;
 }
 
-.mabox-page-tab:hover {
+.mabox-settings-tab:hover {
   color: #1677ff;
 }
 
-.mabox-page-tab--active {
+.mabox-settings-tab:focus-visible {
+  outline: 2px solid #2271b1;
+  outline-offset: -2px;
+}
+
+.mabox-settings-tab--active {
   color: #1677ff;
   font-weight: 500;
   border-bottom-color: #1677ff;
 }
 
-.mabox-page-panel {
+.mabox-settings-panel {
   min-height: 200px;
 }
 

@@ -8,3 +8,5 @@ export { default as RiskNotice } from "./RiskNotice";
 export { default as DetailDrawer } from "./DetailDrawer";
 export { default as PreviewPanel } from "./PreviewPanel";
 export { default as CheckTable } from "./CheckTable";
+export { default as SettingsTabs } from "./SettingsTabs";
+export type { SettingsTab } from "./SettingsTabs";
