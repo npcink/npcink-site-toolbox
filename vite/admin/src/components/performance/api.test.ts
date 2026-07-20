@@ -1,6 +1,8 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 import { performanceApi } from "@/api";
+import { defaultVarOption } from "@/tool/defaultVar";
+import type { SettingsSavePayload } from "@/tool/interface";
 
 const restMocks = vi.hoisted(() => ({
   get: vi.fn(),
@@ -40,6 +42,23 @@ describe("performanceApi", () => {
       type: "spam",
       dry_run: false,
     });
+  });
+
+  it("对象存储连接测试关闭全局通知并使用设置凭据契约", async () => {
+    const payload: SettingsSavePayload = {
+      settings: defaultVarOption,
+      secretChanges: {
+        "performance.oss.access_key": { operation: "replace", value: "access-key" },
+      },
+    };
+
+    await performanceApi.testOssConnection(payload);
+
+    expect(restMocks.post).toHaveBeenCalledWith(
+      "/performance/oss/test",
+      payload,
+      { maboxNotify: false },
+    );
   });
 
   it.each([

@@ -80,6 +80,7 @@ class RestApiSecurityTest extends TestCase {
 
         $sensitive_paths = array(
             '/settings',
+            '/performance/oss/test',
             '/performance/db/clean',
             '/tools/categories',
         );
@@ -252,6 +253,7 @@ class RestApiSecurityTest extends TestCase {
         $this->assertSame(array(
             '/settings',
             '/settings/schema',
+            '/performance/oss/test',
             '/performance/media/check',
             '/performance/media/fix-alt',
             '/performance/seo/check',
@@ -266,6 +268,24 @@ class RestApiSecurityTest extends TestCase {
             '/diagnostics/summary',
             '/search-health/summary',
         ), $paths);
+    }
+
+    public function test_oss_connection_route_uses_the_settings_secret_contract(): void {
+        self::trigger_registration();
+
+        foreach (Npcink_Toolbox_Rest_Route_Registry::get_registered() as $route) {
+            if ($route['path'] !== '/performance/oss/test') {
+                continue;
+            }
+
+            $this->assertSame(WP_REST_Server::CREATABLE, $route['args']['methods']);
+            $this->assertSame(array('settings', 'secretChanges'), array_keys($route['args']['args']));
+            $this->assertTrue($route['args']['args']['settings']['required']);
+            $this->assertFalse($route['args']['args']['secretChanges']['required']);
+            return;
+        }
+
+        $this->fail('OSS connection-test route was not registered');
     }
 
     private static function is_admin_permission($callback) {

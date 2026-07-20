@@ -74,7 +74,9 @@ When an administrator enables WeChat JSSDK and configures an AppID and AppSecret
 
 = Object storage =
 
-When an administrator enables object storage and selects a provider, each new media upload sends the file bytes, object key, bucket/region, access-key identifier, and signed authorization data to that provider. Credentials remain in the local WordPress database and are used only for these administrator-enabled requests. Providers: [Alibaba Cloud OSS](https://www.aliyun.com/product/oss) ([terms](https://terms.aliyun.com/legal-agreement/terms/suit_bu1_ali_cloud/suit_bu1_ali_cloud201912232313_55403.html), [privacy](https://terms.aliyun.com/legal-agreement/terms/suit_bu1_ali_cloud/suit_bu1_ali_cloud202107091605_49213.html)); [Tencent Cloud COS](https://cloud.tencent.com/product/cos) ([terms](https://cloud.tencent.com/document/product/301/1967), [privacy](https://cloud.tencent.com/document/product/301/11470)); [Qiniu Kodo](https://www.qiniu.com/products/kodo) ([terms](https://www.qiniu.com/agreements/user-agreement), [privacy](https://www.qiniu.com/agreements/privacy-right)).
+Before saving or enabling object storage, an administrator may explicitly run the connection test. It sends the selected provider the current saved or draft credentials, bucket, provider-specific endpoint or region, optional object-key prefix, signed authorization data, and a short text payload. The payload writes or overwrites `npcink-site-toolbox/connection-test.txt`, placed below the configured prefix when one is present. The test object remains in the selected bucket; rerunning the test overwrites the same object instead of creating more objects. The test does not require a public media URL, save settings, or change the module's enabled state.
+
+When an administrator enables object storage and selects a provider, each new media upload sends the file bytes, prefixed object key, bucket, provider-specific endpoint or region, access-key identifier, and signed authorization data to that provider. Local media files are retained. The configured public URL prefix is used only to replace media URLs after every generated file uploads successfully. Saved credentials and target settings remain in the local WordPress database; unsaved draft credentials are used only for the administrator-triggered connection test. Providers: [Alibaba Cloud OSS](https://www.aliyun.com/product/oss) ([terms](https://terms.aliyun.com/legal-agreement/terms/suit_bu1_ali_cloud/suit_bu1_ali_cloud201912232313_55403.html), [privacy](https://terms.aliyun.com/legal-agreement/terms/suit_bu1_ali_cloud/suit_bu1_ali_cloud202107091605_49213.html)); [Tencent Cloud COS](https://cloud.tencent.com/product/cos) ([terms](https://cloud.tencent.com/document/product/301/1967), [privacy](https://cloud.tencent.com/document/product/301/11470)); [Qiniu Kodo](https://www.qiniu.com/products/kodo) ([terms](https://www.qiniu.com/agreements/user-agreement), [privacy](https://www.qiniu.com/agreements/privacy-right)).
 
 = Baidu Analytics =
 
@@ -121,6 +123,7 @@ The site-statistics and GitHub project block editor scripts are shipped as reada
 * Added an overview guide with direct post and page editor links for using the bundled patterns and dynamic blocks.
 * Grouped the dynamic blocks and bundled patterns under matching Npcink Site Toolbox inserter categories.
 * Unified pre-release PHP identifiers and plugin-owned storage keys under the Npcink Site Toolbox identity without compatibility shims.
+* Added a write-based object-storage connection test, provider-specific setup examples, and an explicit local-file retention notice.
 
 = 3.1.1 =
 * Release date: 2026-07-18.

@@ -459,6 +459,37 @@ class Npcink_Toolbox_Admin
 
     private static function register_performance_routes()
     {
+        Npcink_Toolbox_Rest_Route_Registry::add('/performance/oss/test', array(
+            'methods'             => \WP_REST_Server::CREATABLE,
+            'callback'            => array('Npcink_Toolbox_Performance_Oss', 'rest_test_connection'),
+            'permission_callback' => Npcink_Toolbox_Rest_Route_Registry::admin_permission(),
+            'args'                => array(
+                'settings' => array(
+                    'required'          => true,
+                    'type'              => 'object',
+                    'description'       => '不含凭据的完整设置',
+                    'sanitize_callback' => function ($value) {
+                        return is_array($value) ? $value : array();
+                    },
+                    'validate_callback' => function ($value) {
+                        return is_array($value);
+                    },
+                ),
+                'secretChanges' => array(
+                    'required'          => false,
+                    'type'              => 'object',
+                    'description'       => '对象存储凭据 replace/clear 操作',
+                    'default'           => array(),
+                    'sanitize_callback' => function ($value) {
+                        return is_array($value) ? $value : array();
+                    },
+                    'validate_callback' => function ($value) {
+                        return is_array($value);
+                    },
+                ),
+            ),
+        ), 'performance');
+
         Npcink_Toolbox_Rest_Route_Registry::add('/performance/media/check', array(
             'methods'             => \WP_REST_Server::CREATABLE,
             'callback'            => array('Npcink_Toolbox_Performance_Media_Health', 'ajax_check'),

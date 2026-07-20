@@ -62,6 +62,22 @@ class OssModuleContractTest extends TestCase
         $this->assertStringNotContainsString('delete_local', $component);
     }
 
+    public function test_connection_test_is_disclosed_as_an_explicit_fixed_object_write(): void
+    {
+        $readme = file_get_contents(self::$pluginDir . '/readme.txt');
+        $component = file_get_contents(self::$pluginDir . '/vite/admin/src/components/performance/oss.tsx');
+        $privacy = file_get_contents(self::$pluginDir . '/admin/partials/privacy/index.php');
+
+        $this->assertIsString($readme);
+        $this->assertIsString($component);
+        $this->assertIsString($privacy);
+        $this->assertStringContainsString('npcink-site-toolbox/connection-test.txt', $readme);
+        $this->assertStringContainsString('npcink-site-toolbox/connection-test.txt', $component);
+        $this->assertStringContainsString('本地副本始终保留', $component);
+        $this->assertStringContainsString('主动运行连接测试', $privacy);
+        $this->assertStringContainsString('未保存的凭据草稿只用于当次测试', $privacy);
+    }
+
     public function test_tencent_cos_v5_authorization_matches_fixed_vector(): void
     {
         $method = new ReflectionMethod(Npcink_Toolbox_Performance_Oss::class, 'build_tencent_authorization');
@@ -106,21 +122,73 @@ class OssModuleContractTest extends TestCase
             'enabled'  => false,
             'provider' => 'aliyun',
             'bucket'   => 'bucket-a',
-            'region'   => 'cn-hangzhou',
+            'path'     => '/www/',
+            'endpoint' => 'https://oss-cn-hangzhou.aliyuncs.com/',
+            'region'   => '',
             'domain'   => 'https://cdn.example.com/',
         ));
         $first = $method->invoke(null);
 
-        $this->assertSame('585582f8438eb442c6108141af57289f4be1d86ef560041b8f572818d30ac519', $first);
+        $this->assertIsString($first);
+        $this->assertSame(64, strlen($first));
+
+        Npcink_Toolbox_Performance_Oss::run(array(
+            'enabled'  => false,
+            'provider' => 'aliyun',
+            'bucket'   => 'bucket-a',
+            'path'     => 'www',
+            'endpoint' => 'oss-cn-hangzhou.aliyuncs.com',
+            'region'   => '',
+            'domain'   => 'https://cdn.example.com',
+        ));
+
+        $this->assertSame($first, $method->invoke(null));
+
+        Npcink_Toolbox_Performance_Oss::run(array(
+            'enabled'  => false,
+            'provider' => 'aliyun',
+            'bucket'   => 'bucket-a',
+            'path'     => 'www',
+            'endpoint' => 'oss-cn-hangzhou.aliyuncs.com',
+            'region'   => 'stale-hidden-region',
+            'domain'   => 'https://cdn.example.com',
+        ));
+
+        $this->assertSame($first, $method->invoke(null));
 
         Npcink_Toolbox_Performance_Oss::run(array(
             'enabled'  => false,
             'provider' => 'aliyun',
             'bucket'   => 'bucket-b',
-            'region'   => 'cn-hangzhou',
+            'path'     => 'www',
+            'endpoint' => 'oss-cn-hangzhou.aliyuncs.com',
+            'region'   => '',
             'domain'   => 'https://cdn.example.com',
         ));
 
         $this->assertNotSame($first, $method->invoke(null));
+
+        Npcink_Toolbox_Performance_Oss::run(array(
+            'enabled'  => false,
+            'provider' => 'aliyun',
+            'bucket'   => 'bucket-a',
+            'path'     => 'private',
+            'endpoint' => 'oss-cn-hangzhou.aliyuncs.com',
+            'region'   => '',
+            'domain'   => 'https://cdn.example.com',
+        ));
+
+        $this->assertNotSame($first, $method->invoke(null));
+    }
+
+    public function test_oss_schema_exposes_endpoint_and_optional_upload_path(): void
+    {
+        $schema = Npcink_Toolbox_Config_Schema::get_schema();
+        $defaults = Npcink_Toolbox_Config_Schema::get_defaults();
+
+        $this->assertArrayHasKey('endpoint', $schema['performance']['oss']);
+        $this->assertArrayHasKey('path', $schema['performance']['oss']);
+        $this->assertSame('', $defaults['performance']['oss']['endpoint']);
+        $this->assertSame('', $defaults['performance']['oss']['path']);
     }
 }

@@ -6,7 +6,11 @@
  */
 
 import { restInstance, ApiResponse } from "@/axios/public";
-import { DiagnosticSummary, SearchHealthSummary } from "@/tool/interface";
+import {
+  DiagnosticSummary,
+  SearchHealthSummary,
+  SettingsSavePayload,
+} from "@/tool/interface";
 
 export type DbCleanType =
   | "revisions"
@@ -55,8 +59,20 @@ export interface SeoIssue {
   severity?: string;
 }
 
+export interface OssConnectionResult {
+  provider: "aliyun" | "tencent" | "qiniu";
+  objectKey: string;
+  latencyMs: number;
+}
+
 // ========== 性能优化 ==========
 export const performanceApi = {
+  testOssConnection: (payload: SettingsSavePayload): Promise<ApiResponse<OssConnectionResult>> =>
+    restInstance.post<ApiResponse<OssConnectionResult>, ApiResponse<OssConnectionResult>>(
+      "/performance/oss/test",
+      payload,
+      { maboxNotify: false },
+    ),
   getDbStats: (): Promise<ApiResponse<DbStats>> =>
     restInstance.get<ApiResponse<DbStats>, ApiResponse<DbStats>>("/performance/db/stats"),
   previewDb: (type: DbCleanType): Promise<ApiResponse<DbPreview>> =>

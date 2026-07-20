@@ -157,6 +157,8 @@
                 "bucket": "",
                 "domain": "",
                 "enabled": false,
+                "endpoint": "",
+                "path": "",
                 "provider": "aliyun",
                 "region": ""
             },

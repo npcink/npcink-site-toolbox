@@ -158,6 +158,8 @@ export type PerformanceOss = {
   enabled: boolean;
   provider: string;
   bucket: string;
+  path: string;
+  endpoint: string;
   region: string;
   domain: string;
 };

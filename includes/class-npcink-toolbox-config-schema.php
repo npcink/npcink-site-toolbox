@@ -229,6 +229,8 @@ if (!class_exists('Npcink_Toolbox_Config_Schema')) {
                         'access_key'   => array('type' => 'string',  'default' => '', 'sanitize' => 'sanitize_text_field', 'sensitive' => true),
                         'secret_key'   => array('type' => 'string',  'default' => '', 'sanitize' => 'sanitize_text_field', 'sensitive' => true),
                         'bucket'       => array('type' => 'string',  'default' => '', 'sanitize' => 'sanitize_text_field'),
+                        'path'         => array('type' => 'string',  'default' => '', 'sanitize' => 'sanitize_text_field'),
+                        'endpoint'     => array('type' => 'string',  'default' => '', 'sanitize' => 'sanitize_text_field'),
                         'region'       => array('type' => 'string',  'default' => '', 'sanitize' => 'sanitize_text_field'),
                         'domain'       => array('type' => 'string',  'default' => '', 'sanitize' => 'esc_url_raw'),
                     ),
