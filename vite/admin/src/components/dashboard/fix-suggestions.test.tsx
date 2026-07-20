@@ -248,7 +248,7 @@ describe("现代概览页", () => {
     const onNavigate = renderDashboard();
 
     fireEvent.click(await screen.findByRole("button", { name: "前往国内生态" }));
-    fireEvent.click(screen.getByRole("button", { name: "打开维护工具" }));
+    fireEvent.click(screen.getByRole("button", { name: "打开存储与维护" }));
     fireEvent.click(screen.getByRole("button", { name: "检查搜索设置" }));
 
     expect(onNavigate).toHaveBeenNthCalledWith(

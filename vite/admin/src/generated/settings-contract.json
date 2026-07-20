@@ -590,7 +590,7 @@
             "label": "对象存储 / OSS",
             "section": "云存储",
             "tabKey": "maintenance",
-            "tabLabel": "维护工具",
+            "tabLabel": "存储与维护",
             "tags": [
                 "性能"
             ]
@@ -606,7 +606,7 @@
             "label": "SEO 检查助手",
             "section": "SEO",
             "tabKey": "maintenance",
-            "tabLabel": "维护工具",
+            "tabLabel": "存储与维护",
             "tags": [
                 "SEO"
             ]
@@ -623,7 +623,7 @@
             "label": "媒体库体检",
             "section": "媒体",
             "tabKey": "maintenance",
-            "tabLabel": "维护工具"
+            "tabLabel": "存储与维护"
         },
         {
             "id": "performance-search_enhance-highlight_enabled",
@@ -636,7 +636,7 @@
             "label": "搜索关键词高亮",
             "section": "搜索",
             "tabKey": "maintenance",
-            "tabLabel": "维护工具"
+            "tabLabel": "存储与维护"
         },
         {
             "id": "performance-db_clean-enabled",
@@ -650,7 +650,7 @@
             "label": "数据库清理优化",
             "section": "数据库",
             "tabKey": "maintenance",
-            "tabLabel": "维护工具",
+            "tabLabel": "存储与维护",
             "tags": [
                 "推荐",
                 "性能"

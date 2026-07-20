@@ -224,7 +224,7 @@ if (!class_exists('Npcink_Toolbox_Config_Schema')) {
                 'performance' => array(
                     '_option_key' => NPCINK_SITE_TOOLBOX_OPTION_PERFORMANCE,
                     'oss' => array(
-                        'enabled'      => array('type' => 'boolean', 'default' => false, 'search' => self::search_metadata('performance-oss-enabled', '对象存储 / OSS', 'maintenance', '维护工具', '云存储', array('oss', 'cos', '云存储', '阿里云', '腾讯云'), array('性能'))),
+                        'enabled'      => array('type' => 'boolean', 'default' => false, 'search' => self::search_metadata('performance-oss-enabled', '对象存储 / OSS', 'maintenance', '存储与维护', '云存储', array('oss', 'cos', '云存储', '阿里云', '腾讯云'), array('性能'))),
                         'provider'     => array('type' => 'string',  'default' => 'aliyun', 'sanitize' => 'sanitize_text_field'),
                         'access_key'   => array('type' => 'string',  'default' => '', 'sanitize' => 'sanitize_text_field', 'sensitive' => true),
                         'secret_key'   => array('type' => 'string',  'default' => '', 'sanitize' => 'sanitize_text_field', 'sensitive' => true),
@@ -233,18 +233,18 @@ if (!class_exists('Npcink_Toolbox_Config_Schema')) {
                         'domain'       => array('type' => 'string',  'default' => '', 'sanitize' => 'esc_url_raw'),
                     ),
                     'seo_checker' => array(
-                        'enabled' => array('type' => 'boolean', 'default' => false, 'search' => self::search_metadata('performance-seo_checker-enabled', 'SEO 检查助手', 'maintenance', '维护工具', 'SEO', array('seo', '检查', 'alt', '健康度'), array('SEO'))),
+                        'enabled' => array('type' => 'boolean', 'default' => false, 'search' => self::search_metadata('performance-seo_checker-enabled', 'SEO 检查助手', 'maintenance', '存储与维护', 'SEO', array('seo', '检查', 'alt', '健康度'), array('SEO'))),
                     ),
                     'media_health' => array(
-                        'enabled' => array('type' => 'boolean', 'default' => false, 'search' => self::search_metadata('performance-media_health-enabled', '媒体库体检', 'maintenance', '维护工具', '媒体', array('media', '媒体', '图片', 'alt', '体检'))),
+                        'enabled' => array('type' => 'boolean', 'default' => false, 'search' => self::search_metadata('performance-media_health-enabled', '媒体库体检', 'maintenance', '存储与维护', '媒体', array('media', '媒体', '图片', 'alt', '体检'))),
                     ),
                     'search_enhance' => array(
-                        'highlight_enabled' => array('type' => 'boolean', 'default' => false, 'search' => self::search_metadata('performance-search_enhance-highlight_enabled', '搜索关键词高亮', 'maintenance', '维护工具', '搜索', array('search', '搜索', '高亮', '关键词'))),
+                        'highlight_enabled' => array('type' => 'boolean', 'default' => false, 'search' => self::search_metadata('performance-search_enhance-highlight_enabled', '搜索关键词高亮', 'maintenance', '存储与维护', '搜索', array('search', '搜索', '高亮', '关键词'))),
                         'recommend_enabled' => array('type' => 'boolean', 'default' => false),
                         'hotwords_enabled'  => array('type' => 'boolean', 'default' => false),
                     ),
                     'db_clean' => array(
-                        'enabled'             => array('type' => 'boolean', 'default' => false, 'risk' => array('level' => 'high', 'title' => '数据库清理', 'warning' => '数据库清理操作不可逆，删除的数据无法恢复。', 'suggestion' => '执行前务必先预览影响数量，并做好备份。', 'noDismiss' => true), 'feature_id' => 'performance-db_clean-enabled', 'label' => '数据库清理优化', 'group' => '数据库', 'search' => self::search_metadata('performance-db_clean-enabled', '数据库清理优化', 'maintenance', '维护工具', '数据库', array('db', '数据库', '清理', '优化', '修订版本'), array('推荐', '性能'))),
+                        'enabled'             => array('type' => 'boolean', 'default' => false, 'risk' => array('level' => 'high', 'title' => '数据库清理', 'warning' => '数据库清理操作不可逆，删除的数据无法恢复。', 'suggestion' => '执行前务必先预览影响数量，并做好备份。', 'noDismiss' => true), 'feature_id' => 'performance-db_clean-enabled', 'label' => '数据库清理优化', 'group' => '数据库', 'search' => self::search_metadata('performance-db_clean-enabled', '数据库清理优化', 'maintenance', '存储与维护', '数据库', array('db', '数据库', '清理', '优化', '修订版本'), array('推荐', '性能'))),
                         'clean_revisions'    => array('type' => 'boolean', 'default' => false),
                         'clean_drafts'       => array('type' => 'boolean', 'default' => false),
                         'clean_spam_comments' => array('type' => 'boolean', 'default' => false),

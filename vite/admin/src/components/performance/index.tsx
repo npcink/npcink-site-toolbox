@@ -22,7 +22,7 @@ const App: React.FC<PerformanceProps> = ({ targetItemId }) => {
 
   return (
     <SettingsTabs
-      ariaLabel="维护工具分组"
+      ariaLabel="存储与维护分组"
       idPrefix="mabox-maintenance"
       tabs={tabs}
       targetItemId={targetItemId}

@@ -1,46 +1,91 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useRef, useState } from "react";
 import { Form, Input, Select } from "antd";
 import { DataContext } from "@/tool/dataContext";
+import { defaultVarOption } from "@/tool/defaultVar";
+import type { PerformanceOss, SecretChange } from "@/tool/interface";
 import { AntConfig } from "@/tool/tool";
-import { SettingsSection, ModuleRow, SecretField } from "@/components/settings-ui";
+import {
+  DetailDrawer,
+  ModuleCard,
+  SecretField,
+  SettingsSection,
+} from "@/components/settings-ui";
 
 const fromConfig = AntConfig.from;
 
-const App: React.FC = () => {
-  const { optionData, updateOption } = useContext(DataContext);
-  const publicData = optionData.performance?.oss || {};
-  const [formData, setFormData] = useState(publicData || {});
+const isSecretConfigured = (configured: boolean, change?: SecretChange): boolean => {
+  if (change?.operation === "replace") return change.value.trim() !== "";
+  if (change?.operation === "clear") return false;
+  return configured;
+};
 
-  const onValuesChange = (changedValues: any, _allValues: any) => {
-    setFormData((prev: any) => ({ ...prev, ...changedValues }));
+const App: React.FC = () => {
+  const {
+    optionData,
+    updateOption,
+    secretStatus,
+    secretChanges,
+  } = useContext(DataContext);
+  const publicData = optionData.performance?.oss || defaultVarOption.performance.oss;
+  const [formData, setFormData] = useState<PerformanceOss>(publicData);
+  const formDataRef = useRef<PerformanceOss>(publicData);
+  const [drawerOpen, setDrawerOpen] = useState(false);
+
+  const onValuesChange = (changedValues: Partial<PerformanceOss>) => {
+    const nextFormData = { ...formDataRef.current, ...changedValues };
+    formDataRef.current = nextFormData;
+    setFormData(nextFormData);
+    updateOption("performance", "oss", nextFormData);
   };
 
-  useEffect(() => {
-    updateOption("performance", "oss", formData);
-  }, [formData]);
+  const accessKeyConfigured = isSecretConfigured(
+    secretStatus["performance.oss.access_key"].configured,
+    secretChanges["performance.oss.access_key"],
+  );
+  const secretKeyConfigured = isSecretConfigured(
+    secretStatus["performance.oss.secret_key"].configured,
+    secretChanges["performance.oss.secret_key"],
+  );
+  const storageTargetConfigured = Boolean(
+    formData.provider.trim()
+    && formData.bucket.trim()
+    && formData.domain.trim()
+    && (formData.provider === "qiniu" || formData.region.trim()),
+  );
+  const configurationStatus = storageTargetConfigured && accessKeyConfigured && secretKeyConfigured
+    ? "已配置" as const
+    : "未配置" as const;
 
   return (
     <SettingsSection title="对象存储" description="图片自动上传至云存储">
-      <Form
-        name="oss"
-        labelCol={fromConfig.labelCol}
-        wrapperCol={fromConfig.wrapperCol}
-        style={{ maxWidth: fromConfig.maxWidth }}
-        initialValues={publicData}
-        autoComplete="off"
-        onValuesChange={onValuesChange}
-      >
-        <ModuleRow
+      <>
+        <ModuleCard
           title="启用对象存储"
           description="启用后图片将自动上传至云存储"
           featureId="performance-oss-enabled"
+          tags={[configurationStatus]}
           enabled={!!formData.enabled}
-          onChange={(checked) => {
-            setFormData((prev: any) => ({ ...prev, enabled: checked }));
-          }}
+          onChange={(checked) => onValuesChange({ enabled: checked })}
+          actionLabel="配置"
+          onAction={() => setDrawerOpen(true)}
         />
-        {formData.enabled && (
-          <>
+
+        <DetailDrawer
+          title="对象存储配置"
+          visible={drawerOpen}
+          onClose={() => setDrawerOpen(false)}
+          description="可先完成配置，再决定是否启用；更改随页面顶部的“保存”统一保存。"
+          width={520}
+        >
+          <Form
+            name="oss"
+            labelCol={fromConfig.labelCol}
+            wrapperCol={fromConfig.wrapperCol}
+            style={{ maxWidth: fromConfig.maxWidth }}
+            initialValues={publicData}
+            autoComplete="off"
+            onValuesChange={onValuesChange}
+          >
             <Form.Item label="服务商" name="provider">
               <Select options={[
                 { label: "阿里云 OSS", value: "aliyun" },
@@ -59,9 +104,9 @@ const App: React.FC = () => {
             <Form.Item label="CDN 域名" name="domain">
               <Input placeholder="如：https://cdn.example.com" />
             </Form.Item>
-          </>
-        )}
-      </Form>
+          </Form>
+        </DetailDrawer>
+      </>
     </SettingsSection>
   );
 };

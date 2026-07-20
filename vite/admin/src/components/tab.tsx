@@ -69,7 +69,7 @@ const navGroups: NavGroup[] = [
   {
     groupLabel: "工具与支持",
     items: [
-      { key: "maintenance", label: "维护工具", icon: "dashicons-admin-tools", component: Performance },
+      { key: "maintenance", label: "存储与维护", icon: "dashicons-admin-tools", component: Performance },
       { key: "about", label: "关于与帮助", icon: "dashicons-info-outline", component: About },
     ],
   },

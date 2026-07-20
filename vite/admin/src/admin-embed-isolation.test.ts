@@ -124,6 +124,7 @@ const collectMediaRuleDeclarations = (
 describe('WordPress admin embed isolation', () => {
   it('uses only mabox-namespaced selectors without a Tailwind/PostCSS pipeline', () => {
     const appStyleSource = readRelativeFile('./App.css');
+    const appSource = readRelativeFile('./App.tsx');
     const selectors = collectStyleSelectors(appStyleSource);
     const packageManifest = JSON.parse(
       readRelativeFile('../../package.json'),
@@ -131,6 +132,16 @@ describe('WordPress admin embed isolation', () => {
 
     expect(appStyleSource).not.toMatch(/@(tailwind|apply)\b/);
     expect(appStyleSource).not.toContain('#root');
+    expect(appSource).toContain('colorPrimary: "#3858e9"');
+    expect(appSource).toContain('colorTextLightSolid: "#fff"');
+    expect(appStyleSource).toContain(
+      '.mabox-shell .ant-btn-primary,\n' +
+      '.mabox-detail-drawer .ant-btn-primary,\n' +
+      '.mabox-admin-modal .ant-btn-primary {\n' +
+      '  color: #fff;\n' +
+      '  background-color: #3858e9;\n' +
+      '}',
+    );
     expect(selectors.length).toBeGreaterThan(0);
     expect(selectors.filter((selector) => !selector.startsWith('.mabox-'))).toEqual([]);
     expect(selectors).toEqual(expect.arrayContaining([

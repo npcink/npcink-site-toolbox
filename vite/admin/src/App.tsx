@@ -6,15 +6,18 @@ import Tab from "@/components/tab";
 
 const App: React.FC = () => {
   return (
-    <ConfigProvider locale={zhCN}>
-     
-            <Tab />
-          
+    <ConfigProvider
+      locale={zhCN}
+      theme={{
+        token: {
+          colorPrimary: "#3858e9",
+          colorTextLightSolid: "#fff",
+        },
+      }}
+    >
+      <Tab />
     </ConfigProvider>
   );
 };
-
-
-
 
 export default App;

@@ -86,7 +86,45 @@
 .mabox-shell .ant-btn-primary,
 .mabox-detail-drawer .ant-btn-primary,
 .mabox-admin-modal .ant-btn-primary {
-  background-color: #1677ff;
+  color: #fff;
+  background-color: #3858e9;
+}
+
+.mabox-shell .ant-btn-primary:not(:disabled):not(.ant-btn-disabled):hover,
+.mabox-detail-drawer .ant-btn-primary:not(:disabled):not(.ant-btn-disabled):hover,
+.mabox-admin-modal .ant-btn-primary:not(:disabled):not(.ant-btn-disabled):hover {
+  color: #fff;
+  background-color: #2f4fd7;
+  border-color: #2f4fd7;
+}
+
+.mabox-shell .ant-btn-primary:not(:disabled):not(.ant-btn-disabled):focus-visible,
+.mabox-detail-drawer .ant-btn-primary:not(:disabled):not(.ant-btn-disabled):focus-visible,
+.mabox-admin-modal .ant-btn-primary:not(:disabled):not(.ant-btn-disabled):focus-visible {
+  color: #fff;
+  background-color: #3858e9;
+  border-color: #3858e9;
+  outline: 2px solid rgba(56, 88, 233, 0.28);
+  outline-offset: 2px;
+}
+
+.mabox-shell .ant-btn-primary:not(:disabled):not(.ant-btn-disabled):active,
+.mabox-detail-drawer .ant-btn-primary:not(:disabled):not(.ant-btn-disabled):active,
+.mabox-admin-modal .ant-btn-primary:not(:disabled):not(.ant-btn-disabled):active {
+  color: #fff;
+  background-color: #263cae;
+  border-color: #263cae;
+}
+
+.mabox-shell .ant-btn-primary:disabled,
+.mabox-shell .ant-btn-primary.ant-btn-disabled,
+.mabox-detail-drawer .ant-btn-primary:disabled,
+.mabox-detail-drawer .ant-btn-primary.ant-btn-disabled,
+.mabox-admin-modal .ant-btn-primary:disabled,
+.mabox-admin-modal .ant-btn-primary.ant-btn-disabled {
+  color: rgba(0, 0, 0, 0.25);
+  background-color: #f5f5f5;
+  border-color: #d9d9d9;
 }
 
 .mabox-shell {

@@ -30,6 +30,10 @@ describe("featureIndex", () => {
     expect(searchIndex.every((item) => validViews.has(item.tabKey))).toBe(true);
     expect(searchIndex.some((item) => /^\d+$/.test(item.tabKey))).toBe(false);
 
+    const maintenanceItems = searchIndex.filter((item) => item.tabKey === "maintenance");
+    expect(maintenanceItems.length).toBeGreaterThan(0);
+    expect(maintenanceItems.every((item) => item.tabLabel === "存储与维护")).toBe(true);
+
     const byId = new Map(searchIndex.map((item) => [item.id, item]));
     expect(byId.get("page-function-maintenance_tips")?.aliases).toContain(
       "page-feature-maintenance_tips",

@@ -384,7 +384,7 @@ const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
         </div>
         <button className="mabox-overview__quiet-button" type="button" onClick={() => navigate("maintenance")}>
           <span className="dashicons dashicons-admin-tools" aria-hidden="true" />
-          打开维护工具
+          打开存储与维护
         </button>
       </header>
 

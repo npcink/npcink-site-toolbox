@@ -34,11 +34,11 @@ vi.mock("@/components/performance/db_clean", () => {
 
 afterEach(cleanup);
 
-describe("维护工具标签页", () => {
+describe("存储与维护标签页", () => {
   it("只加载搜索目标分组，并在用户切换后加载下一分组", async () => {
     render(<Performance targetItemId="performance-db_clean-enabled" />);
 
-    expect(screen.getByRole("tablist", { name: "维护工具分组" })).toBeInTheDocument();
+    expect(screen.getByRole("tablist", { name: "存储与维护分组" })).toBeInTheDocument();
     expect(screen.getAllByRole("tab")).toHaveLength(5);
     expect(screen.getByRole("tab", { name: "数据库" })).toHaveAttribute("aria-selected", "true");
     expect(await screen.findByText("数据库内容")).toBeInTheDocument();
