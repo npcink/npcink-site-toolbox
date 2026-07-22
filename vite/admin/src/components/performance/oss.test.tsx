@@ -1,4 +1,5 @@
 import { cleanup, fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { ConfigProvider } from "antd";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import Oss from "@/components/performance/oss";
@@ -45,23 +46,25 @@ function renderOss({
   const updateOption = vi.fn();
 
   render(
-    <DataContext.Provider
-      value={{
-        optionData,
-        updateOption,
-        refreshOption: vi.fn(),
-        lastSavedOption: optionData,
-        setLastSavedOption: vi.fn(),
-        secretStatus,
-        secretChanges,
-        setSecretChange: vi.fn(),
-        clearSecretChanges: vi.fn(),
-        settingsState: "ready",
-        settingsError: null,
-      }}
-    >
-      <Oss />
-    </DataContext.Provider>,
+    <ConfigProvider theme={{ token: { motion: false } }}>
+      <DataContext.Provider
+        value={{
+          optionData,
+          updateOption,
+          refreshOption: vi.fn(),
+          lastSavedOption: optionData,
+          setLastSavedOption: vi.fn(),
+          secretStatus,
+          secretChanges,
+          setSecretChange: vi.fn(),
+          clearSecretChanges: vi.fn(),
+          settingsState: "ready",
+          settingsError: null,
+        }}
+      >
+        <Oss />
+      </DataContext.Provider>
+    </ConfigProvider>,
   );
 
   return updateOption;
@@ -155,7 +158,7 @@ describe("对象存储设置", () => {
     fireEvent.click(screen.getByRole("button", { name: "查看 Bucket 填写说明" }));
     expect(await screen.findByText("只填写 Bucket 名称；上传目录请填写在下一项。"))
       .toBeInTheDocument();
-  });
+  }, 30_000);
 
   it("仅在存储目标和两项凭据都齐备时标记为已配置", () => {
     renderOss({

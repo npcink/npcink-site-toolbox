@@ -19,7 +19,7 @@
     "test:admin": "vitest run --root admin",
     "test:block": "node ../tests/js/site-stats-editor-contract.mjs && node ../tests/js/github-project-editor-contract.mjs",
     "test": "pnpm run test:admin && pnpm run test:block",
-    "test:coverage": "vitest run --root admin --coverage --maxWorkers=1 --minWorkers=1",
+    "test:coverage": "vitest run --root admin --coverage --maxWorkers=2 --minWorkers=2",
     "preview:admin": "vite preview admin --config admin/vite.config.ts",
     "preview:count": "vite preview count --config count/vite.config.ts"
   },

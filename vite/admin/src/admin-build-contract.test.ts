@@ -93,8 +93,7 @@ describe('admin build contract scanner', () => {
     expect(config).not.toContain('manualChunks');
     expect(config).not.toContain('/wp-content/plugins/');
     expect(packageManifest).toContain('node admin/src/check-admin-build-contract.mjs');
-    expect(packageManifest).toContain('"test:coverage": "vitest run --root admin --coverage --maxWorkers=1 --minWorkers=1"');
-    expect(packageManifest).not.toContain('--maxWorkers=2 --minWorkers=2');
+    expect(packageManifest).toContain('"test:coverage": "vitest run --root admin --coverage --maxWorkers=2 --minWorkers=2"');
     expect(adminPhp).toContain("filemtime($index_js_path)");
     expect(adminPhp).toContain("filemtime($index_css_path)");
     expect(adminPhp).toContain("wp_enqueue_script($name, $index_js, array(), $index_js_version, true)");

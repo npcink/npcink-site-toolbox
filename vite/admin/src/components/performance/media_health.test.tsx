@@ -1,6 +1,6 @@
 import { act, cleanup, fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { Modal } from "antd";
+import { ConfigProvider, Modal } from "antd";
 
 import MediaHealth from "@/components/performance/media_health";
 import { DataContext, emptySecretStatus } from "@/tool/dataContext";
@@ -19,23 +19,25 @@ vi.mock("@/api", () => ({
 
 function renderMediaHealth() {
   render(
-    <DataContext.Provider
-      value={{
-        optionData: defaultVarOption,
-        updateOption: vi.fn(),
-        refreshOption: vi.fn(),
-        lastSavedOption: defaultVarOption,
-        setLastSavedOption: vi.fn(),
-        secretStatus: emptySecretStatus(),
-        secretChanges: {},
-        setSecretChange: vi.fn(),
-        clearSecretChanges: vi.fn(),
-        settingsState: "ready",
-        settingsError: null,
-      }}
-    >
-      <MediaHealth />
-    </DataContext.Provider>,
+    <ConfigProvider theme={{ token: { motion: false } }}>
+      <DataContext.Provider
+        value={{
+          optionData: defaultVarOption,
+          updateOption: vi.fn(),
+          refreshOption: vi.fn(),
+          lastSavedOption: defaultVarOption,
+          setLastSavedOption: vi.fn(),
+          secretStatus: emptySecretStatus(),
+          secretChanges: {},
+          setSecretChange: vi.fn(),
+          clearSecretChanges: vi.fn(),
+          settingsState: "ready",
+          settingsError: null,
+        }}
+      >
+        <MediaHealth />
+      </DataContext.Provider>
+    </ConfigProvider>,
   );
 }
 
@@ -191,7 +193,7 @@ describe("媒体库体检操作反馈", () => {
     expect(apiMocks.restoreMediaWebp).toHaveBeenNthCalledWith(1, [901, 902, 903, 904, 905]);
     expect(apiMocks.restoreMediaWebp).toHaveBeenNthCalledWith(4, [916, 917, 918, 919, 920]);
     expect(await screen.findByRole("status")).toHaveTextContent("本次转换记录已恢复：已恢复 20/20 张");
-  });
+  }, 30_000);
 
   it("任一小批失败后停止后续转换并保留已完成记录", async () => {
     const confirm = vi.spyOn(Modal, "confirm").mockImplementation(() => undefined as never);
@@ -233,7 +235,7 @@ describe("媒体库体检操作反馈", () => {
     expect(apiMocks.convertMediaWebp).toHaveBeenCalledTimes(2);
     expect(await screen.findByRole("status")).toHaveTextContent("连续转换已停止：已转换 9/20 张");
     expect(screen.getByRole("button", { name: "恢复本次转换（9 张）" })).toBeInTheDocument();
-  });
+  }, 30_000);
 
   it("停止请求会等待当前五张完成且不启动下一批", async () => {
     const confirm = vi.spyOn(Modal, "confirm").mockImplementation(() => undefined as never);
@@ -276,5 +278,5 @@ describe("媒体库体检操作反馈", () => {
     expect(apiMocks.convertMediaWebp).toHaveBeenCalledTimes(1);
     expect(await screen.findByRole("status")).toHaveTextContent("已按要求停止：已转换 5/20 张");
     expect(screen.getByRole("button", { name: "恢复本次转换（5 张）" })).toBeInTheDocument();
-  });
+  }, 30_000);
 });

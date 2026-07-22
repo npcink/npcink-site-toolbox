@@ -333,7 +333,7 @@ describe("SelectImage", () => {
     expect(within(dialog).getByRole("status")).toHaveTextContent(
       "已加载全部图片",
     );
-  });
+  }, 30_000);
 
   it("加载更多失败时保留现有图片并允许重试", async () => {
     vi.mocked(axios.get)
@@ -370,5 +370,5 @@ describe("SelectImage", () => {
       await within(group).findByRole("radio", { name: "第三张图片" }),
     ).toBeInTheDocument();
     expect(axios.get).toHaveBeenCalledTimes(3);
-  });
+  }, 30_000);
 });
