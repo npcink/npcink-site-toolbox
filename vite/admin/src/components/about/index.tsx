@@ -1,6 +1,7 @@
 import { Typography } from "antd";
 import { SettingsSection, SettingsTabs } from "@/components/settings-ui";
 import Source from "@/components/about/table";
+import AiDiagnostics from "@/components/about/ai-diagnostics";
 import RuntimeStatus from "@/components/about/runtime-status";
 
 const { Paragraph, Link } = Typography;
@@ -95,6 +96,11 @@ const App: React.FC<AboutProps> = ({ onNavigate }) => {
       key: "runtime",
       label: "运行状态",
       content: <RuntimeStatus onNavigate={onNavigate} />,
+    },
+    {
+      key: "ai-diagnostics",
+      label: "AI 诊断",
+      content: <AiDiagnostics />,
     },
     {
       key: "support",

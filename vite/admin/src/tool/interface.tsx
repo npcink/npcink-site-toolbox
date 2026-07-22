@@ -52,6 +52,7 @@ export type {
 export type DataLocal = {
   url_site: string;
   ajaxurl?: string;
+  connectorsUrl?: string;
   nonce?: string;
   apiBase?: string;
   restNonce?: string;
@@ -165,6 +166,158 @@ export interface RuntimeFeatureStatus {
   editor_tools: RuntimeEditorTool[];
   diagnostics: DiagnosticSummary;
   generated_at: string;
+}
+
+export interface DiagnosticPackFact {
+  id: string;
+  label: string;
+  value: string;
+}
+
+export interface DiagnosticPackSection {
+  id: string;
+  title: string;
+  facts: DiagnosticPackFact[];
+}
+
+export interface DiagnosticPack {
+  contract_version: "diagnostic_pack.v1";
+  scope: "manual_support";
+  generated_at: string;
+  sections: DiagnosticPackSection[];
+  limitations: string[];
+  privacy: {
+    external_requests_performed: false;
+    persisted: false;
+    review_before_sharing: true;
+  };
+}
+
+export interface DiagnosticAnalysis {
+  contract_version: "diagnostic_analysis.v1";
+  generated_at: string;
+  source: {
+    contract_version: "diagnostic_pack.v1";
+    generated_at: string;
+  };
+  provider: {
+    id: "deepseek";
+    model: string;
+  };
+  analysis: string;
+  follow_up_context?: AiFollowUpContext;
+  privacy: {
+    external_request_performed: true;
+    persisted: false;
+    automated_changes: false;
+  };
+}
+
+export type AiReviewScope = "performance" | "maintenance" | "settings_risk";
+export type AiReviewScenario = AiReviewScope | "verification";
+export type AiFollowUpScenario = "troubleshooting" | AiReviewScenario;
+
+export interface AiFollowUpSourcePack {
+  contract_version: "diagnostic_pack.v1" | "site_review_pack.v1" | "site_review_comparison.v1";
+  scope: string;
+  generated_at: string;
+  sections: DiagnosticPackSection[];
+  limitations: string[];
+  privacy: {
+    external_requests_performed: false;
+    persisted: false;
+    review_before_sharing: true;
+  };
+}
+
+export interface AiFollowUpContext {
+  contract_version: "ai_follow_up_context.v1";
+  scenario: AiFollowUpScenario;
+  source_pack: AiFollowUpSourcePack;
+}
+
+export interface AiReviewPack {
+  contract_version: "site_review_pack.v1";
+  scope: AiReviewScope;
+  generated_at: string;
+  sections: DiagnosticPackSection[];
+  limitations: string[];
+  privacy: {
+    external_requests_performed: false;
+    persisted: false;
+    review_before_sharing: true;
+  };
+}
+
+export interface AiReview {
+  contract_version: "ai_review.v1";
+  scenario: AiReviewScenario;
+  generated_at: string;
+  source: {
+    contract_version: "site_review_pack.v1" | "site_review_comparison.v1";
+    generated_at: string;
+    scope: string;
+  };
+  provider: {
+    id: "deepseek";
+    model: string;
+  };
+  analysis: string;
+  follow_up_context?: AiFollowUpContext;
+  privacy: {
+    external_request_performed: true;
+    persisted: false;
+    automated_changes: false;
+  };
+}
+
+export interface AiSettingsChange {
+  path: string;
+  before: unknown;
+  after: unknown;
+}
+
+export interface AiReviewRequest {
+  scenario: AiReviewScenario;
+  problem?: string;
+  changes?: AiSettingsChange[];
+  baseline?: AiReviewPack;
+}
+
+export interface AiFollowUpTurn {
+  question: string;
+  answer: string;
+}
+
+export interface AiFollowUpRequest {
+  scenario: AiFollowUpScenario;
+  question: string;
+  context: AiFollowUpContext;
+  initial_analysis: string;
+  turns: AiFollowUpTurn[];
+}
+
+export interface AiFollowUp {
+  contract_version: "ai_follow_up.v1";
+  scenario: AiFollowUpScenario;
+  turn: 1 | 2 | 3;
+  generated_at: string;
+  source: {
+    context_version: "ai_follow_up_context.v1";
+    contract_version: AiFollowUpSourcePack["contract_version"];
+    generated_at: string;
+    scope: string;
+  };
+  provider: {
+    id: "deepseek";
+    model: string;
+  };
+  answer: string;
+  privacy: {
+    external_request_performed: true;
+    persisted: false;
+    automated_changes: false;
+  };
 }
 
 export interface SearchHealthTerm {

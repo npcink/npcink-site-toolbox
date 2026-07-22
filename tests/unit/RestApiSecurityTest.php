@@ -85,6 +85,11 @@ class RestApiSecurityTest extends TestCase {
             '/performance/media/webp/restore',
             '/performance/db/clean',
             '/tools/categories',
+            '/diagnostics/support-report',
+            '/diagnostics/analyses',
+            '/diagnostics/review-packs',
+            '/diagnostics/reviews',
+            '/diagnostics/follow-ups',
         );
 
         $found_paths = array();
@@ -271,6 +276,11 @@ class RestApiSecurityTest extends TestCase {
             '/domestic/environment/apply',
             '/diagnostics/summary',
             '/diagnostics/features',
+            '/diagnostics/support-report',
+            '/diagnostics/analyses',
+            '/diagnostics/review-packs',
+            '/diagnostics/reviews',
+            '/diagnostics/follow-ups',
             '/search-health/summary',
         ), $paths);
     }

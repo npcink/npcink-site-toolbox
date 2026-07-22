@@ -1,17 +1,9 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 
 import { diagnosticsApi } from "@/api";
-import type {
-  RuntimeFeatureModule,
-  RuntimeFeatureStatus,
-} from "@/tool/interface";
+import type { RuntimeFeatureModule, RuntimeFeatureStatus } from "@/tool/interface";
 import { createAdminTargetUrl } from "@/tool/navigation";
-import {
-  buildSupportReport,
-  diagnosticLabels,
-  scopeLabels,
-  tierLabels,
-} from "./runtime-status-report";
+import { diagnosticLabels, scopeLabels, tierLabels } from "./runtime-status-report";
 
 import "./runtime-status.css";
 
@@ -22,33 +14,6 @@ type LoadState =
 
 interface RuntimeStatusProps {
   onNavigate?: (view: string, itemId?: string) => void;
-}
-
-async function copyText(text: string): Promise<boolean> {
-  if (navigator.clipboard?.writeText) {
-    try {
-      await navigator.clipboard.writeText(text);
-      return true;
-    } catch {
-      // Local HTTP sites may expose the Clipboard API but reject the write.
-    }
-  }
-
-  const textarea = document.createElement("textarea");
-  textarea.value = text;
-  textarea.setAttribute("readonly", "");
-  textarea.style.position = "fixed";
-  textarea.style.opacity = "0";
-  document.body.appendChild(textarea);
-  textarea.select();
-
-  try {
-    return document.execCommand("copy");
-  } catch {
-    return false;
-  } finally {
-    textarea.remove();
-  }
 }
 
 function isRuntimeFeatureStatus(value: unknown): value is RuntimeFeatureStatus {
@@ -82,11 +47,9 @@ function isRuntimeFeatureStatus(value: unknown): value is RuntimeFeatureStatus {
 
 const RuntimeStatus = ({ onNavigate }: RuntimeStatusProps) => {
   const [state, setState] = useState<LoadState>({ status: "loading", data: null });
-  const [copyState, setCopyState] = useState<"idle" | "success" | "error">("idle");
 
   const load = useCallback(async () => {
     setState({ status: "loading", data: null });
-    setCopyState("idle");
     try {
       const response = await diagnosticsApi.getFeatureStatus();
       if (!response?.success || !isRuntimeFeatureStatus(response.data)) {
@@ -114,15 +77,6 @@ const RuntimeStatus = ({ onNavigate }: RuntimeStatusProps) => {
     return Array.from(groups.entries());
   }, [state]);
 
-  const copyReport = async () => {
-    if (state.status !== "success") {
-      setCopyState("error");
-      return;
-    }
-    const copied = await copyText(buildSupportReport(state.data));
-    setCopyState(copied ? "success" : "error");
-  };
-
   if (state.status === "loading") {
     return (
       <div className="mabox-runtime-state" role="status">
@@ -148,23 +102,10 @@ const RuntimeStatus = ({ onNavigate }: RuntimeStatusProps) => {
       <header className="mabox-runtime-status__header">
         <div>
           <h2>功能与运行状态</h2>
-          <p>核对当前实际加载的模块、编辑器工具和基础运行环境。此页面只读，不执行外部检测。</p>
+          <p>核对当前实际加载的模块、编辑器工具和基础运行环境；本页面只读，不会发送外部请求。</p>
         </div>
-        <div className="mabox-runtime-status__actions">
-          <button type="button" className="button" onClick={() => void load()}>刷新</button>
-          <button type="button" className="button button-primary" onClick={() => void copyReport()}>
-            复制诊断信息
-          </button>
-        </div>
+        <button type="button" className="button" onClick={() => void load()}>刷新</button>
       </header>
-
-      {copyState !== "idle" && (
-        <p className={`mabox-runtime-status__copy mabox-runtime-status__copy--${copyState}`} role="status">
-          {copyState === "success"
-            ? "已复制脱敏诊断信息，可直接粘贴到问题反馈中。"
-            : "浏览器未允许复制，请刷新页面后重试。"}
-        </p>
-      )}
 
       <dl className="mabox-runtime-status__summary" aria-label="运行状态摘要">
         <div><dt>插件版本</dt><dd>{data.plugin.version || "未知"}</dd></div>

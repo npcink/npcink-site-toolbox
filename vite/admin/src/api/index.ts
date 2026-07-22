@@ -7,6 +7,14 @@
 
 import { restInstance, ApiResponse } from "@/axios/public";
 import {
+  AiFollowUp,
+  AiFollowUpRequest,
+  AiReview,
+  AiReviewPack,
+  AiReviewRequest,
+  AiReviewScope,
+  DiagnosticAnalysis,
+  DiagnosticPack,
   DiagnosticSummary,
   RuntimeFeatureStatus,
   SearchHealthSummary,
@@ -226,6 +234,34 @@ export const diagnosticsApi = {
   getFeatureStatus: (): Promise<ApiResponse<RuntimeFeatureStatus>> =>
     restInstance.get<ApiResponse<RuntimeFeatureStatus>, ApiResponse<RuntimeFeatureStatus>>(
       "/diagnostics/features",
+      { maboxNotify: false },
+    ),
+  getSupportReport: (): Promise<ApiResponse<DiagnosticPack>> =>
+    restInstance.get<ApiResponse<DiagnosticPack>, ApiResponse<DiagnosticPack>>(
+      "/diagnostics/support-report",
+      { maboxNotify: false },
+    ),
+  analyzeSupportReport: (problem: string): Promise<ApiResponse<DiagnosticAnalysis>> =>
+    restInstance.post<ApiResponse<DiagnosticAnalysis>, ApiResponse<DiagnosticAnalysis>>(
+      "/diagnostics/analyses",
+      { problem },
+      { maboxNotify: false },
+    ),
+  getReviewPack: (scope: Exclude<AiReviewScope, "settings_risk">): Promise<ApiResponse<AiReviewPack>> =>
+    restInstance.get<ApiResponse<AiReviewPack>, ApiResponse<AiReviewPack>>(
+      `/diagnostics/review-packs?scope=${scope}`,
+      { maboxNotify: false },
+    ),
+  createReview: (request: AiReviewRequest): Promise<ApiResponse<AiReview>> =>
+    restInstance.post<ApiResponse<AiReview>, ApiResponse<AiReview>>(
+      "/diagnostics/reviews",
+      request,
+      { maboxNotify: false },
+    ),
+  createFollowUp: (request: AiFollowUpRequest): Promise<ApiResponse<AiFollowUp>> =>
+    restInstance.post<ApiResponse<AiFollowUp>, ApiResponse<AiFollowUp>>(
+      "/diagnostics/follow-ups",
+      request,
       { maboxNotify: false },
     ),
 };

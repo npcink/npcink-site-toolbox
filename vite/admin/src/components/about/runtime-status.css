@@ -25,6 +25,7 @@
 
 .mabox-runtime-status__header h2,
 .mabox-runtime-status__section h3,
+.mabox-runtime-status__report h3,
 .mabox-runtime-status__group h4 {
   margin: 0;
 }
@@ -85,11 +86,332 @@
   margin: 0;
 }
 
-.mabox-runtime-status__section {
+.mabox-runtime-status__section,
+.mabox-runtime-status__report {
   background: #fff;
   border: 1px solid var(--runtime-border);
   border-radius: 6px;
   padding: 18px;
+}
+
+.mabox-runtime-status__report-preview {
+  background: #f6f7f7;
+  border: 1px solid var(--runtime-border);
+  border-radius: 4px;
+  color: #1d2327;
+  display: block;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  line-height: 1.55;
+  max-height: 520px;
+  padding: 12px;
+  resize: vertical;
+  width: 100%;
+}
+
+.mabox-runtime-status__analysis-controls,
+.mabox-runtime-status__analysis-result {
+  border-top: 1px solid var(--runtime-border);
+  display: grid;
+  gap: 10px;
+  margin-top: 18px;
+  padding-top: 18px;
+}
+
+.mabox-runtime-status__analysis-controls label strong,
+.mabox-runtime-status__analysis-controls label span {
+  display: block;
+}
+
+.mabox-runtime-status__analysis-controls label span,
+.mabox-runtime-status__analysis-controls p,
+.mabox-runtime-status__analysis-result p {
+  color: var(--runtime-muted);
+  line-height: 1.55;
+  margin: 4px 0 0;
+}
+
+.mabox-runtime-status__analysis-controls textarea {
+  border: 1px solid var(--runtime-border);
+  border-radius: 4px;
+  max-width: 760px;
+  padding: 10px 12px;
+  resize: vertical;
+  width: 100%;
+}
+
+.mabox-runtime-status__analysis-controls .button {
+  justify-self: start;
+}
+
+.mabox-ai-diagnostics__modes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.mabox-ai-diagnostics__modes button {
+  background: #fff;
+  border: 1px solid var(--runtime-border);
+  border-radius: 999px;
+  color: #1d2327;
+  cursor: pointer;
+  font-weight: 500;
+  padding: 7px 14px;
+}
+
+.mabox-ai-diagnostics__modes button:hover,
+.mabox-ai-diagnostics__modes button:focus-visible {
+  border-color: var(--runtime-accent);
+  color: var(--runtime-accent);
+}
+
+.mabox-ai-diagnostics__modes button.is-active {
+  background: var(--runtime-accent);
+  border-color: var(--runtime-accent);
+  color: #fff;
+}
+
+.mabox-ai-diagnostics__workspace,
+.mabox-ai-diagnostics__preview,
+.mabox-ai-diagnostics__settings-diff,
+.mabox-ai-diagnostics__baseline {
+  display: grid;
+  gap: 14px;
+}
+
+.mabox-ai-diagnostics__preview,
+.mabox-ai-diagnostics__settings-diff,
+.mabox-ai-diagnostics__baseline {
+  border-top: 1px solid var(--runtime-border);
+  margin-top: 4px;
+  padding-top: 18px;
+}
+
+.mabox-ai-diagnostics__preview h4,
+.mabox-ai-diagnostics__settings-diff p,
+.mabox-ai-diagnostics__baseline p {
+  margin: 0;
+}
+
+.mabox-ai-diagnostics__settings-diff ul {
+  background: #f6f7f7;
+  border: 1px solid var(--runtime-border);
+  border-radius: 4px;
+  display: grid;
+  gap: 6px;
+  margin: 0;
+  max-height: 260px;
+  overflow: auto;
+  padding: 12px 12px 12px 34px;
+}
+
+.mabox-ai-diagnostics__baseline {
+  align-items: center;
+  grid-template-columns: auto minmax(160px, 260px) auto 1fr;
+}
+
+.mabox-ai-diagnostics__baseline select {
+  max-width: 260px;
+}
+
+.mabox-runtime-status__analysis-result h4 {
+  font-size: 15px;
+  margin: 0;
+}
+
+.mabox-ai-diagnostics__follow-up {
+  border-top: 1px solid var(--runtime-border);
+  display: grid;
+  gap: 14px;
+  padding-top: 18px;
+}
+
+.mabox-ai-diagnostics__follow-up-heading h5,
+.mabox-ai-diagnostics__follow-up-heading p,
+.mabox-ai-diagnostics__question p,
+.mabox-ai-diagnostics__follow-up-controls p,
+.mabox-ai-diagnostics__follow-up-limit {
+  margin: 0;
+}
+
+.mabox-ai-diagnostics__follow-up-heading h5 {
+  font-size: 15px;
+}
+
+.mabox-ai-diagnostics__follow-up-heading p,
+.mabox-ai-diagnostics__follow-up-controls label span,
+.mabox-ai-diagnostics__follow-up-controls p {
+  color: var(--runtime-muted);
+  line-height: 1.55;
+  margin-top: 4px;
+}
+
+.mabox-ai-diagnostics__transcript {
+  display: grid;
+  gap: 16px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.mabox-ai-diagnostics__transcript > li {
+  display: grid;
+  gap: 8px;
+}
+
+.mabox-ai-diagnostics__question {
+  background: #f0f6fc;
+  border-left: 3px solid var(--runtime-accent);
+  padding: 10px 12px;
+}
+
+.mabox-ai-diagnostics__question span {
+  color: var(--runtime-muted);
+  display: block;
+  font-size: 12px;
+  margin-bottom: 3px;
+}
+
+.mabox-ai-diagnostics__answer {
+  max-height: 420px;
+}
+
+.mabox-ai-diagnostics__follow-up-controls {
+  display: grid;
+  gap: 10px;
+}
+
+.mabox-ai-diagnostics__follow-up-controls label strong,
+.mabox-ai-diagnostics__follow-up-controls label span {
+  display: block;
+}
+
+.mabox-ai-diagnostics__follow-up-controls textarea {
+  border: 1px solid var(--runtime-border);
+  border-radius: 4px;
+  max-width: 760px;
+  padding: 10px 12px;
+  resize: vertical;
+  width: 100%;
+}
+
+.mabox-ai-diagnostics__quick-questions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.mabox-ai-diagnostics__follow-up-controls > .button {
+  justify-self: start;
+}
+
+.mabox-ai-diagnostics__follow-up-limit {
+  background: #f6f7f7;
+  border-left: 3px solid #8c8f94;
+  padding: 10px 12px;
+}
+
+.mabox-runtime-status__markdown {
+  background: #f6f7f7;
+  border: 1px solid var(--runtime-border);
+  border-radius: 4px;
+  color: #1d2327;
+  line-height: 1.7;
+  max-height: 620px;
+  overflow: auto;
+  padding: 16px 18px;
+}
+
+.mabox-runtime-status__markdown h5 {
+  font-size: 16px;
+  margin: 22px 0 8px;
+}
+
+.mabox-runtime-status__markdown h5:first-child,
+.mabox-runtime-status__markdown > :first-child {
+  margin-top: 0;
+}
+
+.mabox-runtime-status__markdown p,
+.mabox-runtime-status__markdown ol,
+.mabox-runtime-status__markdown ul,
+.mabox-runtime-status__markdown pre,
+.mabox-runtime-status__markdown blockquote,
+.mabox-runtime-status__markdown table {
+  margin: 0 0 12px;
+}
+
+.mabox-runtime-status__markdown ol,
+.mabox-runtime-status__markdown ul {
+  padding-left: 24px;
+}
+
+.mabox-runtime-status__markdown li + li {
+  margin-top: 5px;
+}
+
+.mabox-runtime-status__markdown .contains-task-list,
+.mabox-runtime-status__markdown .task-list-item {
+  list-style: none;
+}
+
+.mabox-runtime-status__markdown .task-list-item input {
+  margin: 0 6px 0 -20px;
+}
+
+.mabox-runtime-status__markdown code {
+  background: #fff;
+  border: 1px solid #dcdcde;
+  border-radius: 3px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.92em;
+  padding: 1px 4px;
+}
+
+.mabox-runtime-status__markdown pre {
+  background: #1d2327;
+  border-radius: 4px;
+  color: #f6f7f7;
+  overflow: auto;
+  padding: 12px 14px;
+}
+
+.mabox-runtime-status__markdown pre code {
+  background: transparent;
+  border: 0;
+  color: inherit;
+  padding: 0;
+}
+
+.mabox-runtime-status__markdown blockquote {
+  border-left: 4px solid #c3c4c7;
+  color: var(--runtime-muted);
+  padding-left: 12px;
+}
+
+.mabox-runtime-status__markdown table {
+  border-collapse: collapse;
+  min-width: 520px;
+  width: 100%;
+}
+
+.mabox-runtime-status__markdown th,
+.mabox-runtime-status__markdown td {
+  border: 1px solid var(--runtime-border);
+  padding: 7px 9px;
+  text-align: left;
+  vertical-align: top;
+}
+
+.mabox-runtime-status__markdown th {
+  background: #fff;
+  font-weight: 600;
+}
+
+.mabox-runtime-status__markdown hr {
+  border: 0;
+  border-top: 1px solid var(--runtime-border);
+  margin: 16px 0;
 }
 
 .mabox-runtime-status__section-heading {
@@ -330,6 +652,11 @@
   .mabox-runtime-status__module-meta {
     flex-wrap: wrap;
     justify-content: flex-start;
+  }
+
+  .mabox-ai-diagnostics__baseline {
+    align-items: stretch;
+    grid-template-columns: 1fr;
   }
 }
 

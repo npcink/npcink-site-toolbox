@@ -135,6 +135,7 @@ class Npcink_Toolbox_Admin
             'single_arr' => self::get_single_data(),
             'url_site' => get_site_url(),
             'ajaxurl' => admin_url('admin-ajax.php'),
+            'connectorsUrl' => admin_url('options-connectors.php'),
             'apiBase' => esc_url_raw(rest_url('npcink-site-toolbox/v1')),
             'restNonce' => wp_create_nonce('wp_rest'),
             'webpSupported' => function_exists('wp_image_editor_supports')
@@ -368,6 +369,191 @@ class Npcink_Toolbox_Admin
             'success' => true,
             'data'    => Npcink_Toolbox_Diagnostics::get_feature_status(),
         ));
+    }
+
+    /**
+     * 按需生成脱敏支持报告；不会保存或发送报告内容。
+     */
+    public static function rest_get_support_report(\WP_REST_Request $request)
+    {
+        if (!class_exists('Npcink_Toolbox_Diagnostics')) {
+            return new \WP_Error(
+                'diagnostics_not_available',
+                __('诊断服务暂不可用', 'npcink-site-toolbox'),
+                array('status' => 500)
+            );
+        }
+
+        $report = Npcink_Toolbox_Diagnostics::get_support_report();
+        if (is_wp_error($report)) {
+            return $report;
+        }
+
+        return rest_ensure_response(array(
+            'success' => true,
+            'data'    => $report,
+        ));
+    }
+
+    /**
+     * 将最新脱敏诊断包一次性发送给 DeepSeek 进行只读分析。
+     */
+    public static function rest_analyze_support_report(\WP_REST_Request $request)
+    {
+        if (!class_exists('Npcink_Toolbox_Diagnostics')) {
+            return new \WP_Error(
+                'diagnostics_not_available',
+                __('诊断服务暂不可用', 'npcink-site-toolbox'),
+                array('status' => 500)
+            );
+        }
+
+        $analysis = Npcink_Toolbox_Diagnostics::analyze_support_report(
+            (string) $request->get_param('problem')
+        );
+        if (is_wp_error($analysis)) {
+            return $analysis;
+        }
+
+        return rest_ensure_response(array(
+            'success' => true,
+            'data'    => $analysis,
+        ));
+    }
+
+    /**
+     * 生成性能或维护场景的只读预览包；不会调用 AI。
+     */
+    public static function rest_get_review_pack(\WP_REST_Request $request)
+    {
+        if (!class_exists('Npcink_Toolbox_Diagnostics')) {
+            return new \WP_Error('diagnostics_not_available', __('诊断服务暂不可用', 'npcink-site-toolbox'), array('status' => 500));
+        }
+
+        $pack = Npcink_Toolbox_Diagnostics::get_review_pack((string) $request->get_param('scope'));
+        if (is_wp_error($pack)) {
+            return $pack;
+        }
+
+        return rest_ensure_response(array('success' => true, 'data' => $pack));
+    }
+
+    /**
+     * 按场景将最新白名单数据包一次性发送给 DeepSeek。
+     */
+    public static function rest_analyze_review(\WP_REST_Request $request)
+    {
+        if (!class_exists('Npcink_Toolbox_Diagnostics')) {
+            return new \WP_Error('diagnostics_not_available', __('诊断服务暂不可用', 'npcink-site-toolbox'), array('status' => 500));
+        }
+
+        $analysis = Npcink_Toolbox_Diagnostics::analyze_review(
+            (string) $request->get_param('scenario'),
+            (string) $request->get_param('problem'),
+            $request->get_param('changes'),
+            $request->get_param('baseline')
+        );
+        if (is_wp_error($analysis)) {
+            return $analysis;
+        }
+
+        return rest_ensure_response(array('success' => true, 'data' => $analysis));
+    }
+
+    /**
+     * 在当前页面临时上下文中创建一次受限追问。
+     */
+    public static function rest_create_follow_up(\WP_REST_Request $request)
+    {
+        if (!class_exists('Npcink_Toolbox_Diagnostics')) {
+            return new \WP_Error('diagnostics_not_available', __('诊断服务暂不可用', 'npcink-site-toolbox'), array('status' => 500));
+        }
+
+        $answer = Npcink_Toolbox_Diagnostics::analyze_follow_up(
+            (string) $request->get_param('scenario'),
+            (string) $request->get_param('question'),
+            $request->get_param('context'),
+            (string) $request->get_param('initial_analysis'),
+            $request->get_param('turns')
+        );
+        if (is_wp_error($answer)) {
+            return $answer;
+        }
+
+        return rest_ensure_response(array('success' => true, 'data' => $answer));
+    }
+
+    /**
+     * 仅保留设置风险分析需要的路径与前后值；凭据路径仍由诊断层再次排除。
+     *
+     * @param mixed $value 请求值。
+     * @return array<int,array<string,mixed>>
+     */
+    public static function sanitize_review_changes($value)
+    {
+        if (!is_array($value)) {
+            return array();
+        }
+
+        $changes = array();
+        foreach (array_slice($value, 0, 50) as $change) {
+            if (!is_array($change) || empty($change['path']) || !is_string($change['path'])) {
+                continue;
+            }
+            $changes[] = array(
+                'path'   => sanitize_text_field($change['path']),
+                'before' => array_key_exists('before', $change) ? $change['before'] : null,
+                'after'  => array_key_exists('after', $change) ? $change['after'] : null,
+            );
+        }
+        return $changes;
+    }
+
+    /**
+     * 基线会在诊断层按合同、范围、数量、长度和字段白名单重新规范化。
+     *
+     * @param mixed $value 请求值。
+     * @return array<string,mixed>|null
+     */
+    public static function sanitize_review_baseline($value)
+    {
+        return is_array($value) ? $value : null;
+    }
+
+    /**
+     * 追问上下文会在诊断层按固定合同重新构建。
+     *
+     * @param mixed $value 请求值。
+     * @return array<string,mixed>|null
+     */
+    public static function sanitize_follow_up_context($value)
+    {
+        return is_array($value) ? $value : null;
+    }
+
+    /**
+     * @param mixed $value 请求值。
+     * @return array<int,array<string,string>>
+     */
+    public static function sanitize_follow_up_turns($value)
+    {
+        if (!is_array($value)) {
+            return array();
+        }
+
+        $turns = array();
+        foreach (array_slice($value, 0, 2) as $turn) {
+            if (!is_array($turn)) {
+                continue;
+            }
+            $question = isset($turn['question']) && is_string($turn['question']) ? $turn['question'] : '';
+            $answer = isset($turn['answer']) && is_string($turn['answer']) ? $turn['answer'] : '';
+            $turns[] = array(
+                'question' => sanitize_textarea_field($question),
+                'answer'   => sanitize_textarea_field($answer),
+            );
+        }
+        return $turns;
     }
 
     /**
@@ -669,6 +855,146 @@ class Npcink_Toolbox_Admin
                 'methods'             => \WP_REST_Server::READABLE,
                 'callback'            => array(__CLASS__, 'rest_get_feature_status'),
                 'permission_callback' => Npcink_Toolbox_Rest_Route_Registry::admin_permission(),
+            ),
+        ), 'diagnostics');
+
+        Npcink_Toolbox_Rest_Route_Registry::add('/diagnostics/support-report', array(
+            array(
+                'methods'             => \WP_REST_Server::READABLE,
+                'callback'            => array(__CLASS__, 'rest_get_support_report'),
+                'permission_callback' => Npcink_Toolbox_Rest_Route_Registry::admin_permission(),
+            ),
+        ), 'diagnostics');
+
+        Npcink_Toolbox_Rest_Route_Registry::add('/diagnostics/analyses', array(
+            array(
+                'methods'             => \WP_REST_Server::CREATABLE,
+                'callback'            => array(__CLASS__, 'rest_analyze_support_report'),
+                'permission_callback' => Npcink_Toolbox_Rest_Route_Registry::admin_permission(),
+                'args'                => array(
+                    'problem' => array(
+                        'required'          => false,
+                        'type'              => 'string',
+                        'default'           => '',
+                        'sanitize_callback' => 'sanitize_textarea_field',
+                        'validate_callback' => function ($value) {
+                            return is_string($value) && strlen($value) <= 8000;
+                        },
+                    ),
+                ),
+            ),
+        ), 'diagnostics');
+
+        Npcink_Toolbox_Rest_Route_Registry::add('/diagnostics/review-packs', array(
+            array(
+                'methods'             => \WP_REST_Server::READABLE,
+                'callback'            => array(__CLASS__, 'rest_get_review_pack'),
+                'permission_callback' => Npcink_Toolbox_Rest_Route_Registry::admin_permission(),
+                'args'                => array(
+                    'scope' => array(
+                        'required'          => true,
+                        'type'              => 'string',
+                        'enum'              => array('performance', 'maintenance'),
+                        'sanitize_callback' => 'sanitize_key',
+                    ),
+                ),
+            ),
+        ), 'diagnostics');
+
+        Npcink_Toolbox_Rest_Route_Registry::add('/diagnostics/reviews', array(
+            array(
+                'methods'             => \WP_REST_Server::CREATABLE,
+                'callback'            => array(__CLASS__, 'rest_analyze_review'),
+                'permission_callback' => Npcink_Toolbox_Rest_Route_Registry::admin_permission(),
+                'args'                => array(
+                    'scenario' => array(
+                        'required'          => true,
+                        'type'              => 'string',
+                        'enum'              => array('performance', 'maintenance', 'settings_risk', 'verification'),
+                        'sanitize_callback' => 'sanitize_key',
+                    ),
+                    'problem' => array(
+                        'required'          => false,
+                        'type'              => 'string',
+                        'default'           => '',
+                        'sanitize_callback' => 'sanitize_textarea_field',
+                        'validate_callback' => function ($value) {
+                            return is_string($value) && strlen($value) <= 2000;
+                        },
+                    ),
+                    'changes' => array(
+                        'required'          => false,
+                        'type'              => 'array',
+                        'default'           => array(),
+                        'sanitize_callback' => array(__CLASS__, 'sanitize_review_changes'),
+                        'validate_callback' => function ($value) {
+                            return is_array($value) && count($value) <= 50;
+                        },
+                    ),
+                    'baseline' => array(
+                        'required'          => false,
+                        'type'              => 'object',
+                        'sanitize_callback' => array(__CLASS__, 'sanitize_review_baseline'),
+                    ),
+                ),
+            ),
+        ), 'diagnostics');
+
+        Npcink_Toolbox_Rest_Route_Registry::add('/diagnostics/follow-ups', array(
+            array(
+                'methods'             => \WP_REST_Server::CREATABLE,
+                'callback'            => array(__CLASS__, 'rest_create_follow_up'),
+                'permission_callback' => Npcink_Toolbox_Rest_Route_Registry::admin_permission(),
+                'args'                => array(
+                    'scenario' => array(
+                        'required'          => true,
+                        'type'              => 'string',
+                        'enum'              => array('troubleshooting', 'performance', 'maintenance', 'settings_risk', 'verification'),
+                        'sanitize_callback' => 'sanitize_key',
+                    ),
+                    'question' => array(
+                        'required'          => true,
+                        'type'              => 'string',
+                        'sanitize_callback' => 'sanitize_textarea_field',
+                        'validate_callback' => function ($value) {
+                            if (!is_string($value)) {
+                                return false;
+                            }
+                            $length = function_exists('mb_strlen') ? mb_strlen($value, 'UTF-8') : strlen($value);
+                            return $length > 0 && $length <= 1000;
+                        },
+                    ),
+                    'context' => array(
+                        'required'          => true,
+                        'type'              => 'object',
+                        'sanitize_callback' => array(__CLASS__, 'sanitize_follow_up_context'),
+                    ),
+                    'initial_analysis' => array(
+                        'required'          => true,
+                        'type'              => 'string',
+                        'sanitize_callback' => 'sanitize_textarea_field',
+                        'validate_callback' => function ($value) {
+                            return is_string($value) && trim($value) !== '' && strlen($value) <= 24000;
+                        },
+                    ),
+                    'turns' => array(
+                        'required'          => false,
+                        'type'              => 'array',
+                        'default'           => array(),
+                        'items'             => array(
+                            'type'       => 'object',
+                            'required'   => array('question', 'answer'),
+                            'properties' => array(
+                                'question' => array('type' => 'string'),
+                                'answer'   => array('type' => 'string'),
+                            ),
+                        ),
+                        'sanitize_callback' => array(__CLASS__, 'sanitize_follow_up_turns'),
+                        'validate_callback' => function ($value) {
+                            return is_array($value) && count($value) <= 2;
+                        },
+                    ),
+                ),
             ),
         ), 'diagnostics');
 

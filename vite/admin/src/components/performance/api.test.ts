@@ -112,6 +112,28 @@ describe("performanceApi", () => {
     await domesticApi.applyEnvironmentFix(["gravatar"]);
     await diagnosticsApi.getSummary();
     await diagnosticsApi.getFeatureStatus();
+    await diagnosticsApi.getSupportReport();
+    await diagnosticsApi.analyzeSupportReport("后台偶发 500");
+    await diagnosticsApi.getReviewPack("performance");
+    await diagnosticsApi.createReview({ scenario: "performance", problem: "检查缓存" });
+    await diagnosticsApi.createFollowUp({
+      scenario: "troubleshooting",
+      question: "依据是什么？",
+      context: {
+        contract_version: "ai_follow_up_context.v1",
+        scenario: "troubleshooting",
+        source_pack: {
+          contract_version: "diagnostic_pack.v1",
+          scope: "manual_support",
+          generated_at: "2026-07-23 10:00:00",
+          sections: [{ id: "wp-core", title: "WordPress", facts: [{ id: "version", label: "版本", value: "7.0" }] }],
+          limitations: [],
+          privacy: { external_requests_performed: false, persisted: false, review_before_sharing: true },
+        },
+      },
+      initial_analysis: "首次回答",
+      turns: [],
+    });
     await searchHealthApi.getSummary(30);
     await settingsApi.getSchema();
 
@@ -130,6 +152,29 @@ describe("performanceApi", () => {
     );
     expect(restMocks.get).toHaveBeenCalledWith(
       "/diagnostics/features",
+      { maboxNotify: false },
+    );
+    expect(restMocks.get).toHaveBeenCalledWith(
+      "/diagnostics/support-report",
+      { maboxNotify: false },
+    );
+    expect(restMocks.post).toHaveBeenCalledWith(
+      "/diagnostics/analyses",
+      { problem: "后台偶发 500" },
+      { maboxNotify: false },
+    );
+    expect(restMocks.get).toHaveBeenCalledWith(
+      "/diagnostics/review-packs?scope=performance",
+      { maboxNotify: false },
+    );
+    expect(restMocks.post).toHaveBeenCalledWith(
+      "/diagnostics/reviews",
+      { scenario: "performance", problem: "检查缓存" },
+      { maboxNotify: false },
+    );
+    expect(restMocks.post).toHaveBeenCalledWith(
+      "/diagnostics/follow-ups",
+      expect.objectContaining({ scenario: "troubleshooting", question: "依据是什么？", turns: [] }),
       { maboxNotify: false },
     );
     expect(restMocks.get).toHaveBeenCalledWith(
