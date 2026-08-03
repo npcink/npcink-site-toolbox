@@ -352,7 +352,7 @@ if (!class_exists('Npcink_Toolbox_Performance_Oss')) {
             $domain = isset($config['domain']) && is_string($config['domain'])
                 ? rtrim(trim($config['domain']), '/')
                 : '';
-            $domain_parts = $domain !== '' ? parse_url($domain) : false;
+            $domain_parts = $domain !== '' ? wp_parse_url($domain) : false;
             if (($require_public_url && $domain === '')
                 || ($domain !== '' && (
                     !is_array($domain_parts)
@@ -598,7 +598,7 @@ if (!class_exists('Npcink_Toolbox_Performance_Oss')) {
             $candidate = strpos($endpoint, '://') === false
                 ? 'https://' . $endpoint
                 : $endpoint;
-            $parts = parse_url($candidate);
+            $parts = wp_parse_url($candidate);
             if (!is_array($parts)
                 || empty($parts['scheme'])
                 || empty($parts['host'])

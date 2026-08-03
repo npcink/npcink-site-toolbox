@@ -438,7 +438,7 @@ if (!class_exists('Npcink_Toolbox_Diagnostics')) {
             if (
                 !function_exists('wp_supports_ai')
                 || !function_exists('wp_ai_client_prompt')
-                || !wp_supports_ai()
+                || !call_user_func('wp_supports_ai')
             ) {
                 return new \WP_Error(
                     'diagnostic_ai_unavailable',
@@ -457,7 +457,7 @@ if (!class_exists('Npcink_Toolbox_Diagnostics')) {
 
             try {
                 foreach (self::get_ai_analysis_attempts($prompt, $retry_instruction) as $attempt) {
-                    $builder = wp_ai_client_prompt($attempt['prompt'])
+                    $builder = call_user_func('wp_ai_client_prompt', $attempt['prompt'])
                         ->using_provider('deepseek')
                         ->using_max_tokens($attempt['max_tokens']);
 
@@ -1406,7 +1406,7 @@ if (!class_exists('Npcink_Toolbox_Diagnostics')) {
             if (!is_scalar($value)) {
                 return '';
             }
-            $text = trim(strip_tags((string) $value));
+            $text = trim(wp_strip_all_tags((string) $value));
             $text = str_replace("\0", '', $text);
             if (strlen($text) <= $max_bytes) {
                 return $text;
@@ -1781,7 +1781,7 @@ if (!class_exists('Npcink_Toolbox_Diagnostics')) {
                 return '';
             }
 
-            $normalized = trim(strip_tags((string) $value));
+            $normalized = trim(wp_strip_all_tags((string) $value));
             $normalized = preg_replace('/\s+/', ' ', $normalized);
             if (!is_string($normalized)) {
                 return '';

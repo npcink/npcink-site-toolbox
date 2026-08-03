@@ -201,6 +201,17 @@ if ( ! function_exists( 'sanitize_text_field' ) ) {
 		return strip_tags( trim( $str ) );
 	}
 }
+if ( ! function_exists( 'wp_strip_all_tags' ) ) {
+	function wp_strip_all_tags( $text, $remove_breaks = false ) {
+		$text = strip_tags( $text );
+		return $remove_breaks ? preg_replace( '/[\r\n\t ]+/', ' ', $text ) : $text;
+	}
+}
+if ( ! function_exists( 'wp_parse_url' ) ) {
+	function wp_parse_url( $url, $component = -1 ) {
+		return parse_url( $url, $component );
+	}
+}
 if ( ! function_exists( '__' ) ) {
 	function __( $text, $domain = 'default' ) {
 		return $text;
