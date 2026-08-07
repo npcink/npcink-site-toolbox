@@ -2,8 +2,8 @@
 
 defined('ABSPATH') || exit;
 
-$api_base = esc_url_raw(rest_url('npcink-site-toolbox/v1'));
-$profile_url = admin_url('profile.php#application-passwords-section');
+$npcink_toolbox_api_base = esc_url_raw(rest_url('npcink-site-toolbox/v1'));
+$npcink_toolbox_profile_url = admin_url('profile.php#application-passwords-section');
 ?>
 <div class="wrap npcink-comment-rest-help">
     <h1><?php echo esc_html__('用户评论 REST 接口', 'npcink-site-toolbox'); ?></h1>
@@ -30,14 +30,14 @@ $profile_url = admin_url('profile.php#application-passwords-section');
         <h2><?php echo esc_html__('2. 创建应用程序密码', 'npcink-site-toolbox'); ?></h2>
         <ol>
             <li><?php echo esc_html__('使用需要管理评论的 WordPress 用户登录。', 'npcink-site-toolbox'); ?></li>
-            <li><a href="<?php echo esc_url($profile_url); ?>"><?php echo esc_html__('打开“用户 → 个人资料 → 应用程序密码”', 'npcink-site-toolbox'); ?></a>。</li>
+            <li><a href="<?php echo esc_url($npcink_toolbox_profile_url); ?>"><?php echo esc_html__('打开“用户 → 个人资料 → 应用程序密码”', 'npcink-site-toolbox'); ?></a>。</li>
             <li><?php echo esc_html__('填写客户端名称，创建并立即复制密码。密码离开页面后不会再次显示。', 'npcink-site-toolbox'); ?></li>
         </ol>
     </section>
 
     <section class="card">
         <h2><?php echo esc_html__('3. 准备 curl 变量', 'npcink-site-toolbox'); ?></h2>
-        <pre><code><?php echo esc_html("API_BASE='" . $api_base . "'\nWP_USER='your-login-name'\nAPP_PASSWORD='xxxx xxxx xxxx xxxx xxxx xxxx'"); ?></code></pre>
+        <pre><code><?php echo esc_html("API_BASE='" . $npcink_toolbox_api_base . "'\nWP_USER='your-login-name'\nAPP_PASSWORD='xxxx xxxx xxxx xxxx xxxx xxxx'"); ?></code></pre>
         <p><?php echo esc_html__('WordPress 显示的密码空格仅用于阅读，curl 可以直接使用完整密码。', 'npcink-site-toolbox'); ?></p>
     </section>
 
