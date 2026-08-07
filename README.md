@@ -90,6 +90,8 @@ DeepSeek 只读诊断的产品边界、实现演进、验证证据、问题复�
 [用户评论 REST 接口使用教程](docs-site/features/page-comment/user-comment-rest-api.md)。
 本轮需求收敛、安全边界、真实接口验证、内置教程和链接治理的完整经验见
 [用户评论 REST 与文档链接治理开发总结](docs/用户评论REST与文档链接治理开发总结-2026-08.md)。
+正式站点接入前的 HTTPS 冒烟、应用程序密码处理、测试数据清理和 Plugin Check 流程见
+[用户评论 REST 生产验收与凭据处理规范](docs/用户评论REST生产验收与凭据处理规范-2026-08.md)。
 
 ---
 
