@@ -18,15 +18,15 @@ describe("featureIndex", () => {
     vi.resetModules();
   });
 
-  it("uses the generated 33-item search index as its only search authority", async () => {
+  it("uses the generated 34-item search index as its only search authority", async () => {
     const { baseFeatureIndex, searchIndex } = await import("@/tool/featureIndex");
     const ids = searchIndex.map((item) => item.id);
     const validViews = new Set<string>(ADMIN_VIEWS);
 
     expect(searchIndex).toEqual(settingsContract.searchIndex);
-    expect(searchIndex).toHaveLength(33);
+    expect(searchIndex).toHaveLength(34);
     expect(baseFeatureIndex).toBe(searchIndex);
-    expect(new Set(ids).size).toBe(33);
+    expect(new Set(ids).size).toBe(34);
     expect(searchIndex.every((item) => validViews.has(item.tabKey))).toBe(true);
     expect(searchIndex.some((item) => /^\d+$/.test(item.tabKey))).toBe(false);
 

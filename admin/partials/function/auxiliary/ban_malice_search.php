@@ -3,7 +3,7 @@ defined('ABSPATH') || exit;
 
 /**
  * 效果：屏蔽恶意关键词搜索词
- * 来源：https://www.npc.ink/277953.html
+ * 历史来源文章已下线，实现事实以当前代码和测试为准。
  */
 if (!class_exists('Npcink_Toolbox_Ban_Malice_Search')) {
     class Npcink_Toolbox_Ban_Malice_Search implements Npcink_Toolbox_Module_Interface

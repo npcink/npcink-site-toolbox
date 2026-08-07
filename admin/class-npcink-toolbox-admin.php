@@ -92,6 +92,15 @@ class Npcink_Toolbox_Admin
             array(__CLASS__, 'Npcink_Toolbox_display'),   // 呈现此菜单的页面时要调用的函数的名称
             '200.2'
         );
+
+        add_submenu_page(
+            null,
+            '用户评论 REST 接口教程',
+            '用户评论 REST 接口教程',
+            'manage_options',
+            'npcink-site-toolbox-comment-rest-help',
+            array(__CLASS__, 'display_comment_rest_help')
+        );
     }
 
     /**
@@ -104,11 +113,35 @@ class Npcink_Toolbox_Admin
     }
 
     /**
+     * 显示插件内置的用户评论 REST 使用教程。
+     */
+    public static function display_comment_rest_help()
+    {
+        if (!current_user_can('manage_options')) {
+            wp_die(esc_html__('抱歉，您不能访问此页面。', 'npcink-site-toolbox'));
+        }
+
+        require plugin_dir_path(__FILE__) . 'partials/page/comment/rest_help.php';
+    }
+
+    /**
      * 加载JS和CSS资源
      */
     public static  function load_admin_script($hook)
     {
         $name = self::$plugin_name;
+
+        if ('admin_page_npcink-site-toolbox-comment-rest-help' === $hook) {
+            $help_css_path = plugin_dir_path(__FILE__) . 'css/comment-rest-help.css';
+            wp_enqueue_style(
+                $name . '-comment-rest-help',
+                plugin_dir_url(__FILE__) . 'css/comment-rest-help.css',
+                array(),
+                is_file($help_css_path) ? self::$version . '-' . (string) filemtime($help_css_path) : self::$version,
+                false
+            );
+            return;
+        }
 
         //是否是指定页面
         if ('plugins_page_npcink-site-toolbox' != $hook) {
@@ -136,6 +169,7 @@ class Npcink_Toolbox_Admin
             'url_site' => get_site_url(),
             'ajaxurl' => admin_url('admin-ajax.php'),
             'connectorsUrl' => admin_url('options-connectors.php'),
+            'commentRestHelpUrl' => admin_url('admin.php?page=npcink-site-toolbox-comment-rest-help'),
             'apiBase' => esc_url_raw(rest_url('npcink-site-toolbox/v1')),
             'restNonce' => wp_create_nonce('wp_rest'),
             'webpSupported' => function_exists('wp_image_editor_supports')
@@ -569,6 +603,7 @@ class Npcink_Toolbox_Admin
         self::register_public_routes();
         self::register_domestic_routes();
         self::register_diagnostics_routes();
+        Npcink_Toolbox_My_Comments::register_routes();
 
         Npcink_Toolbox_Rest_Route_Registry::register_all();
 

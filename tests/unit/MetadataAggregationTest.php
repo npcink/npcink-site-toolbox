@@ -15,7 +15,7 @@ class MetadataAggregationTest extends TestCase {
         $registry = require dirname(__DIR__, 2) . '/admin/modules/registry.php';
         $metadata = Npcink_Toolbox_Module_Metadata::get_registry();
 
-        $this->assertCount(56, $registry);
+        $this->assertCount(57, $registry);
         $this->assertSame(self::expected_module_ids(), array_keys($registry));
         $this->assertSame($registry, $metadata);
     }
@@ -63,7 +63,7 @@ class MetadataAggregationTest extends TestCase {
         $ui = Npcink_Toolbox_Module_Metadata::get_ui_metadata();
 
         $this->assertIsArray($ui);
-        $this->assertCount(56, $ui);
+        $this->assertCount(57, $ui);
 
         foreach ($ui as $module_id => $entry) {
             $this->assertArrayNotHasKey('_option_key', $entry, "UI metadata should not contain _option_key for '{$module_id}'");
@@ -158,6 +158,7 @@ class MetadataAggregationTest extends TestCase {
             'page.ban_pure_english',
             'page.only_comment_once',
             'page.comment_sensitive_words',
+            'page.my_comments',
             'page.first_picture',
             'page.single_keyword_add_link',
             'page.add_article_update_time',

@@ -54,6 +54,8 @@ export type PageComment = {
   sensitive_words_list: string;
   sensitive_words_action: string;
   sensitive_words_replace_char: string;
+  self_service_enabled: boolean;
+  self_service_admin_page_enabled: boolean;
 };
 
 export type PageFeature = {

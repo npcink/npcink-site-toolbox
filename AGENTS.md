@@ -27,6 +27,9 @@ this repository.
   expected files, files or areas that must not change, required gates,
   cross-repo matrix requirement, and rollback plan.
 - Keep changes scoped to one module per session.
+- When a public API or user-facing feature changes, update its implementation
+  contract, built-in help page, and documentation-site tutorial together. Run
+  the relevant contract and link checks before closeout.
 - Before staging, inspect `git status --short --branch` and `git diff --stat`.
   Stage only files changed for the current task. Do not use `git add -A` in a
   mixed worktree.

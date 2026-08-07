@@ -7,7 +7,7 @@
 
 ## 决策清单
 
-当前仓库级公开身份决策见 [ADR-0003](https://github.com/muze-page/npcink-site-toolbox/blob/main/docs/decisions/0003-npcink-site-toolbox-public-identity.md)；首次发布前的内部标识与存储键收口见 [ADR-0004](https://github.com/muze-page/npcink-site-toolbox/blob/main/docs/decisions/0004-unify-pre-ga-internal-identity.md)。显示名、slug、主文件、REST namespace、PHP 标识和插件自有存储键现在均使用 Npcink Site Toolbox 身份。
+当前仓库级公开身份决策见 [ADR-0003](https://github.com/npcink/npcink-site-toolbox/blob/main/docs/decisions/0003-npcink-site-toolbox-public-identity.md)；首次发布前的内部标识与存储键收口见 [ADR-0004](https://github.com/npcink/npcink-site-toolbox/blob/main/docs/decisions/0004-unify-pre-ga-internal-identity.md)。显示名、slug、主文件、REST namespace、PHP 标识和插件自有存储键现在均使用 Npcink Site Toolbox 身份。
 
 | 编号 | 决策 | 状态 | 日期 |
 |------|------|------|------|

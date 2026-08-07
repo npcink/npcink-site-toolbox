@@ -17,7 +17,7 @@ export const AboutPlugin = () => (
         </li>
         <li>
           开源地址：
-          <Link target="_blank" href="https://github.com/muze-page/npcink-site-toolbox">
+          <Link target="_blank" href="https://github.com/npcink/npcink-site-toolbox">
             GitHub
           </Link>
         </li>
@@ -45,7 +45,7 @@ export const Proposal = () => (
           </Link>
         </li>
         <li>
-          <Link target="_blank" href="https://github.com/muze-page/npcink-site-toolbox/issues">
+          <Link target="_blank" href="https://github.com/npcink/npcink-site-toolbox/issues">
             GitHub Issue
           </Link>
         </li>
@@ -64,7 +64,7 @@ export const Links = () => (
         <li>
           <Link
             target="_blank"
-            href="http://wpa.qq.com/msgrd?v=3&uin=1355471563"
+            href="https://wpa.qq.com/msgrd?v=3&uin=1355471563"
           >
             1355471563（ QQ 好友）
           </Link>

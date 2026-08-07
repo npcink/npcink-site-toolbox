@@ -50,6 +50,9 @@ jobs:
       - name: Verify generated settings contract
         run: composer settings-contract:check
 
+      - name: Verify public link contracts
+        run: composer links:check
+
       - name: Run PHPUnit
         run: vendor/bin/phpunit --configuration phpunit.xml.dist --no-coverage
 

@@ -5,7 +5,7 @@
 
 `3.1.1` 是已发布的首次 WordPress.org 提交候选；`3.2.0` 在此基础上增加编辑器原生样板、动态站点数据区块和 GitHub 项目区块。现有历史标签和附件保持不变。
 
-[![CI](https://github.com/muze-page/npcink-site-toolbox/actions/workflows/ci.yml/badge.svg)](https://github.com/muze-page/npcink-site-toolbox/actions/workflows/ci.yml)
+[![CI](https://github.com/npcink/npcink-site-toolbox/actions/workflows/ci.yml/badge.svg)](https://github.com/npcink/npcink-site-toolbox/actions/workflows/ci.yml)
 [![WordPress Plugin](https://img.shields.io/badge/WordPress-6.3%2B-blue)](https://wordpress.org)
 [![PHP](https://img.shields.io/badge/PHP-7.4%2B-green)](https://php.net)
 [![License](https://img.shields.io/badge/License-GPL%202.0-orange)](LICENSE)
@@ -14,13 +14,13 @@
 
 ## 简介
 
-Npcink Site Toolbox 是一款面向中国 WordPress 站长的免费工具箱插件。3.2.0 以 56 个注册模块为设置运行边界，并增加 3 个核心区块样板和 2 个动态区块；七个语义化管理视图继续承载站点优化、内容与 SEO、登录安全、国内生态和维护诊断等能力。
+Npcink Site Toolbox 是一款面向中国 WordPress 站长的免费工具箱插件。当前以 57 个注册模块为设置运行边界，并提供 3 个核心区块样板和 2 个动态区块；七个语义化管理视图继续承载站点优化、内容与 SEO、登录安全、国内生态和维护诊断等能力。
 
 **核心定位**：在一个插件内集中提供可按需启用的常见站点设置与维护工具。
 
-- 📖 **在线文档**：[docs.npc.ink](https://docs.npc.ink)（搭建中）
+- 📖 **在线文档**：搭建中；已发布功能的关键教程随插件内置
 - 🌐 **作者博客**：[npc.ink](https://www.npc.ink)
-- 📦 **GitHub 仓库**：[github.com/muze-page/npcink-site-toolbox](https://github.com/muze-page/npcink-site-toolbox)
+- 📦 **GitHub 仓库**：[github.com/npcink/npcink-site-toolbox](https://github.com/npcink/npcink-site-toolbox)
 
 ---
 
@@ -37,7 +37,7 @@ Npcink Site Toolbox 是一款面向中国 WordPress 站长的免费工具箱插�
 
 ```bash
 # 克隆仓库
-git clone https://github.com/muze-page/npcink-site-toolbox.git
+git clone https://github.com/npcink/npcink-site-toolbox.git
 cd npcink-site-toolbox
 
 # 安装前端依赖（单一前端工程）
@@ -69,6 +69,8 @@ AI 诊断的受控开发评测可使用
 
 DeepSeek 只读诊断的产品边界、实现演进、验证证据、问题复盘与下一阶段真实案例门槛见 [AI 诊断直连开发总结与复盘](docs/AI诊断直连开发总结与复盘-2026-07.md)。
 
+项目自有链接、第三方链接、占位示例和文档同步的维护规则见 [链接维护规范](docs/链接维护规范-2026-08.md)。
+
 ---
 
 ## 功能概览
@@ -83,6 +85,11 @@ DeepSeek 只读诊断的产品边界、实现演进、验证证据、问题复�
 | 存储与维护 | 对象存储、站点体检、SEO 检查、媒体体检和数据库清理 |
 
 > 完整功能清单见 [功能清单.md](功能清单.md)
+
+用户评论 REST 接口的开关、应用程序密码和调用示例见
+[用户评论 REST 接口使用教程](docs-site/features/page-comment/user-comment-rest-api.md)。
+本轮需求收敛、安全边界、真实接口验证、内置教程和链接治理的完整经验见
+[用户评论 REST 与文档链接治理开发总结](docs/用户评论REST与文档链接治理开发总结-2026-08.md)。
 
 ---
 
@@ -239,6 +246,7 @@ DeepSeek 只读诊断的产品边界、实现演进、验证证据、问题复�
 ## 待实现
 
 - 集成文档在线预览功能（WPS / 永中等）
+- [自定义用户角色管理](docs/自定义用户角色候选功能提案-2026-08.md)：候选想法，待真实使用场景验证后再决定是否实现
 
 ## 放弃实现
 

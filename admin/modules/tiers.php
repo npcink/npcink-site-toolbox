@@ -39,6 +39,7 @@ return array(
         'page.comment_interval', 'page.limit_word_count',
         'page.ban_pure_english', 'page.only_comment_once',
         'page.comment_sensitive_words',
+        'page.my_comments',
         'page.reading_progress',
         'page.unlisted_vague_img',
         'page.login_search',

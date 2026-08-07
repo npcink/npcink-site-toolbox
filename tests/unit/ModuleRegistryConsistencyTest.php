@@ -221,7 +221,7 @@ class ModuleRegistryConsistency_Test extends TestCase {
         $tiers = Npcink_Toolbox_Module_Loader::get_tiers();
         $autoload = file_get_contents(self::$plugin_dir . '/includes/autoload.php');
 
-        $this->assertCount(56, $registry);
+        $this->assertCount(57, $registry);
         $this->assertArrayNotHasKey('config', $schema['function']);
         $this->assertArrayNotHasKey('config', $defaults['function']);
         $this->assertArrayNotHasKey('function.config', $registry);

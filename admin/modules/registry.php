@@ -265,6 +265,16 @@ return array(
         'scope'     => 'frontend',
         'config_path' => 'page.comment',
     ),
+    'page.my_comments' => array(
+        'class'       => 'Npcink_Toolbox_My_Comments',
+        'label'       => '用户评论自助管理',
+        'file'        => 'page/comment/my_comments.php',
+        'option_key'  => 'page.comment.self_service_enabled',
+        'category'    => 'page',
+        'scope'       => 'admin',
+        'config_path' => 'page.comment',
+        'risk_tags'   => array('需认证', 'REST API'),
+    ),
     // ========== 页面功能 ==========
     'page.first_picture' => array(
         'class'     => 'Npcink_Toolbox_Single_First_Picture',

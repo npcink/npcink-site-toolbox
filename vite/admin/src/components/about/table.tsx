@@ -1,4 +1,17 @@
 import { Table } from "antd";
+
+export const renderSource = (source: string) => {
+  const isExternalUrl = /^https?:\/\//i.test(source);
+
+  return isExternalUrl ? (
+    <a href={source} target="_blank" rel="noreferrer" title="Npcink">
+      {source}
+    </a>
+  ) : (
+    <span>{source}</span>
+  );
+};
+
 const App: React.FC = () => {
   const dataSource = [
     {
@@ -37,13 +50,7 @@ const App: React.FC = () => {
       title: "来源",
       dataIndex: "source",
       key: "source",
-      render: (_: any, { source }: any) => (
-        <>
-          <a href={source} target="_blank" title="Npcink">
-            {source}
-          </a>
-        </>
-      ),
+      render: (_: any, { source }: any) => renderSource(source),
     },
   ];
   return (

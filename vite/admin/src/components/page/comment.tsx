@@ -2,7 +2,7 @@
  * 页面优化 - 评论
  */
 import { useState, useContext, useEffect } from "react";
-import { Form, InputNumber, Input, Radio } from "antd";
+import { Form, InputNumber, Input, Radio, Switch } from "antd";
 import { DataContext } from "@/tool/dataContext";
 import { PageComment } from "@/tool/interface";
 import { defaultVarOption } from "@/tool/defaultVar";
@@ -131,6 +131,36 @@ const App: React.FC = () => {
             extra={"选择替换方式时生效"}
           >
             <Input style={{ width: "30%" }} placeholder="***" />
+          </Form.Item>
+        </ModuleRow>
+
+        <ModuleRow
+          title="用户评论 REST 接口"
+          description="允许外部客户端通过 WordPress 应用程序密码发布、修改和删除当前用户自己的评论"
+          featureId="page-comment-self_service_enabled"
+          enabled={formData.self_service_enabled as boolean}
+          onChange={(checked: boolean) => {
+            onValuesChange(
+              { self_service_enabled: checked } as Partial<FieldType>,
+              formData
+            );
+          }}
+          onDetails={() =>
+            window.open(
+              window.dataLocal?.commentRestHelpUrl ||
+                "admin.php?page=npcink-site-toolbox-comment-rest-help",
+              "_blank",
+              "noopener,noreferrer"
+            )
+          }
+        >
+          <Form.Item<FieldType>
+            label="显示“我的评论”后台页面"
+            name="self_service_admin_page_enabled"
+            valuePropName="checked"
+            extra="作为浏览器内的兜底操作界面；关闭后 REST 接口仍可使用"
+          >
+            <Switch disabled={!formData.self_service_enabled} />
           </Form.Item>
         </ModuleRow>
       </Form>

@@ -49,6 +49,7 @@ spl_autoload_register(function ($class) {
         'Npcink_Toolbox_Image_Add_Tag' => 'admin/partials/optimize/medium/image_add_tag.php',
         'Npcink_Toolbox_Interface_Category_Data' => 'admin/partials/page/jurisdiction/interface_category_data.php',
         'Npcink_Toolbox_Maintenance_Tips' => 'admin/partials/page/function/maintenance_tips.php',
+        'Npcink_Toolbox_My_Comments' => 'includes/class-npcink-toolbox-my-comments.php',
         'Npcink_Toolbox_No_Escape' => 'admin/partials/optimize/site/no_escape.php',
         'Npcink_Toolbox_Medium_Ban_Auto_Size' => 'admin/partials/optimize/medium/ban_auto_size.php',
         'Npcink_Toolbox_Medium_Image_Rename' => 'admin/partials/optimize/medium/image_rename.php',

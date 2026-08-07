@@ -98,9 +98,9 @@ Google Search Console and Bing Webmaster Tools options only print administrator-
 
 == Source Code and Build ==
 
-The public, maintained source for the minified JavaScript and CSS shipped in this plugin is available at [GitHub](https://github.com/muze-page/npcink-site-toolbox). Reproduce the Admin and Count assets with:
+The public, maintained source for the minified JavaScript and CSS shipped in this plugin is available at [GitHub](https://github.com/npcink/npcink-site-toolbox). Reproduce the Admin and Count assets with:
 
-`git clone https://github.com/muze-page/npcink-site-toolbox.git`
+`git clone https://github.com/npcink/npcink-site-toolbox.git`
 
 `cd npcink-site-toolbox/vite`
 

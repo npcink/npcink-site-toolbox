@@ -50,7 +50,7 @@ Npcink Site Toolbox 提供站点优化、SEO、安全防护和国内生态等常
 |------|------|------|
 | [阅读进度条](/features/page-appearance/reading-progress) | 文章页顶部阅读进度指示器 | ✅ |
 
-### 页面评论（5 项）
+### 页面评论（6 项）
 
 | 功能 | 说明 | 推荐 |
 |------|------|------|
@@ -59,6 +59,7 @@ Npcink Site Toolbox 提供站点优化、SEO、安全防护和国内生态等常
 | [禁止纯英文评论](/features/page-comment/no-english-comment) | 阻止纯英文垃圾评论 | ✅ |
 | [单篇文章限评一次](/features/page-comment/one-comment-per-post) | 每篇文章每人仅可评论一次 | - |
 | [敏感词过滤](/features/page-comment/sensitive-words) | 替换或拦截敏感词评论 | ✅ |
+| [用户评论 REST 接口](/features/page-comment/user-comment-rest-api) | 使用应用程序密码管理自己的评论，可关闭后台兜底页面 | ⚠️ |
 
 ### 页面功能（9 项）
 

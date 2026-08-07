@@ -7,6 +7,13 @@ use PHPUnit\Framework\TestCase;
 class RestApiSecurityTest extends TestCase {
 
     private static function trigger_registration() {
+        global $_test_option_store;
+        $_test_option_store[NPCINK_SITE_TOOLBOX_OPTION_PAGE] = array(
+            'comment' => array(
+                'self_service_enabled' => true,
+                'self_service_admin_page_enabled' => false,
+            ),
+        );
         Npcink_Toolbox_Rest_Route_Registry::clear();
         Npcink_Toolbox_Admin::register_rest_routes();
     }
@@ -282,6 +289,9 @@ class RestApiSecurityTest extends TestCase {
             '/diagnostics/reviews',
             '/diagnostics/follow-ups',
             '/search-health/summary',
+            '/me/comments',
+            '/me/comments/(?P<id>\\d+)',
+            '/me/comments/batch-delete',
         ), $paths);
     }
 

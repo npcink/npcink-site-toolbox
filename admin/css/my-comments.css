@@ -1,0 +1,50 @@
+.npcink-my-comments {
+  max-width: 1000px;
+}
+
+.npcink-my-comments__composer,
+.npcink-comment {
+  margin: 16px 0;
+  padding: 16px;
+  border: 1px solid #c3c4c7;
+  border-radius: 4px;
+  background: #fff;
+}
+
+.npcink-my-comments__composer form,
+.npcink-comment footer,
+.npcink-comment header,
+.npcink-my-comments__toolbar,
+.npcink-my-comments__pagination {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.npcink-my-comments__composer label,
+.npcink-my-comments__composer textarea {
+  width: 100%;
+}
+
+.npcink-my-comments__composer input[type="number"] {
+  width: 180px;
+}
+
+.npcink-my-comments__toolbar,
+.npcink-my-comments__pagination {
+  margin: 16px 0;
+}
+
+.npcink-comment__content,
+.npcink-comment__editor {
+  width: 100%;
+  margin: 14px 0;
+  white-space: pre-wrap;
+}
+
+.npcink-comment__status {
+  padding: 2px 7px;
+  border-radius: 999px;
+  background: #f0f0f1;
+}

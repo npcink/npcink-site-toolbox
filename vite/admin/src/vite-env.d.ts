@@ -3,6 +3,7 @@
 interface DataLocal {
   url_site: string;
   ajaxurl?: string;
+  commentRestHelpUrl?: string;
   nonce?: string;
   apiBase?: string;
   restNonce?: string;

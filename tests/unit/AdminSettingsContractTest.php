@@ -80,11 +80,11 @@ class AdminSettingsContractTest extends TestCase
         $actual = $generated['searchIndex'];
         $expected = npcink_site_toolbox_normalize_contract(Npcink_Toolbox_Config_Schema::get_admin_settings_contract()['searchIndex']);
 
-        $this->assertCount(33, $actual);
+        $this->assertCount(34, $actual);
         $this->assertSame($expected, $actual);
 
         $ids = array_column($actual, 'id');
-        $this->assertCount(33, array_unique($ids));
+        $this->assertCount(34, array_unique($ids));
 
         $valid_views = array('site', 'content', 'seo', 'china', 'maintenance');
         foreach ($actual as $item) {
@@ -104,6 +104,8 @@ class AdminSettingsContractTest extends TestCase
         $this->assertContains('domestic-comment_security-blacklist_enabled', $by_id['domestic-comment-blacklist']['aliases']);
         $this->assertContains('domestic-comment_security-link_limit', $by_id['domestic-comment-link-limit']['aliases']);
         $this->assertContains('domestic-comment_security-ip_rate_limit', $by_id['domestic-comment-ip-rate']['aliases']);
+        $this->assertSame('content', $by_id['page-comment-self_service_enabled']['tabKey']);
+        $this->assertSame('评论', $by_id['page-comment-self_service_enabled']['section']);
 
         $retired_ids = array(
             'login-security-login_code',

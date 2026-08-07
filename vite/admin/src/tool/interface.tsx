@@ -53,6 +53,7 @@ export type DataLocal = {
   url_site: string;
   ajaxurl?: string;
   connectorsUrl?: string;
+  commentRestHelpUrl?: string;
   nonce?: string;
   apiBase?: string;
   restNonce?: string;

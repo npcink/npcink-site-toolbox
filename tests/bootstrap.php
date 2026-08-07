@@ -201,6 +201,11 @@ if ( ! function_exists( 'sanitize_text_field' ) ) {
 		return strip_tags( trim( $str ) );
 	}
 }
+if ( ! function_exists( 'absint' ) ) {
+	function absint( $maybeint ) {
+		return abs( (int) $maybeint );
+	}
+}
 if ( ! function_exists( 'wp_strip_all_tags' ) ) {
 	function wp_strip_all_tags( $text, $remove_breaks = false ) {
 		$text = strip_tags( $text );
@@ -225,6 +230,11 @@ if ( ! function_exists( 'rest_sanitize_boolean' ) ) {
 if ( ! function_exists( 'wp_kses_post' ) ) {
 	function wp_kses_post( $data ) {
 		return strip_tags( $data, '<p><a><strong><em><br><ul><ol><li><h1><h2><h3><h4><h5><h6><img><blockquote><pre><code><span><div>' );
+	}
+}
+if ( ! function_exists( 'wp_kses_data' ) ) {
+	function wp_kses_data( $data ) {
+		return strip_tags( $data, '<a><abbr><acronym><b><blockquote><br><cite><code><del><em><i><q><s><strike><strong>' );
 	}
 }
 if ( ! function_exists( 'is_email' ) ) {
