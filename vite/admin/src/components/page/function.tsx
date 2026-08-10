@@ -205,9 +205,9 @@ const App: React.FC = () => {
 };
 
 //准备维护界面
-import Default from "@/assets/page/function/service/默认简洁.png";
-import Default_img from "@/assets/page/function/service/默认带图.png";
-import Red from "@/assets/page/function/service/红色纯粹.png";
+import Default from "@/assets/page/function/service/default-simple.png";
+import Default_img from "@/assets/page/function/service/default-image.png";
+import Red from "@/assets/page/function/service/red-minimal.png";
 const serviceList = [
   { value: "default", label: Default, title: "默认简洁" },
   { value: "default_img", label: Default_img, title: "默认带图" },

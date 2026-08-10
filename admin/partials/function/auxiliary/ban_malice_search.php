@@ -41,14 +41,11 @@ if (!class_exists('Npcink_Toolbox_Ban_Malice_Search')) {
                             $message = '搜索内容包含敏感词，请换个关键词搜索';
                             $message = $message . Npcink_Toolbox_Admin::back_button();
                             $allowed_html = array(
-                                'br'     => array(),
-                                'a'      => array(
-                                    'href'    => true,
-                                    'onclick' => true,
-                                    'class'   => true,
+                                'p'  => array(),
+                                'a'  => array(
+                                    'href'  => true,
+                                    'class' => true,
                                 ),
-                                'button' => array('class' => true),
-                                'style'  => array(),
                             );
                             wp_die(wp_kses($message, $allowed_html));
                         }

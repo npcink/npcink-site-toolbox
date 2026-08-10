@@ -127,6 +127,68 @@ class ReleasePackageContractTest extends TestCase
         );
     }
 
+    public function test_verifier_rejects_non_ascii_and_case_colliding_paths(): void
+    {
+        $non_ascii_archive = $this->createArchive('9.8.7', null, array(
+            'vite/admin/dist/assets/默认.png' => 'image',
+        ));
+        $non_ascii_result = $this->runCommand(array(
+            'bash',
+            $this->root() . '/bin/verify-release-zip.sh',
+            $non_ascii_archive,
+        ));
+        $this->assertNotSame(0, $non_ascii_result['status']);
+        $this->assertStringContainsString('non-ASCII path', $non_ascii_result['output']);
+
+        $case_collision_archive = $this->createArchive('9.8.7');
+        $zip = new ZipArchive();
+        $this->assertTrue($zip->open($case_collision_archive) === true);
+        $this->assertTrue($zip->addFromString(self::PACKAGE_SLUG . '/public/css/Release.css', 'one'));
+        $this->assertTrue($zip->addFromString(self::PACKAGE_SLUG . '/public/css/release.css', 'two'));
+        $this->assertTrue($zip->close());
+        $case_collision_result = $this->runCommand(array(
+            'bash',
+            $this->root() . '/bin/verify-release-zip.sh',
+            $case_collision_archive,
+        ));
+        $this->assertNotSame(0, $case_collision_result['status']);
+        $this->assertStringContainsString('differ only by letter case', $case_collision_result['output']);
+    }
+
+    public function test_release_php_uses_wordpress_asset_apis_instead_of_direct_tags(): void
+    {
+        $root = $this->root();
+        $directories = array('admin', 'includes', 'public');
+        $violations = array();
+
+        foreach ($directories as $directory) {
+            $iterator = new RecursiveIteratorIterator(
+                new RecursiveDirectoryIterator($root . '/' . $directory, FilesystemIterator::SKIP_DOTS)
+            );
+            foreach ($iterator as $file) {
+                if (!$file->isFile() || strtolower($file->getExtension()) !== 'php') {
+                    continue;
+                }
+
+                $source = file_get_contents($file->getPathname());
+                $this->assertIsString($source);
+                $source = str_replace(
+                    "str_replace('<script', '<script type=\"module\"', \$tag)",
+                    '',
+                    $source
+                );
+                if (preg_match('/<(?:script|style)(?:\s|>)/i', $source)) {
+                    $violations[] = substr($file->getPathname(), strlen($root) + 1);
+                }
+                if (preg_match('/\bonclick\s*=|href\s*=\s*["\']javascript:/i', $source)) {
+                    $violations[] = substr($file->getPathname(), strlen($root) + 1);
+                }
+            }
+        }
+
+        $this->assertSame(array(), array_values(array_unique($violations)));
+    }
+
     public function test_verifier_rejects_vite_source_and_version_drift(): void
     {
         $source_archive = $this->createArchive('9.8.7', '9.8.7', array(

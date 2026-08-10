@@ -1125,25 +1125,16 @@ class Npcink_Toolbox_Admin
     //公用返回按钮
     public static function back_button($text = '返回')
     {
-        $button = sprintf(
-            '<br/><a href="javascript:void(0);" onclick="window.history.back();" class="back_box">
-            <button class="back_button">%s</button>
-        </a>
-                <style>
-                /**
-         * 返回按钮
-         */
-        .back_button {
-          padding: .2em 1em;
-          margin: 10px 0 0 0;
-          cursor: pointer;
-        }
-                </style>
-        
-        ',
+        $referer = wp_get_referer();
+        $target = wp_validate_redirect(
+            is_string($referer) ? $referer : '',
+            home_url('/')
+        );
 
+        return sprintf(
+            '<p><a href="%1$s" class="button back_button">%2$s</a></p>',
+            esc_url($target),
             esc_html($text)
         );
-        return $button;
     }
 }//end

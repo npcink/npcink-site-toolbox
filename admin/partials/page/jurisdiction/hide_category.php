@@ -16,7 +16,7 @@ if (!class_exists('Npcink_Toolbox_Page_Hide_Category')) {
             self::$id_array = Npcink_Toolbox_Admin::get_config($config, 'category_id', array());
             self::$tip_content = Npcink_Toolbox_Admin::get_config($config, 'tip_content', '');
             add_action('the_content', array(__CLASS__, 'restrict_content_for_specific_categories'));
-            add_action('wp_footer', array(__CLASS__, 'hide_download_for_restricted_categories'));
+            add_action('wp_enqueue_scripts', array(__CLASS__, 'enqueue_restricted_category_style'));
         }
 
         public static function restrict_content_for_specific_categories($content)
@@ -31,14 +31,19 @@ if (!class_exists('Npcink_Toolbox_Page_Hide_Category')) {
             return $content;
         }
 
-        public static function hide_download_for_restricted_categories()
+        public static function enqueue_restricted_category_style()
         {
             if (Npcink_Toolbox_Helpers::is_logged_in()) {
                 return;
             }
 
             if (in_category(self::$id_array)) {
-                echo '<style>.b2-down-box, .down-box, .post-download, .download-box, .m-box.down { display: none !important; }</style>';
+                wp_register_style('npcink-site-toolbox-restricted-category', false, array(), NPCINK_SITE_TOOLBOX_VERSION);
+                wp_enqueue_style('npcink-site-toolbox-restricted-category');
+                wp_add_inline_style(
+                    'npcink-site-toolbox-restricted-category',
+                    '.b2-down-box, .down-box, .post-download, .download-box, .m-box.down { display: none !important; }'
+                );
             }
         }
     }

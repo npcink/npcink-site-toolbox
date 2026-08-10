@@ -20,7 +20,7 @@ if (!class_exists('Npcink_Toolbox_Admin_Single_Show_ID')) {
             //ID 显示在第10行
 
             //添加样式
-            add_action('admin_head', array(__CLASS__, 'ssid_css'));
+            add_action('admin_enqueue_scripts', array(__CLASS__, 'enqueue_style'));
 
             add_filter('manage_posts_columns', array(__CLASS__, 'ssid_column'));
             add_action('manage_posts_custom_column', array(__CLASS__, 'ssid_value'), 10, 2);
@@ -73,17 +73,11 @@ if (!class_exists('Npcink_Toolbox_Admin_Single_Show_ID')) {
         }
 
         // 为 ID 这列添加css
-        public static function ssid_css()
+        public static function enqueue_style()
         {
-?>
-            <style type="text/css">
-                #ssid {
-                    width: 50px;
-                }
-
-                /* Simply Show IDs */
-            </style>
-<?php
+            wp_register_style('npcink-site-toolbox-show-ids', false, array(), NPCINK_SITE_TOOLBOX_VERSION);
+            wp_enqueue_style('npcink-site-toolbox-show-ids');
+            wp_add_inline_style('npcink-site-toolbox-show-ids', '#ssid{width:50px}');
         }
     }
 }

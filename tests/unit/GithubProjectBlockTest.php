@@ -370,7 +370,8 @@ final class GithubProjectBlockTest extends TestCase
         }
         $this->assertStringContainsString('includes/class-npcink-toolbox-github-project.php', $verify);
         $this->assertStringContainsString('= GitHub project block =', $readme);
-        $this->assertStringContainsString('https://api.github.com/repos/', $readme);
+        $this->assertStringContainsString('Service and endpoint documentation', $readme);
+        $this->assertStringNotContainsString('https://api.github.com/repos/{owner}/{repository}', $readme);
         $this->assertStringContainsString('GitHub Terms of Service', $readme);
         $this->assertStringContainsString('GitHub General Privacy Statement', $readme);
     }

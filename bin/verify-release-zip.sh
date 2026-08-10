@@ -28,8 +28,10 @@ hash_file() {
 require_command unzip
 require_command zipinfo
 require_command awk
+require_command grep
 require_command sed
 require_command sort
+require_command tr
 require_command uniq
 
 zip_path="$1"
@@ -63,8 +65,14 @@ fi
 duplicate_entry="$(LC_ALL=C sort "$entries_file" | uniq -d | sed -n '1p')"
 [ -z "$duplicate_entry" ] || fail "ZIP contains duplicate entry: $duplicate_entry"
 
+case_folded_duplicate="$(LC_ALL=C tr '[:upper:]' '[:lower:]' < "$entries_file" | LC_ALL=C sort | LC_ALL=C uniq -d | LC_ALL=C sed -n '1p')"
+[ -z "$case_folded_duplicate" ] || fail "ZIP contains paths that differ only by letter case: $case_folded_duplicate"
+
 while IFS= read -r entry || [ -n "$entry" ]; do
   [ -n "$entry" ] || fail 'ZIP contains an empty entry name'
+  if printf '%s' "$entry" | LC_ALL=C grep -q '[^ -~]'; then
+    fail "ZIP contains a non-ASCII path: $entry"
+  fi
   case "$entry" in
     /*|*\\*|*//*|*:*) fail "unsafe archive path: $entry" ;;
   esac

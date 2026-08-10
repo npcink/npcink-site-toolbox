@@ -27,14 +27,11 @@ if (!class_exists('Npcink_Toolbox_Page_Comment_Interval')) {
 
                 $message = $message . Npcink_Toolbox_Admin::back_button();
                 $allowed_html = array(
-                    'br'     => array(),
-                    'a'      => array(
-                        'href'    => true,
-                        'onclick' => true,
-                        'class'   => true,
+                    'p' => array(),
+                    'a' => array(
+                        'href'  => true,
+                        'class' => true,
                     ),
-                    'button' => array('class' => true),
-                    'style'  => array(),
                 );
                 wp_die(wp_kses($message, $allowed_html));
             } else {

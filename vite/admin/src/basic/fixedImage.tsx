@@ -2,7 +2,7 @@ import React, { useEffect, useId, useState } from "react";
 import { Button, Form, Image, List, Modal, Popover, Radio, Space } from "antd";
 import type { RadioChangeEvent } from "antd";
 
-import Disabled from "@/assets/basic/禁用.svg";
+import Disabled from "@/assets/basic/disabled.svg";
 
 interface FixedImageOption {
   value: string;

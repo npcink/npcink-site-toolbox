@@ -38,6 +38,14 @@ this repository.
 - Before committing, verify `git diff --cached --stat` and
   `git diff --cached --name-only`; after committing, verify
   `git show --name-status --stat HEAD`.
+- For a WordPress.org submission or resubmission, build the final ZIP through
+  the repository release commands, verify that every archive path is portable
+  ASCII with no case-only collision, activate that exact ZIP in a clean
+  WordPress environment, and run the latest official Plugin Check against its
+  extracted plugin directory. Record the WordPress version, PCP version,
+  complete error/warning counts, remaining-warning rationale, and ZIP SHA-256.
+  PCP errors block submission; warnings require explicit review and must not be
+  hidden with blanket ignore flags.
 - For multi-repo milestones, run the central matrix from
   `/Users/muze/gitee/npcink-toolbox` instead of copying the script here:
   `composer quality:matrix` for status and `composer quality:matrix:run` before
@@ -55,6 +63,15 @@ Static analysis:
 
 ```bash
 composer phpstan
+```
+
+WordPress.org release gate:
+
+```bash
+pnpm --dir vite build
+composer release:build
+composer release:verify -- npcink-site-toolbox.zip
+# Then activate and scan this exact ZIP with the latest official Plugin Check.
 ```
 
 Before finishing a code session, run the narrowest useful gate and report

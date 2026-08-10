@@ -1,6 +1,6 @@
 //基础组件 - 效果预览
 import { Image, Popover } from "antd";
-import Disabled from "@/assets/basic/禁用.svg";
+import Disabled from "@/assets/basic/disabled.svg";
 
 interface PreviewProps {
   title: string; //标题
