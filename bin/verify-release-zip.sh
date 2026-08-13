@@ -148,6 +148,7 @@ required_files=(
   "admin/class-npcink-toolbox-admin.php"
   "admin/partials/optimize/site/category_link_simplify.php"
   "public/class-npcink-toolbox-public.php"
+  "languages/npcink-site-toolbox.pot"
   "blocks/github-project/block.json"
   "blocks/github-project/index.js"
   "blocks/github-project/index.asset.php"

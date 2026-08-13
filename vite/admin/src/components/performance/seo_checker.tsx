@@ -5,7 +5,7 @@ import { AntConfig } from "@/tool/tool";
 import { SettingsSection, ModuleRow, CheckTable } from "@/components/settings-ui";
 import StatusTag from "@/components/settings-ui/StatusTag";
 import { performanceApi, SeoIssue } from "@/api";
-import { t } from "@/tool/i18n";
+import { __, sprintf } from "@/tool/i18n";
 
 const fromConfig = AntConfig.from;
 
@@ -41,14 +41,14 @@ const App: React.FC = () => {
         setOperationFeedback({
           type: "info",
           message: nextIssues.length > 0
-            ? `${t("检查完成：发现")} ${nextIssues.length} ${t("项需要关注")}。`
-            : t("检查完成：未发现需要处理的问题。"),
+            ? sprintf(__("检查完成：发现 %d 项需要关注。"), nextIssues.length)
+            : __("检查完成：未发现需要处理的问题。"),
         });
       } else {
-        setOperationFeedback({ type: "error", message: t("检查失败，请重试。") });
+        setOperationFeedback({ type: "error", message: __("检查失败，请重试。") });
       }
     } catch {
-      setOperationFeedback({ type: "error", message: t("检查失败，请重试。") });
+      setOperationFeedback({ type: "error", message: __("检查失败，请重试。") });
     } finally {
       setChecking(false);
     }
@@ -56,24 +56,24 @@ const App: React.FC = () => {
 
   const columns = [
     {
-      title: t("检测项"),
+      title: __("检测项"),
       dataIndex: "type",
       key: "type",
       width: 120,
     },
     {
-      title: t("状态"),
+      title: __("状态"),
       dataIndex: "severity",
       key: "severity",
       width: 80,
       render: (severity: string) => {
-        if (severity === "error") return <StatusTag status="异常" label={t("异常")} />;
-        if (severity === "warning") return <StatusTag status="待处理" label={t("待处理")} />;
-        return <StatusTag status="推荐" label={t("推荐")} />;
+        if (severity === "error") return <StatusTag status="异常" label={__("异常")} />;
+        if (severity === "warning") return <StatusTag status="待处理" label={__("待处理")} />;
+        return <StatusTag status="推荐" label={__("推荐")} />;
       },
     },
     {
-      title: t("说明"),
+      title: __("说明"),
       dataIndex: "message",
       key: "message",
     },
@@ -87,7 +87,7 @@ const App: React.FC = () => {
   }));
 
   return (
-    <SettingsSection title={t("SEO 检查助手")} description={t("SEO 健康度检查")}>
+    <SettingsSection title={__("SEO 检查助手")} description={__("SEO 健康度检查")}>
       <Form
         name="seo_checker"
         labelCol={fromConfig.labelCol}
@@ -98,8 +98,8 @@ const App: React.FC = () => {
         onValuesChange={onValuesChange}
       >
         <ModuleRow
-          title={t("启用 SEO 检查")}
-          description={t("定期检查网站 SEO 健康度")}
+          title={__("启用 SEO 检查")}
+          description={__("定期检查网站 SEO 健康度")}
           featureId="performance-seo_checker-enabled"
           enabled={!!formData.enabled}
           onChange={(checked) => {
@@ -110,7 +110,7 @@ const App: React.FC = () => {
 
         <Form.Item wrapperCol={fromConfig.wrapperCol}>
           <Button type="primary" onClick={handleCheck} loading={checking}>
-            {t("开始检查")}
+            {__("开始检查")}
           </Button>
         </Form.Item>
 

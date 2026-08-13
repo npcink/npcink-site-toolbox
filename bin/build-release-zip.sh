@@ -69,6 +69,7 @@ esac
 [ ! -L "$sidecar_path" ] || fail "sidecar path must not be a symlink: $sidecar_path"
 
 required_assets=(
+  "languages/npcink-site-toolbox.pot"
   "blocks/github-project/block.json"
   "blocks/github-project/index.js"
   "blocks/github-project/index.asset.php"

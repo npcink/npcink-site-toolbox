@@ -6,17 +6,18 @@ import { AntConfig } from "@/tool/tool";
 import { SettingsSection, ModuleRow, RiskNotice, CheckTable, StatusTag } from "@/components/settings-ui";
 import FeatureSwitch from "@/basic/feature-switch";
 import { DbCleanType, DbPreview, DbStats, performanceApi } from "@/api";
+import { __, sprintf } from "@/tool/i18n";
 
 const { Text } = Typography;
 const fromConfig = AntConfig.from;
 const cleanupLabels: Record<DbCleanType, string> = {
-  revisions: "文章修订版本",
-  drafts: "自动草稿",
-  spam: "垃圾评论",
-  transients: "过期临时选项",
-  optimize: "数据库表优化",
-  pending: "待审核文章",
-  trash: "回收站文章",
+  revisions: __("文章修订版本"),
+  drafts: __("自动草稿"),
+  spam: __("垃圾评论"),
+  transients: __("过期临时选项"),
+  optimize: __("数据库表优化"),
+  pending: __("待审核文章"),
+  trash: __("回收站文章"),
 };
 
 interface StatsRow {
@@ -59,9 +60,9 @@ const App: React.FC = () => {
         setStats(res.data);
         return true;
       }
-      setOperationFeedback({ type: "error", message: "统计获取失败，请重试。" });
+      setOperationFeedback({ type: "error", message: __("统计获取失败，请重试。") });
     } catch {
-      setOperationFeedback({ type: "error", message: "统计请求失败，请重试。" });
+      setOperationFeedback({ type: "error", message: __("统计请求失败，请重试。") });
     }
     return false;
   };
@@ -75,13 +76,13 @@ const App: React.FC = () => {
         setPreviewData((prev) => ({ ...prev, [type]: res.data }));
         setOperationFeedback({
           type: "info",
-          message: `预览完成：预计影响 ${getAffectedCount(type, res.data)} 条数据。`,
+          message: sprintf(__("预览完成：预计影响 %d 条数据。"), getAffectedCount(type, res.data)),
         });
       } else {
-        setOperationFeedback({ type: "error", message: "预览失败，请重试。" });
+        setOperationFeedback({ type: "error", message: __("预览失败，请重试。") });
       }
     } catch {
-      setOperationFeedback({ type: "error", message: "预览请求失败，请重试。" });
+      setOperationFeedback({ type: "error", message: __("预览请求失败，请重试。") });
     } finally {
       setPreviewLoadingType(null);
     }
@@ -96,38 +97,38 @@ const App: React.FC = () => {
   const handleClean = (type: DbCleanType) => {
     const preview = previewData[type];
     if (!preview) {
-      setOperationFeedback({ type: "warning", message: "请先预览该清理项目，再确认执行。" });
+      setOperationFeedback({ type: "warning", message: __("请先预览该清理项目，再确认执行。") });
       return;
     }
     const affectedCount = getAffectedCount(type, preview);
     Modal.confirm({
       rootClassName: "mabox-admin-modal",
-      title: "确认执行数据库清理？",
+      title: __("确认执行数据库清理？"),
       icon: <ExclamationCircleOutlined />,
       content: (
         <div>
           <Alert
-            message="此操作不可逆"
-            description="删除的数据无法恢复，请确保已备份数据库。"
+            message={__("此操作不可逆")}
+            description={__("删除的数据无法恢复，请确保已备份数据库。")}
             type="error"
             showIcon
             style={{ marginBottom: 8 }}
           />
           <Text type="secondary">
-            清理项目：{cleanupLabels[type]}。预计影响 {affectedCount} 条数据。
+            {sprintf(__("清理项目：%1$s。预计影响 %2$d 条数据。"), cleanupLabels[type], affectedCount)}
           </Text>
         </div>
       ),
-      okText: "确认清理",
+      okText: __("确认清理"),
       okButtonProps: { danger: true },
-      cancelText: "取消",
+      cancelText: __("取消"),
       onOk: async () => {
         setOperationFeedback(null);
         setCleanLoadingType(type);
         try {
           const res = await performanceApi.cleanDb(type, preview.preview_token);
           if (!res.success) {
-            setOperationFeedback({ type: "error", message: "清理失败，请重试。" });
+            setOperationFeedback({ type: "error", message: __("清理失败，请重试。") });
             return;
           }
 
@@ -139,10 +140,10 @@ const App: React.FC = () => {
           });
           const refreshed = await fetchStats(false);
           setOperationFeedback(refreshed
-            ? { type: "success", message: `清理完成，删除 ${deleted} 条数据。` }
+            ? { type: "success", message: sprintf(__("清理完成，删除 %d 条数据。"), deleted) }
             : {
                 type: "warning",
-                message: `清理完成，删除 ${deleted} 条数据；统计刷新失败，请重新查看统计。`,
+                message: sprintf(__("清理完成，删除 %d 条数据；统计刷新失败，请重新查看统计。"), deleted),
               });
         } catch (error) {
           const requestError = error as {
@@ -157,7 +158,7 @@ const App: React.FC = () => {
             });
             setOperationFeedback({ type: "warning", message });
           } else {
-            setOperationFeedback({ type: "error", message: "清理失败，请重试。" });
+            setOperationFeedback({ type: "error", message: __("清理失败，请重试。") });
           }
         } finally {
           setCleanLoadingType(null);
@@ -167,21 +168,21 @@ const App: React.FC = () => {
   };
 
   const statsColumns = [
-    { title: "检测项", dataIndex: "name", key: "name", width: 120 },
+    { title: __("检测项"), dataIndex: "name", key: "name", width: 120 },
     {
-      title: "状态",
+      title: __("状态"),
       key: "status",
       width: 80,
       render: (_: unknown, record: StatsRow) => <StatusTag status={record.statusLabel} />,
     },
     {
-      title: "值",
+      title: __("值"),
       key: "value",
       width: 80,
       render: (_: unknown, record: StatsRow) => record.valueLabel,
     },
     {
-      title: "操作",
+      title: __("操作"),
       key: "action",
       width: 160,
       render: (_: unknown, record: StatsRow) => {
@@ -195,9 +196,9 @@ const App: React.FC = () => {
               loading={previewLoadingType === type}
               disabled={previewLoadingType !== null && previewLoadingType !== type}
             >
-              预览
+              {__("预览")}
             </Button>
-            <Button size="small" style={{ marginLeft: 4 }} onClick={() => handleClean(type)} loading={cleanLoadingType === type} disabled={!previewData[type]}>清理</Button>
+            <Button size="small" style={{ marginLeft: 4 }} onClick={() => handleClean(type)} loading={cleanLoadingType === type} disabled={!previewData[type]}>{__("清理")}</Button>
           </span>
         );
       },
@@ -213,16 +214,16 @@ const App: React.FC = () => {
 
   const statsDataSource: StatsRow[] = stats?.db_size
     ? [
-        { key: "db", name: "数据库大小", statusLabel: "正常" as const, valueLabel: formatSize(stats.db_size), noAction: true },
-        { key: "revisions", name: "修订版本", statusLabel: stats.revisions > 0 ? "待处理" as const : "正常" as const, valueLabel: `${stats.revisions} 条`, type: "revisions" },
-        { key: "drafts", name: "自动草稿", statusLabel: stats.drafts > 0 ? "待处理" as const : "正常" as const, valueLabel: `${stats.drafts} 条`, type: "drafts" },
-        { key: "spam", name: "垃圾评论", statusLabel: stats.spam > 0 ? "待处理" as const : "正常" as const, valueLabel: `${stats.spam} 条`, type: "spam" },
-        { key: "transients", name: "Transient", statusLabel: stats.transients > 0 ? "待处理" as const : "正常" as const, valueLabel: `${stats.transients} 条`, type: "transients" },
+        { key: "db", name: __("数据库大小"), statusLabel: "正常" as const, valueLabel: formatSize(stats.db_size), noAction: true },
+        { key: "revisions", name: __("修订版本"), statusLabel: stats.revisions > 0 ? "待处理" as const : "正常" as const, valueLabel: sprintf(__("%d 条"), stats.revisions), type: "revisions" },
+        { key: "drafts", name: __("自动草稿"), statusLabel: stats.drafts > 0 ? "待处理" as const : "正常" as const, valueLabel: sprintf(__("%d 条"), stats.drafts), type: "drafts" },
+        { key: "spam", name: __("垃圾评论"), statusLabel: stats.spam > 0 ? "待处理" as const : "正常" as const, valueLabel: sprintf(__("%d 条"), stats.spam), type: "spam" },
+        { key: "transients", name: "Transient", statusLabel: stats.transients > 0 ? "待处理" as const : "正常" as const, valueLabel: sprintf(__("%d 条"), stats.transients), type: "transients" },
       ]
     : [];
 
   return (
-    <SettingsSection title="数据库清理" description="数据库清理与优化">
+    <SettingsSection title={__("数据库清理")} description={__("数据库清理与优化")}>
       <Form
         name="db_clean"
         labelCol={fromConfig.labelCol}
@@ -232,10 +233,10 @@ const App: React.FC = () => {
         autoComplete="off"
         onValuesChange={onValuesChange}
       >
-        <RiskNotice warning="数据库清理操作不可逆，删除的数据无法恢复" suggestion="执行前务必先预览影响数量，并做好备份" />
+        <RiskNotice warning={__("数据库清理操作不可逆，删除的数据无法恢复")} suggestion={__("执行前务必先预览影响数量，并做好备份")} />
 
         <ModuleRow
-          title="启用数据库清理"
+          title={__("启用数据库清理")}
           featureId="performance-db_clean-enabled"
           enabled={!!formData.enabled}
           onChange={(checked) => {
@@ -244,34 +245,34 @@ const App: React.FC = () => {
           tags={["高风险", "不可逆"]}
         />
 
-        <Form.Item label="清理修订版本" name="clean_revisions" valuePropName="checked">
-          <FeatureSwitch featureId="performance-db_clean-clean_revisions" label="清理修订版本" />
+        <Form.Item label={__("清理修订版本")} name="clean_revisions" valuePropName="checked">
+          <FeatureSwitch featureId="performance-db_clean-clean_revisions" label={__("清理修订版本")} />
         </Form.Item>
-        <Form.Item label="清理自动草稿" name="clean_drafts" valuePropName="checked">
-          <FeatureSwitch featureId="performance-db_clean-clean_drafts" label="清理自动草稿" />
+        <Form.Item label={__("清理自动草稿")} name="clean_drafts" valuePropName="checked">
+          <FeatureSwitch featureId="performance-db_clean-clean_drafts" label={__("清理自动草稿")} />
         </Form.Item>
-        <Form.Item label="清理垃圾评论" name="clean_spam_comments" valuePropName="checked">
-          <FeatureSwitch featureId="performance-db_clean-clean_spam_comments" label="清理垃圾评论" />
+        <Form.Item label={__("清理垃圾评论")} name="clean_spam_comments" valuePropName="checked">
+          <FeatureSwitch featureId="performance-db_clean-clean_spam_comments" label={__("清理垃圾评论")} />
         </Form.Item>
-        <Form.Item label="清理过期 Transient" name="clean_transients" valuePropName="checked">
-          <FeatureSwitch featureId="performance-db_clean-clean_transients" label="清理过期 Transient" />
+        <Form.Item label={__("清理过期 Transient")} name="clean_transients" valuePropName="checked">
+          <FeatureSwitch featureId="performance-db_clean-clean_transients" label={__("清理过期 Transient")} />
         </Form.Item>
 
-        <Form.Item label="定时自动清理" name="auto_clean" valuePropName="checked">
-          <FeatureSwitch featureId="performance-db_clean-auto_clean" label="定时自动清理" />
+        <Form.Item label={__("定时自动清理")} name="auto_clean" valuePropName="checked">
+          <FeatureSwitch featureId="performance-db_clean-auto_clean" label={__("定时自动清理")} />
         </Form.Item>
         {formData.auto_clean && (
-          <Form.Item label="清理周期" name="auto_clean_schedule">
+          <Form.Item label={__("清理周期")} name="auto_clean_schedule">
             <Select options={[
-              { label: "每天", value: "daily" },
-              { label: "每周", value: "weekly" },
-              { label: "每月", value: "monthly" },
+              { label: __("每天"), value: "daily" },
+              { label: __("每周"), value: "weekly" },
+              { label: __("每月"), value: "monthly" },
             ]} />
           </Form.Item>
         )}
 
         <Form.Item wrapperCol={fromConfig.wrapperCol}>
-          <Button onClick={() => void fetchStats()}>查看统计</Button>
+          <Button onClick={() => void fetchStats()}>{__("查看统计")}</Button>
         </Form.Item>
 
         {statsDataSource.length > 0 && (

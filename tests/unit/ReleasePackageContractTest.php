@@ -513,6 +513,7 @@ BASH
             'admin/class-npcink-toolbox-admin.php' => "<?php\n",
             'admin/partials/optimize/site/category_link_simplify.php' => "<?php\n",
             'public/class-npcink-toolbox-public.php' => "<?php\n",
+            'languages/npcink-site-toolbox.pot' => "msgid \"\"\nmsgstr \"\"\n\"Project-Id-Version: Npcink Site Toolbox 9.8.7\\n\"\n",
             'blocks/github-project/block.json' => '{"name":"npcink/github-project"}',
             'blocks/github-project/index.js' => 'void 0;',
             'blocks/github-project/index.asset.php' => "<?php\nreturn array('dependencies' => array(), 'version' => '9.8.7');\n",
