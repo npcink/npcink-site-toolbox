@@ -50,7 +50,7 @@ PHP 端                                  React 端
   │                                       │
   ├─ GET /npcink-site-toolbox/v1/settings ─────────────►│ 非敏感设置 + secretStatus
   │                                       │
-  │◄─ POST { settings, secretChanges } ───┤ 显式保存
+  │◄─ POST { settings, secretChanges, revision } ───┤ 显式保存与并发校验
   │                                       │
   ├─ Schema 校验 + 凭据合并 + 原子写入 ──►│ wp_options
 ```

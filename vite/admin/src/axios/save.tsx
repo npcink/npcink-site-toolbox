@@ -91,14 +91,18 @@ function assertSecretChangesAreValid(secretChanges: SecretChanges): void {
 export const buildSettingsSavePayload = (
   settings: Option,
   secretChanges: SecretChanges,
+  revision: string,
 ): SettingsSavePayload => {
   assertValidOption(settings);
   assertSecretChangesAreValid(secretChanges);
-  return { settings, secretChanges };
+  if (!/^[a-f0-9]{64}$/.test(revision)) {
+    throw new Error("配置版本无效，请重新读取设置");
+  }
+  return { settings, secretChanges, revision };
 };
 
-export const saveOption = async (settings: Option, secretChanges: SecretChanges) => {
-  const payload = buildSettingsSavePayload(settings, secretChanges);
+export const saveOption = async (settings: Option, secretChanges: SecretChanges, revision: string) => {
+  const payload = buildSettingsSavePayload(settings, secretChanges, revision);
 
   let response: ApiResponse;
   try {

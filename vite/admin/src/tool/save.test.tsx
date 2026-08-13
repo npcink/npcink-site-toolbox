@@ -23,6 +23,7 @@ const diffModalLoaderMocks = vi.hoisted(() => ({
   loadDiffModal: vi.fn(),
 }));
 const getComputedStyle = window.getComputedStyle.bind(window);
+const SETTINGS_REVISION = "a".repeat(64);
 
 vi.mock("@/axios/save", () => saveMocks);
 vi.mock("@/tool/diffModalLoader", () => diffModalLoaderMocks);
@@ -46,6 +47,7 @@ function renderSave(overrides: Partial<OptionContextType> = {}) {
     clearSecretChanges: vi.fn(),
     settingsState: "ready",
     settingsError: null,
+    settingsRevision: SETTINGS_REVISION,
     ...overrides,
   };
 
@@ -214,7 +216,7 @@ describe("Save", () => {
     });
 
     await waitFor(() => {
-      expect(saveMocks.saveOption).toHaveBeenCalledWith(expect.any(Object), secretChanges);
+      expect(saveMocks.saveOption).toHaveBeenCalledWith(expect.any(Object), secretChanges, SETTINGS_REVISION);
       expect(clearSecretChanges).toHaveBeenCalledTimes(1);
       expect(refreshOption).toHaveBeenCalledTimes(1);
     });

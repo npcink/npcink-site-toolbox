@@ -8,7 +8,7 @@ import {
   settingsApi,
 } from "@/api";
 import { defaultVarOption } from "@/tool/defaultVar";
-import type { SettingsSavePayload } from "@/tool/interface";
+import type { SettingsPreviewPayload } from "@/tool/interface";
 
 const restMocks = vi.hoisted(() => ({
   get: vi.fn(),
@@ -36,22 +36,19 @@ describe("performanceApi", () => {
     }, { maboxNotify: false });
   });
 
-  it("数据库清理默认 dry-run，只有显式传 false 才执行", async () => {
-    await performanceApi.cleanDb("spam");
-    await performanceApi.cleanDb("spam", false);
+  it("数据库清理必须显式提交预览 token", async () => {
+    const previewToken = "a".repeat(64);
+    await performanceApi.cleanDb("spam", previewToken);
 
-    expect(restMocks.post).toHaveBeenNthCalledWith(1, "/performance/db/clean", {
-      type: "spam",
-      dry_run: true,
-    }, { maboxNotify: false });
-    expect(restMocks.post).toHaveBeenNthCalledWith(2, "/performance/db/clean", {
+    expect(restMocks.post).toHaveBeenCalledWith("/performance/db/clean", {
       type: "spam",
       dry_run: false,
+      preview_token: previewToken,
     }, { maboxNotify: false });
   });
 
   it("对象存储连接测试关闭全局通知并使用设置凭据契约", async () => {
-    const payload: SettingsSavePayload = {
+    const payload: SettingsPreviewPayload = {
       settings: defaultVarOption,
       secretChanges: {
         "performance.oss.access_key": { operation: "replace", value: "access-key" },
@@ -69,9 +66,7 @@ describe("performanceApi", () => {
 
   it.each([
     ["checkMedia", "/performance/media/check"],
-    ["fixMediaAlt", "/performance/media/fix-alt"],
     ["checkSeo", "/performance/seo/check"],
-    ["fixSeoAlt", "/performance/seo/fix-alt"],
   ] as const)("%s 由调用界面独占反馈", async (method, path) => {
     await performanceApi[method]();
 

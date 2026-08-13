@@ -77,6 +77,30 @@ if (!class_exists('Npcink_Toolbox_Config_Manager')) {
         }
 
         /**
+         * 获取当前完整配置的不透明版本指纹。
+         *
+         * 指纹使用站点盐值计算 HMAC，浏览器只能用于并发比较，不能据此还原
+         * 普通设置或凭据内容。
+         *
+         * @param array|null $config 仅供内部及测试传入的完整配置。
+         * @return string
+         */
+        public static function get_config_revision($config = null) {
+            $config = is_array($config) ? $config : self::get_merged_config();
+            $serialized = serialize($config);
+
+            if (function_exists('wp_salt')) {
+                $key = wp_salt('auth');
+            } elseif (defined('AUTH_SALT') && AUTH_SALT !== '') {
+                $key = AUTH_SALT;
+            } else {
+                $key = 'npcink-site-toolbox-settings-revision';
+            }
+
+            return hash_hmac('sha256', $serialized, $key);
+        }
+
+        /**
          * 验证浏览器设置契约，并在服务端合并凭据。
          *
          * @param array      $settings       不含敏感字段的完整设置。

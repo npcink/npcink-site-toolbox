@@ -306,12 +306,24 @@ class Npcink_Toolbox_Admin
             return new \WP_Error('rest_invalid_data', '设置数据格式无效', array('status' => 400));
         }
 
-        $allowed_keys = array('settings', 'secretChanges');
+        $allowed_keys = array('settings', 'secretChanges', 'revision');
         if (!empty(array_diff(array_keys($body), $allowed_keys))
             || !array_key_exists('settings', $body)
             || !is_array($body['settings'])
+            || !isset($body['revision'])
+            || !is_string($body['revision'])
+            || !preg_match('/^[a-f0-9]{64}$/', $body['revision'])
             || (isset($body['secretChanges']) && !is_array($body['secretChanges']))) {
-            return new \WP_Error('rest_invalid_data', '请求仅允许 settings 和 secretChanges', array('status' => 400));
+            return new \WP_Error('rest_invalid_data', '请求必须包含 settings、secretChanges 和有效 revision', array('status' => 400));
+        }
+
+        $current_revision = Npcink_Toolbox_Config_Manager::get_config_revision();
+        if (!hash_equals($current_revision, $body['revision'])) {
+            return new \WP_Error(
+                'rest_settings_conflict',
+                '站点设置已在其他页面或会话中更新。请重新读取设置，核对差异后再保存。',
+                array('status' => 409, 'revision' => $current_revision)
+            );
         }
 
         $secret_changes = isset($body['secretChanges']) ? $body['secretChanges'] : array();
@@ -325,6 +337,7 @@ class Npcink_Toolbox_Admin
         return rest_ensure_response([
             'success' => true,
             'message' => $result['message'],
+            'revision' => Npcink_Toolbox_Config_Manager::get_config_revision(),
         ]);
     }
 
@@ -339,6 +352,7 @@ class Npcink_Toolbox_Admin
             'success' => true,
             'data' => $browser_config['data'],
             'secretStatus' => $browser_config['secretStatus'],
+            'revision' => Npcink_Toolbox_Config_Manager::get_config_revision(),
         ]);
     }
 
@@ -646,6 +660,13 @@ class Npcink_Toolbox_Admin
                             return is_array($value);
                         },
                     ),
+                    'revision' => array(
+                        'required'          => true,
+                        'type'              => 'string',
+                        'description'       => '读取设置时返回的不透明配置版本指纹',
+                        'pattern'           => '^[a-f0-9]{64}$',
+                        'sanitize_callback' => 'sanitize_text_field',
+                    ),
                 ),
             ),
         ), 'settings');
@@ -708,20 +729,6 @@ class Npcink_Toolbox_Admin
             ),
         ), 'performance');
 
-        Npcink_Toolbox_Rest_Route_Registry::add('/performance/media/fix-alt', array(
-            'methods'             => \WP_REST_Server::CREATABLE,
-            'callback'            => array('Npcink_Toolbox_Performance_Media_Health', 'ajax_fix_alt'),
-            'permission_callback' => Npcink_Toolbox_Rest_Route_Registry::admin_permission(),
-            'args'                => array(
-                'post_id' => array(
-                    'required'          => false,
-                    'validate_callback' => function ($value) {
-                        return empty($value) || (is_numeric($value) && $value > 0);
-                    },
-                ),
-            ),
-        ), 'performance');
-
         $webp_attachment_args = array(
             'attachment_ids' => array(
                 'required'          => true,
@@ -757,21 +764,6 @@ class Npcink_Toolbox_Admin
                     'validate_callback' => function ($value) {
                         return empty($value) || (is_numeric($value) && $value > 0);
                     },
-                ),
-            ),
-        ), 'performance');
-
-        Npcink_Toolbox_Rest_Route_Registry::add('/performance/seo/fix-alt', array(
-            'methods'             => \WP_REST_Server::CREATABLE,
-            'callback'            => array('Npcink_Toolbox_Performance_Seo_Checker', 'ajax_fix_alt'),
-            'permission_callback' => Npcink_Toolbox_Rest_Route_Registry::admin_permission(),
-            'args'                => array(
-                'post_id' => array(
-                    'required'          => false,
-                    'validate_callback' => function ($value) {
-                        return empty($value) || (is_numeric($value) && $value > 0);
-                    },
-                    'sanitize_callback' => array(__CLASS__, 'sanitize_int_arg'),
                 ),
             ),
         ), 'performance');
@@ -812,6 +804,12 @@ class Npcink_Toolbox_Admin
                 'dry_run' => array(
                     'default'           => true,
                     'sanitize_callback' => 'rest_sanitize_boolean',
+                ),
+                'preview_token' => array(
+                    'required'          => false,
+                    'type'              => 'string',
+                    'pattern'           => '^[A-Za-z0-9_-]+\.[a-f0-9]{64}$',
+                    'sanitize_callback' => 'sanitize_text_field',
                 ),
             ),
         ), 'performance');

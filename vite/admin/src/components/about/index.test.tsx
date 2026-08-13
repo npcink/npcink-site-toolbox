@@ -12,11 +12,15 @@ vi.mock("@/components/about/ai-diagnostics", () => ({
 }));
 
 describe("About tabs", () => {
-  it("places AI diagnostics in its own addressable tab", () => {
+  it("opens practical help first and keeps AI diagnostics addressable", () => {
     window.history.replaceState({}, "", "/wp-admin/admin.php?page=npcink-site-toolbox&view=about");
     render(<About />);
 
-    expect(screen.getByRole("tab", { name: "运行状态" })).toHaveAttribute("aria-selected", "true");
+    expect(screen.getByRole("tab", { name: "使用帮助" })).toHaveAttribute("aria-selected", "true");
+    expect(screen.getByText("保存与离开保护")).toBeInTheDocument();
+    expect(screen.getByText("图片 Alt 检查")).toBeInTheDocument();
+    expect(screen.getByText(/不提供 Alt 自动写入/)).toBeInTheDocument();
+    expect(screen.queryByText("图片 Alt 补全")).not.toBeInTheDocument();
     fireEvent.click(screen.getByRole("tab", { name: "AI 诊断" }));
 
     expect(screen.getByText("AI 诊断面板")).toBeInTheDocument();

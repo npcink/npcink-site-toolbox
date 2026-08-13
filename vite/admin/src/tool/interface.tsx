@@ -76,11 +76,16 @@ export interface SettingsResponse {
   success: boolean;
   data: Option;
   secretStatus: SecretStatus;
+  revision: string;
 }
 
-export interface SettingsSavePayload {
+export interface SettingsPreviewPayload {
   settings: Option;
   secretChanges: SecretChanges;
+}
+
+export interface SettingsSavePayload extends SettingsPreviewPayload {
+  revision: string;
 }
 
 /**

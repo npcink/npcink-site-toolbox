@@ -19,7 +19,6 @@ const App: React.FC = () => {
   const [formData, setFormData] = useState(publicData || {});
   const [issues, setIssues] = useState<SeoIssue[]>([]);
   const [checking, setChecking] = useState(false);
-  const [fixing, setFixing] = useState(false);
   const [operationFeedback, setOperationFeedback] = useState<OperationFeedback | null>(null);
 
   const onValuesChange = (changedValues: any, _allValues: any) => {
@@ -51,26 +50,6 @@ const App: React.FC = () => {
       setOperationFeedback({ type: "error", message: "检查失败，请重试。" });
     } finally {
       setChecking(false);
-    }
-  };
-
-  const handleFixAlt = async () => {
-    setOperationFeedback(null);
-    setFixing(true);
-    try {
-      const res = await performanceApi.fixSeoAlt();
-      if (res.success) {
-        setOperationFeedback({
-          type: "success",
-          message: `已补全 ${res.data?.fixed || 0} 张图片的 Alt。`,
-        });
-      } else {
-        setOperationFeedback({ type: "error", message: "修复失败，请重试。" });
-      }
-    } catch {
-      setOperationFeedback({ type: "error", message: "修复失败，请重试。" });
-    } finally {
-      setFixing(false);
     }
   };
 
@@ -129,11 +108,8 @@ const App: React.FC = () => {
         />
 
         <Form.Item wrapperCol={fromConfig.wrapperCol}>
-          <Button type="primary" onClick={handleCheck} loading={checking} disabled={fixing}>
+          <Button type="primary" onClick={handleCheck} loading={checking}>
             开始检查
-          </Button>
-          <Button style={{ marginLeft: 8 }} onClick={handleFixAlt} loading={fixing} disabled={checking}>
-            一键补全 Alt
           </Button>
         </Form.Item>
 

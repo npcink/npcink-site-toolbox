@@ -1,4 +1,4 @@
-import React, { lazy, Suspense, useCallback, useEffect, useState } from "react";
+import React, { lazy, Suspense, useCallback, useEffect, useMemo, useState } from "react";
 
 import FeatureSearch from "@/components/feature-search";
 import {
@@ -8,6 +8,7 @@ import {
   SettingsLoadState,
 } from "@/tool/dataContext";
 import { defaultVarOption } from "@/tool/defaultVar";
+import { diffConfig, diffSecretChanges } from "@/tool/diff";
 import { Option, SecretChange, SecretChanges, SecretPath } from "@/tool/interface";
 import { updateOptionValue } from "@/tool/option";
 import {
@@ -21,6 +22,10 @@ import {
   writeAdminViewToHistory,
 } from "@/tool/navigation";
 import Save from "@/tool/save";
+import {
+  confirmUnsavedNavigation,
+  useUnsavedChangesGuard,
+} from "@/tool/unsavedChanges";
 
 const Dashboard = lazy(() => import("@/components/dashboard/index"));
 const Page = lazy(() => import("@/components/page/index"));
@@ -86,6 +91,7 @@ const App: React.FC = () => {
   const [secretChanges, setSecretChanges] = useState<SecretChanges>({});
   const [settingsState, setSettingsState] = useState<SettingsLoadState>("loading");
   const [settingsError, setSettingsError] = useState<string | null>(null);
+  const [settingsRevision, setSettingsRevision] = useState<string>();
   const [isMobile, setIsMobile] = useState(() => window.innerWidth <= 782);
   const [activeView, setActiveView] = useState<AdminView>(() =>
     getAdminViewFromSearch(window.location.search),
@@ -94,6 +100,14 @@ const App: React.FC = () => {
   const [targetItemId, setTargetItemId] = useState<string | null>(() =>
     getTargetItemFromSearch(window.location.search),
   );
+  const hasUnsavedChanges = useMemo(
+    () =>
+      diffConfig(lastSavedOption, optionData).length > 0 ||
+      diffSecretChanges(secretStatus, secretChanges).length > 0,
+    [lastSavedOption, optionData, secretChanges, secretStatus],
+  );
+
+  useUnsavedChangesGuard(settingsState === "ready" && hasUnsavedChanges);
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth <= 782);
@@ -130,6 +144,7 @@ const App: React.FC = () => {
       setOptionData(response.data);
       setLastSavedOption(response.data);
       setSecretStatus(response.secretStatus);
+      setSettingsRevision(response.revision);
       setSecretChanges({});
       setSettingsState("ready");
     } catch (error) {
@@ -177,9 +192,18 @@ const App: React.FC = () => {
     const nextView = normalizeAdminView(requestedView);
     const currentView = getAdminViewFromSearch(window.location.search);
     const currentTarget = getTargetItemFromSearch(window.location.search);
+    const nextTarget = itemId || null;
+    const navigationChangesLocation = nextView !== currentView || nextTarget !== currentTarget;
+
+    if (
+      navigationChangesLocation &&
+      !confirmUnsavedNavigation(settingsState === "ready" && hasUnsavedChanges)
+    ) {
+      return;
+    }
 
     setActiveView(nextView);
-    setTargetItemId(itemId || null);
+    setTargetItemId(nextTarget);
     setMobileMenuOpen(false);
 
     if (itemId) {
@@ -194,7 +218,7 @@ const App: React.FC = () => {
     window.requestAnimationFrame(() => {
       document.getElementById("mabox-main-content")?.focus({ preventScroll: true });
     });
-  }, []);
+  }, [hasUnsavedChanges, settingsState]);
 
   const handleSearchNavigate = useCallback((view: string, itemId?: string) => {
     navigateToView(view, itemId);
@@ -299,6 +323,7 @@ const App: React.FC = () => {
         clearSecretChanges,
         settingsState,
         settingsError,
+        settingsRevision,
       }}
     >
       <div className="mabox-shell">

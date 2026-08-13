@@ -243,8 +243,9 @@ class RestApiSecurityTest extends TestCase {
             if ($route['path'] !== '/settings' || !isset($route['args'][1]['args'])) {
                 continue;
             }
-            $this->assertSame(array('settings', 'secretChanges'), array_keys($route['args'][1]['args']));
+            $this->assertSame(array('settings', 'secretChanges', 'revision'), array_keys($route['args'][1]['args']));
             $this->assertTrue($route['args'][1]['args']['settings']['required']);
+            $this->assertTrue($route['args'][1]['args']['revision']['required']);
             return;
         }
 
@@ -269,11 +270,9 @@ class RestApiSecurityTest extends TestCase {
             '/settings/schema',
             '/performance/oss/test',
             '/performance/media/check',
-            '/performance/media/fix-alt',
             '/performance/media/webp/convert',
             '/performance/media/webp/restore',
             '/performance/seo/check',
-            '/performance/seo/fix-alt',
             '/performance/db/stats',
             '/performance/db/preview',
             '/performance/db/clean',

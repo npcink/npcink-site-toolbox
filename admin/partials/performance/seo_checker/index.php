@@ -54,38 +54,5 @@ if (!class_exists('Npcink_Toolbox_Performance_Seo_Checker')) {
                 'data'    => array('issues' => $issues, 'total' => count($issues)),
             ));
         }
-        public static function ajax_fix_alt() {
-            if (!current_user_can('manage_options')) {
-                return new \WP_Error('rest_forbidden', '权限不足', array('status' => 403));
-            }
-            $query = new WP_Query(array(
-                'post_type'              => 'attachment',
-                'post_status'            => 'inherit',
-                'post_mime_type'         => 'image',
-                'posts_per_page'         => 50,
-                'orderby'                => 'ID',
-                'order'                  => 'ASC',
-                'no_found_rows'          => true,
-                'update_post_meta_cache' => false,
-                'update_post_term_cache' => false,
-                // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query -- Administrator-triggered repair is bounded to 50 image attachments.
-                'meta_query'             => array(
-                    'relation' => 'OR',
-                    array('key' => '_wp_attachment_image_alt', 'compare' => 'NOT EXISTS'),
-                    array('key' => '_wp_attachment_image_alt', 'value' => '', 'compare' => '='),
-                ),
-            ));
-            $fixed = 0;
-            foreach ($query->posts as $img) {
-                if (!is_object($img) || !isset($img->ID)) continue;
-                $alt = !empty($img->post_title) ? $img->post_title : '图片';
-                update_post_meta($img->ID, '_wp_attachment_image_alt', sanitize_text_field($alt));
-                $fixed++;
-            }
-            return rest_ensure_response(array(
-                'success' => true,
-                'data'    => array('fixed' => $fixed),
-            ));
-        }
     }
 }

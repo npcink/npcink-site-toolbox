@@ -22,6 +22,7 @@ const App: React.FC = () => {
     secretChanges,
     clearSecretChanges,
     settingsState,
+    settingsRevision,
   } = useContext(DataContext);
   const [saving, setSaving] = useState(false);
   const [preparingConfirmation, setPreparingConfirmation] = useState(false);
@@ -44,7 +45,7 @@ const App: React.FC = () => {
     setSaving(true);
     let saved = false;
     try {
-      const response = await saveOption(optionData, secretChanges);
+      const response = await saveOption(optionData, secretChanges, settingsRevision || "");
       saved = true;
       clearSecretChanges();
       await refreshOption();

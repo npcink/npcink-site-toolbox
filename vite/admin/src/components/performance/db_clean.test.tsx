@@ -56,7 +56,7 @@ beforeEach(() => {
   });
   apiMocks.previewDb.mockReset().mockResolvedValue({
     success: true,
-    data: { affected: 12, dry_run: true },
+    data: { affected: 12, dry_run: true, preview_token: "a".repeat(64), expires_in: 300 },
   });
   apiMocks.cleanDb.mockReset().mockResolvedValue({ success: true, data: { deleted: 12, dry_run: false } });
 });
@@ -109,10 +109,31 @@ describe("数据库清理操作链", () => {
     });
 
     await waitFor(() => {
-      expect(apiMocks.cleanDb).toHaveBeenCalledWith("revisions", false);
+      expect(apiMocks.cleanDb).toHaveBeenCalledWith("revisions", "a".repeat(64));
       expect(screen.getByRole("status")).toHaveTextContent("清理完成，删除 12 条数据。");
     });
     expect(apiMocks.getDbStats).toHaveBeenCalledTimes(2);
+  }, 30_000);
+
+  it("预览失效或数据变化时清除清理资格并要求重新预览", async () => {
+    const confirm = vi.spyOn(Modal, "confirm").mockImplementation(() => undefined as never);
+    apiMocks.cleanDb.mockRejectedValueOnce({
+      response: { data: { message: "数据库内容已发生变化，请重新预览并确认最新影响范围。" } },
+    });
+    renderDbClean();
+    fireEvent.click(screen.getByRole("button", { name: "查看统计" }));
+
+    const revisionRow = (await screen.findByText("12 条")).closest("tr");
+    const row = within(revisionRow as HTMLElement);
+    fireEvent.click(row.getByRole("button", { name: /预\s*览/ }));
+    await waitFor(() => expect(row.getByRole("button", { name: /清\s*理/ })).toBeEnabled());
+    fireEvent.click(row.getByRole("button", { name: /清\s*理/ }));
+    await act(async () => {
+      await confirm.mock.calls[0][0].onOk?.();
+    });
+
+    expect(await screen.findByRole("status")).toHaveTextContent("数据库内容已发生变化，请重新预览");
+    expect(row.getByRole("button", { name: /清\s*理/ })).toBeDisabled();
   }, 30_000);
 
   it("清理失败时在操作区域保留错误", async () => {

@@ -9,6 +9,15 @@ import { DbCleanType, DbPreview, DbStats, performanceApi } from "@/api";
 
 const { Text } = Typography;
 const fromConfig = AntConfig.from;
+const cleanupLabels: Record<DbCleanType, string> = {
+  revisions: "文章修订版本",
+  drafts: "自动草稿",
+  spam: "垃圾评论",
+  transients: "过期临时选项",
+  optimize: "数据库表优化",
+  pending: "待审核文章",
+  trash: "回收站文章",
+};
 
 interface StatsRow {
   key: string;
@@ -81,11 +90,15 @@ const App: React.FC = () => {
   const getAffectedCount = (type: DbCleanType, data?: DbPreview): number => {
     if (!data) return 0;
     const typeCount = data[type as keyof DbPreview];
-    return data.affected ?? (typeof typeCount === "number" ? typeCount : 0);
+    return data.affected ?? data.table_count ?? (typeof typeCount === "number" ? typeCount : 0);
   };
 
   const handleClean = (type: DbCleanType) => {
     const preview = previewData[type];
+    if (!preview) {
+      setOperationFeedback({ type: "warning", message: "请先预览该清理项目，再确认执行。" });
+      return;
+    }
     const affectedCount = getAffectedCount(type, preview);
     Modal.confirm({
       rootClassName: "mabox-admin-modal",
@@ -101,7 +114,7 @@ const App: React.FC = () => {
             style={{ marginBottom: 8 }}
           />
           <Text type="secondary">
-            清理类型：{type}。将删除 {affectedCount} 条数据。
+            清理项目：{cleanupLabels[type]}。预计影响 {affectedCount} 条数据。
           </Text>
         </div>
       ),
@@ -112,7 +125,7 @@ const App: React.FC = () => {
         setOperationFeedback(null);
         setCleanLoadingType(type);
         try {
-          const res = await performanceApi.cleanDb(type, false);
+          const res = await performanceApi.cleanDb(type, preview.preview_token);
           if (!res.success) {
             setOperationFeedback({ type: "error", message: "清理失败，请重试。" });
             return;
@@ -131,8 +144,21 @@ const App: React.FC = () => {
                 type: "warning",
                 message: `清理完成，删除 ${deleted} 条数据；统计刷新失败，请重新查看统计。`,
               });
-        } catch {
-          setOperationFeedback({ type: "error", message: "清理失败，请重试。" });
+        } catch (error) {
+          const requestError = error as {
+            response?: { data?: { message?: string } };
+          };
+          const message = requestError.response?.data?.message;
+          if (message?.includes("重新预览") || message?.includes("预览已失效")) {
+            setPreviewData((prev) => {
+              const next = { ...prev };
+              delete next[type];
+              return next;
+            });
+            setOperationFeedback({ type: "warning", message });
+          } else {
+            setOperationFeedback({ type: "error", message: "清理失败，请重试。" });
+          }
         } finally {
           setCleanLoadingType(null);
         }

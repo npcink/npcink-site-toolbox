@@ -76,7 +76,6 @@ const App: React.FC = () => {
   const [issues, setIssues] = useState<MediaHealthIssue[]>([]);
   const [webpAssessment, setWebpAssessment] = useState<MediaWebpAssessment | null>(null);
   const [checking, setChecking] = useState(false);
-  const [fixing, setFixing] = useState(false);
   const [converting, setConverting] = useState(false);
   const [restoring, setRestoring] = useState(false);
   const [continuousTarget, setContinuousTarget] = useState(20);
@@ -132,26 +131,6 @@ const App: React.FC = () => {
   };
 
   const handleCheck = () => refreshHealth(true);
-
-  const handleFixAlt = async () => {
-    setOperationFeedback(null);
-    setFixing(true);
-    try {
-      const res = await performanceApi.fixMediaAlt();
-      if (res.success) {
-        setOperationFeedback({
-          type: "success",
-          message: `已补全 ${res.data?.fixed || 0} 张图片的 Alt。`,
-        });
-      } else {
-        setOperationFeedback({ type: "error", message: "修复失败，请重试。" });
-      }
-    } catch {
-      setOperationFeedback({ type: "error", message: "修复失败，请重试。" });
-    } finally {
-      setFixing(false);
-    }
-  };
 
   const convertContinuous = async () => {
     const queue = (webpAssessment?.batch.candidate_ids || []).slice(0, continuousTarget);
@@ -385,11 +364,8 @@ const App: React.FC = () => {
         />
 
         <Form.Item wrapperCol={fromConfig.wrapperCol}>
-          <Button type="primary" onClick={handleCheck} loading={checking} disabled={fixing || converting || restoring}>
+          <Button type="primary" onClick={handleCheck} loading={checking} disabled={converting || restoring}>
             开始体检
-          </Button>
-          <Button style={{ marginLeft: 8 }} onClick={handleFixAlt} loading={fixing} disabled={checking || converting || restoring}>
-            批量补全 Alt
           </Button>
         </Form.Item>
 

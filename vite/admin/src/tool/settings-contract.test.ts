@@ -14,6 +14,7 @@ const restMocks = vi.hoisted(() => ({
   get: vi.fn(),
   post: vi.fn(),
 }));
+const SETTINGS_REVISION = "a".repeat(64);
 
 vi.mock("@/axios/public", () => ({
   restInstance: restMocks,
@@ -38,6 +39,7 @@ describe("设置 REST 契约", () => {
       success: true,
       data: defaultVarOption,
       secretStatus,
+      revision: SETTINGS_REVISION,
     });
 
     const response = await fetchSettings();
@@ -48,6 +50,7 @@ describe("设置 REST 契约", () => {
     );
     expect(response.data).toBe(defaultVarOption);
     expect(response.secretStatus).toEqual(secretStatus);
+    expect(response.revision).toBe(SETTINGS_REVISION);
   });
 
   it("接受一份完整、独立的 fresh defaults", async () => {
@@ -56,10 +59,11 @@ describe("设置 REST 契约", () => {
       success: true,
       data: settings,
       secretStatus: emptySecretStatus(),
+      revision: SETTINGS_REVISION,
     });
 
     await expect(fetchSettings()).resolves.toMatchObject({ data: settings });
-    expect(() => buildSettingsSavePayload(settings, {})).not.toThrow();
+    expect(() => buildSettingsSavePayload(settings, {}, SETTINGS_REVISION)).not.toThrow();
   });
 
   it("GET 请求失败时向调用方抛错，不回退页面注入或默认配置", async () => {
@@ -89,6 +93,7 @@ describe("设置 REST 契约", () => {
         },
       },
       secretStatus: emptySecretStatus(),
+      revision: SETTINGS_REVISION,
     });
 
     await expect(fetchSettings()).rejects.toThrow("包含敏感字段");
@@ -121,6 +126,7 @@ describe("设置 REST 契约", () => {
       success: true,
       data: makeSettings(),
       secretStatus: emptySecretStatus(),
+      revision: SETTINGS_REVISION,
     });
 
     await expect(fetchSettings()).rejects.toThrow(/设置(缺少|包含|字段)/);
@@ -135,7 +141,7 @@ describe("设置 REST 契约", () => {
     wrongType.performance.oss.enabled = "true" as unknown as boolean;
 
     [{}, missing, unknown, wrongType].forEach((settings) => {
-      expect(() => buildSettingsSavePayload(settings as Option, {})).toThrow();
+      expect(() => buildSettingsSavePayload(settings as Option, {}, SETTINGS_REVISION)).toThrow();
     });
   });
 
@@ -149,13 +155,14 @@ describe("设置 REST 契约", () => {
       },
     };
 
-    await saveOption(defaultVarOption, secretChanges);
+    await saveOption(defaultVarOption, secretChanges, SETTINGS_REVISION);
 
     expect(restMocks.post).toHaveBeenCalledWith(
       "/settings",
       {
         settings: defaultVarOption,
         secretChanges,
+        revision: SETTINGS_REVISION,
       },
       { maboxNotify: false },
     );
@@ -180,35 +187,40 @@ describe("设置 REST 契约", () => {
         operation: "replace",
         value: canary,
       },
-    })).rejects.toThrow("保存 [已隐藏] 失败，已恢复为之前的设置");
+    }, SETTINGS_REVISION)).rejects.toThrow("保存 [已隐藏] 失败，已恢复为之前的设置");
   });
 
   it("客户端拒绝未知凭据路径、未知操作和空替换", () => {
     expect(() => buildSettingsSavePayload(defaultVarOption, {
       "unknown.secret": { operation: "clear" },
-    } as never)).toThrow("未知凭据路径");
+    } as never, SETTINGS_REVISION)).toThrow("未知凭据路径");
     expect(() => buildSettingsSavePayload(defaultVarOption, {
       "domestic.wechat.appsecret": { operation: "rotate" },
-    } as never)).toThrow("未知凭据操作");
+    } as never, SETTINGS_REVISION)).toThrow("未知凭据操作");
     expect(() => buildSettingsSavePayload(defaultVarOption, {
       "domestic.wechat.appsecret": { operation: "replace", value: "" },
-    })).toThrow("替换值不能为空");
+    }, SETTINGS_REVISION)).toThrow("替换值不能为空");
   });
 
   it("客户端拒绝纯空白、控制字符和超过 4096 字节的替换值", () => {
     expect(() => buildSettingsSavePayload(defaultVarOption, {
       "domestic.wechat.appsecret": { operation: "replace", value: "   " },
-    })).toThrow("替换值不能为空");
+    }, SETTINGS_REVISION)).toThrow("替换值不能为空");
     expect(() => buildSettingsSavePayload(defaultVarOption, {
       "domestic.wechat.appsecret": { operation: "replace", value: "bad\nsecret" },
-    })).toThrow("不得包含控制字符");
+    }, SETTINGS_REVISION)).toThrow("不得包含控制字符");
     expect(() => buildSettingsSavePayload(defaultVarOption, {
       "domestic.wechat.appsecret": { operation: "replace", value: "x".repeat(4097) },
-    })).toThrow("长度超出限制");
+    }, SETTINGS_REVISION)).toThrow("长度超出限制");
 
     expect(() => buildSettingsSavePayload(defaultVarOption, {
       "domestic.wechat.appsecret": { operation: "replace", value: "x".repeat(4096) },
-    })).not.toThrow();
+    }, SETTINGS_REVISION)).not.toThrow();
+  });
+
+  it("拒绝缺少或格式无效的配置版本", () => {
+    expect(() => buildSettingsSavePayload(defaultVarOption, {}, "")).toThrow("配置版本无效");
+    expect(() => buildSettingsSavePayload(defaultVarOption, {}, "not-a-revision")).toThrow("配置版本无效");
   });
 
   it("普通设置更新不污染服务端基线，diff 仍能看到变更", () => {

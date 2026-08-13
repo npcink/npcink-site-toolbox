@@ -66,6 +66,9 @@ export function parseSettingsResponse(value: unknown): SettingsResponse {
   if (!isRecord(value.secretStatus)) {
     throw new Error("设置接口缺少凭据状态");
   }
+  if (typeof value.revision !== "string" || !/^[a-f0-9]{64}$/.test(value.revision)) {
+    throw new Error("设置接口缺少有效配置版本");
+  }
 
   assertValidOption(value.data);
 
@@ -82,6 +85,7 @@ export function parseSettingsResponse(value: unknown): SettingsResponse {
     success: true,
     data: value.data,
     secretStatus,
+    revision: value.revision,
   };
 }
 
@@ -104,6 +108,7 @@ export interface OptionContextType {
   clearSecretChanges: () => void;
   settingsState: SettingsLoadState;
   settingsError: string | null;
+  settingsRevision?: string;
 }
 
 export const DataContext = createContext<OptionContextType>({
@@ -118,4 +123,5 @@ export const DataContext = createContext<OptionContextType>({
   clearSecretChanges: () => {},
   settingsState: "loading",
   settingsError: null,
+  settingsRevision: undefined,
 });

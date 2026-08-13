@@ -151,6 +151,25 @@ if ( ! function_exists( 'get_current_user_id' ) ) {
 		return 0;
 	}
 }
+if ( ! function_exists( 'get_user_meta' ) ) {
+	function get_user_meta( $user_id, $key = '', $single = false ) {
+		global $_test_user_meta_store;
+		$value = $_test_user_meta_store[ $user_id ][ $key ] ?? null;
+		return $single ? $value : ( $value === null ? array() : array( $value ) );
+	}
+}
+if ( ! function_exists( 'update_user_meta' ) ) {
+	function update_user_meta( $user_id, $key, $value, $prev_value = '' ) {
+		global $_test_user_meta_store;
+		$_test_user_meta_store[ $user_id ][ $key ] = $value;
+		return true;
+	}
+}
+if ( ! function_exists( 'wp_json_encode' ) ) {
+	function wp_json_encode( $value, $flags = 0, $depth = 512 ) {
+		return json_encode( $value, $flags, $depth );
+	}
+}
 if ( ! function_exists( 'wp_get_current_user' ) ) {
 	function wp_get_current_user() {
 		return (object) array( 'user_login' => 'cli' );

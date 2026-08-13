@@ -145,7 +145,49 @@ class SettingsSecretContractTest extends TestCase
         foreach ($response['secretStatus'] as $status) {
             $this->assertFalse($status['configured']);
         }
-        $this->assertSame(array('success', 'data', 'secretStatus'), array_keys($response));
+        $this->assertSame(array('success', 'data', 'secretStatus', 'revision'), array_keys($response));
+        $this->assertMatchesRegularExpression('/^[a-f0-9]{64}$/', $response['revision']);
+    }
+
+    public function test_rest_save_rejects_stale_revision_without_writes(): void
+    {
+        $settings = $this->browserSettings();
+        $current_revision = Npcink_Toolbox_Config_Manager::get_config_revision();
+
+        $GLOBALS['_test_option_store']['npcink_site_toolbox_optimize'] = array('changed_elsewhere' => true);
+        Npcink_Toolbox_Config_Manager::clear_cache();
+        $before = $GLOBALS['_test_option_store'];
+
+        $response = Npcink_Toolbox_Admin::rest_save_settings(new SettingsContractRequest(array(
+            'settings' => $settings,
+            'secretChanges' => array(),
+            'revision' => $current_revision,
+        ), false));
+
+        $this->assertInstanceOf(WP_Error::class, $response);
+        $this->assertSame('rest_settings_conflict', $response->get_error_code());
+        $this->assertSame(409, $response->get_error_data()['status']);
+        $this->assertMatchesRegularExpression('/^[a-f0-9]{64}$/', $response->get_error_data()['revision']);
+        $this->assertSame($before, $GLOBALS['_test_option_store']);
+    }
+
+    public function test_rest_save_requires_a_valid_revision(): void
+    {
+        foreach (array(null, '', 'not-a-revision') as $revision) {
+            $body = array(
+                'settings' => $this->browserSettings(),
+                'secretChanges' => array(),
+            );
+            if ($revision !== null) {
+                $body['revision'] = $revision;
+            }
+
+            $response = Npcink_Toolbox_Admin::rest_save_settings(new SettingsContractRequest($body, false));
+
+            $this->assertInstanceOf(WP_Error::class, $response);
+            $this->assertSame('rest_invalid_data', $response->get_error_code());
+            $this->assertSame(400, $response->get_error_data()['status']);
+        }
     }
 
     public function test_missing_secret_change_keeps_existing_values(): void
@@ -495,8 +537,11 @@ class SettingsContractRequest
 {
     private $body;
 
-    public function __construct(array $body)
+    public function __construct(array $body, bool $add_revision = true)
     {
+        if ($add_revision && !array_key_exists('revision', $body)) {
+            $body['revision'] = Npcink_Toolbox_Config_Manager::get_config_revision();
+        }
         $this->body = $body;
     }
 
