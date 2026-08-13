@@ -96,7 +96,8 @@ describe('admin build contract scanner', () => {
     expect(packageManifest).toContain('"test:coverage": "vitest run --root admin --coverage --maxWorkers=2 --minWorkers=2"');
     expect(adminPhp).toContain("filemtime($index_js_path)");
     expect(adminPhp).toContain("filemtime($index_css_path)");
-    expect(adminPhp).toContain("wp_enqueue_script($name, $index_js, array(), $index_js_version, true)");
+    expect(adminPhp).toContain("wp_enqueue_script($name, $index_js, array('wp-i18n'), $index_js_version, true)");
+    expect(adminPhp).toContain("wp_set_script_translations($name, 'npcink-site-toolbox'");
     expect(adminPhp).toContain("wp_enqueue_style($name, $index_css, array(), $index_css_version, false)");
     expect(pluginPhp).toContain("str_replace('<script', '<script type=\"module\"', $tag)");
     expect(htmlSource).toContain('src="/src/bootstrap.ts"');
