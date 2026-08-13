@@ -22,8 +22,24 @@ class SearchHealthTest extends TestCase
     {
         global $_test_option_store;
         global $_test_transient_store;
+        global $wpdb;
         $_test_option_store = array();
         $_test_transient_store = array();
+        $wpdb = new class {
+            public $options = 'wp_options';
+
+            public function delete($table, $where, $format = null)
+            {
+                global $_test_option_store;
+                $name = $where['option_name'] ?? '';
+                $value = $where['option_value'] ?? null;
+                if (!array_key_exists($name, $_test_option_store) || $_test_option_store[$name] !== $value) {
+                    return 0;
+                }
+                unset($_test_option_store[$name]);
+                return 1;
+            }
+        };
     }
 
     public function test_class_exists(): void
@@ -42,6 +58,45 @@ class SearchHealthTest extends TestCase
         $this->assertEmpty($summary['no_result_terms']);
         $this->assertEmpty($summary['suspicious_terms']);
         $this->assertIsArray($summary['recommendations']);
+    }
+
+    public function test_write_lock_rejects_competing_writer_without_consuming_quota(): void
+    {
+        global $_test_option_store;
+        global $_test_transient_store;
+        $_test_option_store['npcink_site_toolbox_search_log_write_lock'] = 'other-request|' . (time() + 15);
+
+        self::$method_log->invoke(null, 'blocked-by-lock', true);
+
+        $this->assertArrayNotHasKey('npcink_site_toolbox_search_log', $_test_option_store);
+        $this->assertArrayNotHasKey('npcink_site_toolbox_search_log_write_rate', $_test_transient_store);
+    }
+
+    public function test_expired_lock_is_replaced_and_released_after_write(): void
+    {
+        global $_test_option_store;
+        global $_test_transient_store;
+        $_test_option_store['npcink_site_toolbox_search_log_write_lock'] = 'stale-request|' . (time() - 1);
+
+        self::$method_log->invoke(null, 'after-stale-lock', true);
+
+        $this->assertArrayNotHasKey('npcink_site_toolbox_search_log_write_lock', $_test_option_store);
+        $this->assertSame(1, $_test_transient_store['npcink_site_toolbox_search_log_write_rate']['count']);
+        $this->assertSame(1, $_test_option_store['npcink_site_toolbox_search_log'][current_time('Y-m-d')]['after-stale-lock']['count']);
+    }
+
+    public function test_write_limit_never_exceeds_configured_maximum(): void
+    {
+        global $_test_transient_store;
+        $_test_transient_store['npcink_site_toolbox_search_log_write_rate'] = array('count' => 299);
+
+        self::$method_log->invoke(null, 'last-allowed', true);
+        self::$method_log->invoke(null, 'over-limit', true);
+
+        $this->assertSame(300, $_test_transient_store['npcink_site_toolbox_search_log_write_rate']['count']);
+        $summary = self::$method_get_summary->invoke(null, 30);
+        $this->assertSame(1, $summary['total_searches']);
+        $this->assertSame(array('last-allowed'), array_column($summary['top_terms'], 'term'));
     }
 
     public function test_log_and_aggregate(): void

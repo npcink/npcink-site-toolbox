@@ -46,6 +46,16 @@ if ( ! function_exists( 'update_option' ) ) {
 		return true;
 	}
 }
+if ( ! function_exists( 'add_option' ) ) {
+	function add_option( $option, $value = '', $deprecated = '', $autoload = 'yes' ) {
+		global $_test_option_store;
+		if ( array_key_exists( $option, $_test_option_store ) ) {
+			return false;
+		}
+		$_test_option_store[ $option ] = $value;
+		return true;
+	}
+}
 if ( ! function_exists( 'delete_option' ) ) {
 	function delete_option( $option ) {
 		global $_test_option_store;

@@ -11,6 +11,8 @@ if (!class_exists('Npcink_Toolbox_Search_Health')) {
         private static $writes_per_minute = 300;
         private static $overflow_term = '__npcink_overflow__';
         private static $write_rate_key = 'npcink_site_toolbox_search_log_write_rate';
+        private static $write_lock_key = 'npcink_site_toolbox_search_log_write_lock';
+        private static $write_lock_ttl = 15;
 
         public static function rest_get_summary($request)
         {
@@ -157,20 +159,96 @@ if (!class_exists('Npcink_Toolbox_Search_Health')) {
 
         private static function allow_write()
         {
-            $rate = get_transient(self::$write_rate_key);
-            $rate = is_array($rate) ? $rate : array();
-            $count = isset($rate['count']) ? max(0, (int) $rate['count']) : 0;
-
-            if ($count >= self::$writes_per_minute) {
+            $lock = self::acquire_write_lock();
+            if ($lock === '') {
                 return false;
             }
 
-            set_transient(
-                self::$write_rate_key,
-                array('count' => $count + 1),
-                MINUTE_IN_SECONDS
+            try {
+                $rate = get_transient(self::$write_rate_key);
+                $rate = is_array($rate) ? $rate : array();
+                $count = isset($rate['count']) ? max(0, (int) $rate['count']) : 0;
+
+                if ($count >= self::$writes_per_minute) {
+                    return false;
+                }
+
+                set_transient(
+                    self::$write_rate_key,
+                    array('count' => $count + 1),
+                    MINUTE_IN_SECONDS
+                );
+                return true;
+            } finally {
+                self::release_write_lock($lock);
+            }
+        }
+
+        private static function acquire_write_lock()
+        {
+            $token = self::lock_token();
+            $value = self::lock_value($token, time() + self::$write_lock_ttl);
+            if (add_option(self::$write_lock_key, $value, '', false)) {
+                return $token;
+            }
+
+            $existing = get_option(self::$write_lock_key, '');
+            $lock = self::parse_lock_value($existing);
+            if ($lock['expires'] >= time() || !self::delete_lock_if_value_matches($existing)) {
+                return '';
+            }
+
+            return add_option(self::$write_lock_key, $value, '', false) ? $token : '';
+        }
+
+        private static function release_write_lock($token)
+        {
+            $existing = get_option(self::$write_lock_key, '');
+            $lock = self::parse_lock_value($existing);
+            if ($lock['token'] === $token) {
+                self::delete_lock_if_value_matches($existing);
+            }
+        }
+
+        private static function delete_lock_if_value_matches($value)
+        {
+            global $wpdb;
+            if (!is_object($wpdb) || !isset($wpdb->options) || !method_exists($wpdb, 'delete')) {
+                return false;
+            }
+
+            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching -- Conditional delete prevents one request from removing another request's concurrency lock.
+            $deleted = $wpdb->delete(
+                $wpdb->options,
+                array('option_name' => self::$write_lock_key, 'option_value' => (string) $value),
+                array('%s', '%s')
             );
-            return true;
+            if ($deleted) {
+                wp_cache_delete(self::$write_lock_key, 'options');
+            }
+            return $deleted === 1;
+        }
+
+        private static function lock_token()
+        {
+            if (function_exists('wp_generate_uuid4')) {
+                return wp_generate_uuid4();
+            }
+            return md5(uniqid('', true));
+        }
+
+        private static function lock_value($token, $expires)
+        {
+            return $token . '|' . (int) $expires;
+        }
+
+        private static function parse_lock_value($value)
+        {
+            $parts = is_string($value) ? explode('|', $value, 2) : array();
+            return array(
+                'token' => isset($parts[0]) ? (string) $parts[0] : '',
+                'expires' => isset($parts[1]) ? max(0, (int) $parts[1]) : 0,
+            );
         }
 
         private static function persist_log($log, $today, $protected_term = '')
