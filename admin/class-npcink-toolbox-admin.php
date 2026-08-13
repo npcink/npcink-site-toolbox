@@ -1099,9 +1099,6 @@ class Npcink_Toolbox_Admin
     public function load()
     {
         $option = Npcink_Toolbox_Config_Manager::get_merged_config();
-        if (empty($option)) {
-            return;
-        }
 
         $active_modules = false;
         if (function_exists('wp_cache_get')) {

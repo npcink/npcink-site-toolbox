@@ -10,6 +10,7 @@ $npcink_toolbox_profile_url = admin_url('profile.php#application-passwords-secti
     <p class="npcink-comment-rest-help__lead">
         <?php echo esc_html__('使用 WordPress 应用程序密码，外部客户端可以查看、发布、修改和删除当前认证用户自己的评论。', 'npcink-site-toolbox'); ?>
     </p>
+    <p><?php echo esc_html__('适用版本：Npcink Site Toolbox 3.3.0 及以上；该功能默认关闭，必须由管理员显式启用。', 'npcink-site-toolbox'); ?></p>
 
     <div class="notice notice-warning inline">
         <p><strong><?php echo esc_html__('正式环境必须使用 HTTPS。', 'npcink-site-toolbox'); ?></strong>

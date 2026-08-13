@@ -21,7 +21,9 @@ class SearchHealthTest extends TestCase
     protected function setUp(): void
     {
         global $_test_option_store;
+        global $_test_transient_store;
         $_test_option_store = array();
+        $_test_transient_store = array();
     }
 
     public function test_class_exists(): void
@@ -184,6 +186,128 @@ class SearchHealthTest extends TestCase
         $this->assertContains('bot-term', $suspicious_terms);
     }
 
+    public function test_daily_unique_terms_are_bounded_and_overflow_is_aggregated(): void
+    {
+        global $_test_option_store;
+        $today = current_time('Y-m-d');
+        $_test_option_store['npcink_site_toolbox_search_log'] = array($today => array());
+
+        for ($i = 0; $i < 500; $i++) {
+            $_test_option_store['npcink_site_toolbox_search_log'][$today]['unique-term-' . $i] = array(
+                'count' => 1,
+                'no_result_count' => 0,
+                'last_searched_at' => $today . ' 00:00:00',
+            );
+        }
+        self::$method_log->invoke(null, 'unique-term-500', true);
+
+        $log = $_test_option_store['npcink_site_toolbox_search_log'];
+        $this->assertCount(501, $log[$today]);
+        $this->assertArrayHasKey('__npcink_overflow__', $log[$today]);
+        $this->assertSame(1, $log[$today]['__npcink_overflow__']['count']);
+
+        $summary = self::$method_get_summary->invoke(null, 30);
+        $this->assertSame(501, $summary['total_searches']);
+        $this->assertSame(500, $summary['unique_terms']);
+        $this->assertNotContains('__npcink_overflow__', array_column($summary['top_terms'], 'term'));
+        $this->assertNotContains('__npcink_overflow__', array_column($summary['suspicious_terms'], 'term'));
+    }
+
+    public function test_site_wide_write_rate_is_bounded_per_minute(): void
+    {
+        for ($i = 0; $i < 301; $i++) {
+            self::$method_log->invoke(null, 'rate-limited-term', true);
+        }
+
+        $summary = self::$method_get_summary->invoke(null, 30);
+        $this->assertSame(300, $summary['total_searches']);
+    }
+
+    public function test_legacy_oversized_log_is_compacted_before_write(): void
+    {
+        global $_test_option_store;
+        $today = current_time('Y-m-d');
+        $log = array();
+
+        for ($day = 1; $day <= 30; $day++) {
+            $date = $this->calendarDateDaysAgo($today, $day);
+            $log[$date] = array();
+            for ($term = 0; $term < 100; $term++) {
+                $keyword = str_repeat(chr(97 + ($term % 26)), 180) . '-' . $day . '-' . $term;
+                $log[$date][$keyword] = array(
+                    'count' => 1,
+                    'no_result_count' => 0,
+                    'last_searched_at' => $date . ' 00:00:00',
+                );
+            }
+        }
+        $_test_option_store['npcink_site_toolbox_search_log'] = $log;
+        $this->assertGreaterThan(262144, strlen(serialize($log)));
+
+        self::$method_log->invoke(null, 'newest-term', true);
+
+        $stored = $_test_option_store['npcink_site_toolbox_search_log'];
+        $this->assertLessThanOrEqual(262144, strlen(serialize($stored)));
+        $this->assertArrayHasKey($today, $stored);
+        $this->assertArrayHasKey('newest-term', $stored[$today]);
+    }
+
+    public function test_oversized_current_day_is_compacted_without_dropping_latest_term(): void
+    {
+        global $_test_option_store;
+        $today = current_time('Y-m-d');
+        $terms = array();
+        for ($i = 0; $i < 499; $i++) {
+            $keyword = str_repeat(chr(97 + ($i % 26)), 200) . '-' . $i;
+            $terms[$keyword] = array(
+                'count' => 1,
+                'no_result_count' => 0,
+                'last_searched_at' => $today . ' 00:00:00',
+            );
+        }
+        $_test_option_store['npcink_site_toolbox_search_log'] = array($today => $terms);
+
+        self::$method_log->invoke(null, 'latest-protected-term', true);
+
+        $stored = $_test_option_store['npcink_site_toolbox_search_log'];
+        $this->assertLessThanOrEqual(262144, strlen(serialize($stored)));
+        $this->assertArrayHasKey('latest-protected-term', $stored[$today]);
+    }
+
+    public function test_legacy_current_day_unique_terms_are_trimmed_to_limit(): void
+    {
+        global $_test_option_store;
+        $today = current_time('Y-m-d');
+        $terms = array();
+        for ($i = 0; $i < 550; $i++) {
+            $terms['legacy-term-' . $i] = array(
+                'count' => 1,
+                'no_result_count' => 0,
+                'last_searched_at' => $today . ' 00:00:00',
+            );
+        }
+        $_test_option_store['npcink_site_toolbox_search_log'] = array($today => $terms);
+
+        self::$method_log->invoke(null, 'overflow-trigger', true);
+
+        $stored = $_test_option_store['npcink_site_toolbox_search_log'][$today];
+        $real_terms = array_diff(array_keys($stored), array('__npcink_overflow__'));
+        $this->assertCount(500, $real_terms);
+        $this->assertArrayHasKey('__npcink_overflow__', $stored);
+    }
+
+    public function test_invalid_stored_log_is_replaced_safely(): void
+    {
+        global $_test_option_store;
+        $_test_option_store['npcink_site_toolbox_search_log'] = 'invalid-log';
+
+        self::$method_log->invoke(null, 'valid-term', true);
+
+        $stored = $_test_option_store['npcink_site_toolbox_search_log'];
+        $this->assertIsArray($stored);
+        $this->assertArrayHasKey(current_time('Y-m-d'), $stored);
+    }
+
     public function test_recommendations_include_search_limit(): void
     {
         $summary = self::$method_get_summary->invoke(null, 30);
@@ -312,11 +436,13 @@ class SearchHealthTest extends TestCase
 
     public function test_increment_no_result_count_on_unlogged_term_skipped(): void
     {
+        global $_test_transient_store;
         $method = new ReflectionMethod('Npcink_Toolbox_Search_Health', 'increment_no_result_count');
         $method->invoke(null, 'unlogged-term');
 
         $summary = self::$method_get_summary->invoke(null, 30);
         $this->assertEquals(0, $summary['total_searches']);
+        $this->assertArrayNotHasKey('npcink_site_toolbox_search_log_write_rate', $_test_transient_store);
     }
 
     public function test_no_result_increment_empty_term_skipped(): void

@@ -140,6 +140,84 @@ class ModuleRegistryConsistency_Test extends TestCase {
         $this->assertSame('ip_list', $login_schema['trusted_proxies']['format']);
     }
 
+    public function test_compound_modules_activate_from_each_runtime_switch(): void {
+        $registry = Npcink_Toolbox_Module_Loader::get_registry();
+        $schema = Npcink_Toolbox_Config_Schema::get_schema();
+        $contracts = array(
+            'domestic.compliance' => array(
+                'domestic.compliance.icp_enabled',
+                'domestic.compliance.police_enabled',
+                'domestic.compliance.cookie_enabled',
+                'domestic.compliance.copyright_enabled',
+            ),
+            'domestic.wechat' => array(
+                'domestic.wechat.jssdk_enabled',
+                'domestic.wechat.guide_overlay_enabled',
+            ),
+            'domestic.comment_security' => array(
+                'domestic.comment_security.blacklist_enabled',
+                'domestic.comment_security.link_limit_enabled',
+                'domestic.comment_security.nickname_filter_enabled',
+                'domestic.comment_security.email_domain_enabled',
+                'domestic.comment_security.duplicate_enabled',
+                'domestic.comment_security.ip_rate_enabled',
+                'domestic.comment_security.log_enabled',
+            ),
+            'performance.search_enhance' => array(
+                'performance.search_enhance.highlight_enabled',
+                'performance.search_enhance.recommend_enabled',
+                'performance.search_enhance.hotwords_enabled',
+            ),
+        );
+
+        foreach ($contracts as $module_id => $activation_paths) {
+            $this->assertSame($activation_paths[0], $registry[$module_id]['option_key']);
+            $this->assertSame($activation_paths, $registry[$module_id]['activation_paths']);
+
+            foreach ($activation_paths as $activation_path) {
+                $segments = explode('.', $activation_path);
+                $field = array_pop($segments);
+                $field_schema = $schema;
+                foreach ($segments as $segment) {
+                    $field_schema = $field_schema[$segment];
+                }
+                $this->assertSame('boolean', $field_schema[$field]['type'], $activation_path);
+
+                $config = array();
+                $cursor = &$config;
+                foreach ($segments as $segment) {
+                    $cursor[$segment] = array();
+                    $cursor = &$cursor[$segment];
+                }
+                $cursor[$field] = true;
+                unset($cursor);
+
+                $this->assertContains(
+                    $module_id,
+                    Npcink_Toolbox_Module_Loader::get_active_modules($config),
+                    "$module_id should activate when only $activation_path is enabled"
+                );
+            }
+        }
+    }
+
+    public function test_admin_load_does_not_bypass_always_loaded_modules_for_empty_config(): void {
+        $admin = file_get_contents(self::$plugin_dir . '/admin/class-npcink-toolbox-admin.php');
+        $this->assertIsString($admin);
+
+        $load_start = strpos($admin, 'public function load()');
+        $load_end = strpos($admin, '//公用返回按钮', $load_start);
+        $this->assertNotFalse($load_start);
+        $this->assertNotFalse($load_end);
+        $load_method = substr($admin, $load_start, $load_end - $load_start);
+
+        $this->assertStringNotContainsString('if (empty($option))', $load_method);
+        $this->assertContains(
+            'optimize.widgets',
+            Npcink_Toolbox_Module_Loader::get_active_modules(array())
+        );
+    }
+
     public function test_loader_has_no_legacy_runs_fallback(): void {
         $loader = file_get_contents(self::$plugin_dir . '/admin/modules/loader.php');
 

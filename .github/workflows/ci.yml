@@ -97,6 +97,10 @@ jobs:
         working-directory: vite
         run: pnpm install --frozen-lockfile
 
+      - name: Audit production dependencies
+        working-directory: vite
+        run: pnpm audit --prod
+
       - name: Type Check
         working-directory: vite
         run: pnpm run typecheck

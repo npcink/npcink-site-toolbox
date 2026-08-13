@@ -8,7 +8,7 @@ final class ProductIdentityContractTest extends TestCase
 {
     private const DISPLAY_NAME = 'Npcink Site Toolbox';
     private const SLUG = 'npcink-site-toolbox';
-    private const VERSION = '3.2.0';
+    private const VERSION = '3.3.0';
 
     public function test_main_plugin_file_defines_the_public_identity(): void
     {
@@ -61,6 +61,23 @@ final class ProductIdentityContractTest extends TestCase
         $this->assertStringContainsString(self::SLUG . '.zip', $workflow);
         $this->assertStringContainsString('run: composer phpstan', $workflow);
         $this->assertStringNotContainsString('vendor/bin/phpstan analyse', $workflow);
+        $this->assertStringContainsString('run: pnpm audit --prod', $workflow);
+    }
+
+    public function test_release_metadata_uses_one_current_version(): void
+    {
+        $readme = $this->source('readme.txt');
+        $vite = json_decode($this->source('vite/package.json'), true, 512, JSON_THROW_ON_ERROR);
+        $docs = json_decode($this->source('docs-site/package.json'), true, 512, JSON_THROW_ON_ERROR);
+
+        $this->assertMatchesRegularExpression('/^Stable tag: ' . preg_quote(self::VERSION, '/') . '$/m', $readme);
+        $this->assertSame(self::VERSION, $vite['version']);
+        $this->assertSame(self::VERSION, $docs['version']);
+
+        foreach (array('blocks/site-stats/block.json', 'blocks/github-project/block.json') as $path) {
+            $metadata = json_decode($this->source($path), true, 512, JSON_THROW_ON_ERROR);
+            $this->assertSame(self::VERSION, $metadata['version'], $path);
+        }
     }
 
     public function test_internal_php_identity_uses_one_current_prefix(): void

@@ -38,6 +38,10 @@ foreach ($npcink_site_toolbox_option_names as $npcink_site_toolbox_option_name) 
 
 delete_metadata('comment', 0, '_npcink_site_toolbox_block_reason', '', true);
 
+// 清理纯运行状态；WebP 恢复记录必须保留，否则已转换附件会失去恢复原 JPEG 的依据。
+delete_metadata('post', 0, '_npcink_site_toolbox_oss_offloaded', '', true);
+delete_metadata('post', 0, '_npcink_site_toolbox_webp_lock', '', true);
+
 // 分类 SEO 字段按分类 ID 动态生成，只能按插件专属前缀清理。
 foreach (array('npcink_site_toolbox_category_title_', 'npcink_site_toolbox_category_keywords_') as $npcink_site_toolbox_prefix) {
 	// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching -- One-time uninstall cleanup; dynamic option names cannot be enumerated through the Options API.

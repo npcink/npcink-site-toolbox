@@ -1,9 +1,9 @@
 # Npcink Site Toolbox
 
 > 面向中国 WordPress 站长的一站式实用工具箱插件
-> 版本：**3.2.0** | 阶段：**特色区块开发** | 授权：**GPL-2.0**
+> 版本：**3.3.0** | 阶段：**发布加固与运行边界收口** | 授权：**GPL-2.0**
 
-`3.1.1` 是已发布的首次 WordPress.org 提交候选；`3.2.0` 在此基础上增加编辑器原生样板、动态站点数据区块和 GitHub 项目区块。现有历史标签和附件保持不变。
+`3.2.0` 保留为编辑器工具历史版本；`3.3.0` 在此基础上加入只读 AI 诊断、认证用户评论 REST、自助兜底页面，并收紧模块激活、搜索统计资源和发布安全门禁。现有历史标签和附件保持不变。
 
 [![CI](https://github.com/npcink/npcink-site-toolbox/actions/workflows/ci.yml/badge.svg)](https://github.com/npcink/npcink-site-toolbox/actions/workflows/ci.yml)
 [![WordPress Plugin](https://img.shields.io/badge/WordPress-6.3%2B-blue)](https://wordpress.org)
@@ -108,6 +108,11 @@ WordPress.org 自动预审对资源加载、请求鉴权、外部链接和跨文
 - **通信方式**：WordPress REST API 为主，少量独立后台交互使用 WordPress AJAX
 - **内部身份**：PHP 使用 `Npcink_Toolbox_*` / `NPCINK_SITE_TOOLBOX_*`，插件自有持久化键统一使用 `npcink_site_toolbox_*`
 
+### 平台兼容边界
+
+- 声明支持 PHP 7.4–8.3；CI 对这些 PHP 版本执行语法检查，Composer 依赖解析以 PHP 7.4 为平台基线。
+- 声明支持 WordPress 6.3+；当前真实运行证据覆盖 WordPress 7.0.x，WordPress 6.3 最低边界仍需在一次性环境完成安装、设置、REST 和编辑器冒烟后再标记为实机通过。
+
 ### 安全加固
 
 - SQL 注入防护（全部使用 `$wpdb->prepare()`）
@@ -127,6 +132,15 @@ WordPress.org 自动预审对资源加载、请求鉴权、外部链接和跨文
 ---
 
 ## 更新记录
+
+### 3.3.0 — 2026-08-13
+
+- 增加基于 WordPress AI Client 与 DeepSeek Provider 的只读诊断，支持白名单预览、五类分析和同范围最多三轮临时追问；插件不读取凭据、不持久化诊断上下文，也不自动执行建议
+- 增加默认关闭的认证用户评论 REST 接口及“我的评论”兜底页面，使用 WordPress 应用程序密码并限制用户只能管理自己的评论
+- 加固 WordPress.org 发布流程、ZIP 可移植性检查、Plugin Check 验收契约和文档链接治理
+- 修复复合模块二级开关无法独立激活，以及全新安装时常驻模块未加载的问题
+- 为搜索健康统计增加站点级写入限流、每日词项上限、溢出聚合和存储体积压缩，避免公开流量造成无界增长
+- 将 ECharts 升级到 6.1.0，并在 CI 中加入生产依赖审计
 
 ### 3.2.0 — 2026-07-18
 

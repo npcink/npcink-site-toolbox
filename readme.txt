@@ -5,7 +5,7 @@ Tags: toolbox, optimization, security, performance
 Requires at least: 6.3
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 3.2.0
+Stable tag: 3.3.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -13,7 +13,7 @@ An opt-in toolbox for WordPress site settings, media, SEO, security, China-focus
 
 == Description ==
 
-Npcink Site Toolbox is a utility plugin for WordPress site owners. Version 3.2.0 provides 55 opt-in modules, three editor patterns, and two dynamic blocks. Features cover site and media settings, content and SEO, login and comment safeguards, China-focused integrations, diagnostics, and maintenance.
+Npcink Site Toolbox is a utility plugin for WordPress site owners. Version 3.3.0 provides 57 registered modules: 56 opt-in modules and one always-loaded runtime module, plus three editor patterns and two dynamic blocks. Features cover site and media settings, content and SEO, login and comment safeguards, China-focused integrations, diagnostics, and maintenance.
 
 = Current features =
 
@@ -54,7 +54,7 @@ No. Features that depend on theme markup are identified in the admin interface. 
 
 = What happens on uninstall? =
 
-Deactivate and delete the plugin. Its uninstall routine removes the options created by the plugin.
+Deactivate and delete the plugin. Its uninstall routine removes plugin options, scheduled tasks, temporary caches, comment moderation markers, and runtime-only attachment markers. It does not delete or rewrite media files, remote object-storage objects, posts, comments, or terms. WebP recovery metadata is retained so an already converted attachment does not lose the information needed to restore its original JPEG; restore converted media before uninstalling if you want the plugin to perform that rollback.
 
 = Is it translation-ready? =
 
@@ -115,6 +115,15 @@ The generated files are written to `vite/admin/dist/` and `vite/count/dist/`.
 The site-statistics and GitHub project block editor scripts are shipped as readable source in `blocks/site-stats/index.js` and `blocks/github-project/index.js`; they have no separate build step.
 
 == Changelog ==
+
+= 3.3.0 =
+* Release date: 2026-08-13.
+* Added read-only DeepSeek diagnostics through the WordPress AI Client, with allowlisted previews, five analysis modes, and up to three temporary follow-up turns under the same facts.
+* Added an opt-in authenticated self-service comment REST API and browser fallback page; users can manage only their own comments with WordPress application passwords.
+* Hardened WordPress.org packaging, portable ZIP verification, Plugin Check evidence, and documentation-link governance.
+* Fixed activation through secondary switches in compound modules and loading of always-on modules on fresh installations.
+* Bounded search-health write rate, daily unique terms, overflow aggregation, and serialized storage size.
+* Upgraded ECharts and zrender to 6.1.0 and added production dependency auditing to CI.
 
 = 3.2.0 =
 * Release date: 2026-07-18.
@@ -220,6 +229,9 @@ The site-statistics and GitHub project block editor scripts are shipped as reada
 * Vite 构建工具迁移
 
 == Upgrade Notice ==
+
+= 3.3.0 =
+Adds opt-in read-only AI diagnostics and authenticated self-service comment tools, fixes module activation contracts, bounds search-statistics storage, and strengthens release security gates. Review the documented external-service and HTTPS requirements before enabling the new features.
 
 = 3.2.0 =
 Requires WordPress 6.3 or later and adds editor-native patterns, a live site-statistics block, and a GitHub project block.
