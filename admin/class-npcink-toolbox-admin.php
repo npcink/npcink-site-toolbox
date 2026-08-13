@@ -161,7 +161,10 @@ class Npcink_Toolbox_Admin
             : self::$version;
 
         wp_enqueue_style($name, $index_css, array(), $index_css_version, false);
-        wp_enqueue_script($name, $index_js, array(), $index_js_version, true);
+        wp_enqueue_script($name, $index_js, array('wp-i18n'), $index_js_version, true);
+        if (function_exists('wp_set_script_translations')) {
+            wp_set_script_translations($name, 'npcink-site-toolbox', plugin_dir_path(__DIR__) . 'languages');
+        }
 
         $npcink_site_toolbox_array = array(
             'cat_arr' => self::get_cat_data(),

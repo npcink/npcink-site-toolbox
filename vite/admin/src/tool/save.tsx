@@ -5,6 +5,7 @@ import { diffConfig, diffSecretChanges } from "@/tool/diff";
 import { loadDiffModal } from "@/tool/diffModalLoader";
 import { ConfigDiffItem } from "@/tool/interface";
 import { notice } from "@/tool/notice";
+import { t } from "@/tool/i18n";
 
 type DiffModalComponent = Awaited<ReturnType<typeof loadDiffModal>>["default"];
 
@@ -50,17 +51,17 @@ const App: React.FC = () => {
       clearSecretChanges();
       await refreshOption();
       setSaveFeedback(null);
-      notice.success(response.message || "保存成功");
+      notice.success(response.message || t("保存成功"));
     } catch (error) {
       if (saved) {
         setSaveFeedback({
           kind: "warning",
-          message: "设置已保存，但重新读取失败；保存功能已禁用，请重新读取后继续",
+          message: t("设置已保存，但重新读取失败；保存功能已禁用，请重新读取后继续"),
         });
       } else {
         setSaveFeedback({
           kind: "error",
-          message: error instanceof Error && error.message ? error.message : "保存失败，请重试",
+          message: error instanceof Error && error.message ? error.message : t("保存失败，请重试"),
         });
       }
     } finally {
@@ -86,7 +87,7 @@ const App: React.FC = () => {
     } catch {
       setSaveFeedback({
         kind: "error",
-        message: "保存确认界面加载失败，请重试",
+        message: t("保存确认界面加载失败，请重试"),
       });
     } finally {
       setPreparingConfirmation(false);
@@ -101,27 +102,27 @@ const App: React.FC = () => {
     });
   };
 
-  let statusText = "已保存";
-  let buttonText = "保存";
+  let statusText = t("已保存");
+  let buttonText = t("保存");
   let statusKind = "saved";
 
   if (saving) {
-    statusText = "正在保存…";
-    buttonText = "正在保存…";
+    statusText = t("正在保存…");
+    buttonText = t("正在保存…");
     statusKind = "saving";
   } else if (preparingConfirmation) {
-    statusText = "正在准备确认…";
-    buttonText = "正在准备…";
+    statusText = t("正在准备确认…");
+    buttonText = t("正在准备…");
     statusKind = "loading";
   } else if (settingsState === "loading") {
-    statusText = "正在读取设置…";
+    statusText = t("正在读取设置…");
     statusKind = "loading";
   } else if (settingsState === "error") {
-    statusText = "设置不可用";
+    statusText = t("设置不可用");
     statusKind = "error";
   } else if (changeCount > 0) {
-    statusText = `${changeCount} 项待保存`;
-    buttonText = "查看并保存";
+    statusText = `${changeCount} ${t("项待保存")}`;
+    buttonText = t("查看并保存");
     statusKind = "pending";
   }
 

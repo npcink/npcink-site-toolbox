@@ -27,6 +27,7 @@ export type { StatusType };
 
 interface StatusTagProps {
   status: StatusType;
+  label?: string;
   className?: string;
 }
 
@@ -53,14 +54,14 @@ const statusColorMap: Record<StatusType, string> = {
   "待复核": "orange",
 };
 
-const StatusTag: React.FC<StatusTagProps> = ({ status, className }) => {
+const StatusTag: React.FC<StatusTagProps> = ({ status, label, className }) => {
   return (
     <Tag
       color={statusColorMap[status] || "default"}
       className={className}
       style={{ margin: 0, fontSize: 11 }}
     >
-      {status}
+      {label || status}
     </Tag>
   );
 };
