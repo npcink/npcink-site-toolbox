@@ -14,6 +14,7 @@ import {
   SecretStatus,
   SettingsResponse,
 } from "@/tool/interface";
+import { __, sprintf } from "@/tool/i18n";
 
 const state: boolean = import.meta.env.VITE_STATE;
 
@@ -60,14 +61,14 @@ function isRecord(value: unknown): value is Record<string, unknown> {
 
 export function parseSettingsResponse(value: unknown): SettingsResponse {
   if (!isRecord(value) || value.success !== true || !isRecord(value.data)) {
-    throw new Error("设置接口返回格式无效");
+    throw new Error(__("设置接口返回格式无效"));
   }
 
   if (!isRecord(value.secretStatus)) {
-    throw new Error("设置接口缺少凭据状态");
+    throw new Error(__("设置接口缺少凭据状态"));
   }
   if (typeof value.revision !== "string" || !/^[a-f0-9]{64}$/.test(value.revision)) {
-    throw new Error("设置接口缺少有效配置版本");
+    throw new Error(__("设置接口缺少有效配置版本"));
   }
 
   assertValidOption(value.data);
@@ -76,7 +77,7 @@ export function parseSettingsResponse(value: unknown): SettingsResponse {
   for (const path of SECRET_PATHS) {
     const entry = value.secretStatus[path];
     if (!isRecord(entry) || typeof entry.configured !== "boolean") {
-      throw new Error(`设置接口的凭据状态无效：${path}`);
+      throw new Error(sprintf(__("设置接口的凭据状态无效：%s"), path));
     }
     secretStatus[path] = { configured: entry.configured };
   }

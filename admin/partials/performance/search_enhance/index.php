@@ -28,7 +28,10 @@ if (!class_exists('Npcink_Toolbox_Performance_Search_Enhance')) {
             $tags = get_tags(array('orderby' => 'count', 'order' => 'DESC', 'number' => 5));
             if (empty($tags)) return;
             echo '<div class="mabox-search-recommend" style="margin:30px 0;text-align:center;">';
-            echo '<h3 style="margin-bottom:15px;">未找到相关内容，试试这些热门标签：</h3>';
+            printf(
+                '<h3 style="margin-bottom:15px;">%s</h3>',
+                esc_html__('未找到相关内容，试试这些热门标签：', 'npcink-site-toolbox')
+            );
             echo '<div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center;">';
             foreach ($tags as $tag) {
                 echo '<a href="' . esc_url(get_tag_link($tag->term_id)) . '" style="display:inline-block;padding:8px 16px;background:#f0f0f0;border-radius:20px;text-decoration:none;color:#333;">' . esc_html($tag->name) . '</a>';

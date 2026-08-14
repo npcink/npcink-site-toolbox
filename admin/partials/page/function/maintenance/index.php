@@ -33,7 +33,7 @@ $npcink_site_toolbox_countdown_title = Npcink_Toolbox_Admin::get_config($npcink_
 //标题默认值
 // $npcink_site_toolbox_countdown_title = isset($npcink_site_toolbox_countdown_title) && !empty($npcink_site_toolbox_countdown_title) ? $npcink_site_toolbox_countdown_title : "升级维护中";
 if (isset($npcink_site_toolbox_countdown_title) && empty($npcink_site_toolbox_countdown_title)) {
-    $npcink_site_toolbox_countdown_title = '升级维护中';
+    $npcink_site_toolbox_countdown_title = __('升级维护中', 'npcink-site-toolbox');
 }
 
 //网页标题
@@ -47,10 +47,9 @@ $npcink_site_toolbox_countdown_content = html_entity_decode($npcink_site_toolbox
 
 //内容默认值
 if (empty($npcink_site_toolbox_countdown_content)) {
-    $npcink_site_toolbox_countdown_content = '
-    <h5> 抱歉，我们的网站正在维护中...</h5> 
-    <p> 
-    请倒计时结束后再回来，我们准备了全新的内容哦！
-    </p>
-    ';
+    $npcink_site_toolbox_countdown_content = sprintf(
+        '<h5>%1$s</h5><p>%2$s</p>',
+        esc_html__('抱歉，我们的网站正在维护中。', 'npcink-site-toolbox'),
+        esc_html__('请在倒计时结束后再回来，我们正在准备新的内容。', 'npcink-site-toolbox')
+    );
 }

@@ -43,7 +43,7 @@ final class MiscOutputComplianceTest extends TestCase
         $this->assertStringContainsString('wp_kses_post($output)', $compliance);
 
         $comment_security = $this->source('domestic/comment_security/index.php');
-        $this->assertStringContainsString("'评论过于频繁，请 ' . esc_html(\$window) . ' 秒后再试。'", $comment_security);
+        $this->assertStringContainsString("__('评论过于频繁，请 %d 秒后再试。', 'npcink-site-toolbox')", $comment_security);
     }
 
     public function test_census_setting_registers_its_real_sanitizer(): void

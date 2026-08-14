@@ -38,7 +38,15 @@ if (!class_exists('Npcink_Toolbox_Maintenance_Tips')) {
 
                 switch (self::$configs) {
                     case "default":
-                        wp_die(esc_html(self::$blogname) . ' 升级维护中，过一会再来吧！');
+                        wp_die(
+                            esc_html(
+                                sprintf(
+                                    /* translators: %s: Site name. */
+                                    __('%s 正在升级维护，请稍后再来。', 'npcink-site-toolbox'),
+                                    self::$blogname
+                                )
+                            )
+                        );
                         break;
                     case "default_img":
                         include(self::$path . 'default/index.php');

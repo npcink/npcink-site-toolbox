@@ -1,5 +1,6 @@
 import { defaultVarOption } from "@/tool/defaultVar";
 import { Option, SECRET_PATHS } from "@/tool/interface";
+import { __, sprintf } from "@/tool/i18n";
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
@@ -23,34 +24,34 @@ function assertExactKeys(
 
   for (const key of expectedKeys) {
     if (!Object.prototype.hasOwnProperty.call(value, key)) {
-      throw new Error(`设置缺少字段：${path ? `${path}.` : ""}${key}`);
+      throw new Error(sprintf(__("设置缺少字段：%s"), `${path ? `${path}.` : ""}${key}`));
     }
   }
   for (const key of actualKeys) {
     if (!Object.prototype.hasOwnProperty.call(expected, key)) {
-      throw new Error(`设置包含未知字段：${path ? `${path}.` : ""}${key}`);
+      throw new Error(sprintf(__("设置包含未知字段：%s"), `${path ? `${path}.` : ""}${key}`));
     }
   }
 }
 
 function assertArrayValue(value: unknown, path: string): void {
   if (!Array.isArray(value)) {
-    throw new Error(`设置字段类型错误：${path}`);
+    throw new Error(sprintf(__("设置字段类型错误：%s"), path));
   }
 
   if (STRING_ARRAY_PATHS.has(path)) {
     if (!value.every((item) => typeof item === "string")) {
-      throw new Error(`设置字段类型错误：${path}`);
+      throw new Error(sprintf(__("设置字段类型错误：%s"), path));
     }
     return;
   }
   if (NUMBER_ARRAY_PATHS.has(path)) {
     if (!value.every((item) => typeof item === "number" && Number.isFinite(item))) {
-      throw new Error(`设置字段类型错误：${path}`);
+      throw new Error(sprintf(__("设置字段类型错误：%s"), path));
     }
     return;
   }
-  throw new Error(`未定义的设置数组契约：${path}`);
+  throw new Error(sprintf(__("未定义的设置数组契约：%s"), path));
 }
 
 function assertValueMatchesTemplate(value: unknown, template: unknown, path: string): void {
@@ -60,7 +61,7 @@ function assertValueMatchesTemplate(value: unknown, template: unknown, path: str
   }
   if (isRecord(template)) {
     if (!isRecord(value)) {
-      throw new Error(`设置字段类型错误：${path || "settings"}`);
+      throw new Error(sprintf(__("设置字段类型错误：%s"), path || "settings"));
     }
     assertExactKeys(value, template, path);
     Object.keys(template).forEach((key) => {
@@ -75,12 +76,12 @@ function assertValueMatchesTemplate(value: unknown, template: unknown, path: str
 
   if (typeof template === "number") {
     if (typeof value !== "number" || !Number.isFinite(value)) {
-      throw new Error(`设置字段类型错误：${path}`);
+      throw new Error(sprintf(__("设置字段类型错误：%s"), path));
     }
     return;
   }
   if (typeof value !== typeof template) {
-    throw new Error(`设置字段类型错误：${path}`);
+    throw new Error(sprintf(__("设置字段类型错误：%s"), path));
   }
 }
 
@@ -93,7 +94,7 @@ function assertContainsNoSecretKeys(value: Record<string, unknown>): void {
         break;
       }
       if (index === parts.length - 1) {
-        throw new Error(`设置数据包含敏感字段：${path}`);
+        throw new Error(sprintf(__("设置数据包含敏感字段：%s"), path));
       }
       current = current[parts[index]];
     }
@@ -102,7 +103,7 @@ function assertContainsNoSecretKeys(value: Record<string, unknown>): void {
 
 export function assertValidOption(value: unknown): asserts value is Option {
   if (!isRecord(value)) {
-    throw new Error("设置数据格式无效");
+    throw new Error(__("设置数据格式无效"));
   }
 
   assertContainsNoSecretKeys(value);

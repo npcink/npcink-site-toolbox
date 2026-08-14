@@ -1,4 +1,5 @@
 import { restInstance } from "@/axios/public";
+import { __ } from "@/tool/i18n";
 
 export interface CategoryOption {
   label: string;
@@ -38,7 +39,7 @@ export const getCategoryData = async (): Promise<CategoryData> => {
   );
 
   if (response.success !== true || !isCategoryData(response.data)) {
-    throw new Error("分类数据格式无效");
+    throw new Error(__("分类数据格式无效"));
   }
 
   return response.data;

@@ -174,8 +174,9 @@ if (!class_exists('Npcink_Toolbox_Privacy')) {
             ?>
             <div class="notice notice-info is-dismissible">
                 <p>
-                    <strong>Npcink Site Toolbox</strong> 隐私提示：本插件只会在管理员明确启用或主动触发相关功能后连接已披露的外部服务。
-                    <a href="<?php echo esc_url(admin_url('plugins.php?page=npcink-site-toolbox')); ?>">查看完整隐私说明 →</a>
+                    <strong>Npcink Site Toolbox</strong>
+                    <?php esc_html_e('隐私提示：本插件只会在管理员明确启用或主动触发相关功能后连接已披露的外部服务。', 'npcink-site-toolbox'); ?>
+                    <a href="<?php echo esc_url(admin_url('plugins.php?page=npcink-site-toolbox')); ?>"><?php esc_html_e('查看完整隐私说明 →', 'npcink-site-toolbox'); ?></a>
                 </p>
             </div>
             <?php
@@ -187,16 +188,29 @@ if (!class_exists('Npcink_Toolbox_Privacy')) {
         public static function get_privacy_data()
         {
             return array(
-                'services'       => self::$external_services,
-                'opt_in_services' => self::get_opt_in_services(),
+                'services'       => self::translate_tree(self::$external_services),
+                'opt_in_services' => self::translate_tree(self::get_opt_in_services()),
                 'privacy_policy' => array(
-                    'data_collection' => '本插件默认不收集用户个人身份信息。所有配置数据存储在 WordPress 数据库内。',
-                    'third_party'     => '部分功能需要连接第三方服务，具体触发条件、数据流向及服务条款见上方服务列表。',
-                    'user_consent'    => '所有列出的出站连接都需要管理员明确启用相关功能或主动运行检测；插件默认不向开发者发送遥测。',
-                    'api_keys'        => '已保存凭据存储在 WordPress 数据库中，仅在管理员启用对应功能或主动运行对象存储连接测试时用于服务端鉴权请求；未保存的对象存储凭据草稿只用于当次测试。插件不会把凭据发送给开发者。',
-                    'uninstall'       => '卸载会清理插件设置、计划任务、临时缓存、评论拦截标记及纯运行态附件标记，但不会删除或改写媒体文件、文章、评论、分类或远端对象。已转换附件的 WebP 恢复记录会保留，避免失去恢复原 JPEG 所需的信息；如需由插件执行恢复，请在卸载前完成。',
+                    'data_collection' => __('本插件默认不收集用户个人身份信息。所有配置数据存储在 WordPress 数据库内。', 'npcink-site-toolbox'),
+                    'third_party'     => __('部分功能需要连接第三方服务，具体触发条件、数据流向及服务条款见上方服务列表。', 'npcink-site-toolbox'),
+                    'user_consent'    => __('所有列出的出站连接都需要管理员明确启用相关功能或主动运行检测；插件默认不向开发者发送遥测。', 'npcink-site-toolbox'),
+                    'api_keys'        => __('已保存凭据存储在 WordPress 数据库中，仅在管理员启用对应功能或主动运行对象存储连接测试时用于服务端鉴权请求；未保存的对象存储凭据草稿只用于当次测试。插件不会把凭据发送给开发者。', 'npcink-site-toolbox'),
+                    'uninstall'       => __('卸载会清理插件设置、计划任务、临时缓存、评论拦截标记及纯运行态附件标记，但不会删除或改写媒体文件、文章、评论、分类或远端对象。已转换附件的 WebP 恢复记录会保留，避免失去恢复原 JPEG 所需的信息；如需由插件执行恢复，请在卸载前完成。', 'npcink-site-toolbox'),
                 ),
             );
+        }
+
+        private static function translate_tree($value)
+        {
+            if (is_array($value)) {
+                foreach ($value as $key => $item) {
+                    $value[$key] = self::translate_tree($item);
+                }
+                return $value;
+            }
+            return is_string($value) && $value !== '' && preg_match('/[\x{4e00}-\x{9fff}]/u', $value)
+                ? __($value, 'npcink-site-toolbox')
+                : $value;
         }
     }
 }

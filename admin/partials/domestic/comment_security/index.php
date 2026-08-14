@@ -33,7 +33,11 @@ if (!class_exists('Npcink_Toolbox_Domestic_Comment_Security')) {
                 if (stripos($text, $word) !== false) {
                     $action = !empty(self::$config['blacklist_action']) ? self::$config['blacklist_action'] : 'block';
                     if ($action === 'block') {
-                        wp_die('评论包含敏感词，已被拦截。', '评论拦截', array('response' => 403));
+                        wp_die(
+                            esc_html__('评论包含敏感词，已被拦截。', 'npcink-site-toolbox'),
+                            esc_html__('评论拦截', 'npcink-site-toolbox'),
+                            array('response' => 403)
+                        );
                     } else {
                         $commentdata['comment_approved'] = 0;
                         add_comment_meta($commentdata['comment_ID'] ?? 0, '_npcink_site_toolbox_block_reason', '敏感词: ' . $word);
@@ -59,7 +63,11 @@ if (!class_exists('Npcink_Toolbox_Domestic_Comment_Security')) {
             $name = $commentdata['comment_author'];
             foreach ($words as $word) {
                 if (stripos($name, $word) !== false) {
-                    wp_die('昵称包含不允许的词汇。', '昵称拦截', array('response' => 403));
+                    wp_die(
+                        esc_html__('昵称包含不允许的词汇。', 'npcink-site-toolbox'),
+                        esc_html__('昵称拦截', 'npcink-site-toolbox'),
+                        array('response' => 403)
+                    );
                 }
             }
             return $commentdata;
@@ -71,7 +79,11 @@ if (!class_exists('Npcink_Toolbox_Domestic_Comment_Security')) {
             $domain = substr(strrchr($email, '@'), 1);
             foreach ($domains as $d) {
                 if (stripos($domain, trim($d)) !== false) {
-                    wp_die('该邮箱域名不允许评论。', '邮箱拦截', array('response' => 403));
+                    wp_die(
+                        esc_html__('该邮箱域名不允许评论。', 'npcink-site-toolbox'),
+                        esc_html__('邮箱拦截', 'npcink-site-toolbox'),
+                        array('response' => 403)
+                    );
                 }
             }
             return $commentdata;
@@ -87,7 +99,11 @@ if (!class_exists('Npcink_Toolbox_Domestic_Comment_Security')) {
                 $content
             ));
             if ($existing) {
-                wp_die('请勿重复提交相同评论。', '重复拦截', array('response' => 403));
+                wp_die(
+                    esc_html__('请勿重复提交相同评论。', 'npcink-site-toolbox'),
+                    esc_html__('重复拦截', 'npcink-site-toolbox'),
+                    array('response' => 403)
+                );
             }
             return $commentdata;
         }
@@ -100,7 +116,17 @@ if (!class_exists('Npcink_Toolbox_Domestic_Comment_Security')) {
             if ($count === false) $count = 0;
             $count++;
             if ($count > $limit) {
-                wp_die('评论过于频繁，请 ' . esc_html($window) . ' 秒后再试。', '频率限制', array('response' => 429));
+                wp_die(
+                    esc_html(
+                        sprintf(
+                            /* translators: %d: Number of seconds before another comment can be submitted. */
+                            __('评论过于频繁，请 %d 秒后再试。', 'npcink-site-toolbox'),
+                            $window
+                        )
+                    ),
+                    esc_html__('频率限制', 'npcink-site-toolbox'),
+                    array('response' => 429)
+                );
             }
             set_transient($key, $count, $window);
             return $commentdata;

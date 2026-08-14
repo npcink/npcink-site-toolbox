@@ -14,7 +14,6 @@ fail() {
 command -v php >/dev/null 2>&1 || fail 'required command not found: php'
 command -v wp >/dev/null 2>&1 || fail 'required command not found: wp'
 command -v xgettext >/dev/null 2>&1 || fail 'required command not found: xgettext (GNU gettext)'
-command -v rg >/dev/null 2>&1 || fail 'required command not found: rg (ripgrep)'
 
 mkdir -p -- "$(dirname -- "$POT_PATH")"
 
@@ -27,13 +26,24 @@ trap cleanup EXIT HUP INT TERM
 javascript_pot="$temporary_root/admin-javascript.pot"
 ( 
   cd -- "$PROJECT_ROOT"
-  rg --null --files-with-matches 'import \{[^}]*\b__\b[^}]*\} from "@/tool/i18n"' vite/admin/src -g '*.ts' -g '*.tsx' -g '!*.test.ts' -g '!*.test.tsx' \
-    | xargs -0 xgettext \
+  php "$PROJECT_ROOT/bin/export-i18n-metadata.php" \
+    | xgettext \
       --language=JavaScript \
       --keyword=__ \
       --from-code=UTF-8 \
       --package-name='Npcink Site Toolbox' \
-      --output="$javascript_pot"
+      --output="$javascript_pot" \
+      -
+
+  xgettext \
+    --language=JavaScript \
+    --keyword=__ \
+    --from-code=UTF-8 \
+    --package-name='Npcink Site Toolbox' \
+    --join-existing \
+    --output="$javascript_pot" \
+    admin/partials/page/function/maintenance/countdown/main.js
+
 )
 
 php \

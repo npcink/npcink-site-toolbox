@@ -5,6 +5,7 @@ import { FunctionSeo, FunctionAuxiliary } from "@/tool/interface";
 import { defaultVarOption } from "@/tool/defaultVar";
 import { AntConfig } from "@/tool/tool";
 import { ModuleCard, DetailDrawer, ModuleRow } from "@/components/settings-ui";
+import { __ } from "@/tool/i18n";
 
 const fromConfig = AntConfig.from;
 
@@ -17,8 +18,8 @@ const SiteInput = (props: any) => {
   return (
     <div>
       <Space.Compact style={{ width: "100%" }}>
-        <Input {...props} placeholder="自动处理代码" />
-        <Button onClick={handleReset}>清空</Button>
+        <Input {...props} placeholder={__("自动处理代码")} />
+        <Button onClick={handleReset}>{__("清空")}</Button>
       </Space.Compact>
     </div>
   );
@@ -41,20 +42,20 @@ const SeoCard: React.FC<{ drawerOpen?: boolean; onDrawerOpenChange?: (open: bool
   return (
     <>
       <ModuleCard
-        title="简单 SEO"
-        description="基础 SEO 设置，推荐使用专业 SEO 插件替代"
+        title={__("简单 SEO")}
+        description={__("基础 SEO 设置，推荐使用专业 SEO 插件替代")}
         featureId="function-seo-seo_single"
         tags={["SEO"]}
         switchable={false}
-        actionLabel="配置"
+        actionLabel={__("配置")}
         onAction={() => setDrawerOpen(true)}
         aliases={["function-seo-seo_home", "function-seo-seo_category", "function-seo-title", "function-seo-keywords", "function-seo-description"]}
       />
       <DetailDrawer
-        title="SEO 配置"
+        title={__("SEO 配置")}
         visible={drawerOpen}
         onClose={() => setDrawerOpen(false)}
-        description="简单 SEO 设置，仅解决有无问题"
+        description={__("简单 SEO 设置，仅解决有无问题")}
       >
         <Form
           labelCol={fromConfig.labelCol}
@@ -64,23 +65,23 @@ const SeoCard: React.FC<{ drawerOpen?: boolean; onDrawerOpenChange?: (open: bool
           onValuesChange={onValuesChange}
         >
           <ModuleRow
-            title="文章 SEO"
+            title={__("文章 SEO")}
             featureId="function-seo-seo_single"
             enabled={!!formData.seo_single}
             onChange={(checked: boolean) => onValuesChange({ seo_single: checked })}
           />
-          <Form.Item label="标题" name="title" extra="站点标题">
+          <Form.Item label={__("标题")} name="title" extra={__("站点标题")}>
             <Input />
           </Form.Item>
-          <Form.Item label="关键词" name="keywords" extra="用英文逗号分隔，建议不超过6个词">
+          <Form.Item label={__("关键词")} name="keywords" extra={__("用英文逗号分隔，建议不超过6个词")}>
             <Input />
           </Form.Item>
-          <Form.Item label="描述" name="description" extra="建议240字以内">
+          <Form.Item label={__("描述")} name="description" extra={__("建议240字以内")}>
             <Input.TextArea rows={4} />
           </Form.Item>
           <ModuleRow
-            title="分类和标签 SEO"
-            description="分类名称作标题、分类关键词和描述作 Meta，标签描述作 Meta"
+            title={__("分类和标签 SEO")}
+            description={__("分类名称作标题、分类关键词和描述作 Meta，标签描述作 Meta")}
             featureId="function-seo-seo_category"
             enabled={!!formData.seo_category}
             onChange={(checked: boolean) => onValuesChange({ seo_category: checked })}
@@ -131,7 +132,7 @@ const AuxiliaryCard: React.FC<{ drawerOpen?: boolean; onDrawerOpenChange?: (open
       setVerificationError("baidu_tonji");
       return match[1];
     }
-    setVerificationError("baidu_tonji", "未识别统计 ID，请粘贴百度统计平台提供的完整代码。");
+    setVerificationError("baidu_tonji", __("未识别统计 ID，请粘贴百度统计平台提供的完整代码。"));
     return "";
   };
 
@@ -147,7 +148,7 @@ const AuxiliaryCard: React.FC<{ drawerOpen?: boolean; onDrawerOpenChange?: (open
       setVerificationError("google_tonji");
       return match[1];
     }
-    setVerificationError("google_tonji", "未识别验证码，请粘贴 Google Search Console 提供的完整 HTML 标记。");
+    setVerificationError("google_tonji", __("未识别验证码，请粘贴 Google Search Console 提供的完整 HTML 标记。"));
     return "";
   };
 
@@ -163,23 +164,23 @@ const AuxiliaryCard: React.FC<{ drawerOpen?: boolean; onDrawerOpenChange?: (open
       setVerificationError("biying_tonji");
       return match[1];
     }
-    setVerificationError("biying_tonji", "未识别验证码，请粘贴 Bing Webmaster Tools 提供的完整 HTML Meta 标记。");
+    setVerificationError("biying_tonji", __("未识别验证码，请粘贴 Bing Webmaster Tools 提供的完整 HTML Meta 标记。"));
     return "";
   };
 
   return (
     <>
       <ModuleCard
-        title="辅助功能"
-        description="文章统计、恶意搜索屏蔽、站点验证"
+        title={__("辅助功能")}
+        description={__("文章统计、恶意搜索屏蔽、站点验证")}
         featureId="function-auxiliary-single_count"
         switchable={false}
-        actionLabel="配置"
+        actionLabel={__("配置")}
         onAction={() => setDrawerOpen(true)}
         aliases={["function-auxiliary-no_malice_key", "function-auxiliary-baidu_tonji", "function-auxiliary-google_tonji", "function-auxiliary-biying_tonji"]}
       />
       <DetailDrawer
-        title="辅助功能配置"
+        title={__("辅助功能配置")}
         visible={drawerOpen}
         onClose={() => setDrawerOpen(false)}
       >
@@ -191,22 +192,22 @@ const AuxiliaryCard: React.FC<{ drawerOpen?: boolean; onDrawerOpenChange?: (open
           onValuesChange={onValuesChange}
         >
           <ModuleRow
-            title="文章访问统计"
+            title={__("文章访问统计")}
             featureId="function-auxiliary-single_count"
             enabled={!!formData.single_count}
             onChange={(checked: boolean) => onValuesChange({ single_count: checked })}
           />
           <ModuleRow
-            title="屏蔽恶意关键词搜索"
+            title={__("屏蔽恶意关键词搜索")}
             featureId="function-auxiliary-no_malice_key"
             enabled={!!formData.no_malice_key}
             onChange={(checked: boolean) => onValuesChange({ no_malice_key: checked })}
           />
-          <Form.Item label="恶意关键词" name="malice_keu_content" extra="一行一个">
-            <Input.TextArea rows={4} placeholder="一行一个" />
+          <Form.Item label={__("恶意关键词")} name="malice_keu_content" extra={__("一行一个")}>
+            <Input.TextArea rows={4} placeholder={__("一行一个")} />
           </Form.Item>
           <Form.Item
-            label="百度统计"
+            label={__("百度统计")}
             name="baidu_tonji"
             getValueFromEvent={handleValueChange}
             validateStatus={verificationErrors.baidu_tonji ? "error" : undefined}
@@ -216,7 +217,7 @@ const AuxiliaryCard: React.FC<{ drawerOpen?: boolean; onDrawerOpenChange?: (open
             <SiteInput />
           </Form.Item>
           <Form.Item
-            label="Google 站点验证"
+            label={__("Google 站点验证")}
             name="google_tonji"
             getValueFromEvent={extract_google}
             validateStatus={verificationErrors.google_tonji ? "error" : undefined}
@@ -226,7 +227,7 @@ const AuxiliaryCard: React.FC<{ drawerOpen?: boolean; onDrawerOpenChange?: (open
             <SiteInput />
           </Form.Item>
           <Form.Item
-            label="Bing 站点验证"
+            label={__("Bing 站点验证")}
             name="biying_tonji"
             getValueFromEvent={extract_biying}
             validateStatus={verificationErrors.biying_tonji ? "error" : undefined}

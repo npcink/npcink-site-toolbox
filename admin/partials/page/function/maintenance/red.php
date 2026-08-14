@@ -23,10 +23,17 @@ if ('' !== $npcink_site_toolbox_countdown) {
     wp_enqueue_script(
         'mabox-maintenance-countdown-script',
         $npcink_site_toolbox_file_url . 'countdown/main.js',
-        array(),
+        array('wp-i18n'),
         NPCINK_SITE_TOOLBOX_VERSION,
         false
     );
+    if (function_exists('wp_set_script_translations')) {
+        wp_set_script_translations(
+            'mabox-maintenance-countdown-script',
+            'npcink-site-toolbox',
+            dirname(__DIR__, 5) . '/languages'
+        );
+    }
     wp_add_inline_script(
         'mabox-maintenance-countdown-script',
         'var targetDate = new Date(' . wp_json_encode($npcink_site_toolbox_countdown) . ');',

@@ -1,4 +1,5 @@
 import type { FormProps } from "antd";
+import { __ } from "@/tool/i18n";
 
 type LabelCol = NonNullable<FormProps["labelCol"]>;
 
@@ -25,5 +26,5 @@ export const validateLink = (_: any, value: string) => {
   if (!value || value.match(urlPattern)) {
     return Promise.resolve();
   }
-  return Promise.reject("请输入有效的链接 URL");
+  return Promise.reject(__("请输入有效的链接 URL"));
 };

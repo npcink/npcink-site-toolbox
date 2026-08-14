@@ -1,4 +1,5 @@
 import settingsContract from "@/generated/settings-contract.json";
+import { __ } from "@/tool/i18n";
 import { fetchUiSchema, getUiSchemaSync } from "@/tool/uiSchema";
 import type { UiSchemaEntry } from "@/tool/interface";
 
@@ -13,7 +14,15 @@ export interface SearchItem {
   aliases?: string[];
 }
 
-export const searchIndex: SearchItem[] = settingsContract.searchIndex;
+export const searchIndex: SearchItem[] = settingsContract.searchIndex.map((item) => ({
+  ...item,
+  label: __(item.label),
+  tabLabel: __(item.tabLabel),
+  section: item.section ? __(item.section) : item.section,
+  keywords: item.keywords?.map((keyword) => __(keyword)),
+  tags: item.tags?.map((tag) => __(tag)),
+  aliases: item.aliases?.map((alias) => __(alias)),
+}));
 export const baseFeatureIndex = searchIndex;
 
 type FeatureRiskLevel = "none" | "low" | "high";

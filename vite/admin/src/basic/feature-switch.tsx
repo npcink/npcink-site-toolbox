@@ -4,6 +4,7 @@ import type { SwitchProps } from "antd";
 import { StarOutlined, StarFilled } from "@ant-design/icons";
 import { isFavorite, toggleFavorite } from "@/tool/favorites";
 import { checkRiskyFeature } from "@/tool/riskyFeature";
+import { __ } from "@/tool/i18n";
 
 interface FeatureSwitchProps extends Omit<SwitchProps, "onChange"> {
   featureId: string;
@@ -43,18 +44,18 @@ const FeatureSwitch: React.FC<FeatureSwitchProps> = ({ featureId, label, onChang
       <span className="mabox-feature-switch-control" onClick={handleHitboxClick}>
         <Switch
           {...restProps}
-          aria-label={label}
+          aria-label={__(label)}
           checked={checked}
           onChange={handleChange}
         />
       </span>
       <button
         type="button"
-        aria-label={`${favorited ? "取消收藏" : "加入常用功能"}：${label}`}
+        aria-label={`${favorited ? __("取消收藏") : __("加入常用功能")}：${__(label)}`}
         aria-pressed={favorited}
         className="mabox-favorite-action"
         onClick={handleFavoriteClick}
-        title={favorited ? "从常用功能中移除" : "加入常用功能"}
+        title={favorited ? __("从常用功能中移除") : __("加入常用功能")}
       >
         {favorited
           ? <StarFilled aria-hidden="true" />

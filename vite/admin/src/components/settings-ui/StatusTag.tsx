@@ -1,5 +1,6 @@
 import React from "react";
 import { Tag } from "antd";
+import { __ } from "@/tool/i18n";
 
 type StatusType =
   | "推荐"
@@ -61,7 +62,7 @@ const StatusTag: React.FC<StatusTagProps> = ({ status, label, className }) => {
       className={className}
       style={{ margin: 0, fontSize: 11 }}
     >
-      {label || status}
+      {label || __(status)}
     </Tag>
   );
 };

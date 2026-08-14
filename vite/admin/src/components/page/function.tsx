@@ -12,6 +12,7 @@ import { PageFunction } from "@/tool/interface";
 import SelectImage from "@/basic/selectImage";
 import FixedImage from "@/basic/fixedImage";
 import { SettingsSection, ModuleRow } from "@/components/settings-ui";
+import { __ } from "@/tool/i18n";
 import "./function.css";
 
 type FieldType = PageFunction;
@@ -52,7 +53,7 @@ const App: React.FC = () => {
   };
 
   return (
-    <SettingsSection title="功能">
+    <SettingsSection title={__("功能")}>
       <Form
         form={form}
         name="function"
@@ -65,8 +66,8 @@ const App: React.FC = () => {
         onValuesChange={onValuesChange}
       >
         <ModuleRow
-          title="首图作特色图"
-          description="初次发布文章，未设置特色图时，自动将第一张图设为特色图"
+          title={__("首图作特色图")}
+          description={__("初次发布文章，未设置特色图时，自动将第一张图设为特色图")}
           featureId="page-function-first_picture"
           enabled={formData.first_picture as boolean}
           onChange={(checked: boolean) => {
@@ -74,8 +75,8 @@ const App: React.FC = () => {
           }}
         />
         <ModuleRow
-          title="文章内关键词添加内链"
-          description="文章内的内容与添加的标签相同，则添加对应标签的链接"
+          title={__("文章内关键词添加内链")}
+          description={__("文章内的内容与添加的标签相同，则添加对应标签的链接")}
           featureId="page-function-add_inks"
           enabled={formData.add_inks as boolean}
           onChange={(checked: boolean) => {
@@ -84,7 +85,7 @@ const App: React.FC = () => {
           onDetails={() => window.open("https://www.npc.ink/15286.html?=magick-mami", "_blank")}
         />
         <ModuleRow
-          title="未登录模糊文章内图片"
+          title={__("未登录模糊文章内图片")}
           featureId="page-function-no_login_img"
           enabled={formData.no_login_img as boolean}
           onChange={(checked: boolean) => {
@@ -92,8 +93,8 @@ const App: React.FC = () => {
           }}
         />
         <ModuleRow
-          title="添加最后更新时间"
-          description="文章末尾添加最后更新时间，文章发布24小时后再次修改，即可展示"
+          title={__("添加最后更新时间")}
+          description={__("文章末尾添加最后更新时间，文章发布24小时后再次修改，即可展示")}
           featureId="page-function-add_last_update"
           enabled={formData.add_last_update as boolean}
           onChange={(checked: boolean) => {
@@ -101,8 +102,8 @@ const App: React.FC = () => {
           }}
         />
         <ModuleRow
-          title="维护提示页"
-          description="临时关闭前台访问，管理员仍可正常访问"
+          title={__("维护提示页")}
+          description={__("临时关闭前台访问，管理员仍可正常访问")}
           featureId="page-function-maintenance_tips"
           enabled={maintenanceEnabled}
           onChange={setMaintenanceEnabled}
@@ -111,8 +112,8 @@ const App: React.FC = () => {
           <div className="mabox-maintenance-config">
             <section className="mabox-maintenance-section" aria-labelledby="mabox-maintenance-style-title">
               <div className="mabox-maintenance-section-heading">
-                <h3 id="mabox-maintenance-style-title">页面样式</h3>
-                <p>选择访客看到的维护提示样式。</p>
+                <h3 id="mabox-maintenance-style-title">{__("页面样式")}</h3>
+                <p>{__("选择访客看到的维护提示样式。")}</p>
               </div>
               <Form.Item<FieldType> name="maintenance_tips" noStyle>
                 <FixedImage alists={serviceList} includeDisabled={false} />
@@ -121,56 +122,56 @@ const App: React.FC = () => {
 
             <section className="mabox-maintenance-section" aria-labelledby="mabox-maintenance-schedule-title">
               <div className="mabox-maintenance-section-heading">
-                <h3 id="mabox-maintenance-schedule-title">显示计划</h3>
-                <p>可选；留空时启用后持续显示维护提示。</p>
+                <h3 id="mabox-maintenance-schedule-title">{__("显示计划")}</h3>
+                <p>{__("可选；留空时启用后持续显示维护提示。")}</p>
               </div>
               <div className="mabox-maintenance-field">
-                <span className="mabox-maintenance-field-label">显示时间（可选）</span>
+                <span className="mabox-maintenance-field-label">{__("显示时间（可选）")}</span>
                 <Form.Item name="countdown" noStyle>
                   <TimePeriod
-                    aria-label="维护提示显示时间"
+                    aria-label={__("维护提示显示时间")}
                     aria-describedby="mabox-maintenance-schedule-help"
                     className="mabox-maintenance-time-range"
                   />
                 </Form.Item>
                 <p id="mabox-maintenance-schedule-help" className="mabox-maintenance-field-help">
-                  只有在所选时间段内，访客才会看到维护提示。
+                  {__("只有在所选时间段内，访客才会看到维护提示。")}
                 </p>
               </div>
             </section>
 
             <section className="mabox-maintenance-section" aria-labelledby="mabox-maintenance-content-title">
               <div className="mabox-maintenance-section-heading">
-                <h3 id="mabox-maintenance-content-title">维护内容</h3>
-                <p>填写提示标题、可选背景图片和详细说明。</p>
+                <h3 id="mabox-maintenance-content-title">{__("维护内容")}</h3>
+                <p>{__("填写提示标题、可选背景图片和详细说明。")}</p>
               </div>
               <div className="mabox-maintenance-fields">
                 <div className="mabox-maintenance-field">
-                  <span className="mabox-maintenance-field-label">维护标题</span>
+                  <span className="mabox-maintenance-field-label">{__("维护标题")}</span>
                   <Form.Item name="countdown_title" noStyle>
-                    <Input aria-label="维护标题" placeholder="例如：网站维护中" />
+                    <Input aria-label={__("维护标题")} placeholder={__("例如：网站维护中")} />
                   </Form.Item>
                 </div>
 
                 <div className="mabox-maintenance-field">
-                  <span className="mabox-maintenance-field-label">背景图片（可选）</span>
+                  <span className="mabox-maintenance-field-label">{__("背景图片（可选）")}</span>
                   <Form.Item name="countdown_image" noStyle>
                     <SelectImage
-                      aria-label="维护背景图片"
+                      aria-label={__("维护背景图片")}
                       aria-describedby="mabox-maintenance-image-help"
                     />
                   </Form.Item>
                   <p id="mabox-maintenance-image-help" className="mabox-maintenance-field-help">
-                    不同模板的图片位置不同；全屏样式建议使用 1920×1080 像素图片。
+                    {__("不同模板的图片位置不同；全屏样式建议使用 1920×1080 像素图片。")}
                   </p>
                 </div>
 
                 <div className="mabox-maintenance-field">
                   <div className="mabox-maintenance-field-label-row">
-                    <span className="mabox-maintenance-field-label">维护说明</span>
+                    <span className="mabox-maintenance-field-label">{__("维护说明")}</span>
                     <Popover
                       placement="rightTop"
-                      title="HTML 示例"
+                      title={__("HTML 示例")}
                       content={maintenanceHtmlExample}
                       trigger="click"
                     >
@@ -178,21 +179,21 @@ const App: React.FC = () => {
                         type="text"
                         shape="circle"
                         className="mabox-maintenance-info-button"
-                        aria-label="查看维护说明 HTML 示例"
+                        aria-label={__("查看维护说明 HTML 示例")}
                         icon={<InfoCircleOutlined />}
                       />
                     </Popover>
                   </div>
                   <Form.Item name="countdown_content" noStyle>
                     <TextAreaHtml
-                      aria-label="维护说明"
+                      aria-label={__("维护说明")}
                       aria-describedby="mabox-maintenance-content-help"
                       rows={6}
-                      placeholder="例如：抱歉，我们的网站正在维护中，请稍后再来。"
+                      placeholder={__("例如：抱歉，我们的网站正在维护中，请稍后再来。")}
                     />
                   </Form.Item>
                   <p id="mabox-maintenance-content-help" className="mabox-maintenance-field-help">
-                    支持安全 HTML；可通过信息按钮查看示例。
+                    {__("支持安全 HTML；可通过信息按钮查看示例。")}
                   </p>
                 </div>
               </div>
@@ -216,10 +217,10 @@ const serviceList = [
 
 const maintenanceHtmlExample = (
   <div className="mabox-maintenance-html-example">
-    <pre>{`<p>抱歉，我们的网站正在维护中...</p>
+    <pre>{__(`<p>抱歉，我们的网站正在维护中...</p>
 <h5 class="dull-text">
   请倒计时结束后再回来，我们准备了全新的内容哦！
-</h5>`}</pre>
+</h5>`)}</pre>
   </div>
 );
 

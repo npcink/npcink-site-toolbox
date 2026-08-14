@@ -1,6 +1,8 @@
 import { useEffect } from "react";
 
-export const UNSAVED_CHANGES_MESSAGE = "还有设置尚未保存，离开后这些修改将丢失。确定离开吗？";
+import { __ } from "@/tool/i18n";
+
+export const UNSAVED_CHANGES_MESSAGE = __("还有设置尚未保存，离开后这些修改将丢失。确定离开吗？");
 
 export function confirmUnsavedNavigation(
   hasUnsavedChanges: boolean,

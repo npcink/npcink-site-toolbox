@@ -1,4 +1,5 @@
 import { notice } from "@/tool/notice";
+import { __ } from "@/tool/i18n";
 
 export const FAVORITES_STORAGE_KEY = "npcink_site_toolbox_favorites";
 export const FAVORITES_CHANGED_EVENT = "npcink-site-toolbox:favorites-changed";
@@ -38,7 +39,7 @@ export function addFavorite(featureId: string): boolean {
     if (!favorites.includes(featureId)) {
       favorites.push(featureId);
       saveFavorites(favorites);
-      notice.success("已添加到常用功能");
+      notice.success(__("已添加到常用功能"));
       return true;
     }
     return false;
@@ -52,7 +53,7 @@ export function removeFavorite(featureId: string): boolean {
   try {
     const favorites = getFavorites().filter((id) => id !== featureId);
     saveFavorites(favorites);
-    notice.success("已从常用功能移除");
+    notice.success(__("已从常用功能移除"));
     return true;
   } catch (e) {
     console.error("移除收藏失败", e);

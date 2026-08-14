@@ -1,4 +1,5 @@
 import React from "react";
+import { __ } from "@/tool/i18n";
 import FeatureSwitch from "@/basic/feature-switch";
 import Preview from "@/basic/preview";
 import StatusTag, { type StatusType } from "./StatusTag";
@@ -39,13 +40,13 @@ const ModuleRow: React.FC<ModuleRowProps> = ({
       <div className="mabox-module-row-header">
         <div className="mabox-module-row-info">
           <div className="mabox-module-row-title-row">
-            <span className="mabox-module-row-title">{title}</span>
+            <span className="mabox-module-row-title">{__(title)}</span>
             {tags?.map((tag) => (
               <StatusTag key={tag} status={tag} />
             ))}
           </div>
           {description && (
-            <div className="mabox-module-row-desc">{description}</div>
+            <div className="mabox-module-row-desc">{__(description)}</div>
           )}
         </div>
         <div className="mabox-module-row-actions">
@@ -53,7 +54,7 @@ const ModuleRow: React.FC<ModuleRowProps> = ({
           {preview && <Preview title={preview.title} img={preview.img} />}
           {onDetails && (
             <button className="mabox-module-row-details-btn" onClick={onDetails}>
-              详情
+              {__("详情")}
             </button>
           )}
         </div>

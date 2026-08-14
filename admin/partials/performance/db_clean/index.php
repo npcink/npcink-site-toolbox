@@ -100,8 +100,8 @@ if (!class_exists('Npcink_Toolbox_Performance_Db_Clean')) {
 
         public static function add_cron_schedules($schedules)
         {
-            $schedules['weekly'] = array('interval' => 604800, 'display' => '每周');
-            $schedules['monthly'] = array('interval' => 2592000, 'display' => '每月');
+            $schedules['weekly'] = array('interval' => 604800, 'display' => __('每周', 'npcink-site-toolbox'));
+            $schedules['monthly'] = array('interval' => 2592000, 'display' => __('每月', 'npcink-site-toolbox'));
 
             return $schedules;
         }
@@ -109,7 +109,7 @@ if (!class_exists('Npcink_Toolbox_Performance_Db_Clean')) {
         public static function ajax_stats()
         {
             if (!current_user_can('manage_options')) {
-                return new \WP_Error('rest_forbidden', '权限不足', array('status' => 403));
+                return new \WP_Error('rest_forbidden', __('权限不足', 'npcink-site-toolbox'), array('status' => 403));
             }
 
             $stats = self::get_cleanup_counts();
@@ -127,7 +127,7 @@ if (!class_exists('Npcink_Toolbox_Performance_Db_Clean')) {
         public static function ajax_preview(\WP_REST_Request $request)
         {
             if (!current_user_can('manage_options')) {
-                return new \WP_Error('rest_forbidden', '权限不足', array('status' => 403));
+                return new \WP_Error('rest_forbidden', __('权限不足', 'npcink-site-toolbox'), array('status' => 403));
             }
 
             $params = $request->get_json_params();
@@ -136,7 +136,7 @@ if (!class_exists('Npcink_Toolbox_Performance_Db_Clean')) {
             $type = is_string($type_value) ? sanitize_key($type_value) : '';
             $allowed_types = array('revisions', 'drafts', 'spam', 'transients', 'optimize', 'pending', 'trash');
             if (!in_array($type, $allowed_types, true)) {
-                return new \WP_Error('rest_invalid_param', '无效的清理类型', array('status' => 400));
+                return new \WP_Error('rest_invalid_param', __('无效的清理类型', 'npcink-site-toolbox'), array('status' => 400));
             }
 
             $preview = self::build_preview($type);
@@ -152,7 +152,7 @@ if (!class_exists('Npcink_Toolbox_Performance_Db_Clean')) {
         public static function ajax_clean(\WP_REST_Request $request)
         {
             if (!current_user_can('manage_options')) {
-                return new \WP_Error('rest_forbidden', '权限不足', array('status' => 403));
+                return new \WP_Error('rest_forbidden', __('权限不足', 'npcink-site-toolbox'), array('status' => 403));
             }
 
             $params = $request->get_json_params();
@@ -164,7 +164,7 @@ if (!class_exists('Npcink_Toolbox_Performance_Db_Clean')) {
 
             $allowed_types = array('revisions', 'drafts', 'spam', 'transients', 'optimize', 'pending', 'trash');
             if (!in_array($type, $allowed_types, true)) {
-                return new \WP_Error('rest_invalid_param', '无效的清理类型', array('status' => 400));
+                return new \WP_Error('rest_invalid_param', __('无效的清理类型', 'npcink-site-toolbox'), array('status' => 400));
             }
 
             if ($dry_run) {
@@ -182,7 +182,7 @@ if (!class_exists('Npcink_Toolbox_Performance_Db_Clean')) {
             if (!preg_match('/^[A-Za-z0-9_-]+\.[a-f0-9]{64}$/', $preview_token)) {
                 return new \WP_Error(
                     'rest_db_preview_required',
-                    '请先重新预览该清理项目，再确认执行。',
+                    __('请先重新预览该清理项目，再确认执行。', 'npcink-site-toolbox'),
                     array('status' => 409)
                 );
             }
@@ -207,7 +207,7 @@ if (!class_exists('Npcink_Toolbox_Performance_Db_Clean')) {
             $result = array('deleted' => 0);
             if ('optimize' === $type) {
                 $result['optimized'] = self::optimize_tables();
-                $result['message'] = '数据库表优化完成';
+                $result['message'] = __('数据库表优化完成', 'npcink-site-toolbox');
             } else {
                 $result['deleted'] = self::clean_type($type);
             }
@@ -246,7 +246,7 @@ if (!class_exists('Npcink_Toolbox_Performance_Db_Clean')) {
             if ('optimize' === $type) {
                 $tables = self::get_optimizable_tables();
                 return array(
-                    'message' => '将优化当前站点的数据库表（不删除数据）',
+                    'message' => __('将优化当前站点的数据库表（不删除数据）', 'npcink-site-toolbox'),
                     'table_count' => count($tables),
                     'table_fingerprint' => hash('sha256', serialize($tables)),
                     'dry_run' => true,
@@ -255,18 +255,21 @@ if (!class_exists('Npcink_Toolbox_Performance_Db_Clean')) {
 
             $counts = self::get_cleanup_counts();
             $messages = array(
-                'revisions' => '个文章修订版本',
-                'drafts' => '个自动草稿',
-                'spam' => '条垃圾评论',
-                'transients' => '个过期临时选项',
-                'pending' => '个待审核文章',
-                'trash' => '个回收站文章',
+                'revisions' => __('将删除 %d 个文章修订版本', 'npcink-site-toolbox'),
+                'drafts' => __('将删除 %d 个自动草稿', 'npcink-site-toolbox'),
+                'spam' => __('将删除 %d 条垃圾评论', 'npcink-site-toolbox'),
+                'transients' => __('将删除 %d 个过期临时选项', 'npcink-site-toolbox'),
+                'pending' => __('将删除 %d 个待审核文章', 'npcink-site-toolbox'),
+                'trash' => __('将删除 %d 个回收站文章', 'npcink-site-toolbox'),
             );
             $affected = isset($counts[$type]) ? $counts[$type] : 0;
+            $message_format = isset($messages[$type])
+                ? $messages[$type]
+                : __('将删除 %d 条数据', 'npcink-site-toolbox');
 
             return array(
                 'affected' => $affected,
-                'message' => '将删除 ' . $affected . ' ' . (isset($messages[$type]) ? $messages[$type] : '条数据'),
+                'message' => sprintf($message_format, $affected),
                 'dry_run' => true,
             );
         }
@@ -314,7 +317,7 @@ if (!class_exists('Npcink_Toolbox_Performance_Db_Clean')) {
                 return array(
                     'valid' => false,
                     'code' => 'rest_db_preview_expired',
-                    'message' => '清理预览已失效或不属于当前操作，请重新预览。',
+                    'message' => __('清理预览已失效或不属于当前操作，请重新预览。', 'npcink-site-toolbox'),
                 );
             }
 
@@ -331,7 +334,7 @@ if (!class_exists('Npcink_Toolbox_Performance_Db_Clean')) {
                 return array(
                     'valid' => false,
                     'code' => 'rest_db_preview_expired',
-                    'message' => '清理预览已失效或不属于当前操作，请重新预览。',
+                    'message' => __('清理预览已失效或不属于当前操作，请重新预览。', 'npcink-site-toolbox'),
                 );
             }
 
@@ -344,7 +347,7 @@ if (!class_exists('Npcink_Toolbox_Performance_Db_Clean')) {
                 return array(
                     'valid' => false,
                     'code' => 'rest_db_preview_conflict',
-                    'message' => '数据库内容已发生变化，请重新预览并确认最新影响范围。',
+                    'message' => __('数据库内容已发生变化，请重新预览并确认最新影响范围。', 'npcink-site-toolbox'),
                 );
             }
 

@@ -27,10 +27,10 @@ if (!class_exists('Npcink_Toolbox_Module_Metadata')) {
                     'id'        => $module_id,
                     'category'  => $meta['category'],
                     'scope'     => $meta['scope'],
-                    'label'     => isset($meta['label']) ? $meta['label'] : '',
-                    'group'     => isset($meta['group']) ? $meta['group'] : '',
+                    'label'     => isset($meta['label']) ? self::translate($meta['label']) : '',
+                    'group'     => isset($meta['group']) ? self::translate($meta['group']) : '',
                     'feature_id' => isset($meta['feature_id']) ? $meta['feature_id'] : '',
-                    'risk_tags' => isset($meta['risk_tags']) ? $meta['risk_tags'] : array(),
+                    'risk_tags' => isset($meta['risk_tags']) ? self::translate_list($meta['risk_tags']) : array(),
                     'risk'      => isset($meta['risk']) ? $meta['risk'] : array('level' => 'none'),
                     'depends_on' => isset($meta['depends_on']) ? $meta['depends_on'] : array(),
                     'preset_tags' => isset($meta['preset_tags']) ? $meta['preset_tags'] : array(),
@@ -47,6 +47,17 @@ if (!class_exists('Npcink_Toolbox_Module_Metadata')) {
             }
 
             return $ui;
+        }
+
+        private static function translate($value) {
+            return is_string($value) && $value !== '' ? __($value, 'npcink-site-toolbox') : $value;
+        }
+
+        private static function translate_list($values) {
+            if (!is_array($values)) {
+                return array();
+            }
+            return array_map(array(__CLASS__, 'translate'), $values);
         }
 
         public static function reset_cache() {

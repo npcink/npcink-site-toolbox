@@ -22,6 +22,7 @@ import {
   writeAdminViewToHistory,
 } from "@/tool/navigation";
 import Save from "@/tool/save";
+import { __ } from "@/tool/i18n";
 import {
   confirmUnsavedNavigation,
   useUnsavedChangesGuard,
@@ -39,8 +40,8 @@ const TabFallback = (
   <div className="mabox-view-state mabox-view-state--loading" role="status" aria-live="polite">
     <span className="mabox-view-state-spinner" aria-hidden="true" />
     <span className="mabox-view-state-copy">
-      <strong>正在加载当前页面</strong>
-      <span>设置读取完成，正在准备页面内容。</span>
+      <strong>{__("正在加载当前页面")}</strong>
+      <span>{__("设置读取完成，正在准备页面内容。")}</span>
     </span>
   </div>
 );
@@ -276,8 +277,8 @@ const App: React.FC = () => {
         <div className="mabox-view-state mabox-view-state--loading" role="status" aria-live="polite">
           <span className="mabox-view-state-spinner" aria-hidden="true" />
           <span className="mabox-view-state-copy">
-            <strong>正在读取站点设置</strong>
-            <span>读取完成前不会启用保存。</span>
+            <strong>{__("正在读取站点设置")}</strong>
+            <span>{__("读取完成前不会启用保存。")}</span>
           </span>
         </div>
       );
@@ -288,15 +289,15 @@ const App: React.FC = () => {
         <div className="mabox-view-state mabox-view-state--error" role="alert">
           <span className="dashicons dashicons-warning mabox-view-state-icon" aria-hidden="true" />
           <span className="mabox-view-state-copy">
-            <strong>无法读取站点设置</strong>
-            <span>{`${settingsError || "设置接口请求失败"}。为避免覆盖真实配置，保存功能已禁用。`}</span>
+            <strong>{__("无法读取站点设置")}</strong>
+            <span>{`${settingsError || __("设置接口请求失败")}。${__("为避免覆盖真实配置，保存功能已禁用。")}`}</span>
           </span>
           <button
             type="button"
             className="mabox-view-state-action"
             onClick={() => loadSettings().catch(() => {})}
           >
-            重新读取
+            {__("重新读取")}
           </button>
         </div>
       );
@@ -343,11 +344,11 @@ const App: React.FC = () => {
             <button
               type="button"
               className="mabox-help-btn"
-              aria-label="打开帮助"
+              aria-label={__("打开帮助")}
               onClick={() => navigateToView("about")}
             >
               <span className="dashicons dashicons-editor-help" aria-hidden="true" />
-              <span>帮助</span>
+              <span>{__("帮助")}</span>
             </button>
             {!isMobile && <Save />}
           </div>
@@ -369,7 +370,7 @@ const App: React.FC = () => {
               onClick={() => setMobileMenuOpen((isOpen) => !isOpen)}
             >
               <span className="dashicons dashicons-menu" aria-hidden="true" />
-              <span>{activeNavItem?.label || "导航"}</span>
+              <span>{activeNavItem ? __(activeNavItem.label) : __("导航")}</span>
             </button>
           )}
 
@@ -377,7 +378,7 @@ const App: React.FC = () => {
             <button
               type="button"
               className="mabox-mobile-nav-overlay"
-              aria-label="关闭导航"
+              aria-label={__("关闭导航")}
               onClick={() => setMobileMenuOpen(false)}
             />
           )}
@@ -385,11 +386,11 @@ const App: React.FC = () => {
           <nav
             id="mabox-primary-navigation"
             className={`mabox-sidebar ${isMobile && mobileMenuOpen ? "mabox-sidebar--open" : ""}`}
-            aria-label="Npcink Site Toolbox主导航"
+            aria-label={__("Npcink Site Toolbox 主导航")}
           >
             {navGroups.map((group) => (
               <div className="mabox-nav-group" key={group.groupLabel}>
-                <div className="mabox-nav-group-label">{group.groupLabel}</div>
+                <div className="mabox-nav-group-label">{__(group.groupLabel)}</div>
                 {group.items.map((item) => (
                   <button
                     type="button"
@@ -399,7 +400,7 @@ const App: React.FC = () => {
                     onClick={() => navigateToView(item.key)}
                   >
                     <span className={`dashicons ${item.icon}`} aria-hidden="true" />
-                    <span className="mabox-nav-item-label">{item.label}</span>
+                    <span className="mabox-nav-item-label">{__(item.label)}</span>
                   </button>
                 ))}
               </div>

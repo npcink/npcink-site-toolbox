@@ -46,11 +46,11 @@ final class PerformanceQueryBoundariesTest extends TestCase
         $this->assertStringContainsString("'attachment_scan' => array(", $source);
         $this->assertStringContainsString("'sampled' => \$attachment_scan['sampled']", $source);
         $this->assertStringContainsString(
-            "sprintf('超大图片（最近 %d 个附件抽样）', \$attachment_scan['checked'])",
+            "sprintf(__('超大图片（最近 %d 个附件抽样）', 'npcink-site-toolbox'), \$attachment_scan['checked'])",
             $source
         );
         $this->assertStringContainsString(
-            "sprintf('中文文件名（最近 %d 个附件抽样）', \$attachment_scan['checked'])",
+            "sprintf(__('中文文件名（最近 %d 个附件抽样）', 'npcink-site-toolbox'), \$attachment_scan['checked'])",
             $source
         );
         $this->assertStringNotContainsString('SELECT ID, guid', $source);

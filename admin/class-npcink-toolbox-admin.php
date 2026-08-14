@@ -85,8 +85,8 @@ class Npcink_Toolbox_Admin
         //添加插件菜单
 
         add_plugins_page(
-            'Npcink Site Toolbox 设置',   // 要在此页面的浏览器窗口中显示的标题。
-            'Npcink 站点工具箱',           // 要为此菜单项显示的文本
+            __('Npcink Site Toolbox 设置', 'npcink-site-toolbox'),
+            __('Npcink 站点工具箱', 'npcink-site-toolbox'),
             'manage_options',            // 哪种类型的用户可以看到此菜单项
             'npcink-site-toolbox', // The unique ID - that is, the slug - for this menu item.
             array(__CLASS__, 'Npcink_Toolbox_display'),   // 呈现此菜单的页面时要调用的函数的名称
@@ -95,8 +95,8 @@ class Npcink_Toolbox_Admin
 
         add_submenu_page(
             null,
-            '用户评论 REST 接口教程',
-            '用户评论 REST 接口教程',
+            __('用户评论 REST 接口教程', 'npcink-site-toolbox'),
+            __('用户评论 REST 接口教程', 'npcink-site-toolbox'),
             'manage_options',
             'npcink-site-toolbox-comment-rest-help',
             array(__CLASS__, 'display_comment_rest_help')
@@ -247,20 +247,24 @@ class Npcink_Toolbox_Admin
         if (!$result['success']) {
             $rollback_complete = isset($result['rollback_complete']) && $result['rollback_complete'] === true;
             $fallback_message = $rollback_complete
-                ? '保存失败，已恢复为之前的设置'
-                : '保存失败，无法确认所有设置已恢复。请重新读取并核对设置后再保存';
-            $message = isset($result['error']) && is_string($result['error']) && trim($result['error']) !== ''
-                ? $result['error']
-                : $fallback_message;
-
-            // 回滚未确认时，即使底层意外返回了过度乐观的旧文案，也不能对外宣称已经恢复。
-            if (!$rollback_complete && strpos($message, '已恢复') !== false) {
-                $message = $fallback_message;
+                ? __('保存失败，已恢复为之前的设置', 'npcink-site-toolbox')
+                : __('保存失败，无法确认所有设置已恢复。请重新读取并核对设置后再保存', 'npcink-site-toolbox');
+            if (!$rollback_complete && !empty($result['rollback_failed_modules'])) {
+                $message = sprintf(
+                    __('保存失败，以下模块未能确认恢复：%s。请重新读取并核对设置后再保存', 'npcink-site-toolbox'),
+                    implode('、', $result['rollback_failed_modules'])
+                );
+            } else {
+                $message = isset($result['error']) && is_string($result['error']) && trim($result['error']) !== ''
+                    ? $result['error']
+                    : $fallback_message;
             }
 
             if (class_exists('Npcink_Toolbox_Audit_Logger')) {
                 Npcink_Toolbox_Audit_Logger::config(
-                    $rollback_complete ? '保存配置失败，已确认回滚' : '保存配置失败，回滚未能完整确认',
+                    $rollback_complete
+                        ? __('保存配置失败，已确认回滚', 'npcink-site-toolbox')
+                        : __('保存配置失败，回滚未能完整确认', 'npcink-site-toolbox'),
                     array(
                         'failed_modules' => isset($result['failed_modules']) ? $result['failed_modules'] : array(),
                         'rollback_failed_modules' => isset($result['rollback_failed_modules'])
@@ -287,9 +291,9 @@ class Npcink_Toolbox_Admin
             ));
         }
 
-        $message = '保存成功';
+        $message = __('保存成功', 'npcink-site-toolbox');
         if (!$validation['valid']) {
-            $message .= '（部分字段已自动修正）';
+            $message = __('保存成功（部分字段已自动修正）', 'npcink-site-toolbox');
         }
 
         return array('success' => true, 'message' => $message, 'status' => 200);
@@ -301,12 +305,12 @@ class Npcink_Toolbox_Admin
     public static function rest_save_settings($request)
     {
         if (!current_user_can('manage_options')) {
-            return new \WP_Error('rest_forbidden', '权限不足', array('status' => 403));
+            return new \WP_Error('rest_forbidden', __('权限不足', 'npcink-site-toolbox'), array('status' => 403));
         }
 
         $body = $request->get_json_params();
         if (!is_array($body)) {
-            return new \WP_Error('rest_invalid_data', '设置数据格式无效', array('status' => 400));
+            return new \WP_Error('rest_invalid_data', __('设置数据格式无效', 'npcink-site-toolbox'), array('status' => 400));
         }
 
         $allowed_keys = array('settings', 'secretChanges', 'revision');
@@ -317,14 +321,14 @@ class Npcink_Toolbox_Admin
             || !is_string($body['revision'])
             || !preg_match('/^[a-f0-9]{64}$/', $body['revision'])
             || (isset($body['secretChanges']) && !is_array($body['secretChanges']))) {
-            return new \WP_Error('rest_invalid_data', '请求必须包含 settings、secretChanges 和有效 revision', array('status' => 400));
+            return new \WP_Error('rest_invalid_data', __('请求必须包含 settings、secretChanges 和有效 revision', 'npcink-site-toolbox'), array('status' => 400));
         }
 
         $current_revision = Npcink_Toolbox_Config_Manager::get_config_revision();
         if (!hash_equals($current_revision, $body['revision'])) {
             return new \WP_Error(
                 'rest_settings_conflict',
-                '站点设置已在其他页面或会话中更新。请重新读取设置，核对差异后再保存。',
+                __('站点设置已在其他页面或会话中更新。请重新读取设置，核对差异后再保存。', 'npcink-site-toolbox'),
                 array('status' => 409, 'revision' => $current_revision)
             );
         }
@@ -347,7 +351,7 @@ class Npcink_Toolbox_Admin
     public static function rest_get_settings($request)
     {
         if (!current_user_can('manage_options')) {
-            return new \WP_Error('rest_forbidden', '权限不足', array('status' => 403));
+            return new \WP_Error('rest_forbidden', __('权限不足', 'npcink-site-toolbox'), array('status' => 403));
         }
 
         $browser_config = Npcink_Toolbox_Config_Manager::get_browser_config();
@@ -365,7 +369,7 @@ class Npcink_Toolbox_Admin
     public static function rest_get_schema($request)
     {
         if (!current_user_can('manage_options')) {
-            return new \WP_Error('rest_forbidden', '权限不足', array('status' => 403));
+            return new \WP_Error('rest_forbidden', __('权限不足', 'npcink-site-toolbox'), array('status' => 403));
         }
 
         $schema = Npcink_Toolbox_Config_Schema::get_schema();
@@ -643,7 +647,7 @@ class Npcink_Toolbox_Admin
                     'settings' => array(
                         'required'          => true,
                         'type'              => 'object',
-                        'description'       => '不含凭据的完整设置',
+                        'description'       => __('不含凭据的完整设置', 'npcink-site-toolbox'),
                         'sanitize_callback' => function ($value) {
                             return is_array($value) ? $value : array();
                         },
@@ -654,7 +658,7 @@ class Npcink_Toolbox_Admin
                     'secretChanges' => array(
                         'required'          => false,
                         'type'              => 'object',
-                        'description'       => '凭据 replace/clear 操作',
+                        'description'       => __('凭据 replace/clear 操作', 'npcink-site-toolbox'),
                         'default'           => array(),
                         'sanitize_callback' => function ($value) {
                             return is_array($value) ? $value : array();
@@ -666,7 +670,7 @@ class Npcink_Toolbox_Admin
                     'revision' => array(
                         'required'          => true,
                         'type'              => 'string',
-                        'description'       => '读取设置时返回的不透明配置版本指纹',
+                        'description'       => __('读取设置时返回的不透明配置版本指纹', 'npcink-site-toolbox'),
                         'pattern'           => '^[a-f0-9]{64}$',
                         'sanitize_callback' => 'sanitize_text_field',
                     ),
@@ -694,7 +698,7 @@ class Npcink_Toolbox_Admin
                 'settings' => array(
                     'required'          => true,
                     'type'              => 'object',
-                    'description'       => '不含凭据的完整设置',
+                    'description'       => __('不含凭据的完整设置', 'npcink-site-toolbox'),
                     'sanitize_callback' => function ($value) {
                         return is_array($value) ? $value : array();
                     },
@@ -705,7 +709,7 @@ class Npcink_Toolbox_Admin
                 'secretChanges' => array(
                     'required'          => false,
                     'type'              => 'object',
-                    'description'       => '对象存储凭据 replace/clear 操作',
+                    'description'       => __('对象存储凭据 replace/clear 操作', 'npcink-site-toolbox'),
                     'default'           => array(),
                     'sanitize_callback' => function ($value) {
                         return is_array($value) ? $value : array();
@@ -737,7 +741,7 @@ class Npcink_Toolbox_Admin
                 'required'          => true,
                 'type'              => 'array',
                 'items'             => array('type' => 'integer', 'minimum' => 1),
-                'description'       => '每批最多 5 个 JPEG 附件 ID',
+                'description'       => __('每批最多 5 个 JPEG 附件 ID', 'npcink-site-toolbox'),
                 'validate_callback' => array('Npcink_Toolbox_Performance_Media_Health', 'validate_attachment_ids'),
                 'sanitize_callback' => array('Npcink_Toolbox_Performance_Media_Health', 'sanitize_attachment_ids'),
             ),
@@ -865,7 +869,7 @@ class Npcink_Toolbox_Admin
                     'fixes' => array(
                         'required'          => true,
                         'type'              => 'array',
-                        'description'       => '要修复的项目列表',
+                        'description'       => __('要修复的项目列表', 'npcink-site-toolbox'),
                         'items'             => array('type' => 'string'),
                         'sanitize_callback' => function ($value) {
                             return is_array($value) ? array_map('sanitize_text_field', $value) : array();
@@ -1043,7 +1047,7 @@ class Npcink_Toolbox_Admin
                     'days' => array(
                         'required'          => false,
                         'type'              => 'integer',
-                        'description'       => '统计天数范围',
+                        'description'       => __('统计天数范围', 'npcink-site-toolbox'),
                         'default'           => 30,
                         'sanitize_callback' => array(__CLASS__, 'sanitize_int_arg'),
                         'validate_callback' => function ($value) {
@@ -1121,8 +1125,9 @@ class Npcink_Toolbox_Admin
     }
 
     //公用返回按钮
-    public static function back_button($text = '返回')
+    public static function back_button($text = null)
     {
+        $text = is_string($text) && $text !== '' ? $text : __('返回', 'npcink-site-toolbox');
         $referer = wp_get_referer();
         $target = wp_validate_redirect(
             is_string($referer) ? $referer : '',

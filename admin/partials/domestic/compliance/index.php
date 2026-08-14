@@ -25,7 +25,12 @@ if (!class_exists('Npcink_Toolbox_Domestic_Compliance')) {
                 if (!empty($c['copyright_html'])) {
                     $output .= wp_kses_post($c['copyright_html']);
                 } else {
-                    $output .= '&copy; ' . wp_date('Y') . ' ' . esc_html(get_bloginfo('name')) . ' 版权所有';
+                    $output .= sprintf(
+                        /* translators: 1: Current year. 2: Site name. */
+                        esc_html__('© %1$s %2$s 版权所有', 'npcink-site-toolbox'),
+                        wp_date('Y'),
+                        get_bloginfo('name')
+                    );
                 }
             }
             if ($output) {
@@ -36,9 +41,9 @@ if (!class_exists('Npcink_Toolbox_Domestic_Compliance')) {
             $c = self::$config;
             if (empty($c['cookie_enabled'])) return;
             if (isset($_COOKIE['npcink_site_toolbox_cookie_consent'])) return;
-            $title = !empty($c['cookie_title']) ? $c['cookie_title'] : 'Cookie 同意';
-            $content = !empty($c['cookie_content']) ? $c['cookie_content'] : '本网站使用 Cookie 来改善您的体验。';
-            $button = !empty($c['cookie_button']) ? $c['cookie_button'] : '我知道了';
+            $title = !empty($c['cookie_title']) ? $c['cookie_title'] : __('Cookie 同意', 'npcink-site-toolbox');
+            $content = !empty($c['cookie_content']) ? $c['cookie_content'] : __('本网站使用 Cookie 来改善您的体验。', 'npcink-site-toolbox');
+            $button = !empty($c['cookie_button']) ? $c['cookie_button'] : __('我知道了', 'npcink-site-toolbox');
             $style = !empty($c['cookie_style']) ? $c['cookie_style'] : 'bottom';
             if ($style === 'center') {
                 $position = 'top:50%;left:50%;transform:translate(-50%,-50%);max-width:min(520px,calc(100vw - 32px));border-radius:8px;';
