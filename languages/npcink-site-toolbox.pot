@@ -638,10 +638,10 @@ msgstr ""
 #: includes/class-npcink-toolbox-site-health.php:219
 #: includes/class-npcink-toolbox-site-health.php:258
 #: includes/class-npcink-toolbox-site-health.php:291
-#: includes/class-npcink-toolbox-site-health.php:312
-#: includes/class-npcink-toolbox-site-health.php:340
-#: includes/class-npcink-toolbox-site-health.php:368
-#: includes/class-npcink-toolbox-site-health.php:403
+#: includes/class-npcink-toolbox-site-health.php:315
+#: includes/class-npcink-toolbox-site-health.php:343
+#: includes/class-npcink-toolbox-site-health.php:374
+#: includes/class-npcink-toolbox-site-health.php:412
 msgid "Npcink Site Toolbox"
 msgstr ""
 
@@ -1537,44 +1537,53 @@ msgid "请检查是否有安全插件或服务器配置阻止了 REST API 访问
 msgstr ""
 
 #: includes/class-npcink-toolbox-site-health.php:288
-#: includes/class-npcink-toolbox-site-health.php:337
+#: includes/class-npcink-toolbox-site-health.php:340
 msgid "模块检测不可用"
 msgstr ""
 
+#: includes/class-npcink-toolbox-site-health.php:296
+#: includes/class-npcink-toolbox-site-health.php:348
+msgid "模块加载器未初始化。"
+msgstr ""
+
 #. translators: 1: Number of active modules, 2: Total number of available modules.
-#: includes/class-npcink-toolbox-site-health.php:306
+#: includes/class-npcink-toolbox-site-health.php:309
 #, php-format
 msgid "已激活 %1$d / %2$d 个模块"
 msgstr ""
 
 #. translators: 1: Number of active modules, 2: Total number of available modules.
-#: includes/class-npcink-toolbox-site-health.php:319
+#: includes/class-npcink-toolbox-site-health.php:322
 #, php-format
 msgid "当前已激活 %1$d 个模块，共 %2$d 个可用模块。按需加载机制有助于减少不必要的资源消耗。"
 msgstr ""
 
-#: includes/class-npcink-toolbox-site-health.php:365
+#: includes/class-npcink-toolbox-site-health.php:371
 msgid "未启用高风险模块"
 msgstr ""
 
+#: includes/class-npcink-toolbox-site-health.php:379
+msgid "当前未启用任何高风险或实验性模块，站点运行状态安全。"
+msgstr ""
+
 #. translators: 1: Number of active high-risk modules, 2: Comma-separated high-risk module IDs.
-#: includes/class-npcink-toolbox-site-health.php:380
+#: includes/class-npcink-toolbox-site-health.php:389
 #, php-format
 msgid "<strong>高风险模块（%1$d 个）：</strong>%2$s<br>"
 msgstr ""
 
 #. translators: 1: Number of active experimental modules, 2: Comma-separated experimental module IDs.
-#: includes/class-npcink-toolbox-site-health.php:388
+#: includes/class-npcink-toolbox-site-health.php:397
 #, php-format
 msgid "<strong>实验性模块（%1$d 个）：</strong>%2$s<br>"
 msgstr ""
 
-#: includes/class-npcink-toolbox-site-health.php:393
+#: includes/class-npcink-toolbox-site-health.php:402
 msgid "这些模块可能影响站点稳定性，建议在测试环境验证后再在生产环境启用。</p>"
 msgstr ""
 
 #. translators: %d: Number of active high-risk or experimental modules.
-#: includes/class-npcink-toolbox-site-health.php:398
+#: includes/class-npcink-toolbox-site-health.php:407
 #, php-format
 msgid "已启用 %d 个高风险/实验性模块"
 msgstr ""
