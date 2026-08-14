@@ -17,6 +17,7 @@ import { SECRET_PATHS } from "@/tool/interface";
 import DiagnosticPackPreview from "./diagnostic-pack-preview";
 import { buildDiagnosticPackReport, buildReviewPackReport } from "./runtime-status-report";
 import SafeMarkdown from "./safe-markdown";
+import { __, sprintf } from "@/tool/i18n";
 
 import "./runtime-status.css";
 
@@ -43,11 +44,11 @@ type FollowUpTranscriptTurn = {
 type FollowUpState = "idle" | "loading" | "error";
 
 const modes: Array<{ key: Mode; label: string; description: string }> = [
-  { key: "troubleshooting", label: "故障排查", description: "解释 WordPress、PHP、数据库、主题与插件运行快照。" },
-  { key: "performance", label: "性能分析", description: "检查自动加载、缓存、Cron 与数据库单次往返等性能风险信号。" },
-  { key: "maintenance", label: "维护解读", description: "归纳数据库、SEO、媒体、搜索健康与对象存储配置状态。" },
-  { key: "settings_risk", label: "设置风险", description: "解释当前尚未保存的普通设置差异，不包含任何凭据字段。" },
-  { key: "verification", label: "修复复验", description: "对比同范围的前后快照，区分改善、恶化与证据不足。" },
+  { key: "troubleshooting", label: __("故障排查"), description: __("解释 WordPress、PHP、数据库、主题与插件运行快照。") },
+  { key: "performance", label: __("性能分析"), description: __("检查自动加载、缓存、Cron 与数据库单次往返等性能风险信号。") },
+  { key: "maintenance", label: __("维护解读"), description: __("归纳数据库、SEO、媒体、搜索健康与对象存储配置状态。") },
+  { key: "settings_risk", label: __("设置风险"), description: __("解释当前尚未保存的普通设置差异，不包含任何凭据字段。") },
+  { key: "verification", label: __("修复复验"), description: __("对比同范围的前后快照，区分改善、恶化与证据不足。") },
 ];
 
 async function copyText(text: string): Promise<boolean> {
@@ -172,11 +173,11 @@ function getAnalysisErrorKind(error: unknown): AnalysisErrorKind {
 }
 
 function getAnalysisErrorMessage(errorKind: AnalysisErrorKind): string {
-  if (errorKind === "unavailable") return "请检查 WordPress 7.0+ 的 DeepSeek Connector 是否已连接；数据未由本插件保存。";
-  if (errorKind === "empty") return "模型在自动重试后仍未生成可展示正文；可稍后重试。";
-  if (errorKind === "rate-limited") return "DeepSeek 当前请求过多或额度受限；请稍后重试。";
-  if (errorKind === "temporary") return "暂时无法连接 DeepSeek 服务；请稍后重试。";
-  return "没有保存不完整回答，也没有执行任何修改。可稍后重试。";
+  if (errorKind === "unavailable") return __("请检查 WordPress 7.0+ 的 DeepSeek Connector 是否已连接；数据未由本插件保存。" );
+  if (errorKind === "empty") return __("模型在自动重试后仍未生成可展示正文；可稍后重试。" );
+  if (errorKind === "rate-limited") return __("DeepSeek 当前请求过多或额度受限；请稍后重试。" );
+  if (errorKind === "temporary") return __("暂时无法连接 DeepSeek 服务；请稍后重试。" );
+  return __("没有保存不完整回答，也没有执行任何修改。可稍后重试。" );
 }
 
 function previewText(pack: PreviewPack): string {
@@ -342,21 +343,21 @@ const AiDiagnostics = () => {
   };
 
   const actionLabel = mode === "troubleshooting"
-    ? "生成诊断报告"
+    ? __("生成诊断报告")
     : mode === "performance"
-      ? "生成性能快照"
-      : "生成维护快照";
+      ? __("生成性能快照")
+      : __("生成维护快照");
 
   return (
     <div className="mabox-runtime-status mabox-ai-diagnostics">
       <header className="mabox-runtime-status__header">
         <div>
-          <h2>AI 诊断与分析</h2>
-          <p>管理员先检查白名单快照，再显式发送给 DeepSeek；AI 只解释，不修改站点。</p>
+          <h2>{__("AI 诊断与分析")}</h2>
+          <p>{__("管理员先检查白名单快照，再显式发送给 DeepSeek；AI 只解释，不修改站点。")}</p>
         </div>
       </header>
 
-      <nav className="mabox-ai-diagnostics__modes" aria-label="AI 分析能力">
+      <nav className="mabox-ai-diagnostics__modes" aria-label={__("AI 分析能力")}>
         {modes.map((item) => (
           <button
             key={item.key}
@@ -383,23 +384,23 @@ const AiDiagnostics = () => {
               disabled={previewState.status === "loading"}
               onClick={() => void generatePreview()}
             >
-              {previewState.status === "loading" ? "正在采集" : actionLabel}
+              {previewState.status === "loading" ? __("正在采集") : actionLabel}
             </button>
           )}
         </div>
 
         {mode === "settings_risk" && (
           <div className="mabox-ai-diagnostics__settings-diff">
-            <p><strong>{settingDiffs.length} 项普通设置待保存</strong>。凭据变更不会进入本分析。</p>
+            <p><strong>{sprintf(__("%d 项普通设置待保存"), settingDiffs.length)}</strong>{__("。凭据变更不会进入本分析。")}</p>
             {settingDiffs.length > 0 ? (
               <ul>{settingDiffs.slice(0, 50).map((item) => <li key={item.path}><code>{item.path}</code> · {item.label}</li>)}</ul>
-            ) : <p>当前没有普通设置差异。请先在其他标签页调整设置，再回到这里分析。</p>}
+            ) : <p>{__("当前没有普通设置差异。请先在其他标签页调整设置，再回到这里分析。")}</p>}
           </div>
         )}
 
         {mode === "verification" && (
           <div className="mabox-ai-diagnostics__baseline">
-            <label htmlFor="ai-verification-scope"><strong>基线范围</strong></label>
+            <label htmlFor="ai-verification-scope"><strong>{__("基线范围")}</strong></label>
             <select
               id="ai-verification-scope"
               value={baselineScope}
@@ -410,25 +411,25 @@ const AiDiagnostics = () => {
                 resetTransientState();
               }}
             >
-              <option value="performance">性能快照</option>
-              <option value="maintenance">维护快照</option>
+              <option value="performance">{__("性能快照")}</option>
+              <option value="maintenance">{__("维护快照")}</option>
             </select>
             <button type="button" className="button button-primary" disabled={previewState.status === "loading"} onClick={() => void captureBaseline()}>
-              {previewState.status === "loading" ? "正在记录" : baseline ? "重新记录基线" : "记录当前基线"}
+              {previewState.status === "loading" ? __("正在记录") : baseline ? __("重新记录基线") : __("记录当前基线")}
             </button>
-            {baseline && <p role="status">已在本页暂存 {baseline.generated_at} 的{baselineScope === "performance" ? "性能" : "维护"}基线；刷新或离开页面后不会保留。</p>}
+            {baseline && <p role="status">{sprintf(__("已在本页暂存 %s 的%s基线；刷新或离开页面后不会保留。"), baseline.generated_at, baselineScope === "performance" ? __("性能") : __("维护"))}</p>}
           </div>
         )}
 
         {previewState.status === "error" && (
           <div className="mabox-runtime-state mabox-runtime-state--error" role="alert">
-            <div><strong>快照生成失败</strong><span>没有生成、保存或发送不完整信息，请稍后重试。</span></div>
+            <div><strong>{__("快照生成失败")}</strong><span>{__("没有生成、保存或发送不完整信息，请稍后重试。")}</span></div>
             <button
               type="button"
               className="button"
               onClick={() => void (mode === "verification" ? captureBaseline() : generatePreview())}
             >
-              重新生成
+              {__("重新生成")}
             </button>
           </div>
         )}
@@ -436,9 +437,9 @@ const AiDiagnostics = () => {
         {previewState.status === "success" && (
           <div className="mabox-ai-diagnostics__preview">
             <div className="mabox-runtime-status__section-heading">
-              <div><h4>发送前预览</h4><p>网页中展示白名单事实；点击分析时，服务端会重新采集同范围最新数据。</p></div>
+              <div><h4>{__("发送前预览")}</h4><p>{__("网页中展示白名单事实；点击分析时，服务端会重新采集同范围最新数据。")}</p></div>
               <button type="button" className="button" onClick={() => void copyPreview()}>
-                复制 Markdown
+                {__("复制 Markdown")}
               </button>
             </div>
             <DiagnosticPackPreview pack={previewState.data} />
@@ -448,14 +449,14 @@ const AiDiagnostics = () => {
         {(mode === "settings_risk" || mode === "verification" || previewState.status === "success") && (
           <div className="mabox-runtime-status__analysis-controls">
             <label htmlFor="ai-diagnostic-problem">
-              <strong>{mode === "troubleshooting" ? "排查目标（可选）" : "分析目标（可选）"}</strong>
-              <span>补充你关心的现象或本次调整目的；不要填写密码、密钥或个人信息。</span>
+              <strong>{mode === "troubleshooting" ? __("排查目标（可选）") : __("分析目标（可选）")}</strong>
+              <span>{__("补充你关心的现象或本次调整目的；不要填写密码、密钥或个人信息。")}</span>
             </label>
             <textarea id="ai-diagnostic-problem" rows={3} maxLength={2000} value={problem} onChange={(event) => setProblem(event.target.value)} />
             <p>
-              点击后会向 DeepSeek 发送同范围最新白名单事实。
-              {mode === "troubleshooting" ? " 若模型只返回空正文，最多自动重试一次。" : ""}
-              API Key 由 WordPress Connectors 管理，本插件不读取、不保存，也不会执行模型建议。
+              {__("点击后会向 DeepSeek 发送同范围最新白名单事实。")}
+              {mode === "troubleshooting" ? __("若模型只返回空正文，最多自动重试一次。") : ""}
+              {__("API Key 由 WordPress Connectors 管理，本插件不读取、不保存，也不会执行模型建议。")}
             </p>
             <button
               type="button"
@@ -464,17 +465,17 @@ const AiDiagnostics = () => {
               onClick={() => void analyze()}
             >
               {analysisState.status === "loading"
-                ? "DeepSeek 正在分析"
-                : mode === "verification" ? "重新采集并对比" : "使用 DeepSeek 分析"}
+                ? __("DeepSeek 正在分析")
+                : mode === "verification" ? __("重新采集并对比") : __("使用 DeepSeek 分析")}
             </button>
           </div>
         )}
 
         {analysisState.status === "error" && (
           <div className="mabox-runtime-state mabox-runtime-state--error" role="alert">
-            <div><strong>DeepSeek 分析失败</strong><span>{getAnalysisErrorMessage(analysisState.errorKind)}</span></div>
+            <div><strong>{__("DeepSeek 分析失败")}</strong><span>{getAnalysisErrorMessage(analysisState.errorKind)}</span></div>
             {analysisState.errorKind === "unavailable" && (
-              <a className="button" href={(window as Window & { dataLocal?: DataLocal }).dataLocal?.connectorsUrl || "/wp-admin/options-connectors.php"}>前往 Connectors</a>
+              <a className="button" href={(window as Window & { dataLocal?: DataLocal }).dataLocal?.connectorsUrl || "/wp-admin/options-connectors.php"}>{__("前往 Connectors")}</a>
             )}
           </div>
         )}
@@ -482,8 +483,8 @@ const AiDiagnostics = () => {
         {analysisState.status === "success" && (
           <section className="mabox-runtime-status__analysis-result" aria-labelledby="ai-diagnostic-result-heading">
             <div>
-              <h4 id="ai-diagnostic-result-heading">DeepSeek 分析结果</h4>
-              <p>Provider：{analysisState.data.provider.id}{analysisState.data.provider.model ? ` · 模型：${analysisState.data.provider.model}` : ""}。结果未保存，也未自动修改站点。</p>
+              <h4 id="ai-diagnostic-result-heading">{__("DeepSeek 分析结果")}</h4>
+              <p>{sprintf(__("Provider：%s%s。结果未保存，也未自动修改站点。"), analysisState.data.provider.id, analysisState.data.provider.model ? sprintf(__(" · 模型：%s"), analysisState.data.provider.model) : "")}</p>
             </div>
             <SafeMarkdown className="mabox-runtime-status__markdown" markdown={analysisState.data.analysis} />
 
@@ -491,17 +492,17 @@ const AiDiagnostics = () => {
               <div className="mabox-ai-diagnostics__follow-up">
                 <div className="mabox-ai-diagnostics__follow-up-heading">
                   <div>
-                    <h5>继续追问</h5>
-                    <p>{followUpTurns.length}/3 轮 · 仅保存在当前页面，切换模式或刷新后清除。</p>
+                    <h5>{__("继续追问")}</h5>
+                    <p>{sprintf(__("%d/3 轮 · 仅保存在当前页面，切换模式或刷新后清除。"), followUpTurns.length)}</p>
                   </div>
                 </div>
 
                 {followUpTurns.length > 0 && (
-                  <ol className="mabox-ai-diagnostics__transcript" aria-label="临时追问记录">
+                  <ol className="mabox-ai-diagnostics__transcript" aria-label={__("临时追问记录")}>
                     {followUpTurns.map((turn, index) => (
                       <li key={`${index}-${turn.question}`}>
                         <div className="mabox-ai-diagnostics__question">
-                          <span>追问 {index + 1}</span>
+                          <span>{sprintf(__("追问 %d"), index + 1)}</span>
                           <p>{turn.question}</p>
                         </div>
                         <SafeMarkdown
@@ -515,8 +516,8 @@ const AiDiagnostics = () => {
 
                 {followUpTurns.length < 3 ? (
                   <div className="mabox-ai-diagnostics__follow-up-controls">
-                    <div className="mabox-ai-diagnostics__quick-questions" aria-label="快捷追问">
-                      {["依据是什么？", "还缺哪些证据？", "给出安全的验证步骤。"].map((question) => (
+                    <div className="mabox-ai-diagnostics__quick-questions" aria-label={__("快捷追问")}>
+                      {[__("依据是什么？"), __("还缺哪些证据？"), __("给出安全的验证步骤。")].map((question) => (
                         <button
                           key={question}
                           type="button"
@@ -529,8 +530,8 @@ const AiDiagnostics = () => {
                       ))}
                     </div>
                     <label htmlFor="ai-follow-up-question">
-                      <strong>当前追问</strong>
-                      <span>最多 1000 字，不要填写密码、密钥或个人信息。</span>
+                      <strong>{__("当前追问")}</strong>
+                      <span>{__("最多 1000 字，不要填写密码、密钥或个人信息。")}</span>
                     </label>
                     <textarea
                       id="ai-follow-up-question"
@@ -540,25 +541,25 @@ const AiDiagnostics = () => {
                       disabled={followUpState === "loading"}
                       onChange={(event) => setFollowUpQuestion(event.target.value)}
                     />
-                    <p>提交时会再次发送原白名单事实、首次回答和本页已完成的追问；这些内容不会持久化。</p>
+                    <p>{__("提交时会再次发送原白名单事实、首次回答和本页已完成的追问；这些内容不会持久化。")}</p>
                     <button
                       type="button"
                       className="button button-primary"
                       disabled={followUpState === "loading" || followUpQuestion.trim().length === 0}
                       onClick={() => void submitFollowUp()}
                     >
-                      {followUpState === "loading" ? "DeepSeek 正在回答" : "提交追问"}
+                      {followUpState === "loading" ? __("DeepSeek 正在回答") : __("提交追问")}
                     </button>
                   </div>
                 ) : (
                   <p className="mabox-ai-diagnostics__follow-up-limit" role="status">
-                    已完成 3 轮追问。若需要新的上下文，请重新生成快照并开始一次新分析。
+                    {__("已完成 3 轮追问。若需要新的上下文，请重新生成快照并开始一次新分析。")}
                   </p>
                 )}
 
                 {followUpState === "error" && (
                   <div className="mabox-runtime-state mabox-runtime-state--error" role="alert">
-                    <div><strong>追问失败</strong><span>本轮未加入临时记录，也没有保存任何内容；请稍后重试。</span></div>
+                    <div><strong>{__("追问失败")}</strong><span>{__("本轮未加入临时记录，也没有保存任何内容；请稍后重试。")}</span></div>
                   </div>
                 )}
               </div>
@@ -570,8 +571,8 @@ const AiDiagnostics = () => {
       {copyState !== "idle" && (
         <p className={`mabox-runtime-status__copy mabox-runtime-status__copy--${copyState}`} role="status">
           {copyState === "success"
-            ? mode === "troubleshooting" ? "已复制脱敏诊断报告，请在分享前再次检查。" : "已复制白名单快照，请在分享前再次检查。"
-            : "浏览器未允许复制，请刷新页面后重试。"}
+            ? mode === "troubleshooting" ? __("已复制脱敏诊断报告，请在分享前再次检查。") : __("已复制白名单快照，请在分享前再次检查。")
+            : __("浏览器未允许复制，请刷新页面后重试。")}
         </p>
       )}
     </div>

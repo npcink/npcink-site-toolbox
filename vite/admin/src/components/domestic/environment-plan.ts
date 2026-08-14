@@ -1,4 +1,5 @@
 import { OptimizeSite } from "@/tool/interface";
+import { __, sprintf } from "@/tool/i18n";
 
 const PROPOSAL_FIELDS: Record<string, "boolean" | "string"> = {
   cdn_replace: "boolean",
@@ -18,13 +19,13 @@ export function mergeEnvironmentProposal(
   proposed: unknown,
 ): OptimizeSite {
   if (!isRecord(proposed)) {
-    throw new Error("环境修复建议格式无效");
+    throw new Error(__("环境修复建议格式无效"));
   }
 
   Object.entries(proposed).forEach(([key, value]) => {
     const expectedType = PROPOSAL_FIELDS[key];
     if (!expectedType || typeof value !== expectedType) {
-      throw new Error(`环境修复建议包含无效字段：${key}`);
+      throw new Error(sprintf(__("环境修复建议包含无效字段：%s"), key));
     }
   });
 

@@ -11,6 +11,7 @@ import {
 import { searchIndex } from "@/tool/featureIndex";
 import type { SearchItem } from "@/tool/featureIndex";
 import type { DiagnosticSummary, Option, SearchHealthSummary } from "@/tool/interface";
+import { __, sprintf } from "@/tool/i18n";
 
 import "./overview.css";
 
@@ -74,9 +75,9 @@ interface NextStep {
 }
 
 const diagnosticStatusLabels: Record<DiagnosticSummary["status"], string> = {
-  good: "状态良好",
-  warning: "需要关注",
-  critical: "需要处理",
+  good: __("状态良好"),
+  warning: __("需要关注"),
+  critical: __("需要处理"),
 };
 
 const diagnosticStatuses = ["good", "warning", "critical"] as const;
@@ -173,12 +174,20 @@ function getDiagnosticAttention(summary: DiagnosticSummary): string | null {
 
   if (itemTitles.length > 0) {
     const displayedTitles = itemTitles.slice(0, 3).join("、");
-    return `待核对：${displayedTitles}${itemTitles.length > 3 ? `等 ${itemTitles.length} 项` : ""}`;
+    return sprintf(
+      __("待核对：%s%s"),
+      displayedTitles,
+      itemTitles.length > 3 ? sprintf(__("等 %d 项"), itemTitles.length) : "",
+    );
   }
 
   if (summary.module_risks.length > 0) {
     const displayedTitles = summary.module_risks.slice(0, 3).map((risk) => risk.title).join("、");
-    return `需评估模块：${displayedTitles}${summary.module_risks.length > 3 ? `等 ${summary.module_risks.length} 项` : ""}`;
+    return sprintf(
+      __("需评估模块：%s%s"),
+      displayedTitles,
+      summary.module_risks.length > 3 ? sprintf(__("等 %d 项"), summary.module_risks.length) : "",
+    );
   }
 
   return null;
@@ -202,28 +211,28 @@ function getSecurityChecks(optionData: Option): SecurityCheck[] {
 
   return [
     {
-      label: "登录安全配置",
-      detail: `已启用 ${loginSecurityEnabledCount}/2 项登录安全配置`,
+      label: __("登录安全配置"),
+      detail: sprintf(__("已启用 %d/2 项登录安全配置"), loginSecurityEnabledCount),
       status: loginSecurityEnabledCount === 2 ? "good" : loginSecurityEnabledCount === 1 ? "partial" : "attention",
     },
     {
-      label: "评论防护",
+      label: __("评论防护"),
       detail:
         commentProtections >= 2
-          ? "评论限制与过滤已配置"
+          ? __("评论限制与过滤已配置")
           : commentProtections === 1
-            ? "已启用一项基础防护"
-            : "尚未启用评论防护",
+            ? __("已启用一项基础防护")
+            : __("尚未启用评论防护"),
       status: commentProtections >= 2 ? "good" : commentProtections === 1 ? "partial" : "attention",
     },
     {
-      label: "信息暴露",
+      label: __("信息暴露"),
       detail:
         exposureProtections === 2
-          ? "版本与作者站点地图均已隐藏"
+          ? __("版本与作者站点地图均已隐藏")
           : exposureProtections === 1
-            ? "仍有一项暴露面可收紧"
-            : "建议隐藏版本和作者站点地图",
+            ? __("仍有一项暴露面可收紧")
+            : __("建议隐藏版本和作者站点地图"),
       status: exposureProtections === 2 ? "good" : exposureProtections === 1 ? "partial" : "attention",
     },
   ];
@@ -239,31 +248,31 @@ function buildNextSteps(
   if (!attemptLimitEnabled) {
     steps.push({
       id: "login-protection",
-      title: "启用登录尝试保护",
-      description: "限制同一已存在账号与来源 IP 组合的连续失败尝试，并使用固定统计窗口和锁定时长。",
+      title: __("启用登录尝试保护"),
+      description: __("限制同一已存在账号与来源 IP 组合的连续失败尝试，并使用固定统计窗口和锁定时长。"),
       view: "china",
       itemId: "domestic-login_security-attempt_limit_enabled",
-      action: "前往国内生态",
+      action: __("前往国内生态"),
     });
   }
 
   if (!optionData.optimize?.medium?.img_add_tag) {
     steps.push({
       id: "media-alt",
-      title: "检查媒体基础设置",
-      description: "确认图片替代文本策略，减少内容可访问性与 SEO 缺口。",
+      title: __("检查媒体基础设置"),
+      description: __("确认图片替代文本策略，减少内容可访问性与 SEO 缺口。"),
       view: "site",
-      action: "检查站点与媒体",
+      action: __("检查站点与媒体"),
     });
   }
 
   if (!optionData.function?.seo?.seo_single) {
     steps.push({
       id: "content-seo",
-      title: "确认内容 SEO 策略",
-      description: "按站点实际情况决定是否启用文章级 SEO，而不是套用预设方案。",
+      title: __("确认内容 SEO 策略"),
+      description: __("按站点实际情况决定是否启用文章级 SEO，而不是套用预设方案。"),
       view: "seo",
-      action: "管理内容与 SEO",
+      action: __("管理内容与 SEO"),
     });
   }
 
@@ -273,30 +282,30 @@ function buildNextSteps(
   ) {
     steps.push({
       id: "search-health",
-      title: "处理站内搜索问题",
-      description: "存在无结果或可疑搜索词，建议检查内容覆盖与搜索限制。",
+      title: __("处理站内搜索问题"),
+      description: __("存在无结果或可疑搜索词，建议检查内容覆盖与搜索限制。"),
       view: "content",
-      action: "查看内容工具",
+      action: __("查看内容工具"),
     });
   }
 
   if (steps.length < 2) {
     steps.push({
       id: "china-services",
-      title: "核对国内访问与合规",
-      description: "按实际业务检查备案、Cookie、微信与评论安全能力，不必全部开启。",
+      title: __("核对国内访问与合规"),
+      description: __("按实际业务检查备案、Cookie、微信与评论安全能力，不必全部开启。"),
       view: "china",
-      action: "查看国内生态",
+      action: __("查看国内生态"),
     });
   }
 
   if (steps.length < 2) {
     steps.push({
       id: "maintenance-review",
-      title: "定期检查维护状态",
-      description: "查看数据库、媒体与站点服务状态，只执行已经确认影响范围的维护任务。",
+      title: __("定期检查维护状态"),
+      description: __("查看数据库、媒体与站点服务状态，只执行已经确认影响范围的维护任务。"),
       view: "maintenance",
-      action: "检查维护状态",
+      action: __("检查维护状态"),
     });
   }
 
@@ -420,33 +429,33 @@ const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
     <div className="mabox-overview">
       <header className="mabox-overview__intro">
         <div>
-          <p className="mabox-overview__eyebrow">站点概览</p>
-          <h2>先处理重要事项，再进入具体设置</h2>
+          <p className="mabox-overview__eyebrow">{__("站点概览")}</p>
+          <h2>{__("先处理重要事项，再进入具体设置")}</h2>
           <p>
-            这里展示当前配置和站点服务的真实状态。所有调整仍需进入对应页面确认并保存。
+            {__("这里展示当前配置和站点服务的真实状态。所有调整仍需进入对应页面确认并保存。")}
           </p>
         </div>
         <button className="mabox-overview__quiet-button" type="button" onClick={() => navigate("maintenance")}>
           <span className="dashicons dashicons-admin-tools" aria-hidden="true" />
-          打开存储与维护
+          {__("打开存储与维护")}
         </button>
       </header>
 
-      <section className="mabox-overview__summary" aria-label="配置摘要">
+      <section className="mabox-overview__summary" aria-label={__("配置摘要")}>
         <article className="mabox-overview__metric">
-          <span className="mabox-overview__metric-label">已启用配置</span>
+          <span className="mabox-overview__metric-label">{__("已启用配置")}</span>
           <strong>{stats.enabled}</strong>
-          <span>共 {stats.total} 个布尔开关</span>
+          <span>{sprintf(__("共 %d 个布尔开关"), stats.total)}</span>
         </article>
         <article className="mabox-overview__metric">
-          <span className="mabox-overview__metric-label">登录安全配置</span>
+          <span className="mabox-overview__metric-label">{__("登录安全配置")}</span>
           <strong>{loginSecurityEnabledCount} / 2</strong>
-          <span>已启用 {loginSecurityEnabledCount}/2 项</span>
+          <span>{sprintf(__("已启用 %d/2 项"), loginSecurityEnabledCount)}</span>
         </article>
         <article className="mabox-overview__metric">
-          <span className="mabox-overview__metric-label">下一步</span>
+          <span className="mabox-overview__metric-label">{__("下一步")}</span>
           <strong>{nextSteps.length}</strong>
-          <span>按当前状态生成的建议</span>
+          <span>{__("按当前状态生成的建议")}</span>
         </article>
       </section>
 
@@ -456,10 +465,10 @@ const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
       >
         <div className="mabox-overview__panel-heading">
           <div>
-            <p className="mabox-overview__eyebrow">快捷入口</p>
-            <h3 id="favorites-heading">常用功能</h3>
+            <p className="mabox-overview__eyebrow">{__("快捷入口")}</p>
+            <h3 id="favorites-heading">{__("常用功能")}</h3>
           </div>
-          <span className="mabox-overview__badge">{favoriteItems.length} 项</span>
+          <span className="mabox-overview__badge">{sprintf(__("%d 项"), favoriteItems.length)}</span>
         </div>
 
         {favoriteItems.length > 0 ? (
@@ -469,7 +478,7 @@ const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
                 <button
                   type="button"
                   className="mabox-overview__favorite-open"
-                  aria-label={`打开常用功能：${item.label}`}
+                  aria-label={sprintf(__("打开常用功能：%s"), item.label)}
                   onClick={() => navigate(item.tabKey, item.id)}
                 >
                   <span className="dashicons dashicons-star-filled" aria-hidden="true" />
@@ -482,8 +491,8 @@ const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
                 <button
                   type="button"
                   className="mabox-overview__favorite-remove"
-                  aria-label={`取消收藏：${item.label}`}
-                  title="取消收藏"
+                  aria-label={sprintf(__("取消收藏：%s"), item.label)}
+                  title={__("取消收藏")}
                   onClick={() => removeFavorite(item.id)}
                 >
                   <span className="dashicons dashicons-no-alt" aria-hidden="true" />
@@ -495,8 +504,8 @@ const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
           <div className="mabox-overview__favorites-empty">
             <span className="dashicons dashicons-star-empty" aria-hidden="true" />
             <div>
-              <strong>还没有收藏常用功能</strong>
-              <span>点击设置项右侧的星标，之后可以从这里直接打开。</span>
+              <strong>{__("还没有收藏常用功能")}</strong>
+              <span>{__("点击设置项右侧的星标，之后可以从这里直接打开。")}</span>
             </div>
           </div>
         )}
@@ -506,8 +515,8 @@ const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
         <section className="mabox-overview__panel" aria-labelledby="diagnostic-heading">
           <div className="mabox-overview__panel-heading">
             <div>
-              <p className="mabox-overview__eyebrow">站点服务</p>
-              <h3 id="diagnostic-heading">站点诊断</h3>
+              <p className="mabox-overview__eyebrow">{__("站点服务")}</p>
+              <h3 id="diagnostic-heading">{__("站点诊断")}</h3>
             </div>
             {diagnosticState.status === "success" && (
               <span className={`mabox-overview__badge mabox-overview__badge--${diagnosticState.data.status}`}>
@@ -519,46 +528,51 @@ const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
           {diagnosticState.status === "loading" && (
             <div className="mabox-overview__state" role="status">
               <StateIcon name="loading" />
-              <div><strong>正在读取站点诊断</strong><span>请稍候，正在核对运行环境。</span></div>
+              <div><strong>{__("正在读取站点诊断")}</strong><span>{__("请稍候，正在核对运行环境。")}</span></div>
             </div>
           )}
           {diagnosticState.status === "error" && (
             <div className="mabox-overview__state mabox-overview__state--error" role="alert">
               <StateIcon name="error" />
-              <div><strong>站点诊断暂时不可用</strong><span>请求失败，当前没有可展示的检查结果。</span></div>
-              <button type="button" onClick={() => void loadDiagnostics()}>重新获取</button>
+              <div><strong>{__("站点诊断暂时不可用")}</strong><span>{__("请求失败，当前没有可展示的检查结果。")}</span></div>
+              <button type="button" onClick={() => void loadDiagnostics()}>{__("重新获取")}</button>
             </div>
           )}
           {diagnosticState.status === "empty" && (
             <div className="mabox-overview__state">
               <StateIcon name="empty" />
-              <div><strong>暂无诊断数据</strong><span>服务已响应，但没有返回有效诊断结果。</span></div>
-              <button type="button" onClick={() => void loadDiagnostics()}>重新检查</button>
+              <div><strong>{__("暂无诊断数据")}</strong><span>{__("服务已响应，但没有返回有效诊断结果。")}</span></div>
+              <button type="button" onClick={() => void loadDiagnostics()}>{__("重新检查")}</button>
             </div>
           )}
           {diagnosticState.status === "success" && diagnosticCounts && (
             <div className="mabox-overview__diagnostic-result">
               <div
                 className="mabox-overview__diagnostic-count"
-                aria-label={`站点诊断 ${diagnosticCounts.good} / ${diagnosticCounts.total} 项通过${diagnosticCounts.moduleRisks > 0 ? `，${diagnosticCounts.moduleRisks} 个模块风险` : ""}`}
+                aria-label={sprintf(
+                  __("站点诊断 %d / %d 项通过%s"),
+                  diagnosticCounts.good,
+                  diagnosticCounts.total,
+                  diagnosticCounts.moduleRisks > 0 ? sprintf(__("，%d 个模块风险"), diagnosticCounts.moduleRisks) : "",
+                )}
               >
-                <strong>{diagnosticCounts.good}</strong><span>/ {diagnosticCounts.total} 项通过</span>
+                <strong>{diagnosticCounts.good}</strong><span>{sprintf(__("/ %d 项通过"), diagnosticCounts.total)}</span>
               </div>
               <div className="mabox-overview__diagnostic-meta">
                 <p>
-                  {diagnosticCounts.warning} 项待关注，{diagnosticCounts.critical} 项需要处理；
+                  {sprintf(__("%d 项待关注，%d 项需要处理；"), diagnosticCounts.warning, diagnosticCounts.critical)}
                   {diagnosticCounts.moduleRisks > 0
-                    ? `${diagnosticCounts.moduleRisks} 个高风险或实验性模块已启用。`
-                    : "未启用高风险或实验性模块。"}
+                    ? sprintf(__("%d 个高风险或实验性模块已启用。"), diagnosticCounts.moduleRisks)
+                    : __("未启用高风险或实验性模块。")}
                 </p>
                 {diagnosticAttention && <span>{diagnosticAttention}</span>}
-                <small>生成于 {diagnosticState.data.generated_at}</small>
+                <small>{sprintf(__("生成于 %s"), diagnosticState.data.generated_at)}</small>
               </div>
             </div>
           )}
           {diagnosticState.status === "success" && (
             <button className="mabox-overview__full-button" type="button" onClick={() => navigate("about")}>
-              查看功能与运行状态
+              {__("查看功能与运行状态")}
             </button>
           )}
         </section>
@@ -566,37 +580,37 @@ const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
         <section className="mabox-overview__panel" aria-labelledby="search-heading">
           <div className="mabox-overview__panel-heading">
             <div>
-              <p className="mabox-overview__eyebrow">近 30 天</p>
-              <h3 id="search-heading">搜索健康</h3>
+              <p className="mabox-overview__eyebrow">{__("近 30 天")}</p>
+              <h3 id="search-heading">{__("搜索健康")}</h3>
             </div>
-            {searchState.status === "success" && <span className="mabox-overview__badge">已有数据</span>}
+            {searchState.status === "success" && <span className="mabox-overview__badge">{__("已有数据")}</span>}
           </div>
 
           {searchState.status === "loading" && (
             <div className="mabox-overview__state" role="status">
               <StateIcon name="loading" />
-              <div><strong>正在汇总搜索数据</strong><span>搜索健康与站点诊断分别加载。</span></div>
+              <div><strong>{__("正在汇总搜索数据")}</strong><span>{__("搜索健康与站点诊断分别加载。")}</span></div>
             </div>
           )}
           {searchState.status === "error" && (
             <div className="mabox-overview__state mabox-overview__state--error" role="alert">
               <StateIcon name="error" />
-              <div><strong>搜索健康暂时不可用</strong><span>诊断其他区域不受影响，可以单独重试。</span></div>
-              <button type="button" onClick={() => void loadSearchHealth()}>重新获取</button>
+              <div><strong>{__("搜索健康暂时不可用")}</strong><span>{__("诊断其他区域不受影响，可以单独重试。")}</span></div>
+              <button type="button" onClick={() => void loadSearchHealth()}>{__("重新获取")}</button>
             </div>
           )}
           {searchState.status === "empty" && (
             <div className="mabox-overview__state">
               <StateIcon name="empty" />
-              <div><strong>暂无搜索数据</strong><span>近 30 天没有可汇总的站内搜索记录。</span></div>
-              <button type="button" onClick={() => navigate("content")}>检查搜索设置</button>
+              <div><strong>{__("暂无搜索数据")}</strong><span>{__("近 30 天没有可汇总的站内搜索记录。")}</span></div>
+              <button type="button" onClick={() => navigate("content")}>{__("检查搜索设置")}</button>
             </div>
           )}
           {searchState.status === "success" && (
             <dl className="mabox-overview__search-metrics">
-              <div><dt>总搜索量</dt><dd>{searchState.data.total_searches}</dd></div>
-              <div><dt>关键词</dt><dd>{searchState.data.unique_terms}</dd></div>
-              <div><dt>无结果词</dt><dd>{searchState.data.no_result_terms.length}</dd></div>
+              <div><dt>{__("总搜索量")}</dt><dd>{searchState.data.total_searches}</dd></div>
+              <div><dt>{__("关键词")}</dt><dd>{searchState.data.unique_terms}</dd></div>
+              <div><dt>{__("无结果词")}</dt><dd>{searchState.data.no_result_terms.length}</dd></div>
             </dl>
           )}
         </section>
@@ -608,29 +622,29 @@ const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
       >
         <div className="mabox-overview__panel-heading">
           <div>
-            <p className="mabox-overview__eyebrow">内容编辑</p>
-            <h3 id="editor-tools-heading">编辑器工具</h3>
+            <p className="mabox-overview__eyebrow">{__("内容编辑")}</p>
+            <h3 id="editor-tools-heading">{__("编辑器工具")}</h3>
             <p className="mabox-overview__editor-tools-summary">
-              3 个可编辑样板和 2 个实时数据区块，只在文章或页面编辑器中使用。
+              {__("3 个可编辑样板和 2 个实时数据区块，只在文章或页面编辑器中使用。")}
             </p>
           </div>
-          <span className="mabox-overview__badge">5 项可用</span>
+          <span className="mabox-overview__badge">{__("5 项可用")}</span>
         </div>
 
         <div className="mabox-overview__editor-tools-body">
           <dl className="mabox-overview__editor-tools-list">
             <div>
-              <dt>样板</dt>
-              <dd>资源下载、文章结论、来源与版权说明</dd>
+              <dt>{__("样板")}</dt>
+              <dd>{__("资源下载、文章结论、来源与版权说明")}</dd>
             </div>
             <div>
-              <dt>动态区块</dt>
-              <dd>站点数据；GitHub 项目（描述、语言、Stars 与 Forks）</dd>
+              <dt>{__("动态区块")}</dt>
+              <dd>{__("站点数据；GitHub 项目（描述、语言、Stars 与 Forks）")}</dd>
             </div>
           </dl>
 
           <div className="mabox-overview__editor-tools-actions">
-            <p>在区块插入器中选择 Npcink Site Toolbox，或搜索“站点数据”“GitHub 项目”。</p>
+            <p>{__("在区块插入器中选择 Npcink Site Toolbox，或搜索“站点数据”“GitHub 项目”。")}</p>
             <div>
               <a
                 className="button button-primary mabox-overview__editor-link"
@@ -638,7 +652,7 @@ const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                新建文章使用
+                {__("新建文章使用")}
                 <span className="dashicons dashicons-external" aria-hidden="true" />
               </a>
               <a
@@ -647,7 +661,7 @@ const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                新建页面
+                {__("新建页面")}
                 <span className="dashicons dashicons-external" aria-hidden="true" />
               </a>
             </div>
@@ -659,8 +673,8 @@ const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
         <section className="mabox-overview__panel" aria-labelledby="next-steps-heading">
           <div className="mabox-overview__panel-heading">
             <div>
-              <p className="mabox-overview__eyebrow">建议操作</p>
-              <h3 id="next-steps-heading">接下来可以做什么</h3>
+              <p className="mabox-overview__eyebrow">{__("建议操作")}</p>
+              <h3 id="next-steps-heading">{__("接下来可以做什么")}</h3>
             </div>
           </div>
           <ol className="mabox-overview__steps">
@@ -679,8 +693,8 @@ const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
         <section className="mabox-overview__panel" aria-labelledby="security-heading">
           <div className="mabox-overview__panel-heading">
             <div>
-              <p className="mabox-overview__eyebrow">基础防护</p>
-              <h3 id="security-heading">安全状态</h3>
+              <p className="mabox-overview__eyebrow">{__("基础防护")}</p>
+              <h3 id="security-heading">{__("安全状态")}</h3>
             </div>
           </div>
           <ul className="mabox-overview__security-list">
@@ -689,7 +703,7 @@ const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
                 <span className={`mabox-overview__status-dot mabox-overview__status-dot--${check.status}`} aria-hidden="true" />
                 <div><strong>{check.label}</strong><span>{check.detail}</span></div>
                 <span className="screen-reader-text">
-                  {check.status === "good" ? "状态良好" : check.status === "partial" ? "部分配置" : "需要关注"}
+                  {check.status === "good" ? __("状态良好") : check.status === "partial" ? __("部分配置") : __("需要关注")}
                 </span>
               </li>
             ))}
@@ -699,7 +713,7 @@ const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
             type="button"
             onClick={() => navigate("china", "domestic-login_security-attempt_limit_enabled")}
           >
-            管理国内安全设置
+            {__("管理国内安全设置")}
           </button>
         </section>
       </div>

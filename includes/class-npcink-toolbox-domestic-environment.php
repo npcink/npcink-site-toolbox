@@ -75,14 +75,14 @@ if (!class_exists('Npcink_Toolbox_Domestic_Environment')) {
         {
             $fixes = $request->get_param('fixes');
             if (!is_array($fixes)) {
-                return new \WP_Error('rest_invalid_data', 'fixes 参数必须是数组', array('status' => 400));
+                return new \WP_Error('rest_invalid_data', __('fixes 参数必须是数组', 'npcink-site-toolbox'), array('status' => 400));
             }
 
             $allowed_fixes = array('gravatar', 'google_fonts', 'google_ajax');
             $fixes = array_intersect($fixes, $allowed_fixes);
 
             if (empty($fixes)) {
-                return new \WP_Error('rest_invalid_data', '没有有效的修复项', array('status' => 400));
+                return new \WP_Error('rest_invalid_data', __('没有有效的修复项', 'npcink-site-toolbox'), array('status' => 400));
             }
 
             $current = get_option(NPCINK_SITE_TOOLBOX_OPTION_OPTIMIZE, array());
@@ -98,7 +98,7 @@ if (!class_exists('Npcink_Toolbox_Domestic_Environment')) {
             if (in_array('gravatar', $fixes)) {
                 $diffs[] = array(
                     'key'        => 'cdn_gravatar',
-                    'label'      => 'Gravatar 头像替换',
+                    'label'      => __('Gravatar 头像替换', 'npcink-site-toolbox'),
                     'before'     => !empty($current['site']['cdn_gravatar']),
                     'after'      => true,
                     'risk_level' => 'none',
@@ -106,7 +106,7 @@ if (!class_exists('Npcink_Toolbox_Domestic_Environment')) {
                 if (empty($current['site']['cdn_gravatar_mirror'])) {
                     $diffs[] = array(
                         'key'        => 'cdn_gravatar_mirror',
-                        'label'      => 'Gravatar 镜像地址',
+                        'label'      => __('Gravatar 镜像地址', 'npcink-site-toolbox'),
                         'before'     => '',
                         'after'      => 'gravatar.loli.net/avatar/',
                         'risk_level' => 'none',
@@ -114,7 +114,7 @@ if (!class_exists('Npcink_Toolbox_Domestic_Environment')) {
                 }
                 $diffs[] = array(
                     'key'        => 'cdn_replace',
-                    'label'      => 'CDN 替换总开关',
+                    'label'      => __('CDN 替换总开关', 'npcink-site-toolbox'),
                     'before'     => !empty($current['site']['cdn_replace']),
                     'after'      => true,
                     'risk_level' => 'high',
@@ -124,7 +124,7 @@ if (!class_exists('Npcink_Toolbox_Domestic_Environment')) {
             if (in_array('google_fonts', $fixes)) {
                 $diffs[] = array(
                     'key'        => 'cdn_google_fonts',
-                    'label'      => 'Google Fonts 替换',
+                    'label'      => __('Google Fonts 替换', 'npcink-site-toolbox'),
                     'before'     => !empty($current['site']['cdn_google_fonts']),
                     'after'      => true,
                     'risk_level' => 'none',
@@ -132,7 +132,7 @@ if (!class_exists('Npcink_Toolbox_Domestic_Environment')) {
                 if (empty($current['site']['cdn_google_fonts_mirror'])) {
                     $diffs[] = array(
                         'key'        => 'cdn_google_fonts_mirror',
-                        'label'      => 'Google Fonts 镜像地址',
+                        'label'      => __('Google Fonts 镜像地址', 'npcink-site-toolbox'),
                         'before'     => '',
                         'after'      => 'fonts.loli.net',
                         'risk_level' => 'none',
@@ -140,7 +140,7 @@ if (!class_exists('Npcink_Toolbox_Domestic_Environment')) {
                 }
                 $diffs[] = array(
                     'key'        => 'cdn_replace',
-                    'label'      => 'CDN 替换总开关',
+                    'label'      => __('CDN 替换总开关', 'npcink-site-toolbox'),
                     'before'     => !empty($current['site']['cdn_replace']),
                     'after'      => true,
                     'risk_level' => 'high',
@@ -150,14 +150,14 @@ if (!class_exists('Npcink_Toolbox_Domestic_Environment')) {
             if (in_array('google_ajax', $fixes)) {
                 $diffs[] = array(
                     'key'        => 'cdn_google_ajax',
-                    'label'      => 'Google Ajax 替换',
+                    'label'      => __('Google Ajax 替换', 'npcink-site-toolbox'),
                     'before'     => !empty($current['site']['cdn_google_ajax']),
                     'after'      => true,
                     'risk_level' => 'none',
                 );
                 $diffs[] = array(
                     'key'        => 'cdn_replace',
-                    'label'      => 'CDN 替换总开关',
+                    'label'      => __('CDN 替换总开关', 'npcink-site-toolbox'),
                     'before'     => !empty($current['site']['cdn_replace']),
                     'after'      => true,
                     'risk_level' => 'high',
@@ -178,7 +178,7 @@ if (!class_exists('Npcink_Toolbox_Domestic_Environment')) {
 
             return rest_ensure_response(array(
                 'success' => true,
-                'message' => '已生成建议变更，请确认后保存',
+                'message' => __('已生成建议变更，请确认后保存', 'npcink-site-toolbox'),
                 'data'    => array(
                     'fixes'    => $fixes,
                     'diffs'    => $diffs,
@@ -190,10 +190,10 @@ if (!class_exists('Npcink_Toolbox_Domestic_Environment')) {
         private static function get_suggestion($key)
         {
             $suggestions = array(
-                'google_fonts'  => '建议开启 Google Fonts CDN 替换，使用国内镜像',
-                'gravatar'      => '建议开启 Gravatar 头像替换，使用国内镜像',
-                'google_ajax'   => '建议开启 Google Ajax CDN 替换',
-                'wordpress_org' => 'WordPress.org API 不可达，部分后台功能可能受影响；建议检查服务器网络或安全插件设置',
+                'google_fonts'  => __('建议开启 Google Fonts CDN 替换，使用国内镜像', 'npcink-site-toolbox'),
+                'gravatar'      => __('建议开启 Gravatar 头像替换，使用国内镜像', 'npcink-site-toolbox'),
+                'google_ajax'   => __('建议开启 Google Ajax CDN 替换', 'npcink-site-toolbox'),
+                'wordpress_org' => __('WordPress.org API 不可达，部分后台功能可能受影响；建议检查服务器网络或安全插件设置', 'npcink-site-toolbox'),
             );
             return isset($suggestions[$key]) ? $suggestions[$key] : '';
         }

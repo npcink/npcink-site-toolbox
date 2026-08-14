@@ -141,21 +141,21 @@ if (!class_exists('Npcink_Toolbox_Census_Single')) {
 
             $array = array(
                 array(
-                    'title' => "已发布",
+                    'title' => __('已发布', 'npcink-site-toolbox'),
                     'num' => (int)$option['today']['single'],
-                    'unit' => "篇",
+                    'unit' => __('篇', 'npcink-site-toolbox'),
                     'icon' => "dashicons dashicons-universal-access",
                 ),
                 array(
-                    'title' => "已评论",
+                    'title' => __('已评论', 'npcink-site-toolbox'),
                     'num' => (int)$option['today']['comments'],
-                    'unit' => "条",
+                    'unit' => __('条', 'npcink-site-toolbox'),
                     'icon' => "dashicons dashicons-format-status",
                 ),
                 array(
-                    'title' => "已注册",
+                    'title' => __('已注册', 'npcink-site-toolbox'),
                     'num' => (int)$option['today']['register'],
-                    'unit' => "位",
+                    'unit' => __('位', 'npcink-site-toolbox'),
                     'icon' => "dashicons dashicons-database-add",
                 )
 
@@ -171,14 +171,14 @@ if (!class_exists('Npcink_Toolbox_Census_Single')) {
             //准备日期
 
             $week = array(
-                "title" => "统计",
+                "title" => __('统计', 'npcink-site-toolbox'),
                 "dataset" => self::get_user_release_arr()["week_sum"],
             );
 
             $month = array(
                 "width" => 1200,
                 "height" => 300,
-                "title" => "月度统计",
+                "title" => __('月度统计', 'npcink-site-toolbox'),
                 "dataset" => self::get_user_release_arr()["month_sum"],
             );
 
@@ -196,7 +196,7 @@ if (!class_exists('Npcink_Toolbox_Census_Single')) {
             // 首先，我们注册一个部分。这是必要的，因为所有未来的选项都必须属于一个。
             add_settings_section(
                 'npcink_site_toolbox_census_section', // 用于标识此部分以及用于注册选项的ID
-                '已统计人员ID', // 要在管理页面上显示的标题
+                __('已统计人员 ID', 'npcink-site-toolbox'), // 要在管理页面上显示的标题
                 array(__CLASS__, 'render_census_settings_section'),
                 'npcink_site_toolbox_census_settings' // 添加此部分选项的页面
             );
@@ -204,12 +204,12 @@ if (!class_exists('Npcink_Toolbox_Census_Single')) {
             //添加一个对钩选项
             add_settings_field(
                 'option_id', // 用于标识整个主题中的字段的ID
-                '待统计人员', // 选项接口元素左侧的标签
+                __('待统计人员', 'npcink-site-toolbox'), // 选项接口元素左侧的标签
                 array(__CLASS__, 'render_census_user_field'),
                 'npcink_site_toolbox_census_settings', // 将显示此选项的页面
                 'npcink_site_toolbox_census_section', // 此字段所属的节的名称
                 array( // 要传递给回调的参数数组。在这种情况下，只是一个描述。
-                    '选择需要监控的用户（排除订阅者）',
+                    __('选择需要监控的用户（排除订阅者）', 'npcink-site-toolbox'),
                 )
             );
 
@@ -264,10 +264,14 @@ if (!class_exists('Npcink_Toolbox_Census_Single')) {
             //拿到选项的值
             $options = get_option('npcink_site_toolbox_census');
             if ($options) {
-                echo "您选择的是人员ID是：" . esc_html(implode(',', $options['option_id']));
+                printf(
+                    /* translators: %s: Comma-separated user IDs. */
+                    esc_html__('您选择的人员 ID 是：%s', 'npcink-site-toolbox'),
+                    esc_html(implode(',', $options['option_id']))
+                );
                 return;
             } else {
-                echo "您没有选择值";
+                esc_html_e('您没有选择值', 'npcink-site-toolbox');
                 return;
             }
         }

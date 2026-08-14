@@ -210,9 +210,9 @@ import Default from "@/assets/page/function/service/default-simple.png";
 import Default_img from "@/assets/page/function/service/default-image.png";
 import Red from "@/assets/page/function/service/red-minimal.png";
 const serviceList = [
-  { value: "default", label: Default, title: "默认简洁" },
-  { value: "default_img", label: Default_img, title: "默认带图" },
-  { value: "red", label: Red, title: "红色纯粹" },
+  { value: "default", label: Default, title: __("默认简洁") },
+  { value: "default_img", label: Default_img, title: __("默认带图") },
+  { value: "red", label: Red, title: __("红色纯粹") },
 ];
 
 const maintenanceHtmlExample = (

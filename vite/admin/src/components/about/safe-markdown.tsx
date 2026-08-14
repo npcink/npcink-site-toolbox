@@ -1,6 +1,7 @@
 import type { Components } from "react-markdown";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import { __ } from "@/tool/i18n";
 
 interface SafeMarkdownProps {
   markdown: string;
@@ -48,7 +49,7 @@ const components: Components = {
 };
 
 const SafeMarkdown = ({ markdown, className }: SafeMarkdownProps) => (
-  <div className={className} aria-label="DeepSeek 分析结果内容">
+  <div className={className} aria-label={__("DeepSeek 分析结果内容")}>
     <ReactMarkdown
       allowedElements={allowedElements}
       components={components}

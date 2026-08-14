@@ -61,8 +61,14 @@ if (!class_exists('Npcink_Toolbox_Admin_Add_Time_Screen')) {
             $from = $dates['from'];
             $to = $dates['to'];
 
-            echo '<input type="text" name="mishaDateFrom" placeholder="开始于" value="' . esc_attr($from) . '" />
-			<input type="text" name="mishaDateTo" placeholder="结束于" value="' . esc_attr($to) . '" />';
+            printf(
+                '<input type="text" name="mishaDateFrom" placeholder="%1$s" value="%2$s" />
+			<input type="text" name="mishaDateTo" placeholder="%3$s" value="%4$s" />',
+                esc_attr__('开始于', 'npcink-site-toolbox'),
+                esc_attr($from),
+                esc_attr__('结束于', 'npcink-site-toolbox'),
+                esc_attr($to)
+            );
         }
 
         /*

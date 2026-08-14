@@ -60,25 +60,25 @@ interface NavGroup {
 
 const navGroups: NavGroup[] = [
   {
-    groupLabel: "工作台",
+    groupLabel: __("工作台"),
     items: [
-      { key: "overview", label: "概览", icon: "dashicons-dashboard", component: Dashboard },
+      { key: "overview", label: __("概览"), icon: "dashicons-dashboard", component: Dashboard },
     ],
   },
   {
-    groupLabel: "站点设置",
+    groupLabel: __("站点设置"),
     items: [
-      { key: "site", label: "站点与媒体", icon: "dashicons-admin-site-alt3", component: Optimize },
-      { key: "content", label: "内容与页面", icon: "dashicons-admin-page", component: Page },
-      { key: "seo", label: "SEO 与增强", icon: "dashicons-search", component: Function },
-      { key: "china", label: "国内生态", icon: "dashicons-location-alt", component: Domestic },
+      { key: "site", label: __("站点与媒体"), icon: "dashicons-admin-site-alt3", component: Optimize },
+      { key: "content", label: __("内容与页面"), icon: "dashicons-admin-page", component: Page },
+      { key: "seo", label: __("SEO 与增强"), icon: "dashicons-search", component: Function },
+      { key: "china", label: __("国内生态"), icon: "dashicons-location-alt", component: Domestic },
     ],
   },
   {
-    groupLabel: "工具与支持",
+    groupLabel: __("工具与支持"),
     items: [
-      { key: "maintenance", label: "存储与维护", icon: "dashicons-admin-tools", component: Performance },
-      { key: "about", label: "关于与帮助", icon: "dashicons-info-outline", component: About },
+      { key: "maintenance", label: __("存储与维护"), icon: "dashicons-admin-tools", component: Performance },
+      { key: "about", label: __("关于与帮助"), icon: "dashicons-info-outline", component: About },
     ],
   },
 ];
@@ -149,7 +149,7 @@ const App: React.FC = () => {
       setSecretChanges({});
       setSettingsState("ready");
     } catch (error) {
-      const message = error instanceof Error ? error.message : "无法读取设置";
+      const message = error instanceof Error ? error.message : __("无法读取设置");
       setSettingsError(message);
       setSettingsState("error");
       throw error;
@@ -370,7 +370,7 @@ const App: React.FC = () => {
               onClick={() => setMobileMenuOpen((isOpen) => !isOpen)}
             >
               <span className="dashicons dashicons-menu" aria-hidden="true" />
-              <span>{activeNavItem ? __(activeNavItem.label) : __("导航")}</span>
+              <span>{activeNavItem ? activeNavItem.label : __("导航")}</span>
             </button>
           )}
 
@@ -390,7 +390,7 @@ const App: React.FC = () => {
           >
             {navGroups.map((group) => (
               <div className="mabox-nav-group" key={group.groupLabel}>
-                <div className="mabox-nav-group-label">{__(group.groupLabel)}</div>
+                <div className="mabox-nav-group-label">{group.groupLabel}</div>
                 {group.items.map((item) => (
                   <button
                     type="button"
@@ -400,7 +400,7 @@ const App: React.FC = () => {
                     onClick={() => navigateToView(item.key)}
                   >
                     <span className={`dashicons ${item.icon}`} aria-hidden="true" />
-                    <span className="mabox-nav-item-label">{__(item.label)}</span>
+                    <span className="mabox-nav-item-label">{item.label}</span>
                   </button>
                 ))}
               </div>

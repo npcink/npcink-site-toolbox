@@ -143,21 +143,21 @@ if (!class_exists('Npcink_Toolbox_Medium_Svg_Support')) {
 
             // 仅管理员可上传 SVG；其他文件不受此功能影响。
             if (!current_user_can('manage_options')) {
-                $file['error'] = '仅管理员可上传 SVG 文件';
+                $file['error'] = __('仅管理员可上传 SVG 文件', 'npcink-site-toolbox');
                 return $file;
             }
 
             // 读取文件内容
             $content = file_get_contents($file['tmp_name']);
             if ($content === false) {
-                $file['error'] = '无法读取 SVG 文件内容';
+                $file['error'] = __('无法读取 SVG 文件内容', 'npcink-site-toolbox');
                 return $file;
             }
 
             // 检查是否为有效的 XML
             $xml = @simplexml_load_string($content);
             if ($xml === false) {
-                $file['error'] = 'SVG 文件格式无效（无效的 XML）';
+                $file['error'] = __('SVG 文件格式无效（无效的 XML）', 'npcink-site-toolbox');
                 return $file;
             }
 
@@ -166,7 +166,7 @@ if (!class_exists('Npcink_Toolbox_Medium_Svg_Support')) {
 
             // 写回文件
             if (file_put_contents($file['tmp_name'], $sanitized) === false) {
-                $file['error'] = '无法保存清洗后的 SVG 文件';
+                $file['error'] = __('无法保存清洗后的 SVG 文件', 'npcink-site-toolbox');
                 return $file;
             }
 

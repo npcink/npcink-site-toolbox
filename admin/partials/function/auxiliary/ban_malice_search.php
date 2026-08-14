@@ -38,7 +38,7 @@ if (!class_exists('Npcink_Toolbox_Ban_Malice_Search')) {
                     $S_Key = $wp_query->query_vars;
                     foreach ($BanKey as $Key) {
                         if (stristr($S_Key['s'], $Key) != false) {
-                            $message = '搜索内容包含敏感词，请换个关键词搜索';
+                            $message = __('搜索内容包含敏感词，请换个关键词搜索', 'npcink-site-toolbox');
                             $message = $message . Npcink_Toolbox_Admin::back_button();
                             $allowed_html = array(
                                 'p'  => array(),

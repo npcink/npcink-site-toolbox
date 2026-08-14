@@ -158,7 +158,7 @@ if (!class_exists('Npcink_Toolbox_Tool')) {
                 return self::getDateFromRange($start->format('Y-m-d'), $end->format('Y-m-d'));
             }
 
-            $msg = "参数错误！";
+            $msg = __('参数错误！', 'npcink-site-toolbox');
             return $msg;
         }
 
@@ -255,7 +255,7 @@ if (!class_exists('Npcink_Toolbox_Tool')) {
                 return isset($count_posts->{$status}) ? (int) $count_posts->{$status} : 0;
             }
 
-            $msg = "参数错误！";
+            $msg = __('参数错误！', 'npcink-site-toolbox');
             return $msg;
         }
 

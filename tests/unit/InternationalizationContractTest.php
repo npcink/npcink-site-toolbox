@@ -33,6 +33,12 @@ final class InternationalizationContractTest extends TestCase
             '隐藏顶部工具条',
             '评论过于频繁，请 %d 秒后再试。',
             '数据库表优化完成',
+            'Npcink Site Toolbox - 站点统计',
+            'Gravatar 头像替换',
+            '最后编辑于：',
+            '登录可见',
+            'AI 诊断与分析',
+            '备案与合规',
         ) as $message) {
             $this->assertStringContainsString('msgid "' . $message . '"', $pot, $message);
         }
