@@ -91,6 +91,10 @@ class ReleasePackageContractTest extends TestCase
         $this->assertStringContainsString('trap cleanup', $build);
         $this->assertStringContainsString('"$VERIFY_SCRIPT" "$temporary_zip"', $build);
         foreach (array(
+            'languages/npcink-site-toolbox-en_US.po',
+            'languages/npcink-site-toolbox-en_US.mo',
+            'languages/npcink-site-toolbox-en_US-be96897d1813598cc6ffe96654a4f062.json',
+            'languages/npcink-site-toolbox-en_US-d4372d764458b4d5899ad1740400c0a9.json',
             'blocks/github-project/block.json',
             'blocks/github-project/index.js',
             'blocks/github-project/index.asset.php',
@@ -514,6 +518,10 @@ BASH
             'admin/partials/optimize/site/category_link_simplify.php' => "<?php\n",
             'public/class-npcink-toolbox-public.php' => "<?php\n",
             'languages/npcink-site-toolbox.pot' => "msgid \"\"\nmsgstr \"\"\n\"Project-Id-Version: Npcink Site Toolbox 9.8.7\\n\"\n",
+            'languages/npcink-site-toolbox-en_US.po' => "msgid \"\"\nmsgstr \"\"\n\"Language: en_US\\n\"\n",
+            'languages/npcink-site-toolbox-en_US.mo' => 'compiled translations',
+            'languages/npcink-site-toolbox-en_US-be96897d1813598cc6ffe96654a4f062.json' => '{"locale_data":{"messages":{"":{"domain":"npcink-site-toolbox","lang":"en_US"}}}}',
+            'languages/npcink-site-toolbox-en_US-d4372d764458b4d5899ad1740400c0a9.json' => '{"locale_data":{"messages":{"":{"domain":"npcink-site-toolbox","lang":"en_US"}}}}',
             'blocks/github-project/block.json' => '{"name":"npcink/github-project"}',
             'blocks/github-project/index.js' => 'void 0;',
             'blocks/github-project/index.asset.php' => "<?php\nreturn array('dependencies' => array(), 'version' => '9.8.7');\n",

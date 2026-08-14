@@ -175,6 +175,7 @@ class Npcink_Toolbox_Admin
             'commentRestHelpUrl' => admin_url('admin.php?page=npcink-site-toolbox-comment-rest-help'),
             'apiBase' => esc_url_raw(rest_url('npcink-site-toolbox/v1')),
             'restNonce' => wp_create_nonce('wp_rest'),
+            'locale' => determine_locale(),
             'webpSupported' => function_exists('wp_image_editor_supports')
                 && wp_image_editor_supports(array('mime_type' => 'image/webp')),
         );

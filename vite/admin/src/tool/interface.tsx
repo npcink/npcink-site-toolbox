@@ -57,6 +57,7 @@ export type DataLocal = {
   nonce?: string;
   apiBase?: string;
   restNonce?: string;
+  locale?: string;
   webpSupported?: boolean;
 };
 

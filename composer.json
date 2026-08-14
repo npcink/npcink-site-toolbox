@@ -33,6 +33,7 @@
         "settings-contract:check": "@php tests/support/export-admin-settings-contract.php --check",
         "links:check": "phpunit --configuration phpunit.xml.dist --filter PublicLinkContractTest",
         "i18n:pot": "bash bin/make-pot.sh",
+        "i18n:build": "bash bin/build-language-pack.sh",
         "release:build": "bash bin/build-release-zip.sh",
         "release:verify": "bash bin/verify-release-zip.sh"
     }

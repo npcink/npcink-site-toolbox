@@ -10,11 +10,39 @@ final class InternationalizationContractTest extends TestCase
         $admin = (string) file_get_contents($root . '/admin/class-npcink-toolbox-admin.php');
         $helper = (string) file_get_contents($root . '/vite/admin/src/tool/i18n.ts');
         $composer = json_decode((string) file_get_contents($root . '/composer.json'), true);
+        $main = (string) file_get_contents($root . '/npcink-site-toolbox.php');
+        $plugin = (string) file_get_contents($root . '/includes/class-npcink-site-toolbox.php');
 
+        $this->assertStringContainsString('Domain Path:       /languages', $main);
+        $this->assertStringContainsString("load_textdomain('npcink-site-toolbox', \$mofile)", $plugin);
+        $this->assertStringContainsString("'/languages/npcink-site-toolbox-' . \$locale . '.mo'", $plugin);
         $this->assertStringContainsString("array('wp-i18n')", $admin);
         $this->assertStringContainsString("wp_set_script_translations(\$name, 'npcink-site-toolbox'", $admin);
         $this->assertStringContainsString('window.wp?.i18n?.__(text, "npcink-site-toolbox")', $helper);
         $this->assertSame('bash bin/make-pot.sh', $composer['scripts']['i18n:pot'] ?? null);
+        $this->assertSame('bash bin/build-language-pack.sh', $composer['scripts']['i18n:build'] ?? null);
+    }
+
+    public function test_english_language_pack_is_complete_and_targets_runtime_scripts(): void
+    {
+        $root = dirname(__DIR__, 2);
+        $po = (string) file_get_contents($root . '/languages/npcink-site-toolbox-en_US.po');
+        $adminJson = json_decode((string) file_get_contents(
+            $root . '/languages/npcink-site-toolbox-en_US-be96897d1813598cc6ffe96654a4f062.json'
+        ), true);
+        $countdownJson = json_decode((string) file_get_contents(
+            $root . '/languages/npcink-site-toolbox-en_US-d4372d764458b4d5899ad1740400c0a9.json'
+        ), true);
+        $app = (string) file_get_contents($root . '/vite/admin/src/App.tsx');
+        $admin = (string) file_get_contents($root . '/admin/class-npcink-toolbox-admin.php');
+
+        $this->assertFileExists($root . '/languages/npcink-site-toolbox-en_US.mo');
+        $this->assertStringContainsString('"Language: en_US\\n"', $po);
+        $this->assertSame('Save', $adminJson['locale_data']['messages']['保存'][0] ?? null);
+        $this->assertSame('Countdown complete', $countdownJson['locale_data']['messages']['倒计时结束'][0] ?? null);
+        $this->assertStringContainsString("'locale' => determine_locale()", $admin);
+        $this->assertStringContainsString('import enUS from "antd/locale/en_US"', $app);
+        $this->assertStringContainsString('locale.toLowerCase().startsWith("en") ? enUS : zhCN', $app);
     }
 
     public function test_pot_contains_php_and_admin_javascript_messages(): void
@@ -42,6 +70,9 @@ final class InternationalizationContractTest extends TestCase
         ) as $message) {
             $this->assertStringContainsString('msgid "' . $message . '"', $pot, $message);
         }
+
+        $this->assertStringNotContainsString('const App: React.FC', $pot);
+        $this->assertStringNotContainsString('useState<MediaWebpAssessment', $pot);
     }
 
     public function test_public_maintenance_countdown_loads_the_translation_runtime(): void

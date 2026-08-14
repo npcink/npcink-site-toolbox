@@ -24,16 +24,20 @@ cleanup() {
 trap cleanup EXIT HUP INT TERM
 
 javascript_pot="$temporary_root/admin-javascript.pot"
+admin_bundle_source="$temporary_root/vite/admin/dist/index.js"
+mkdir -p -- "$(dirname -- "$admin_bundle_source")"
 ( 
   cd -- "$PROJECT_ROOT"
-  php "$PROJECT_ROOT/bin/export-i18n-metadata.php" \
-    | xgettext \
-      --language=JavaScript \
-      --keyword=__ \
-      --from-code=UTF-8 \
-      --package-name='Npcink Site Toolbox' \
-      --output="$javascript_pot" \
-      -
+  php "$PROJECT_ROOT/bin/export-i18n-metadata.php" > "$admin_bundle_source"
+
+  xgettext \
+    --directory="$temporary_root" \
+    --language=JavaScript \
+    --keyword=__ \
+    --from-code=UTF-8 \
+    --package-name='Npcink Site Toolbox' \
+    --output="$javascript_pot" \
+    vite/admin/dist/index.js
 
   xgettext \
     --language=JavaScript \

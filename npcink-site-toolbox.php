@@ -14,6 +14,7 @@ defined('ABSPATH') || exit;
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain:       npcink-site-toolbox
+ * Domain Path:       /languages
  */
 //调试内容，在后台顶部显示一个通知
 // 如果直接调用此文件，请中止。

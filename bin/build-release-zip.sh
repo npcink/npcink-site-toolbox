@@ -70,6 +70,10 @@ esac
 
 required_assets=(
   "languages/npcink-site-toolbox.pot"
+  "languages/npcink-site-toolbox-en_US.po"
+  "languages/npcink-site-toolbox-en_US.mo"
+  "languages/npcink-site-toolbox-en_US-be96897d1813598cc6ffe96654a4f062.json"
+  "languages/npcink-site-toolbox-en_US-d4372d764458b4d5899ad1740400c0a9.json"
   "blocks/github-project/block.json"
   "blocks/github-project/index.js"
   "blocks/github-project/index.asset.php"

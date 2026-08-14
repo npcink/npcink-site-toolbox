@@ -32,6 +32,11 @@ const UsageHelp = () => (
         {__("SEO 检查助手和媒体库体检只检查缺少 Alt 的图片并显示数量。为避免与站点已有 SEO 或媒体插件重复写入，Npcink Site Toolbox 不提供 Alt 自动写入；请在负责 SEO 的插件或媒体库中人工处理。")}
       </Paragraph>
     </SettingsSection>
+    <SettingsSection title={__("界面语言")}>
+      <Paragraph>
+        {__("插件界面跟随当前 WordPress 用户语言。简体中文使用内置源文案；English (United States) 使用随插件发布的英文语言包。修改个人资料中的语言后，重新打开插件页面即可生效。")}
+      </Paragraph>
+    </SettingsSection>
   </>
 );
 

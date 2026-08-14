@@ -7,6 +7,7 @@ interface DataLocal {
   nonce?: string;
   apiBase?: string;
   restNonce?: string;
+  locale?: string;
   webpSupported?: boolean;
   countData?: Record<string, unknown>;
   single_arr?: unknown[];

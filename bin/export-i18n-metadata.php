@@ -75,10 +75,17 @@ foreach ($iterator as $file) {
         continue;
     }
     $source = (string) file_get_contents($file->getPathname());
-    foreach (array('/"([^"\r\n]*[\x{4e00}-\x{9fff}][^"\r\n]*)"/u', "/'([^'\r\n]*[\x{4e00}-\x{9fff}][^'\r\n]*)'/u", '/`([^`]*[\x{4e00}-\x{9fff}][^`]*)`/u') as $pattern) {
+    // Only extract string literals passed directly to the translation helper.
+    // Scanning every quoted Chinese fragment can join unrelated TSX tokens and
+    // turn whole source-code sections into invalid gettext messages.
+    foreach (array(
+        '/\b__\(\s*"((?:\\\\.|[^"\\\\])*)"/u',
+        "/\\b__\\(\\s*'((?:\\\\.|[^'\\\\])*)'/u",
+        '/\b__\(\s*`((?:\\\\.|[^`\\\\])*)`/u',
+    ) as $pattern) {
         if (preg_match_all($pattern, $source, $matches)) {
             foreach ($matches[1] as $message) {
-                $add(str_replace(array('\\"', "\\'", '\\`'), array('"', "'", '`'), $message));
+                $add(stripcslashes($message));
             }
         }
     }
