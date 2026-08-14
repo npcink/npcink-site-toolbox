@@ -255,16 +255,23 @@ if (!class_exists('Npcink_Toolbox_Performance_Db_Clean')) {
 
             $counts = self::get_cleanup_counts();
             $messages = array(
+                /* translators: %d: number of post revisions that will be deleted. */
                 'revisions' => __('将删除 %d 个文章修订版本', 'npcink-site-toolbox'),
+                /* translators: %d: number of auto-drafts that will be deleted. */
                 'drafts' => __('将删除 %d 个自动草稿', 'npcink-site-toolbox'),
+                /* translators: %d: number of spam comments that will be deleted. */
                 'spam' => __('将删除 %d 条垃圾评论', 'npcink-site-toolbox'),
+                /* translators: %d: number of expired transients that will be deleted. */
                 'transients' => __('将删除 %d 个过期临时选项', 'npcink-site-toolbox'),
+                /* translators: %d: number of pending posts that will be deleted. */
                 'pending' => __('将删除 %d 个待审核文章', 'npcink-site-toolbox'),
+                /* translators: %d: number of trashed posts that will be deleted. */
                 'trash' => __('将删除 %d 个回收站文章', 'npcink-site-toolbox'),
             );
             $affected = isset($counts[$type]) ? $counts[$type] : 0;
             $message_format = isset($messages[$type])
                 ? $messages[$type]
+                /* translators: %d: number of affected records that will be deleted. */
                 : __('将删除 %d 条数据', 'npcink-site-toolbox');
 
             return array(

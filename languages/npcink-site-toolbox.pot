@@ -7250,7 +7250,7 @@ msgstr ""
 
 #: ⁨standard
 #: input⁩:1088
-#: admin/class-npcink-toolbox-admin.php:313
+#: admin/class-npcink-toolbox-admin.php:314
 #: includes/class-npcink-toolbox-config-manager.php:113
 msgid "设置数据格式无效"
 msgstr ""
@@ -7315,7 +7315,7 @@ msgstr ""
 
 #: ⁨standard
 #: input⁩:1091
-#: admin/class-npcink-toolbox-admin.php:294
+#: admin/class-npcink-toolbox-admin.php:295
 msgid "保存成功"
 msgstr ""
 
@@ -7454,86 +7454,87 @@ msgstr ""
 msgid "保存失败，无法确认所有设置已恢复。请重新读取并核对设置后再保存"
 msgstr ""
 
-#: admin/class-npcink-toolbox-admin.php:254
-#: includes/class-npcink-toolbox-config-manager.php:284
+#. translators: %s: comma-separated module names that could not be confirmed as restored.
+#: admin/class-npcink-toolbox-admin.php:255
+#: includes/class-npcink-toolbox-config-manager.php:285
 #, php-format
 msgid "保存失败，以下模块未能确认恢复：%s。请重新读取并核对设置后再保存"
 msgstr ""
 
-#: admin/class-npcink-toolbox-admin.php:266
+#: admin/class-npcink-toolbox-admin.php:267
 msgid "保存配置失败，已确认回滚"
 msgstr ""
 
-#: admin/class-npcink-toolbox-admin.php:267
+#: admin/class-npcink-toolbox-admin.php:268
 msgid "保存配置失败，回滚未能完整确认"
 msgstr ""
 
-#: admin/class-npcink-toolbox-admin.php:296
+#: admin/class-npcink-toolbox-admin.php:297
 msgid "保存成功（部分字段已自动修正）"
 msgstr ""
 
-#: admin/class-npcink-toolbox-admin.php:308
-#: admin/class-npcink-toolbox-admin.php:354
-#: admin/class-npcink-toolbox-admin.php:372
+#: admin/class-npcink-toolbox-admin.php:309
+#: admin/class-npcink-toolbox-admin.php:355
+#: admin/class-npcink-toolbox-admin.php:373
 #: admin/partials/performance/db_clean/index.php:112
 #: admin/partials/performance/db_clean/index.php:130
 #: admin/partials/performance/db_clean/index.php:155
 #: admin/partials/performance/media_health/index.php:23
-#: admin/partials/performance/media_health/index.php:97
-#: admin/partials/performance/media_health/index.php:108
+#: admin/partials/performance/media_health/index.php:99
+#: admin/partials/performance/media_health/index.php:110
 #: admin/partials/performance/oss/index.php:80
 #: admin/partials/performance/seo_checker/index.php:12
 msgid "权限不足"
 msgstr ""
 
-#: admin/class-npcink-toolbox-admin.php:324
+#: admin/class-npcink-toolbox-admin.php:325
 msgid "请求必须包含 settings、secretChanges 和有效 revision"
 msgstr ""
 
-#: admin/class-npcink-toolbox-admin.php:331
+#: admin/class-npcink-toolbox-admin.php:332
 msgid "站点设置已在其他页面或会话中更新。请重新读取设置，核对差异后再保存。"
 msgstr ""
 
-#: admin/class-npcink-toolbox-admin.php:397
-#: admin/class-npcink-toolbox-admin.php:418
-#: admin/class-npcink-toolbox-admin.php:437
-#: admin/class-npcink-toolbox-admin.php:461
-#: admin/class-npcink-toolbox-admin.php:485
-#: admin/class-npcink-toolbox-admin.php:502
-#: admin/class-npcink-toolbox-admin.php:524
+#: admin/class-npcink-toolbox-admin.php:398
+#: admin/class-npcink-toolbox-admin.php:419
+#: admin/class-npcink-toolbox-admin.php:438
+#: admin/class-npcink-toolbox-admin.php:462
+#: admin/class-npcink-toolbox-admin.php:486
+#: admin/class-npcink-toolbox-admin.php:503
+#: admin/class-npcink-toolbox-admin.php:525
 msgid "诊断服务暂不可用"
 msgstr ""
 
-#: admin/class-npcink-toolbox-admin.php:650
-#: admin/class-npcink-toolbox-admin.php:701
+#: admin/class-npcink-toolbox-admin.php:651
+#: admin/class-npcink-toolbox-admin.php:702
 msgid "不含凭据的完整设置"
 msgstr ""
 
-#: admin/class-npcink-toolbox-admin.php:661
+#: admin/class-npcink-toolbox-admin.php:662
 msgid "凭据 replace/clear 操作"
 msgstr ""
 
-#: admin/class-npcink-toolbox-admin.php:673
+#: admin/class-npcink-toolbox-admin.php:674
 msgid "读取设置时返回的不透明配置版本指纹"
 msgstr ""
 
-#: admin/class-npcink-toolbox-admin.php:712
+#: admin/class-npcink-toolbox-admin.php:713
 msgid "对象存储凭据 replace/clear 操作"
 msgstr ""
 
-#: admin/class-npcink-toolbox-admin.php:744
+#: admin/class-npcink-toolbox-admin.php:745
 msgid "每批最多 5 个 JPEG 附件 ID"
 msgstr ""
 
-#: admin/class-npcink-toolbox-admin.php:872
+#: admin/class-npcink-toolbox-admin.php:873
 msgid "要修复的项目列表"
 msgstr ""
 
-#: admin/class-npcink-toolbox-admin.php:1050
+#: admin/class-npcink-toolbox-admin.php:1051
 msgid "统计天数范围"
 msgstr ""
 
-#: admin/class-npcink-toolbox-admin.php:1130
+#: admin/class-npcink-toolbox-admin.php:1131
 msgid "返回"
 msgstr ""
 
@@ -8014,47 +8015,54 @@ msgstr ""
 msgid "将优化当前站点的数据库表（不删除数据）"
 msgstr ""
 
-#: admin/partials/performance/db_clean/index.php:258
+#. translators: %d: number of post revisions that will be deleted.
+#: admin/partials/performance/db_clean/index.php:259
 #, php-format
 msgid "将删除 %d 个文章修订版本"
 msgstr ""
 
-#: admin/partials/performance/db_clean/index.php:259
+#. translators: %d: number of auto-drafts that will be deleted.
+#: admin/partials/performance/db_clean/index.php:261
 #, php-format
 msgid "将删除 %d 个自动草稿"
 msgstr ""
 
-#: admin/partials/performance/db_clean/index.php:260
+#. translators: %d: number of spam comments that will be deleted.
+#: admin/partials/performance/db_clean/index.php:263
 #, php-format
 msgid "将删除 %d 条垃圾评论"
 msgstr ""
 
-#: admin/partials/performance/db_clean/index.php:261
+#. translators: %d: number of expired transients that will be deleted.
+#: admin/partials/performance/db_clean/index.php:265
 #, php-format
 msgid "将删除 %d 个过期临时选项"
 msgstr ""
 
-#: admin/partials/performance/db_clean/index.php:262
+#. translators: %d: number of pending posts that will be deleted.
+#: admin/partials/performance/db_clean/index.php:267
 #, php-format
 msgid "将删除 %d 个待审核文章"
 msgstr ""
 
-#: admin/partials/performance/db_clean/index.php:263
+#. translators: %d: number of trashed posts that will be deleted.
+#: admin/partials/performance/db_clean/index.php:269
 #, php-format
 msgid "将删除 %d 个回收站文章"
 msgstr ""
 
-#: admin/partials/performance/db_clean/index.php:268
+#. translators: %d: number of affected records that will be deleted.
+#: admin/partials/performance/db_clean/index.php:275
 #, php-format
 msgid "将删除 %d 条数据"
 msgstr ""
 
-#: admin/partials/performance/db_clean/index.php:320
-#: admin/partials/performance/db_clean/index.php:337
+#: admin/partials/performance/db_clean/index.php:327
+#: admin/partials/performance/db_clean/index.php:344
 msgid "清理预览已失效或不属于当前操作，请重新预览。"
 msgstr ""
 
-#: admin/partials/performance/db_clean/index.php:350
+#: admin/partials/performance/db_clean/index.php:357
 msgid "数据库内容已发生变化，请重新预览并确认最新影响范围。"
 msgstr ""
 
@@ -8062,29 +8070,31 @@ msgstr ""
 msgid "缺少 Alt"
 msgstr ""
 
-#: admin/partials/performance/media_health/index.php:43
+#. translators: %d: number of recent attachments included in the sample.
+#: admin/partials/performance/media_health/index.php:44
 #, php-format
 msgid "超大图片（最近 %d 个附件抽样）"
 msgstr ""
 
-#: admin/partials/performance/media_health/index.php:44
+#: admin/partials/performance/media_health/index.php:45
 msgid "超大图片"
 msgstr ""
 
-#: admin/partials/performance/media_health/index.php:55
+#. translators: %d: number of recent attachments included in the sample.
+#: admin/partials/performance/media_health/index.php:57
 #, php-format
 msgid "中文文件名（最近 %d 个附件抽样）"
 msgstr ""
 
-#: admin/partials/performance/media_health/index.php:56
+#: admin/partials/performance/media_health/index.php:58
 msgid "中文文件名"
 msgstr ""
 
-#: admin/partials/performance/media_health/index.php:73
+#: admin/partials/performance/media_health/index.php:75
 msgid "可能未使用"
 msgstr ""
 
-#: admin/partials/performance/media_health/index.php:79
+#: admin/partials/performance/media_health/index.php:81
 msgid "无特色图文章"
 msgstr ""
 
@@ -8272,34 +8282,38 @@ msgstr ""
 msgid "首页 SEO 描述为空"
 msgstr ""
 
-#: admin/partials/performance/seo_checker/index.php:29
+#. translators: %d: number of posts missing a title or excerpt.
+#: admin/partials/performance/seo_checker/index.php:30
 #, php-format
 msgid "%d 篇文章缺少标题或摘要"
 msgstr ""
 
-#: admin/partials/performance/seo_checker/index.php:42
+#: admin/partials/performance/seo_checker/index.php:43
 msgid "图片 Alt"
 msgstr ""
 
-#: admin/partials/performance/seo_checker/index.php:43
+#. translators: %d: number of images missing alternative text.
+#: admin/partials/performance/seo_checker/index.php:45
 #, php-format
 msgid "%d 张图片缺少 Alt 文本"
 msgstr ""
 
-#: admin/partials/performance/seo_checker/index.php:51
+#: admin/partials/performance/seo_checker/index.php:53
 msgid "特色图"
 msgstr ""
 
-#: admin/partials/performance/seo_checker/index.php:52
+#. translators: %d: number of published posts without a featured image.
+#: admin/partials/performance/seo_checker/index.php:55
 #, php-format
 msgid "%d 篇文章没有特色图"
 msgstr ""
 
-#: admin/partials/performance/seo_checker/index.php:60
+#: admin/partials/performance/seo_checker/index.php:63
 msgid "内容过短"
 msgstr ""
 
-#: admin/partials/performance/seo_checker/index.php:61
+#. translators: %d: number of posts with content shorter than 300 Chinese characters.
+#: admin/partials/performance/seo_checker/index.php:65
 #, php-format
 msgid "%d 篇文章内容过短（少于 300 字）"
 msgstr ""

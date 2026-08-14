@@ -251,6 +251,7 @@ class Npcink_Toolbox_Admin
                 : __('保存失败，无法确认所有设置已恢复。请重新读取并核对设置后再保存', 'npcink-site-toolbox');
             if (!$rollback_complete && !empty($result['rollback_failed_modules'])) {
                 $message = sprintf(
+                    /* translators: %s: comma-separated module names that could not be confirmed as restored. */
                     __('保存失败，以下模块未能确认恢复：%s。请重新读取并核对设置后再保存', 'npcink-site-toolbox'),
                     implode('、', $result['rollback_failed_modules'])
                 );

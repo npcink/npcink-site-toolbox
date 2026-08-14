@@ -26,6 +26,7 @@ if (!class_exists('Npcink_Toolbox_Performance_Seo_Checker')) {
             if ($missing_seo > 0) {
                 $issues[] = array(
                     'type' => __('文章 SEO', 'npcink-site-toolbox'),
+                    /* translators: %d: number of posts missing a title or excerpt. */
                     'message' => sprintf(__('%d 篇文章缺少标题或摘要', 'npcink-site-toolbox'), $missing_seo),
                 );
             }
@@ -40,6 +41,7 @@ if (!class_exists('Npcink_Toolbox_Performance_Seo_Checker')) {
             if ($missing_alt > 0) {
                 $issues[] = array(
                     'type' => __('图片 Alt', 'npcink-site-toolbox'),
+                    /* translators: %d: number of images missing alternative text. */
                     'message' => sprintf(__('%d 张图片缺少 Alt 文本', 'npcink-site-toolbox'), $missing_alt),
                 );
             }
@@ -49,6 +51,7 @@ if (!class_exists('Npcink_Toolbox_Performance_Seo_Checker')) {
             if ($missing_featured > 0) {
                 $issues[] = array(
                     'type' => __('特色图', 'npcink-site-toolbox'),
+                    /* translators: %d: number of published posts without a featured image. */
                     'message' => sprintf(__('%d 篇文章没有特色图', 'npcink-site-toolbox'), $missing_featured),
                 );
             }
@@ -58,6 +61,7 @@ if (!class_exists('Npcink_Toolbox_Performance_Seo_Checker')) {
             if ($short_posts > 0) {
                 $issues[] = array(
                     'type' => __('内容过短', 'npcink-site-toolbox'),
+                    /* translators: %d: number of posts with content shorter than 300 Chinese characters. */
                     'message' => sprintf(__('%d 篇文章内容过短（少于 300 字）', 'npcink-site-toolbox'), $short_posts),
                 );
             }

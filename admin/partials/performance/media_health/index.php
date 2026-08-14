@@ -40,6 +40,7 @@ if (!class_exists('Npcink_Toolbox_Performance_Media_Health')) {
             if ($attachment_scan['large'] > 0) {
                 $issues[] = array(
                     'type'         => $attachment_scan['sampled']
+                        /* translators: %d: number of recent attachments included in the sample. */
                         ? sprintf(__('超大图片（最近 %d 个附件抽样）', 'npcink-site-toolbox'), $attachment_scan['checked'])
                         : __('超大图片', 'npcink-site-toolbox'),
                     'count'        => $attachment_scan['large'],
@@ -52,6 +53,7 @@ if (!class_exists('Npcink_Toolbox_Performance_Media_Health')) {
             if ($attachment_scan['chinese'] > 0) {
                 $issues[] = array(
                     'type'  => $attachment_scan['sampled']
+                        /* translators: %d: number of recent attachments included in the sample. */
                         ? sprintf(__('中文文件名（最近 %d 个附件抽样）', 'npcink-site-toolbox'), $attachment_scan['checked'])
                         : __('中文文件名', 'npcink-site-toolbox'),
                     'count' => $attachment_scan['chinese'],

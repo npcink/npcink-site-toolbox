@@ -50,6 +50,7 @@ if (!class_exists('Npcink_Toolbox_Module_Metadata')) {
         }
 
         private static function translate($value) {
+            // phpcs:ignore WordPress.WP.I18n.NonSingularStringLiteralText -- Values are fixed internal registry msgids collected in the plugin POT, not administrator input.
             return is_string($value) && $value !== '' ? __($value, 'npcink-site-toolbox') : $value;
         }
 

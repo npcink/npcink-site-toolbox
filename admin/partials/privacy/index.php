@@ -209,6 +209,7 @@ if (!class_exists('Npcink_Toolbox_Privacy')) {
                 return $value;
             }
             return is_string($value) && $value !== '' && preg_match('/[\x{4e00}-\x{9fff}]/u', $value)
+                // phpcs:ignore WordPress.WP.I18n.NonSingularStringLiteralText -- Values come only from the fixed privacy disclosure tree above and are extracted into the plugin POT.
                 ? __($value, 'npcink-site-toolbox')
                 : $value;
         }
