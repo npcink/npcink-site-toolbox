@@ -71,7 +71,9 @@ WordPress.org release gate:
 pnpm --dir vite build
 composer release:build
 composer release:verify -- npcink-site-toolbox.zip
-# Then activate and scan this exact ZIP with the latest official Plugin Check.
+composer release:wordpress-org-check
+# The final command activates this exact ZIP with WP_DEBUG enabled and scans it
+# with the latest official Plugin Check in a disposable Docker environment.
 ```
 
 Before finishing a code session, run the narrowest useful gate and report

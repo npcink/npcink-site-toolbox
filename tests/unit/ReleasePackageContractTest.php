@@ -31,8 +31,13 @@ class ReleasePackageContractTest extends TestCase
 
         $this->assertSame('bash bin/build-release-zip.sh', $composer['scripts']['release:build']);
         $this->assertSame('bash bin/verify-release-zip.sh', $composer['scripts']['release:verify']);
+        $this->assertSame(
+            'bash bin/verify-wordpress-org-release.sh npcink-site-toolbox.zip',
+            $composer['scripts']['release:wordpress-org-check']
+        );
         $this->assertTrue(is_executable($root . '/bin/build-release-zip.sh'));
         $this->assertTrue(is_executable($root . '/bin/verify-release-zip.sh'));
+        $this->assertTrue(is_executable($root . '/bin/verify-wordpress-org-release.sh'));
 
         $rules = array_values(array_filter(array_map(
             'trim',
@@ -110,6 +115,38 @@ class ReleasePackageContractTest extends TestCase
         ) as $asset) {
             $this->assertStringContainsString($asset, $build);
         }
+    }
+
+    public function test_wordpress_org_release_gate_uses_the_exact_zip_debug_mode_and_latest_pcp(): void
+    {
+        $root = $this->root();
+        $script = (string) file_get_contents($root . '/bin/verify-wordpress-org-release.sh');
+        $workflow = (string) file_get_contents($root . '/.github/workflows/ci.yml');
+
+        foreach (array(
+            'wp_cli config set WP_DEBUG true --raw',
+            'wp_cli config set WP_DEBUG_LOG true --raw',
+            'wp_cli plugin install /var/www/html/release-under-test.zip --force',
+            'wp_cli plugin install plugin-check --force --activate',
+            'wp_cli plugin check npcink-site-toolbox --format=table',
+            'ERROR_COUNT=',
+            'UNEXPECTED_WARNING_COUNT=',
+            'WP_DEBUG log is not empty',
+            'release ZIP changed during verification',
+            'http://localhost/wp-admin/plugins.php?page=npcink-site-toolbox',
+            'admin authentication did not reach the WordPress dashboard',
+            'plugin settings page did not render its application root',
+            'Plugin Check reported $UNEXPECTED_WARNING_COUNT unexpected warning(s)',
+            'WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound',
+            'wp_generate_attachment_metadata',
+            'intermediate_image_sizes_advanced',
+        ) as $contract) {
+            $this->assertStringContainsString($contract, $script, $contract);
+        }
+
+        $this->assertStringNotContainsString('--ignore-warnings', $script);
+        $this->assertStringContainsString('run: composer release:wordpress-org-check', $workflow);
+        $this->assertStringContainsString('timeout-minutes: 15', $workflow);
     }
 
     public function test_verifier_accepts_a_valid_fixture_with_spaces_and_reports_release_facts(): void

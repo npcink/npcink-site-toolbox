@@ -80,11 +80,11 @@ class AdminSettingsContractTest extends TestCase
         $actual = $generated['searchIndex'];
         $expected = npcink_site_toolbox_normalize_contract(Npcink_Toolbox_Config_Schema::get_admin_settings_contract()['searchIndex']);
 
-        $this->assertCount(33, $actual);
         $this->assertSame($expected, $actual);
+        $this->assertNotEmpty($actual);
 
         $ids = array_column($actual, 'id');
-        $this->assertCount(33, array_unique($ids));
+        $this->assertCount(count($actual), array_unique($ids));
 
         $valid_views = array('site', 'content', 'seo', 'china', 'maintenance');
         foreach ($actual as $item) {

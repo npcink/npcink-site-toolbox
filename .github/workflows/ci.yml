@@ -159,6 +159,10 @@ jobs:
       - name: Verify release ZIP
         run: composer release:verify -- npcink-site-toolbox.zip
 
+      - name: Verify WordPress.org release environment
+        run: composer release:wordpress-org-check
+        timeout-minutes: 15
+
       - name: Upload ZIP artifact
         uses: actions/upload-artifact@v7
         with:

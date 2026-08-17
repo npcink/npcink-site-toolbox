@@ -35,6 +35,7 @@
         "i18n:pot": "bash bin/make-pot.sh",
         "i18n:build": "bash bin/build-language-pack.sh",
         "release:build": "bash bin/build-release-zip.sh",
-        "release:verify": "bash bin/verify-release-zip.sh"
+        "release:verify": "bash bin/verify-release-zip.sh",
+        "release:wordpress-org-check": "bash bin/verify-wordpress-org-release.sh npcink-site-toolbox.zip"
     }
 }

@@ -66,6 +66,8 @@ AI 诊断的受控开发评测可使用
 
 正式语言交付位于 `languages/`：中文继续作为源码语言，English (United States) 随包提供 `.po`、`.mo` 和 WordPress Admin JavaScript `.json`。更新 POT 后使用 `composer i18n:build` 重新生成二进制与脚本语言包，并在发布 ZIP 验证中检查四个 `en_US` 资产不可缺失。
 
+WordPress.org 候选包在 `composer release:build` 和 `composer release:verify -- npcink-site-toolbox.zip` 之后，必须执行 `composer release:wordpress-org-check`。该门禁会在一次性 Docker 环境中安装精确 ZIP，开启 `WP_DEBUG`，通过真实前台和后台 HTTP 请求检查日志，并安装官方最新 Plugin Check；任何 PCP error、未审阅 warning、运行时日志或 ZIP 哈希变化都会阻断发布。当前仅允许两条已记录的 WordPress Core hook 前缀误报，规则或信息变化也会要求重新复核。
+
 “站点数据”和“GitHub 项目”区块的编辑器脚本分别位于 `blocks/site-stats/index.js` 与 `blocks/github-project/index.js`，均以可读源码直接发布，不需要新增构建目标。
 
 2026-07 项目重构、界面与构建收口、品牌统一、编辑器工具方案及后续区块准入标准见 [项目重构与编辑器工具开发总结](docs/项目重构与编辑器工具开发总结-2026-07.md)；对象存储、媒体 WebP、后台体验、收藏与运行状态的后续真实使用收口见 [3.2.0 真实使用与后台体验开发总结](docs/3.2.0-真实使用与后台体验开发总结-2026-07.md)。

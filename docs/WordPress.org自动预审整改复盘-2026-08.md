@@ -85,6 +85,7 @@ pnpm --dir vite test:admin
 pnpm --dir vite build
 composer release:build
 composer release:verify -- npcink-site-toolbox.zip
+composer release:wordpress-org-check
 git diff --check
 ```
 
@@ -263,3 +264,9 @@ nonce 告警必须结合副作用判断：
 两条 warning 均位于 `admin/partials/performance/media_health/webp_batch.php`：第 186 行调用 WordPress Core hook `wp_generate_attachment_metadata`，第 304 行调用 WordPress Core hook `intermediate_image_sizes_advanced`。插件没有注册或发明这两个全局 hook，因此它们仍属于 `WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound` 的已审阅误报，不使用 blanket ignore 隐藏。
 
 本次复验确认 `PluginCheck.CodeAnalysis.Offloading.OffloadedContent` 的 3 个 error 已全部消失；CDN URL 改写、外部静态资源连通性检测和一键镜像修复表面已退役，OSS 模块保持不变。扫描结束后已删除全部临时 Docker 容器、卷和网络。
+
+### 12.1 WP_DEBUG 与自动化闭环
+
+对 SHA-256 同为 `bff43f9535a12bf763e92f34c19778e57bd2b908a0b904e4d156f51abe7be830` 的最终 ZIP 补做 `WP_DEBUG=true` 验证：插件激活成功，真实前台、管理员登录、插件列表和插件页面请求均返回 HTTP 200，`wp-content/debug.log` 为空。测试结束后临时 Docker 容器、卷和网络均已删除。
+
+仓库新增 `composer release:wordpress-org-check`，并由 CI 的 ZIP 构建任务强制执行。该命令安装刚构建的精确 ZIP，开启 `WP_DEBUG`，运行真实 HTTP 冒烟，安装官方最新 Plugin Check，完整输出扫描结果，并在 PCP error、非空 debug log、插件未激活或 ZIP 哈希变化时失败。当前两条 Core-hook warning 以文件、规则和 hook 名组成窄允许项；任何新增或变化的 warning 都会阻断 CI 并要求重新人工复核，不使用 `--ignore-warnings`。
