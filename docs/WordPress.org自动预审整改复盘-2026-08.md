@@ -6,6 +6,8 @@
 >
 > 范围：WordPress.org 提交 ZIP、Plugin Check 与仓库发布门禁
 
+> 长期执行规范见 [WordPress.org 发布审核与防回归规范](WordPress.org发布审核与防回归规范.md)；本文保留事件时间线、阶段性结论和精确产物证据。
+
 ## 一、事件与结论
 
 WordPress.org 对 `npcink-site-toolbox.zip` 的自动预审将提交置为 pending，并指出四类风险：PHP 直接输出 `<script>` 或 `<style>`、请求处理缺少 nonce 或权限检查的可能性、`readme.txt` 中不可直接访问的模板 URL，以及发布包内非 ASCII 文件名。

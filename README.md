@@ -105,6 +105,9 @@ DeepSeek 只读诊断的产品边界、实现演进、验证证据、问题复�
 
 WordPress.org 自动预审对资源加载、请求鉴权、外部链接和跨文件系统文件名的要求，以及最终 ZIP 的 PCP 验收规则见
 [WordPress.org 自动预审整改复盘](docs/WordPress.org自动预审整改复盘-2026-08.md)。
+长期执行流程、审核问题分类、证据模板和防回归检查表见
+[WordPress.org 发布审核与防回归规范](docs/WordPress.org发布审核与防回归规范.md)；“以精确 ZIP 为验收对象”的原因和取舍见
+[ADR-0005](docs/decisions/0005-exact-artifact-wordpress-org-release-gate.md)。
 
 ---
 

@@ -46,6 +46,9 @@ this repository.
   complete error/warning counts, remaining-warning rationale, and ZIP SHA-256.
   PCP errors block submission; warnings require explicit review and must not be
   hidden with blanket ignore flags.
+- Treat `docs/WordPress.org发布审核与防回归规范.md` as the canonical release
+  workflow and `docs/WordPress.org自动预审整改复盘-2026-08.md` as its evidence
+  ledger. Update both when a new directory rule changes the release process.
 - For multi-repo milestones, run the central matrix from
   `/Users/muze/gitee/npcink-toolbox` instead of copying the script here:
   `composer quality:matrix` for status and `composer quality:matrix:run` before
