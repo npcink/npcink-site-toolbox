@@ -64,13 +64,6 @@ if (!class_exists('Npcink_Toolbox_Config_Schema')) {
                         'search_link_simplify'   => array('type' => 'boolean', 'default' => false),
                         'remove_sitemap_users'   => array('type' => 'boolean', 'default' => false),
                         'user_list_show_nickname' => array('type' => 'boolean', 'default' => false),
-                        'cdn_replace'            => array('type' => 'boolean', 'default' => false, 'search' => self::search_metadata('optimize-site-cdn_replace', '国内 CDN 替换', 'site', '站点与媒体', '站点', array('cdn', '加速'), array('性能'))),
-                        'cdn_gravatar'           => array('type' => 'boolean', 'default' => false),
-                        'cdn_gravatar_mirror'    => array('type' => 'string',  'default' => 'gravatar.loli.net/avatar/', 'sanitize' => 'esc_url_raw'),
-                        'cdn_google_fonts'       => array('type' => 'boolean', 'default' => false),
-                        'cdn_google_fonts_mirror' => array('type' => 'string',  'default' => 'fonts.loli.net', 'sanitize' => 'sanitize_text_field'),
-                        'cdn_google_ajax'        => array('type' => 'boolean', 'default' => false),
-                        'cdn_custom'             => array('type' => 'string',  'default' => '', 'sanitize' => 'sanitize_textarea_field'),
                         'hide_email_ip'          => array('type' => 'boolean', 'default' => false),
                     ),
                     'medium' => array(

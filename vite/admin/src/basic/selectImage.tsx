@@ -71,7 +71,7 @@ const buildMediaEndpoint = (apiBase: string, page: number): string => {
     return `/api/wp-json/wp/v2/media?per_page=${MEDIA_PAGE_SIZE}&page=${page}`;
   }
 
-  // dataLocal.apiBase points at this plugin's `{namespace}/vN` route. Remove
+  // npcinkSiteToolboxData.apiBase points at this plugin's `{namespace}/vN` route. Remove
   // that contract generically so product renames do not leak into core media
   // endpoint construction.
   const restRoot = normalizedBase.replace(/\/[^/]+\/v\d+$/, "");

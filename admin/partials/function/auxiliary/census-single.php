@@ -76,7 +76,7 @@ if (!class_exists('Npcink_Toolbox_Census_Single')) {
                 'countData' => self::deliver_data(), //统计的数据信息
             );
 
-            wp_localize_script(NPCINK_SITE_TOOLBOX_NAME . '_census_js', 'dataLocal', $npcink_site_toolbox_array); //传给vite项目
+            wp_localize_script(NPCINK_SITE_TOOLBOX_NAME . '_census_js', 'npcinkSiteToolboxData', $npcink_site_toolbox_array); //传给vite项目
         }
 
         /**

@@ -46,7 +46,7 @@ Npcink Site Toolbox
 ```
 PHP 端                                  React 端
   │                                       │
-  ├─ REST 基址 + nonce ──────────────────►│ window.dataLocal
+  ├─ REST 基址 + nonce ──────────────────►│ window.npcinkSiteToolboxData
   │                                       │
   ├─ GET /npcink-site-toolbox/v1/settings ─────────────►│ 非敏感设置 + secretStatus
   │                                       │

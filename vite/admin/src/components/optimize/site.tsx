@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useContext, useEffect } from "react";
-import { Form, Input } from "antd";
+import { Form } from "antd";
 import { DataContext } from "@/tool/dataContext";
 import { OptimizeSite } from "@/tool/interface";
 import { defaultVarOption } from "@/tool/defaultVar";
@@ -98,72 +98,6 @@ const App: React.FC = () => {
           enabled={formData.user_list_show_nickname as boolean}
           onChange={(checked: boolean) => onValuesChange({ user_list_show_nickname: checked } as Partial<FieldType>, formData)}
         />
-        <ModuleRow
-          title={__("国内 CDN 替换")}
-          description={__("将 WordPress 加载的国外资源替换为国内 CDN 镜像，提升国内访问速度")}
-          featureId="optimize-site-cdn_replace"
-          enabled={formData.cdn_replace as boolean}
-          onChange={(checked: boolean) => onValuesChange({ cdn_replace: checked } as Partial<FieldType>, formData)}
-          tags={["性能"]}
-        />
-        {formData.cdn_replace && (
-          <>
-            <ModuleRow
-              title={__("Gravatar 头像替换")}
-              description={__("将 gravatar.com 替换为国内镜像，解决头像无法加载的问题")}
-              featureId="optimize-site-cdn_gravatar"
-              enabled={formData.cdn_gravatar as boolean}
-              onChange={(checked: boolean) => onValuesChange({ cdn_gravatar: checked } as Partial<FieldType>, formData)}
-              tags={["性能"]}
-            />
-
-            {formData.cdn_gravatar && (
-              <Form.Item<FieldType>
-                label={__("Gravatar 镜像地址")}
-                name="cdn_gravatar_mirror"
-                extra={__("默认: gravatar.loli.net/avatar/")}
-              >
-                <Input placeholder="gravatar.loli.net/avatar/" />
-              </Form.Item>
-            )}
-
-            <ModuleRow
-              title={__("Google Fonts 替换")}
-              description={__("将 fonts.googleapis.com 替换为国内镜像，需确认镜像站可用性")}
-              featureId="optimize-site-cdn_google_fonts"
-              enabled={formData.cdn_google_fonts as boolean}
-              onChange={(checked: boolean) => onValuesChange({ cdn_google_fonts: checked } as Partial<FieldType>, formData)}
-              tags={["性能"]}
-            />
-
-            {formData.cdn_google_fonts && (
-              <Form.Item<FieldType>
-                label={__("Google Fonts 镜像地址")}
-                name="cdn_google_fonts_mirror"
-                extra={__("默认: fonts.loli.net")}
-              >
-                <Input placeholder="fonts.loli.net" />
-              </Form.Item>
-            )}
-
-            <ModuleRow
-              title={__("Google Ajax 替换")}
-              description={__("将 ajax.googleapis.com 替换为 ajax.loli.net")}
-              featureId="optimize-site-cdn_google_ajax"
-              enabled={formData.cdn_google_ajax as boolean}
-              onChange={(checked: boolean) => onValuesChange({ cdn_google_ajax: checked } as Partial<FieldType>, formData)}
-            />
-
-            <Form.Item<FieldType>
-              label={__("自定义 CDN 替换")}
-              name="cdn_custom"
-              extra={__("每行一条规则，格式: 原地址 => 新地址，支持 style_loader_src 和 script_loader_src")}
-            >
-              <Input.TextArea rows={4} placeholder={"example.com/cdn/ => cdn.example.com/"} />
-            </Form.Item>
-          </>
-        )}
-
         <ModuleRow
           title={__("隐藏邮件中的 IP")}
           description={__("在 WordPress 发送的邮件中隐藏 IP 地址，保护用户隐私")}

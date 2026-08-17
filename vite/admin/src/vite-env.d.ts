@@ -4,6 +4,7 @@ interface DataLocal {
   url_site: string;
   ajaxurl?: string;
   commentRestHelpUrl?: string;
+  connectorsUrl?: string;
   nonce?: string;
   apiBase?: string;
   restNonce?: string;
@@ -20,6 +21,6 @@ interface Navigator {
 }
 
 interface Window {
-  dataLocal?: DataLocal;
+  npcinkSiteToolboxData?: DataLocal;
   __wxjs_environment?: string;
 }

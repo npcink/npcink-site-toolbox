@@ -24,22 +24,22 @@ function getDataLocal(): DataLocal {
     return defaultVarData;
   }
 
-  return window.dataLocal || defaultVarData;
+  return window.npcinkSiteToolboxData || defaultVarData;
 }
 
 function getAjaxurl(): string {
   if (state) return "/wp-admin/admin-ajax.php";
-  return window.dataLocal?.ajaxurl || "/wp-admin/admin-ajax.php";
+  return window.npcinkSiteToolboxData?.ajaxurl || "/wp-admin/admin-ajax.php";
 }
 
 function getApiBase(): string {
   if (state) return "/api";
-  return window.dataLocal?.apiBase || "/wp-json/npcink-site-toolbox/v1";
+  return window.npcinkSiteToolboxData?.apiBase || "/wp-json/npcink-site-toolbox/v1";
 }
 
 function getRestNonce(): string {
   if (state) return "";
-  return window.dataLocal?.restNonce || "";
+  return window.npcinkSiteToolboxData?.restNonce || "";
 }
 
 const dataObject = getDataLocal();

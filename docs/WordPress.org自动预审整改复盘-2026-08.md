@@ -12,6 +12,18 @@ WordPress.org 对 `npcink-site-toolbox.zip` 的自动预审将提交置为 pendi
 
 这不是永久拒绝，而是要求作者修复、重新测试、上传新 ZIP，并在原邮件线程中回复。此次暴露出的主要问题不是现有测试失效，而是本地门禁只证明了功能、结构和部分安全合同，没有完整模拟 WordPress.org 的目录预审规则。
 
+### 1.1 2026-08-17 人工复核补充
+
+人工审核随后指出两类问题：压缩前端产物缺少易定位且与提交包对应的公开源码，以及浏览器全局名/AJAX action 使用 `dataLocal`、`ets_strings`、`ts_ets_update`、`ts_ets_remove` 等通用标识。
+
+对 2026-08-10 实际上传包重新取证后，结论如下：
+
+- 上传包根 `readme.txt` 的确包含 `Source Code and Build`、GitHub 仓库链接和 pnpm 构建命令；所以问题不是“完全没有写源码说明”。
+- 但说明只指向仓库默认分支，没有绑定提交 ZIP 的 tag 或 commit。上传包包含 8 月 7 日之后的代码，而公开默认分支停在 7 月 22 日提交 `6436c97`；审核员无法从链接直接定位到与 ZIP 对应的可读源码。因此该反馈在“源码可追溯性”层面成立。
+- Plugin Check `0 errors / 2 warnings` 没有覆盖这两项人工目录规则；现有契约测试也只检查了 PHP 类、常量、Option、REST 等身份，没有扫描 `wp_localize_script()` 对象名、浏览器全局变量和 `wp_ajax_*` action。
+
+本轮整改把后台与 Count 注入统一改为 `window.npcinkSiteToolboxData`，把缩略图模块的 AJAX action、localized object、资源 handle、nonce 和图片尺寸改为插件专属标识；发布校验器新增源码目录、公开仓库和可复现构建命令合同。下一次上传前还必须先把构建所用的精确 commit 发布到公开默认分支并创建对应版本 tag，确认 readme 指向的 tag/commit 可匿名访问，再构建和扫描最终 ZIP。
+
 ## 二、根因
 
 ### 2.1 把 Plugin Check 的零错误当成目录审核通过
@@ -95,6 +107,8 @@ git diff --check
 - 没有内联事件处理器或 `javascript:` URL；
 - 所有写操作均有 nonce 和 capability；
 - `readme.txt` 的可点击 URL 都是可公开访问的真实页面；
+- 压缩产物的公开源码链接能定位到与最终 ZIP 相同的 tag 或 commit，而不是只指向一个可能落后的仓库首页；
+- `wp_localize_script()` 对象名、浏览器全局变量、AJAX action、资源 handle、nonce action 和图片尺寸名全部使用插件专属前缀；
 - ZIP 路径全部为 ASCII，且不存在仅大小写不同的路径；
 - `composer release:verify` 已检查上述文件名规则；
 - PCP 扫描的是刚构建且 SHA-256 一致的最终 ZIP；
@@ -222,3 +236,30 @@ nonce 告警必须结合副作用判断：
 - **生成物问题从源头修。** 不直接手工编辑 `dist` 或 ZIP。
 - **一次修复形成永久规则。** 反馈应进入测试、脚本、AGENTS 和复盘文档。
 - **证据必须绑定具体产物。** 版本、条目数、大小、哈希和 PCP 结果缺一不可。
+
+## 十一、2026-08-17 最新 PCP 复验阻塞项
+
+使用本轮精确 ZIP（234 entries，1,262,462 bytes，SHA-256 `999f692507c43fc7eb4763dddca80f9faf690f9e07b16cb8d3dd652e0ea7ac61`）在干净 WordPress `7.0.4` / PHP `8.2.32` 环境中运行官方 Plugin Check `2.1.0`，结果为 3 errors / 2 warnings：
+
+- `admin/partials/optimize/site/cdn_replace.php:136-137`：Google Ajax/自定义 CDN URL 替换被 `PluginCheck.CodeAnalysis.Offloading.OffloadedContent` 判定为远程资源转发；
+- `includes/class-npcink-toolbox-domestic-environment.php:20`：环境连通性检查中的远程脚本 URL 也被同一规则命中；
+- 两条 warning 仍是媒体转换必须使用的 WordPress Core hook，不是本轮新增问题。
+
+这 3 个 error 不在 8 月 14 日 PCP 2.0.0 记录中，说明“最新版官方 PCP”必须成为发布时点门禁。它们不能用 blanket ignore 隐藏。项目当前尚未交付用户，因此 3.3.1 直接退役 CDN URL 改写、外部静态资源连通性检测和一键镜像修复，不保留兼容入口或旧设置字段；对象存储 OSS 不在本次清退范围。完成清退后必须重新构建精确 ZIP，并以 Plugin Check 2.1.0 或更高版本复验 error 为 0。
+
+## 十二、2026-08-17 3.3.1 最终复验结果
+
+清退完成后重新构建唯一候选包，并在全新一次性环境中安装、激活和扫描该精确 ZIP：
+
+- WordPress：`7.0.4`；
+- PHP：`8.2.33`；
+- Plugin Check：官方 `2.1.0`；
+- 插件激活：成功，状态为 `active`，无致命错误；
+- PCP：`0 errors / 2 warnings`；
+- ZIP 条目：`231`；
+- ZIP 大小：`1,250,990 bytes`；
+- SHA-256：`bff43f9535a12bf763e92f34c19778e57bd2b908a0b904e4d156f51abe7be830`。
+
+两条 warning 均位于 `admin/partials/performance/media_health/webp_batch.php`：第 186 行调用 WordPress Core hook `wp_generate_attachment_metadata`，第 304 行调用 WordPress Core hook `intermediate_image_sizes_advanced`。插件没有注册或发明这两个全局 hook，因此它们仍属于 `WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound` 的已审阅误报，不使用 blanket ignore 隐藏。
+
+本次复验确认 `PluginCheck.CodeAnalysis.Offloading.OffloadedContent` 的 3 个 error 已全部消失；CDN URL 改写、外部静态资源连通性检测和一键镜像修复表面已退役，OSS 模块保持不变。扫描结束后已删除全部临时 Docker 容器、卷和网络。

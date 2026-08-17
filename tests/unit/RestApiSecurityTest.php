@@ -278,8 +278,6 @@ class RestApiSecurityTest extends TestCase {
             '/performance/db/clean',
             '/tools/categories',
             '/public/search-log',
-            '/domestic/environment/check',
-            '/domestic/environment/apply',
             '/diagnostics/summary',
             '/diagnostics/features',
             '/diagnostics/support-report',

@@ -179,7 +179,7 @@ class Npcink_Toolbox_Admin
             'webpSupported' => function_exists('wp_image_editor_supports')
                 && wp_image_editor_supports(array('mime_type' => 'image/webp')),
         );
-        wp_localize_script($name, 'dataLocal', $npcink_site_toolbox_array);
+        wp_localize_script($name, 'npcinkSiteToolboxData', $npcink_site_toolbox_array);
 
 
     }
@@ -624,7 +624,6 @@ class Npcink_Toolbox_Admin
         self::register_performance_routes();
         self::register_tools_routes();
         self::register_public_routes();
-        self::register_domestic_routes();
         self::register_diagnostics_routes();
         Npcink_Toolbox_My_Comments::register_routes();
 
@@ -850,36 +849,6 @@ class Npcink_Toolbox_Admin
             ),
         ), 'public');
 
-    }
-
-    private static function register_domestic_routes()
-    {
-        Npcink_Toolbox_Rest_Route_Registry::add('/domestic/environment/check', array(
-            array(
-                'methods'             => \WP_REST_Server::READABLE,
-                'callback'            => array('Npcink_Toolbox_Domestic_Environment', 'rest_check'),
-                'permission_callback' => Npcink_Toolbox_Rest_Route_Registry::admin_permission(),
-            ),
-        ), 'domestic');
-
-        Npcink_Toolbox_Rest_Route_Registry::add('/domestic/environment/apply', array(
-            array(
-                'methods'             => \WP_REST_Server::CREATABLE,
-                'callback'            => array('Npcink_Toolbox_Domestic_Environment', 'rest_apply'),
-                'permission_callback' => Npcink_Toolbox_Rest_Route_Registry::admin_permission(),
-                'args'                => array(
-                    'fixes' => array(
-                        'required'          => true,
-                        'type'              => 'array',
-                        'description'       => __('要修复的项目列表', 'npcink-site-toolbox'),
-                        'items'             => array('type' => 'string'),
-                        'sanitize_callback' => function ($value) {
-                            return is_array($value) ? array_map('sanitize_text_field', $value) : array();
-                        },
-                    ),
-                ),
-            ),
-        ), 'domestic');
     }
 
     private static function register_diagnostics_routes()

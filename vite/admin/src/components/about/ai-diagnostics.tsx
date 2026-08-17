@@ -9,7 +9,6 @@ import type {
   AiReview,
   AiReviewPack,
   AiReviewScenario,
-  DataLocal,
   DiagnosticAnalysis,
   DiagnosticPack,
 } from "@/tool/interface";
@@ -475,7 +474,7 @@ const AiDiagnostics = () => {
           <div className="mabox-runtime-state mabox-runtime-state--error" role="alert">
             <div><strong>{__("DeepSeek 分析失败")}</strong><span>{getAnalysisErrorMessage(analysisState.errorKind)}</span></div>
             {analysisState.errorKind === "unavailable" && (
-              <a className="button" href={(window as Window & { dataLocal?: DataLocal }).dataLocal?.connectorsUrl || "/wp-admin/options-connectors.php"}>{__("前往 Connectors")}</a>
+              <a className="button" href={window.npcinkSiteToolboxData?.connectorsUrl || "/wp-admin/options-connectors.php"}>{__("前往 Connectors")}</a>
             )}
           </div>
         )}

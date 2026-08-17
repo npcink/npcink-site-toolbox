@@ -17,13 +17,6 @@ export type OptimizeSite = {
   search_link_simplify: boolean;
   remove_sitemap_users: boolean;
   user_list_show_nickname: boolean;
-  cdn_replace: boolean;
-  cdn_gravatar: boolean;
-  cdn_gravatar_mirror: string;
-  cdn_google_fonts: boolean;
-  cdn_google_fonts_mirror: string;
-  cdn_google_ajax: boolean;
-  cdn_custom: string;
   hide_email_ip: boolean;
 };
 

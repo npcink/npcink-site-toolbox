@@ -9,12 +9,12 @@ declare module "axios" {
 }
 
 function getApiBase(): string {
-  const dl = (window as any).dataLocal;
+  const dl = window.npcinkSiteToolboxData;
   return dl?.apiBase || "/wp-json/npcink-site-toolbox/v1";
 }
 
 function getRestNonce(): string {
-  const dl = (window as any).dataLocal;
+  const dl = window.npcinkSiteToolboxData;
   return dl?.restNonce || "";
 }
 

@@ -2,7 +2,6 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 
 import {
   diagnosticsApi,
-  domesticApi,
   performanceApi,
   searchHealthApi,
   settingsApi,
@@ -103,8 +102,6 @@ describe("performanceApi", () => {
   });
 
   it("已有局部状态的查询和建议接口关闭传输层通知", async () => {
-    await domesticApi.checkEnvironment();
-    await domesticApi.applyEnvironmentFix(["gravatar"]);
     await diagnosticsApi.getSummary();
     await diagnosticsApi.getFeatureStatus();
     await diagnosticsApi.getSupportReport();
@@ -132,15 +129,6 @@ describe("performanceApi", () => {
     await searchHealthApi.getSummary(30);
     await settingsApi.getSchema();
 
-    expect(restMocks.get).toHaveBeenCalledWith(
-      "/domestic/environment/check",
-      { maboxNotify: false },
-    );
-    expect(restMocks.post).toHaveBeenCalledWith(
-      "/domestic/environment/apply",
-      { fixes: ["gravatar"] },
-      { maboxNotify: false },
-    );
     expect(restMocks.get).toHaveBeenCalledWith(
       "/diagnostics/summary",
       { maboxNotify: false },

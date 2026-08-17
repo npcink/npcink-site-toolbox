@@ -8,7 +8,7 @@ final class ProductIdentityContractTest extends TestCase
 {
     private const DISPLAY_NAME = 'Npcink Site Toolbox';
     private const SLUG = 'npcink-site-toolbox';
-    private const VERSION = '3.3.0';
+    private const VERSION = '3.3.1';
 
     public function test_main_plugin_file_defines_the_public_identity(): void
     {

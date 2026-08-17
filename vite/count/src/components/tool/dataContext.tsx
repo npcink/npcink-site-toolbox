@@ -8,7 +8,7 @@ function getDataLocal(): Receive {
   if (state) {
     return option;
   } else {
-    const wl = window.dataLocal;
+    const wl = window.npcinkSiteToolboxData;
     if (wl !== "" && typeof wl === "object") {
       return wl;
     }

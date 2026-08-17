@@ -5,7 +5,7 @@ Tags: toolbox, optimization, security, performance
 Requires at least: 6.3
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 3.3.0
+Stable tag: 3.3.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -13,7 +13,7 @@ An opt-in toolbox for WordPress site settings, media, SEO, security, China-focus
 
 == Description ==
 
-Npcink Site Toolbox is a utility plugin for WordPress site owners. Version 3.3.0 provides 57 registered modules: 56 opt-in modules and one always-loaded runtime module, plus three editor patterns and two dynamic blocks. Features cover site and media settings, content and SEO, login and comment safeguards, China-focused integrations, diagnostics, and maintenance.
+Npcink Site Toolbox is a utility plugin for WordPress site owners. Version 3.3.1 provides 56 registered modules: 55 opt-in modules and one always-loaded runtime module, plus three editor patterns and two dynamic blocks. Features cover site and media settings, content and SEO, login and comment safeguards, China-focused integrations, diagnostics, and maintenance.
 
 = Current features =
 
@@ -25,6 +25,7 @@ Npcink Site Toolbox is a utility plugin for WordPress site owners. Version 3.3.0
 * Maintenance: diagnostics, SEO checks, media health, and guarded database cleanup.
 * Admin experience: feature search, risk labels, change confirmation, secret-status handling, and responsive layouts.
 * Editor tools: three core-block patterns, a live site-statistics block, and a GitHub project block with cached public repository metadata plus an optional author-written summary.
+* Public source and reproducible build instructions: [GitHub repository](https://github.com/npcink/npcink-site-toolbox#readme).
 
 = Important behavior =
 
@@ -82,14 +83,6 @@ When an administrator enables object storage and selects a provider, each new me
 
 When its module is enabled and a site ID is saved, front-end pages load Baidu Analytics. The visitor's browser may send the page URL, referrer, IP address, User-Agent, and data described by Baidu. [Service](https://tongji.baidu.com/), [terms](https://tongji.baidu.com/web/help/article?id=314&type=0), [privacy](https://tongji.baidu.com/web/help/article?id=330&type=0).
 
-= CDN replacement =
-
-When an administrator enables CDN replacement and a child option, visitors request Gravatar, Google Fonts, or Google Hosted Libraries assets through the configured mirror. Built-in defaults use [u.sb / Loli.net](https://u.sb/css-cdn/) ([terms](https://u.sb/terms/), [privacy](https://u.sb/privacy/)), including `gravatar.loli.net`, `fonts.loli.net`, `gstatic.loli.net`, and `ajax.loli.net`. Requests can expose the requested URL, IP address, HTTP headers, and, for avatars, an email-derived hash. Custom rules send requests to administrator-chosen destinations, whose terms and privacy policies the administrator must review.
-
-= Manual connectivity check =
-
-Only when an administrator runs the check does the server request test resources from [Google Fonts](https://developers.google.com/fonts/faq/privacy), [Google Hosted Libraries](https://developers.google.com/speed/libraries), [Gravatar](https://gravatar.com/), and the [WordPress.org API](https://api.wordpress.org/). No site content or plugin configuration is included, but providers receive the server IP, requested URL, and normal HTTP headers. See [Google terms](https://policies.google.com/terms) and [privacy](https://policies.google.com/privacy), [Automattic privacy](https://automattic.com/privacy/), and [WordPress.org privacy](https://wordpress.org/about/privacy/).
-
 = DeepSeek diagnostic analysis =
 
 This optional action requires WordPress 7.0 or newer and a separately installed and connected DeepSeek Provider. The AI tab offers troubleshooting, performance analysis, maintenance-result interpretation, pending-setting risk explanation, and before/after verification. Only after an administrator reviews the relevant allowlisted snapshot or ordinary pending-setting paths and explicitly starts analysis does the server send data through the WordPress AI Client. An administrator may ask up to three follow-up questions under the same bounded allowlisted facts; each follow-up resends the original facts, initial answer, and completed follow-up turns. This temporary history exists only in the current browser page and is cleared by switching modes or refreshing. Performance data is a one-time snapshot rather than monitoring or load testing. Maintenance analysis may include aggregate database, SEO, media, search-health, and object-storage configuration facts; raw search terms are excluded. Setting analysis excludes every credential path and summarizes non-boolean strings by empty/configured state and length rather than content. Verification baselines remain only in the current browser page. The diagnostic allowlist excludes site URLs, file paths, database identities, users, content, comments, request logs, and credentials. DeepSeek receives the server IP, normal HTTP headers, the prompt, and the API credential managed by WordPress Connectors and the provider plugin. Npcink Site Toolbox does not read that credential and does not persist goals, snapshots, baselines, follow-up history, or AI responses. No suggested action is performed automatically. [DeepSeek](https://www.deepseek.com/), [terms](https://cdn.deepseek.com/policies/en-US/deepseek-open-platform-terms-of-service.html), [privacy](https://cdn.deepseek.com/policies/en-US/deepseek-privacy-policy.html).
@@ -98,11 +91,17 @@ Google Search Console and Bing Webmaster Tools options only print administrator-
 
 == Source Code and Build ==
 
-The public, maintained source for the minified JavaScript and CSS shipped in this plugin is available at [GitHub](https://github.com/npcink/npcink-site-toolbox). Reproduce the Admin and Count assets with:
+The public source matching this exact plugin release is published at tag [v3.3.1](https://github.com/npcink/npcink-site-toolbox/tree/v3.3.1). The readable sources are in [vite/admin/src](https://github.com/npcink/npcink-site-toolbox/tree/v3.3.1/vite/admin/src) and [vite/count/src](https://github.com/npcink/npcink-site-toolbox/tree/v3.3.1/vite/count/src), with the build manifest at [vite/package.json](https://github.com/npcink/npcink-site-toolbox/blob/v3.3.1/vite/package.json).
+
+Reproduce the Admin and Count assets with:
 
 `git clone https://github.com/npcink/npcink-site-toolbox.git`
 
-`cd npcink-site-toolbox/vite`
+`cd npcink-site-toolbox`
+
+`git checkout v3.3.1`
+
+`cd vite`
 
 `corepack enable`
 
@@ -115,6 +114,13 @@ The generated files are written to `vite/admin/dist/` and `vite/count/dist/`.
 The site-statistics and GitHub project block editor scripts are shipped as readable source in `blocks/site-stats/index.js` and `blocks/github-project/index.js`; they have no separate build step.
 
 == Changelog ==
+
+= 3.3.1 =
+* Release date: 2026-08-17.
+* Prefixed browser globals, localized objects, thumbnail AJAX actions, asset handles, nonce actions, and image-size names for WordPress.org compatibility.
+* Made the readable Admin and Count sources and reproducible build contract explicit in the public readme and release verifier.
+* Retired remote CDN URL rewriting, external connectivity checks, and automatic mirror-fix proposals; object-storage integrations are unchanged.
+* Added the latest official Plugin Check to the exact-ZIP release gate.
 
 = 3.3.0 =
 * Release date: 2026-08-13.

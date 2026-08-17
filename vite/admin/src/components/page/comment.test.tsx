@@ -76,7 +76,7 @@ describe("用户评论 REST 设置", () => {
 
   it("提供用户教程入口", () => {
     const openSpy = vi.spyOn(window, "open").mockImplementation(() => null);
-    window.dataLocal = {
+    window.npcinkSiteToolboxData = {
       url_site: "https://example.com",
       commentRestHelpUrl:
         "https://example.com/wp-admin/admin.php?page=npcink-site-toolbox-comment-rest-help",
@@ -92,6 +92,6 @@ describe("用户评论 REST 设置", () => {
       "noopener,noreferrer",
     );
 
-    delete window.dataLocal;
+    delete window.npcinkSiteToolboxData;
   });
 });

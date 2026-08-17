@@ -1,164 +1,13 @@
-import React, { useState, useContext, useEffect, useCallback } from "react";
-import { Form, Input, InputNumber, Select, Button, Card, Tag, Space, Typography } from "antd";
-import { ReloadOutlined, ThunderboltOutlined, CheckCircleOutlined, CloseCircleOutlined } from "@ant-design/icons";
+import React, { useState, useContext, useEffect } from "react";
+import { Form, Input, InputNumber, Select } from "antd";
 import { DataContext } from "@/tool/dataContext";
 import { AntConfig } from "@/tool/tool";
-import { domesticApi } from "@/api";
-import DiffModal from "@/components/diff-modal";
-import { mergeEnvironmentProposal } from "@/components/domestic/environment-plan";
 import { ModuleCard, DetailDrawer, ModuleRow, SecretField } from "@/components/settings-ui";
 import type { DomesticLoginSecurity } from "@/tool/interface";
-import { notice } from "@/tool/notice";
-import { __, sprintf } from "@/tool/i18n";
+import { __ } from "@/tool/i18n";
 
 const fromConfig = AntConfig.from;
 const { TextArea } = Input;
-const { Text } = Typography;
-
-interface CheckResult {
-  service: string;
-  reachable: boolean;
-  latency: number;
-  suggestion: string;
-}
-
-const EnvironmentCard: React.FC<{ drawerOpen?: boolean; onDrawerOpenChange?: (open: boolean) => void }> = ({ drawerOpen: extDrawerOpen, onDrawerOpenChange }) => {
-  const { optionData, updateOption } = useContext(DataContext);
-  const [results, setResults] = useState<Record<string, CheckResult> | null>(null);
-  const [loading, setLoading] = useState(false);
-  const [diffVisible, setDiffVisible] = useState(false);
-  const [pendingDiffs, setPendingDiffs] = useState<any[]>([]);
-  const [pendingProposed, setPendingProposed] = useState<Record<string, unknown> | null>(null);
-  const [intDrawerOpen, setIntDrawerOpen] = useState(false);
-  const drawerOpen = extDrawerOpen ?? intDrawerOpen;
-  const setDrawerOpen = onDrawerOpenChange ?? setIntDrawerOpen;
-
-  const handleCheck = useCallback(async () => {
-    setLoading(true);
-    try {
-      const res = await domesticApi.checkEnvironment();
-      if (res?.success && res?.data) {
-        setResults(res.data);
-      } else {
-        notice.error(__("检测失败，请重试"));
-      }
-    } catch (err) {
-      notice.error(__("检测请求失败"));
-    } finally {
-      setLoading(false);
-    }
-  }, []);
-
-  const handleOpenAndCheck = useCallback(() => {
-    setDrawerOpen(true);
-    handleCheck();
-  }, [handleCheck]);
-
-  const handleOneClickFix = useCallback(async () => {
-    if (!results) return;
-    const unreachable = Object.entries(results)
-      .filter(([_, r]) => !r.reachable)
-      .map(([key]) => key)
-      .filter((key) => ["gravatar", "google_fonts", "google_ajax"].includes(key));
-    if (unreachable.length === 0) {
-      notice.info(__("所有服务可达，无需修复"));
-      return;
-    }
-    try {
-      const res = await domesticApi.applyEnvironmentFix(unreachable);
-      if (res?.success && res?.data?.diffs) {
-        setPendingDiffs(
-          res.data.diffs.map((d: any) => ({
-            path: `optimize.site.${d.key}`,
-            label: d.label,
-            module: "optimize",
-            before: d.before,
-            after: d.after,
-            riskLevel: d.risk_level === "high" ? "high" : ("none" as const),
-          }))
-        );
-        if (res.data.proposed) setPendingProposed(res.data.proposed);
-        setDiffVisible(true);
-      } else {
-        notice.error(__("获取修复建议失败"));
-      }
-    } catch (err) {
-      notice.error(__("修复请求失败"));
-    }
-  }, [results]);
-
-  const handleApplyFixes = useCallback(() => {
-    if (!pendingProposed) return;
-    try {
-      const nextSite = mergeEnvironmentProposal(optionData.optimize.site, pendingProposed);
-      updateOption("optimize", "site", nextSite);
-      notice.success(__("修复建议已加入待保存更改，请使用全局保存按钮确认"));
-      setDiffVisible(false);
-      setPendingDiffs([]);
-      setPendingProposed(null);
-    } catch (err) {
-      notice.error(err instanceof Error ? err.message : __("修复建议格式无效"));
-    }
-  }, [pendingProposed, optionData.optimize.site, updateOption]);
-
-  return (
-    <>
-      <ModuleCard
-        title={__("中国访问适配")}
-        description={__("检测国外服务可达性并一键修复")}
-        featureId="domestic-environment-check"
-        tags={["推荐"]}
-        switchable={false}
-        actionLabel={__("检测")}
-        onAction={handleOpenAndCheck}
-        actionLoading={loading}
-        aliases={["domestic-environment-gravatar", "domestic-environment-google_fonts", "domestic-environment-google_ajax"]}
-      />
-      <DetailDrawer
-        title={__("中国访问适配")}
-        visible={drawerOpen}
-        onClose={() => setDrawerOpen(false)}
-        description={__("检测 Google Fonts、Gravatar 等服务在国内的可达性")}
-      >
-        <Space style={{ marginBottom: 16 }}>
-          <Button size="small" icon={<ReloadOutlined />} onClick={handleCheck} loading={loading}>{__("检测")}</Button>
-          {results && <Button type="primary" size="small" icon={<ThunderboltOutlined />} onClick={handleOneClickFix}>{__("生成修复建议")}</Button>}
-        </Space>
-        {results && !loading && (
-          <div className="mabox-environment-results">
-            {Object.entries(results).map(([key, result]) => (
-              <Card size="small" className="mabox-environment-result-card" key={key}>
-                <Text strong className="mabox-environment-result-service">{result.service}</Text>
-                <div className="mabox-environment-result-status">
-                  {result.reachable ? (
-                    <Tag icon={<CheckCircleOutlined />} color="success">{__("可达")}</Tag>
-                  ) : (
-                    <Tag icon={<CloseCircleOutlined />} color="error">{__("不可达")}</Tag>
-                  )}
-                  {result.reachable && <Text type="secondary">{sprintf(__("延迟：%dms"), result.latency)}</Text>}
-                </div>
-                {!result.reachable && result.suggestion && (
-                  <Text type="warning" className="mabox-environment-result-suggestion">
-                    {result.suggestion}
-                  </Text>
-                )}
-              </Card>
-            ))}
-          </div>
-        )}
-        <DiffModal
-          visible={diffVisible}
-          onCancel={() => { setDiffVisible(false); setPendingDiffs([]); setPendingProposed(null); }}
-          onConfirm={handleApplyFixes}
-          diffs={pendingDiffs}
-          title={__("确认加入以下待保存更改？")}
-          confirmText={__("加入待保存更改")}
-        />
-      </DetailDrawer>
-    </>
-  );
-};
-
 const ComplianceCard: React.FC<{ drawerOpen?: boolean; onDrawerOpenChange?: (open: boolean) => void }> = ({ drawerOpen: extDrawerOpen, onDrawerOpenChange }) => {
   const { optionData, updateOption } = useContext(DataContext);
   const publicData = optionData.domestic?.compliance || {};
@@ -439,7 +288,6 @@ const LoginSecurityCard: React.FC<{ drawerOpen?: boolean; onDrawerOpenChange?: (
 };
 
 const App: React.FC<{ targetItemId?: string }> = ({ targetItemId }) => {
-  const [envDrawerOpen, setEnvDrawerOpen] = useState(false);
   const [complianceDrawerOpen, setComplianceDrawerOpen] = useState(false);
   const [wechatDrawerOpen, setWechatDrawerOpen] = useState(false);
   const [commentDrawerOpen, setCommentDrawerOpen] = useState(false);
@@ -447,8 +295,7 @@ const App: React.FC<{ targetItemId?: string }> = ({ targetItemId }) => {
 
   useEffect(() => {
     if (!targetItemId) return;
-    if (targetItemId.startsWith("domestic-environment-")) setEnvDrawerOpen(true);
-    else if (targetItemId.startsWith("domestic-compliance-")) setComplianceDrawerOpen(true);
+    if (targetItemId.startsWith("domestic-compliance-")) setComplianceDrawerOpen(true);
     else if (targetItemId.startsWith("domestic-wechat-")) setWechatDrawerOpen(true);
     else if (targetItemId.startsWith("domestic-comment")) setCommentDrawerOpen(true);
     else if (targetItemId.startsWith("domestic-login")) setLoginDrawerOpen(true);
@@ -456,7 +303,6 @@ const App: React.FC<{ targetItemId?: string }> = ({ targetItemId }) => {
 
   return (
     <div className="mabox-module-grid">
-      <EnvironmentCard drawerOpen={envDrawerOpen} onDrawerOpenChange={setEnvDrawerOpen} />
       <ComplianceCard drawerOpen={complianceDrawerOpen} onDrawerOpenChange={setComplianceDrawerOpen} />
       <WechatCard drawerOpen={wechatDrawerOpen} onDrawerOpenChange={setWechatDrawerOpen} />
       <CommentSecurityCard drawerOpen={commentDrawerOpen} onDrawerOpenChange={setCommentDrawerOpen} />

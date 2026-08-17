@@ -148,7 +148,7 @@ const App: React.FC = () => {
           }}
           onDetails={() =>
             window.open(
-              window.dataLocal?.commentRestHelpUrl ||
+              window.npcinkSiteToolboxData?.commentRestHelpUrl ||
                 "admin.php?page=npcink-site-toolbox-comment-rest-help",
               "_blank",
               "noopener,noreferrer"

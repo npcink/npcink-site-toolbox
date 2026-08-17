@@ -83,13 +83,6 @@
             },
             "site": {
                 "category_link_simplify": false,
-                "cdn_custom": "",
-                "cdn_google_ajax": false,
-                "cdn_google_fonts": false,
-                "cdn_google_fonts_mirror": "fonts.loli.net",
-                "cdn_gravatar": false,
-                "cdn_gravatar_mirror": "gravatar.loli.net/avatar/",
-                "cdn_replace": false,
                 "hide_email_ip": false,
                 "hide_top_toolbar": false,
                 "no_escape": false,
@@ -220,20 +213,6 @@
             "tags": [
                 "推荐",
                 "安全"
-            ]
-        },
-        {
-            "id": "optimize-site-cdn_replace",
-            "keywords": [
-                "cdn",
-                "加速"
-            ],
-            "label": "国内 CDN 替换",
-            "section": "站点",
-            "tabKey": "site",
-            "tabLabel": "站点与媒体",
-            "tags": [
-                "性能"
             ]
         },
         {

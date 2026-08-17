@@ -1,9 +1,9 @@
 # Npcink Site Toolbox
 
 > 面向中国 WordPress 站长的一站式实用工具箱插件
-> 版本：**3.3.0** | 阶段：**发布加固与运行边界收口** | 授权：**GPL-2.0**
+> 版本：**3.3.1** | 阶段：**WordPress.org 人工审核整改** | 授权：**GPL-2.0**
 
-`3.2.0` 保留为编辑器工具历史版本；`3.3.0` 在此基础上加入只读 AI 诊断、认证用户评论 REST、自助兜底页面，并收紧模块激活、搜索统计资源和发布安全门禁。现有历史标签和附件保持不变。
+`3.2.0` 保留为编辑器工具历史版本；`3.3.0` 加入只读 AI 诊断、认证用户评论 REST、自助兜底页面，并收紧模块激活、搜索统计资源和发布安全门禁；`3.3.1` 进一步修复 WordPress.org 人工审核指出的源码追溯与全局命名问题，并退役目录规则不允许的远程 CDN URL 改写和连通性修复表面。
 
 [![CI](https://github.com/npcink/npcink-site-toolbox/actions/workflows/ci.yml/badge.svg)](https://github.com/npcink/npcink-site-toolbox/actions/workflows/ci.yml)
 [![WordPress Plugin](https://img.shields.io/badge/WordPress-6.3%2B-blue)](https://wordpress.org)
@@ -14,13 +14,14 @@
 
 ## 简介
 
-Npcink Site Toolbox 是一款面向中国 WordPress 站长的免费工具箱插件。当前以 57 个注册模块为设置运行边界，并提供 3 个核心区块样板和 2 个动态区块；七个语义化管理视图继续承载站点优化、内容与 SEO、登录安全、国内生态和维护诊断等能力。
+Npcink Site Toolbox 是一款面向中国 WordPress 站长的免费工具箱插件。当前以 56 个注册模块为设置运行边界，并提供 3 个核心区块样板和 2 个动态区块；七个语义化管理视图继续承载站点优化、内容与 SEO、登录安全、国内生态和维护诊断等能力。
 
 **核心定位**：在一个插件内集中提供可按需启用的常见站点设置与维护工具。
 
 - 📖 **在线文档**：搭建中；已发布功能的关键教程随插件内置
 - 🌐 **作者博客**：[npc.ink](https://www.npc.ink)
 - 📦 **GitHub 仓库**：[github.com/npcink/npcink-site-toolbox](https://github.com/npcink/npcink-site-toolbox)
+- 🧩 **3.3.1 前端可读源码**：[Admin](https://github.com/npcink/npcink-site-toolbox/tree/v3.3.1/vite/admin/src) / [Count](https://github.com/npcink/npcink-site-toolbox/tree/v3.3.1/vite/count/src)
 
 ---
 
@@ -134,11 +135,18 @@ WordPress.org 自动预审对资源加载、请求鉴权、外部链接和跨文
 - 启用相关能力后，登录安全、审计与诊断可能在站点本地记录登录失败、IP 地址、操作事件和诊断结果，站点管理员应按自身隐私政策和保留周期管理这些数据。
 - 内容作者插入“GitHub 项目”区块后，服务器仅在缓存缺失时向 GitHub 公共 API 发送仓库所有者和名称，读取公开项目资料；不发送文章内容、访客 IP、GitHub Token 或插件设置。
 - “关于与帮助 → AI 诊断”提供故障排查、性能分析、维护解读、设置风险和修复复验。管理员必须先检查白名单快照或待保存普通设置差异，再显式发送给 DeepSeek；每次分析可在同一白名单事实下临时追问最多 3 轮，历史只保存在当前页面，切换模式或刷新即清除。搜索健康只发送聚合计数，设置风险排除全部凭据字段，复验基线仅暂存在当前浏览器页面。API Key 由 WordPress Connectors 管理，本插件不读取，也不保存问题、快照、基线、追问历史或回答，更不会自动执行建议。
-- 第三方集成只在管理员显式启用或主动运行相应检查后发起请求；对象存储连接测试会写入固定测试对象，国内访问连通性检测会请求目标服务。微信 JSSDK、对象存储、百度统计、CDN 镜像及检测目标的触发条件、数据流向和法律链接见 [WordPress.org readme](readme.txt)。
+- 第三方集成只在管理员显式启用或主动运行相应操作后发起请求；对象存储连接测试会写入固定测试对象。微信 JSSDK、对象存储、百度统计和 AI 诊断的触发条件、数据流向及法律链接见 [WordPress.org readme](readme.txt)。
 
 ---
 
 ## 更新记录
+
+### 3.3.1 — 2026-08-17
+
+- 修复 WordPress.org 人工审核指出的通用浏览器全局名、localized object 和缩略图 AJAX action 前缀问题
+- 在 WordPress.org readme 和发布校验器中固化公开可读源码目录与可复现构建合同
+- 退役远程 CDN URL 改写、中国访问连通性检测和一键镜像修复表面；对象存储 OSS 保持不变
+- 将官方最新版 Plugin Check 纳入精确 ZIP 发布硬门禁
 
 ### 3.3.0 — 2026-08-13
 

@@ -170,6 +170,17 @@ for required_file in "${required_files[@]}"; do
   [ -f "$package_root/$required_file" ] || fail "missing required release file: $required_file"
 done
 
+readme_path="$package_root/readme.txt"
+for source_contract in \
+  '== Source Code and Build ==' \
+  'https://github.com/npcink/npcink-site-toolbox' \
+  'pnpm install --frozen-lockfile' \
+  'pnpm run build'
+do
+  grep -Fq -- "$source_contract" "$readme_path" \
+    || fail "readme is missing public source/build contract: $source_contract"
+done
+
 header_versions="$(sed -nE 's/^[[:space:]]*\*[[:space:]]*Version:[[:space:]]*([^[:space:]]+).*/\1/p' "$package_root/npcink-site-toolbox.php")"
 constant_versions="$(sed -nE "s/.*NPCINK_SITE_TOOLBOX_VERSION[^,]*,[[:space:]]*['\"]([^'\"]+)['\"].*/\1/p" "$package_root/npcink-site-toolbox.php")"
 stable_versions="$(sed -nE 's/^[[:space:]]*Stable tag:[[:space:]]*([^[:space:]]+).*/\1/p' "$package_root/readme.txt")"
@@ -187,6 +198,18 @@ stable_version="$(printf '%s\n' "$stable_versions" | sed -n '1p')"
 if [ "$header_version" != "$constant_version" ] || [ "$header_version" != "$stable_version" ]; then
   fail "version mismatch: header=$header_version constant=$constant_version stable=$stable_version"
 fi
+
+release_tag="v$stable_version"
+for tagged_source_contract in \
+  "https://github.com/npcink/npcink-site-toolbox/tree/$release_tag" \
+  "https://github.com/npcink/npcink-site-toolbox/tree/$release_tag/vite/admin/src" \
+  "https://github.com/npcink/npcink-site-toolbox/tree/$release_tag/vite/count/src" \
+  "https://github.com/npcink/npcink-site-toolbox/blob/$release_tag/vite/package.json" \
+  "git checkout $release_tag"
+do
+  grep -Fq -- "$tagged_source_contract" "$readme_path" \
+    || fail "readme is missing version-matched source/build contract: $tagged_source_contract"
+done
 
 release_sha256="$(hash_file "$zip_path")"
 sidecar_path="$zip_path.sha256"

@@ -6,7 +6,7 @@ import zhCN from "antd/locale/zh_CN";
 import Tab from "@/components/tab";
 
 const App: React.FC = () => {
-  const locale = window.dataLocal?.locale || "zh_CN";
+  const locale = window.npcinkSiteToolboxData?.locale || "zh_CN";
   const componentLocale = locale.toLowerCase().startsWith("en") ? enUS : zhCN;
 
   return (

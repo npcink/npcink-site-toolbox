@@ -156,7 +156,7 @@ describe("AiDiagnostics", () => {
         turn: request.turns.length + 1,
       },
     }));
-    (window as Window & { dataLocal?: DataLocal }).dataLocal = undefined;
+    (window as Window & { npcinkSiteToolboxData?: DataLocal }).npcinkSiteToolboxData = undefined;
   });
 
   it("generates a preview before copying the diagnostic pack", async () => {
@@ -225,7 +225,7 @@ describe("AiDiagnostics", () => {
     apiMocks.analyzeSupportReport.mockRejectedValue({
       response: { data: { code: "diagnostic_deepseek_unavailable" } },
     });
-    (window as Window & { dataLocal?: DataLocal }).dataLocal = {
+    (window as Window & { npcinkSiteToolboxData?: DataLocal }).npcinkSiteToolboxData = {
       url_site: "http://magick-toolbox.local",
       connectorsUrl: "/wp-admin/options-connectors.php",
     } as DataLocal;
@@ -304,7 +304,7 @@ describe("AiDiagnostics", () => {
 
   it("sends only ordinary pending setting changes for risk analysis", async () => {
     const changedOption = structuredClone(defaultVarOption);
-    changedOption.optimize.site.cdn_replace = !defaultVarOption.optimize.site.cdn_replace;
+    changedOption.optimize.site.hide_top_toolbar = !defaultVarOption.optimize.site.hide_top_toolbar;
     render(
       <DataContext.Provider value={{
         optionData: changedOption,
@@ -330,7 +330,7 @@ describe("AiDiagnostics", () => {
     await waitFor(() => expect(apiMocks.createReview).toHaveBeenCalled());
     expect(apiMocks.createReview).toHaveBeenCalledWith(expect.objectContaining({
       scenario: "settings_risk",
-      changes: [expect.objectContaining({ path: "optimize.site.cdn_replace" })],
+      changes: [expect.objectContaining({ path: "optimize.site.hide_top_toolbar" })],
     }));
   });
 

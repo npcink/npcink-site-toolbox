@@ -193,6 +193,57 @@ class ReleasePackageContractTest extends TestCase
         $this->assertSame(array(), array_values(array_unique($violations)));
     }
 
+    public function test_runtime_browser_and_ajax_identifiers_are_plugin_prefixed(): void
+    {
+        $root = $this->root();
+        $runtime_files = array(
+            'admin/class-npcink-toolbox-admin.php',
+            'admin/partials/function/auxiliary/census-single.php',
+            'admin/partials/optimize/admin/thumbnail_switcher/easy-thumbnail-switcher.php',
+            'admin/partials/optimize/admin/thumbnail_switcher/js/script.js',
+        );
+        $runtime_source = '';
+
+        foreach ($runtime_files as $relative_path) {
+            $source = file_get_contents($root . '/' . $relative_path);
+            $this->assertIsString($source);
+            $runtime_source .= "\n" . $source;
+        }
+
+        foreach (array('dataLocal', 'ets_strings', 'ts_ets_update', 'ts_ets_remove', 'window.ts_ets') as $generic_name) {
+            $this->assertStringNotContainsString($generic_name, $runtime_source, $generic_name);
+        }
+
+        foreach (array(
+            'npcinkSiteToolboxData',
+            'npcinkSiteToolboxThumbnail',
+            'npcink_site_toolbox_thumbnail_update',
+            'npcink_site_toolbox_thumbnail_remove',
+        ) as $prefixed_name) {
+            $this->assertStringContainsString($prefixed_name, $runtime_source, $prefixed_name);
+        }
+    }
+
+    public function test_wordpress_org_readme_exposes_public_readable_sources_and_build_steps(): void
+    {
+        $readme = file_get_contents($this->root() . '/readme.txt');
+        $this->assertIsString($readme);
+
+        foreach (array(
+            '== Source Code and Build ==',
+            'https://github.com/npcink/npcink-site-toolbox',
+            'https://github.com/npcink/npcink-site-toolbox/tree/v3.3.1',
+            'https://github.com/npcink/npcink-site-toolbox/tree/v3.3.1/vite/admin/src',
+            'https://github.com/npcink/npcink-site-toolbox/tree/v3.3.1/vite/count/src',
+            'https://github.com/npcink/npcink-site-toolbox/blob/v3.3.1/vite/package.json',
+            'git checkout v3.3.1',
+            'pnpm install --frozen-lockfile',
+            'pnpm run build',
+        ) as $source_contract) {
+            $this->assertStringContainsString($source_contract, $readme, $source_contract);
+        }
+    }
+
     public function test_verifier_rejects_vite_source_and_version_drift(): void
     {
         $source_archive = $this->createArchive('9.8.7', '9.8.7', array(
@@ -206,6 +257,22 @@ class ReleasePackageContractTest extends TestCase
         $version_result = $this->runCommand(array('bash', $this->root() . '/bin/verify-release-zip.sh', $version_archive));
         $this->assertNotSame(0, $version_result['status']);
         $this->assertStringContainsString('version mismatch', $version_result['output']);
+    }
+
+    public function test_verifier_rejects_a_readme_without_public_source_contract(): void
+    {
+        $archive = $this->createArchive('9.8.7');
+        $zip = new ZipArchive();
+        $this->assertTrue($zip->open($archive) === true);
+        $this->assertTrue($zip->addFromString(
+            self::PACKAGE_SLUG . '/readme.txt',
+            "=== Npcink Site Toolbox ===\nStable tag: 9.8.7\n"
+        ));
+        $this->assertTrue($zip->close());
+
+        $result = $this->runCommand(array('bash', $this->root() . '/bin/verify-release-zip.sh', $archive));
+        $this->assertNotSame(0, $result['status']);
+        $this->assertStringContainsString('readme is missing public source/build contract', $result['output']);
     }
 
     public function test_verifier_rejects_a_mismatched_checksum_sidecar(): void
@@ -493,7 +560,7 @@ BASH
     {
         return array(
             'npcink-site-toolbox.php' => "<?php\n/*\n * Plugin Name: Npcink Site Toolbox\n * Version: {$header_version}\n */\ndefine('NPCINK_SITE_TOOLBOX_VERSION', '{$constant_version}');\n",
-            'readme.txt' => "=== Npcink Site Toolbox ===\nStable tag: {$header_version}\n",
+            'readme.txt' => "=== Npcink Site Toolbox ===\nStable tag: {$header_version}\n\n== Source Code and Build ==\n\nhttps://github.com/npcink/npcink-site-toolbox\nhttps://github.com/npcink/npcink-site-toolbox/tree/v{$header_version}\nhttps://github.com/npcink/npcink-site-toolbox/tree/v{$header_version}/vite/admin/src\nhttps://github.com/npcink/npcink-site-toolbox/tree/v{$header_version}/vite/count/src\nhttps://github.com/npcink/npcink-site-toolbox/blob/v{$header_version}/vite/package.json\ngit checkout v{$header_version}\npnpm install --frozen-lockfile\npnpm run build\n",
             'LICENSE' => 'GPL-2.0-or-later',
             'index.php' => "<?php\n",
             'uninstall.php' => "<?php\n",

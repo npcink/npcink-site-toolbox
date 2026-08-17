@@ -299,7 +299,7 @@ class ModuleRegistryConsistency_Test extends TestCase {
         $tiers = Npcink_Toolbox_Module_Loader::get_tiers();
         $autoload = file_get_contents(self::$plugin_dir . '/includes/autoload.php');
 
-        $this->assertCount(57, $registry);
+        $this->assertCount(56, $registry);
         $this->assertArrayNotHasKey('config', $schema['function']);
         $this->assertArrayNotHasKey('config', $defaults['function']);
         $this->assertArrayNotHasKey('function.config', $registry);
@@ -312,6 +312,38 @@ class ModuleRegistryConsistency_Test extends TestCase {
         $this->assertFileDoesNotExist(
             self::$plugin_dir . '/admin/partials/function/config/index.php'
         );
+    }
+
+    public function test_remote_cdn_rewrite_and_environment_fix_surfaces_are_retired(): void {
+        $schema = Npcink_Toolbox_Config_Schema::get_schema();
+        $registry = Npcink_Toolbox_Module_Loader::get_registry();
+        $tiers = Npcink_Toolbox_Module_Loader::get_tiers();
+        $autoload = file_get_contents(self::$plugin_dir . '/includes/autoload.php');
+        $admin = file_get_contents(self::$plugin_dir . '/admin/class-npcink-toolbox-admin.php');
+
+        foreach (array(
+            'cdn_replace',
+            'cdn_gravatar',
+            'cdn_gravatar_mirror',
+            'cdn_google_fonts',
+            'cdn_google_fonts_mirror',
+            'cdn_google_ajax',
+            'cdn_custom',
+        ) as $field) {
+            $this->assertArrayNotHasKey($field, $schema['optimize']['site']);
+        }
+
+        $this->assertArrayNotHasKey('optimize.cdn_replace', $registry);
+        foreach ($tiers as $tier => $modules) {
+            $this->assertNotContains('optimize.cdn_replace', $modules, $tier);
+        }
+        $this->assertIsString($autoload);
+        $this->assertStringNotContainsString('Npcink_Toolbox_CDN_Replace', $autoload);
+        $this->assertStringNotContainsString('Npcink_Toolbox_Domestic_Environment', $autoload);
+        $this->assertIsString($admin);
+        $this->assertStringNotContainsString('/domestic/environment/', $admin);
+        $this->assertFileDoesNotExist(self::$plugin_dir . '/admin/partials/optimize/site/cdn_replace.php');
+        $this->assertFileDoesNotExist(self::$plugin_dir . '/includes/class-npcink-toolbox-domestic-environment.php');
     }
 
     public function test_retired_credential_integrations_are_removed_from_backend_contracts(): void {
@@ -401,7 +433,7 @@ class ModuleRegistryConsistency_Test extends TestCase {
         $this->assertStringContainsString('filemtime($build_js_path)', $loader);
         $this->assertStringContainsString("NPCINK_SITE_TOOLBOX_NAME . '_census_css'", $loader);
         $this->assertSame(2, substr_count($loader, "NPCINK_SITE_TOOLBOX_NAME . '_census_js'"));
-        $this->assertStringContainsString("wp_localize_script(NPCINK_SITE_TOOLBOX_NAME . '_census_js', 'dataLocal'", $loader);
+        $this->assertStringContainsString("wp_localize_script(NPCINK_SITE_TOOLBOX_NAME . '_census_js', 'npcinkSiteToolboxData'", $loader);
         $this->assertStringContainsString("'countData' => self::deliver_data()", $loader);
         $this->assertStringContainsString('id="npcink_site_toolbox_census_count"', $loader);
     }

@@ -15,12 +15,12 @@ class MetadataAggregationTest extends TestCase {
         $registry = require dirname(__DIR__, 2) . '/admin/modules/registry.php';
         $metadata = Npcink_Toolbox_Module_Metadata::get_registry();
 
-        $this->assertCount(57, $registry);
+        $this->assertCount(56, $registry);
         $this->assertSame(self::expected_module_ids(), array_keys($registry));
         $this->assertSame($registry, $metadata);
     }
 
-    public function test_four_sidecar_metadata_entries_are_folded_exactly_into_registry(): void {
+    public function test_folded_metadata_entries_are_preserved_exactly_in_registry(): void {
         Npcink_Toolbox_Module_Metadata::reset_cache();
         $registry = Npcink_Toolbox_Module_Metadata::get_registry();
 
@@ -63,7 +63,7 @@ class MetadataAggregationTest extends TestCase {
         $ui = Npcink_Toolbox_Module_Metadata::get_ui_metadata();
 
         $this->assertIsArray($ui);
-        $this->assertCount(57, $ui);
+        $this->assertCount(56, $ui);
 
         foreach ($ui as $module_id => $entry) {
             $this->assertArrayNotHasKey('_option_key', $entry, "UI metadata should not contain _option_key for '{$module_id}'");
@@ -77,7 +77,7 @@ class MetadataAggregationTest extends TestCase {
         }
 
         $this->assertSame('隐藏顶部工具条', $ui['optimize.hide_top_toolbar']['label']);
-        $this->assertSame('low', $ui['optimize.cdn_replace']['risk']['level']);
+        $this->assertArrayNotHasKey('optimize.cdn_replace', $ui);
         $this->assertSame('none', $ui['domestic.login_security']['risk']['level']);
         $this->assertTrue($ui['optimize.widgets']['always_load']);
     }
@@ -140,7 +140,6 @@ class MetadataAggregationTest extends TestCase {
             'optimize.search_link_simplify',
             'optimize.remove_sitemap_users',
             'optimize.user_list_show_nickname',
-            'optimize.cdn_replace',
             'optimize.hide_email_ip',
             'optimize.widgets',
             'optimize.image_add_tag',
@@ -222,21 +221,6 @@ class MetadataAggregationTest extends TestCase {
                 'risk'        => array('level' => 'none'),
                 'depends_on'  => array(),
                 'preset_tags' => array('pure', 'blog'),
-            ),
-            'optimize.cdn_replace' => array(
-                'class'       => 'Npcink_Toolbox_CDN_Replace',
-                'file'        => 'optimize/site/cdn_replace.php',
-                'option_key'  => 'optimize.site.cdn_replace',
-                'category'    => 'optimize',
-                'scope'       => 'frontend',
-                'config_path' => 'optimize.site',
-                'risk_tags'   => array('性能'),
-                'label'       => '国内 CDN 替换',
-                'group'       => '站点',
-                'feature_id'  => 'optimize-site-cdn_replace',
-                'risk'        => array('level' => 'low'),
-                'depends_on'  => array(),
-                'preset_tags' => array('performance'),
             ),
             'domestic.login_security' => array(
                 'class'            => 'Npcink_Toolbox_Domestic_Login_Security',

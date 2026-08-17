@@ -198,18 +198,6 @@ export const performanceApi = {
     ),
 };
 
-// ========== 国内生态 ==========
-export const domesticApi = {
-  checkEnvironment: (): Promise<ApiResponse<Record<string, { service: string; reachable: boolean; latency: number; suggestion: string }>>> =>
-    restInstance.get("/domestic/environment/check", { maboxNotify: false }) as Promise<any>,
-  applyEnvironmentFix: (fixes: string[]): Promise<ApiResponse<{ applied: string[]; new_config: any }>> =>
-    restInstance.post(
-      "/domestic/environment/apply",
-      { fixes },
-      { maboxNotify: false },
-    ) as Promise<any>,
-};
-
 // ========== 设置 ==========
 export const settingsApi = {
   getSchema: () => restInstance.get("/settings/schema", { maboxNotify: false }),

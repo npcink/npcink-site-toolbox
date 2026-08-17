@@ -18,7 +18,7 @@ const App: React.FC = () => {
   optionData.optimize?.medium || defaultVarOption.optimize.medium;
 
   const [formData, setFormData] = useState(publicData);
-  const webpSupported = window.dataLocal?.webpSupported;
+  const webpSupported = window.npcinkSiteToolboxData?.webpSupported;
 
   const onValuesChange = (changedValues: Partial<FieldType>) => {
     setFormData((prevState) => ({ ...prevState, ...changedValues }));
