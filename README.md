@@ -102,12 +102,12 @@ DeepSeek 只读诊断的产品边界、实现演进、验证证据、问题复�
 本轮需求收敛、安全边界、真实接口验证、内置教程和链接治理的完整经验见
 [用户评论 REST 与文档链接治理开发总结](docs/用户评论REST与文档链接治理开发总结-2026-08.md)。
 正式站点接入前的 HTTPS 冒烟、应用程序密码处理、测试数据清理和 Plugin Check 流程见
-[用户评论 REST 生产验收与凭据处理规范](docs/用户评论REST生产验收与凭据处理规范-2026-08.md)。
+[用户评论 REST 生产验收与凭据处理规范](docs/operations/用户评论REST生产验收与凭据处理规范-2026-08.md)。
 
 WordPress.org 自动预审对资源加载、请求鉴权、外部链接和跨文件系统文件名的要求，以及最终 ZIP 的 PCP 验收规则见
-[WordPress.org 自动预审整改复盘](docs/WordPress.org自动预审整改复盘-2026-08.md)。
+[WordPress.org 自动预审整改复盘](docs/operations/WordPress.org自动预审整改复盘-2026-08.md)。
 长期执行流程、审核问题分类、证据模板和防回归检查表见
-[WordPress.org 发布审核与防回归规范](docs/WordPress.org发布审核与防回归规范.md)；“以精确 ZIP 为验收对象”的原因和取舍见
+[WordPress.org 发布审核与防回归规范](docs/operations/WordPress.org发布审核与防回归规范.md)；“以精确 ZIP 为验收对象”的原因和取舍见
 [ADR-0005](docs/decisions/0005-exact-artifact-wordpress-org-release-gate.md)。
 
 ---
