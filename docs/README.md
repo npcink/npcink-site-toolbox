@@ -32,3 +32,12 @@ git diff --check
 ```
 
 若文档包含发布路径、源码 tag、ZIP 哈希或命令，必须重新核对对应精确制品，不能只修相对链接。
+
+## 已完成迁移
+
+| 原位置 | 当前路径 | 说明 |
+|---|---|---|
+| `docs/v2.4-stability-plan.md`、`docs/v2.4-implementation-report.md` | [`archive/2026-05/`](archive/2026-05/) | 2026-05 稳定性整改的历史计划与实施证据 |
+| `docs/v2.5-implementation-report.md`、`docs/v2.5-release-wrapup.md` | [`archive/2026-05/`](archive/2026-05/) | 2026-05 诊断闭环与发布收口的历史记录 |
+
+后续归档按小批次进行；当前规范、发布门禁和未完成事项不随历史文件移动。
