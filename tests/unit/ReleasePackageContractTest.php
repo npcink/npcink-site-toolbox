@@ -230,6 +230,83 @@ class ReleasePackageContractTest extends TestCase
         $this->assertSame(array(), array_values(array_unique($violations)));
     }
 
+    public function test_content_filter_callbacks_escape_dynamic_values_before_returning_html(): void
+    {
+        $root = $this->root();
+        $contracts = array(
+            'admin/partials/page/function/add_article_update_time.php' => array('wp_kses_post', 'esc_html'),
+            'admin/partials/page/function/single_keyword_add_link.php' => array('wp_kses_post', 'esc_url', 'esc_attr', 'esc_html', 'preg_replace_callback'),
+            'admin/partials/performance/search_enhance/index.php' => array('wp_kses_post', 'esc_html', 'preg_replace_callback'),
+            'admin/partials/optimize/medium/image_add_tag.php' => array('wp_kses_post', 'WP_HTML_Tag_Processor'),
+        );
+
+        foreach ($contracts as $relative_path => $required_tokens) {
+            $source = (string) file_get_contents($root . '/' . $relative_path);
+            foreach ($required_tokens as $token) {
+                $this->assertStringContainsString($token, $source, $relative_path . ' must contain ' . $token);
+            }
+        }
+    }
+
+    public function test_release_php_uses_literal_gettext_arguments(): void
+    {
+        $root = $this->root();
+        $violations = array();
+        $iterators = array(
+            new RecursiveIteratorIterator(
+                new RecursiveDirectoryIterator($root . '/admin', FilesystemIterator::SKIP_DOTS)
+            ),
+        );
+        foreach (array('includes', 'public') as $directory) {
+            $iterators[] = new RecursiveIteratorIterator(
+                new RecursiveDirectoryIterator($root . '/' . $directory, FilesystemIterator::SKIP_DOTS)
+            );
+        }
+
+        foreach ($iterators as $iterator) {
+            foreach ($iterator as $file) {
+                if (!$file->isFile() || strtolower($file->getExtension()) !== 'php') {
+                    continue;
+                }
+                $source = (string) file_get_contents($file->getPathname());
+                if (preg_match('/\b(?:__|_e|_x|_ex|_n|_nx|esc_html__|esc_html_e|esc_attr__|esc_attr_e)\s*\(\s*\$/', $source)) {
+                    $violations[] = substr($file->getPathname(), strlen($root) + 1);
+                }
+                if (preg_match('/\b(?:__|_e|_x|_ex|_n|_nx|esc_html__|esc_html_e|esc_attr__|esc_attr_e)\s*\([^,\n]+,\s*\$/', $source)) {
+                    $violations[] = substr($file->getPathname(), strlen($root) + 1);
+                }
+            }
+        }
+
+        $this->assertSame(array(), array_values(array_unique($violations)));
+    }
+
+    public function test_external_service_disclosures_have_purpose_trigger_data_and_policy_links(): void
+    {
+        $root = $this->root();
+        $readme = (string) file_get_contents($root . '/readme.txt');
+        $privacy = (string) file_get_contents($root . '/admin/partials/privacy/index.php');
+
+        foreach (array(
+            'GitHub project block',
+            'WeChat JSSDK',
+            'Object storage',
+            'Baidu Analytics',
+            'Google Search Console',
+            'Bing Webmaster Tools',
+            'DeepSeek diagnostic analysis',
+        ) as $service) {
+            $this->assertStringContainsString($service, $readme, $service);
+        }
+
+        foreach (array('purpose', 'trigger', 'data_sent', 'terms_url', 'privacy_url') as $field) {
+            $this->assertStringContainsString("'$field'", $privacy, $field);
+        }
+
+        $this->assertStringNotContainsString('https://api.github.com/repos/{owner}/{repository}', $readme);
+        $this->assertStringContainsString('https://docs.github.com/en/rest/repos/repos#get-a-repository', $readme);
+    }
+
     public function test_runtime_browser_and_ajax_identifiers_are_plugin_prefixed(): void
     {
         $root = $this->root();
@@ -269,11 +346,11 @@ class ReleasePackageContractTest extends TestCase
         foreach (array(
             '== Source Code and Build ==',
             'https://github.com/npcink/npcink-site-toolbox',
-            'https://github.com/npcink/npcink-site-toolbox/tree/v3.3.1',
-            'https://github.com/npcink/npcink-site-toolbox/tree/v3.3.1/vite/admin/src',
-            'https://github.com/npcink/npcink-site-toolbox/tree/v3.3.1/vite/count/src',
-            'https://github.com/npcink/npcink-site-toolbox/blob/v3.3.1/vite/package.json',
-            'git checkout v3.3.1',
+            'https://github.com/npcink/npcink-site-toolbox/tree/v3.3.2',
+            'https://github.com/npcink/npcink-site-toolbox/tree/v3.3.2/vite/admin/src',
+            'https://github.com/npcink/npcink-site-toolbox/tree/v3.3.2/vite/count/src',
+            'https://github.com/npcink/npcink-site-toolbox/blob/v3.3.2/vite/package.json',
+            'git checkout v3.3.2',
             'pnpm install --frozen-lockfile',
             'pnpm run build',
         ) as $source_contract) {

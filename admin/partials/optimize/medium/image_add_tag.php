@@ -17,6 +17,7 @@ if (!class_exists('Npcink_Toolbox_Image_Add_Tag')) {
         //自动给图片添加Alt标签
         public static function image_alt_tag($content)
         {
+            $content = wp_kses_post((string) $content);
             $alt_parts = array_filter(array(
                 trim(wp_strip_all_tags((string) get_the_title())),
                 trim(wp_strip_all_tags((string) get_bloginfo('name'))),
@@ -36,7 +37,7 @@ if (!class_exists('Npcink_Toolbox_Image_Add_Tag')) {
                 $processor->set_attribute('alt', $alt_text);
             }
 
-            return $processor->get_updated_html();
+            return wp_kses_post($processor->get_updated_html());
         }
     }
 }

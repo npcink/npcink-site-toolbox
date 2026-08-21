@@ -18,6 +18,7 @@ if (!class_exists('Npcink_Toolbox_Single_Add_Last_Updated_Date')) {
         //在更新过的文章的页面结尾添加最后更新时间
         public static function add_last_updated_date($content)
         {
+            $content = wp_kses_post((string) $content);
             $u_time = get_the_time('U'); //发布时间
             $u_modified_time = get_the_modified_time('U'); //修改时间
             $custom_content = '';
@@ -30,8 +31,7 @@ if (!class_exists('Npcink_Toolbox_Single_Add_Last_Updated_Date')) {
                     esc_html($updated_date)
                 );
             }
-            $content .= $custom_content;
-            return $content;
+            return wp_kses_post($content . $custom_content);
         }
     }
 }

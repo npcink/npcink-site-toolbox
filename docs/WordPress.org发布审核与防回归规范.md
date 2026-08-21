@@ -32,6 +32,7 @@
 | 2026-08-17 | PCP 2.1.0 复验 | 新版 `OffloadedContent` 规则发现 CDN URL 改写和连通性修复表面 | 每次发布安装最新版 PCP；新规则命中不能沿用旧结论 |
 | 2026-08-17 | 3.3.1 最终验收 | 精确 ZIP 为 `0 errors / 2 known warnings` | 错误阻断；已审阅 warning 窄允许；其他 warning 阻断 |
 | 2026-08-17 | 自动化收口 | 手工 PCP、WP_DEBUG 和清理容易被漏跑 | CI 强制运行 `composer release:wordpress-org-check` |
+| 2026-08-21 | 3.3.2 自动复核 | 输出型过滤器、动态 gettext 和 `Tested up to` 目录要求再次暴露覆盖缺口 | 过滤器/字面量 gettext 合同进入测试；PCP header error 也必须阻断；实际运行版本与目录 header 分开记录 |
 
 ### 2.2 根因不是“少修了几个文件”
 
@@ -119,6 +120,12 @@
 - 动态 endpoint 示例不得伪装成可以访问的 Markdown 链接；
 - 没有用户和兼容负担时，违反目录边界的能力应直接退役，不保留隐藏入口或休眠代码。
 
+#### 过滤器返回值与国际化
+
+- `the_content`、`the_title`、`the_excerpt` 等输出型过滤器的回调必须按最终 HTML 上下文处理动态值：文本用 `esc_html()`，属性用 `esc_attr()`，URL 用 `esc_url()`；需要保留文章 HTML 时，对最终返回值使用明确的 `wp_kses_post()` 边界。
+- 不得依赖 PHPCS 对 `WordPress.WP.I18n.NonSingularStringLiteralText` 的逐行忽略来满足目录规则。gettext 的 msgid、context 和 text domain 必须在源码中可静态发现；固定 Registry/隐私树也必须通过字面量翻译映射实现。
+- 每次发布合同测试都要扫描全部输出型过滤器和全部 PHP gettext 调用，而不是只验证邮件列出的示例文件。
+
 ## 5. 测试与证据分层
 
 ### 5.1 第一层：源码合同
@@ -132,6 +139,9 @@
 - 通用全局名和已退役标识不得重新出现；
 - 配置 Schema、Registry、搜索索引和前端生成合同一致；
 - 文档链接目标存在。
+- 输出型过滤器返回值的上下文转义和最终 HTML 清洗存在源码合同。
+- 动态 gettext 参数为零，固定元数据通过字面量翻译映射提取。
+- 每个远程服务调用都能在 `readme.txt` 找到用途、触发条件、发送数据、Terms 和 Privacy 对应条目。
 
 ### 5.2 第二层：构建合同
 

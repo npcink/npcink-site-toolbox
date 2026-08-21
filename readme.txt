@@ -3,9 +3,9 @@ Contributors: muze233
 Donate link: https://www.npc.ink/
 Tags: toolbox, optimization, security, performance
 Requires at least: 6.3
-Tested up to: 7.0
+Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 3.3.1
+Stable tag: 3.3.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -13,7 +13,7 @@ An opt-in toolbox for WordPress site settings, media, SEO, security, China-focus
 
 == Description ==
 
-Npcink Site Toolbox is a utility plugin for WordPress site owners. Version 3.3.1 provides 56 registered modules: 55 opt-in modules and one always-loaded runtime module, plus three editor patterns and two dynamic blocks. Features cover site and media settings, content and SEO, login and comment safeguards, China-focused integrations, diagnostics, and maintenance.
+Npcink Site Toolbox is a utility plugin for WordPress site owners. Version 3.3.2 provides 56 registered modules: 55 opt-in modules and one always-loaded runtime module, plus three editor patterns and two dynamic blocks. Features cover site and media settings, content and SEO, login and comment safeguards, China-focused integrations, diagnostics, and maintenance.
 
 = Current features =
 
@@ -87,11 +87,11 @@ When its module is enabled and a site ID is saved, front-end pages load Baidu An
 
 This optional action requires WordPress 7.0 or newer and a separately installed and connected DeepSeek Provider. The AI tab offers troubleshooting, performance analysis, maintenance-result interpretation, pending-setting risk explanation, and before/after verification. Only after an administrator reviews the relevant allowlisted snapshot or ordinary pending-setting paths and explicitly starts analysis does the server send data through the WordPress AI Client. An administrator may ask up to three follow-up questions under the same bounded allowlisted facts; each follow-up resends the original facts, initial answer, and completed follow-up turns. This temporary history exists only in the current browser page and is cleared by switching modes or refreshing. Performance data is a one-time snapshot rather than monitoring or load testing. Maintenance analysis may include aggregate database, SEO, media, search-health, and object-storage configuration facts; raw search terms are excluded. Setting analysis excludes every credential path and summarizes non-boolean strings by empty/configured state and length rather than content. Verification baselines remain only in the current browser page. The diagnostic allowlist excludes site URLs, file paths, database identities, users, content, comments, request logs, and credentials. DeepSeek receives the server IP, normal HTTP headers, the prompt, and the API credential managed by WordPress Connectors and the provider plugin. Npcink Site Toolbox does not read that credential and does not persist goals, snapshots, baselines, follow-up history, or AI responses. No suggested action is performed automatically. [DeepSeek](https://www.deepseek.com/), [terms](https://cdn.deepseek.com/policies/en-US/deepseek-open-platform-terms-of-service.html), [privacy](https://cdn.deepseek.com/policies/en-US/deepseek-privacy-policy.html).
 
-Google Search Console and Bing Webmaster Tools options only print administrator-supplied verification meta tags. They do not make outbound requests.
+Google Search Console and Bing Webmaster Tools options only print administrator-supplied verification meta tags. They do not make outbound requests. [Google service](https://search.google.com/search-console/about), [Google terms](https://policies.google.com/terms), [Google privacy](https://policies.google.com/privacy); [Bing service](https://www.bing.com/webmasters/about), [Microsoft terms](https://www.microsoft.com/servicesagreement), [Microsoft privacy](https://privacy.microsoft.com/privacystatement).
 
 == Source Code and Build ==
 
-The public source matching this exact plugin release is published at tag [v3.3.1](https://github.com/npcink/npcink-site-toolbox/tree/v3.3.1). The readable sources are in [vite/admin/src](https://github.com/npcink/npcink-site-toolbox/tree/v3.3.1/vite/admin/src) and [vite/count/src](https://github.com/npcink/npcink-site-toolbox/tree/v3.3.1/vite/count/src), with the build manifest at [vite/package.json](https://github.com/npcink/npcink-site-toolbox/blob/v3.3.1/vite/package.json).
+The public source matching this exact plugin release is published at tag [v3.3.2](https://github.com/npcink/npcink-site-toolbox/tree/v3.3.2). The readable sources are in [vite/admin/src](https://github.com/npcink/npcink-site-toolbox/tree/v3.3.2/vite/admin/src) and [vite/count/src](https://github.com/npcink/npcink-site-toolbox/tree/v3.3.2/vite/count/src), with the build manifest at [vite/package.json](https://github.com/npcink/npcink-site-toolbox/blob/v3.3.2/vite/package.json).
 
 Reproduce the Admin and Count assets with:
 
@@ -99,7 +99,7 @@ Reproduce the Admin and Count assets with:
 
 `cd npcink-site-toolbox`
 
-`git checkout v3.3.1`
+`git checkout v3.3.2`
 
 `cd vite`
 
@@ -114,6 +114,12 @@ The generated files are written to `vite/admin/dist/` and `vite/count/dist/`.
 The site-statistics and GitHub project block editor scripts are shipped as readable source in `blocks/site-stats/index.js` and `blocks/github-project/index.js`; they have no separate build step.
 
 == Changelog ==
+
+= 3.3.2 =
+* Release date: 2026-08-21.
+* Escaped output returned by content, title, excerpt, and image filters according to its HTML context.
+* Replaced dynamic PHP gettext calls in module metadata and privacy disclosures with literal translation mappings.
+* Added release contracts for output filters, literal gettext arguments, and external-service disclosures.
 
 = 3.3.1 =
 * Release date: 2026-08-17.

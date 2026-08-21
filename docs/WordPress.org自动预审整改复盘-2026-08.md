@@ -271,4 +271,17 @@ nonce 告警必须结合副作用判断：
 
 对 SHA-256 同为 `bff43f9535a12bf763e92f34c19778e57bd2b908a0b904e4d156f51abe7be830` 的最终 ZIP 补做 `WP_DEBUG=true` 验证：插件激活成功，真实前台、管理员登录、插件列表和插件页面请求均返回 HTTP 200，`wp-content/debug.log` 为空。测试结束后临时 Docker 容器、卷和网络均已删除。
 
+## 十三、2026-08-21 3.3.2 合规修复复验
+
+本轮针对后续自动审核指出的输出型过滤器返回值和动态 gettext 问题完成修复：文章内容、标题、摘要和图片 Alt 过滤器按上下文转义并在返回边界使用 `wp_kses_post()`；模块 Registry 与隐私披露改为源码字面量翻译映射；新增输出过滤器、字面量 gettext 和外部服务披露合同测试。
+
+精确 ZIP 事实：
+
+- 版本：3.3.2；条目：231；大小：1,254,885 bytes；SHA-256：`730322f0d0ed71948181ae23b9d34b8e812babe0f589c57f8e801cce218e76eb`；
+- WordPress：7.0.4；PHP：8.2.33；Plugin Check：2.1.0；
+- 激活与真实前台/后台 HTTP：成功；`WP_DEBUG` 日志：空；
+- PCP：0 errors / 2 warnings / 0 unexpected warnings；
+- 两条 warning 仍是 `wp_generate_attachment_metadata` 与 `intermediate_image_sizes_advanced` 两个 WordPress Core hook 的窄允许误报；
+- `readme.txt` 的 `Tested up to` 已按 PCP 当前目录要求更新为 7.1，但本次 Docker 镜像实际为 WordPress 7.0.4，7.1 专门运行时复验待官方镜像可用后补做。
+
 仓库新增 `composer release:wordpress-org-check`，并由 CI 的 ZIP 构建任务强制执行。该命令安装刚构建的精确 ZIP，开启 `WP_DEBUG`，运行真实 HTTP 冒烟，安装官方最新 Plugin Check，完整输出扫描结果，并在 PCP error、非空 debug log、插件未激活或 ZIP 哈希变化时失败。当前两条 Core-hook warning 以文件、规则和 hook 名组成窄允许项；任何新增或变化的 warning 都会阻断 CI 并要求重新人工复核，不使用 `--ignore-warnings`。

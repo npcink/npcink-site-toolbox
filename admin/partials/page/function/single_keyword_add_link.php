@@ -27,6 +27,7 @@ if (!class_exists('Npcink_Toolbox_Single_Keyword_Add_Link')) {
         //改变标签关键字
         public static function tag_link($content)
         {
+            $content = wp_kses_post((string) $content);
             //连接数量
             $match_num_from = 1; //一篇文章中同一个关键字少于多少不锚文本（这个直接填1就好了）
             $match_num_to = 3; //一篇文章中同一个关键字最多出现多少次锚文本（建议不超过1次）
@@ -35,26 +36,29 @@ if (!class_exists('Npcink_Toolbox_Single_Keyword_Add_Link')) {
                 usort($posttags, array(__CLASS__, "tag_sort"));
                 foreach ($posttags as $tag) {
                     $link = get_tag_link($tag->term_id);
-                    $keyword = $tag->name;
+                    $keyword = wp_strip_all_tags((string) $tag->name);
                     //连接代码
                     $cleankeyword = stripslashes($keyword);
                     /* translators: %s: Tag name used in the generated link title. */
-                    $url = "<strong><a href=\"$link\" title=\"" . str_replace('%s', addcslashes($cleankeyword, '$'), __('查看所有文章关于 %s', 'npcink-site-toolbox')) . "\"";
+                    $title = sprintf(__('查看所有文章关于 %s', 'npcink-site-toolbox'), $cleankeyword);
+                    $url = '<strong><a href="' . esc_url($link) . '" title="' . esc_attr($title) . '"';
                     $url .= 'target="_blank"';
-                    $url .= ">" . addcslashes($cleankeyword, '$') . "</a></strong>";
+                    $url .= '>' . esc_html($cleankeyword) . '</a></strong>';
                     $limit = wp_rand($match_num_from, $match_num_to);
                     //不连接的代码
                     $ex_word = '';
                     $case = '';
                     $content = preg_replace('|(<a[^>]+>)(.*)(' . $ex_word . ')(.*)(</a[^>]*>)|U' . $case, '$1$2%&&&&&%$4$5', $content);
                     $content = preg_replace('|(<img)(.*?)(' . $ex_word . ')(.*?)(>)|U' . $case, '$1$2%&&&&&%$4$5', $content);
-                    $cleankeyword = preg_quote($cleankeyword, '\'');
-                    $regEx = '\'(?!((<.*?)|(<a.*?)))(' . $cleankeyword . ')(?!(([^<>]*?)>)|([^>]*?</a>))\'s' . $case;
-                    $content = preg_replace($regEx, $url, $content, $limit);
+                    $cleankeyword = preg_quote($cleankeyword, '/');
+                    $regEx = '/(?!((<.*?)|(<a.*?)))(' . $cleankeyword . ')(?!(([^<>]*?)>)|([^>]*?</a>))/is' . $case;
+                    $content = preg_replace_callback($regEx, static function () use ($url) {
+                        return $url;
+                    }, $content, $limit);
                     $content = str_replace('%&&&&&%', stripslashes($ex_word), $content);
                 }
             }
-            return $content;
+            return wp_kses_post($content);
         }
     }
 }

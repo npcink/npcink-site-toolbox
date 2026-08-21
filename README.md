@@ -1,9 +1,9 @@
 # Npcink Site Toolbox
 
 > 面向中国 WordPress 站长的一站式实用工具箱插件
-> 版本：**3.3.1** | 阶段：**WordPress.org 人工审核整改** | 授权：**GPL-2.0**
+> 版本：**3.3.2** | 阶段：**WordPress.org 人工审核整改** | 授权：**GPL-2.0**
 
-`3.2.0` 保留为编辑器工具历史版本；`3.3.0` 加入只读 AI 诊断、认证用户评论 REST、自助兜底页面，并收紧模块激活、搜索统计资源和发布安全门禁；`3.3.1` 进一步修复 WordPress.org 人工审核指出的源码追溯与全局命名问题，并退役目录规则不允许的远程 CDN URL 改写和连通性修复表面。
+`3.2.0` 保留为编辑器工具历史版本；`3.3.0` 加入只读 AI 诊断、认证用户评论 REST、自助兜底页面，并收紧模块激活、搜索统计资源和发布安全门禁；`3.3.1` 进一步修复 WordPress.org 人工审核指出的源码追溯与全局命名问题，并退役目录规则不允许的远程 CDN URL 改写和连通性修复表面；`3.3.2` 修复输出型过滤器的上下文转义，改用可静态提取的 PHP 翻译字面量，并新增外部服务披露与目录规则合同。
 
 [![CI](https://github.com/npcink/npcink-site-toolbox/actions/workflows/ci.yml/badge.svg)](https://github.com/npcink/npcink-site-toolbox/actions/workflows/ci.yml)
 [![WordPress Plugin](https://img.shields.io/badge/WordPress-6.3%2B-blue)](https://wordpress.org)
@@ -21,7 +21,7 @@ Npcink Site Toolbox 是一款面向中国 WordPress 站长的免费工具箱插�
 - 📖 **在线文档**：搭建中；已发布功能的关键教程随插件内置
 - 🌐 **作者博客**：[npc.ink](https://www.npc.ink)
 - 📦 **GitHub 仓库**：[github.com/npcink/npcink-site-toolbox](https://github.com/npcink/npcink-site-toolbox)
-- 🧩 **3.3.1 前端可读源码**：[Admin](https://github.com/npcink/npcink-site-toolbox/tree/v3.3.1/vite/admin/src) / [Count](https://github.com/npcink/npcink-site-toolbox/tree/v3.3.1/vite/count/src)
+- 🧩 **3.3.2 前端可读源码**：[Admin](https://github.com/npcink/npcink-site-toolbox/tree/v3.3.2/vite/admin/src) / [Count](https://github.com/npcink/npcink-site-toolbox/tree/v3.3.2/vite/count/src)
 
 ---
 
@@ -124,7 +124,7 @@ WordPress.org 自动预审对资源加载、请求鉴权、外部链接和跨文
 ### 平台兼容边界
 
 - 声明支持 PHP 7.4–8.3；CI 对这些 PHP 版本执行语法检查，Composer 依赖解析以 PHP 7.4 为平台基线。
-- 声明支持 WordPress 6.3+；已在 WordPress 6.3/PHP 7.4、WordPress 6.3/PHP 8.2 及 WordPress 7.0.x/PHP 8.x 完成安装、激活、设置、REST、区块和主题冒烟。第三方主题与页面构建器仍需按实际组合补窄测试。
+- 声明支持 WordPress 6.3+；已在 WordPress 6.3/PHP 7.4、WordPress 6.3/PHP 8.2 及 WordPress 7.0.4/PHP 8.2 完成安装、激活、设置、REST、区块和主题冒烟。本次目录门禁要求 `readme.txt` 的 `Tested up to` 使用 7.1，但当前 Docker 镜像实际提供 7.0.4；WordPress 7.1 的专门运行时复验仍需在官方镜像可用后补做。第三方主题与页面构建器仍需按实际组合补窄测试。
 
 ### 安全加固
 
@@ -145,6 +145,12 @@ WordPress.org 自动预审对资源加载、请求鉴权、外部链接和跨文
 ---
 
 ## 更新记录
+
+### 3.3.2 — 2026-08-21
+
+- 修复文章内容、标题、摘要和图片 Alt 过滤器的返回值边界与动态 HTML 上下文转义
+- 将模块元数据和隐私披露从动态 gettext 调用改为源码字面量翻译映射，保证 WordPress.org 翻译解析器可提取
+- 增加输出型过滤器、字面量 gettext、外部服务披露和发布目录规则合同测试
 
 ### 3.3.1 — 2026-08-17
 
