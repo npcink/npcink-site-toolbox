@@ -12,6 +12,8 @@
 | 架构决策 | [`decisions/`](decisions/) | ADR；记录不可逆或跨模块的设计取舍 |
 | 历史证据 | [`archive/`](archive/) | 已结束版本、阶段总结和不再作为当前规范的记录 |
 
+开发经验和长期执行原则见 [`development/project-development-principles.md`](development/project-development-principles.md)；它是历史阶段总结的归纳入口，具体发布命令仍以 `operations/` 文档为准。
+
 当前长期规范仍保留在根目录 `AGENTS.md` 和现有带日期的治理文档中；迁移旧文档时必须先更新本索引和对应交叉链接，不能只移动文件名。
 
 ## 文档判定规则

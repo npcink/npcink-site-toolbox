@@ -445,7 +445,7 @@ class ModuleRegistryConsistency_Test extends TestCase {
     public function test_current_frontend_docs_do_not_restore_vite_public(): void {
         $files = [
             'README.md',
-            'docs/构建与发布指南.md',
+            'docs/operations/构建与发布指南.md',
             'docs-site/guide/development.md',
             'docs-site/guide/architecture.md',
         ];
