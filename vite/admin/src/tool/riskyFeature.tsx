@@ -2,6 +2,7 @@ import { Modal } from "antd";
 import { ExclamationCircleOutlined } from "@ant-design/icons";
 import { getUiSchemaSync, fetchUiSchema, hasFetchedUiSchemaSync } from "@/tool/uiSchema";
 import { RiskInfo } from "@/tool/interface";
+import { __, sprintf } from "@/tool/i18n";
 
 const STORAGE_KEY = "npcink_site_toolbox_risky_dismissed";
 
@@ -107,16 +108,16 @@ function showRiskConfirm(
 
   Modal.confirm({
     rootClassName: "mabox-admin-modal",
-    title: `您正在开启「${riskInfo.title}」`,
+    title: sprintf(__("您正在开启「%s」"), riskInfo.title),
     icon: <ExclamationCircleOutlined style={{ color: "#faad14" }} />,
     content: (
       <div style={{ marginTop: 8 }}>
         <p style={{ color: "#f5222d", marginBottom: 8 }}>⚠️ {riskInfo.warning}</p>
-        <p style={{ color: "#666" }}>建议：{riskInfo.suggestion}</p>
+        <p style={{ color: "#666" }}>{__("建议：")} {riskInfo.suggestion}</p>
       </div>
     ),
-    okText: "确认开启",
-    cancelText: "取消",
+    okText: __("确认开启"),
+    cancelText: __("取消"),
     onOk: () => {
       onConfirm();
     },
@@ -139,7 +140,7 @@ function showRiskConfirm(
                 Modal.destroyAll();
               }}
             >
-              不再提示
+              {__("不再提示")}
             </a>
           </>
         ),

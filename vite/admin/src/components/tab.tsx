@@ -1,4 +1,4 @@
-import React, { lazy, Suspense, useCallback, useEffect, useState } from "react";
+import React, { lazy, Suspense, useCallback, useEffect, useMemo, useState } from "react";
 
 import FeatureSearch from "@/components/feature-search";
 import {
@@ -8,6 +8,7 @@ import {
   SettingsLoadState,
 } from "@/tool/dataContext";
 import { defaultVarOption } from "@/tool/defaultVar";
+import { diffConfig, diffSecretChanges } from "@/tool/diff";
 import { Option, SecretChange, SecretChanges, SecretPath } from "@/tool/interface";
 import { updateOptionValue } from "@/tool/option";
 import {
@@ -21,6 +22,11 @@ import {
   writeAdminViewToHistory,
 } from "@/tool/navigation";
 import Save from "@/tool/save";
+import { __ } from "@/tool/i18n";
+import {
+  confirmUnsavedNavigation,
+  useUnsavedChangesGuard,
+} from "@/tool/unsavedChanges";
 
 const Dashboard = lazy(() => import("@/components/dashboard/index"));
 const Page = lazy(() => import("@/components/page/index"));
@@ -34,8 +40,8 @@ const TabFallback = (
   <div className="mabox-view-state mabox-view-state--loading" role="status" aria-live="polite">
     <span className="mabox-view-state-spinner" aria-hidden="true" />
     <span className="mabox-view-state-copy">
-      <strong>正在加载当前页面</strong>
-      <span>设置读取完成，正在准备页面内容。</span>
+      <strong>{__("正在加载当前页面")}</strong>
+      <span>{__("设置读取完成，正在准备页面内容。")}</span>
     </span>
   </div>
 );
@@ -54,25 +60,25 @@ interface NavGroup {
 
 const navGroups: NavGroup[] = [
   {
-    groupLabel: "工作台",
+    groupLabel: __("工作台"),
     items: [
-      { key: "overview", label: "概览", icon: "dashicons-dashboard", component: Dashboard },
+      { key: "overview", label: __("概览"), icon: "dashicons-dashboard", component: Dashboard },
     ],
   },
   {
-    groupLabel: "站点设置",
+    groupLabel: __("站点设置"),
     items: [
-      { key: "site", label: "站点与媒体", icon: "dashicons-admin-site-alt3", component: Optimize },
-      { key: "content", label: "内容与页面", icon: "dashicons-admin-page", component: Page },
-      { key: "seo", label: "SEO 与增强", icon: "dashicons-search", component: Function },
-      { key: "china", label: "国内生态", icon: "dashicons-location-alt", component: Domestic },
+      { key: "site", label: __("站点与媒体"), icon: "dashicons-admin-site-alt3", component: Optimize },
+      { key: "content", label: __("内容与页面"), icon: "dashicons-admin-page", component: Page },
+      { key: "seo", label: __("SEO 与增强"), icon: "dashicons-search", component: Function },
+      { key: "china", label: __("国内生态"), icon: "dashicons-location-alt", component: Domestic },
     ],
   },
   {
-    groupLabel: "工具与支持",
+    groupLabel: __("工具与支持"),
     items: [
-      { key: "maintenance", label: "存储与维护", icon: "dashicons-admin-tools", component: Performance },
-      { key: "about", label: "关于与帮助", icon: "dashicons-info-outline", component: About },
+      { key: "maintenance", label: __("存储与维护"), icon: "dashicons-admin-tools", component: Performance },
+      { key: "about", label: __("关于与帮助"), icon: "dashicons-info-outline", component: About },
     ],
   },
 ];
@@ -86,6 +92,7 @@ const App: React.FC = () => {
   const [secretChanges, setSecretChanges] = useState<SecretChanges>({});
   const [settingsState, setSettingsState] = useState<SettingsLoadState>("loading");
   const [settingsError, setSettingsError] = useState<string | null>(null);
+  const [settingsRevision, setSettingsRevision] = useState<string>();
   const [isMobile, setIsMobile] = useState(() => window.innerWidth <= 782);
   const [activeView, setActiveView] = useState<AdminView>(() =>
     getAdminViewFromSearch(window.location.search),
@@ -94,6 +101,14 @@ const App: React.FC = () => {
   const [targetItemId, setTargetItemId] = useState<string | null>(() =>
     getTargetItemFromSearch(window.location.search),
   );
+  const hasUnsavedChanges = useMemo(
+    () =>
+      diffConfig(lastSavedOption, optionData).length > 0 ||
+      diffSecretChanges(secretStatus, secretChanges).length > 0,
+    [lastSavedOption, optionData, secretChanges, secretStatus],
+  );
+
+  useUnsavedChangesGuard(settingsState === "ready" && hasUnsavedChanges);
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth <= 782);
@@ -130,10 +145,11 @@ const App: React.FC = () => {
       setOptionData(response.data);
       setLastSavedOption(response.data);
       setSecretStatus(response.secretStatus);
+      setSettingsRevision(response.revision);
       setSecretChanges({});
       setSettingsState("ready");
     } catch (error) {
-      const message = error instanceof Error ? error.message : "无法读取设置";
+      const message = error instanceof Error ? error.message : __("无法读取设置");
       setSettingsError(message);
       setSettingsState("error");
       throw error;
@@ -177,9 +193,18 @@ const App: React.FC = () => {
     const nextView = normalizeAdminView(requestedView);
     const currentView = getAdminViewFromSearch(window.location.search);
     const currentTarget = getTargetItemFromSearch(window.location.search);
+    const nextTarget = itemId || null;
+    const navigationChangesLocation = nextView !== currentView || nextTarget !== currentTarget;
+
+    if (
+      navigationChangesLocation &&
+      !confirmUnsavedNavigation(settingsState === "ready" && hasUnsavedChanges)
+    ) {
+      return;
+    }
 
     setActiveView(nextView);
-    setTargetItemId(itemId || null);
+    setTargetItemId(nextTarget);
     setMobileMenuOpen(false);
 
     if (itemId) {
@@ -194,7 +219,7 @@ const App: React.FC = () => {
     window.requestAnimationFrame(() => {
       document.getElementById("mabox-main-content")?.focus({ preventScroll: true });
     });
-  }, []);
+  }, [hasUnsavedChanges, settingsState]);
 
   const handleSearchNavigate = useCallback((view: string, itemId?: string) => {
     navigateToView(view, itemId);
@@ -252,8 +277,8 @@ const App: React.FC = () => {
         <div className="mabox-view-state mabox-view-state--loading" role="status" aria-live="polite">
           <span className="mabox-view-state-spinner" aria-hidden="true" />
           <span className="mabox-view-state-copy">
-            <strong>正在读取站点设置</strong>
-            <span>读取完成前不会启用保存。</span>
+            <strong>{__("正在读取站点设置")}</strong>
+            <span>{__("读取完成前不会启用保存。")}</span>
           </span>
         </div>
       );
@@ -264,15 +289,15 @@ const App: React.FC = () => {
         <div className="mabox-view-state mabox-view-state--error" role="alert">
           <span className="dashicons dashicons-warning mabox-view-state-icon" aria-hidden="true" />
           <span className="mabox-view-state-copy">
-            <strong>无法读取站点设置</strong>
-            <span>{`${settingsError || "设置接口请求失败"}。为避免覆盖真实配置，保存功能已禁用。`}</span>
+            <strong>{__("无法读取站点设置")}</strong>
+            <span>{`${settingsError || __("设置接口请求失败")}。${__("为避免覆盖真实配置，保存功能已禁用。")}`}</span>
           </span>
           <button
             type="button"
             className="mabox-view-state-action"
             onClick={() => loadSettings().catch(() => {})}
           >
-            重新读取
+            {__("重新读取")}
           </button>
         </div>
       );
@@ -299,6 +324,7 @@ const App: React.FC = () => {
         clearSecretChanges,
         settingsState,
         settingsError,
+        settingsRevision,
       }}
     >
       <div className="mabox-shell">
@@ -318,11 +344,11 @@ const App: React.FC = () => {
             <button
               type="button"
               className="mabox-help-btn"
-              aria-label="打开帮助"
+              aria-label={__("打开帮助")}
               onClick={() => navigateToView("about")}
             >
               <span className="dashicons dashicons-editor-help" aria-hidden="true" />
-              <span>帮助</span>
+              <span>{__("帮助")}</span>
             </button>
             {!isMobile && <Save />}
           </div>
@@ -344,7 +370,7 @@ const App: React.FC = () => {
               onClick={() => setMobileMenuOpen((isOpen) => !isOpen)}
             >
               <span className="dashicons dashicons-menu" aria-hidden="true" />
-              <span>{activeNavItem?.label || "导航"}</span>
+              <span>{activeNavItem ? activeNavItem.label : __("导航")}</span>
             </button>
           )}
 
@@ -352,7 +378,7 @@ const App: React.FC = () => {
             <button
               type="button"
               className="mabox-mobile-nav-overlay"
-              aria-label="关闭导航"
+              aria-label={__("关闭导航")}
               onClick={() => setMobileMenuOpen(false)}
             />
           )}
@@ -360,7 +386,7 @@ const App: React.FC = () => {
           <nav
             id="mabox-primary-navigation"
             className={`mabox-sidebar ${isMobile && mobileMenuOpen ? "mabox-sidebar--open" : ""}`}
-            aria-label="Npcink Site Toolbox主导航"
+            aria-label={__("Npcink Site Toolbox 主导航")}
           >
             {navGroups.map((group) => (
               <div className="mabox-nav-group" key={group.groupLabel}>

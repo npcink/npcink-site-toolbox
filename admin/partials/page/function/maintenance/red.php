@@ -8,23 +8,35 @@ defined('ABSPATH') || exit;
 
 include plugin_dir_path((__FILE__)) . 'index.php'; // 获取数据
 
-if ('' !== $mabox_countdown) {
+wp_add_inline_style(
+    'mabox-maintenance-responsive',
+    '.box{color:#fff;text-align:center;margin-top:5vh}.boxs{display:flex;justify-content:center;align-items:center;color:#fff}body{background-color:#b52424!important;margin-top:10vh;padding:0 10vw}.main{text-align:center;padding-top:10px;color:#fff;letter-spacing:20px}.n-title{font-size:4em;margin-bottom:5px}.n-meat{font-size:2em}.n-description{line-height:2em;margin-top:150px}.n-description span{font-size:32px;font-weight:bold}.countdown-desc{color:#fff}'
+);
+
+if ('' !== $npcink_site_toolbox_countdown) {
     wp_enqueue_style(
         'mabox-maintenance-countdown',
-        $mabox_file_url . 'countdown/style.css',
+        $npcink_site_toolbox_file_url . 'countdown/style.css',
         array(),
         NPCINK_SITE_TOOLBOX_VERSION
     );
     wp_enqueue_script(
         'mabox-maintenance-countdown-script',
-        $mabox_file_url . 'countdown/main.js',
-        array(),
+        $npcink_site_toolbox_file_url . 'countdown/main.js',
+        array('wp-i18n'),
         NPCINK_SITE_TOOLBOX_VERSION,
         false
     );
+    if (function_exists('wp_set_script_translations')) {
+        wp_set_script_translations(
+            'mabox-maintenance-countdown-script',
+            'npcink-site-toolbox',
+            dirname(__DIR__, 5) . '/languages'
+        );
+    }
     wp_add_inline_script(
         'mabox-maintenance-countdown-script',
-        'var targetDate = new Date(' . wp_json_encode($mabox_countdown) . ');',
+        'var targetDate = new Date(' . wp_json_encode($npcink_site_toolbox_countdown) . ');',
         'before'
     );
 }
@@ -35,7 +47,7 @@ if ('' !== $mabox_countdown) {
 <head>
     <meta charset="<?php bloginfo('charset'); ?>" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title><?php echo esc_html($mabox_page_title); ?></title>
+    <title><?php echo esc_html($npcink_site_toolbox_page_title); ?></title>
     <?php wp_print_styles(array('mabox-maintenance-responsive', 'mabox-maintenance-countdown')); ?>
     <?php wp_print_scripts('mabox-maintenance-countdown-script'); ?>
 </head>
@@ -57,89 +69,30 @@ if ('' !== $mabox_countdown) {
 
 
         <h2 class="n-title main">
-            <?php echo esc_html($mabox_countdown_title);
+            <?php echo esc_html($npcink_site_toolbox_countdown_title);
             ?>
         </h2>
 
         <div class="box">
             <p class="n-meat main">
-                <?php echo wp_kses_post($mabox_countdown_content); ?>
+                <?php echo wp_kses_post($npcink_site_toolbox_countdown_content); ?>
             </p>
             <!--
             <p class="n-description main"> </p>-->
 
 
             <!--倒计时开始-->
-            <?php if ('' !== $mabox_countdown) : ?>
+            <?php if ('' !== $npcink_site_toolbox_countdown) : ?>
                 <div class="boxs">
                     <?php include 'countdown/index.php'; ?>
                 </div>
             <?php endif; ?>
-            <style>
-                .box {
-                    color: #fff;
-                    text-align: center;
-                }
-
-                .boxs {
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-
-                    color: #fff;
-                }
-            </style>
             <!--倒计时结束-->
 
 
 
 
         </div>
-
-        <style type="text/css">
-            body {
-                background-color: #b52424 !important;
-                margin-top: 10vh;
-                padding: 0 10vw;
-
-            }
-
-            .box {
-                margin-top: 5vh;
-            }
-
-            .main {
-                text-align: center;
-                padding-top: 10px;
-                color: #fff;
-                letter-spacing: 20px;
-            }
-
-            .n-title {
-                font-size: 4em;
-                margin-bottom: 5px;
-            }
-
-            .n-meat {
-                font-size: 2em;
-            }
-
-            .n-description {
-                line-height: 2em;
-                margin-top: 150px;
-            }
-
-            .n-description span {
-                font-size: 32px;
-                font-weight: bold;
-            }
-
-            /**倒计时 */
-            .countdown-desc {
-                color: #fff;
-            }
-        </style>
-
 
     </body>
 

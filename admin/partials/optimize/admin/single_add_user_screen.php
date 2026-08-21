@@ -36,7 +36,7 @@ if (!class_exists('Npcink_Toolbox_Admin_Single_Add_User_Screen')) {
                         'contributor',
                     ),
                     'name' => 'author',
-                    'show_option_all' => '全部作者',
+                    'show_option_all' => __('全部作者', 'npcink-site-toolbox'),
                     'selected' => $selected,
                 )
             );

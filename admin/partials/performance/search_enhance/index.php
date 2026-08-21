@@ -18,17 +18,32 @@ if (!class_exists('Npcink_Toolbox_Performance_Search_Enhance')) {
             }
         }
         public static function highlight_search($text) {
+            $text = wp_kses_post((string) $text);
             if (!is_search()) return $text;
-            $query = get_search_query();
+            $query = wp_strip_all_tags((string) get_search_query());
             if (empty($query)) return $text;
-            $highlight = '<mark style="background:#ffeb3b;padding:0 2px;">$1</mark>';
-            return preg_replace('/(' . preg_quote($query, '/') . ')/iu', $highlight, $text);
+            $parts = preg_split('/(<[^>]+>)/', $text, -1, PREG_SPLIT_DELIM_CAPTURE);
+            if (!is_array($parts)) return $text;
+            foreach ($parts as $index => $part) {
+                if ($part === '' || $part[0] === '<') continue;
+                $parts[$index] = preg_replace_callback(
+                    '/(' . preg_quote($query, '/') . ')/iu',
+                    static function ($matches) {
+                        return '<mark style="background:#ffeb3b;padding:0 2px;">' . esc_html($matches[0]) . '</mark>';
+                    },
+                    $part
+                );
+            }
+            return wp_kses_post(implode('', $parts));
         }
         public static function show_recommendations() {
             $tags = get_tags(array('orderby' => 'count', 'order' => 'DESC', 'number' => 5));
             if (empty($tags)) return;
             echo '<div class="mabox-search-recommend" style="margin:30px 0;text-align:center;">';
-            echo '<h3 style="margin-bottom:15px;">未找到相关内容，试试这些热门标签：</h3>';
+            printf(
+                '<h3 style="margin-bottom:15px;">%s</h3>',
+                esc_html__('未找到相关内容，试试这些热门标签：', 'npcink-site-toolbox')
+            );
             echo '<div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center;">';
             foreach ($tags as $tag) {
                 echo '<a href="' . esc_url(get_tag_link($tag->term_id)) . '" style="display:inline-block;padding:8px 16px;background:#f0f0f0;border-radius:20px;text-decoration:none;color:#333;">' . esc_html($tag->name) . '</a>';

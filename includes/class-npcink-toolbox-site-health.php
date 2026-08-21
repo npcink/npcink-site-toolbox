@@ -291,7 +291,10 @@ if (!class_exists('Npcink_Toolbox_Site_Health')) {
                         'label' => __('Npcink Site Toolbox', 'npcink-site-toolbox'),
                         'color' => 'blue',
                     ),
-                    'description' => '<p>模块加载器未初始化。</p>',
+                    'description' => sprintf(
+                        '<p>%s</p>',
+                        __('模块加载器未初始化。', 'npcink-site-toolbox')
+                    ),
                     'test'   => 'npcink_site_toolbox_module_count',
                 );
             }
@@ -340,7 +343,10 @@ if (!class_exists('Npcink_Toolbox_Site_Health')) {
                         'label' => __('Npcink Site Toolbox', 'npcink-site-toolbox'),
                         'color' => 'blue',
                     ),
-                    'description' => '<p>模块加载器未初始化。</p>',
+                    'description' => sprintf(
+                        '<p>%s</p>',
+                        __('模块加载器未初始化。', 'npcink-site-toolbox')
+                    ),
                     'test'   => 'npcink_site_toolbox_high_risk_modules',
                 );
             }
@@ -368,7 +374,10 @@ if (!class_exists('Npcink_Toolbox_Site_Health')) {
                         'label' => __('Npcink Site Toolbox', 'npcink-site-toolbox'),
                         'color' => 'blue',
                     ),
-                    'description' => '<p>当前未启用任何高风险或实验性模块，站点运行状态安全。</p>',
+                    'description' => sprintf(
+                        '<p>%s</p>',
+                        __('当前未启用任何高风险或实验性模块，站点运行状态安全。', 'npcink-site-toolbox')
+                    ),
                     'test'        => 'npcink_site_toolbox_high_risk_modules',
                 );
             }

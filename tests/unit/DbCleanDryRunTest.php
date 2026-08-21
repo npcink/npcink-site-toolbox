@@ -4,12 +4,69 @@ declare(strict_types=1);
 
 use PHPUnit\Framework\TestCase;
 
+if (!defined('ARRAY_A')) {
+    define('ARRAY_A', 'ARRAY_A');
+}
+
+if (!class_exists('WP_Error')) {
+    class WP_Error
+    {
+        private $code;
+        private $message;
+        private $data;
+
+        public function __construct($code = '', $message = '', $data = array())
+        {
+            $this->code = $code;
+            $this->message = $message;
+            $this->data = $data;
+        }
+
+        public function get_error_code()
+        {
+            return $this->code;
+        }
+
+        public function get_error_message()
+        {
+            return $this->message;
+        }
+
+        public function get_error_data()
+        {
+            return $this->data;
+        }
+    }
+}
+
+if (!class_exists('WP_REST_Request')) {
+    class WP_REST_Request
+    {
+        private $params;
+
+        public function __construct(array $params = array())
+        {
+            $this->params = $params;
+        }
+
+        public function get_json_params()
+        {
+            return $this->params;
+        }
+    }
+}
+
 /**
  * Npcink_Toolbox_Performance_Db_Clean dry-run 模式测试
  *
  * 测试数据库清理的 dry-run 行为
  */
 class Npcink_Toolbox_Db_Clean_DryRun_Test extends TestCase {
+
+    protected function setUp(): void {
+        parent::setUp();
+        $GLOBALS['_test_user_meta_store'] = array();
+    }
 
     /**
      * 测试 DB Clean 类存在
@@ -85,8 +142,8 @@ class Npcink_Toolbox_Db_Clean_DryRun_Test extends TestCase {
         $frontend_content = file_get_contents($frontend_file);
         $api_content = file_get_contents($api_file);
 
-        $this->assertStringContainsString('performanceApi.cleanDb(type, false)', $frontend_content);
-        $this->assertStringContainsString('dry_run: dryRun', $api_content);
+        $this->assertStringContainsString('performanceApi.cleanDb(type, preview.preview_token)', $frontend_content);
+        $this->assertStringContainsString('preview_token: previewToken', $api_content);
     }
 
     public function test_db_clean_reads_json_from_rest_request(): void {
@@ -142,4 +199,137 @@ class Npcink_Toolbox_Db_Clean_DryRun_Test extends TestCase {
         $this->assertStringNotContainsString("'optimize', 'all', 'pending'", $content);
     }
 
+    public function test_destructive_cleanup_requires_one_time_preview_token(): void {
+        $db_clean_file = dirname(__FILE__) . '/../../admin/partials/performance/db_clean/index.php';
+        $content = file_get_contents($db_clean_file);
+
+        $this->assertStringContainsString("private const PREVIEW_TTL = 300", $content);
+        $this->assertStringContainsString('issue_preview_token($type, $preview)', $content);
+        $this->assertStringContainsString('consume_preview_token($type, $preview_token)', $content);
+        $this->assertStringContainsString("'rest_db_preview_conflict'", $content);
+        $this->assertStringContainsString('mark_preview_consumed($token', $content);
+        $this->assertLessThan(
+            strpos($content, "if (class_exists('Npcink_Toolbox_Audit_Logger'))"),
+            strpos($content, 'consume_preview_token($type, $preview_token)')
+        );
+    }
+
+    public function test_cleanup_without_preview_token_is_rejected_before_database_queries(): void {
+        $wpdb = new DbCleanWpdbStub(array());
+        $GLOBALS['wpdb'] = $wpdb;
+
+        $response = Npcink_Toolbox_Performance_Db_Clean::ajax_clean(new WP_REST_Request(array(
+            'type' => 'revisions',
+            'dry_run' => false,
+        )));
+
+        $this->assertInstanceOf(WP_Error::class, $response);
+        $this->assertSame('rest_db_preview_required', $response->get_error_code());
+        $this->assertSame(409, $response->get_error_data()['status']);
+        $this->assertSame(0, $wpdb->row_queries);
+        $this->assertSame(0, $wpdb->column_queries);
+    }
+
+    public function test_changed_preview_is_rejected_and_consumed_before_cleanup(): void {
+        $wpdb = new DbCleanWpdbStub(array(
+            $this->countRow(12),
+            $this->countRow(13),
+        ));
+        $GLOBALS['wpdb'] = $wpdb;
+
+        $preview = Npcink_Toolbox_Performance_Db_Clean::ajax_preview(new WP_REST_Request(array(
+            'type' => 'revisions',
+        )));
+        $token = $preview['data']['preview_token'];
+        $response = Npcink_Toolbox_Performance_Db_Clean::ajax_clean(new WP_REST_Request(array(
+            'type' => 'revisions',
+            'dry_run' => false,
+            'preview_token' => $token,
+        )));
+
+        $this->assertInstanceOf(WP_Error::class, $response);
+        $this->assertSame('rest_db_preview_conflict', $response->get_error_code());
+        $this->assertSame(409, $response->get_error_data()['status']);
+        $this->assertSame(2, $wpdb->row_queries);
+        $this->assertSame(0, $wpdb->column_queries, 'Conflict must fail before deletion queries');
+        $consumed = get_user_meta(0, 'npcink_site_toolbox_consumed_db_previews', true);
+        $this->assertArrayHasKey(hash('sha256', $token), $consumed);
+    }
+
+    public function test_preview_token_is_one_time_even_after_successful_zero_item_cleanup(): void {
+        $wpdb = new DbCleanWpdbStub(array(
+            $this->countRow(0),
+            $this->countRow(0),
+        ));
+        $GLOBALS['wpdb'] = $wpdb;
+
+        $preview = Npcink_Toolbox_Performance_Db_Clean::ajax_preview(new WP_REST_Request(array(
+            'type' => 'revisions',
+        )));
+        $token = $preview['data']['preview_token'];
+        $request = new WP_REST_Request(array(
+            'type' => 'revisions',
+            'dry_run' => false,
+            'preview_token' => $token,
+        ));
+
+        $success = Npcink_Toolbox_Performance_Db_Clean::ajax_clean($request);
+        $replay = Npcink_Toolbox_Performance_Db_Clean::ajax_clean($request);
+
+        $this->assertIsArray($success);
+        $this->assertTrue($success['success']);
+        $this->assertSame(0, $success['data']['deleted']);
+        $this->assertInstanceOf(WP_Error::class, $replay);
+        $this->assertSame('rest_db_preview_expired', $replay->get_error_code());
+    }
+
+    private function countRow(int $revisions): array {
+        return array(
+            'revisions' => $revisions,
+            'drafts' => 0,
+            'spam' => 0,
+            'transients' => 0,
+            'pending' => 0,
+            'trash' => 0,
+        );
+    }
+
+}
+
+class DbCleanWpdbStub
+{
+    public $posts = 'wp_posts';
+    public $comments = 'wp_comments';
+    public $options = 'wp_options';
+    public $prefix = 'wp_';
+    public $row_queries = 0;
+    public $column_queries = 0;
+    private $rows;
+
+    public function __construct(array $rows)
+    {
+        $this->rows = $rows;
+    }
+
+    public function esc_like($value)
+    {
+        return $value;
+    }
+
+    public function prepare($query, ...$args)
+    {
+        return $query;
+    }
+
+    public function get_row($query, $output)
+    {
+        ++$this->row_queries;
+        return array_shift($this->rows) ?: array();
+    }
+
+    public function get_col($query)
+    {
+        ++$this->column_queries;
+        return array();
+    }
 }

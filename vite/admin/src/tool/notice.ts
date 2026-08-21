@@ -1,4 +1,5 @@
 import "./notice.css";
+import { __ } from "@/tool/i18n";
 
 type NoticeKind = "info" | "success" | "warning" | "error";
 
@@ -76,7 +77,7 @@ const getNoticeStack = (): HTMLElement | null => {
 
   noticeStack = document.createElement("div");
   noticeStack.className = "mabox-notice-stack";
-  noticeStack.setAttribute("aria-label", "系统通知");
+  noticeStack.setAttribute("aria-label", __("系统通知"));
   document.body.appendChild(noticeStack);
   return noticeStack;
 };

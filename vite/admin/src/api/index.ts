@@ -7,10 +7,18 @@
 
 import { restInstance, ApiResponse } from "@/axios/public";
 import {
+  AiFollowUp,
+  AiFollowUpRequest,
+  AiReview,
+  AiReviewPack,
+  AiReviewRequest,
+  AiReviewScope,
+  DiagnosticAnalysis,
+  DiagnosticPack,
   DiagnosticSummary,
   RuntimeFeatureStatus,
   SearchHealthSummary,
-  SettingsSavePayload,
+  SettingsPreviewPayload,
 } from "@/tool/interface";
 
 export type DbCleanType =
@@ -40,6 +48,9 @@ export interface DbPreview {
   affected?: number;
   message?: string;
   dry_run?: boolean;
+  table_count?: number;
+  preview_token: string;
+  expires_in: number;
 }
 
 export interface DbCleanResult {
@@ -131,7 +142,6 @@ export interface SeoIssue {
   message: string;
   severity?: string;
 }
-
 export interface OssConnectionResult {
   provider: "aliyun" | "tencent" | "qiniu";
   objectKey: string;
@@ -140,7 +150,7 @@ export interface OssConnectionResult {
 
 // ========== 性能优化 ==========
 export const performanceApi = {
-  testOssConnection: (payload: SettingsSavePayload): Promise<ApiResponse<OssConnectionResult>> =>
+  testOssConnection: (payload: SettingsPreviewPayload): Promise<ApiResponse<OssConnectionResult>> =>
     restInstance.post<ApiResponse<OssConnectionResult>, ApiResponse<OssConnectionResult>>(
       "/performance/oss/test",
       payload,
@@ -156,10 +166,11 @@ export const performanceApi = {
       type,
       dry_run: true,
     }, { maboxNotify: false }),
-  cleanDb: (type: DbCleanType, dryRun = true): Promise<ApiResponse<DbCleanResult>> =>
+  cleanDb: (type: DbCleanType, previewToken: string): Promise<ApiResponse<DbCleanResult>> =>
     restInstance.post<ApiResponse<DbCleanResult>, ApiResponse<DbCleanResult>>("/performance/db/clean", {
       type,
-      dry_run: dryRun,
+      dry_run: false,
+      preview_token: previewToken,
     }, { maboxNotify: false }),
   checkSeo: (postId?: number): Promise<ApiResponse<{ issues: SeoIssue[]; total: number }>> =>
     restInstance.post<ApiResponse<{ issues: SeoIssue[]; total: number }>, ApiResponse<{ issues: SeoIssue[]; total: number }>>(
@@ -167,21 +178,9 @@ export const performanceApi = {
       { post_id: postId },
       { maboxNotify: false },
     ),
-  fixSeoAlt: (postId?: number): Promise<ApiResponse<{ fixed: number }>> =>
-    restInstance.post<ApiResponse<{ fixed: number }>, ApiResponse<{ fixed: number }>>(
-      "/performance/seo/fix-alt",
-      { post_id: postId },
-      { maboxNotify: false },
-    ),
   checkMedia: (postId?: number): Promise<ApiResponse<MediaHealthResult>> =>
     restInstance.post<ApiResponse<MediaHealthResult>, ApiResponse<MediaHealthResult>>(
       "/performance/media/check",
-      { post_id: postId },
-      { maboxNotify: false },
-    ),
-  fixMediaAlt: (postId?: number): Promise<ApiResponse<{ fixed: number }>> =>
-    restInstance.post<ApiResponse<{ fixed: number }>, ApiResponse<{ fixed: number }>>(
-      "/performance/media/fix-alt",
       { post_id: postId },
       { maboxNotify: false },
     ),
@@ -199,18 +198,6 @@ export const performanceApi = {
     ),
 };
 
-// ========== 国内生态 ==========
-export const domesticApi = {
-  checkEnvironment: (): Promise<ApiResponse<Record<string, { service: string; reachable: boolean; latency: number; suggestion: string }>>> =>
-    restInstance.get("/domestic/environment/check", { maboxNotify: false }) as Promise<any>,
-  applyEnvironmentFix: (fixes: string[]): Promise<ApiResponse<{ applied: string[]; new_config: any }>> =>
-    restInstance.post(
-      "/domestic/environment/apply",
-      { fixes },
-      { maboxNotify: false },
-    ) as Promise<any>,
-};
-
 // ========== 设置 ==========
 export const settingsApi = {
   getSchema: () => restInstance.get("/settings/schema", { maboxNotify: false }),
@@ -226,6 +213,34 @@ export const diagnosticsApi = {
   getFeatureStatus: (): Promise<ApiResponse<RuntimeFeatureStatus>> =>
     restInstance.get<ApiResponse<RuntimeFeatureStatus>, ApiResponse<RuntimeFeatureStatus>>(
       "/diagnostics/features",
+      { maboxNotify: false },
+    ),
+  getSupportReport: (): Promise<ApiResponse<DiagnosticPack>> =>
+    restInstance.get<ApiResponse<DiagnosticPack>, ApiResponse<DiagnosticPack>>(
+      "/diagnostics/support-report",
+      { maboxNotify: false },
+    ),
+  analyzeSupportReport: (problem: string): Promise<ApiResponse<DiagnosticAnalysis>> =>
+    restInstance.post<ApiResponse<DiagnosticAnalysis>, ApiResponse<DiagnosticAnalysis>>(
+      "/diagnostics/analyses",
+      { problem },
+      { maboxNotify: false },
+    ),
+  getReviewPack: (scope: Exclude<AiReviewScope, "settings_risk">): Promise<ApiResponse<AiReviewPack>> =>
+    restInstance.get<ApiResponse<AiReviewPack>, ApiResponse<AiReviewPack>>(
+      `/diagnostics/review-packs?scope=${scope}`,
+      { maboxNotify: false },
+    ),
+  createReview: (request: AiReviewRequest): Promise<ApiResponse<AiReview>> =>
+    restInstance.post<ApiResponse<AiReview>, ApiResponse<AiReview>>(
+      "/diagnostics/reviews",
+      request,
+      { maboxNotify: false },
+    ),
+  createFollowUp: (request: AiFollowUpRequest): Promise<ApiResponse<AiFollowUp>> =>
+    restInstance.post<ApiResponse<AiFollowUp>, ApiResponse<AiFollowUp>>(
+      "/diagnostics/follow-ups",
+      request,
       { maboxNotify: false },
     ),
 };

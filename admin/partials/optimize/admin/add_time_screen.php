@@ -39,6 +39,16 @@ if (!class_exists('Npcink_Toolbox_Admin_Add_Time_Screen')) {
             //http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.min.css
             wp_enqueue_style('jquery-ui', plugin_dir_url(dirname(__DIR__)) . 'css/jquery-ui.min.css', array(), NPCINK_SITE_TOOLBOX_VERSION);
             wp_enqueue_script('jquery-ui-datepicker');
+            wp_register_style('npcink-site-toolbox-admin-date-filter', false, array('jquery-ui'), NPCINK_SITE_TOOLBOX_VERSION);
+            wp_enqueue_style('npcink-site-toolbox-admin-date-filter');
+            wp_add_inline_style(
+                'npcink-site-toolbox-admin-date-filter',
+                '#ui-datepicker-div{background-color:#efefef;padding:1rem .8rem}input[name="mishaDateFrom"],input[name="mishaDateTo"]{line-height:28px;height:28px;margin:0;width:125px}.ui-icon{text-indent:inherit;cursor:pointer}'
+            );
+            wp_add_inline_script(
+                'jquery-ui-datepicker',
+                'jQuery(function($){var from=$(\'input[name="mishaDateFrom"]\'),to=$(\'input[name="mishaDateTo"]\');$(\'input[name="mishaDateFrom"],input[name="mishaDateTo"]\').datepicker({dateFormat:"yy-mm-dd"});from.on("change",function(){to.datepicker("option","minDate",from.val());});to.on("change",function(){from.datepicker("option","maxDate",to.val());});});'
+            );
         }
 
         /*
@@ -51,47 +61,14 @@ if (!class_exists('Npcink_Toolbox_Admin_Add_Time_Screen')) {
             $from = $dates['from'];
             $to = $dates['to'];
 
-            echo '<style>
-            #ui-datepicker-div{
-                background-color: #efefef;
-                padding: 1rem .8rem;
-            }
-		input[name="mishaDateFrom"], input[name="mishaDateTo"]{
-			line-height: 28px;
-			height: 28px;
-			margin: 0;
-			width:125px;
-		}
-        .ui-icon{
-            text-indent: inherit;
-            cursor: pointer;
-        }
-		</style>
-
-		<input type="text" name="mishaDateFrom" placeholder="开始于" value="' . esc_attr($from) . '" />
-		<input type="text" name="mishaDateTo" placeholder="结束于" value="' . esc_attr($to) . '" />
-
-		<script>
-		jQuery( function($) {
-			var from = $(\'input[name="mishaDateFrom"]\'),
-			    to = $(\'input[name="mishaDateTo"]\');
-
-			$( \'input[name="mishaDateFrom"], input[name="mishaDateTo"]\' ).datepicker( {dateFormat : "yy-mm-dd"} );
-			// by default, the dates look like this "April 3, 2017"
-    			// I decided to make it 2017-04-03 with this parameter datepicker({dateFormat : "yy-mm-dd"});
-
-
-    			// the rest part of the script prevents from choosing incorrect date interval
-    			from.on( \'change\', function() {
-				to.datepicker( \'option\', \'minDate\', from.val() );
-			});
-
-			to.on( \'change\', function() {
-				from.datepicker( \'option\', \'maxDate\', to.val() );
-			});
-
-		});
-		</script>';
+            printf(
+                '<input type="text" name="mishaDateFrom" placeholder="%1$s" value="%2$s" />
+			<input type="text" name="mishaDateTo" placeholder="%3$s" value="%4$s" />',
+                esc_attr__('开始于', 'npcink-site-toolbox'),
+                esc_attr($from),
+                esc_attr__('结束于', 'npcink-site-toolbox'),
+                esc_attr($to)
+            );
         }
 
         /*

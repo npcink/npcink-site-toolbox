@@ -41,7 +41,7 @@ if (!class_exists('Npcink_Toolbox_Comment_Only_Once')) {
                 ));
 
                 if ($bool) {
-                    return new \WP_Error('comment_once_only', '本站每篇文章仅允许评论一次。');
+                    return new \WP_Error('comment_once_only', __('本站每篇文章仅允许评论一次。', 'npcink-site-toolbox'));
                 }
             }
 

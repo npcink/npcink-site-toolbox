@@ -64,13 +64,6 @@ if (!class_exists('Npcink_Toolbox_Config_Schema')) {
                         'search_link_simplify'   => array('type' => 'boolean', 'default' => false),
                         'remove_sitemap_users'   => array('type' => 'boolean', 'default' => false),
                         'user_list_show_nickname' => array('type' => 'boolean', 'default' => false),
-                        'cdn_replace'            => array('type' => 'boolean', 'default' => false, 'search' => self::search_metadata('optimize-site-cdn_replace', '国内 CDN 替换', 'site', '站点与媒体', '站点', array('cdn', '加速'), array('性能'))),
-                        'cdn_gravatar'           => array('type' => 'boolean', 'default' => false),
-                        'cdn_gravatar_mirror'    => array('type' => 'string',  'default' => 'gravatar.loli.net/avatar/', 'sanitize' => 'esc_url_raw'),
-                        'cdn_google_fonts'       => array('type' => 'boolean', 'default' => false),
-                        'cdn_google_fonts_mirror' => array('type' => 'string',  'default' => 'fonts.loli.net', 'sanitize' => 'sanitize_text_field'),
-                        'cdn_google_ajax'        => array('type' => 'boolean', 'default' => false),
-                        'cdn_custom'             => array('type' => 'string',  'default' => '', 'sanitize' => 'sanitize_textarea_field'),
                         'hide_email_ip'          => array('type' => 'boolean', 'default' => false),
                     ),
                     'medium' => array(
@@ -101,6 +94,32 @@ if (!class_exists('Npcink_Toolbox_Config_Schema')) {
                         'sensitive_words_list'       => array('type' => 'string',  'default' => '', 'sanitize' => 'sanitize_textarea_field'),
                         'sensitive_words_action'     => array('type' => 'string',  'default' => 'replace', 'enum' => array('replace', 'block')),
                         'sensitive_words_replace_char' => array('type' => 'string',  'default' => '***', 'sanitize' => 'sanitize_text_field'),
+                        'self_service_enabled'        => array(
+                            'type'       => 'boolean',
+                            'default'    => false,
+                            'feature_id' => 'page-comment-self_service_enabled',
+                            'label'      => '用户评论 REST 接口',
+                            'group'      => '评论',
+                            'risk'       => array(
+                                'level'      => 'low',
+                                'title'      => '开放用户评论 REST 接口',
+                                'warning'    => '开启后，登录用户可通过应用程序密码从外部客户端发布、修改和删除自己的评论。',
+                                'suggestion' => '仅在使用 HTTPS 且确实需要外部评论客户端时开启。',
+                            ),
+                            'search'     => self::search_metadata(
+                                'page-comment-self_service_enabled',
+                                '用户评论 REST 接口',
+                                'content',
+                                '内容与页面',
+                                '评论',
+                                array('comment', '评论', '应用程序密码', 'rest', '接口', '批量删除'),
+                                array('谨慎', 'REST API')
+                            ),
+                        ),
+                        'self_service_admin_page_enabled' => array(
+                            'type'    => 'boolean',
+                            'default' => true,
+                        ),
                     ),
                     'feature' => array(
                         'reading_progress'         => array('type' => 'boolean', 'default' => false),

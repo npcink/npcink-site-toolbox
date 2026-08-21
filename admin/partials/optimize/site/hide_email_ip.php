@@ -38,7 +38,13 @@ if (!class_exists('Npcink_Toolbox_Hide_Email_IP')) {
                 '/\b(?:[0-9a-fA-F]{1,4}:){7}[0-9a-fA-F]{1,4}\b/',
                 '/\b(?:[0-9a-fA-F]{1,4}:){1,7}:\b/',
             );
-            return preg_replace($patterns, '[IP 已隐藏]', $text);
+            return preg_replace_callback(
+                $patterns,
+                static function () {
+                    return __('[IP 已隐藏]', 'npcink-site-toolbox');
+                },
+                $text
+            );
         }
     }
 }

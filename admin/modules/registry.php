@@ -85,21 +85,6 @@ return array(
         'scope'     => 'admin',
         'risk_tags' => array('仅后台'),
     ),
-    'optimize.cdn_replace' => array(
-        'class'       => 'Npcink_Toolbox_CDN_Replace',
-        'file'        => 'optimize/site/cdn_replace.php',
-        'option_key'  => 'optimize.site.cdn_replace',
-        'category'    => 'optimize',
-        'scope'       => 'frontend',
-        'config_path' => 'optimize.site',
-        'risk_tags'   => array('性能'),
-        'label'       => '国内 CDN 替换',
-        'group'       => '站点',
-        'feature_id'  => 'optimize-site-cdn_replace',
-        'risk'        => array('level' => 'low'),
-        'depends_on'  => array(),
-        'preset_tags' => array('performance'),
-    ),
     'optimize.hide_email_ip' => array(
         'class'     => 'Npcink_Toolbox_Hide_Email_IP',
         'label'     => '隐藏邮件中的 IP',
@@ -264,6 +249,16 @@ return array(
         'category'  => 'page',
         'scope'     => 'frontend',
         'config_path' => 'page.comment',
+    ),
+    'page.my_comments' => array(
+        'class'       => 'Npcink_Toolbox_My_Comments',
+        'label'       => '用户评论自助管理',
+        'file'        => 'page/comment/my_comments.php',
+        'option_key'  => 'page.comment.self_service_enabled',
+        'category'    => 'page',
+        'scope'       => 'admin',
+        'config_path' => 'page.comment',
+        'risk_tags'   => array('需认证', 'REST API'),
     ),
     // ========== 页面功能 ==========
     'page.first_picture' => array(
@@ -472,38 +467,57 @@ return array(
 
     // ========== 国内生态 - 备案与合规 ==========
     'domestic.compliance' => array(
-        'class'     => 'Npcink_Toolbox_Domestic_Compliance',
-        'label'     => '备案与合规',
-        'file'      => 'domestic/compliance/index.php',
-        'option_key'=> 'domestic.compliance.icp_enabled',
-        'category'  => 'domestic',
-        'scope'     => 'frontend',
-        'config_path' => 'domestic.compliance',
-        'risk_tags' => array('推荐'),
+        'class'            => 'Npcink_Toolbox_Domestic_Compliance',
+        'label'            => '备案与合规',
+        'file'             => 'domestic/compliance/index.php',
+        'option_key'       => 'domestic.compliance.icp_enabled',
+        'activation_paths' => array(
+            'domestic.compliance.icp_enabled',
+            'domestic.compliance.police_enabled',
+            'domestic.compliance.cookie_enabled',
+            'domestic.compliance.copyright_enabled',
+        ),
+        'category'         => 'domestic',
+        'scope'            => 'frontend',
+        'config_path'      => 'domestic.compliance',
+        'risk_tags'        => array('推荐'),
     ),
 
     // ========== 国内生态 - 微信生态 ==========
     'domestic.wechat' => array(
-        'class'     => 'Npcink_Toolbox_Domestic_Wechat',
-        'label'     => '微信生态',
-        'file'      => 'domestic/wechat/index.php',
-        'option_key'=> 'domestic.wechat.jssdk_enabled',
-        'category'  => 'domestic',
-        'scope'     => 'frontend',
-        'config_path' => 'domestic.wechat',
-        'risk_tags' => array('推荐'),
+        'class'            => 'Npcink_Toolbox_Domestic_Wechat',
+        'label'            => '微信生态',
+        'file'             => 'domestic/wechat/index.php',
+        'option_key'       => 'domestic.wechat.jssdk_enabled',
+        'activation_paths' => array(
+            'domestic.wechat.jssdk_enabled',
+            'domestic.wechat.guide_overlay_enabled',
+        ),
+        'category'         => 'domestic',
+        'scope'            => 'frontend',
+        'config_path'      => 'domestic.wechat',
+        'risk_tags'        => array('推荐'),
     ),
 
     // ========== 国内生态 - 评论安全 ==========
     'domestic.comment_security' => array(
-        'class'     => 'Npcink_Toolbox_Domestic_Comment_Security',
-        'label'     => '评论安全',
-        'file'      => 'domestic/comment_security/index.php',
-        'option_key'=> 'domestic.comment_security.blacklist_enabled',
-        'category'  => 'domestic',
-        'scope'     => 'frontend',
-        'config_path' => 'domestic.comment_security',
-        'risk_tags' => array('推荐', '安全'),
+        'class'            => 'Npcink_Toolbox_Domestic_Comment_Security',
+        'label'            => '评论安全',
+        'file'             => 'domestic/comment_security/index.php',
+        'option_key'       => 'domestic.comment_security.blacklist_enabled',
+        'activation_paths' => array(
+            'domestic.comment_security.blacklist_enabled',
+            'domestic.comment_security.link_limit_enabled',
+            'domestic.comment_security.nickname_filter_enabled',
+            'domestic.comment_security.email_domain_enabled',
+            'domestic.comment_security.duplicate_enabled',
+            'domestic.comment_security.ip_rate_enabled',
+            'domestic.comment_security.log_enabled',
+        ),
+        'category'         => 'domestic',
+        'scope'            => 'frontend',
+        'config_path'      => 'domestic.comment_security',
+        'risk_tags'        => array('推荐', '安全'),
     ),
 
     // ========== 国内生态 - 登录安全 ==========
@@ -564,14 +578,19 @@ return array(
 
     // ========== 性能优化 - 搜索增强 ==========
     'performance.search_enhance' => array(
-        'class'     => 'Npcink_Toolbox_Performance_Search_Enhance',
-        'label'     => '搜索增强',
-        'file'      => 'performance/search_enhance/index.php',
-        'option_key'=> 'performance.search_enhance.highlight_enabled',
-        'category'  => 'performance',
-        'scope'     => 'frontend',
-        'config_path' => 'performance.search_enhance',
-        'risk_tags' => array('推荐'),
+        'class'            => 'Npcink_Toolbox_Performance_Search_Enhance',
+        'label'            => '搜索增强',
+        'file'             => 'performance/search_enhance/index.php',
+        'option_key'       => 'performance.search_enhance.highlight_enabled',
+        'activation_paths' => array(
+            'performance.search_enhance.highlight_enabled',
+            'performance.search_enhance.recommend_enabled',
+            'performance.search_enhance.hotwords_enabled',
+        ),
+        'category'         => 'performance',
+        'scope'            => 'frontend',
+        'config_path'      => 'performance.search_enhance',
+        'risk_tags'        => array('推荐'),
     ),
 
     // ========== 性能优化 - 数据库清理 ==========

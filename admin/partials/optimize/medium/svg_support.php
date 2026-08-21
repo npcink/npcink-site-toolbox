@@ -24,7 +24,7 @@ if (!class_exists('Npcink_Toolbox_Medium_Svg_Support')) {
         public static function run_add_svg()
         {
             add_filter('upload_mimes', array(__CLASS__, 'salong_mime_types'));
-            add_action('admin_head', array(__CLASS__, 'salong_admin_svg_css'));
+            add_action('admin_enqueue_scripts', array(__CLASS__, 'enqueue_admin_svg_style'));
 
             // SVG 上传时清洗内容
             add_filter('wp_handle_upload_prefilter', array(__CLASS__, 'sanitize_svg_upload'));
@@ -45,15 +45,14 @@ if (!class_exists('Npcink_Toolbox_Medium_Svg_Support')) {
         }
 
         //在媒体库显示 SVG 图标
-        public static function salong_admin_svg_css()
+        public static function enqueue_admin_svg_style()
         {
-            echo "
-             <style>
-             table.media .column-title .media-icon img[src*='.svg']{
-              width: 100%;
-              height: auto;
-                     }
-         </style>";
+            wp_register_style('npcink-site-toolbox-svg-admin', false, array(), NPCINK_SITE_TOOLBOX_VERSION);
+            wp_enqueue_style('npcink-site-toolbox-svg-admin');
+            wp_add_inline_style(
+                'npcink-site-toolbox-svg-admin',
+                "table.media .column-title .media-icon img[src*='.svg']{width:100%;height:auto}"
+            );
         }
 
         /**
@@ -144,21 +143,21 @@ if (!class_exists('Npcink_Toolbox_Medium_Svg_Support')) {
 
             // 仅管理员可上传 SVG；其他文件不受此功能影响。
             if (!current_user_can('manage_options')) {
-                $file['error'] = '仅管理员可上传 SVG 文件';
+                $file['error'] = __('仅管理员可上传 SVG 文件', 'npcink-site-toolbox');
                 return $file;
             }
 
             // 读取文件内容
             $content = file_get_contents($file['tmp_name']);
             if ($content === false) {
-                $file['error'] = '无法读取 SVG 文件内容';
+                $file['error'] = __('无法读取 SVG 文件内容', 'npcink-site-toolbox');
                 return $file;
             }
 
             // 检查是否为有效的 XML
             $xml = @simplexml_load_string($content);
             if ($xml === false) {
-                $file['error'] = 'SVG 文件格式无效（无效的 XML）';
+                $file['error'] = __('SVG 文件格式无效（无效的 XML）', 'npcink-site-toolbox');
                 return $file;
             }
 
@@ -167,7 +166,7 @@ if (!class_exists('Npcink_Toolbox_Medium_Svg_Support')) {
 
             // 写回文件
             if (file_put_contents($file['tmp_name'], $sanitized) === false) {
-                $file['error'] = '无法保存清洗后的 SVG 文件';
+                $file['error'] = __('无法保存清洗后的 SVG 文件', 'npcink-site-toolbox');
                 return $file;
             }
 

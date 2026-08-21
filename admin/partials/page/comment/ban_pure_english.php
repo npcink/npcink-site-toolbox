@@ -19,7 +19,7 @@ if (!class_exists('Npcink_Toolbox_Comment_Ban_Pure_English')) {
         {
             $pattern = '/[一-龥]/u';
             if (!preg_match($pattern, $commentdata['comment_content'])) {
-                return new \WP_Error('comment_chinese_required', '您的评论中必须包含汉字!');
+                return new \WP_Error('comment_chinese_required', __('您的评论中必须包含汉字！', 'npcink-site-toolbox'));
             }
             return $approved;
         }

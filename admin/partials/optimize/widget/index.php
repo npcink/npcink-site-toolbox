@@ -28,8 +28,8 @@ if (!class_exists('Npcink_Toolbox_Widgets')) {
         public function __construct() {
             parent::__construct(
                 'npcink_site_toolbox_site_stats',
-                'Npcink Site Toolbox - 站点统计',
-                array('description' => '显示站点文章、评论、用户等统计信息')
+                __('Npcink Site Toolbox - 站点统计', 'npcink-site-toolbox'),
+                array('description' => __('显示站点文章、评论、用户等统计信息', 'npcink-site-toolbox'))
             );
         }
 
@@ -49,10 +49,10 @@ if (!class_exists('Npcink_Toolbox_Widgets')) {
         }
 
         public function form($instance) {
-            $title = !empty($instance['title']) ? $instance['title'] : '站点统计';
+            $title = !empty($instance['title']) ? $instance['title'] : __('站点统计', 'npcink-site-toolbox');
             ?>
             <p>
-                <label for="<?php echo esc_attr($this->get_field_id('title')); ?>">标题：</label>
+                <label for="<?php echo esc_attr($this->get_field_id('title')); ?>"><?php esc_html_e('标题：', 'npcink-site-toolbox'); ?></label>
                 <input class="widefat" id="<?php echo esc_attr($this->get_field_id('title')); ?>" name="<?php echo esc_attr($this->get_field_name('title')); ?>" type="text" value="<?php echo esc_attr($title); ?>">
             </p>
             <?php
@@ -73,8 +73,8 @@ if (!class_exists('Npcink_Toolbox_Widgets')) {
         public function __construct() {
             parent::__construct(
                 'npcink_site_toolbox_recent_posts_thumb',
-                'Npcink Site Toolbox - 最新文章（带图）',
-                array('description' => '显示最新文章列表，带特色图缩略图')
+                __('Npcink Site Toolbox - 最新文章（带图）', 'npcink-site-toolbox'),
+                array('description' => __('显示最新文章列表，带特色图缩略图', 'npcink-site-toolbox'))
             );
         }
 
@@ -112,15 +112,15 @@ if (!class_exists('Npcink_Toolbox_Widgets')) {
         }
 
         public function form($instance) {
-            $title = !empty($instance['title']) ? $instance['title'] : '最新文章';
+            $title = !empty($instance['title']) ? $instance['title'] : __('最新文章', 'npcink-site-toolbox');
             $number = !empty($instance['number']) ? absint($instance['number']) : 5;
             ?>
             <p>
-                <label for="<?php echo esc_attr($this->get_field_id('title')); ?>">标题：</label>
+                <label for="<?php echo esc_attr($this->get_field_id('title')); ?>"><?php esc_html_e('标题：', 'npcink-site-toolbox'); ?></label>
                 <input class="widefat" id="<?php echo esc_attr($this->get_field_id('title')); ?>" name="<?php echo esc_attr($this->get_field_name('title')); ?>" type="text" value="<?php echo esc_attr($title); ?>">
             </p>
             <p>
-                <label for="<?php echo esc_attr($this->get_field_id('number')); ?>">显示数量：</label>
+                <label for="<?php echo esc_attr($this->get_field_id('number')); ?>"><?php esc_html_e('显示数量：', 'npcink-site-toolbox'); ?></label>
                 <input class="tiny-text" id="<?php echo esc_attr($this->get_field_id('number')); ?>" name="<?php echo esc_attr($this->get_field_name('number')); ?>" type="number" min="1" max="20" value="<?php echo esc_attr($number); ?>">
             </p>
             <?php

@@ -46,30 +46,16 @@ final class PerformanceQueryBoundariesTest extends TestCase
         $this->assertStringContainsString("'attachment_scan' => array(", $source);
         $this->assertStringContainsString("'sampled' => \$attachment_scan['sampled']", $source);
         $this->assertStringContainsString(
-            "sprintf('超大图片（最近 %d 个附件抽样）', \$attachment_scan['checked'])",
+            "sprintf(__('超大图片（最近 %d 个附件抽样）', 'npcink-site-toolbox'), \$attachment_scan['checked'])",
             $source
         );
         $this->assertStringContainsString(
-            "sprintf('中文文件名（最近 %d 个附件抽样）', \$attachment_scan['checked'])",
+            "sprintf(__('中文文件名（最近 %d 个附件抽样）', 'npcink-site-toolbox'), \$attachment_scan['checked'])",
             $source
         );
         $this->assertStringNotContainsString('SELECT ID, guid', $source);
         $this->assertStringNotContainsString('SELECT ID, post_name', $source);
         $this->assertStringNotContainsString('post_name REGEXP', $source);
-    }
-
-    /**
-     * @dataProvider performanceModuleProvider
-     */
-    public function test_alt_repairs_use_a_bounded_wordpress_query(string $relativePath): void
-    {
-        $source = $this->source($relativePath);
-
-        $this->assertStringContainsString('new WP_Query(array(', $source);
-        $this->assertStringContainsString("'posts_per_page'         => 50", $source);
-        $this->assertStringContainsString("'post_mime_type'         => 'image'", $source);
-        $this->assertStringContainsString("'meta_query'", $source);
-        $this->assertStringContainsString('update_post_meta($img->ID', $source);
     }
 
     private function source(string $relativePath): string

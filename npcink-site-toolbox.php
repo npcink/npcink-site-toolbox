@@ -6,7 +6,7 @@ defined('ABSPATH') || exit;
  * Plugin Name: Npcink Site Toolbox
  * Description: An opt-in toolbox for site settings, media, SEO, security, integrations, diagnostics, and maintenance.
  * Plugin URI: https://www.npc.ink/277510.html
- * Version: 3.2.0
+ * Version: 3.3.2
  * Author: Npcink
  * Author URI: https://www.npc.ink/
  * Requires at least: 6.3
@@ -14,6 +14,7 @@ defined('ABSPATH') || exit;
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain:       npcink-site-toolbox
+ * Domain Path:       /languages
  */
 //调试内容，在后台顶部显示一个通知
 // 如果直接调用此文件，请中止。
@@ -29,7 +30,7 @@ if (!defined('WPINC')) {
 //定义插件名
 define('NPCINK_SITE_TOOLBOX_NAME', 'npcink-site-toolbox');
 //定义插件版本
-define('NPCINK_SITE_TOOLBOX_VERSION', '3.2.0');
+define('NPCINK_SITE_TOOLBOX_VERSION', '3.3.2');
 define('NPCINK_SITE_TOOLBOX_ACTIVE_MODULES', 'npcink_site_toolbox_active_modules');
 
 /**

@@ -2,13 +2,12 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 
 import {
   diagnosticsApi,
-  domesticApi,
   performanceApi,
   searchHealthApi,
   settingsApi,
 } from "@/api";
 import { defaultVarOption } from "@/tool/defaultVar";
-import type { SettingsSavePayload } from "@/tool/interface";
+import type { SettingsPreviewPayload } from "@/tool/interface";
 
 const restMocks = vi.hoisted(() => ({
   get: vi.fn(),
@@ -36,22 +35,19 @@ describe("performanceApi", () => {
     }, { maboxNotify: false });
   });
 
-  it("数据库清理默认 dry-run，只有显式传 false 才执行", async () => {
-    await performanceApi.cleanDb("spam");
-    await performanceApi.cleanDb("spam", false);
+  it("数据库清理必须显式提交预览 token", async () => {
+    const previewToken = "a".repeat(64);
+    await performanceApi.cleanDb("spam", previewToken);
 
-    expect(restMocks.post).toHaveBeenNthCalledWith(1, "/performance/db/clean", {
-      type: "spam",
-      dry_run: true,
-    }, { maboxNotify: false });
-    expect(restMocks.post).toHaveBeenNthCalledWith(2, "/performance/db/clean", {
+    expect(restMocks.post).toHaveBeenCalledWith("/performance/db/clean", {
       type: "spam",
       dry_run: false,
+      preview_token: previewToken,
     }, { maboxNotify: false });
   });
 
   it("对象存储连接测试关闭全局通知并使用设置凭据契约", async () => {
-    const payload: SettingsSavePayload = {
+    const payload: SettingsPreviewPayload = {
       settings: defaultVarOption,
       secretChanges: {
         "performance.oss.access_key": { operation: "replace", value: "access-key" },
@@ -69,9 +65,7 @@ describe("performanceApi", () => {
 
   it.each([
     ["checkMedia", "/performance/media/check"],
-    ["fixMediaAlt", "/performance/media/fix-alt"],
     ["checkSeo", "/performance/seo/check"],
-    ["fixSeoAlt", "/performance/seo/fix-alt"],
   ] as const)("%s 由调用界面独占反馈", async (method, path) => {
     await performanceApi[method]();
 
@@ -108,28 +102,62 @@ describe("performanceApi", () => {
   });
 
   it("已有局部状态的查询和建议接口关闭传输层通知", async () => {
-    await domesticApi.checkEnvironment();
-    await domesticApi.applyEnvironmentFix(["gravatar"]);
     await diagnosticsApi.getSummary();
     await diagnosticsApi.getFeatureStatus();
+    await diagnosticsApi.getSupportReport();
+    await diagnosticsApi.analyzeSupportReport("后台偶发 500");
+    await diagnosticsApi.getReviewPack("performance");
+    await diagnosticsApi.createReview({ scenario: "performance", problem: "检查缓存" });
+    await diagnosticsApi.createFollowUp({
+      scenario: "troubleshooting",
+      question: "依据是什么？",
+      context: {
+        contract_version: "ai_follow_up_context.v1",
+        scenario: "troubleshooting",
+        source_pack: {
+          contract_version: "diagnostic_pack.v1",
+          scope: "manual_support",
+          generated_at: "2026-07-23 10:00:00",
+          sections: [{ id: "wp-core", title: "WordPress", facts: [{ id: "version", label: "版本", value: "7.0" }] }],
+          limitations: [],
+          privacy: { external_requests_performed: false, persisted: false, review_before_sharing: true },
+        },
+      },
+      initial_analysis: "首次回答",
+      turns: [],
+    });
     await searchHealthApi.getSummary(30);
     await settingsApi.getSchema();
 
-    expect(restMocks.get).toHaveBeenCalledWith(
-      "/domestic/environment/check",
-      { maboxNotify: false },
-    );
-    expect(restMocks.post).toHaveBeenCalledWith(
-      "/domestic/environment/apply",
-      { fixes: ["gravatar"] },
-      { maboxNotify: false },
-    );
     expect(restMocks.get).toHaveBeenCalledWith(
       "/diagnostics/summary",
       { maboxNotify: false },
     );
     expect(restMocks.get).toHaveBeenCalledWith(
       "/diagnostics/features",
+      { maboxNotify: false },
+    );
+    expect(restMocks.get).toHaveBeenCalledWith(
+      "/diagnostics/support-report",
+      { maboxNotify: false },
+    );
+    expect(restMocks.post).toHaveBeenCalledWith(
+      "/diagnostics/analyses",
+      { problem: "后台偶发 500" },
+      { maboxNotify: false },
+    );
+    expect(restMocks.get).toHaveBeenCalledWith(
+      "/diagnostics/review-packs?scope=performance",
+      { maboxNotify: false },
+    );
+    expect(restMocks.post).toHaveBeenCalledWith(
+      "/diagnostics/reviews",
+      { scenario: "performance", problem: "检查缓存" },
+      { maboxNotify: false },
+    );
+    expect(restMocks.post).toHaveBeenCalledWith(
+      "/diagnostics/follow-ups",
+      expect.objectContaining({ scenario: "troubleshooting", question: "依据是什么？", turns: [] }),
       { maboxNotify: false },
     );
     expect(restMocks.get).toHaveBeenCalledWith(

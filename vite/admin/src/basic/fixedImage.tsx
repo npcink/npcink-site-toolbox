@@ -2,7 +2,8 @@ import React, { useEffect, useId, useState } from "react";
 import { Button, Form, Image, List, Modal, Popover, Radio, Space } from "antd";
 import type { RadioChangeEvent } from "antd";
 
-import Disabled from "@/assets/basic/禁用.svg";
+import Disabled from "@/assets/basic/disabled.svg";
+import { __, sprintf } from "@/tool/i18n";
 
 interface FixedImageOption {
   value: string;
@@ -79,32 +80,32 @@ const FixedImage = React.forwardRef<
     return (
       <>
         <Space size="middle" wrap>
-          <span>当前样式：{currentImage.title}</span>
+          <span>{sprintf(__("当前样式：%s"), __(currentImage.title))}</span>
           <Button
             {...buttonProps}
             ref={ref}
             size={buttonProps.size ?? "small"}
             htmlType="button"
             aria-label={
-              ariaLabel ?? `更换维护提示样式，当前：${currentImage.title}`
+              ariaLabel ?? sprintf(__("更换维护提示样式，当前：%s"), __(currentImage.title))
             }
             aria-invalid={
               ariaInvalid ?? (status === "error" ? true : undefined)
             }
             onClick={showModal}
           >
-            更换样式
+            {__("更换样式")}
           </Button>
         </Space>
 
         <Modal
           rootClassName="mabox-admin-modal"
-          title="选择您需要的样式"
+          title={__("选择您需要的样式")}
           open={isModalOpen}
           onOk={handleOk}
           onCancel={handleCancel}
         >
-          <div role="radiogroup" aria-label="维护提示样式">
+          <div role="radiogroup" aria-label={__("维护提示样式")}>
             <Radio.Group
               name={radioName}
               value={draftValue}
@@ -122,13 +123,13 @@ const FixedImage = React.forwardRef<
                           <Image
                             src={item.label}
                             width={200}
-                            alt={`维护提示样式预览：${item.title}`}
+                            alt={sprintf(__("维护提示样式预览：%s"), __(item.title))}
                             preview={{ rootClassName: "mabox-admin-modal" }}
                           />
                         }
-                        title={`预览样式：${item.title}`}
+                        title={sprintf(__("预览样式：%s"), __(item.title))}
                       >
-                        <span>{item.title}</span>
+                        <span>{__(item.title)}</span>
                       </Popover>
                     </Radio>
                   </List.Item>

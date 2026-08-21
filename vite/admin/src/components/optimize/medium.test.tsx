@@ -11,7 +11,7 @@ vi.mock("@/tool/riskyFeature", () => ({
 }));
 
 function renderMedium(webpSupported: boolean) {
-  window.dataLocal = {
+  window.npcinkSiteToolboxData = {
     url_site: "https://example.com",
     webpSupported,
   };
@@ -40,7 +40,7 @@ function renderMedium(webpSupported: boolean) {
 
 afterEach(() => {
   cleanup();
-  delete window.dataLocal;
+  delete window.npcinkSiteToolboxData;
 });
 
 describe("媒体设置", () => {

@@ -3,6 +3,7 @@ import Feature from "@/components/page/feature";
 import Function from "@/components/page/function";
 import Jurisdiction from "@/components/page/jurisdiction";
 import { SettingsTabs, type SettingsTab } from "@/components/settings-ui";
+import { __ } from "@/tool/i18n";
 
 interface PageProps {
   targetItemId?: string;
@@ -10,15 +11,15 @@ interface PageProps {
 
 const App: React.FC<PageProps> = ({ targetItemId }) => {
   const tabs: SettingsTab[] = [
-    { key: "aspect", label: "外观", prefixes: ["page-feature-"], content: <Feature /> },
-    { key: "permission", label: "权限", prefixes: ["page-jurisdiction-"], content: <Jurisdiction /> },
-    { key: "func", label: "功能", prefixes: ["page-function-"], content: <Function /> },
-    { key: "comment", label: "评论", prefixes: ["page-comment-"], content: <Comment /> },
+    { key: "aspect", label: __("外观"), prefixes: ["page-feature-"], content: <Feature /> },
+    { key: "permission", label: __("权限"), prefixes: ["page-jurisdiction-"], content: <Jurisdiction /> },
+    { key: "func", label: __("功能"), prefixes: ["page-function-"], content: <Function /> },
+    { key: "comment", label: __("评论"), prefixes: ["page-comment-"], content: <Comment /> },
   ];
 
   return (
     <SettingsTabs
-      ariaLabel="内容与页面分组"
+      ariaLabel={__("内容与页面分组")}
       idPrefix="mabox-content"
       tabs={tabs}
       targetItemId={targetItemId}

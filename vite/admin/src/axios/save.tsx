@@ -6,8 +6,9 @@ import {
   SettingsSavePayload,
 } from "@/tool/interface";
 import { assertValidOption } from "@/tool/option";
+import { __, sprintf } from "@/tool/i18n";
 
-const DEFAULT_SAVE_ERROR = "保存失败，请重试";
+const DEFAULT_SAVE_ERROR = __("保存失败，请重试");
 const MAX_NOTICE_MESSAGE_LENGTH = 500;
 
 function isRecord(value: unknown): value is Record<string, unknown> {
@@ -31,7 +32,7 @@ function sanitizeResponseMessage(message: string, secretChanges: SecretChanges):
   let sanitized = message;
   for (const change of Object.values(secretChanges)) {
     if (change?.operation === "replace" && change.value !== "") {
-      sanitized = sanitized.split(change.value).join("[已隐藏]");
+      sanitized = sanitized.split(change.value).join(__("[已隐藏]"));
     }
   }
 
@@ -65,24 +66,24 @@ function assertSecretChangesAreValid(secretChanges: SecretChanges): void {
 
   for (const [path, change] of Object.entries(secretChanges)) {
     if (!allowedPaths.has(path) || !change) {
-      throw new Error(`未知凭据路径：${path}`);
+      throw new Error(sprintf(__("未知凭据路径：%s"), path));
     }
     if (change.operation !== "replace" && change.operation !== "clear") {
-      throw new Error(`未知凭据操作：${path}`);
+      throw new Error(sprintf(__("未知凭据操作：%s"), path));
     }
     if (change.operation === "replace") {
       if (typeof change.value !== "string" || change.value.trim() === "") {
-        throw new Error(`凭据替换值不能为空：${path}`);
+        throw new Error(sprintf(__("凭据替换值不能为空：%s"), path));
       }
       if (new TextEncoder().encode(change.value).length > 4096) {
-        throw new Error(`凭据长度超出限制：${path}`);
+        throw new Error(sprintf(__("凭据长度超出限制：%s"), path));
       }
       const containsControlCharacter = Array.from(change.value).some((character) => {
         const codePoint = character.codePointAt(0) ?? 0;
         return codePoint <= 31 || codePoint === 127;
       });
       if (containsControlCharacter) {
-        throw new Error(`凭据不得包含控制字符：${path}`);
+        throw new Error(sprintf(__("凭据不得包含控制字符：%s"), path));
       }
     }
   }
@@ -91,14 +92,18 @@ function assertSecretChangesAreValid(secretChanges: SecretChanges): void {
 export const buildSettingsSavePayload = (
   settings: Option,
   secretChanges: SecretChanges,
+  revision: string,
 ): SettingsSavePayload => {
   assertValidOption(settings);
   assertSecretChangesAreValid(secretChanges);
-  return { settings, secretChanges };
+  if (!/^[a-f0-9]{64}$/.test(revision)) {
+    throw new Error(__("配置版本无效，请重新读取设置"));
+  }
+  return { settings, secretChanges, revision };
 };
 
-export const saveOption = async (settings: Option, secretChanges: SecretChanges) => {
-  const payload = buildSettingsSavePayload(settings, secretChanges);
+export const saveOption = async (settings: Option, secretChanges: SecretChanges, revision: string) => {
+  const payload = buildSettingsSavePayload(settings, secretChanges, revision);
 
   let response: ApiResponse;
   try {

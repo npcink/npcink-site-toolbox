@@ -8,7 +8,6 @@ import { defaultVarOption } from "@/tool/defaultVar";
 
 const apiMocks = vi.hoisted(() => ({
   checkMedia: vi.fn(),
-  fixMediaAlt: vi.fn(),
   convertMediaWebp: vi.fn(),
   restoreMediaWebp: vi.fn(),
 }));
@@ -87,7 +86,6 @@ beforeEach(() => {
       },
     },
   });
-  apiMocks.fixMediaAlt.mockReset().mockResolvedValue({ success: true, data: { fixed: 4 } });
   apiMocks.convertMediaWebp.mockReset().mockImplementation(async (ids: number[]) => ({
     success: true,
     data: {
@@ -152,10 +150,9 @@ describe("媒体库体检操作反馈", () => {
     expect(screen.getByRole("button", { name: "连续转换（最多 50 张）" })).toBeInTheDocument();
   }, 30_000);
 
-  it("在体检区保留修复数量，并显示请求失败", async () => {
+  it("保留 Alt 缺失检测但不提供写入入口，并显示请求失败", async () => {
     renderMediaHealth();
-    fireEvent.click(screen.getByRole("button", { name: "批量补全 Alt" }));
-    expect(await screen.findByRole("status")).toHaveTextContent("已补全 4 张图片的 Alt。");
+    expect(screen.queryByRole("button", { name: /补全 Alt/ })).not.toBeInTheDocument();
 
     apiMocks.checkMedia.mockRejectedValueOnce(new Error("network unavailable"));
     fireEvent.click(screen.getByRole("button", { name: "开始体检" }));

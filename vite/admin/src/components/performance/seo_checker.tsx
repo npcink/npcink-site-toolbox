@@ -5,6 +5,7 @@ import { AntConfig } from "@/tool/tool";
 import { SettingsSection, ModuleRow, CheckTable } from "@/components/settings-ui";
 import StatusTag from "@/components/settings-ui/StatusTag";
 import { performanceApi, SeoIssue } from "@/api";
+import { __, sprintf } from "@/tool/i18n";
 
 const fromConfig = AntConfig.from;
 
@@ -19,7 +20,6 @@ const App: React.FC = () => {
   const [formData, setFormData] = useState(publicData || {});
   const [issues, setIssues] = useState<SeoIssue[]>([]);
   const [checking, setChecking] = useState(false);
-  const [fixing, setFixing] = useState(false);
   const [operationFeedback, setOperationFeedback] = useState<OperationFeedback | null>(null);
 
   const onValuesChange = (changedValues: any, _allValues: any) => {
@@ -41,59 +41,39 @@ const App: React.FC = () => {
         setOperationFeedback({
           type: "info",
           message: nextIssues.length > 0
-            ? `检查完成：发现 ${nextIssues.length} 项需要关注。`
-            : "检查完成：未发现需要处理的问题。",
+            ? sprintf(__("检查完成：发现 %d 项需要关注。"), nextIssues.length)
+            : __("检查完成：未发现需要处理的问题。"),
         });
       } else {
-        setOperationFeedback({ type: "error", message: "检查失败，请重试。" });
+        setOperationFeedback({ type: "error", message: __("检查失败，请重试。") });
       }
     } catch {
-      setOperationFeedback({ type: "error", message: "检查失败，请重试。" });
+      setOperationFeedback({ type: "error", message: __("检查失败，请重试。") });
     } finally {
       setChecking(false);
     }
   };
 
-  const handleFixAlt = async () => {
-    setOperationFeedback(null);
-    setFixing(true);
-    try {
-      const res = await performanceApi.fixSeoAlt();
-      if (res.success) {
-        setOperationFeedback({
-          type: "success",
-          message: `已补全 ${res.data?.fixed || 0} 张图片的 Alt。`,
-        });
-      } else {
-        setOperationFeedback({ type: "error", message: "修复失败，请重试。" });
-      }
-    } catch {
-      setOperationFeedback({ type: "error", message: "修复失败，请重试。" });
-    } finally {
-      setFixing(false);
-    }
-  };
-
   const columns = [
     {
-      title: "检测项",
+      title: __("检测项"),
       dataIndex: "type",
       key: "type",
       width: 120,
     },
     {
-      title: "状态",
+      title: __("状态"),
       dataIndex: "severity",
       key: "severity",
       width: 80,
       render: (severity: string) => {
-        if (severity === "error") return <StatusTag status="异常" />;
-        if (severity === "warning") return <StatusTag status="待处理" />;
-        return <StatusTag status="推荐" />;
+        if (severity === "error") return <StatusTag status="异常" label={__("异常")} />;
+        if (severity === "warning") return <StatusTag status="待处理" label={__("待处理")} />;
+        return <StatusTag status="推荐" label={__("推荐")} />;
       },
     },
     {
-      title: "说明",
+      title: __("说明"),
       dataIndex: "message",
       key: "message",
     },
@@ -107,7 +87,7 @@ const App: React.FC = () => {
   }));
 
   return (
-    <SettingsSection title="SEO 检查助手" description="SEO 健康度检查">
+    <SettingsSection title={__("SEO 检查助手")} description={__("SEO 健康度检查")}>
       <Form
         name="seo_checker"
         labelCol={fromConfig.labelCol}
@@ -118,8 +98,8 @@ const App: React.FC = () => {
         onValuesChange={onValuesChange}
       >
         <ModuleRow
-          title="启用 SEO 检查"
-          description="定期检查网站 SEO 健康度"
+          title={__("启用 SEO 检查")}
+          description={__("定期检查网站 SEO 健康度")}
           featureId="performance-seo_checker-enabled"
           enabled={!!formData.enabled}
           onChange={(checked) => {
@@ -129,11 +109,8 @@ const App: React.FC = () => {
         />
 
         <Form.Item wrapperCol={fromConfig.wrapperCol}>
-          <Button type="primary" onClick={handleCheck} loading={checking} disabled={fixing}>
-            开始检查
-          </Button>
-          <Button style={{ marginLeft: 8 }} onClick={handleFixAlt} loading={fixing} disabled={checking}>
-            一键补全 Alt
+          <Button type="primary" onClick={handleCheck} loading={checking}>
+            {__("开始检查")}
           </Button>
         </Form.Item>
 

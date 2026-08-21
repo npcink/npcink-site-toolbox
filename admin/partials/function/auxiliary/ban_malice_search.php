@@ -3,7 +3,7 @@ defined('ABSPATH') || exit;
 
 /**
  * 效果：屏蔽恶意关键词搜索词
- * 来源：https://www.npc.ink/277953.html
+ * 历史来源文章已下线，实现事实以当前代码和测试为准。
  */
 if (!class_exists('Npcink_Toolbox_Ban_Malice_Search')) {
     class Npcink_Toolbox_Ban_Malice_Search implements Npcink_Toolbox_Module_Interface
@@ -38,17 +38,14 @@ if (!class_exists('Npcink_Toolbox_Ban_Malice_Search')) {
                     $S_Key = $wp_query->query_vars;
                     foreach ($BanKey as $Key) {
                         if (stristr($S_Key['s'], $Key) != false) {
-                            $message = '搜索内容包含敏感词，请换个关键词搜索';
+                            $message = __('搜索内容包含敏感词，请换个关键词搜索', 'npcink-site-toolbox');
                             $message = $message . Npcink_Toolbox_Admin::back_button();
                             $allowed_html = array(
-                                'br'     => array(),
-                                'a'      => array(
-                                    'href'    => true,
-                                    'onclick' => true,
-                                    'class'   => true,
+                                'p'  => array(),
+                                'a'  => array(
+                                    'href'  => true,
+                                    'class' => true,
                                 ),
-                                'button' => array('class' => true),
-                                'style'  => array(),
                             );
                             wp_die(wp_kses($message, $allowed_html));
                         }

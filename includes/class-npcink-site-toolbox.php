@@ -131,6 +131,7 @@ class Npcink_Site_Toolbox
      */
     public function run()
     {
+        add_action('init', array($this, 'load_textdomain'), 0);
         add_filter('block_categories_all', array('Npcink_Toolbox_Block_Patterns', 'add_block_category'));
         add_action('init', array('Npcink_Toolbox_Block_Patterns', 'register'));
         add_action('init', array('Npcink_Toolbox_Github_Project', 'register_block'));
@@ -138,6 +139,22 @@ class Npcink_Site_Toolbox
 
         //对js文件进行module接入
         add_filter('script_loader_tag', array(__CLASS__, 'refund_type_script'), 10, 2);
+    }
+
+    /**
+     * Load bundled translations after WordPress has established the request locale.
+     */
+    public function load_textdomain()
+    {
+        $locale = determine_locale();
+        if (!preg_match('/^[A-Za-z0-9_@.-]+$/', $locale)) {
+            return;
+        }
+
+        $mofile = dirname(__DIR__) . '/languages/npcink-site-toolbox-' . $locale . '.mo';
+        if (is_readable($mofile)) {
+            load_textdomain('npcink-site-toolbox', $mofile);
+        }
     }
 
     /**

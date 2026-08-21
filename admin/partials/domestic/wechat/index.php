@@ -54,7 +54,7 @@ if (!class_exists('Npcink_Toolbox_Domestic_Wechat')) {
         public static function guide_overlay() {
             if (!self::is_wechat_qq()) return;
             $mode = !empty(self::$config['guide_mode']) ? self::$config['guide_mode'] : 'guide';
-            $text = !empty(self::$config['guide_text']) ? self::$config['guide_text'] : '点击右上角 ··· 在浏览器中打开';
+            $text = !empty(self::$config['guide_text']) ? self::$config['guide_text'] : __('点击右上角 ··· 在浏览器中打开', 'npcink-site-toolbox');
             $css = '.mabox-wechat-guide{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.9);z-index:99999;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;text-align:center;padding:20px;}';
             $css .= '.mabox-wechat-guide .arrow{position:absolute;top:20px;right:30px;font-size:40px;transform:rotate(-45deg);}';
             $css .= '.mabox-wechat-guide .text{font-size:18px;margin-top:60px;line-height:1.6;}';

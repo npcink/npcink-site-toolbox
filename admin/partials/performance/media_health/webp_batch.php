@@ -96,47 +96,47 @@ if (!class_exists('Npcink_Toolbox_Webp_Batch')) {
         private static function convert_one($attachment_id) {
             if (!function_exists('wp_image_editor_supports')
                 || !wp_image_editor_supports(array('mime_type' => 'image/webp'))) {
-                return self::result($attachment_id, 'failed', '当前服务器不支持生成 WebP。');
+                return self::result($attachment_id, 'failed', __('当前服务器不支持生成 WebP。', 'npcink-site-toolbox'));
             }
 
             if (!self::acquire_lock($attachment_id)) {
-                return self::result($attachment_id, 'skipped', '该附件正在处理中，请稍后重试。');
+                return self::result($attachment_id, 'skipped', __('该附件正在处理中，请稍后重试。', 'npcink-site-toolbox'));
             }
 
             $generated_files = array();
             try {
                 $post = get_post($attachment_id);
                 if (!$post || $post->post_type !== 'attachment') {
-                    return self::result($attachment_id, 'failed', '附件不存在。');
+                    return self::result($attachment_id, 'failed', __('附件不存在。', 'npcink-site-toolbox'));
                 }
 
                 $existing_backup = get_post_meta($attachment_id, self::BACKUP_META_KEY, true);
                 if (is_array($existing_backup) && get_post_mime_type($attachment_id) === 'image/webp') {
-                    return self::result($attachment_id, 'skipped', '该附件已转换，可先恢复后再重试。');
+                    return self::result($attachment_id, 'skipped', __('该附件已转换，可先恢复后再重试。', 'npcink-site-toolbox'));
                 }
                 if (!empty($existing_backup)) {
-                    return self::result($attachment_id, 'failed', '检测到未完成的转换记录，请先恢复该附件。');
+                    return self::result($attachment_id, 'failed', __('检测到未完成的转换记录，请先恢复该附件。', 'npcink-site-toolbox'));
                 }
 
                 $source = get_attached_file($attachment_id, true);
                 $mime_type = (string) get_post_mime_type($attachment_id);
                 if (!self::is_candidate($attachment_id, $source, $mime_type)) {
-                    return self::result($attachment_id, 'skipped', '仅处理本地可读的 JPEG 附件。');
+                    return self::result($attachment_id, 'skipped', __('仅处理本地可读的 JPEG 附件。', 'npcink-site-toolbox'));
                 }
 
                 $old_metadata = wp_get_attachment_metadata($attachment_id, true);
                 if (!is_array($old_metadata)) {
-                    return self::result($attachment_id, 'failed', '原附件元数据不可读。');
+                    return self::result($attachment_id, 'failed', __('原附件元数据不可读。', 'npcink-site-toolbox'));
                 }
 
                 $upload_dir = wp_get_upload_dir();
                 if (!empty($upload_dir['error']) || empty($upload_dir['basedir'])) {
-                    return self::result($attachment_id, 'failed', '上传目录不可用。');
+                    return self::result($attachment_id, 'failed', __('上传目录不可用。', 'npcink-site-toolbox'));
                 }
                 $upload_root = realpath($upload_dir['basedir']);
                 $source_real = realpath($source);
                 if ($upload_root === false || $source_real === false || !self::is_path_inside($source_real, $upload_root)) {
-                    return self::result($attachment_id, 'failed', '附件不在当前上传目录中。');
+                    return self::result($attachment_id, 'failed', __('附件不在当前上传目录中。', 'npcink-site-toolbox'));
                 }
 
                 $destination = self::make_destination($source_real);
@@ -161,7 +161,7 @@ if (!class_exists('Npcink_Toolbox_Webp_Batch')) {
 
                 if (!add_post_meta($attachment_id, self::BACKUP_META_KEY, $backup, true)) {
                     self::delete_generated_files($generated_files, $upload_root);
-                    return self::result($attachment_id, 'failed', '无法保存恢复记录，未切换附件。');
+                    return self::result($attachment_id, 'failed', __('无法保存恢复记录，未切换附件。', 'npcink-site-toolbox'));
                 }
 
                 if (!self::apply_snapshot($attachment_id, array(
@@ -177,7 +177,7 @@ if (!class_exists('Npcink_Toolbox_Webp_Batch')) {
                     self::restore_oss_meta($attachment_id, $backup);
                     delete_post_meta($attachment_id, self::BACKUP_META_KEY);
                     self::delete_generated_files($generated_files, $upload_root);
-                    return self::result($attachment_id, 'failed', '数据库切换失败，已恢复原附件。');
+                    return self::result($attachment_id, 'failed', __('数据库切换失败，已恢复原附件。', 'npcink-site-toolbox'));
                 }
 
                 // 此时本地文件与数据库均已完成，再通知对象存储等现有监听器。
@@ -196,7 +196,7 @@ if (!class_exists('Npcink_Toolbox_Webp_Batch')) {
                     delete_post_meta($attachment_id, self::OSS_META_KEY);
                 }
 
-                return self::result($attachment_id, 'converted', '已转换为 WebP，原 JPEG 与恢复记录已保留。');
+                return self::result($attachment_id, 'converted', __('已转换为 WebP，原 JPEG 与恢复记录已保留。', 'npcink-site-toolbox'));
             } finally {
                 self::release_lock($attachment_id);
             }
@@ -204,24 +204,24 @@ if (!class_exists('Npcink_Toolbox_Webp_Batch')) {
 
         private static function restore_one($attachment_id) {
             if (!self::acquire_lock($attachment_id)) {
-                return self::result($attachment_id, 'skipped', '该附件正在处理中，请稍后重试。');
+                return self::result($attachment_id, 'skipped', __('该附件正在处理中，请稍后重试。', 'npcink-site-toolbox'));
             }
 
             try {
                 $backup = get_post_meta($attachment_id, self::BACKUP_META_KEY, true);
                 if (!is_array($backup) || empty($backup['attached_file']) || !isset($backup['metadata'])) {
-                    return self::result($attachment_id, 'skipped', '未找到可用的恢复记录。');
+                    return self::result($attachment_id, 'skipped', __('未找到可用的恢复记录。', 'npcink-site-toolbox'));
                 }
 
                 $upload_dir = wp_get_upload_dir();
                 $upload_root = !empty($upload_dir['basedir']) ? realpath($upload_dir['basedir']) : false;
                 if ($upload_root === false) {
-                    return self::result($attachment_id, 'failed', '上传目录不可用。');
+                    return self::result($attachment_id, 'failed', __('上传目录不可用。', 'npcink-site-toolbox'));
                 }
                 $original_file = $upload_root . '/' . ltrim((string) $backup['attached_file'], '/');
                 $original_real = realpath($original_file);
                 if ($original_real === false || !is_file($original_real) || !self::is_path_inside($original_real, $upload_root)) {
-                    return self::result($attachment_id, 'failed', '原 JPEG 备份不可读，未执行恢复。');
+                    return self::result($attachment_id, 'failed', __('原 JPEG 备份不可读，未执行恢复。', 'npcink-site-toolbox'));
                 }
 
                 $current = array(
@@ -236,13 +236,13 @@ if (!class_exists('Npcink_Toolbox_Webp_Batch')) {
                 ));
                 if (!$restored) {
                     self::apply_snapshot($attachment_id, $current);
-                    return self::result($attachment_id, 'failed', '恢复数据库失败，附件保持转换前状态。');
+                    return self::result($attachment_id, 'failed', __('恢复数据库失败，附件保持转换前状态。', 'npcink-site-toolbox'));
                 }
 
                 self::restore_oss_meta($attachment_id, $backup);
                 if (!delete_post_meta($attachment_id, self::BACKUP_META_KEY)) {
                     self::apply_snapshot($attachment_id, $current);
-                    return self::result($attachment_id, 'failed', '恢复记录清理失败，已撤销本次恢复。');
+                    return self::result($attachment_id, 'failed', __('恢复记录清理失败，已撤销本次恢复。', 'npcink-site-toolbox'));
                 }
 
                 $cleanup_failed = false;
@@ -259,7 +259,9 @@ if (!class_exists('Npcink_Toolbox_Webp_Batch')) {
                 return self::result(
                     $attachment_id,
                     'restored',
-                    $cleanup_failed ? '已恢复原 JPEG；部分无引用的本地 WebP 文件需人工清理。' : '已恢复原 JPEG，并清理本次生成的本地 WebP 文件。'
+                    $cleanup_failed
+                        ? __('已恢复原 JPEG；部分无引用的本地 WebP 文件需人工清理。', 'npcink-site-toolbox')
+                        : __('已恢复原 JPEG，并清理本次生成的本地 WebP 文件。', 'npcink-site-toolbox')
                 );
             } finally {
                 self::release_lock($attachment_id);
@@ -269,19 +271,19 @@ if (!class_exists('Npcink_Toolbox_Webp_Batch')) {
         private static function generate_webp_set($attachment_id, $source, $destination, $old_metadata) {
             $editor = wp_get_image_editor($source);
             if (is_wp_error($editor)) {
-                return new WP_Error('npcink_webp_editor_unavailable', '无法读取 JPEG 图像。');
+                return new WP_Error('npcink_webp_editor_unavailable', __('无法读取 JPEG 图像。', 'npcink-site-toolbox'));
             }
             $saved = $editor->save($destination, 'image/webp');
             unset($editor);
             if (is_wp_error($saved) || empty($saved['path']) || !is_file($saved['path'])) {
-                return new WP_Error('npcink_webp_main_failed', 'WebP 主图生成失败。');
+                return new WP_Error('npcink_webp_main_failed', __('WebP 主图生成失败。', 'npcink-site-toolbox'));
             }
 
             $destination = $saved['path'];
             $image_size = wp_getimagesize($destination);
             if (!is_array($image_size) || empty($image_size[0]) || empty($image_size[1])) {
                 wp_delete_file($destination);
-                return new WP_Error('npcink_webp_invalid_main', '生成的 WebP 主图不可读。');
+                return new WP_Error('npcink_webp_invalid_main', __('生成的 WebP 主图不可读。', 'npcink-site-toolbox'));
             }
 
             $metadata = array(
@@ -307,7 +309,7 @@ if (!class_exists('Npcink_Toolbox_Webp_Batch')) {
                 $subsize_editor = wp_get_image_editor($destination);
                 if (is_wp_error($subsize_editor)) {
                     self::delete_generated_files($generated_files, dirname(dirname($destination)));
-                    return new WP_Error('npcink_webp_subsize_editor_failed', '无法创建 WebP 缩略图。');
+                    return new WP_Error('npcink_webp_subsize_editor_failed', __('无法创建 WebP 缩略图。', 'npcink-site-toolbox'));
                 }
 
                 $expected_sizes = array();
@@ -327,7 +329,14 @@ if (!class_exists('Npcink_Toolbox_Webp_Batch')) {
                     if (empty($created_sizes[$name]) || empty($created_sizes[$name]['file'])) {
                         unset($subsize_editor);
                         self::delete_generated_files($generated_files, dirname(dirname($destination)));
-                        return new WP_Error('npcink_webp_subsize_failed', sprintf('WebP 缩略图 %s 生成失败。', $name));
+                        return new WP_Error(
+                            'npcink_webp_subsize_failed',
+                            sprintf(
+                                /* translators: %s: WordPress image sub-size name. */
+                                __('WebP 缩略图 %s 生成失败。', 'npcink-site-toolbox'),
+                                $name
+                            )
+                        );
                     }
                     $metadata['sizes'][$name] = $created_sizes[$name];
                     $generated_files[] = dirname($destination) . '/' . $created_sizes[$name]['file'];
@@ -338,7 +347,7 @@ if (!class_exists('Npcink_Toolbox_Webp_Batch')) {
             foreach ($generated_files as $generated_file) {
                 if (!is_file($generated_file) || !is_readable($generated_file)) {
                     self::delete_generated_files($generated_files, dirname(dirname($destination)));
-                    return new WP_Error('npcink_webp_output_missing', 'WebP 文件集校验失败。');
+                    return new WP_Error('npcink_webp_output_missing', __('WebP 文件集校验失败。', 'npcink-site-toolbox'));
                 }
             }
 

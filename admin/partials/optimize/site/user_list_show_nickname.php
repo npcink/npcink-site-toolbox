@@ -18,7 +18,7 @@ if (!class_exists('Npcink_Toolbox_User_List_Show_Nickname')) {
 
         public static function add_user_nickname_column($columns)
         {
-            $columns['user_nickname'] = '昵称';
+            $columns['user_nickname'] = __('昵称', 'npcink-site-toolbox');
             unset($columns['name']);
             return $columns;
         }

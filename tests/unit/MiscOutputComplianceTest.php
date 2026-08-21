@@ -24,17 +24,26 @@ final class MiscOutputComplianceTest extends TestCase
         $malice_search = $this->source('function/auxiliary/ban_malice_search.php');
         $this->assertStringContainsString('wp_die(wp_kses($message, $allowed_html));', $malice_search);
 
+        $admin = file_get_contents(dirname(__DIR__, 2) . '/admin/class-npcink-toolbox-admin.php');
+        $this->assertIsString($admin);
+        $this->assertStringContainsString('wp_validate_redirect(', $admin);
+        $this->assertStringNotContainsString('javascript:void', $admin);
+        $this->assertStringNotContainsString('onclick=', $admin);
+
         $bing = $this->source('function/auxiliary/biying_tonji.php');
         $this->assertStringContainsString('esc_attr(self::$option)', $bing);
 
         $baidu = $this->source('function/auxiliary/baidu_tonji.php');
-        $this->assertStringContainsString('esc_js(self::$option)', $baidu);
+        $this->assertStringContainsString("wp_enqueue_script(", $baidu);
+        $this->assertStringContainsString('rawurlencode(self::$option)', $baidu);
+        $this->assertStringContainsString('NPCINK_SITE_TOOLBOX_VERSION', $baidu);
+        $this->assertStringNotContainsString("echo '<script", $baidu);
 
         $compliance = $this->source('domestic/compliance/index.php');
         $this->assertStringContainsString('wp_kses_post($output)', $compliance);
 
         $comment_security = $this->source('domestic/comment_security/index.php');
-        $this->assertStringContainsString("'评论过于频繁，请 ' . esc_html(\$window) . ' 秒后再试。'", $comment_security);
+        $this->assertStringContainsString("__('评论过于频繁，请 %d 秒后再试。', 'npcink-site-toolbox')", $comment_security);
     }
 
     public function test_census_setting_registers_its_real_sanitizer(): void

@@ -54,11 +54,11 @@ const dataContextSource = readFileSync(join(sourceDirectory, 'components/tool/da
 if (!mainSource.includes('document.getElementById("npcink_site_toolbox_census_count")')) {
   throw new Error('Count mount contract #npcink_site_toolbox_census_count is missing');
 }
-if (!dataContextSource.includes('window.dataLocal')) {
-  throw new Error('Count data contract window.dataLocal is missing');
+if (!dataContextSource.includes('window.npcinkSiteToolboxData')) {
+  throw new Error('Count data contract window.npcinkSiteToolboxData is missing');
 }
 if (!dataContextSource.includes('getDataLocal()?.countData')) {
-  throw new Error('Count data contract must continue consuming dataLocal.countData');
+  throw new Error('Count data contract must continue consuming npcinkSiteToolboxData.countData');
 }
 
 const javascriptSource = readFileSync(join(distDirectory, 'index.js'), 'utf8');

@@ -1,5 +1,6 @@
 import axios from "axios";
 import { notice } from "@/tool/notice";
+import { __, sprintf } from "@/tool/i18n";
 
 declare module "axios" {
   interface AxiosRequestConfig {
@@ -8,12 +9,12 @@ declare module "axios" {
 }
 
 function getApiBase(): string {
-  const dl = (window as any).dataLocal;
+  const dl = window.npcinkSiteToolboxData;
   return dl?.apiBase || "/wp-json/npcink-site-toolbox/v1";
 }
 
 function getRestNonce(): string {
-  const dl = (window as any).dataLocal;
+  const dl = window.npcinkSiteToolboxData;
   return dl?.restNonce || "";
 }
 
@@ -46,7 +47,7 @@ instance.interceptors.response.use(
         notice.success(responseData.data.message);
       }
     } else {
-      const errMsg = responseData.data?.error || responseData.data?.message || '未知错误';
+      const errMsg = responseData.data?.error || responseData.data?.message || __('未知错误');
       notice.error(errMsg);
     }
     return responseData;
@@ -54,8 +55,8 @@ instance.interceptors.response.use(
   (error) => {
     const errorMessage =
       error.response && error.response.status
-        ? `出错： ${error.response.data?.data?.error || error.response.data?.data?.message || error.message}`
-        : `出错：${error.message}`;
+        ? sprintf(__("出错：%s"), error.response.data?.data?.error || error.response.data?.data?.message || error.message)
+        : sprintf(__("出错：%s"), error.message);
     notice.error(errorMessage);
     console.error(errorMessage);
     return Promise.reject(error);
@@ -72,7 +73,7 @@ restInstance.interceptors.response.use(
     } else if (response.config.maboxNotify !== false) {
       // 适配标准化错误格式：{ code: 'xxx', message: '...' }
       const errData = responseData.data || responseData;
-      const errMsg = errData?.message || errData?.error || responseData.message || '未知错误';
+      const errMsg = errData?.message || errData?.error || responseData.message || __('未知错误');
       notice.error(errMsg);
     }
     return responseData;
@@ -83,7 +84,7 @@ restInstance.interceptors.response.use(
     const errBody = errorData?.data || errorData;
     const errMsg = errBody?.message || errBody?.error || errorData?.message || error.message;
     if (error.config?.maboxNotify !== false) {
-      notice.error(`出错：${errMsg}`);
+      notice.error(sprintf(__("出错：%s"), errMsg));
       console.error(errMsg);
     }
     return Promise.reject(error);

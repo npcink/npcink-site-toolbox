@@ -1,11 +1,11 @@
 # Npcink Site Toolbox
 
 > 面向中国 WordPress 站长的一站式实用工具箱插件
-> 版本：**3.2.0** | 阶段：**特色区块开发** | 授权：**GPL-2.0**
+> 版本：**3.3.2** | 阶段：**WordPress.org 人工审核整改** | 授权：**GPL-2.0**
 
-`3.1.1` 是已发布的首次 WordPress.org 提交候选；`3.2.0` 在此基础上增加编辑器原生样板、动态站点数据区块和 GitHub 项目区块。现有历史标签和附件保持不变。
+`3.2.0` 保留为编辑器工具历史版本；`3.3.0` 加入只读 AI 诊断、认证用户评论 REST、自助兜底页面，并收紧模块激活、搜索统计资源和发布安全门禁；`3.3.1` 进一步修复 WordPress.org 人工审核指出的源码追溯与全局命名问题，并退役目录规则不允许的远程 CDN URL 改写和连通性修复表面；`3.3.2` 修复输出型过滤器的上下文转义，改用可静态提取的 PHP 翻译字面量，并新增外部服务披露与目录规则合同。
 
-[![CI](https://github.com/muze-page/npcink-site-toolbox/actions/workflows/ci.yml/badge.svg)](https://github.com/muze-page/npcink-site-toolbox/actions/workflows/ci.yml)
+[![CI](https://github.com/npcink/npcink-site-toolbox/actions/workflows/ci.yml/badge.svg)](https://github.com/npcink/npcink-site-toolbox/actions/workflows/ci.yml)
 [![WordPress Plugin](https://img.shields.io/badge/WordPress-6.3%2B-blue)](https://wordpress.org)
 [![PHP](https://img.shields.io/badge/PHP-7.4%2B-green)](https://php.net)
 [![License](https://img.shields.io/badge/License-GPL%202.0-orange)](LICENSE)
@@ -14,13 +14,14 @@
 
 ## 简介
 
-Npcink Site Toolbox 是一款面向中国 WordPress 站长的免费工具箱插件。3.2.0 以 56 个注册模块为设置运行边界，并增加 3 个核心区块样板和 2 个动态区块；七个语义化管理视图继续承载站点优化、内容与 SEO、登录安全、国内生态和维护诊断等能力。
+Npcink Site Toolbox 是一款面向中国 WordPress 站长的免费工具箱插件。当前以 56 个注册模块为设置运行边界，并提供 3 个核心区块样板和 2 个动态区块；七个语义化管理视图继续承载站点优化、内容与 SEO、登录安全、国内生态和维护诊断等能力。
 
 **核心定位**：在一个插件内集中提供可按需启用的常见站点设置与维护工具。
 
-- 📖 **在线文档**：[docs.npc.ink](https://docs.npc.ink)（搭建中）
+- 📖 **在线文档**：搭建中；已发布功能的关键教程随插件内置
 - 🌐 **作者博客**：[npc.ink](https://www.npc.ink)
-- 📦 **GitHub 仓库**：[github.com/muze-page/npcink-site-toolbox](https://github.com/muze-page/npcink-site-toolbox)
+- 📦 **GitHub 仓库**：[github.com/npcink/npcink-site-toolbox](https://github.com/npcink/npcink-site-toolbox)
+- 🧩 **3.3.2 前端可读源码**：[Admin](https://github.com/npcink/npcink-site-toolbox/tree/v3.3.2/vite/admin/src) / [Count](https://github.com/npcink/npcink-site-toolbox/tree/v3.3.2/vite/count/src)
 
 ---
 
@@ -37,7 +38,7 @@ Npcink Site Toolbox 是一款面向中国 WordPress 站长的免费工具箱插�
 
 ```bash
 # 克隆仓库
-git clone https://github.com/muze-page/npcink-site-toolbox.git
+git clone https://github.com/npcink/npcink-site-toolbox.git
 cd npcink-site-toolbox
 
 # 安装前端依赖（单一前端工程）
@@ -51,6 +52,9 @@ pnpm dev:admin
 
 > Admin 开发代理位于 `vite/admin/vite.config.ts`；Count 当前只消费页面注入数据，不依赖开发代理。
 
+AI 诊断的受控开发评测可使用
+[`tests/ai-diagnostics-docker/`](tests/ai-diagnostics-docker/README.md) 中的独立 Docker 环境；生成结果被 Git 忽略，也不计入真实案例验收。
+
 ### 打包部署
 
 `vite/` 是唯一的前端工程，共享一份 `package.json`、锁文件和质量工具链，并生成两个按页面加载的独立产物：
@@ -60,9 +64,23 @@ pnpm dev:admin
 
 在 `vite/` 下执行 `pnpm build` 会构建两个目标；也可使用 `pnpm build:admin` 或 `pnpm build:count` 单独构建。已退役的 `vite/public` 不属于发布包；仓库根目录 `public/` 仍是 WordPress 前台 PHP/CSS 运行层，二者不要混淆。
 
+正式语言交付位于 `languages/`：中文继续作为源码语言，English (United States) 随包提供 `.po`、`.mo` 和 WordPress Admin JavaScript `.json`。更新 POT 后使用 `composer i18n:build` 重新生成二进制与脚本语言包，并在发布 ZIP 验证中检查四个 `en_US` 资产不可缺失。
+
+WordPress.org 候选包在 `composer release:build` 和 `composer release:verify -- npcink-site-toolbox.zip` 之后，必须执行 `composer release:wordpress-org-check`。该门禁会在一次性 Docker 环境中安装精确 ZIP，开启 `WP_DEBUG`，通过真实前台和后台 HTTP 请求检查日志，并安装官方最新 Plugin Check；任何 PCP error、未审阅 warning、运行时日志或 ZIP 哈希变化都会阻断发布。当前仅允许两条已记录的 WordPress Core hook 前缀误报，规则或信息变化也会要求重新复核。
+
 “站点数据”和“GitHub 项目”区块的编辑器脚本分别位于 `blocks/site-stats/index.js` 与 `blocks/github-project/index.js`，均以可读源码直接发布，不需要新增构建目标。
 
 2026-07 项目重构、界面与构建收口、品牌统一、编辑器工具方案及后续区块准入标准见 [项目重构与编辑器工具开发总结](docs/项目重构与编辑器工具开发总结-2026-07.md)；对象存储、媒体 WebP、后台体验、收藏与运行状态的后续真实使用收口见 [3.2.0 真实使用与后台体验开发总结](docs/3.2.0-真实使用与后台体验开发总结-2026-07.md)。
+
+DeepSeek 只读诊断的产品边界、实现演进、验证证据、问题复盘与下一阶段真实案例门槛见 [AI 诊断直连开发总结与复盘](docs/AI诊断直连开发总结与复盘-2026-07.md)。
+
+项目自有链接、第三方链接、占位示例和文档同步的维护规则见 [链接维护规范](docs/链接维护规范-2026-08.md)。
+历史问题排查、分阶段验证、发布收口和后续质量门禁见 [开发收尾与质量治理手册](docs/开发收尾与质量治理手册-2026-08.md)。
+3.3.0 历史问题的当前结论、关键决策、最终发布证据和后续路线图见 [3.3.0 阶段收尾总结与后续路线图](docs/3.3.0-阶段收尾总结与后续路线图-2026-08.md)。
+长期开发经验、边界决策、国际化/限流实践和交付检查清单见 [项目开发经验与思路规范](docs/development/project-development-principles.md)；阶段手册保留原始证据台账，具体发布规则以 [WordPress.org 发布审核与防回归规范](docs/operations/WordPress.org发布审核与防回归规范.md) 为准。
+仓库内部文档的职责、当前入口和历史资料迁移规则见 [文档导航与职责边界](docs/README.md)；工作区目录和生成物清洁规则见 [工作区布局与清洁规则](docs/development/workspace-layout.md)。
+后台与 PHP 国际化的遗漏清单、分批范围和完成条件见 [后台与 PHP 国际化实施清单](docs/后台与PHP国际化实施清单-2026-08.md)。
+当前仍待外部资源或真实样本验证的事项、暂缓原因、重新进入条件和完成标准见 [历史遗留事项与后续进入条件](docs/历史遗留事项与后续进入条件-2026-08.md)。
 
 ---
 
@@ -79,6 +97,19 @@ pnpm dev:admin
 
 > 完整功能清单见 [功能清单.md](功能清单.md)
 
+用户评论 REST 接口的开关、应用程序密码和调用示例见
+[用户评论 REST 接口使用教程](docs-site/features/page-comment/user-comment-rest-api.md)。
+本轮需求收敛、安全边界、真实接口验证、内置教程和链接治理的完整经验见
+[用户评论 REST 与文档链接治理开发总结](docs/用户评论REST与文档链接治理开发总结-2026-08.md)。
+正式站点接入前的 HTTPS 冒烟、应用程序密码处理、测试数据清理和 Plugin Check 流程见
+[用户评论 REST 生产验收与凭据处理规范](docs/operations/用户评论REST生产验收与凭据处理规范-2026-08.md)。
+
+WordPress.org 自动预审对资源加载、请求鉴权、外部链接和跨文件系统文件名的要求，以及最终 ZIP 的 PCP 验收规则见
+[WordPress.org 自动预审整改复盘](docs/operations/WordPress.org自动预审整改复盘-2026-08.md)。
+长期执行流程、审核问题分类、证据模板和防回归检查表见
+[WordPress.org 发布审核与防回归规范](docs/operations/WordPress.org发布审核与防回归规范.md)；“以精确 ZIP 为验收对象”的原因和取舍见
+[ADR-0005](docs/decisions/0005-exact-artifact-wordpress-org-release-gate.md)。
+
 ---
 
 ## 技术架构
@@ -90,6 +121,11 @@ pnpm dev:admin
 - **数据存储**：WordPress `wp_options` 表（按模块拆分）
 - **通信方式**：WordPress REST API 为主，少量独立后台交互使用 WordPress AJAX
 - **内部身份**：PHP 使用 `Npcink_Toolbox_*` / `NPCINK_SITE_TOOLBOX_*`，插件自有持久化键统一使用 `npcink_site_toolbox_*`
+
+### 平台兼容边界
+
+- 声明支持 PHP 7.4–8.3；CI 对这些 PHP 版本执行语法检查，Composer 依赖解析以 PHP 7.4 为平台基线。
+- 声明支持 WordPress 6.3+；已在 WordPress 6.3/PHP 7.4、WordPress 6.3/PHP 8.2 及 WordPress 7.0.4/PHP 8.2 完成安装、激活、设置、REST、区块和主题冒烟。本次目录门禁要求 `readme.txt` 的 `Tested up to` 使用 7.1，但当前 Docker 镜像实际提供 7.0.4；WordPress 7.1 的专门运行时复验仍需在官方镜像可用后补做。第三方主题与页面构建器仍需按实际组合补窄测试。
 
 ### 安全加固
 
@@ -104,11 +140,35 @@ pnpm dev:admin
 - 启用搜索健康后，热词与无结果统计会在站点本地数据库记录搜索词和计数；这些数据不由插件自动上传给作者。
 - 启用相关能力后，登录安全、审计与诊断可能在站点本地记录登录失败、IP 地址、操作事件和诊断结果，站点管理员应按自身隐私政策和保留周期管理这些数据。
 - 内容作者插入“GitHub 项目”区块后，服务器仅在缓存缺失时向 GitHub 公共 API 发送仓库所有者和名称，读取公开项目资料；不发送文章内容、访客 IP、GitHub Token 或插件设置。
-- 第三方集成只在管理员显式启用或主动运行相应检查后发起请求；对象存储连接测试会写入固定测试对象，国内访问连通性检测会请求目标服务。微信 JSSDK、对象存储、百度统计、CDN 镜像及检测目标的触发条件、数据流向和法律链接见 [WordPress.org readme](readme.txt)。
+- “关于与帮助 → AI 诊断”提供故障排查、性能分析、维护解读、设置风险和修复复验。管理员必须先检查白名单快照或待保存普通设置差异，再显式发送给 DeepSeek；每次分析可在同一白名单事实下临时追问最多 3 轮，历史只保存在当前页面，切换模式或刷新即清除。搜索健康只发送聚合计数，设置风险排除全部凭据字段，复验基线仅暂存在当前浏览器页面。API Key 由 WordPress Connectors 管理，本插件不读取，也不保存问题、快照、基线、追问历史或回答，更不会自动执行建议。
+- 第三方集成只在管理员显式启用或主动运行相应操作后发起请求；对象存储连接测试会写入固定测试对象。微信 JSSDK、对象存储、百度统计和 AI 诊断的触发条件、数据流向及法律链接见 [WordPress.org readme](readme.txt)。
 
 ---
 
 ## 更新记录
+
+### 3.3.2 — 2026-08-21
+
+- 修复文章内容、标题、摘要和图片 Alt 过滤器的返回值边界与动态 HTML 上下文转义
+- 将模块元数据和隐私披露从动态 gettext 调用改为源码字面量翻译映射，保证 WordPress.org 翻译解析器可提取
+- 增加输出型过滤器、字面量 gettext、外部服务披露和发布目录规则合同测试
+
+### 3.3.1 — 2026-08-17
+
+- 修复 WordPress.org 人工审核指出的通用浏览器全局名、localized object 和缩略图 AJAX action 前缀问题
+- 在 WordPress.org readme 和发布校验器中固化公开可读源码目录与可复现构建合同
+- 退役远程 CDN URL 改写、中国访问连通性检测和一键镜像修复表面；对象存储 OSS 保持不变
+- 将官方最新版 Plugin Check 纳入精确 ZIP 发布硬门禁
+
+### 3.3.0 — 2026-08-13
+
+- 增加基于 WordPress AI Client 与 DeepSeek Provider 的只读诊断，支持白名单预览、五类分析和同范围最多三轮临时追问；插件不读取凭据、不持久化诊断上下文，也不自动执行建议
+- 增加默认关闭的认证用户评论 REST 接口及“我的评论”兜底页面，使用 WordPress 应用程序密码并限制用户只能管理自己的评论
+- 加固 WordPress.org 发布流程、ZIP 可移植性检查、Plugin Check 验收契约和文档链接治理
+- 修复复合模块二级开关无法独立激活，以及全新安装时常驻模块未加载的问题
+- 为搜索健康统计增加带短时互斥锁的站点级严格写入限流、每日词项上限、溢出聚合和存储体积压缩，避免并发公开流量造成无界增长
+- 完成后台/PHP 用户可见文案国际化，并随发布包交付 English (United States) `.po/.mo`、Admin JavaScript JSON 与维护倒计时 JSON
+- 将 ECharts 升级到 6.1.0，并在 CI 中加入生产依赖审计
 
 ### 3.2.0 — 2026-07-18
 
@@ -233,6 +293,7 @@ pnpm dev:admin
 ## 待实现
 
 - 集成文档在线预览功能（WPS / 永中等）
+- [自定义用户角色管理](docs/自定义用户角色候选功能提案-2026-08.md)：候选想法，待真实使用场景验证后再决定是否实现
 
 ## 放弃实现
 

@@ -76,6 +76,22 @@ final class SiteHealthI18nTest extends TestCase
         }
     }
 
+    public function test_user_facing_fallback_descriptions_use_the_plugin_text_domain(): void
+    {
+        $source = $this->source();
+
+        foreach (array(
+            '模块加载器未初始化。',
+            '当前未启用任何高风险或实验性模块，站点运行状态安全。',
+        ) as $message) {
+            $this->assertStringContainsString(
+                "__('" . $message . "', 'npcink-site-toolbox')",
+                $source,
+                $message
+            );
+        }
+    }
+
     /**
      * @return array<string, array{string, string}>
      */

@@ -3,6 +3,7 @@ import { Button, Form, Input, Space, Tag, Typography } from "antd";
 
 import { DataContext } from "@/tool/dataContext";
 import { SecretPath } from "@/tool/interface";
+import { __ } from "@/tool/i18n";
 
 interface SecretFieldProps {
   label: string;
@@ -17,12 +18,12 @@ const SecretField: React.FC<SecretFieldProps> = ({ label, path, compact = false 
   const replacement = draft?.operation === "replace" ? draft.value : "";
 
   const statusLabel = draft?.operation === "replace"
-    ? "将替换"
+    ? __("将替换")
     : draft?.operation === "clear"
-      ? "将清除"
+      ? __("将清除")
       : configured
-        ? "已配置"
-        : "未配置";
+        ? __("已配置")
+        : __("未配置");
 
   const statusColor = draft?.operation === "clear"
     ? "error"
@@ -39,8 +40,8 @@ const SecretField: React.FC<SecretFieldProps> = ({ label, path, compact = false 
           <Tag color={statusColor}>{statusLabel}</Tag>
           <Typography.Text type="secondary">
             {configured
-              ? compact ? "留空表示保留。" : "已保存的值不会显示；留空表示保留。"
-              : "尚未保存凭据。"}
+              ? compact ? __("留空表示保留。") : __("已保存的值不会显示；留空表示保留。")
+              : __("尚未保存凭据。")}
           </Typography.Text>
           {compact && configured && (
             <Button
@@ -50,7 +51,7 @@ const SecretField: React.FC<SecretFieldProps> = ({ label, path, compact = false 
               style={{ height: "auto", paddingInline: 0 }}
               onClick={() => setSecretChange(path, { operation: "clear" })}
             >
-              清除
+              {__("清除")}
             </Button>
           )}
           {compact && draft && (
@@ -60,15 +61,15 @@ const SecretField: React.FC<SecretFieldProps> = ({ label, path, compact = false 
               style={{ height: "auto", paddingInline: 0 }}
               onClick={() => setSecretChange(path)}
             >
-              撤销更改
+              {__("撤销更改")}
             </Button>
           )}
         </Space>
         <Input.Password
-          aria-label={`${label}新值`}
+          aria-label={`${label}${__("新值")}`}
           autoComplete="new-password"
           value={replacement}
-          placeholder={configured ? "输入新值以替换" : "输入新值"}
+          placeholder={configured ? __("输入新值以替换") : __("输入新值")}
           onChange={(event) => {
             const value = event.target.value;
             setSecretChange(path, value ? { operation: "replace", value } : undefined);
@@ -82,11 +83,11 @@ const SecretField: React.FC<SecretFieldProps> = ({ label, path, compact = false 
               disabled={!configured}
               onClick={() => setSecretChange(path, { operation: "clear" })}
             >
-              清除已保存凭据
+              {__("清除已保存凭据")}
             </Button>
             {draft && (
               <Button size="small" onClick={() => setSecretChange(path)}>
-                撤销凭据更改
+                {__("撤销凭据更改")}
               </Button>
             )}
           </Space>

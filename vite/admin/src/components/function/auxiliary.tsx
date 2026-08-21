@@ -7,6 +7,7 @@ import { defaultVarOption } from "@/tool/defaultVar";
 import { AntConfig } from "@/tool/tool";
 import { SettingsSection, ModuleRow } from "@/components/settings-ui";
 import { notice } from "@/tool/notice";
+import { __ } from "@/tool/i18n";
 
 type FieldType = FunctionAuxiliary;
 
@@ -44,7 +45,7 @@ const App: React.FC = () => {
     if (match) {
       return match[1];
     } else {
-      notice.error("处理失败，请输入百度统计平台的完整统计代码");
+      notice.error(__("处理失败，请输入百度统计平台的完整统计代码"));
       return "";
     }
   };
@@ -61,7 +62,7 @@ const App: React.FC = () => {
     if (match) {
       return match[1];
     } else {
-      notice.error("处理失败，请输入谷歌平台完整 HTML 标记");
+      notice.error(__("处理失败，请输入谷歌平台完整 HTML 标记"));
       return "";
     }
   };
@@ -78,13 +79,13 @@ const App: React.FC = () => {
     if (match) {
       return match[1];
     } else {
-      notice.error("处理失败，请输入必应平台完整 HTML Meta 标记");
+      notice.error(__("处理失败，请输入必应平台完整 HTML Meta 标记"));
       return "";
     }
   };
 
   return (
-    <SettingsSection title="辅助功能">
+    <SettingsSection title={__("辅助功能")}>
       <Form
         name="auxiliary"
         labelCol={fromConfig.labelCol}
@@ -96,8 +97,8 @@ const App: React.FC = () => {
         onValuesChange={onValuesChange}
       >
         <ModuleRow
-          title="文章统计"
-          description="开启后显示在仪表盘下"
+          title={__("文章统计")}
+          description={__("开启后显示在仪表盘下")}
           featureId="function-auxiliary-single_count"
           enabled={formData.single_count as boolean}
           onChange={(checked: boolean) => {
@@ -106,8 +107,8 @@ const App: React.FC = () => {
         />
 
         <ModuleRow
-          title="屏蔽恶意关键词搜索"
-          description="禁止搜索指定词汇"
+          title={__("屏蔽恶意关键词搜索")}
+          description={__("禁止搜索指定词汇")}
           featureId="function-auxiliary-no_malice_key"
           enabled={formData.no_malice_key as boolean}
           onChange={(checked: boolean) => {
@@ -115,16 +116,16 @@ const App: React.FC = () => {
           }}
         >
           <Form.Item<FieldType>
-            label="输入关键词"
+            label={__("输入关键词")}
             name="malice_keu_content"
-            extra={'输入您的关键词，以"回车键"分隔，一行一个'}
+            extra={__("输入您的关键词，以“回车键”分隔，一行一个")}
           >
-            <TextArea rows={4} placeholder="一行一个" />
+            <TextArea rows={4} placeholder={__("一行一个")} />
           </Form.Item>
         </ModuleRow>
 
         <Form.Item<FieldType>
-          label="百度统计"
+          label={__("百度统计")}
           name="baidu_tonji"
           getValueFromEvent={handleValueChange}
           extra={
@@ -133,17 +134,16 @@ const App: React.FC = () => {
                 href="https://tongji.baidu.com/main/setting/self/home/site/index"
                 target="_blank"
               >
-                百度统计
+                {__("百度统计")}
               </a>
-              → 代码管理（左侧） → 代码获取 → 获取代码 →
-              复制代码贴入输入框中并保存即可
+              {__(" → 代码管理（左侧） → 代码获取 → 获取代码 → 复制代码贴入输入框中并保存即可")}
             </p>
           }
         >
           <SiteInput />
         </Form.Item>
         <Form.Item<FieldType>
-          label="谷歌统计"
+          label={__("谷歌统计")}
           name="google_tonji"
           getValueFromEvent={extract_google}
           extra={
@@ -152,7 +152,7 @@ const App: React.FC = () => {
                 href="https://search.google.com/search-console/about"
                 target="_blank"
               >
-                谷歌统计
+                {__("谷歌统计")}
               </a>
               ：
               <pre className="mabox-preformatted-hint">
@@ -164,13 +164,13 @@ const App: React.FC = () => {
           <SiteInput />
         </Form.Item>
         <Form.Item<FieldType>
-          label="必应统计"
+          label={__("必应统计")}
           name="biying_tonji"
           getValueFromEvent={extract_biying}
           extra={
             <span>
               <a href="https://www.bing.com/webmasters" target="_blank">
-                必应统计
+                {__("必应统计")}
               </a>
               ：
               <pre className="mabox-preformatted-hint">
@@ -194,8 +194,8 @@ const SiteInput = (props: any) => {
   return (
     <div>
       <Space.Compact style={{ width: "100%" }}>
-        <Input {...props} placeholder="自动处理代码" />
-        <Button onClick={handleReset}>清空</Button>
+        <Input {...props} placeholder={__("自动处理代码")} />
+        <Button onClick={handleReset}>{__("清空")}</Button>
       </Space.Compact>
     </div>
   );

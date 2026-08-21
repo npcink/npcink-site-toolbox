@@ -3,9 +3,9 @@ Contributors: muze233
 Donate link: https://www.npc.ink/
 Tags: toolbox, optimization, security, performance
 Requires at least: 6.3
-Tested up to: 7.0
+Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 3.2.0
+Stable tag: 3.3.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -13,7 +13,7 @@ An opt-in toolbox for WordPress site settings, media, SEO, security, China-focus
 
 == Description ==
 
-Npcink Site Toolbox is a utility plugin for WordPress site owners. Version 3.2.0 provides 55 opt-in modules, three editor patterns, and two dynamic blocks. Features cover site and media settings, content and SEO, login and comment safeguards, China-focused integrations, diagnostics, and maintenance.
+Npcink Site Toolbox is a utility plugin for WordPress site owners. Version 3.3.2 provides 56 registered modules: 55 opt-in modules and one always-loaded runtime module, plus three editor patterns and two dynamic blocks. Features cover site and media settings, content and SEO, login and comment safeguards, China-focused integrations, diagnostics, and maintenance.
 
 = Current features =
 
@@ -25,6 +25,7 @@ Npcink Site Toolbox is a utility plugin for WordPress site owners. Version 3.2.0
 * Maintenance: diagnostics, SEO checks, media health, and guarded database cleanup.
 * Admin experience: feature search, risk labels, change confirmation, secret-status handling, and responsive layouts.
 * Editor tools: three core-block patterns, a live site-statistics block, and a GitHub project block with cached public repository metadata plus an optional author-written summary.
+* Public source and reproducible build instructions: [GitHub repository](https://github.com/npcink/npcink-site-toolbox#readme).
 
 = Important behavior =
 
@@ -54,7 +55,7 @@ No. Features that depend on theme markup are identified in the admin interface. 
 
 = What happens on uninstall? =
 
-Deactivate and delete the plugin. Its uninstall routine removes the options created by the plugin.
+Deactivate and delete the plugin. Its uninstall routine removes plugin options, scheduled tasks, temporary caches, comment moderation markers, and runtime-only attachment markers. It does not delete or rewrite media files, remote object-storage objects, posts, comments, or terms. WebP recovery metadata is retained so an already converted attachment does not lose the information needed to restore its original JPEG; restore converted media before uninstalling if you want the plugin to perform that rollback.
 
 = Is it translation-ready? =
 
@@ -66,7 +67,7 @@ No external service is contacted merely by activating the plugin.
 
 = GitHub project block =
 
-Only after a content author inserts this block and supplies a public repository URL does the server request `https://api.github.com/repos/{owner}/{repository}` on a cache miss. The author may also save an optional custom project summary in the article; that summary is rendered locally and is not sent to GitHub. The request sends the public owner/repository identifier, the site server's IP address, the plugin User-Agent, and normal HTTP headers to retrieve the repository description, primary language, Stars, Forks, and archive status. Successful responses are cached locally for up to 12 hours and failures for 30 minutes. No GitHub credentials, article content, custom summary, plugin settings, visitor IP address, or visitor browser request is sent. [Service](https://docs.github.com/en/rest/repos/repos#get-a-repository), [GitHub Terms of Service](https://docs.github.com/en/site-policy/github-terms/github-terms-of-service), [GitHub General Privacy Statement](https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement).
+Only after a content author inserts this block and supplies a public repository URL does the server call GitHub's "Get a repository" API on a cache miss. The endpoint is formed from the submitted public owner and repository names. The author may also save an optional custom project summary in the article; that summary is rendered locally and is not sent to GitHub. The request sends the public owner/repository identifier, the site server's IP address, the plugin User-Agent, and normal HTTP headers to retrieve the repository description, primary language, Stars, Forks, and archive status. Successful responses are cached locally for up to 12 hours and failures for 30 minutes. No GitHub credentials, article content, custom summary, plugin settings, visitor IP address, or visitor browser request is sent. [Service and endpoint documentation](https://docs.github.com/en/rest/repos/repos#get-a-repository), [GitHub Terms of Service](https://docs.github.com/en/site-policy/github-terms/github-terms-of-service), [GitHub General Privacy Statement](https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement).
 
 = WeChat JSSDK =
 
@@ -82,23 +83,25 @@ When an administrator enables object storage and selects a provider, each new me
 
 When its module is enabled and a site ID is saved, front-end pages load Baidu Analytics. The visitor's browser may send the page URL, referrer, IP address, User-Agent, and data described by Baidu. [Service](https://tongji.baidu.com/), [terms](https://tongji.baidu.com/web/help/article?id=314&type=0), [privacy](https://tongji.baidu.com/web/help/article?id=330&type=0).
 
-= CDN replacement =
+= DeepSeek diagnostic analysis =
 
-When an administrator enables CDN replacement and a child option, visitors request Gravatar, Google Fonts, or Google Hosted Libraries assets through the configured mirror. Built-in defaults use [u.sb / Loli.net](https://u.sb/css-cdn/) ([terms](https://u.sb/terms/), [privacy](https://u.sb/privacy/)), including `gravatar.loli.net`, `fonts.loli.net`, `gstatic.loli.net`, and `ajax.loli.net`. Requests can expose the requested URL, IP address, HTTP headers, and, for avatars, an email-derived hash. Custom rules send requests to administrator-chosen destinations, whose terms and privacy policies the administrator must review.
+This optional action requires WordPress 7.0 or newer and a separately installed and connected DeepSeek Provider. The AI tab offers troubleshooting, performance analysis, maintenance-result interpretation, pending-setting risk explanation, and before/after verification. Only after an administrator reviews the relevant allowlisted snapshot or ordinary pending-setting paths and explicitly starts analysis does the server send data through the WordPress AI Client. An administrator may ask up to three follow-up questions under the same bounded allowlisted facts; each follow-up resends the original facts, initial answer, and completed follow-up turns. This temporary history exists only in the current browser page and is cleared by switching modes or refreshing. Performance data is a one-time snapshot rather than monitoring or load testing. Maintenance analysis may include aggregate database, SEO, media, search-health, and object-storage configuration facts; raw search terms are excluded. Setting analysis excludes every credential path and summarizes non-boolean strings by empty/configured state and length rather than content. Verification baselines remain only in the current browser page. The diagnostic allowlist excludes site URLs, file paths, database identities, users, content, comments, request logs, and credentials. DeepSeek receives the server IP, normal HTTP headers, the prompt, and the API credential managed by WordPress Connectors and the provider plugin. Npcink Site Toolbox does not read that credential and does not persist goals, snapshots, baselines, follow-up history, or AI responses. No suggested action is performed automatically. [DeepSeek](https://www.deepseek.com/), [terms](https://cdn.deepseek.com/policies/en-US/deepseek-open-platform-terms-of-service.html), [privacy](https://cdn.deepseek.com/policies/en-US/deepseek-privacy-policy.html).
 
-= Manual connectivity check =
-
-Only when an administrator runs the check does the server request test resources from [Google Fonts](https://developers.google.com/fonts/faq/privacy), [Google Hosted Libraries](https://developers.google.com/speed/libraries), [Gravatar](https://gravatar.com/), and the [WordPress.org API](https://api.wordpress.org/). No site content or plugin configuration is included, but providers receive the server IP, requested URL, and normal HTTP headers. See [Google terms](https://policies.google.com/terms) and [privacy](https://policies.google.com/privacy), [Automattic privacy](https://automattic.com/privacy/), and [WordPress.org privacy](https://wordpress.org/about/privacy/).
-
-Google Search Console and Bing Webmaster Tools options only print administrator-supplied verification meta tags. They do not make outbound requests.
+Google Search Console and Bing Webmaster Tools options only print administrator-supplied verification meta tags. They do not make outbound requests. [Google service](https://search.google.com/search-console/about), [Google terms](https://policies.google.com/terms), [Google privacy](https://policies.google.com/privacy); [Bing service](https://www.bing.com/webmasters/about), [Microsoft terms](https://www.microsoft.com/servicesagreement), [Microsoft privacy](https://privacy.microsoft.com/privacystatement).
 
 == Source Code and Build ==
 
-The public, maintained source for the minified JavaScript and CSS shipped in this plugin is available at [GitHub](https://github.com/muze-page/npcink-site-toolbox). Reproduce the Admin and Count assets with:
+The public source matching this exact plugin release is published at tag [v3.3.2](https://github.com/npcink/npcink-site-toolbox/tree/v3.3.2). The readable sources are in [vite/admin/src](https://github.com/npcink/npcink-site-toolbox/tree/v3.3.2/vite/admin/src) and [vite/count/src](https://github.com/npcink/npcink-site-toolbox/tree/v3.3.2/vite/count/src), with the build manifest at [vite/package.json](https://github.com/npcink/npcink-site-toolbox/blob/v3.3.2/vite/package.json).
 
-`git clone https://github.com/muze-page/npcink-site-toolbox.git`
+Reproduce the Admin and Count assets with:
 
-`cd npcink-site-toolbox/vite`
+`git clone https://github.com/npcink/npcink-site-toolbox.git`
+
+`cd npcink-site-toolbox`
+
+`git checkout v3.3.2`
+
+`cd vite`
 
 `corepack enable`
 
@@ -111,6 +114,28 @@ The generated files are written to `vite/admin/dist/` and `vite/count/dist/`.
 The site-statistics and GitHub project block editor scripts are shipped as readable source in `blocks/site-stats/index.js` and `blocks/github-project/index.js`; they have no separate build step.
 
 == Changelog ==
+
+= 3.3.2 =
+* Release date: 2026-08-21.
+* Escaped output returned by content, title, excerpt, and image filters according to its HTML context.
+* Replaced dynamic PHP gettext calls in module metadata and privacy disclosures with literal translation mappings.
+* Added release contracts for output filters, literal gettext arguments, and external-service disclosures.
+
+= 3.3.1 =
+* Release date: 2026-08-17.
+* Prefixed browser globals, localized objects, thumbnail AJAX actions, asset handles, nonce actions, and image-size names for WordPress.org compatibility.
+* Made the readable Admin and Count sources and reproducible build contract explicit in the public readme and release verifier.
+* Retired remote CDN URL rewriting, external connectivity checks, and automatic mirror-fix proposals; object-storage integrations are unchanged.
+* Added the latest official Plugin Check to the exact-ZIP release gate.
+
+= 3.3.0 =
+* Release date: 2026-08-13.
+* Added read-only DeepSeek diagnostics through the WordPress AI Client, with allowlisted previews, five analysis modes, and up to three temporary follow-up turns under the same facts.
+* Added an opt-in authenticated self-service comment REST API and browser fallback page; users can manage only their own comments with WordPress application passwords.
+* Hardened WordPress.org packaging, portable ZIP verification, Plugin Check evidence, and documentation-link governance.
+* Fixed activation through secondary switches in compound modules and loading of always-on modules on fresh installations.
+* Bounded search-health write rate, daily unique terms, overflow aggregation, and serialized storage size.
+* Upgraded ECharts and zrender to 6.1.0 and added production dependency auditing to CI.
 
 = 3.2.0 =
 * Release date: 2026-07-18.
@@ -217,6 +242,9 @@ The site-statistics and GitHub project block editor scripts are shipped as reada
 
 == Upgrade Notice ==
 
+= 3.3.0 =
+Adds opt-in read-only AI diagnostics and authenticated self-service comment tools, fixes module activation contracts, bounds search-statistics storage, and strengthens release security gates. Review the documented external-service and HTTPS requirements before enabling the new features.
+
 = 3.2.0 =
 Requires WordPress 6.3 or later and adds editor-native patterns, a live site-statistics block, and a GitHub project block.
 
@@ -248,4 +276,4 @@ This release aligns public WordPress.org metadata and documentation. It does not
 
 Search Health can store search terms and counters in the local WordPress database. Login protection, audit, and diagnostic features can store login failures, IP addresses, actions, and diagnostic results locally when enabled. Site administrators are responsible for an appropriate privacy notice and retention policy.
 
-The plugin does not automatically upload this local data or telemetry to its developer. Third-party requests occur only under the triggers documented in External Services. Credentials are stored in WordPress options and are sent only to the administrator-selected WeChat or object-storage provider when required for authentication.
+The plugin does not automatically upload this local data or telemetry to its developer. Third-party requests occur only under the triggers documented in External Services. Credentials used by this plugin are stored in WordPress options and are sent only to the administrator-selected WeChat or object-storage provider when required for authentication. DeepSeek credentials are managed by WordPress Connectors and the separately installed provider plugin; Npcink Site Toolbox does not read or store them.

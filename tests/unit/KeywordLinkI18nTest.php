@@ -12,7 +12,7 @@ final class KeywordLinkI18nTest extends TestCase
 
         $this->assertStringContainsString(
             "/* translators: %s: Tag name used in the generated link title. */\n"
-                . '                    $url = "<strong><a href=',
+                . "                    \$title = sprintf(__('查看所有文章关于 %s', 'npcink-site-toolbox'), \$cleankeyword);",
             $source
         );
     }

@@ -7,6 +7,13 @@ use PHPUnit\Framework\TestCase;
 class RestApiSecurityTest extends TestCase {
 
     private static function trigger_registration() {
+        global $_test_option_store;
+        $_test_option_store[NPCINK_SITE_TOOLBOX_OPTION_PAGE] = array(
+            'comment' => array(
+                'self_service_enabled' => true,
+                'self_service_admin_page_enabled' => false,
+            ),
+        );
         Npcink_Toolbox_Rest_Route_Registry::clear();
         Npcink_Toolbox_Admin::register_rest_routes();
     }
@@ -85,6 +92,11 @@ class RestApiSecurityTest extends TestCase {
             '/performance/media/webp/restore',
             '/performance/db/clean',
             '/tools/categories',
+            '/diagnostics/support-report',
+            '/diagnostics/analyses',
+            '/diagnostics/review-packs',
+            '/diagnostics/reviews',
+            '/diagnostics/follow-ups',
         );
 
         $found_paths = array();
@@ -231,8 +243,9 @@ class RestApiSecurityTest extends TestCase {
             if ($route['path'] !== '/settings' || !isset($route['args'][1]['args'])) {
                 continue;
             }
-            $this->assertSame(array('settings', 'secretChanges'), array_keys($route['args'][1]['args']));
+            $this->assertSame(array('settings', 'secretChanges', 'revision'), array_keys($route['args'][1]['args']));
             $this->assertTrue($route['args'][1]['args']['settings']['required']);
+            $this->assertTrue($route['args'][1]['args']['revision']['required']);
             return;
         }
 
@@ -257,21 +270,25 @@ class RestApiSecurityTest extends TestCase {
             '/settings/schema',
             '/performance/oss/test',
             '/performance/media/check',
-            '/performance/media/fix-alt',
             '/performance/media/webp/convert',
             '/performance/media/webp/restore',
             '/performance/seo/check',
-            '/performance/seo/fix-alt',
             '/performance/db/stats',
             '/performance/db/preview',
             '/performance/db/clean',
             '/tools/categories',
             '/public/search-log',
-            '/domestic/environment/check',
-            '/domestic/environment/apply',
             '/diagnostics/summary',
             '/diagnostics/features',
+            '/diagnostics/support-report',
+            '/diagnostics/analyses',
+            '/diagnostics/review-packs',
+            '/diagnostics/reviews',
+            '/diagnostics/follow-ups',
             '/search-health/summary',
+            '/me/comments',
+            '/me/comments/(?P<id>\\d+)',
+            '/me/comments/batch-delete',
         ), $paths);
     }
 

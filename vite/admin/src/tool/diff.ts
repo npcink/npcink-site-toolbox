@@ -1,5 +1,6 @@
 import { ConfigDiffItem, SecretChanges, SecretPath, SecretStatus } from "@/tool/interface";
 import { getFeatureLabelForPath, getFeatureRiskLevelForPath } from "@/tool/featureIndex";
+import { __ } from "@/tool/i18n";
 
 const SECRET_LABELS: Record<SecretPath, string> = {
   "domestic.wechat.appsecret": "微信 AppSecret",
@@ -17,10 +18,10 @@ export function diffSecretChanges(
 
     return [{
       path,
-      label: SECRET_LABELS[path],
+      label: __(SECRET_LABELS[path]),
       module: path.split(".")[0],
-      before: status[path].configured ? "已配置" : "未配置",
-      after: change.operation === "replace" ? "将替换" : "将清除",
+      before: status[path].configured ? __("已配置") : __("未配置"),
+      after: change.operation === "replace" ? __("将替换") : __("将清除"),
       riskLevel: "none" as const,
     }];
   });
@@ -49,9 +50,10 @@ function isEnabled(value: unknown): boolean {
  * 获取路径的人类可读标签
  */
 function getPathLabel(path: string): string {
-  return PATH_LABELS[path]
+  const label = PATH_LABELS[path]
     || getFeatureLabelForPath(path)
     || "设置项";
+  return __(label);
 }
 
 /**

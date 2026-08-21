@@ -140,6 +140,84 @@ class ModuleRegistryConsistency_Test extends TestCase {
         $this->assertSame('ip_list', $login_schema['trusted_proxies']['format']);
     }
 
+    public function test_compound_modules_activate_from_each_runtime_switch(): void {
+        $registry = Npcink_Toolbox_Module_Loader::get_registry();
+        $schema = Npcink_Toolbox_Config_Schema::get_schema();
+        $contracts = array(
+            'domestic.compliance' => array(
+                'domestic.compliance.icp_enabled',
+                'domestic.compliance.police_enabled',
+                'domestic.compliance.cookie_enabled',
+                'domestic.compliance.copyright_enabled',
+            ),
+            'domestic.wechat' => array(
+                'domestic.wechat.jssdk_enabled',
+                'domestic.wechat.guide_overlay_enabled',
+            ),
+            'domestic.comment_security' => array(
+                'domestic.comment_security.blacklist_enabled',
+                'domestic.comment_security.link_limit_enabled',
+                'domestic.comment_security.nickname_filter_enabled',
+                'domestic.comment_security.email_domain_enabled',
+                'domestic.comment_security.duplicate_enabled',
+                'domestic.comment_security.ip_rate_enabled',
+                'domestic.comment_security.log_enabled',
+            ),
+            'performance.search_enhance' => array(
+                'performance.search_enhance.highlight_enabled',
+                'performance.search_enhance.recommend_enabled',
+                'performance.search_enhance.hotwords_enabled',
+            ),
+        );
+
+        foreach ($contracts as $module_id => $activation_paths) {
+            $this->assertSame($activation_paths[0], $registry[$module_id]['option_key']);
+            $this->assertSame($activation_paths, $registry[$module_id]['activation_paths']);
+
+            foreach ($activation_paths as $activation_path) {
+                $segments = explode('.', $activation_path);
+                $field = array_pop($segments);
+                $field_schema = $schema;
+                foreach ($segments as $segment) {
+                    $field_schema = $field_schema[$segment];
+                }
+                $this->assertSame('boolean', $field_schema[$field]['type'], $activation_path);
+
+                $config = array();
+                $cursor = &$config;
+                foreach ($segments as $segment) {
+                    $cursor[$segment] = array();
+                    $cursor = &$cursor[$segment];
+                }
+                $cursor[$field] = true;
+                unset($cursor);
+
+                $this->assertContains(
+                    $module_id,
+                    Npcink_Toolbox_Module_Loader::get_active_modules($config),
+                    "$module_id should activate when only $activation_path is enabled"
+                );
+            }
+        }
+    }
+
+    public function test_admin_load_does_not_bypass_always_loaded_modules_for_empty_config(): void {
+        $admin = file_get_contents(self::$plugin_dir . '/admin/class-npcink-toolbox-admin.php');
+        $this->assertIsString($admin);
+
+        $load_start = strpos($admin, 'public function load()');
+        $load_end = strpos($admin, '//公用返回按钮', $load_start);
+        $this->assertNotFalse($load_start);
+        $this->assertNotFalse($load_end);
+        $load_method = substr($admin, $load_start, $load_end - $load_start);
+
+        $this->assertStringNotContainsString('if (empty($option))', $load_method);
+        $this->assertContains(
+            'optimize.widgets',
+            Npcink_Toolbox_Module_Loader::get_active_modules(array())
+        );
+    }
+
     public function test_loader_has_no_legacy_runs_fallback(): void {
         $loader = file_get_contents(self::$plugin_dir . '/admin/modules/loader.php');
 
@@ -236,6 +314,38 @@ class ModuleRegistryConsistency_Test extends TestCase {
         );
     }
 
+    public function test_remote_cdn_rewrite_and_environment_fix_surfaces_are_retired(): void {
+        $schema = Npcink_Toolbox_Config_Schema::get_schema();
+        $registry = Npcink_Toolbox_Module_Loader::get_registry();
+        $tiers = Npcink_Toolbox_Module_Loader::get_tiers();
+        $autoload = file_get_contents(self::$plugin_dir . '/includes/autoload.php');
+        $admin = file_get_contents(self::$plugin_dir . '/admin/class-npcink-toolbox-admin.php');
+
+        foreach (array(
+            'cdn_replace',
+            'cdn_gravatar',
+            'cdn_gravatar_mirror',
+            'cdn_google_fonts',
+            'cdn_google_fonts_mirror',
+            'cdn_google_ajax',
+            'cdn_custom',
+        ) as $field) {
+            $this->assertArrayNotHasKey($field, $schema['optimize']['site']);
+        }
+
+        $this->assertArrayNotHasKey('optimize.cdn_replace', $registry);
+        foreach ($tiers as $tier => $modules) {
+            $this->assertNotContains('optimize.cdn_replace', $modules, $tier);
+        }
+        $this->assertIsString($autoload);
+        $this->assertStringNotContainsString('Npcink_Toolbox_CDN_Replace', $autoload);
+        $this->assertStringNotContainsString('Npcink_Toolbox_Domestic_Environment', $autoload);
+        $this->assertIsString($admin);
+        $this->assertStringNotContainsString('/domestic/environment/', $admin);
+        $this->assertFileDoesNotExist(self::$plugin_dir . '/admin/partials/optimize/site/cdn_replace.php');
+        $this->assertFileDoesNotExist(self::$plugin_dir . '/includes/class-npcink-toolbox-domestic-environment.php');
+    }
+
     public function test_retired_credential_integrations_are_removed_from_backend_contracts(): void {
         $schema = Npcink_Toolbox_Config_Schema::get_schema();
         $registry = Npcink_Toolbox_Module_Loader::get_registry();
@@ -323,7 +433,7 @@ class ModuleRegistryConsistency_Test extends TestCase {
         $this->assertStringContainsString('filemtime($build_js_path)', $loader);
         $this->assertStringContainsString("NPCINK_SITE_TOOLBOX_NAME . '_census_css'", $loader);
         $this->assertSame(2, substr_count($loader, "NPCINK_SITE_TOOLBOX_NAME . '_census_js'"));
-        $this->assertStringContainsString("wp_localize_script(NPCINK_SITE_TOOLBOX_NAME . '_census_js', 'dataLocal'", $loader);
+        $this->assertStringContainsString("wp_localize_script(NPCINK_SITE_TOOLBOX_NAME . '_census_js', 'npcinkSiteToolboxData'", $loader);
         $this->assertStringContainsString("'countData' => self::deliver_data()", $loader);
         $this->assertStringContainsString('id="npcink_site_toolbox_census_count"', $loader);
     }
@@ -335,7 +445,7 @@ class ModuleRegistryConsistency_Test extends TestCase {
     public function test_current_frontend_docs_do_not_restore_vite_public(): void {
         $files = [
             'README.md',
-            'docs/构建与发布指南.md',
+            'docs/operations/构建与发布指南.md',
             'docs-site/guide/development.md',
             'docs-site/guide/architecture.md',
         ];

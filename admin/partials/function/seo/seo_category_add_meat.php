@@ -21,40 +21,58 @@ if (!class_exists('Npcink_Toolbox_Seo_Category_Add_Meat')) {
         // 分类添加字段
         public static  function add_category_field()
         {
-            echo '<div class="form-field">
-            <label for="cat-title">分类标题</label>
+            ?>
+            <div class="form-field">
+            <label for="cat-title"><?php esc_html_e('分类标题', 'npcink-site-toolbox'); ?></label>
             <input name="cat-title" id="cat-title" type="text" value="" size="40">
-            <p>用于SEO自定义标题</p>
-          </div>';
+            <p><?php esc_html_e('用于 SEO 自定义标题', 'npcink-site-toolbox'); ?></p>
+          </div>
 
-            echo '<div class="form-field">
-			<label for="cat-words">分类关键字</label>
+            <div class="form-field">
+			<label for="cat-words"><?php esc_html_e('分类关键字', 'npcink-site-toolbox'); ?></label>
             <input name="cat-words" id="cat-words" type="text" value="" size="40">
-            <p>用于SEO自定义关键字</p>
-          </div>';
+            <p><?php esc_html_e('用于 SEO 自定义关键字', 'npcink-site-toolbox'); ?></p>
+          </div>
+            <?php
         }
 
 
         // 分类编辑字段
         public static function edit_category_field($tag)
         {
-            echo '<tr class="form-field">
-            <th scope="row"><label for="cat-title">分类标题</label></th>
+            ?>
+            <tr class="form-field">
+            <th scope="row"><label for="cat-title"><?php esc_html_e('分类标题', 'npcink-site-toolbox'); ?></label></th>
             <td>
-                <input name="cat-title" id="cat-title" type="text" value="';
-            echo esc_attr(get_option('npcink_site_toolbox_category_title_' . $tag->term_id)) . '" size="40"/><br>
-                <span class="cat-title">用于' . esc_html($tag->name) . '分类SEO自定义标题</span>
+                <input name="cat-title" id="cat-title" type="text" value="<?php echo esc_attr(get_option('npcink_site_toolbox_category_title_' . $tag->term_id)); ?>" size="40"/><br>
+                <span class="cat-title">
+                    <?php
+                    printf(
+                        /* translators: %s: Category name. */
+                        esc_html__('用于 %s 分类的 SEO 自定义标题', 'npcink-site-toolbox'),
+                        esc_html($tag->name)
+                    );
+                    ?>
+                </span>
             </td>
-        </tr>';
+        </tr>
 
-            echo '<tr class="form-field">
-            <th scope="row"><label for="cat-words">分类关键字</label></th>
+            <tr class="form-field">
+            <th scope="row"><label for="cat-words"><?php esc_html_e('分类关键字', 'npcink-site-toolbox'); ?></label></th>
             <td>
-                <input name="cat-words" id="cat-words" type="text" value="';
-            echo esc_attr(get_option('npcink_site_toolbox_category_keywords_' . $tag->term_id)) . '" size="40"/><br>
-                <span class="cat-words">用于' . esc_html($tag->name) . '分类SEO自定义关键字，用英文逗号分隔，如：keyword1,keyword2,keyword3</span>
+                <input name="cat-words" id="cat-words" type="text" value="<?php echo esc_attr(get_option('npcink_site_toolbox_category_keywords_' . $tag->term_id)); ?>" size="40"/><br>
+                <span class="cat-words">
+                    <?php
+                    printf(
+                        /* translators: %s: Category name. */
+                        esc_html__('用于 %s 分类的 SEO 自定义关键字，用英文逗号分隔，如：keyword1,keyword2,keyword3', 'npcink-site-toolbox'),
+                        esc_html($tag->name)
+                    );
+                    ?>
+                </span>
             </td>
-        </tr>';
+        </tr>
+            <?php
         }
 
 

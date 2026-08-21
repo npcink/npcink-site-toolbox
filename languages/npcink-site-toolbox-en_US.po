@@ -1,0 +1,6690 @@
+# Copyright (C) 2026 Npcink
+# This file is distributed under the GPL-2.0-or-later.
+msgid ""
+msgstr ""
+"Project-Id-Version: Npcink Site Toolbox 3.3.1\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/npcink-site-toolbox\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2026-08-14 13:20+0800\n"
+"Last-Translator: Npcink\n"
+"Language-Team: English (United States)\n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Domain: npcink-site-toolbox\n"
+"X-Generator: Qwen 2.5 3B with protected-token validation and project glossary review\n"
+
+#: vite/admin/dist/index.js:1
+msgid "隐藏顶部工具条"
+msgstr "Hide Top Toolbar"
+
+#: vite/admin/dist/index.js:2
+msgid "站点"
+msgstr "Site"
+
+#: vite/admin/dist/index.js:3
+msgid "推荐"
+msgstr "Recommended"
+
+#: vite/admin/dist/index.js:4
+msgid "仅后台"
+msgstr "Admin only"
+
+#: vite/admin/dist/index.js:5
+msgid "禁止 Title 转义"
+msgstr "Disable Title Escaping"
+
+#: vite/admin/dist/index.js:6
+msgid "移除版本信息"
+msgstr "Remove Version Info"
+
+#: vite/admin/dist/index.js:7
+msgid "安全"
+msgstr "Security"
+
+#: vite/admin/dist/index.js:8
+msgid "分类链接简化"
+msgstr "Simplify Category Links"
+
+#: vite/admin/dist/index.js:9
+msgid "搜索链接优化"
+msgstr "Optimize Search Links"
+
+#: vite/admin/dist/index.js:10
+msgid "移除用户站点地图"
+msgstr "Remove User Site Map"
+
+#: vite/admin/dist/index.js:11
+msgid "用户列表展示昵称"
+msgstr "Display Nicks in User List"
+
+#: vite/admin/dist/index.js:12
+msgid "国内 CDN 替换"
+msgstr "Replace Domestic CDN"
+
+#: vite/admin/dist/index.js:13
+msgid "性能"
+msgstr "Performance"
+
+#: vite/admin/dist/index.js:14
+msgid "隐藏邮件中的 IP"
+msgstr "Hide IP in Emails"
+
+#: vite/admin/dist/index.js:15
+msgid "站点小工具"
+msgstr "Site Widgets"
+
+#: vite/admin/dist/index.js:16
+msgid "图片自动添加 Alt 标签"
+msgstr "Auto Add Alt Tags to Images"
+
+#: vite/admin/dist/index.js:17
+msgid "禁止缩略图"
+msgstr "Disable Thumbnails"
+
+#: vite/admin/dist/index.js:18
+msgid "谨慎"
+msgstr "Caution"
+
+#: vite/admin/dist/index.js:19
+msgid "需主题兼容"
+msgstr "Theme compatibility required"
+
+#: vite/admin/dist/index.js:20
+msgid "添加 SVG 图标支持"
+msgstr "Add SVG Icon Support"
+
+#: vite/admin/dist/index.js:21
+msgid "进阶"
+msgstr "Advanced"
+
+#: vite/admin/dist/index.js:22
+msgid "XSS 风险"
+msgstr "XSS Risk"
+
+#: vite/admin/dist/index.js:23
+msgid "上传文件重命名"
+msgstr "Rename Uploaded Files"
+
+#: vite/admin/dist/index.js:24
+msgid "新生成图片使用 WebP"
+msgstr "Newly generated images use WebP"
+
+#: vite/admin/dist/index.js:25
+msgid "媒体"
+msgstr "Media"
+
+#: vite/admin/dist/index.js:26
+msgid "添加作者筛选项"
+msgstr "Add author filter options"
+
+#: vite/admin/dist/index.js:27
+msgid "添加时间筛选项"
+msgstr "Add date filter options"
+
+#: vite/admin/dist/index.js:28
+msgid "各个列表显示链接 ID"
+msgstr "Display link IDs for each list"
+
+#: vite/admin/dist/index.js:29
+msgid "缩略图切换"
+msgstr "Thumbnail switch"
+
+#: vite/admin/dist/index.js:30
+msgid "阅读进度条"
+msgstr "Reading progress bar"
+
+#: vite/admin/dist/index.js:31
+msgid "仅前台"
+msgstr "Frontend only"
+
+#: vite/admin/dist/index.js:32
+msgid "两次评论间隔时间"
+msgstr "Time interval between comments"
+
+#: vite/admin/dist/index.js:33
+msgid "限制评论字数"
+msgstr "Limit comment word count"
+
+#: vite/admin/dist/index.js:34
+msgid "禁止纯英文评论"
+msgstr "Block pure English comments"
+
+#: vite/admin/dist/index.js:35
+msgid "单篇文章仅限评论一次"
+msgstr "Only allow one comment per article"
+
+#: vite/admin/dist/index.js:36
+msgid "敏感词过滤"
+msgstr "Sensitive word filtering"
+
+#: vite/admin/dist/index.js:37
+msgid "用户评论自助管理"
+msgstr "User self-managed comments management"
+
+#: vite/admin/dist/index.js:38
+msgid "需认证"
+msgstr "Requires authentication"
+
+#: vite/admin/dist/index.js:39
+msgid "首图作特色图"
+msgstr "Use first image as featured image"
+
+#: vite/admin/dist/index.js:40
+msgid "关键词自动内链"
+msgstr "Auto create internal links for keywords"
+
+#: vite/admin/dist/index.js:41
+msgid "添加最后更新时间"
+msgstr "Add last updated time"
+
+#: vite/admin/dist/index.js:42
+msgid "未登录模糊文章内图片"
+msgstr "Blur Post Images for Logged-out Visitors"
+
+#: vite/admin/dist/index.js:43
+msgid "维护提示页"
+msgstr "Maintenance Notice Page"
+
+#: vite/admin/dist/index.js:44
+msgid "默认缩略图"
+msgstr "Default Thumbnail"
+
+#: vite/admin/dist/index.js:45
+msgid "搜索频率限制"
+msgstr "Search Frequency Limitation"
+
+#: vite/admin/dist/index.js:46
+msgid "仅登录用户可搜索"
+msgstr "Only Logged-In Users Can Search"
+
+#: vite/admin/dist/index.js:47
+msgid "隐藏指定分类文章"
+msgstr "Hide Articles by Specific Category"
+
+#: vite/admin/dist/index.js:48
+msgid "隐藏指定标签文章"
+msgstr "Hide Articles by Specific Tag"
+
+#: vite/admin/dist/index.js:49
+msgid "隐藏指定页面"
+msgstr "Hide Articles by Specific Page"
+
+#: vite/admin/dist/index.js:50
+msgid "首页 SEO"
+msgstr "Home SEO Settings"
+
+#: vite/admin/dist/index.js:51
+#: admin/partials/performance/seo_checker/index.php:28
+msgid "文章 SEO"
+msgstr "Post SEO Settings"
+
+#: vite/admin/dist/index.js:52
+msgid "分类 SEO 字段"
+msgstr "Category SEO Fields"
+
+#: vite/admin/dist/index.js:53
+msgid "分类 SEO"
+msgstr "Category SEO"
+
+#: vite/admin/dist/index.js:54
+msgid "标签 SEO"
+msgstr "Tag SEO"
+
+#: vite/admin/dist/index.js:55
+msgid "文章访问统计"
+msgstr "Article Visits Statistics"
+
+#: vite/admin/dist/index.js:56
+msgid "屏蔽恶意关键词搜索"
+msgstr "Block Malicious Keyword Searches"
+
+#: vite/admin/dist/index.js:57
+msgid "百度统计"
+msgstr "Baidu Analytics"
+
+#: vite/admin/dist/index.js:58
+msgid "必应统计"
+msgstr "Bing Analytics"
+
+#: vite/admin/dist/index.js:59
+msgid "分类数据接口"
+msgstr "Category Data API"
+
+#: vite/admin/dist/index.js:60
+msgid "备案与合规"
+msgstr "Registration & Compliance"
+
+#: vite/admin/dist/index.js:61
+msgid "微信生态"
+msgstr "WeChat Ecosystem"
+
+#: vite/admin/dist/index.js:62
+msgid "评论安全"
+msgstr "Comments Security"
+
+#: vite/admin/dist/index.js:63
+msgid "登录安全"
+msgstr "Login Security"
+
+#: vite/admin/dist/index.js:64
+msgid "对象存储 / OSS"
+msgstr "Object Storage / OSS"
+
+#: vite/admin/dist/index.js:65
+msgid "SEO 检查助手"
+msgstr "SEO Check Assistant"
+
+#: vite/admin/dist/index.js:66
+msgid "媒体库体检"
+msgstr "Media Library Checkup"
+
+#: vite/admin/dist/index.js:67
+msgid "搜索增强"
+msgstr "Search Enhancements"
+
+#: vite/admin/dist/index.js:68
+msgid "数据库清理优化"
+msgstr "Database Cleanup & Optimization"
+
+#: vite/admin/dist/index.js:69
+msgid "高风险"
+msgstr "High Risk"
+
+#: vite/admin/dist/index.js:70
+msgid "不可逆"
+msgstr "Irreversible"
+
+#: vite/admin/dist/index.js:71
+msgid "微信 JSSDK"
+msgstr "WeChat JSSDK"
+
+#: vite/admin/dist/index.js:72
+msgid "腾讯（微信）"
+msgstr "Tencent (WeChat)"
+
+#: vite/admin/dist/index.js:73
+msgid "微信内分享自定义标题、描述、图标"
+msgstr "Customize title, description, and icon for sharing within WeChat"
+
+#: vite/admin/dist/index.js:74
+msgid "管理员启用微信 JSSDK、配置 AppID/AppSecret，且访客打开单篇内容时"
+msgstr ""
+"Admin enables WeChat JSSDK and configures the AppID/AppSecret, and visitors "
+"open a single post content when visiting."
+
+#: vite/admin/dist/index.js:75
+msgid ""
+"服务器向微信 API 发送 AppID、AppSecret 和后续 access token；访客浏览器从微信加载 JSSDK，并向 SDK 提供页面 "
+"URL、标题、摘要和缩略图 URL"
+msgstr ""
+"Send AppID, AppSecret, and subsequent access token to the WeChat API; "
+"visitor browser loads JSSDK and provides page URL, title, summary, and "
+"thumbnail URL to SDK."
+
+#: vite/admin/dist/index.js:76
+msgid "AppID/AppSecret 存在本站 WordPress 数据库；jsapi_ticket 在本站短期缓存"
+msgstr ""
+"AppID/AppSecret exist in the WordPress database; jsapi_ticket is cached "
+"short-term on this site."
+
+#: vite/admin/dist/index.js:77
+msgid "阿里云对象存储 OSS"
+msgstr "Aliyun Object Storage OSS"
+
+#: vite/admin/dist/index.js:78
+msgid "阿里云"
+msgstr "Aliyun"
+
+#: vite/admin/dist/index.js:79
+msgid "验证对象存储写入连接，或将 WordPress 媒体文件上传到管理员选择的对象存储"
+msgstr ""
+"Validate object storage write connection, or upload WordPress media files to"
+" the object storage selected by the admin."
+
+#: vite/admin/dist/index.js:80
+msgid "管理员选择阿里云并主动运行连接测试时，或启用对象存储并在之后上传媒体文件时"
+msgstr ""
+"When the admin selects Aliyun and runs a connection test, or when object "
+"storage is enabled and media files are uploaded afterward."
+
+#: vite/admin/dist/index.js:81
+msgid "连接测试文本或媒体文件内容、含可选目录前缀的对象路径、Bucket、阿里云 Endpoint、AccessKey 标识和签名请求头"
+msgstr ""
+"Connection test text or media file content, including optional directory "
+"prefix in the object path, Bucket, Aliyun Endpoint, AccessKey identifier, "
+"and signature request header."
+
+#: vite/admin/dist/index.js:82
+msgid ""
+"已保存的 AccessKey、SecretKey、Bucket、上传目录、Endpoint 与公开访问地址存在本站 WordPress "
+"数据库；未保存的凭据草稿只用于当次测试。测试对象保留在 Bucket 的可选目录下，重复测试会覆盖同名对象"
+msgstr ""
+"Saved AccessKey, SecretKey, Bucket, upload directory, Endpoint, and public "
+"access address exist in this site's WordPress database; draft credentials "
+"for un-saved credentials are only used for this test. Test objects will be "
+"retained under the optional directory within the Bucket, and repeated tests "
+"will overwrite existing objects."
+
+#: vite/admin/dist/index.js:83
+msgid "腾讯云对象存储 COS"
+msgstr "Tencent Cloud Object Storage COS"
+
+#: vite/admin/dist/index.js:84
+msgid "腾讯云"
+msgstr "Tencent Cloud"
+
+#: vite/admin/dist/index.js:85
+msgid "管理员选择腾讯云并主动运行连接测试时，或启用对象存储并在之后上传媒体文件时"
+msgstr ""
+"When the admin selects Tencent Cloud and runs a connection test, or when "
+"object storage is enabled and media files are uploaded afterward."
+
+#: vite/admin/dist/index.js:86
+msgid "连接测试文本或媒体文件内容、含可选目录前缀的对象路径、Bucket/Region、AccessKey 标识和签名请求头"
+msgstr ""
+"Connection test text or media file content, the object path with an optional"
+" directory prefix, Bucket/Region, AccessKey identifier, and signed request "
+"headers."
+
+#: vite/admin/dist/index.js:87
+msgid ""
+"已保存的 AccessKey、SecretKey、Bucket、上传目录、Region 与公开访问地址存在本站 WordPress "
+"数据库；未保存的凭据草稿只用于当次测试。测试对象保留在 Bucket 的可选目录下，重复测试会覆盖同名对象"
+msgstr ""
+"Saved AccessKey, SecretKey, Bucket, upload directory, Region, and public "
+"access address exist in this site's WordPress database; draft credentials "
+"for un-saved credentials are only used for this test. Test objects will be "
+"retained under the optional directory within the Bucket, and repeated tests "
+"will overwrite existing objects."
+
+#: vite/admin/dist/index.js:88
+msgid "七牛云对象存储 Kodo"
+msgstr "Qiniu Cloud Object Storage Kodo"
+
+#: vite/admin/dist/index.js:89
+msgid "七牛云"
+msgstr "Qiniu Cloud"
+
+#: vite/admin/dist/index.js:90
+msgid "管理员选择七牛云并主动运行连接测试时，或启用对象存储并在之后上传媒体文件时"
+msgstr ""
+"When the admin selects Qiniu Cloud and runs a connection test, or when "
+"object storage is enabled and media files are uploaded afterward."
+
+#: vite/admin/dist/index.js:91
+msgid "连接测试文本或媒体文件内容、含可选目录前缀的对象路径、Bucket、AccessKey 标识和上传凭证"
+msgstr ""
+"Connection test text or media file content, including optional directory "
+"prefix in the object path, Bucket, AccessKey identifier, and upload "
+"credential."
+
+#: vite/admin/dist/index.js:92
+msgid ""
+"已保存的 AccessKey、SecretKey、Bucket、上传目录与公开访问地址存在本站 WordPress "
+"数据库；未保存的凭据草稿只用于当次测试。测试对象保留在 Bucket 的可选目录下，重复测试会覆盖同名对象"
+msgstr ""
+"Saved AccessKey, SecretKey, Bucket, Upload Directory and Public Access "
+"Address exist in the WordPress database; un-saved credential drafts are only"
+" used for current testing."
+
+#: vite/admin/dist/index.js:93
+msgid "百度"
+msgstr "Baidu"
+
+#: vite/admin/dist/index.js:94
+msgid "在站点前台加载百度统计脚本"
+msgstr "Load Baidu Analytics script on site front-end page"
+
+#: vite/admin/dist/index.js:95
+msgid "管理员启用百度统计模块并保存非空站点 ID 后，访客打开前台页面时"
+msgstr ""
+"Admin enables Baidu Analytics module after saving non-empty site ID, "
+"visitors will see the analytics script when opening a front-end page."
+
+#: vite/admin/dist/index.js:96
+msgid "访客浏览器会向百度发送 IP 地址、User-Agent、Referrer、页面 URL 以及百度统计脚本按其政策处理的访问数据"
+msgstr ""
+"Visitor's browser sends visitor's IP address, User-Agent, Referrer, URL and "
+"access data processed by Baidu according to its policy to Baidu."
+
+#: vite/admin/dist/index.js:97
+msgid "百度统计站点 ID 存在本站 WordPress 数据库"
+msgstr "Baidu Analytics site ID exists in the WordPress database."
+
+#: vite/admin/dist/index.js:98
+msgid "Loli.net 国内资源镜像"
+msgstr "Loli.net Domestic Resource Mirror"
+
+#: vite/admin/dist/index.js:99
+msgid ""
+"把 Gravatar、Google Fonts 和 Google Hosted Libraries 资源 URL 替换为 "
+"gravatar.loli.net、fonts.loli.net、gstatic.loli.net 或 "
+"ajax.loli.net；也支持管理员自定义目标"
+msgstr ""
+"Replace Gravatar, Google Fonts and Google Hosted Libraries resource URLs "
+"with gravatar.loli.net, fonts.loli.net, gstatic.loli.net or ajax.loli.net; "
+"also supports administrator-defined targets."
+
+#: vite/admin/dist/index.js:100
+msgid "管理员启用 CDN 替换总开关及对应子项后，访客页面需要相关资源时"
+msgstr ""
+"After enabling CDN replacement total switch and corresponding sub-items in "
+"maintenance tools, visitor pages need to send request resource URL, IP "
+"address and standard HTTP headers when needing related resources."
+
+#: vite/admin/dist/index.js:101
+msgid "访客浏览器向镜像发送请求资源 URL、IP 地址及标准 HTTP 请求头；Gravatar 请求还包含头像哈希"
+msgstr ""
+"The mirror sends the requested resource URL, visitor's IP address and "
+"standard HTTP headers; Gravatar requests also include avatar hash."
+
+#: vite/admin/dist/index.js:102
+msgid "镜像地址和自定义替换规则存在本站 WordPress 数据库"
+msgstr ""
+"Mirror addresses and custom replacement rules exist in the WordPress "
+"database."
+
+#: vite/admin/dist/index.js:103
+msgid "国内访问连通性检测"
+msgstr "Domestic Connectivity Test"
+
+#: vite/admin/dist/index.js:104
+msgid "Google、Automattic（Gravatar）与 WordPress.org"
+msgstr "Google, Automattic (Gravatar) and WordPress.org"
+
+#: vite/admin/dist/index.js:105
+msgid ""
+"检测服务器能否访问 Google Fonts、Google Hosted Libraries、Gravatar 和 WordPress.org API"
+msgstr ""
+"Test whether server can access Google Fonts, Google Hosted Libraries, "
+"Gravatar and WordPress.org API"
+
+#: vite/admin/dist/index.js:106
+msgid "具有管理权限的管理员在维护工具中主动运行检测时"
+msgstr ""
+"When an administrator with management permissions runs the test in "
+"maintenance tools actively"
+
+#: vite/admin/dist/index.js:107
+msgid "不发送站点内容或插件配置；各服务可收到服务器 IP、目标 URL 和标准 HTTP 请求头"
+msgstr ""
+"Does not send site content or plugin configurations; each service can "
+"receive server IP, target URL and standard HTTP headers."
+
+#: vite/admin/dist/index.js:108
+msgid "检测可达性与延迟结果在本站缓存一小时"
+msgstr "Check accessibility and latency results in site cache for one hour"
+
+#: vite/admin/dist/index.js:109
+msgid "Google Search Console 站点验证"
+msgstr "Google Search Console Site Verification"
+
+#: vite/admin/dist/index.js:110
+msgid "输出管理员提供的站点验证 meta 标签"
+msgstr "Output the site verification meta tag provided by the administrator"
+
+#: vite/admin/dist/index.js:111
+msgid "管理员启用模块并保存非空验证码后"
+msgstr "Admin enables modules and saves a non-empty captcha after it"
+
+#: vite/admin/dist/index.js:112
+msgid "无；插件只输出 meta 标签，不主动请求 Google"
+msgstr ""
+"No; the plugin only outputs meta tags and does not actively request Google."
+
+#: vite/admin/dist/index.js:113
+msgid "站点验证码存在本站 WordPress 数据库"
+msgstr "Site CAPTCHA exists in this WordPress database"
+
+#: vite/admin/dist/index.js:114
+msgid "Bing Webmaster Tools 站点验证"
+msgstr "Site Verification - Bing Webmaster Tools"
+
+#: vite/admin/dist/index.js:115
+msgid "无；插件只输出 meta 标签，不主动请求 Microsoft"
+msgstr ""
+"No; the plugin only outputs meta tags and does not actively request "
+"Microsoft."
+
+#: vite/admin/dist/index.js:116 admin/partials/privacy/index.php:194
+msgid "本插件默认不收集用户个人身份信息。所有配置数据存储在 WordPress 数据库内。"
+msgstr ""
+"This plugin does not collect any user personal information by default. All "
+"configuration data is stored in the WordPress database."
+
+#: vite/admin/dist/index.js:117 admin/partials/privacy/index.php:195
+msgid "部分功能需要连接第三方服务，具体触发条件、数据流向及服务条款见上方服务列表。"
+msgstr ""
+"Some features require connecting to third-party services. See the service "
+"list above for specific triggers, data flow, and terms of service."
+
+#: vite/admin/dist/index.js:118 admin/partials/privacy/index.php:196
+msgid "所有列出的出站连接都需要管理员明确启用相关功能或主动运行检测；插件默认不向开发者发送遥测。"
+msgstr ""
+"All outbound links listed require explicit activation of related features or"
+" running a scan by an administrator; the plugin does not send telemetry to "
+"developers by default."
+
+#: vite/admin/dist/index.js:119 admin/partials/privacy/index.php:197
+msgid ""
+"已保存凭据存储在 WordPress "
+"数据库中，仅在管理员启用对应功能或主动运行对象存储连接测试时用于服务端鉴权请求；未保存的对象存储凭据草稿只用于当次测试。插件不会把凭据发送给开发者。"
+msgstr ""
+"Credentials are saved in the WordPress database and used for server "
+"authentication requests when the corresponding feature is enabled by an "
+"administrator or during a storage connection test; unsaved object storage "
+"credentials only apply to this one-time test. The plugin does not send "
+"credentials to developers."
+
+#: vite/admin/dist/index.js:120 admin/partials/privacy/index.php:198
+msgid ""
+"卸载会清理插件设置、计划任务、临时缓存、评论拦截标记及纯运行态附件标记，但不会删除或改写媒体文件、文章、评论、分类或远端对象。已转换附件的 WebP "
+"恢复记录会保留，避免失去恢复原 JPEG 所需的信息；如需由插件执行恢复，请在卸载前完成。"
+msgstr ""
+"Uninstalling will clean plugin settings, scheduled tasks, temporary cache, "
+"comment blocking flags, and pristine attachment flags, but it won't delete "
+"or rewrite media files, posts, comments, categories, or remote objects. WebP"
+" recovery records for converted attachments will be retained to avoid losing"
+" the information needed to restore from JPEG; if you need the plugin to "
+"perform a restoration, do so before uninstalling."
+
+#: vite/admin/dist/index.js:121
+msgid "顶部"
+msgstr "Top"
+
+#: vite/admin/dist/index.js:122
+msgid "工具栏"
+msgstr "Toolbar"
+
+#: vite/admin/dist/index.js:123
+#: includes/class-npcink-toolbox-diagnostics.php:1898
+msgid "站点与媒体"
+msgstr "Site & Media"
+
+#: vite/admin/dist/index.js:124
+msgid "转义"
+msgstr "Escape"
+
+#: vite/admin/dist/index.js:125
+msgid "版本"
+msgstr "Version"
+
+#: vite/admin/dist/index.js:126
+msgid "移除 WP 版本号"
+msgstr "Remove WordPress Version Number"
+
+#: vite/admin/dist/index.js:127
+msgid "加速"
+msgstr "Acceleration"
+
+#: vite/admin/dist/index.js:128
+msgid "图片"
+msgstr "Images"
+
+#: vite/admin/dist/index.js:129
+msgid "图片自动添加 Alt"
+msgstr "Automatically Add Alt to Images"
+
+#: vite/admin/dist/index.js:130
+#: admin/partials/optimize/admin/thumbnail_switcher/easy-thumbnail-switcher.php:95
+msgid "缩略图"
+msgstr "Thumbnail"
+
+#: vite/admin/dist/index.js:131
+msgid "重命名"
+msgstr "Rename"
+
+#: vite/admin/dist/index.js:132
+msgid "上传"
+msgstr "Upload"
+
+#: vite/admin/dist/index.js:133
+msgid "压缩"
+msgstr "Compress"
+
+#: vite/admin/dist/index.js:134
+msgid "格式"
+msgstr "Format"
+
+#: vite/admin/dist/index.js:135
+msgid "作者"
+msgstr "Author"
+
+#: vite/admin/dist/index.js:136
+msgid "筛选"
+msgstr "Filter"
+
+#: vite/admin/dist/index.js:137
+msgid "文章作者筛选"
+msgstr "Author Filter"
+
+#: vite/admin/dist/index.js:138
+msgid "后台"
+msgstr "Admin"
+
+#: vite/admin/dist/index.js:139
+msgid "日期"
+msgstr "Date"
+
+#: vite/admin/dist/index.js:140
+msgid "文章日期筛选"
+msgstr "Post Date Filter"
+
+#: vite/admin/dist/index.js:141
+msgid "列表"
+msgstr "List"
+
+#: vite/admin/dist/index.js:142
+msgid "列表显示 ID 列"
+msgstr "Display ID Column"
+
+#: vite/admin/dist/index.js:143
+#: includes/class-npcink-toolbox-site-stats.php:50
+#: blocks/site-stats/index.js:31
+msgid "评论"
+msgstr "Comments"
+
+#: vite/admin/dist/index.js:144
+msgid "应用程序密码"
+msgstr "App Password"
+
+#: vite/admin/dist/index.js:145
+msgid "接口"
+msgstr "API"
+
+#: vite/admin/dist/index.js:146
+msgid "批量删除"
+msgstr "Batch Delete"
+
+#: vite/admin/dist/index.js:147 admin/partials/page/comment/rest_help.php:9
+msgid "用户评论 REST 接口"
+msgstr "User Comments REST Interface"
+
+#: vite/admin/dist/index.js:148
+#: includes/class-npcink-toolbox-diagnostics.php:1899
+msgid "内容与页面"
+msgstr "Content & Pages"
+
+#: vite/admin/dist/index.js:149
+msgid "维护"
+msgstr "Maintenance"
+
+#: vite/admin/dist/index.js:150
+msgid "闭站"
+msgstr "Site Closure"
+
+#: vite/admin/dist/index.js:151
+msgid "功能"
+msgstr "Features"
+
+#: vite/admin/dist/index.js:152
+msgid "首页"
+msgstr "Homepage"
+
+#: vite/admin/dist/index.js:153 blocks/site-stats/index.js:68
+msgid "标题"
+msgstr "Title"
+
+#: vite/admin/dist/index.js:154
+msgid "描述"
+msgstr "Description"
+
+#: vite/admin/dist/index.js:155
+msgid "首页 TDK"
+msgstr "Homepage TDK"
+
+#: vite/admin/dist/index.js:156
+#: includes/class-npcink-toolbox-diagnostics.php:1900
+msgid "SEO 与增强"
+msgstr "SEO & Enhancements"
+
+#: vite/admin/dist/index.js:157
+#: includes/class-npcink-toolbox-site-stats.php:46
+#: blocks/site-stats/index.js:30
+msgid "文章"
+msgstr "Posts"
+
+#: vite/admin/dist/index.js:158
+msgid "关键词"
+msgstr "Keywords"
+
+#: vite/admin/dist/index.js:159
+msgid "备案"
+msgstr "ICP Filing"
+
+#: vite/admin/dist/index.js:160
+msgid "合规"
+msgstr "Compliance"
+
+#: vite/admin/dist/index.js:161
+msgid "ICP 备案号"
+msgstr "ICP Filing Number"
+
+#: vite/admin/dist/index.js:162
+#: includes/class-npcink-toolbox-diagnostics.php:1901
+msgid "国内生态"
+msgstr "China Services"
+
+#: vite/admin/dist/index.js:163
+msgid "公安"
+msgstr "Public Security"
+
+#: vite/admin/dist/index.js:164
+msgid "网备"
+msgstr "Public Security Filing"
+
+#: vite/admin/dist/index.js:165
+msgid "公安网备号"
+msgstr "Police Pre-Approval Number"
+
+#: vite/admin/dist/index.js:166
+msgid "隐私"
+msgstr "Privacy"
+
+#: vite/admin/dist/index.js:167
+msgid "弹窗"
+msgstr "Popup"
+
+#: vite/admin/dist/index.js:168
+msgid "Cookie 同意弹窗"
+msgstr "Cookie Consent Pop-Up"
+
+#: vite/admin/dist/index.js:169
+#: includes/class-npcink-toolbox-block-patterns.php:99
+msgid "版权"
+msgstr "Copyright"
+
+#: vite/admin/dist/index.js:170
+msgid "版权信息"
+msgstr "Copyright Information"
+
+#: vite/admin/dist/index.js:171
+msgid "微信"
+msgstr "WeChat"
+
+#: vite/admin/dist/index.js:172
+msgid "分享"
+msgstr "Sharing"
+
+#: vite/admin/dist/index.js:173
+msgid "微信 JSSDK 分享"
+msgstr "WeChat JSSDK Share"
+
+#: vite/admin/dist/index.js:174
+msgid "引导"
+msgstr "Guidance"
+
+#: vite/admin/dist/index.js:175
+msgid "遮层"
+msgstr "Overlay"
+
+#: vite/admin/dist/index.js:176
+msgid "微信打开引导"
+msgstr "WeChat Guidance Pop-Up"
+
+#: vite/admin/dist/index.js:177
+msgid "敏感词"
+msgstr "Sensitive Words"
+
+#: vite/admin/dist/index.js:178
+msgid "黑名单"
+msgstr "Blacklist"
+
+#: vite/admin/dist/index.js:179
+msgid "评论敏感词过滤"
+msgstr "Comment Sensitive Word Filter"
+
+#: vite/admin/dist/index.js:180
+msgid "链接"
+msgstr "Links"
+
+#: vite/admin/dist/index.js:181
+msgid "垃圾"
+msgstr "Spam"
+
+#: vite/admin/dist/index.js:182
+msgid "评论链接限制"
+msgstr "Limit Comments Links"
+
+#: vite/admin/dist/index.js:183
+msgid "重复"
+msgstr "Duplicate"
+
+#: vite/admin/dist/index.js:184
+msgid "拦截"
+msgstr "Block"
+
+#: vite/admin/dist/index.js:185
+msgid "重复评论拦截"
+msgstr "Block Duplicate Comments"
+
+#: vite/admin/dist/index.js:186
+msgid "频率"
+msgstr "Frequency"
+
+#: vite/admin/dist/index.js:187
+msgid "评论 IP 频率限制"
+msgstr "Comment IP Frequency Limit"
+
+#: vite/admin/dist/index.js:188
+msgid "日志"
+msgstr "Logs"
+
+#: vite/admin/dist/index.js:189
+msgid "记录拦截日志"
+msgstr "Record Block Logs"
+
+#: vite/admin/dist/index.js:190
+msgid "登录"
+msgstr "Log in"
+
+#: vite/admin/dist/index.js:191
+msgid "失败"
+msgstr "Failed"
+
+#: vite/admin/dist/index.js:192
+msgid "限制"
+msgstr "Limit"
+
+#: vite/admin/dist/index.js:193
+msgid "锁定"
+msgstr "Lockout"
+
+#: vite/admin/dist/index.js:194
+msgid "代理"
+msgstr "Proxy"
+
+#: vite/admin/dist/index.js:195
+msgid "登录尝试保护"
+msgstr "Login Attempt Protection"
+
+#: vite/admin/dist/index.js:196
+msgid "枚举"
+msgstr "Enumeration"
+
+#: vite/admin/dist/index.js:197
+msgid "用户名"
+msgstr "Username"
+
+#: vite/admin/dist/index.js:198
+msgid "限制匿名作者枚举"
+msgstr "Limit Anonymous Author Enumeration"
+
+#: vite/admin/dist/index.js:199
+msgid "云存储"
+msgstr "Cloud Storage"
+
+#: vite/admin/dist/index.js:200
+#: includes/class-npcink-toolbox-diagnostics.php:1902
+msgid "存储与维护"
+msgstr "Storage & Maintenance"
+
+#: vite/admin/dist/index.js:201
+msgid "检查"
+msgstr "Check"
+
+#: vite/admin/dist/index.js:202
+msgid "健康度"
+msgstr "Health Checkup"
+
+#: vite/admin/dist/index.js:203
+msgid "体检"
+msgstr "Checkup"
+
+#: vite/admin/dist/index.js:204
+msgid "搜索"
+msgstr "Search"
+
+#: vite/admin/dist/index.js:205
+msgid "高亮"
+msgstr "Highlight"
+
+#: vite/admin/dist/index.js:206
+msgid "搜索关键词高亮"
+msgstr "Highlight Search Keywords in Media Library"
+
+#: vite/admin/dist/index.js:207
+msgid "数据库"
+msgstr "Database"
+
+#: vite/admin/dist/index.js:208
+msgid "清理"
+msgstr "Clean up"
+
+#: vite/admin/dist/index.js:209
+msgid "优化"
+msgstr "Optimize"
+
+#: vite/admin/dist/index.js:210
+msgid "修订版本"
+msgstr "Revision Versions"
+
+#: vite/admin/dist/index.js:211
+msgid ""
+"确认开启后请在保存前核对可信代理；如发生误锁，可在 wp-config.php 中将 "
+"NPCINK_SITE_TOOLBOX_DISABLE_LOGIN_PROTECTION 定义为 true 后恢复。"
+msgstr ""
+"Confirm that the trusted proxy is enabled before saving. Review and correct "
+"any trusted proxies in wp-config.php if you encounter a lockout; set "
+"NPCINK_SITE_TOOLBOX_DISABLE_LOGIN_PROTECTION to true to unlock accounts."
+
+#: vite/admin/dist/index.js:212
+msgid "可信代理配置错误可能让多个访客共享同一来源 IP，造成账号误锁。"
+msgstr ""
+"Incorrect configuration of trusted proxies may cause multiple visitors to "
+"share the same source IP, leading to account lockouts."
+
+#: vite/admin/dist/index.js:213
+msgid "SVG 上传支持"
+msgstr "SVG Upload Support"
+
+#: vite/admin/dist/index.js:214
+msgid "仅允许可信用户上传 SVG 文件。"
+msgstr "Only allow SVG files to be uploaded by trusted users."
+
+#: vite/admin/dist/index.js:215
+msgid "SVG 文件可能包含恶意脚本，已做安全过滤但仍需注意。"
+msgstr ""
+"SVG files can contain malicious scripts. Although they are filtered for "
+"security reasons, it is still important to review them."
+
+#: vite/admin/dist/index.js:216
+msgid "开启前请确认主题支持。"
+msgstr "Make sure your theme is supported before enabling."
+
+#: vite/admin/dist/index.js:217
+msgid "此功能可能与部分主题不兼容，导致图片显示异常。"
+msgstr ""
+"This feature may be incompatible with some themes and cause image display "
+"issues."
+
+#: vite/admin/dist/index.js:218
+msgid "仅在使用 HTTPS 且确实需要外部评论客户端时开启。"
+msgstr "Enable only if using HTTPS and truly need an external comment client."
+
+#: vite/admin/dist/index.js:219
+msgid "开放用户评论 REST 接口"
+msgstr "Open User Comments REST API"
+
+#: vite/admin/dist/index.js:220
+msgid "开启后，登录用户可通过应用程序密码从外部客户端发布、修改和删除自己的评论。"
+msgstr ""
+"Enable this to allow external client applications to publish, edit, and "
+"delete their own comments via application passwords."
+
+#: vite/admin/dist/index.js:221
+msgid "执行前务必先预览影响数量，并做好备份。"
+msgstr "Preview the impact first and make a backup."
+
+#: vite/admin/dist/index.js:222
+msgid "数据库清理"
+msgstr "Database cleanup"
+
+#: vite/admin/dist/index.js:223
+msgid "数据库清理操作不可逆，删除的数据无法恢复。"
+msgstr ""
+"Database cleanup operations are irreversible and deleted data cannot be "
+"recovered."
+
+#: vite/admin/dist/index.js:224
+#, javascript-format
+msgid "预览样式：%s"
+msgstr "Preview Style: %s"
+
+#: vite/admin/dist/index.js:225
+msgid "预览效果"
+msgstr "Preview Effect"
+
+#: vite/admin/dist/index.js:226
+msgid "媒体库图片"
+msgstr "Media Library Images"
+
+#: vite/admin/dist/index.js:227
+msgid "当前字段"
+msgstr "Current Field"
+
+#: vite/admin/dist/index.js:228
+msgid "已选择图片"
+msgstr "Selected Images"
+
+#: vite/admin/dist/index.js:229
+msgid "尚未选择图片"
+msgstr "No image selected"
+
+#: vite/admin/dist/index.js:230
+msgid "可从媒体库选择，也可以在下方粘贴图片 URL。"
+msgstr "Choose from Media Library or paste image URL below."
+
+#: vite/admin/dist/index.js:231
+#, javascript-format
+msgid "为%s选择图片"
+msgstr "Choose an image for %s"
+
+#: vite/admin/dist/index.js:232
+msgid "从媒体库选择"
+msgstr "Select from Media Library"
+
+#: vite/admin/dist/index.js:233
+#, javascript-format
+msgid "清除%s"
+msgstr "Clear %s"
+
+#: vite/admin/dist/index.js:234
+msgid "清除"
+msgstr "Clear"
+
+#: vite/admin/dist/index.js:235
+msgid "或粘贴图片 URL"
+msgstr "or paste image URL"
+
+#: vite/admin/dist/index.js:236
+#, javascript-format
+msgid "选择%s"
+msgstr "Select %s"
+
+#: vite/admin/dist/index.js:237
+msgid "使用所选图片"
+msgstr "Use selected image"
+
+#: vite/admin/dist/index.js:238
+msgid "取消"
+msgstr "Cancel"
+
+#: vite/admin/dist/index.js:239
+msgid "正在加载媒体库…"
+msgstr "Loading media library…"
+
+#: vite/admin/dist/index.js:240
+msgid "媒体库加载失败，请检查 REST API 权限或网络后重试。"
+msgstr ""
+"Failed to load media library. Please check REST API permissions or network "
+"and retry."
+
+#: vite/admin/dist/index.js:241
+msgid "重试加载媒体库"
+msgstr "Retry loading media library"
+
+#: vite/admin/dist/index.js:242
+msgid "媒体库中暂无可选图片。"
+msgstr "No images available in media library."
+
+#: vite/admin/dist/index.js:243
+msgid "更多图片加载失败，已加载的图片仍可继续选择。"
+msgstr ""
+"More images failed to load, previously loaded images can still be selected."
+
+#: vite/admin/dist/index.js:244
+msgid "重试加载更多图片"
+msgstr "Retry loading more images"
+
+#: vite/admin/dist/index.js:245
+msgid "加载更多图片"
+msgstr "Load more images"
+
+#: vite/admin/dist/index.js:246
+msgid "已加载全部图片"
+msgstr "All images have been loaded."
+
+#: vite/admin/dist/index.js:247
+msgid "取消收藏"
+msgstr "Unfavorite"
+
+#: vite/admin/dist/index.js:248
+msgid "加入常用功能"
+msgstr "Add to Favorites"
+
+#: vite/admin/dist/index.js:249
+msgid "从常用功能中移除"
+msgstr "Remove from Favorites"
+
+#: vite/admin/dist/index.js:250
+#, javascript-format
+msgid "当前样式：%s"
+msgstr "Current style: %s"
+
+#: vite/admin/dist/index.js:251
+#, javascript-format
+msgid "更换维护提示样式，当前：%s"
+msgstr "Change the maintenance notice style. Current: %s"
+
+#: vite/admin/dist/index.js:252
+msgid "更换样式"
+msgstr "Change Style"
+
+#: vite/admin/dist/index.js:253
+msgid "选择您需要的样式"
+msgstr "Choose the Styles You Need"
+
+#: vite/admin/dist/index.js:254
+msgid "维护提示样式"
+msgstr "Maintenance Notice Style"
+
+#: vite/admin/dist/index.js:255
+#, javascript-format
+msgid "维护提示样式预览：%s"
+msgstr "Maintenance notice style preview: %s"
+
+#: vite/admin/dist/index.js:256
+msgid "外观"
+msgstr "Appearance"
+
+#: vite/admin/dist/index.js:257
+msgid "权限"
+msgstr "Permissions"
+
+#: vite/admin/dist/index.js:258
+msgid "内容与页面分组"
+msgstr "Content & Pages Grouping"
+
+#: vite/admin/dist/index.js:259
+msgid "特效"
+msgstr "Effects"
+
+#: vite/admin/dist/index.js:260
+msgid "文章页面顶部显示阅读进度指示器，仅文章页展示"
+msgstr ""
+"Display Reading Progress Indicator on Article Page Top, Only for Article "
+"Pages"
+
+#: vite/admin/dist/index.js:261
+msgid "进度条颜色"
+msgstr "Progress Bar Color"
+
+#: vite/admin/dist/index.js:262
+msgid "进度条高度"
+msgstr "Progress Bar Height"
+
+#: vite/admin/dist/index.js:263
+msgid "单位：像素"
+msgstr "Units: Pixels"
+
+#: vite/admin/dist/index.js:264
+msgid "初次发布文章，未设置特色图时，自动将第一张图设为特色图"
+msgstr ""
+"Automatically Set the First Image as Featured Image When Publishing an "
+"Article with No Featured Image Set Initially"
+
+#: vite/admin/dist/index.js:265
+msgid "文章内关键词添加内链"
+msgstr "Add Internal Links to Keywords in Article Content"
+
+#: vite/admin/dist/index.js:266
+msgid "文章内的内容与添加的标签相同，则添加对应标签的链接"
+msgstr ""
+"Content added within a post is the same as any tags it has; link to those "
+"tags"
+
+#: vite/admin/dist/index.js:267
+msgid "文章末尾添加最后更新时间，文章发布24小时后再次修改，即可展示"
+msgstr ""
+"Add last updated time to the end of articles; if an article is published and"
+" then edited within 24 hours, it will be displayed."
+
+#: vite/admin/dist/index.js:268
+msgid "临时关闭前台访问，管理员仍可正常访问"
+msgstr "Temporarily disable front-end access, allow admin to still access."
+
+#: vite/admin/dist/index.js:269
+msgid "页面样式"
+msgstr "Page Styles"
+
+#: vite/admin/dist/index.js:270
+msgid "选择访客看到的维护提示样式。"
+msgstr "Select the maintenance notice style that visitors see."
+
+#: vite/admin/dist/index.js:271
+msgid "显示计划"
+msgstr "Show Schedule"
+
+#: vite/admin/dist/index.js:272
+msgid "可选；留空时启用后持续显示维护提示。"
+msgstr "Optional; leave blank to display maintenance message continuously."
+
+#: vite/admin/dist/index.js:273
+msgid "显示时间（可选）"
+msgstr "Display Time (optional)"
+
+#: vite/admin/dist/index.js:274
+msgid "维护提示显示时间"
+msgstr "Maintenance Display Schedule"
+
+#: vite/admin/dist/index.js:275
+msgid "只有在所选时间段内，访客才会看到维护提示。"
+msgstr ""
+"Maintenance notices will only be visible to visitors within the selected "
+"time frame."
+
+#: vite/admin/dist/index.js:276
+msgid "维护内容"
+msgstr "Maintenance Content"
+
+#: vite/admin/dist/index.js:277
+msgid "填写提示标题、可选背景图片和详细说明。"
+msgstr ""
+"Enter a prompt title, optional background image, and detailed description."
+
+#: vite/admin/dist/index.js:278
+msgid "维护标题"
+msgstr "Maintenance Title"
+
+#: vite/admin/dist/index.js:279
+msgid "例如：网站维护中"
+msgstr "For example: Site Maintenance"
+
+#: vite/admin/dist/index.js:280
+msgid "背景图片（可选）"
+msgstr "Background Image (optional)"
+
+#: vite/admin/dist/index.js:281
+msgid "维护背景图片"
+msgstr "Maintenance Background Image"
+
+#: vite/admin/dist/index.js:282
+msgid "不同模板的图片位置不同；全屏样式建议使用 1920×1080 像素图片。"
+msgstr ""
+"Different templates have different image positions; for full-screen styles, "
+"use images with dimensions of 1920x1080 pixels."
+
+#: vite/admin/dist/index.js:283
+msgid "维护说明"
+msgstr "Maintenance Instructions"
+
+#: vite/admin/dist/index.js:284
+msgid "HTML 示例"
+msgstr "HTML Example"
+
+#: vite/admin/dist/index.js:285
+msgid "查看维护说明 HTML 示例"
+msgstr "View Maintenance Instructions HTML Example"
+
+#: vite/admin/dist/index.js:286
+msgid "例如：抱歉，我们的网站正在维护中，请稍后再来。"
+msgstr ""
+"For example: Sorry, our website is currently undergoing maintenance. Please "
+"try again later."
+
+#: vite/admin/dist/index.js:287
+msgid "支持安全 HTML；可通过信息按钮查看示例。"
+msgstr "Supports secure HTML; view an example via the info button."
+
+#: vite/admin/dist/index.js:288
+msgid "默认简洁"
+msgstr "Default Simple"
+
+#: vite/admin/dist/index.js:289
+msgid "默认带图"
+msgstr "Default with Image"
+
+#: vite/admin/dist/index.js:290
+msgid "红色纯粹"
+msgstr "Minimal Red"
+
+#: vite/admin/dist/index.js:291
+msgid ""
+"<p>抱歉，我们的网站正在维护中...</p>\n"
+"<h5 class=\"dull-text\">\n"
+"  请倒计时结束后再回来，我们准备了全新的内容哦！\n"
+"</h5>"
+msgstr ""
+"<p>Sorry, our site is currently undergoing maintenance...</p>\n"
+"<h5 class=\"dull-text\">Please come back after the countdown ends, we have some new content ready for you!</h5>"
+
+#: vite/admin/dist/index.js:292
+msgid "避免短时间内重复灌水评论，对管理员无效"
+msgstr ""
+"Disable spam comments that are posted too frequently, which is ineffective "
+"for administrators."
+
+#: vite/admin/dist/index.js:293
+msgid "时间间隔"
+msgstr "Time Interval"
+
+#: vite/admin/dist/index.js:294
+msgid "指定时间后才能再次评论"
+msgstr "Commenting is disabled until later."
+
+#: vite/admin/dist/index.js:295
+#: admin/partials/page/function/maintenance/countdown/main.js:12
+msgid "秒"
+msgstr "seconds"
+
+#: vite/admin/dist/index.js:296
+msgid "指定最小和最大评论字数"
+msgstr "Specify minimum and maximum comment character count"
+
+#: vite/admin/dist/index.js:297
+msgid "最小字数"
+msgstr "Minimum Characters"
+
+#: vite/admin/dist/index.js:298
+msgid "字"
+msgstr "Characters"
+
+#: vite/admin/dist/index.js:299
+msgid "最大字数"
+msgstr "Maximum Characters"
+
+#: vite/admin/dist/index.js:300
+msgid "管理员不受此影响"
+msgstr "Admins are unaffected"
+
+#: vite/admin/dist/index.js:301
+msgid "评论提交时检测敏感词，替换或拦截"
+msgstr ""
+"Check for and replace or block sensitive words when comments are submitted"
+
+#: vite/admin/dist/index.js:302
+msgid "敏感词列表"
+msgstr "Sensitive Word List"
+
+#: vite/admin/dist/index.js:303
+msgid "每行一个敏感词"
+msgstr "Enter each sensitive word on a separate line."
+
+#: vite/admin/dist/index.js:304
+msgid ""
+"敏感词1\n"
+"敏感词2"
+msgstr ""
+"sensitive word 1\n"
+"sensitive word 2"
+
+#: vite/admin/dist/index.js:305
+msgid "处理方式"
+msgstr "Handling"
+
+#: vite/admin/dist/index.js:306
+msgid "替换为 ***"
+msgstr "Replace with ***"
+
+#: vite/admin/dist/index.js:307
+msgid "拦截并阻止提交"
+msgstr "Block and Prevent Submissions"
+
+#: vite/admin/dist/index.js:308
+msgid "替换字符"
+msgstr "Replace Characters"
+
+#: vite/admin/dist/index.js:309
+msgid "选择替换方式时生效"
+msgstr "Choose replacement method to apply"
+
+#: vite/admin/dist/index.js:310
+msgid "允许外部客户端通过 WordPress 应用程序密码发布、修改和删除当前用户自己的评论"
+msgstr ""
+"Allow external clients to publish, edit, and delete their own comments using"
+" the WordPress Application Passwords feature"
+
+#: vite/admin/dist/index.js:311
+msgid "显示“我的评论”后台页面"
+msgstr "Display 'My Comments' admin page"
+
+#: vite/admin/dist/index.js:312
+msgid "作为浏览器内的兜底操作界面；关闭后 REST 接口仍可使用"
+msgstr ""
+"As a fallback browser interface; it will still be usable after closing the "
+"REST API."
+
+#: vite/admin/dist/index.js:313
+msgid "未登录权限"
+msgstr "Not Logged In Permissions"
+
+#: vite/admin/dist/index.js:314
+msgid "隐藏指定分类下的内容"
+msgstr "Hide Content Within Specific Categories"
+
+#: vite/admin/dist/index.js:315
+msgid "该分类下的内容未登录时，不可见，仅展示提示内容"
+msgstr ""
+"Content within the selected category is not visible when logged out and only"
+" displays a message."
+
+#: vite/admin/dist/index.js:316
+msgid "请选择要隐藏的分类"
+msgstr "Select the categories to hide."
+
+#: vite/admin/dist/index.js:317
+msgid "隐藏指定标签下的内容"
+msgstr "Hide content under the selected tags."
+
+#: vite/admin/dist/index.js:318
+msgid "该标签下的内容未登录时，不可见，仅展示提示内容"
+msgstr ""
+"Content within the selected tag is not visible when logged out and only "
+"displays a message."
+
+#: vite/admin/dist/index.js:319
+msgid "请选择要隐藏的标签"
+msgstr "Select the tags to hide."
+
+#: vite/admin/dist/index.js:320
+msgid "该页面下的内容未登录时，不可见，仅展示提示内容"
+msgstr ""
+"Content within the selected page is not visible when logged out and only "
+"displays a message."
+
+#: vite/admin/dist/index.js:321
+msgid "请选择要隐藏的页面"
+msgstr "Select the pages to hide."
+
+#: vite/admin/dist/index.js:322
+msgid "隐藏时的提示内容"
+msgstr "The message displayed when hiding content."
+
+#: vite/admin/dist/index.js:323
+msgid "内容被隐藏时的提示内容，支持HTML"
+msgstr "Message displayed when content is hidden, supports HTML."
+
+#: vite/admin/dist/index.js:324
+msgid "站点与媒体分组"
+msgstr "Media & Site Groups"
+
+#: vite/admin/dist/index.js:325
+msgid "媒体文件相关优化"
+msgstr "Optimize media files related settings."
+
+#: vite/admin/dist/index.js:326
+msgid "标签值为：当前文章名 - 网站名"
+msgstr "Tag value: Current post title - Website name."
+
+#: vite/admin/dist/index.js:327
+msgid "禁用自动图片尺寸"
+msgstr "Disable automatic image sizes generation."
+
+#: vite/admin/dist/index.js:328
+msgid "禁用自动生成的图片尺寸、禁用缩略尺寸，可能导致部分主题或插件无法获取所需尺寸"
+msgstr ""
+"Disables generated and thumbnail image sizes, may cause some themes or "
+"plugins to fail in fetching required sizes."
+
+#: vite/admin/dist/index.js:329
+msgid "添加SVG图标支持"
+msgstr "Add support for SVG icons."
+
+#: vite/admin/dist/index.js:330
+msgid "选中后可在媒体库上传SVG图标，SVG文件可能包含脚本，存在安全风险"
+msgstr ""
+"Select to add SVG icon support. SVG files can contain scripts and pose a "
+"security risk."
+
+#: vite/admin/dist/index.js:331
+msgid "当前服务器的 WordPress 图片编辑器不支持 WebP；即使保留设置，JPEG 也会安全保持原格式"
+msgstr ""
+"Current WordPress image editor on the server does not support WebP; JPEG "
+"will be saved in its original format even with settings retained."
+
+#: vite/admin/dist/index.js:332
+msgid "原始上传的 JPEG 留作恢复备份；媒体库使用 WordPress 生成的 WebP 主图和缩略图。不转换 PNG，不删除或覆盖原图"
+msgstr ""
+"Original uploaded JPEGs are kept for backup restoration; the media library "
+"uses WordPress-generated WebP main images and thumbnails. No PNG conversion,"
+" no deletion or overwriting of originals."
+
+#: vite/admin/dist/index.js:333
+msgid "上传图片自动重命名"
+msgstr "Images are automatically renamed when uploaded."
+
+#: vite/admin/dist/index.js:334
+msgid "数字重命名类似："
+msgstr "Similar to numeric renaming:"
+
+#: vite/admin/dist/index.js:335
+msgid "MD5重命名类似："
+msgstr "MD5-based renaming:"
+
+#: vite/admin/dist/index.js:336
+msgid "禁用"
+msgstr "Disabled"
+
+#: vite/admin/dist/index.js:337
+msgid "数字重命名"
+msgstr "Numeric renaming enabled"
+
+#: vite/admin/dist/index.js:338
+msgid "MD5重命名"
+msgstr "MD5 Rename"
+
+#: vite/admin/dist/index.js:339
+msgid "站点基础优化设置"
+msgstr "Basic optimization settings for the site."
+
+#: vite/admin/dist/index.js:340
+msgid "对无法编辑文章的登录用户隐藏前台顶部工具条"
+msgstr ""
+"Hide the top toolbar on the front-end for login users who cannot edit "
+"articles."
+
+#: vite/admin/dist/index.js:341
+msgid "从RSS源和网站中删除WordPress版本信息，如果您无法保持您的WordPres版本为最新，推荐开启"
+msgstr ""
+"Remove WordPress version information from RSS sources and the website if you"
+" cannot keep your WordPress version up-to-date, recommended to enable."
+
+#: vite/admin/dist/index.js:342
+msgid "禁止title中的 \"-\" 被转义"
+msgstr "Do not escape the '-' in title tags"
+
+#: vite/admin/dist/index.js:343
+msgid "让网页标题符号正常显示"
+msgstr "Display web page titles correctly."
+
+#: vite/admin/dist/index.js:344
+msgid "去掉分类目录链接中的 category 字符，修改后旧链接可能失效"
+msgstr ""
+"Remove 'category' characters from category links; changes may cause old "
+"links to become invalid."
+
+#: vite/admin/dist/index.js:345
+msgid "将 ?s=关键词 改为 域名/search/关键词，部分主题可能不兼容"
+msgstr ""
+"Change?s=keyword to domain/search/keyword, some themes might not be "
+"compatible with this change."
+
+#: vite/admin/dist/index.js:346
+msgid "安全 - 移除 wp-sitemap-users"
+msgstr "Security - Remove wp-sitemap-users"
+
+#: vite/admin/dist/index.js:347
+msgid "移除原生站点地图中的用户信息部分，可减少用户信息暴露风险"
+msgstr ""
+"Remove the user information portion from the native site map to reduce "
+"exposure risk"
+
+#: vite/admin/dist/index.js:348
+msgid "在用户列表中以“昵称”列替代“姓名”列"
+msgstr "Replace 'Name' column with 'Nickname' column in User list"
+
+#: vite/admin/dist/index.js:349
+msgid "将 WordPress 加载的国外资源替换为国内 CDN 镜像，提升国内访问速度"
+msgstr ""
+"Replace foreign resources loaded by WordPress with domestic CDN mirrors to "
+"improve domestic access speed."
+
+#: vite/admin/dist/index.js:350
+#: includes/class-npcink-toolbox-domestic-environment.php:101
+msgid "Gravatar 头像替换"
+msgstr "Gravatar Avatar Replacement"
+
+#: vite/admin/dist/index.js:351
+msgid "将 gravatar.com 替换为国内镜像，解决头像无法加载的问题"
+msgstr ""
+"Replace gravatar.com with a domestic mirror to resolve the issue of profile "
+"pictures not loading."
+
+#: vite/admin/dist/index.js:352
+#: includes/class-npcink-toolbox-domestic-environment.php:109
+msgid "Gravatar 镜像地址"
+msgstr "Gravatar Mirror Address"
+
+#: vite/admin/dist/index.js:353
+msgid "默认: gravatar.loli.net/avatar/"
+msgstr "Default: gravatar.loli.net/avatar/"
+
+#: vite/admin/dist/index.js:354
+#: includes/class-npcink-toolbox-domestic-environment.php:127
+msgid "Google Fonts 替换"
+msgstr "Google Fonts Replacement"
+
+#: vite/admin/dist/index.js:355
+msgid "将 fonts.googleapis.com 替换为国内镜像，需确认镜像站可用性"
+msgstr ""
+"Replace fonts.googleapis.com with a domestic mirror, make sure the mirror is"
+" available"
+
+#: vite/admin/dist/index.js:356
+#: includes/class-npcink-toolbox-domestic-environment.php:135
+msgid "Google Fonts 镜像地址"
+msgstr "Google Fonts mirror address"
+
+#: vite/admin/dist/index.js:357
+msgid "默认: fonts.loli.net"
+msgstr "Default: fonts.loli.net"
+
+#: vite/admin/dist/index.js:358
+#: includes/class-npcink-toolbox-domestic-environment.php:153
+msgid "Google Ajax 替换"
+msgstr "Google AJAX Replacement"
+
+#: vite/admin/dist/index.js:359
+msgid "将 ajax.googleapis.com 替换为 ajax.loli.net"
+msgstr "Replace ajax.googleapis.com with ajax.loli.net"
+
+#: vite/admin/dist/index.js:360
+msgid "自定义 CDN 替换"
+msgstr "Custom CDN Replacement"
+
+#: vite/admin/dist/index.js:361
+msgid "每行一条规则，格式: 原地址 => 新地址，支持 style_loader_src 和 script_loader_src"
+msgstr ""
+"one rule per line, format: original address => new address, supports "
+"style_loader_src and script_loader_src"
+
+#: vite/admin/dist/index.js:362
+msgid "在 WordPress 发送的邮件中隐藏 IP 地址，保护用户隐私"
+msgstr ""
+"Hide IP address in emails sent from WordPress to protect user privacy."
+
+#: vite/admin/dist/index.js:363
+msgid "后台文章管理增强"
+msgstr "enhance post management settings"
+
+#: vite/admin/dist/index.js:364
+msgid "文章菜单添加作者筛选项"
+msgstr "add author filter to the posts menu"
+
+#: vite/admin/dist/index.js:365
+msgid "文章和媒体菜单添加时间筛选项，媒体菜单需为列表布局"
+msgstr ""
+"add date filter to the posts and media menus; media menu must be in list "
+"layout"
+
+#: vite/admin/dist/index.js:366
+msgid "各个列表显示链接ID"
+msgstr "display link IDs for each list view"
+
+#: vite/admin/dist/index.js:367
+msgid "支持 文章、页面、链接、多媒体、评论、分类、标签、用户 等"
+msgstr ""
+"supports articles, pages, links, media, comments, categories, tags, users, "
+"etc."
+
+#: vite/admin/dist/index.js:368
+msgid "展示、添加、删除缩略图，仅经典编辑器可用"
+msgstr "shows, adds, removes thumbnails; only available in Classic Editor"
+
+#: vite/admin/dist/index.js:369
+msgid "正在加载当前页面"
+msgstr "Loading the current page"
+
+#: vite/admin/dist/index.js:370
+msgid "设置读取完成，正在准备页面内容。"
+msgstr "Settings loaded. Preparing the page."
+
+#: vite/admin/dist/index.js:371
+msgid "工作台"
+msgstr "Workspace"
+
+#: vite/admin/dist/index.js:372
+msgid "概览"
+msgstr "Overview"
+
+#: vite/admin/dist/index.js:373
+msgid "站点设置"
+msgstr "Site Settings"
+
+#: vite/admin/dist/index.js:374
+msgid "工具与支持"
+msgstr "Tools & Support"
+
+#: vite/admin/dist/index.js:375
+msgid "关于与帮助"
+msgstr "About & Help"
+
+#: vite/admin/dist/index.js:376
+msgid "无法读取设置"
+msgstr "cannot read settings"
+
+#: vite/admin/dist/index.js:377
+msgid "正在读取站点设置"
+msgstr "Loading site settings"
+
+#: vite/admin/dist/index.js:378
+msgid "读取完成前不会启用保存。"
+msgstr "Saving remains disabled until loading is complete."
+
+#: vite/admin/dist/index.js:379
+msgid "无法读取站点设置"
+msgstr "Unable to load site settings"
+
+#: vite/admin/dist/index.js:380
+msgid "设置接口请求失败"
+msgstr "The settings request failed"
+
+#: vite/admin/dist/index.js:381
+msgid "为避免覆盖真实配置，保存功能已禁用。"
+msgstr "Saving is disabled to prevent overwriting the current configuration."
+
+#: vite/admin/dist/index.js:382
+msgid "重新读取"
+msgstr "Reload"
+
+#: vite/admin/dist/index.js:383
+msgid "打开帮助"
+msgstr "Open help"
+
+#: vite/admin/dist/index.js:384
+msgid "帮助"
+msgstr "Help"
+
+#: vite/admin/dist/index.js:385
+msgid "导航"
+msgstr "Navigation"
+
+#: vite/admin/dist/index.js:386
+msgid "关闭导航"
+msgstr "Close navigation"
+
+#: vite/admin/dist/index.js:387
+msgid "Npcink Site Toolbox 主导航"
+msgstr "Npcink Site Toolbox primary navigation"
+
+#: vite/admin/dist/index.js:388
+msgid "保存与离开保护"
+msgstr "Save and navigation protection"
+
+#: vite/admin/dist/index.js:389
+msgid "修改普通设置或填写凭据后，页面会显示待保存数量。刷新、关闭标签页或切换到插件内其他区域时，系统会先确认，避免静默丢失草稿。"
+msgstr ""
+"after modifying general settings or filling credentials, the page will show "
+"how many changes are pending. Refreshing, closing a tab, or switching to "
+"another area within the plugin will first confirm before saving, avoiding "
+"silent loss of drafts."
+
+#: vite/admin/dist/index.js:390
+msgid "保存请求带有读取设置时的配置版本。如果其他管理员、另一个标签页或受控代码已经更新设置，本次保存会停止并提示重新读取，不会用旧快照覆盖新配置。"
+msgstr ""
+"save requests include the configuration version when reading settings; if "
+"other admins, another tab, or controlled code have updated settings, this "
+"save will stop and prompt for re-reading instead of using an old snapshot to"
+" overwrite new configurations."
+
+#: vite/admin/dist/index.js:391
+msgid "发生保存冲突时"
+msgstr "When a save conflict occurs"
+
+#: vite/admin/dist/index.js:392
+msgid "先记下当前准备修改的项目，再重新读取或刷新后台。核对最新配置和保存差异后，再提交需要保留的修改。"
+msgstr ""
+"note down what you're about to modify first. Then either refresh or read "
+"again from the backend. After verifying the latest configuration against "
+"your changes, submit only those modifications that need to be retained."
+
+#: vite/admin/dist/index.js:393
+msgid ""
+"数据库清理必须按项目先预览、再确认。预览资格仅对当前管理员和当前清理项目有效，5 "
+"分钟后失效且只能使用一次；如果执行前数据库内容发生变化，系统会停止清理并要求重新预览。"
+msgstr ""
+"database cleanup must preview and confirm each project individually. Preview"
+" eligibility is limited to current admin and current cleanup project; "
+"expires in 5 minutes and can only be used once; if database content changes "
+"before execution, the cleanup will stop and require a new preview."
+
+#: vite/admin/dist/index.js:394
+msgid "图片 Alt 检查"
+msgstr "Image alt text checks"
+
+#: vite/admin/dist/index.js:395
+msgid ""
+"SEO 检查助手和媒体库体检只检查缺少 Alt 的图片并显示数量。为避免与站点已有 SEO 或媒体插件重复写入，Npcink Site Toolbox "
+"不提供 Alt 自动写入；请在负责 SEO 的插件或媒体库中人工处理。"
+msgstr ""
+"the SEO checker and media library health check only checks for missing Alt "
+"attributes on images and displays their count. To avoid duplicating with "
+"existing site SEO or media plugins, Npcink Site Toolbox does not provide "
+"automatic writing of Alt; please handle this manually in the plugin "
+"responsible for SEO or in the media library."
+
+#: vite/admin/dist/index.js:396
+msgid "界面语言"
+msgstr "Interface Language"
+
+#: vite/admin/dist/index.js:397
+msgid ""
+"插件界面跟随当前 WordPress 用户语言。简体中文使用内置源文案；English (United States) "
+"使用随插件发布的英文语言包。修改个人资料中的语言后，重新打开插件页面即可生效。"
+msgstr ""
+"the plugin interface follows the current WordPress user's language setting. "
+"Simplified Chinese uses built-in source text; English (United States) uses "
+"the language package included with the plugin. After changing your profile "
+"language, re-opening the plugin page will take effect."
+
+#: vite/admin/dist/index.js:398
+msgid "这是一款完全免费且开源的插件，还在根据各位的使用和反馈，不断优化和增添新功能中。"
+msgstr ""
+"'This is a completely free and open-source plugin that continues to be "
+"optimized and enhanced based on users' feedback.'"
+
+#: vite/admin/dist/index.js:399
+msgid "介绍地址："
+msgstr "Introduction URL:"
+
+#: vite/admin/dist/index.js:400
+msgid "开源地址："
+msgstr "Open-source URL:"
+
+#: vite/admin/dist/index.js:401
+msgid ""
+"早期给公司的子主题添加各项功能，管理不便，便独立出来，方便统一管理和维护；随着进一步的发展，功能增多，独乐乐不如众乐乐，于是免费分享出来，供大家使用。"
+msgstr ""
+"Add various features to the company's child theme for easier management and "
+"maintenance; as development progressed, more features were added, making it "
+"beneficial to share them freely with others."
+
+#: vite/admin/dist/index.js:402
+msgid "您可以通过以下方式，或通过下方联系方式，给出您的宝贵建议；我会酌情排期，实现有趣的功能。"
+msgstr ""
+"You can provide your valuable feedback through the following methods or via "
+"the contact information below. I will schedule interesting features "
+"accordingly."
+
+#: vite/admin/dist/index.js:403
+msgid "您可以通过以下方式联系到我："
+msgstr "Contact me through the following ways:"
+
+#: vite/admin/dist/index.js:404
+msgid "（QQ 好友）"
+msgstr "(QQ Friends)"
+
+#: vite/admin/dist/index.js:405
+msgid "（邮件）"
+msgstr "(Email)"
+
+#: vite/admin/dist/index.js:406
+msgid "关于插件"
+msgstr "About the plugin"
+
+#: vite/admin/dist/index.js:407
+msgid "我有建议"
+msgstr "I have suggestions"
+
+#: vite/admin/dist/index.js:408
+msgid "联系方式"
+msgstr "Contact information"
+
+#: vite/admin/dist/index.js:409
+#: includes/class-npcink-toolbox-block-patterns.php:98
+msgid "来源"
+msgstr "Source"
+
+#: vite/admin/dist/index.js:410
+msgid "使用帮助"
+msgstr "Help"
+
+#: vite/admin/dist/index.js:411
+msgid "运行状态"
+msgstr "Runtime Status"
+
+#: vite/admin/dist/index.js:412
+msgid "AI 诊断"
+msgstr "AI Diagnostics"
+
+#: vite/admin/dist/index.js:413
+msgid "关于与支持"
+msgstr "About & Support"
+
+#: vite/admin/dist/index.js:414
+msgid "关于与帮助分组"
+msgstr "Under the About & Help group"
+
+#: vite/admin/dist/index.js:415
+msgid "故障排查"
+msgstr "Troubleshooting"
+
+#: vite/admin/dist/index.js:416
+msgid "解释 WordPress、PHP、数据库、主题与插件运行快照。"
+msgstr ""
+"Explain snapshots of WordPress, PHP, database, theme, and plugin "
+"performance."
+
+#: vite/admin/dist/index.js:417
+msgid "性能分析"
+msgstr "Performance Analysis"
+
+#: vite/admin/dist/index.js:418
+msgid "检查自动加载、缓存、Cron 与数据库单次往返等性能风险信号。"
+msgstr ""
+"Check for performance risk signals such as automatic loading, caching, Cron "
+"jobs, and single database round trips."
+
+#: vite/admin/dist/index.js:419
+msgid "维护解读"
+msgstr "Maintenance Analysis"
+
+#: vite/admin/dist/index.js:420
+msgid "归纳数据库、SEO、媒体、搜索健康与对象存储配置状态。"
+msgstr ""
+"Summarize the status of database, SEO, media, search health, and object "
+"storage configuration."
+
+#: vite/admin/dist/index.js:421
+msgid "设置风险"
+msgstr "Settings Risk"
+
+#: vite/admin/dist/index.js:422
+msgid "解释当前尚未保存的普通设置差异，不包含任何凭据字段。"
+msgstr ""
+"Explain any differences between unsaved general settings, without including "
+"any credential fields."
+
+#: vite/admin/dist/index.js:423
+msgid "修复复验"
+msgstr "Fix Verification"
+
+#: vite/admin/dist/index.js:424
+msgid "对比同范围的前后快照，区分改善、恶化与证据不足。"
+msgstr ""
+"Compare previous and current snapshots to distinguish improvements, "
+"declines, and lack of evidence."
+
+#: vite/admin/dist/index.js:425
+msgid "请检查 WordPress 7.0+ 的 DeepSeek Connector 是否已连接；数据未由本插件保存。"
+msgstr ""
+"Check if the DeepSeek Connector is connected to your WordPress site (version"
+" 7.0 or higher); data is not being saved by this plugin."
+
+#: vite/admin/dist/index.js:426
+msgid "模型在自动重试后仍未生成可展示正文；可稍后重试。"
+msgstr ""
+"The model did not generate displayable content after automatic retries; "
+"please try again later."
+
+#: vite/admin/dist/index.js:427
+msgid "DeepSeek 当前请求过多或额度受限；请稍后重试。"
+msgstr "Too many requests detected; please try again later."
+
+#: vite/admin/dist/index.js:428
+msgid "暂时无法连接 DeepSeek 服务；请稍后重试。"
+msgstr "Unable to connect to DeepSeek service; please try again later."
+
+#: vite/admin/dist/index.js:429
+msgid "没有保存不完整回答，也没有执行任何修改。可稍后重试。"
+msgstr ""
+"No incomplete answers were saved and no modifications were made. Please try "
+"again later."
+
+#: vite/admin/dist/index.js:430
+msgid "生成诊断报告"
+msgstr "Generate Diagnostic Report"
+
+#: vite/admin/dist/index.js:431
+msgid "生成性能快照"
+msgstr "Generate Performance Snapshot"
+
+#: vite/admin/dist/index.js:432
+msgid "生成维护快照"
+msgstr "Generate Maintenance Snapshot"
+
+#: vite/admin/dist/index.js:433
+msgid "AI 诊断与分析"
+msgstr "AI Diagnostics & Analysis"
+
+#: vite/admin/dist/index.js:434
+msgid "管理员先检查白名单快照，再显式发送给 DeepSeek；AI 只解释，不修改站点。"
+msgstr ""
+"The admin reviews the allowlisted snapshot before explicitly sending it to "
+"DeepSeek. AI explains the data but does not modify the site."
+
+#: vite/admin/dist/index.js:435
+msgid "AI 分析能力"
+msgstr "AI Analysis Capabilities"
+
+#: vite/admin/dist/index.js:436
+msgid "正在采集"
+msgstr "Collecting…"
+
+#: vite/admin/dist/index.js:437
+#, javascript-format
+msgid "%d 项普通设置待保存"
+msgstr "%d regular settings pending save"
+
+#: vite/admin/dist/index.js:438
+msgid "。凭据变更不会进入本分析。"
+msgstr "Credentials changes won't be analyzed."
+
+#: vite/admin/dist/index.js:439
+msgid "当前没有普通设置差异。请先在其他标签页调整设置，再回到这里分析。"
+msgstr ""
+"No differences found in the current settings. Please adjust the settings on "
+"another tab and come back here for analysis."
+
+#: vite/admin/dist/index.js:440
+msgid "基线范围"
+msgstr "Baseline Range"
+
+#: vite/admin/dist/index.js:441
+msgid "性能快照"
+msgstr "Performance Snapshot"
+
+#: vite/admin/dist/index.js:442
+msgid "维护快照"
+msgstr "Maintenance Snapshot"
+
+#: vite/admin/dist/index.js:443
+msgid "正在记录"
+msgstr "Recording in progress"
+
+#: vite/admin/dist/index.js:444
+msgid "重新记录基线"
+msgstr "Re-record Baseline"
+
+#: vite/admin/dist/index.js:445
+msgid "记录当前基线"
+msgstr "Record Current Baseline"
+
+#: vite/admin/dist/index.js:446
+#, javascript-format
+msgid "已在本页暂存 %s 的%s基线；刷新或离开页面后不会保留。"
+msgstr ""
+"The %2$s baseline for %1$s is temporarily stored on this page and will be "
+"cleared when you refresh or leave."
+
+#: vite/admin/dist/index.js:447
+msgid "快照生成失败"
+msgstr "Snapshot Generation Failed"
+
+#: vite/admin/dist/index.js:448
+msgid "没有生成、保存或发送不完整信息，请稍后重试。"
+msgstr ""
+"No complete information to generate, save, or send. Please try again later."
+
+#: vite/admin/dist/index.js:449
+msgid "重新生成"
+msgstr "Regenerate"
+
+#: vite/admin/dist/index.js:450
+msgid "发送前预览"
+msgstr "Preview before sending"
+
+#: vite/admin/dist/index.js:451
+msgid "网页中展示白名单事实；点击分析时，服务端会重新采集同范围最新数据。"
+msgstr ""
+"Whitelist of facts displayed on the webpage; when clicked for analysis, the "
+"server will re-collect latest data within the same range."
+
+#: vite/admin/dist/index.js:452
+msgid "复制 Markdown"
+msgstr "Copy Markdown"
+
+#: vite/admin/dist/index.js:453
+msgid "排查目标（可选）"
+msgstr "Target to Exclude (Optional)"
+
+#: vite/admin/dist/index.js:454
+msgid "分析目标（可选）"
+msgstr "Analyze Goals (optional)"
+
+#: vite/admin/dist/index.js:455
+msgid "补充你关心的现象或本次调整目的；不要填写密码、密钥或个人信息。"
+msgstr ""
+"Add any phenomena you're concerned about or the purpose of this adjustment; "
+"do not enter passwords, keys, or personal information."
+
+#: vite/admin/dist/index.js:456
+msgid "点击后会向 DeepSeek 发送同范围最新白名单事实。"
+msgstr "Clicking this will send the latest whitelisted facts to DeepSeek."
+
+#: vite/admin/dist/index.js:457
+msgid "若模型只返回空正文，最多自动重试一次。"
+msgstr ""
+"If the model only returns an empty body text, it will automatically retry up"
+" to once."
+
+#: vite/admin/dist/index.js:458
+msgid "API Key 由 WordPress Connectors 管理，本插件不读取、不保存，也不会执行模型建议。"
+msgstr ""
+"API Key is managed by the WordPress Connectors plugin. This plugin does not "
+"read from, save, or execute model suggestions."
+
+#: vite/admin/dist/index.js:459
+msgid "DeepSeek 正在分析"
+msgstr "DeepSeek is Analyzing"
+
+#: vite/admin/dist/index.js:460
+msgid "重新采集并对比"
+msgstr "Resync and Compare"
+
+#: vite/admin/dist/index.js:461
+msgid "使用 DeepSeek 分析"
+msgstr "Use DeepSeek Analysis"
+
+#: vite/admin/dist/index.js:462
+msgid "DeepSeek 分析失败"
+msgstr "DeepSeek Analysis Failed"
+
+#: vite/admin/dist/index.js:463
+msgid "前往 Connectors"
+msgstr "Go to Connectors"
+
+#: vite/admin/dist/index.js:464
+msgid "DeepSeek 分析结果"
+msgstr "DeepSeek Analysis Results"
+
+#: vite/admin/dist/index.js:465
+#, javascript-format
+msgid "Provider：%s%s。结果未保存，也未自动修改站点。"
+msgstr ""
+"Provider: %s%s. Results are not saved and have not been automatically "
+"updated for the site."
+
+#: vite/admin/dist/index.js:466
+#, javascript-format
+msgid " · 模型：%s"
+msgstr " · Model: %s"
+
+#: vite/admin/dist/index.js:467
+msgid "继续追问"
+msgstr "Keep Asking"
+
+#: vite/admin/dist/index.js:468
+#, javascript-format
+msgid "%d/3 轮 · 仅保存在当前页面，切换模式或刷新后清除。"
+msgstr ""
+"Round %d/3 · Stored only on this page and cleared when you switch modes or "
+"refresh."
+
+#: vite/admin/dist/index.js:469
+msgid "临时追问记录"
+msgstr "Temporary Ask Record"
+
+#: vite/admin/dist/index.js:470
+#, javascript-format
+msgid "追问 %d"
+msgstr "Follow-up %d"
+
+#: vite/admin/dist/index.js:471
+msgid "快捷追问"
+msgstr "Suggested Follow-ups"
+
+#: vite/admin/dist/index.js:472
+msgid "依据是什么？"
+msgstr "What is it based on?"
+
+#: vite/admin/dist/index.js:473
+msgid "还缺哪些证据？"
+msgstr "What else do we need to provide?"
+
+#: vite/admin/dist/index.js:474
+msgid "给出安全的验证步骤。"
+msgstr "Provide safe steps for verification."
+
+#: vite/admin/dist/index.js:475
+msgid "当前追问"
+msgstr "Current Follow-up"
+
+#: vite/admin/dist/index.js:476
+msgid "最多 1000 字，不要填写密码、密钥或个人信息。"
+msgstr ""
+"Maximum of 1000 characters, no password, key, or personal information "
+"needed."
+
+#: vite/admin/dist/index.js:477
+msgid "提交时会再次发送原白名单事实、首次回答和本页已完成的追问；这些内容不会持久化。"
+msgstr ""
+"Submit and resend the original whitelist facts, first answer, and any "
+"completed follow-ups; these contents will not persist."
+
+#: vite/admin/dist/index.js:478
+msgid "DeepSeek 正在回答"
+msgstr "DeepSeek is answering"
+
+#: vite/admin/dist/index.js:479
+msgid "提交追问"
+msgstr "Submit Follow-up"
+
+#: vite/admin/dist/index.js:480
+msgid "已完成 3 轮追问。若需要新的上下文，请重新生成快照并开始一次新分析。"
+msgstr ""
+"Completed 3 rounds of follow-ups. If new context is needed, please take a "
+"new snapshot and start a new analysis."
+
+#: vite/admin/dist/index.js:481
+msgid "追问失败"
+msgstr "Follow-up Failed"
+
+#: vite/admin/dist/index.js:482
+msgid "本轮未加入临时记录，也没有保存任何内容；请稍后重试。"
+msgstr ""
+"No temporary records were added this round and no content was saved; please "
+"try again later."
+
+#: vite/admin/dist/index.js:483
+msgid "已复制脱敏诊断报告，请在分享前再次检查。"
+msgstr ""
+"Copied and de-identified diagnosis report. Please review again before "
+"sharing."
+
+#: vite/admin/dist/index.js:484
+msgid "已复制白名单快照，请在分享前再次检查。"
+msgstr ""
+"Whitelist snapshot has been copied. Please check again before sharing."
+
+#: vite/admin/dist/index.js:485
+msgid "浏览器未允许复制，请刷新页面后重试。"
+msgstr ""
+"Your browser doesn't allow copying. Please refresh the page and try again."
+
+#: vite/admin/dist/index.js:486
+msgid "这是一款完全免费且开源的插件，还在根据各位的使用和反馈，不断优化和增添新功能中；"
+msgstr ""
+"This is a free and open-source plugin that continues to optimize and add new"
+" features based on your usage and feedback;"
+
+#: vite/admin/dist/index.js:487
+msgid "早期给公司的子主题添加各项功能，管理不便，便独立出来，方便统一管理和维护；"
+msgstr ""
+"As the number of features increased for the company's child theme, managing "
+"it became inconvenient, so I separated it out to make it easier to manage "
+"and maintain uniformly;"
+
+#: vite/admin/dist/index.js:488
+msgid "随着进一步的发展，功能增多，独乐乐不如众乐乐，于是免费分享出来，供大家使用。"
+msgstr ""
+"As further development progressed, with more features added, enjoying things"
+" alone is not as good as sharing them with others. Thus, I decided to share "
+"it freely for everyone to use;"
+
+#: vite/admin/dist/index.js:489
+msgid "您可以通过以下方式，或通过下方联系方式，给出您的宝贵建议；我会酌情排期，实现有趣的功能，"
+msgstr ""
+"You can provide your valuable suggestions through the following methods or "
+"by contacting me via the below contact information; I will schedule "
+"interesting functions accordingly;"
+
+#: vite/admin/dist/index.js:490
+msgid "文章评论"
+msgstr "Post Comments"
+
+#: vite/admin/dist/index.js:491
+msgid "您可以通过以下方式，联系到我，"
+msgstr "You can reach out to me through the following ways;"
+
+#: vite/admin/dist/index.js:492
+msgid "正在读取运行状态"
+msgstr "Reading and writing status is currently being read;"
+
+#: vite/admin/dist/index.js:493
+msgid "只读取模块和环境事实，不会修改设置。"
+msgstr ""
+"Only reads the read-only modules and environment facts, does not modify "
+"settings;"
+
+#: vite/admin/dist/index.js:494
+msgid "运行状态暂时不可用"
+msgstr "The running status is temporarily unavailable;"
+
+#: vite/admin/dist/index.js:495
+msgid "读取失败，没有生成不完整的诊断信息。"
+msgstr "Failed to read, no incomplete diagnostic information was generated;"
+
+#: vite/admin/dist/index.js:496
+msgid "重新获取"
+msgstr "Reload"
+
+#: vite/admin/dist/index.js:497
+msgid "功能与运行状态"
+msgstr "Function and running status;"
+
+#: vite/admin/dist/index.js:498
+msgid "核对当前实际加载的模块、编辑器工具和基础运行环境；本页面只读，不会发送外部请求。"
+msgstr ""
+"Checks the actual modules loaded, editor tools, and basic runtime "
+"environment currently. This page is only for reading and will not send "
+"external requests;"
+
+#: vite/admin/dist/index.js:499
+#: includes/class-npcink-toolbox-my-comments.php:69
+msgid "刷新"
+msgstr "Refresh"
+
+#: vite/admin/dist/index.js:500
+msgid "运行状态摘要"
+msgstr "Summary of the running status;"
+
+#: vite/admin/dist/index.js:501
+msgid "插件版本"
+msgstr "Plugin Version"
+
+#: vite/admin/dist/index.js:502
+msgid "未知"
+msgstr "Unknown"
+
+#: vite/admin/dist/index.js:503
+msgid "运行模块"
+msgstr "Active Modules"
+
+#: vite/admin/dist/index.js:504
+msgid "无需开关"
+msgstr "Always Active"
+
+#: vite/admin/dist/index.js:505
+msgid "编辑器工具"
+msgstr "Editor Tools"
+
+#: vite/admin/dist/index.js:506
+msgid "运行环境"
+msgstr "Runtime Environment"
+
+#: vite/admin/dist/index.js:507
+msgid "仅显示影响插件运行的版本事实，不使用综合评分。"
+msgstr ""
+"Only show version facts that affect plugin operation, without using a "
+"consolidated score."
+
+#: vite/admin/dist/index.js:508
+msgid "生成时间"
+msgstr "Generated At"
+
+#: vite/admin/dist/index.js:509
+msgid "当前运行模块"
+msgstr "Current Running Modules"
+
+#: vite/admin/dist/index.js:510
+msgid "仅列出本次实际加载的功能；作用范围可帮助判断问题出现在哪一侧。"
+msgstr ""
+"List only the features actually loaded this time; scope can help determine "
+"where an issue lies."
+
+#: vite/admin/dist/index.js:511
+#, javascript-format
+msgid "前往%s设置"
+msgstr "Go to %s Settings"
+
+#: vite/admin/dist/index.js:512
+msgid "前往设置"
+msgstr "Go to Settings"
+
+#: vite/admin/dist/index.js:513
+msgid "始终可用的编辑器工具"
+msgstr "Always Available Editor Tools"
+
+#: vite/admin/dist/index.js:514
+msgid "这些工具不受设置开关控制，在文章或页面编辑器的 Npcink Site Toolbox 分类中使用。"
+msgstr ""
+"These tools are not controlled by the settings switch and can be used in the"
+" Npcink Site Toolbox category of the article or page editor."
+
+#: vite/admin/dist/index.js:515
+msgid "区块样板"
+msgstr "Block Templates"
+
+#: vite/admin/dist/index.js:516
+msgid "动态区块"
+msgstr "Dynamic Blocks"
+
+#: vite/admin/dist/index.js:517
+msgid "DeepSeek 分析结果内容"
+msgstr "DeepSeek Analysis Results Content"
+
+#: vite/admin/dist/index.js:518
+msgid "去除分类链接中的 category 字符"
+msgstr "Remove 'category' characters from category links."
+
+#: vite/admin/dist/index.js:519
+msgid "复制文字跳出弹窗提示"
+msgstr "Copy Text Notification Popup"
+
+#: vite/admin/dist/index.js:520
+msgid "美化"
+msgstr "Enhancements"
+
+#: vite/admin/dist/index.js:521
+#: includes/class-npcink-toolbox-diagnostics.php:1904
+msgid "其他"
+msgstr "Other"
+
+#: vite/admin/dist/index.js:522
+msgid "待完善"
+msgstr "Incomplete"
+
+#: vite/admin/dist/index.js:523
+msgid "类型"
+msgstr "Type"
+
+#: vite/admin/dist/index.js:524
+msgid "效果"
+msgstr "Results"
+
+#: vite/admin/dist/index.js:525
+msgid "诊断报告预览内容"
+msgstr "Preview Content of Diagnostic Report"
+
+#: vite/admin/dist/index.js:526
+msgid "发送前数据预览"
+msgstr "Preview before sending"
+
+#: vite/admin/dist/index.js:527
+#, javascript-format
+msgid "WordPress %s数据包"
+msgstr "WordPress %s Data Package"
+
+#: vite/admin/dist/index.js:528
+#, javascript-format
+msgid "%d 个数据分区 · %d 项白名单事实"
+msgstr "%d data partitions · %d whitelist items"
+
+#: vite/admin/dist/index.js:529
+msgid "尚未发送"
+msgstr "Not Sent"
+
+#: vite/admin/dist/index.js:530
+msgid "数据合同"
+msgstr "Data Contract"
+
+#: vite/admin/dist/index.js:531
+msgid "分析范围"
+msgstr "Analyze Scope"
+
+#: vite/admin/dist/index.js:532
+msgid "隐私状态"
+msgstr "Privacy Status"
+
+#: vite/admin/dist/index.js:533
+msgid "未发送 · 未保存"
+msgstr "Not Sent · Not Saved"
+
+#: vite/admin/dist/index.js:534
+msgid "发送与分析约束"
+msgstr "Send & Analyze Constraints"
+
+#: vite/admin/dist/index.js:535
+msgid "仅使用下列分区与字段事实，字段值不会被当作操作指令。"
+msgstr ""
+"Use only the following partitions and fields for facts. Field values will "
+"not be treated as action instructions."
+
+#: vite/admin/dist/index.js:536
+msgid "证据不足时要求模型明确说明无法判断；插件不会执行任何修改或清理。"
+msgstr ""
+"Insufficient evidence to require the model to clearly state that it cannot "
+"determine; the plugin will not perform any modifications or cleanups."
+
+#: vite/admin/dist/index.js:537
+msgid "检查项"
+msgstr "Check Items"
+
+#: vite/admin/dist/index.js:538
+msgid "字段 ID"
+msgstr "Field ID"
+
+#: vite/admin/dist/index.js:539
+msgid "当前值"
+msgstr "Current Value"
+
+#: vite/admin/dist/index.js:540
+msgid "已知局限"
+msgstr "Known Limitations"
+
+#: vite/admin/dist/index.js:541
+msgid "未设置"
+msgstr "Not set"
+
+#: vite/admin/dist/index.js:542
+msgid "开启"
+msgstr "Enable"
+
+#: vite/admin/dist/index.js:543
+msgid "关闭"
+msgstr "Close"
+
+#: vite/admin/dist/index.js:544
+msgid "空"
+msgstr "Empty"
+
+#: vite/admin/dist/index.js:545
+msgid "确认保存以下更改？"
+msgstr "Confirm save of these changes?"
+
+#: vite/admin/dist/index.js:546
+msgid "确认保存"
+msgstr "Confirm Save"
+
+#: vite/admin/dist/index.js:547
+#, javascript-format
+msgid "检测到 %d 项高风险功能将被开启，请谨慎确认。"
+msgstr ""
+"Found %d high-risk features that will be enabled. Please confirm carefully."
+
+#: vite/admin/dist/index.js:548
+msgid "原值："
+msgstr "Original Value:"
+
+#: vite/admin/dist/index.js:549
+msgid "新值："
+msgstr "New Value:"
+
+#: vite/admin/dist/index.js:550
+msgid "暂无变更"
+msgstr "No changes"
+
+#: vite/admin/dist/index.js:551
+msgid "自动处理代码"
+msgstr "Automatically Handle Code"
+
+#: vite/admin/dist/index.js:552
+msgid "清空"
+msgstr "Clear"
+
+#: vite/admin/dist/index.js:553
+msgid "简单 SEO"
+msgstr "Simple SEO"
+
+#: vite/admin/dist/index.js:554
+msgid "基础 SEO 设置，推荐使用专业 SEO 插件替代"
+msgstr ""
+"Basic SEO Settings - Recommended to use a professional SEO plugin instead."
+
+#: vite/admin/dist/index.js:555
+msgid "配置"
+msgstr "Configuration"
+
+#: vite/admin/dist/index.js:556
+msgid "SEO 配置"
+msgstr "SEO Settings"
+
+#: vite/admin/dist/index.js:557
+msgid "简单 SEO 设置，仅解决有无问题"
+msgstr "Simple SEO Settings, to address presence issues."
+
+#: vite/admin/dist/index.js:558
+msgid "站点标题"
+msgstr "Site Title"
+
+#: vite/admin/dist/index.js:559
+msgid "用英文逗号分隔，建议不超过6个词"
+msgstr "use English commas, up to six words recommended"
+
+#: vite/admin/dist/index.js:560
+msgid "建议240字以内"
+msgstr "Suggestions up to 240 characters."
+
+#: vite/admin/dist/index.js:561
+msgid "分类和标签 SEO"
+msgstr "Categories and Tags SEO"
+
+#: vite/admin/dist/index.js:562
+msgid "分类名称作标题、分类关键词和描述作 Meta，标签描述作 Meta"
+msgstr ""
+"Category names as title, category keywords and description as Meta, tag "
+"descriptions as Meta"
+
+#: vite/admin/dist/index.js:563
+msgid "未识别统计 ID，请粘贴百度统计平台提供的完整代码。"
+msgstr ""
+"Unrecognized statistical ID. Please paste the complete code provided by "
+"Baidu Analytics platform."
+
+#: vite/admin/dist/index.js:564
+msgid "未识别验证码，请粘贴 Google Search Console 提供的完整 HTML 标记。"
+msgstr ""
+"Unrecognized captcha detected. Please paste the complete HTML markup "
+"provided by Google Search Console."
+
+#: vite/admin/dist/index.js:565
+msgid "未识别验证码，请粘贴 Bing Webmaster Tools 提供的完整 HTML Meta 标记。"
+msgstr ""
+"Unrecognized captcha detected. Please paste the complete HTML meta tags "
+"provided by Bing Webmaster Tools."
+
+#: vite/admin/dist/index.js:566
+msgid "辅助功能"
+msgstr "Accessibility"
+
+#: vite/admin/dist/index.js:567
+msgid "文章统计、恶意搜索屏蔽、站点验证"
+msgstr "Article Statistics, Malicious Search Blocking, Site Verification"
+
+#: vite/admin/dist/index.js:568
+msgid "辅助功能配置"
+msgstr "Accessibility Settings"
+
+#: vite/admin/dist/index.js:569
+msgid "恶意关键词"
+msgstr "Malicious Keywords"
+
+#: vite/admin/dist/index.js:570
+msgid "一行一个"
+msgstr "One per line"
+
+#: vite/admin/dist/index.js:571
+msgid "Google 站点验证"
+msgstr "Google Site Verification"
+
+#: vite/admin/dist/index.js:572
+msgid "Bing 站点验证"
+msgstr "Bing Site Verification"
+
+#: vite/admin/dist/index.js:573
+msgid "处理失败，请输入百度统计平台的完整统计代码"
+msgstr ""
+"Failed processing. Please input the complete statistical code of Baidu "
+"Analytics platform."
+
+#: vite/admin/dist/index.js:574
+msgid "处理失败，请输入谷歌平台完整 HTML 标记"
+msgstr ""
+"Failed processing. Please input the complete HTML tag of Google platform."
+
+#: vite/admin/dist/index.js:575
+msgid "处理失败，请输入必应平台完整 HTML Meta 标记"
+msgstr ""
+"Failed processing. Please input the complete HTML Meta tag of Bing platform."
+
+#: vite/admin/dist/index.js:576
+msgid "文章统计"
+msgstr "Article Statistics"
+
+#: vite/admin/dist/index.js:577
+msgid "开启后显示在仪表盘下"
+msgstr "Display on Dashboard after enabling"
+
+#: vite/admin/dist/index.js:578
+msgid "禁止搜索指定词汇"
+msgstr "Block search for specified keywords"
+
+#: vite/admin/dist/index.js:579
+msgid "输入关键词"
+msgstr "Input keyword(s)"
+
+#: vite/admin/dist/index.js:580
+msgid "输入您的关键词，以“回车键”分隔，一行一个"
+msgstr "Input your keywords, separated by the 'Enter' key. One per line."
+
+#: vite/admin/dist/index.js:581
+msgid " → 代码管理（左侧） → 代码获取 → 获取代码 → 复制代码贴入输入框中并保存即可"
+msgstr ""
+"→ Code Management (left) → Get Code → Copy code and paste into input box to "
+"save"
+
+#: vite/admin/dist/index.js:582
+msgid "谷歌统计"
+msgstr "Google Analytics"
+
+#: vite/admin/dist/index.js:583
+msgid "简单SEO"
+msgstr "Simple SEO"
+
+#: vite/admin/dist/index.js:584
+msgid "仅解决有无问题，推荐使用专业 SEO 插件"
+msgstr ""
+"Only resolve existence issues, recommend using a professional SEO plugin."
+
+#: vite/admin/dist/index.js:585
+msgid "网站相关关键词，用英文逗号分隔，建议不超过6个词"
+msgstr ""
+"Website-related keywords, separated by commas with up to 6 words each."
+
+#: vite/admin/dist/index.js:586
+msgid "关于网站的描述，建议240字以内"
+msgstr "About the site description, suggest less than 240 characters."
+
+#: vite/admin/dist/index.js:587
+msgid "文章SEO"
+msgstr "Article SEO"
+
+#: vite/admin/dist/index.js:588
+msgid "title是文章标题，keywords是文章标签，description是文章描述或文章首段前40字"
+msgstr ""
+"Title is the article title, keywords are the article tags, description is "
+"the article summary or first 40 words of the article body."
+
+#: vite/admin/dist/index.js:589
+msgid "分类和标签SEO"
+msgstr "Categories and Tags SEO"
+
+#: vite/admin/dist/index.js:590
+msgid "T 是分类名称，K 是分类关键词，D 是分类描述，标签只做了D，是标签描述"
+msgstr ""
+"T is the category name, K is the category keyword, D is the category "
+"description. Tags only do D, which is the tag description."
+
+#: vite/admin/dist/index.js:591
+msgid "状态良好"
+msgstr "Healthy"
+
+#: vite/admin/dist/index.js:592
+msgid "需要关注"
+msgstr "Needs Attention"
+
+#: vite/admin/dist/index.js:593
+msgid "需要处理"
+msgstr "Action Required"
+
+#: vite/admin/dist/index.js:594
+#, javascript-format
+msgid "待核对：%s%s"
+msgstr "Unreviewed: %s %s"
+
+#: vite/admin/dist/index.js:595
+#, javascript-format
+msgid "等 %d 项"
+msgstr "%d more items"
+
+#: vite/admin/dist/index.js:596
+#, javascript-format
+msgid "需评估模块：%s%s"
+msgstr "Assessment Modules: %s%s"
+
+#: vite/admin/dist/index.js:597
+msgid "登录安全配置"
+msgstr "Login Security Settings"
+
+#: vite/admin/dist/index.js:598
+#, javascript-format
+msgid "已启用 %d/2 项登录安全配置"
+msgstr "Enabled %d/2 Login Security Configurations"
+
+#: vite/admin/dist/index.js:599
+msgid "评论防护"
+msgstr "Comment Protection"
+
+#: vite/admin/dist/index.js:600
+msgid "评论限制与过滤已配置"
+msgstr "Comment Limiting and Filtering is configured"
+
+#: vite/admin/dist/index.js:601
+msgid "已启用一项基础防护"
+msgstr "Enabled a Basic Protection Feature"
+
+#: vite/admin/dist/index.js:602
+msgid "尚未启用评论防护"
+msgstr "Comments Protection Not Enabled"
+
+#: vite/admin/dist/index.js:603
+msgid "信息暴露"
+msgstr "Information Exposure"
+
+#: vite/admin/dist/index.js:604
+msgid "版本与作者站点地图均已隐藏"
+msgstr "Version and Author site map are both hidden."
+
+#: vite/admin/dist/index.js:605
+msgid "仍有一项暴露面可收紧"
+msgstr "Still one area to tighten up"
+
+#: vite/admin/dist/index.js:606
+msgid "建议隐藏版本和作者站点地图"
+msgstr "Suggest hiding version and author sitemap"
+
+#: vite/admin/dist/index.js:607
+msgid "启用登录尝试保护"
+msgstr "Enable Login Attempt Protection"
+
+#: vite/admin/dist/index.js:608
+msgid "限制同一已存在账号与来源 IP 组合的连续失败尝试，并使用固定统计窗口和锁定时长。"
+msgstr ""
+"Limit consecutive failed attempts from the same existing account and source "
+"IP combination using a fixed statistical window and lockout duration."
+
+#: vite/admin/dist/index.js:609
+msgid "前往国内生态"
+msgstr "Go to China Services"
+
+#: vite/admin/dist/index.js:610
+msgid "检查媒体基础设置"
+msgstr "Check Media Base Settings"
+
+#: vite/admin/dist/index.js:611
+msgid "确认图片替代文本策略，减少内容可访问性与 SEO 缺口。"
+msgstr ""
+"Confirm image alt text strategy to reduce accessibility gaps and improve "
+"SEO."
+
+#: vite/admin/dist/index.js:612
+msgid "检查站点与媒体"
+msgstr "Check Site & Media"
+
+#: vite/admin/dist/index.js:613
+msgid "确认内容 SEO 策略"
+msgstr "Confirm Content SEO Strategy"
+
+#: vite/admin/dist/index.js:614
+msgid "按站点实际情况决定是否启用文章级 SEO，而不是套用预设方案。"
+msgstr ""
+"Enable article-level SEO based on site specifics instead of using preset "
+"solutions."
+
+#: vite/admin/dist/index.js:615
+msgid "管理内容与 SEO"
+msgstr "Manage Content & SEO"
+
+#: vite/admin/dist/index.js:616
+msgid "处理站内搜索问题"
+msgstr "Handle Site Search Issues"
+
+#: vite/admin/dist/index.js:617
+msgid "存在无结果或可疑搜索词，建议检查内容覆盖与搜索限制。"
+msgstr ""
+"There are no results or suspicious search terms present; consider checking "
+"content coverage and search restrictions."
+
+#: vite/admin/dist/index.js:618
+msgid "查看内容工具"
+msgstr "View Content Tools"
+
+#: vite/admin/dist/index.js:619
+msgid "核对国内访问与合规"
+msgstr "Verify Domestic Access & Compliance"
+
+#: vite/admin/dist/index.js:620
+msgid "按实际业务检查备案、Cookie、微信与评论安全能力，不必全部开启。"
+msgstr ""
+"Check compliance with actual business needs for registration, cookies, "
+"WeChat and comment security features, without having to enable all of them."
+
+#: vite/admin/dist/index.js:621
+msgid "查看国内生态"
+msgstr "View China Services"
+
+#: vite/admin/dist/index.js:622
+msgid "定期检查维护状态"
+msgstr "Check Maintenance Status Regularly"
+
+#: vite/admin/dist/index.js:623
+msgid "查看数据库、媒体与站点服务状态，只执行已经确认影响范围的维护任务。"
+msgstr ""
+"Check database, media, and site service status, only perform maintenance "
+"tasks that have been confirmed to affect a specific scope."
+
+#: vite/admin/dist/index.js:624
+msgid "检查维护状态"
+msgstr "Check Maintenance Status"
+
+#: vite/admin/dist/index.js:625
+msgid "站点概览"
+msgstr "Site Overview"
+
+#: vite/admin/dist/index.js:626
+msgid "先处理重要事项，再进入具体设置"
+msgstr "Tackle important matters first, then go into specific settings."
+
+#: vite/admin/dist/index.js:627
+msgid "这里展示当前配置和站点服务的真实状态。所有调整仍需进入对应页面确认并保存。"
+msgstr ""
+"Here you can see the current configuration and real status of your site "
+"services. All adjustments still need to be confirmed and saved on their "
+"respective pages."
+
+#: vite/admin/dist/index.js:628
+msgid "打开存储与维护"
+msgstr "Open Storage & Maintenance"
+
+#: vite/admin/dist/index.js:629
+msgid "配置摘要"
+msgstr "Settings Overview"
+
+#: vite/admin/dist/index.js:630
+msgid "已启用配置"
+msgstr "Enabled Configuration"
+
+#: vite/admin/dist/index.js:631
+#, javascript-format
+msgid "共 %d 个布尔开关"
+msgstr "%d boolean toggles in total"
+
+#: vite/admin/dist/index.js:632
+#, javascript-format
+msgid "已启用 %d/2 项"
+msgstr "Enabled %d/2 items"
+
+#: vite/admin/dist/index.js:633
+msgid "下一步"
+msgstr "Next Step"
+
+#: vite/admin/dist/index.js:634
+msgid "按当前状态生成的建议"
+msgstr "Generate suggestions based on the current state"
+
+#: vite/admin/dist/index.js:635
+msgid "快捷入口"
+msgstr "Quick Access"
+
+#: vite/admin/dist/index.js:636
+msgid "常用功能"
+msgstr "Frequently Used Features"
+
+#: vite/admin/dist/index.js:637
+#, javascript-format
+msgid "%d 项"
+msgstr "%d Items"
+
+#: vite/admin/dist/index.js:638
+#, javascript-format
+msgid "打开常用功能：%s"
+msgstr "Open Utility Features: %s"
+
+#: vite/admin/dist/index.js:639
+#, javascript-format
+msgid "取消收藏：%s"
+msgstr "Unfavorite: %s"
+
+#: vite/admin/dist/index.js:640
+msgid "还没有收藏常用功能"
+msgstr "No saved utilities are available yet."
+
+#: vite/admin/dist/index.js:641
+msgid "点击设置项右侧的星标，之后可以从这里直接打开。"
+msgstr "Click the star next to a setting item to open it directly from here."
+
+#: vite/admin/dist/index.js:642
+msgid "站点服务"
+msgstr "Site Services"
+
+#: vite/admin/dist/index.js:643
+msgid "站点诊断"
+msgstr "Site Diagnostics"
+
+#: vite/admin/dist/index.js:644
+msgid "正在读取站点诊断"
+msgstr "Reading Site Diagnosis"
+
+#: vite/admin/dist/index.js:645
+msgid "请稍候，正在核对运行环境。"
+msgstr "Please wait, checking the environment."
+
+#: vite/admin/dist/index.js:646
+msgid "站点诊断暂时不可用"
+msgstr "Site Diagnosis is currently unavailable"
+
+#: vite/admin/dist/index.js:647
+msgid "请求失败，当前没有可展示的检查结果。"
+msgstr "Request failed, no results to display."
+
+#: vite/admin/dist/index.js:648
+msgid "暂无诊断数据"
+msgstr "No Diagnostics Data Available"
+
+#: vite/admin/dist/index.js:649
+msgid "服务已响应，但没有返回有效诊断结果。"
+msgstr "Service responded but no valid diagnostic results were returned."
+
+#: vite/admin/dist/index.js:650
+msgid "重新检查"
+msgstr "Check Again"
+
+#: vite/admin/dist/index.js:651
+#, javascript-format
+msgid "站点诊断 %d / %d 项通过%s"
+msgstr "Site diagnostics: %d/%d passed%s"
+
+#: vite/admin/dist/index.js:652
+#, javascript-format
+msgid "，%d 个模块风险"
+msgstr ", %d module risks"
+
+#: vite/admin/dist/index.js:653
+#, javascript-format
+msgid "/ %d 项通过"
+msgstr "/ %d passed"
+
+#: vite/admin/dist/index.js:654
+#, javascript-format
+msgid "%d 项待关注，%d 项需要处理；"
+msgstr "%d Items to Watch, %d Items to Tackle;"
+
+#: vite/admin/dist/index.js:655
+#, javascript-format
+msgid "%d 个高风险或实验性模块已启用。"
+msgstr "%d high-risk or experimental modules are enabled."
+
+#: vite/admin/dist/index.js:656
+msgid "未启用高风险或实验性模块。"
+msgstr "High-risk or experimental modules are disabled."
+
+#: vite/admin/dist/index.js:657
+#, javascript-format
+msgid "生成于 %s"
+msgstr "Generated at %s"
+
+#: vite/admin/dist/index.js:658
+msgid "查看功能与运行状态"
+msgstr "View Features & Status"
+
+#: vite/admin/dist/index.js:659
+msgid "近 30 天"
+msgstr "Last 30 days"
+
+#: vite/admin/dist/index.js:660
+msgid "搜索健康"
+msgstr "Search Health"
+
+#: vite/admin/dist/index.js:661
+msgid "已有数据"
+msgstr "Existing Data"
+
+#: vite/admin/dist/index.js:662
+msgid "正在汇总搜索数据"
+msgstr "Gathering search data"
+
+#: vite/admin/dist/index.js:663
+msgid "搜索健康与站点诊断分别加载。"
+msgstr "Search for health and site diagnostics separately load."
+
+#: vite/admin/dist/index.js:664
+msgid "搜索健康暂时不可用"
+msgstr "Search for Health is temporarily unavailable"
+
+#: vite/admin/dist/index.js:665
+msgid "诊断其他区域不受影响，可以单独重试。"
+msgstr "Diagnose any other unaffected areas and retry individually."
+
+#: vite/admin/dist/index.js:666
+msgid "暂无搜索数据"
+msgstr "No search data available"
+
+#: vite/admin/dist/index.js:667
+msgid "近 30 天没有可汇总的站内搜索记录。"
+msgstr "No searchable activity within the last 30 days."
+
+#: vite/admin/dist/index.js:668
+msgid "检查搜索设置"
+msgstr "Check Search Settings"
+
+#: vite/admin/dist/index.js:669
+msgid "总搜索量"
+msgstr "Total Search Volume"
+
+#: vite/admin/dist/index.js:670
+msgid "无结果词"
+msgstr "No-result Queries"
+
+#: vite/admin/dist/index.js:671
+msgid "内容编辑"
+msgstr "Content Editor"
+
+#: vite/admin/dist/index.js:672
+msgid "3 个可编辑样板和 2 个实时数据区块，只在文章或页面编辑器中使用。"
+msgstr ""
+"3 editable templates and 2 real-time data blocks, used only in the post or "
+"page editor."
+
+#: vite/admin/dist/index.js:673
+msgid "5 项可用"
+msgstr "5 Available Items"
+
+#: vite/admin/dist/index.js:674
+msgid "样板"
+msgstr "Patterns"
+
+#: vite/admin/dist/index.js:675
+msgid "资源下载、文章结论、来源与版权说明"
+msgstr "Resources Download, Article Conclusion, Source and Copyright Notice"
+
+#: vite/admin/dist/index.js:676
+msgid "站点数据；GitHub 项目（描述、语言、Stars 与 Forks）"
+msgstr "Site Data; GitHub Project (Description, Language, Stars, and Forks)"
+
+#: vite/admin/dist/index.js:677
+msgid "在区块插入器中选择 Npcink Site Toolbox，或搜索“站点数据”“GitHub 项目”。"
+msgstr ""
+"Select Npcink Site Toolbox in the Block Editor, or search for 'site data' "
+"and 'GitHub project'."
+
+#: vite/admin/dist/index.js:678
+msgid "新建文章使用"
+msgstr "Create New Post Using"
+
+#: vite/admin/dist/index.js:679
+msgid "新建页面"
+msgstr "Create Page"
+
+#: vite/admin/dist/index.js:680
+msgid "建议操作"
+msgstr "Suggestions"
+
+#: vite/admin/dist/index.js:681
+msgid "接下来可以做什么"
+msgstr "What Can I Do Next"
+
+#: vite/admin/dist/index.js:682
+msgid "基础防护"
+msgstr "Basic Protection"
+
+#: vite/admin/dist/index.js:683
+msgid "安全状态"
+msgstr "Security Status"
+
+#: vite/admin/dist/index.js:684
+msgid "部分配置"
+msgstr "Some Configuration"
+
+#: vite/admin/dist/index.js:685
+msgid "管理国内安全设置"
+msgstr "China Services Settings"
+
+#: vite/admin/dist/index.js:686
+msgid "搜索功能或设置"
+msgstr "Search features or settings"
+
+#: vite/admin/dist/index.js:687
+msgid "搜索功能或设置..."
+msgstr "Search features or settings…"
+
+#: vite/admin/dist/index.js:688
+msgid "清空搜索"
+msgstr "Clear search"
+
+#: vite/admin/dist/index.js:689
+#, javascript-format
+msgid "找到 %d 项，显示前 %d 项"
+msgstr "Found %d items, showing the first %d items"
+
+#: vite/admin/dist/index.js:690
+msgid "功能搜索结果"
+msgstr "Feature search results"
+
+#: vite/admin/dist/index.js:691
+msgid "收藏"
+msgstr "Favorites"
+
+#: vite/admin/dist/index.js:692
+msgid "打开"
+msgstr "Open"
+
+#: vite/admin/dist/index.js:693
+msgid "功能标签"
+msgstr "Function Tags"
+
+#: vite/admin/dist/index.js:694
+msgid "未找到匹配的功能"
+msgstr "No matching features found"
+
+#: vite/admin/dist/index.js:695
+msgid "对象存储"
+msgstr "Object Storage"
+
+#: vite/admin/dist/index.js:696
+msgid "SEO 检查"
+msgstr "SEO Check"
+
+#: vite/admin/dist/index.js:697
+msgid "媒体体检"
+msgstr "Media Health Check"
+
+#: vite/admin/dist/index.js:698
+msgid "存储与维护分组"
+msgstr "Storage & Maintenance Group"
+
+#: vite/admin/dist/index.js:699
+msgid "示例：npcink-media"
+msgstr "Example: npcink-media"
+
+#: vite/admin/dist/index.js:700
+msgid "只填写 Bucket 名称；上传目录请填写在下一项。"
+msgstr ""
+"Only enter the bucket name; upload directory should be entered in the next "
+"field."
+
+#: vite/admin/dist/index.js:701
+msgid "示例：npcink-media-1250000000"
+msgstr "Example: npcink-media-1250000000"
+
+#: vite/admin/dist/index.js:702
+msgid "填写带 APPID 后缀的完整 Bucket 名称。"
+msgstr "Enter the full bucket name with a suffix of your APPID."
+
+#: vite/admin/dist/index.js:703
+msgid "填写七牛云空间名称，不要填写访问域名。"
+msgstr "Enter Qiniu Cloud Space Name, do not enter domain name."
+
+#: vite/admin/dist/index.js:704
+msgid "尚未填写公开访问地址"
+msgstr "No public access address entered"
+
+#: vite/admin/dist/index.js:705
+msgid "连接测试失败"
+msgstr "Connection test failed"
+
+#: vite/admin/dist/index.js:706
+msgid "连接成功"
+msgstr "Connection successful"
+
+#: vite/admin/dist/index.js:707
+#, javascript-format
+msgid "已写入测试对象 · %d ms"
+msgstr "Test object written · %d ms"
+
+#: vite/admin/dist/index.js:708
+#, javascript-format
+msgid "对象 %s。固定测试对象会被覆盖；本次测试未保存设置，也未改变启用状态。"
+msgstr ""
+"Object: %s. The fixed test object is overwritten; this test does not save "
+"settings or change the enabled state."
+
+#: vite/admin/dist/index.js:709
+msgid "请检查凭据、Bucket、地域节点和写入权限。"
+msgstr "Please check credentials, bucket, region node, and write permissions."
+
+#: vite/admin/dist/index.js:710
+msgid "图片自动上传至云存储"
+msgstr "Automatically Upload Images to Object Storage"
+
+#: vite/admin/dist/index.js:711
+msgid "启用对象存储"
+msgstr "Enable Object Storage"
+
+#: vite/admin/dist/index.js:712
+msgid "启用后图片将自动上传至云存储"
+msgstr "Enable to automatically upload images to object storage."
+
+#: vite/admin/dist/index.js:713
+msgid "对象存储配置"
+msgstr "Object Storage Settings"
+
+#: vite/admin/dist/index.js:714
+msgid "先配置并测试；更改随页面顶部的“保存”生效。"
+msgstr ""
+"Configure and test first; changes take effect after saving at the top of the"
+" page."
+
+#: vite/admin/dist/index.js:715
+msgid "本地副本始终保留，上传失败时自动回退。"
+msgstr ""
+"Local copies are always retained and automatically rollback when upload "
+"fails."
+
+#: vite/admin/dist/index.js:716
+msgid "查看本地文件回退说明"
+msgstr "View Local File Retention Instructions"
+
+#: vite/admin/dist/index.js:717
+msgid "本地文件回退"
+msgstr "Local File Rollback"
+
+#: vite/admin/dist/index.js:718
+msgid "停用对象存储、上传失败或更换目标时，媒体文件仍可从本站读取。"
+msgstr ""
+"Media files remain available from this site when object storage is disabled,"
+" an upload fails, or the storage destination changes."
+
+#: vite/admin/dist/index.js:719
+msgid "服务商与凭据"
+msgstr "Service Providers & Credentials"
+
+#: vite/admin/dist/index.js:720
+msgid "服务商"
+msgstr "Provider"
+
+#: vite/admin/dist/index.js:721
+msgid "阿里云 OSS"
+msgstr "Aliyun Object Storage"
+
+#: vite/admin/dist/index.js:722
+msgid "腾讯云 COS"
+msgstr "Tencent Cloud Object Storage"
+
+#: vite/admin/dist/index.js:723
+msgid "存储目标"
+msgstr "Storage Destination"
+
+#: vite/admin/dist/index.js:724
+msgid "查看 Bucket 填写说明"
+msgstr "View Bucket Instructions"
+
+#: vite/admin/dist/index.js:725
+msgid "不要填写 oss://、访问域名或上传目录。"
+msgstr "Do not fill out oss://, access domain name, or upload directory."
+
+#: vite/admin/dist/index.js:726
+msgid "上传目录（可选）"
+msgstr "Upload Directory (optional)"
+
+#: vite/admin/dist/index.js:727
+msgid "示例：www 或 uploads/site-a"
+msgstr "Example: www or uploads/site-a"
+
+#: vite/admin/dist/index.js:728
+msgid "查看上传目录填写说明"
+msgstr "View Upload Directory Instructions"
+
+#: vite/admin/dist/index.js:729
+msgid "上传目录"
+msgstr "Upload Directory"
+
+#: vite/admin/dist/index.js:730
+msgid "作为对象键前缀；不要填写 Bucket、oss://，也不要添加开头或结尾斜杠。"
+msgstr ""
+"As a prefix for object keys; do not enter Bucket or oss:// and do not add "
+"leading or trailing slashes."
+
+#: vite/admin/dist/index.js:731
+msgid "示例：oss-cn-shanghai.aliyuncs.com"
+msgstr "Example: oss-cn-shanghai.aliyuncs.com"
+
+#: vite/admin/dist/index.js:732
+msgid "查看 Endpoint 填写说明"
+msgstr "View Endpoint Instructions"
+
+#: vite/admin/dist/index.js:733
+msgid "可直接粘贴阿里云控制台中的外网 Endpoint，也接受 cn-shanghai 快捷写法。"
+msgstr ""
+"paste directly from the public cloud console of Alibaba Cloud, also accepts "
+"the shorthand of cn-shanghai."
+
+#: vite/admin/dist/index.js:734
+msgid "仅当 WordPress 服务器位于同地域阿里云内网时使用 -internal 节点。"
+msgstr ""
+"Use only when your WordPress server is located in the internal node of "
+"Alibaba Cloud within the same region."
+
+#: vite/admin/dist/index.js:735
+msgid "查看节点列表"
+msgstr "View Node List"
+
+#: vite/admin/dist/index.js:736
+msgid "示例：ap-beijing"
+msgstr "Example: ap-beijing"
+
+#: vite/admin/dist/index.js:737
+msgid "查看 Region 填写说明"
+msgstr "View Region Instructions"
+
+#: vite/admin/dist/index.js:738
+msgid "填写地域 ID，例如 ap-beijing；不要填写完整 COS 域名。"
+msgstr ""
+"Enter your region ID, for example ap-beijing; do not include the full COS "
+"domain name."
+
+#: vite/admin/dist/index.js:739
+msgid "七牛云使用全局上传节点，无需填写地域。"
+msgstr "Use Qiniu Cloud global upload nodes, no need to fill in the region."
+
+#: vite/admin/dist/index.js:740
+msgid "公开访问"
+msgstr "Public Access"
+
+#: vite/admin/dist/index.js:741
+msgid "公开访问地址"
+msgstr "Public Access Address"
+
+#: vite/admin/dist/index.js:742
+msgid "查看公开访问地址填写说明"
+msgstr "View Public Access Address Instructions"
+
+#: vite/admin/dist/index.js:743
+msgid "若上传目录为 www，地址通常也以 /www 结尾；插件不会重复追加目录。"
+msgstr ""
+"If the upload directory is www, the address usually ends with /www; the "
+"plugin won't add another directory."
+
+#: vite/admin/dist/index.js:744
+msgid "目标预览"
+msgstr "Destination Preview"
+
+#: vite/admin/dist/index.js:745
+msgid "请求主机"
+msgstr "Request Host"
+
+#: vite/admin/dist/index.js:746
+msgid "远端对象"
+msgstr "Remote Object"
+
+#: vite/admin/dist/index.js:747
+msgid "公开 URL"
+msgstr "Public URL"
+
+#: vite/admin/dist/index.js:748
+msgid "连接测试"
+msgstr "Connection Test"
+
+#: vite/admin/dist/index.js:749
+msgid "测试不会保存设置或改变启用状态。"
+msgstr "Settings won't be saved or changed when enabled."
+
+#: vite/admin/dist/index.js:750
+msgid "查看连接测试说明"
+msgstr "View Connection Test Instructions"
+
+#: vite/admin/dist/index.js:751
+#, javascript-format
+msgid "测试会写入并覆盖 %s；公开访问地址可稍后填写，不影响写入测试。"
+msgstr ""
+"Test writes to and overrides %s; the publicly accessible URL can be filled "
+"in later without affecting the test write."
+
+#: vite/admin/dist/index.js:752
+msgid "测试连接"
+msgstr "Test Connection"
+
+#: vite/admin/dist/index.js:753
+msgid "请先完整填写 Bucket、服务商地域节点和两项凭据。"
+msgstr ""
+"Please make sure to fill out the Bucket, service provider region node, and "
+"two credentials completely."
+
+#: vite/admin/dist/index.js:754
+msgid "收起详情"
+msgstr "Collapse Details"
+
+#: vite/admin/dist/index.js:755
+msgid "查看详情"
+msgstr "View Details"
+
+#: vite/admin/dist/index.js:756
+msgid "文章修订版本"
+msgstr "Article Revision Versions"
+
+#: vite/admin/dist/index.js:757
+msgid "自动草稿"
+msgstr "Auto Drafts"
+
+#: vite/admin/dist/index.js:758
+msgid "垃圾评论"
+msgstr "Spam Comments"
+
+#: vite/admin/dist/index.js:759
+msgid "过期临时选项"
+msgstr "Expired Temporary Options"
+
+#: vite/admin/dist/index.js:760
+msgid "数据库表优化"
+msgstr "Optimize Database Tables"
+
+#: vite/admin/dist/index.js:761
+msgid "待审核文章"
+msgstr "Pending Posts"
+
+#: vite/admin/dist/index.js:762
+msgid "回收站文章"
+msgstr "Trash Articles"
+
+#: vite/admin/dist/index.js:763
+msgid "统计获取失败，请重试。"
+msgstr "Failed to get statistics, please try again."
+
+#: vite/admin/dist/index.js:764
+msgid "统计请求失败，请重试。"
+msgstr "Failed to count requests, please try again."
+
+#: vite/admin/dist/index.js:765
+#, javascript-format
+msgid "预览完成：预计影响 %d 条数据。"
+msgstr "Preview complete: expected to affect %d items."
+
+#: vite/admin/dist/index.js:766
+msgid "预览失败，请重试。"
+msgstr "Preview failed, please try again."
+
+#: vite/admin/dist/index.js:767
+msgid "预览请求失败，请重试。"
+msgstr "Preview request failed, please try again."
+
+#: vite/admin/dist/index.js:768
+msgid "请先预览该清理项目，再确认执行。"
+msgstr "Preview this cleanup project before confirming to execute."
+
+#: vite/admin/dist/index.js:769
+msgid "确认执行数据库清理？"
+msgstr "Confirm Database Cleanup?"
+
+#: vite/admin/dist/index.js:770
+msgid "此操作不可逆"
+msgstr "This action cannot be undone"
+
+#: vite/admin/dist/index.js:771
+msgid "删除的数据无法恢复，请确保已备份数据库。"
+msgstr ""
+"Data deleted cannot be recovered. Please ensure your database is backed up."
+
+#: vite/admin/dist/index.js:772
+#, javascript-format
+msgid "清理项目：%1$s。预计影响 %2$d 条数据。"
+msgstr "Clean up project: %1$s. Estimated impact on %2$d records."
+
+#: vite/admin/dist/index.js:773
+msgid "确认清理"
+msgstr "Confirm Cleanup"
+
+#: vite/admin/dist/index.js:774
+msgid "清理失败，请重试。"
+msgstr "Cleanup failed, please try again."
+
+#: vite/admin/dist/index.js:775
+#, javascript-format
+msgid "清理完成，删除 %d 条数据。"
+msgstr "Cleanup complete, deleted %d items."
+
+#: vite/admin/dist/index.js:776
+#, javascript-format
+msgid "清理完成，删除 %d 条数据；统计刷新失败，请重新查看统计。"
+msgstr ""
+"Cleanup complete, deleted %d items; statistics refresh failed, please check "
+"again."
+
+#: vite/admin/dist/index.js:777
+msgid "检测项"
+msgstr "Scan Items"
+
+#: vite/admin/dist/index.js:778
+#: includes/class-npcink-toolbox-my-comments.php:62
+msgid "状态"
+msgstr "Status"
+
+#: vite/admin/dist/index.js:779
+msgid "值"
+msgstr "Value"
+
+#: vite/admin/dist/index.js:780
+msgid "操作"
+msgstr "Actions"
+
+#: vite/admin/dist/index.js:781
+msgid "预览"
+msgstr "Preview"
+
+#: vite/admin/dist/index.js:782
+msgid "数据库大小"
+msgstr "Database Size"
+
+#: vite/admin/dist/index.js:783
+#, javascript-format
+msgid "%d 条"
+msgstr "%d items"
+
+#: vite/admin/dist/index.js:784
+msgid "数据库清理与优化"
+msgstr "Database Cleanup & Optimization"
+
+#: vite/admin/dist/index.js:785
+msgid "数据库清理操作不可逆，删除的数据无法恢复"
+msgstr ""
+"Database cleanup operations are irreversible and deleted data cannot be "
+"recovered."
+
+#: vite/admin/dist/index.js:786
+msgid "执行前务必先预览影响数量，并做好备份"
+msgstr "Before proceeding, preview the impact and make a backup."
+
+#: vite/admin/dist/index.js:787
+msgid "启用数据库清理"
+msgstr "Enable Database Cleanup"
+
+#: vite/admin/dist/index.js:788
+msgid "清理修订版本"
+msgstr "Clean Revision Versions"
+
+#: vite/admin/dist/index.js:789
+msgid "清理自动草稿"
+msgstr "Clean Auto Drafts"
+
+#: vite/admin/dist/index.js:790
+msgid "清理垃圾评论"
+msgstr "Clean Garbage Comments"
+
+#: vite/admin/dist/index.js:791
+msgid "清理过期 Transient"
+msgstr "Clean Expired Transients"
+
+#: vite/admin/dist/index.js:792
+msgid "定时自动清理"
+msgstr "Schedule Automatic Cleanup"
+
+#: vite/admin/dist/index.js:793
+msgid "清理周期"
+msgstr "Cleanup Schedule"
+
+#: vite/admin/dist/index.js:794
+msgid "每天"
+msgstr "Daily"
+
+#: vite/admin/dist/index.js:795
+#: admin/partials/performance/db_clean/index.php:103
+msgid "每周"
+msgstr "Weekly"
+
+#: vite/admin/dist/index.js:796
+#: admin/partials/performance/db_clean/index.php:104
+msgid "每月"
+msgstr "Monthly"
+
+#: vite/admin/dist/index.js:797
+msgid "查看统计"
+msgstr "View Statistics"
+
+#: vite/admin/dist/index.js:798
+#, javascript-format
+msgid "检查完成：发现 %d 项需要关注。"
+msgstr "Check complete: %d items need attention."
+
+#: vite/admin/dist/index.js:799
+msgid "检查完成：未发现需要处理的问题。"
+msgstr "Check complete: No issues found."
+
+#: vite/admin/dist/index.js:800
+msgid "检查失败，请重试。"
+msgstr "Check failed, please try again."
+
+#: vite/admin/dist/index.js:801
+msgid "异常"
+msgstr "Abnormal"
+
+#: vite/admin/dist/index.js:802
+msgid "待处理"
+msgstr "To Be Handled"
+
+#: vite/admin/dist/index.js:803
+msgid "说明"
+msgstr "Note"
+
+#: vite/admin/dist/index.js:804
+msgid "SEO 健康度检查"
+msgstr "SEO Health Check"
+
+#: vite/admin/dist/index.js:805
+msgid "启用 SEO 检查"
+msgstr "Enable SEO Check"
+
+#: vite/admin/dist/index.js:806
+msgid "定期检查网站 SEO 健康度"
+msgstr "Scheduled SEO Health Checks"
+
+#: vite/admin/dist/index.js:807
+msgid "开始检查"
+msgstr "Start Check"
+
+#: vite/admin/dist/index.js:808
+#, javascript-format
+msgid "最多 %d 张"
+msgstr "Up to %d images"
+
+#: vite/admin/dist/index.js:809
+msgid "未取得有效体积数据"
+msgstr "No effective volume data obtained."
+
+#: vite/admin/dist/index.js:810
+#, javascript-format
+msgid "体积增加 %s%%"
+msgstr "Size increased by %s%%"
+
+#: vite/admin/dist/index.js:811
+#, javascript-format
+msgid "预计节省 %s%%"
+msgstr "Estimated savings: %s%%"
+
+#: vite/admin/dist/index.js:812
+msgid "当前服务器不支持生成 WebP，暂不应启用转换。"
+msgstr ""
+"WebP generation is not supported on the current server, do not enable "
+"conversion yet."
+
+#: vite/admin/dist/index.js:813
+msgid "未发现 JPEG 候选，无需安排转换。"
+msgstr "No JPEG candidates found, no need to schedule conversion."
+
+#: vite/admin/dist/index.js:814
+msgid "临时样本未能完整清理，请先排查文件权限。"
+msgstr ""
+"Temporary samples could not be fully cleaned up, please check file "
+"permissions first."
+
+#: vite/admin/dist/index.js:815
+msgid "可用样本不足，暂不据此决定批量转换。"
+msgstr ""
+"Insufficient sample images, do not base batch conversion on this for now."
+
+#: vite/admin/dist/index.js:816
+msgid "样本转换失败，请先排查图像处理环境。"
+msgstr ""
+"Image processing environment issues encountered during sample conversion, "
+"please troubleshoot first."
+
+#: vite/admin/dist/index.js:817
+msgid "样本体积没有明显下降，不建议批量转换。"
+msgstr ""
+"No significant volume reduction observed in samples, no recommendation for "
+"batch conversion."
+
+#: vite/admin/dist/index.js:818
+msgid "候选规模和样本收益均达到阈值，可连续分批转换。"
+msgstr ""
+"Candidate size and sample yield meet the threshold for continuous batch "
+"conversion."
+
+#: vite/admin/dist/index.js:819
+msgid "样本有收益但候选规模较小；如有明确需要，可连续分批转换。"
+msgstr ""
+"Samples have a yield but a small candidate size; if there is a clear need, "
+"they can be converted in batches."
+
+#: vite/admin/dist/index.js:820
+msgid "待复核"
+msgstr "Unreviewed"
+
+#: vite/admin/dist/index.js:821
+msgid "正常"
+msgstr "Normal"
+
+#: vite/admin/dist/index.js:822
+#, javascript-format
+msgid "体检完成：发现 %d 类问题。"
+msgstr "Health check complete: found %d issues."
+
+#: vite/admin/dist/index.js:823
+msgid "体检完成：未发现需要处理的问题。"
+msgstr "Health check complete: No issues to address."
+
+#: vite/admin/dist/index.js:824
+msgid "体检失败，请重试。"
+msgstr "Health check failed, please try again."
+
+#: vite/admin/dist/index.js:825
+msgid "连续转换已停止"
+msgstr "Continuous conversion has stopped."
+
+#: vite/admin/dist/index.js:826
+msgid "已按要求停止"
+msgstr "Stopped as requested"
+
+#: vite/admin/dist/index.js:827
+msgid "本次连续转换已完成"
+msgstr "Conversion completed"
+
+#: vite/admin/dist/index.js:828
+#, javascript-format
+msgid "%1$s%2$s：已转换 %3$d/%4$d 张，跳过 %5$d 张，失败 %6$d 张；原 JPEG 已保留。"
+msgstr ""
+"%1$s%2$s: converted %3$d/%4$d images, skipped %5$d, failed %6$d; original "
+"JPEG files were retained."
+
+#: vite/admin/dist/index.js:829
+msgid "（请求失败）"
+msgstr "Request Failed"
+
+#: vite/admin/dist/index.js:830
+#, javascript-format
+msgid "连续转换最多 %d 张 JPEG？"
+msgstr "Convert up to %d JPEGs at a time."
+
+#: vite/admin/dist/index.js:831
+msgid ""
+"浏览器会依次提交每批最多 5 张，页面需要保持打开；可在当前小批完成后停止。原 JPEG 与恢复记录会保留，若已启用对象存储，WebP "
+"会按现有配置同步。"
+msgstr ""
+"Browser submits up to 5 images at a time; the page needs to stay open. You "
+"can stop after each batch completes. Original JPEG and restore records are "
+"retained, and if object storage is enabled, WebP will sync based on current "
+"configuration."
+
+#: vite/admin/dist/index.js:832
+msgid "开始连续转换"
+msgstr "Start Continuous Conversion"
+
+#: vite/admin/dist/index.js:833
+msgid "连续恢复已停止"
+msgstr "Continuous Resync Stopped Sites"
+
+#: vite/admin/dist/index.js:834
+msgid "已按要求停止恢复"
+msgstr "Stopped recovery as requested."
+
+#: vite/admin/dist/index.js:835
+msgid "本次转换记录已恢复"
+msgstr "Conversion log has been restored."
+
+#: vite/admin/dist/index.js:836
+#, javascript-format
+msgid "%1$s%2$s：已恢复 %3$d/%4$d 张，跳过 %5$d 张，失败 %6$d 张。"
+msgstr "%1$s%2$s: restored %3$d/%4$d images, skipped %5$d, failed %6$d."
+
+#: vite/admin/dist/index.js:837
+#, javascript-format
+msgid "恢复本次转换的 %d 张图片？"
+msgstr "Restore the %d images converted in this run?"
+
+#: vite/admin/dist/index.js:838
+msgid "附件会重新指向原 JPEG，并清理本次生成的本地 WebP 文件；对象存储中的无引用副本不会自动删除。"
+msgstr ""
+"Attachments will be redirected to the original JPEG and a local WebP file "
+"generated in this process will be cleaned up; there won't be an automatic "
+"deletion of the orphaned copies stored in Object Storage."
+
+#: vite/admin/dist/index.js:839
+msgid "开始连续恢复"
+msgstr "Start Continuous Recovery"
+
+#: vite/admin/dist/index.js:840
+msgid "数量"
+msgstr "Quantity"
+
+#: vite/admin/dist/index.js:841
+#, javascript-format
+msgid "%d 个"
+msgstr "%d items"
+
+#: vite/admin/dist/index.js:842
+msgid "媒体库健康体检"
+msgstr "Media Library Health Check"
+
+#: vite/admin/dist/index.js:843
+msgid "启用媒体库体检"
+msgstr "Enable Media Library Health Check"
+
+#: vite/admin/dist/index.js:844
+msgid "检查媒体库中的异常文件"
+msgstr "Check Abnormal Files in Media Library"
+
+#: vite/admin/dist/index.js:845
+msgid "开始体检"
+msgstr "Start Check"
+
+#: vite/admin/dist/index.js:846
+msgid "WebP 转换预检"
+msgstr "WebP Conversion Preflight"
+
+#: vite/admin/dist/index.js:847
+msgid "JPEG 候选"
+msgstr "JPEG Candidates"
+
+#: vite/admin/dist/index.js:848
+#, javascript-format
+msgid "%d 张"
+msgstr "%d images"
+
+#: vite/admin/dist/index.js:849
+msgid "PNG 观察"
+msgstr "PNG Review"
+
+#: vite/admin/dist/index.js:850
+msgid "已有 WebP"
+msgstr "WebP Available"
+
+#: vite/admin/dist/index.js:851
+#, javascript-format
+msgid "临时转换 %1$d/%2$d 张；%3$s。"
+msgstr "temporarily convert %1$d/%2$d images; %3$s."
+
+#: vite/admin/dist/index.js:852
+#, javascript-format
+msgid "本次检查了 %d 张图片，未形成可用转换样本。"
+msgstr "checked %d images, no usable conversion samples were formed."
+
+#: vite/admin/dist/index.js:853
+msgid "结果来自最近附件抽样。"
+msgstr "results come from the most recent attachment sampling."
+
+#: vite/admin/dist/index.js:854
+#, javascript-format
+msgid "%d 个文件不可读。"
+msgstr "%d files are unreadable."
+
+#: vite/admin/dist/index.js:855
+msgid "本次计划"
+msgstr "Planned for This Run"
+
+#: vite/admin/dist/index.js:856
+msgid "本次连续转换数量"
+msgstr "Continuous conversion quantity for this run"
+
+#: vite/admin/dist/index.js:857
+#, javascript-format
+msgid "连续转换（最多 %d 张）"
+msgstr "Continuous conversion (up to %d images at a time)"
+
+#: vite/admin/dist/index.js:858
+#, javascript-format
+msgid "恢复本次转换（%d 张）"
+msgstr "Restore this conversion (%d images)"
+
+#: vite/admin/dist/index.js:859
+#, javascript-format
+msgid "恢复一批（%d 张）"
+msgstr "Restore batch (%d images)"
+
+#: vite/admin/dist/index.js:860
+msgid "将在当前小批完成后停止"
+msgstr "Stop after the current small batch is completed"
+
+#: vite/admin/dist/index.js:861
+msgid "完成当前小批后停止"
+msgstr "Stop after completing the current small batch"
+
+#: vite/admin/dist/index.js:862
+msgid "转换进度"
+msgstr "Conversion progress"
+
+#: vite/admin/dist/index.js:863
+msgid "恢复进度"
+msgstr "Restore progress"
+
+#: vite/admin/dist/index.js:864
+#, javascript-format
+msgid "%1$d/%2$d 张"
+msgstr "%1$d/%2$d images"
+
+#: vite/admin/dist/index.js:865
+msgid "连续转换进度"
+msgstr "Continuous conversion progress"
+
+#: vite/admin/dist/index.js:866
+msgid "连续恢复进度"
+msgstr "Continuous restore progress"
+
+#: vite/admin/dist/index.js:867
+#, javascript-format
+msgid "预检本身只读；连续操作仍按每批最多 %d 张依次提交，页面关闭后不会继续。仅转换 JPEG，原图不会删除或覆盖。"
+msgstr ""
+"Pre-inspection is read-only; continuous operations are submitted in batches "
+"of up to %d images at a time, and will not continue after the page closes."
+
+#: vite/admin/dist/index.js:868
+msgid "搜索健康数据加载失败"
+msgstr "Failed to load health data search"
+
+#: vite/admin/dist/index.js:869
+msgid "暂无搜索数据，开启热词统计后积累数据"
+msgstr ""
+"No search data available. Enable hot word statistics to accumulate data."
+
+#: vite/admin/dist/index.js:870
+msgid "搜索健康分析"
+msgstr "Search health analysis"
+
+#: vite/admin/dist/index.js:871
+msgid "唯一关键词"
+msgstr "Unique keyword"
+
+#: vite/admin/dist/index.js:872
+msgid "无结果比例"
+msgstr "Proportion of no results"
+
+#: vite/admin/dist/index.js:873
+msgid "热门搜索词"
+msgstr "Popular search terms"
+
+#: vite/admin/dist/index.js:874
+msgid "无结果搜索词"
+msgstr "No result search terms"
+
+#: vite/admin/dist/index.js:875
+msgid "异常高频词"
+msgstr "Abnormal frequent words"
+
+#: vite/admin/dist/index.js:876
+msgid "建议"
+msgstr "Suggestions"
+
+#: vite/admin/dist/index.js:877
+msgid "站内搜索体验增强"
+msgstr "Enhance the experience for site internal search"
+
+#: vite/admin/dist/index.js:878
+msgid "关键词高亮"
+msgstr "Keyword highlighting"
+
+#: vite/admin/dist/index.js:879
+msgid "无结果推荐"
+msgstr "Recommend no result suggestions"
+
+#: vite/admin/dist/index.js:880
+msgid "搜索无结果时显示热门标签"
+msgstr "Display popular tags when there are no results in search"
+
+#: vite/admin/dist/index.js:881
+msgid "热词统计"
+msgstr "Popular Query Statistics"
+
+#: vite/admin/dist/index.js:882
+msgid "记录搜索热词（后台可查看）"
+msgstr "Record search hot words (can be viewed from backend)"
+
+#: vite/admin/dist/index.js:883
+msgid "检测失败，请重试"
+msgstr "Failed to detect, please try again."
+
+#: vite/admin/dist/index.js:884
+msgid "检测请求失败"
+msgstr "Detect request failed"
+
+#: vite/admin/dist/index.js:885
+msgid "所有服务可达，无需修复"
+msgstr "All Services Available, No Maintenance Needed"
+
+#: vite/admin/dist/index.js:886
+msgid "获取修复建议失败"
+msgstr "Failed to Get Repair Suggestions"
+
+#: vite/admin/dist/index.js:887
+msgid "修复请求失败"
+msgstr "Failed to submit request for fixes"
+
+#: vite/admin/dist/index.js:888
+msgid "修复建议已加入待保存更改，请使用全局保存按钮确认"
+msgstr ""
+"Fix suggestions have been added to pending changes. Use the global save "
+"button to confirm."
+
+#: vite/admin/dist/index.js:889
+msgid "修复建议格式无效"
+msgstr "Invalid suggestion format"
+
+#: vite/admin/dist/index.js:890
+msgid "中国访问适配"
+msgstr "China Services Integration"
+
+#: vite/admin/dist/index.js:891
+msgid "检测国外服务可达性并一键修复"
+msgstr "Check foreign service accessibility and fix it with a single click."
+
+#: vite/admin/dist/index.js:892
+msgid "检测"
+msgstr "Scan"
+
+#: vite/admin/dist/index.js:893
+msgid "检测 Google Fonts、Gravatar 等服务在国内的可达性"
+msgstr ""
+"Check accessibility of services like Google Fonts and Gravatars within China"
+
+#: vite/admin/dist/index.js:894
+msgid "生成修复建议"
+msgstr "Generate Repair Suggestions"
+
+#: vite/admin/dist/index.js:895
+msgid "可达"
+msgstr "Accessible"
+
+#: vite/admin/dist/index.js:896
+msgid "不可达"
+msgstr "Unavailable"
+
+#: vite/admin/dist/index.js:897
+#, javascript-format
+msgid "延迟：%dms"
+msgstr "Delay: %d ms"
+
+#: vite/admin/dist/index.js:898
+msgid "确认加入以下待保存更改？"
+msgstr "Confirm these saved changes?"
+
+#: vite/admin/dist/index.js:899
+msgid "加入待保存更改"
+msgstr "Add Changes to Save"
+
+#: vite/admin/dist/index.js:900
+msgid "ICP 备案号、公安网备号、Cookie 同意弹窗"
+msgstr ""
+"ICP Registration Number, Public Security Network Precaution Number, Cookie "
+"Consent Pop-up"
+
+#: vite/admin/dist/index.js:901
+msgid "备案与合规配置"
+msgstr "Domain Registration & Compliance Configuration"
+
+#: vite/admin/dist/index.js:902
+msgid "面向中国站长的备案与合规工具"
+msgstr ""
+"China Services for China Site Owners - Domain Mappings & Compliance Tools"
+
+#: vite/admin/dist/index.js:903
+msgid "启用 ICP 备案号显示"
+msgstr "Enable Display of ICP Registration Number"
+
+#: vite/admin/dist/index.js:904
+msgid "如：京ICP备12345678号"
+msgstr "Example: Beijing ICP No. 12345678"
+
+#: vite/admin/dist/index.js:905
+msgid "ICP 查询链接"
+msgstr "Check ICP Link"
+
+#: vite/admin/dist/index.js:906
+msgid "公安网备号显示"
+msgstr "China Services &gt; Police Network License Display"
+
+#: vite/admin/dist/index.js:907
+msgid "如：京公网安备11010102001234号"
+msgstr ""
+"Your Provincial Public Security Bureau's Administrative License Number "
+"(e.g., Beijing Municipal Public Security Bureau No. 11010102001234)"
+
+#: vite/admin/dist/index.js:908
+msgid "网备查询链接"
+msgstr "Backup Link"
+
+#: vite/admin/dist/index.js:909
+msgid "Cookie 弹窗样式"
+msgstr "Cookie Popup Style"
+
+#: vite/admin/dist/index.js:910
+msgid "底部"
+msgstr "Footer"
+
+#: vite/admin/dist/index.js:911
+msgid "Cookie 标题"
+msgstr "Cookie Title"
+
+#: vite/admin/dist/index.js:912
+msgid "Cookie 内容"
+msgstr "Cookie Content"
+
+#: vite/admin/dist/index.js:913
+msgid "Cookie 按钮文字"
+msgstr "Cookie Button Text"
+
+#: vite/admin/dist/index.js:914
+msgid "版权信息显示"
+msgstr "Display Copyright Information"
+
+#: vite/admin/dist/index.js:915
+msgid "版权信息 HTML"
+msgstr "Copyright Information HTML"
+
+#: vite/admin/dist/index.js:916
+msgid "留空则使用默认版权格式"
+msgstr "Leave blank to use default copyright format"
+
+#: vite/admin/dist/index.js:917
+msgid "&copy; 2024 网站名称 版权所有"
+msgstr "&copy; 2024 Website Name All Rights Reserved"
+
+#: vite/admin/dist/index.js:918
+msgid "JSSDK 分享、微信/QQ 打开引导"
+msgstr "JSSDK Sharing, WeChat/QQ Open Guide"
+
+#: vite/admin/dist/index.js:919
+msgid "微信生态配置"
+msgstr "WeChat Ecosystem Configuration"
+
+#: vite/admin/dist/index.js:920
+msgid "微信生态增强功能"
+msgstr "China Services & Enhancements"
+
+#: vite/admin/dist/index.js:921
+msgid "JSSDK 分享"
+msgstr "JS SDK Share"
+
+#: vite/admin/dist/index.js:922
+msgid "微信/QQ 打开引导"
+msgstr "Open Guide with WeChat/WhatsApp"
+
+#: vite/admin/dist/index.js:923
+msgid "引导处理方式"
+msgstr "Handling Method"
+
+#: vite/admin/dist/index.js:924
+msgid "仅提示"
+msgstr "Only Notifications"
+
+#: vite/admin/dist/index.js:925
+msgid "强制跳转"
+msgstr "Force Redirect"
+
+#: vite/admin/dist/index.js:926
+msgid "引导文案"
+msgstr "Welcome Message"
+
+#: vite/admin/dist/index.js:927
+msgid "二维码图片"
+msgstr "QR Code Image"
+
+#: vite/admin/dist/index.js:928
+msgid "图片 URL，可选"
+msgstr "Image URL, optional"
+
+#: vite/admin/dist/index.js:929
+msgid "敏感词过滤、链接限制、IP 频率限制"
+msgstr "Sensitive word filtering, link restrictions, IP frequency limits"
+
+#: vite/admin/dist/index.js:930
+msgid "评论安全配置"
+msgstr "Comment Security Settings"
+
+#: vite/admin/dist/index.js:931
+msgid "评论安全中心，过滤垃圾评论"
+msgstr "Comments Security Center, Filter Junk Comments"
+
+#: vite/admin/dist/index.js:932
+msgid "每行一个"
+msgstr "one per line"
+
+#: vite/admin/dist/index.js:933
+msgid "标记待审核"
+msgstr "Mark as Pending Review"
+
+#: vite/admin/dist/index.js:934
+msgid "限制评论中的最大链接数量"
+msgstr "Limit the number of links in comments"
+
+#: vite/admin/dist/index.js:935
+msgid "最大链接数"
+msgstr "Max Links"
+
+#: vite/admin/dist/index.js:936
+msgid "昵称过滤"
+msgstr "Nickname Filter"
+
+#: vite/admin/dist/index.js:937
+msgid "过滤包含敏感词的评论昵称"
+msgstr "Filter Comment Nicknames Containing Sensitive Words"
+
+#: vite/admin/dist/index.js:938
+msgid "禁用昵称"
+msgstr "Disable Nickname"
+
+#: vite/admin/dist/index.js:939
+msgid "邮箱域名黑名单"
+msgstr "Email Domain Blacklist"
+
+#: vite/admin/dist/index.js:940
+msgid "IP 频率限制"
+msgstr "IP Rate Limiting"
+
+#: vite/admin/dist/index.js:941
+msgid "限制同一 IP 的评论频率"
+msgstr "Limit comment frequency from the same IP"
+
+#: vite/admin/dist/index.js:942
+msgid "IP 限制次数"
+msgstr "IP Limit Attempts"
+
+#: vite/admin/dist/index.js:943
+msgid "IP 时间窗口(秒)"
+msgstr "IP Time Window (seconds)"
+
+#: vite/admin/dist/index.js:944
+msgid "管理登录尝试限制与匿名作者枚举"
+msgstr "Manage Login Attempt Limits and Anonymous Author Enumeration"
+
+#: vite/admin/dist/index.js:945
+msgid "登录安全设置"
+msgstr "Login Security Settings"
+
+#: vite/admin/dist/index.js:946
+msgid "两项能力可独立启用，保存后才会在站点生效。"
+msgstr ""
+"Two capabilities can be enabled independently and will take effect on the "
+"site after being saved."
+
+#: vite/admin/dist/index.js:947
+msgid "在统计窗口内限制同一已存在账号与来源 IP 组合的连续失败尝试"
+msgstr ""
+"Limit consecutive failed attempts with the same existing account and source "
+"IP combination in the Statistics window."
+
+#: vite/admin/dist/index.js:948
+msgid "失败尝试上限"
+msgstr "Failed Attempts Limit"
+
+#: vite/admin/dist/index.js:949
+msgid "统计窗口（分钟）"
+msgstr "Statistics Window (minutes)"
+
+#: vite/admin/dist/index.js:950
+msgid "锁定时长（分钟）"
+msgstr "Lock Duration (minutes)"
+
+#: vite/admin/dist/index.js:951
+msgid "高级：可信代理"
+msgstr "Advanced: Trusted Agent"
+
+#: vite/admin/dist/index.js:952
+msgid "仅在站点位于 CDN 或反向代理之后，且代理会覆盖 X-Forwarded-For 时填写。"
+msgstr ""
+"Only fill this in if the site is located after a CDN or reverse proxy and "
+"the proxy covers X-Forwarded-For."
+
+#: vite/admin/dist/index.js:953
+msgid "留空时系统只信任 REMOTE_ADDR。"
+msgstr "Leave blank to trust only REMOTE_ADDR."
+
+#: vite/admin/dist/index.js:954
+msgid "代理出口 IP"
+msgstr "Proxy Export IP"
+
+#: vite/admin/dist/index.js:955
+msgid "每行一个可信代理 IP；不要填写访客 IP 或整个公网网段。"
+msgstr ""
+"Each line one trusted proxy IP; do not enter visitor IP or entire public "
+"network segment."
+
+#: vite/admin/dist/index.js:956
+msgid "收紧未登录访问中的作者参数与 REST 用户端点"
+msgstr ""
+"Tighten author parameters and REST endpoints for unauthenticated access"
+
+#: vite/admin/dist/index.js:957
+msgid "备案号"
+msgstr "ICP Filing Number"
+
+#: vite/admin/dist/index.js:958
+msgid "查询链接"
+msgstr "Lookup URL"
+
+#: vite/admin/dist/index.js:959
+msgid "网备号"
+msgstr "Public Security Filing Number"
+
+#: vite/admin/dist/index.js:960
+msgid "弹窗样式"
+msgstr "Popup Style"
+
+#: vite/admin/dist/index.js:961
+msgid "内容"
+msgstr "Content"
+
+#: vite/admin/dist/index.js:962
+msgid "按钮文字"
+msgstr "Button Text"
+
+#: vite/admin/dist/index.js:963
+msgid "自定义 HTML"
+msgstr "Custom HTML"
+
+#: vite/admin/dist/index.js:964
+msgid "环境修复建议格式无效"
+msgstr "Environment restoration suggestion invalid format"
+
+#: vite/admin/dist/index.js:965
+#, javascript-format
+msgid "环境修复建议包含无效字段：%s"
+msgstr "Environmental Restoration Recommendations include invalid fields: %s"
+
+#: vite/admin/dist/index.js:966
+msgid "链接数量限制"
+msgstr "Link Limit"
+
+#: vite/admin/dist/index.js:967
+msgid "黑名单域名"
+msgstr "Blacklist Domain Names"
+
+#: vite/admin/dist/index.js:968
+msgid "限制次数"
+msgstr "Attempt Limit"
+
+#: vite/admin/dist/index.js:969
+msgid "时间窗口(秒)"
+msgstr "Time Window (seconds)"
+
+#: vite/admin/dist/index.js:970
+msgid "暂无预览"
+msgstr "No Preview Available"
+
+#: vite/admin/dist/index.js:971
+msgid "详情"
+msgstr "Details"
+
+#: vite/admin/dist/index.js:972
+msgid "将替换"
+msgstr "Will replace"
+
+#: vite/admin/dist/index.js:973
+msgid "将清除"
+msgstr "Will clear"
+
+#: vite/admin/dist/index.js:974
+msgid "已配置"
+msgstr "Configured"
+
+#: vite/admin/dist/index.js:975
+msgid "未配置"
+msgstr "Not configured"
+
+#: vite/admin/dist/index.js:976
+msgid "留空表示保留。"
+msgstr "Leave blank to retain."
+
+#: vite/admin/dist/index.js:977
+msgid "已保存的值不会显示；留空表示保留。"
+msgstr "Saved values will not be displayed; leave empty to retain."
+
+#: vite/admin/dist/index.js:978
+msgid "尚未保存凭据。"
+msgstr "Credentials have not been saved."
+
+#: vite/admin/dist/index.js:979
+msgid "撤销更改"
+msgstr "Revert Changes"
+
+#: vite/admin/dist/index.js:980
+msgid "新值"
+msgstr "New Value"
+
+#: vite/admin/dist/index.js:981
+msgid "输入新值以替换"
+msgstr "Enter a new value to replace it."
+
+#: vite/admin/dist/index.js:982
+msgid "输入新值"
+msgstr "Enter New Value"
+
+#: vite/admin/dist/index.js:983
+msgid "清除已保存凭据"
+msgstr "Clear Saved Credentials"
+
+#: vite/admin/dist/index.js:984
+msgid "撤销凭据更改"
+msgstr "Cancel Credential Changes"
+
+#: vite/admin/dist/index.js:985
+msgid "风险提示"
+msgstr "Risk Warning"
+
+#: vite/admin/dist/index.js:986
+msgid "建议："
+msgstr "Suggestion:"
+
+#: vite/admin/dist/index.js:987
+msgid "正在加载当前分组"
+msgstr "Loading current group settings..."
+
+#: vite/admin/dist/index.js:988
+msgid "首次打开时正在准备相关设置。"
+msgstr "Preparing related settings for the first time when opening."
+
+#: vite/admin/dist/index.js:989
+msgid "分类数据格式无效"
+msgstr "Invalid category data format."
+
+#: vite/admin/dist/index.js:990
+msgid "保存失败，请重试"
+msgstr "Save failed. Please try again."
+
+#: vite/admin/dist/index.js:991
+msgid "[已隐藏]"
+msgstr "[Hidden]"
+
+#: vite/admin/dist/index.js:992
+#, javascript-format
+msgid "未知凭据路径：%s"
+msgstr "Unknown credential path: %s"
+
+#: vite/admin/dist/index.js:993
+#, javascript-format
+msgid "未知凭据操作：%s"
+msgstr "Unknown credential operation: %s"
+
+#: vite/admin/dist/index.js:994
+#, javascript-format
+msgid "凭据替换值不能为空：%s"
+msgstr "Credential replacement value cannot be empty: %s"
+
+#: vite/admin/dist/index.js:995
+#, javascript-format
+msgid "凭据长度超出限制：%s"
+msgstr "Credential length exceeds the limit: %s"
+
+#: vite/admin/dist/index.js:996
+#, javascript-format
+msgid "凭据不得包含控制字符：%s"
+msgstr "Credential must not contain control characters: %s"
+
+#: vite/admin/dist/index.js:997
+msgid "配置版本无效，请重新读取设置"
+msgstr "Invalid configuration version, please read settings again."
+
+#: vite/admin/dist/index.js:998
+#, javascript-format
+msgid "出错：%s"
+msgstr "Error: %s"
+
+#: vite/admin/dist/index.js:999
+msgid "未知错误"
+msgstr "Unknown error"
+
+#: vite/admin/dist/index.js:1000
+msgid "请输入有效的链接 URL"
+msgstr "Please enter a valid link URL."
+
+#: vite/admin/dist/index.js:1001
+msgid "还有设置尚未保存，离开后这些修改将丢失。确定离开吗？"
+msgstr ""
+"There are still unsaved settings. Leaving will cause these changes to be "
+"lost. Are you sure you want to leave?"
+
+#: vite/admin/dist/index.js:1002
+msgid "已添加到常用功能"
+msgstr "Added to the Quick Links"
+
+#: vite/admin/dist/index.js:1003
+msgid "已从常用功能移除"
+msgstr "Removed from the Quick Links"
+
+#: vite/admin/dist/index.js:1004
+#, javascript-format
+msgid "您正在开启「%s」"
+msgstr "You are enabling '%s'."
+
+#: vite/admin/dist/index.js:1005
+msgid "确认开启"
+msgstr "Confirm Enablement"
+
+#: vite/admin/dist/index.js:1006
+msgid "不再提示"
+msgstr "Don't show again"
+
+#: vite/admin/dist/index.js:1007
+msgid "设置接口返回格式无效"
+msgstr "Invalid format of setting interface response."
+
+#: vite/admin/dist/index.js:1008
+msgid "设置接口缺少凭据状态"
+msgstr "Setting interface is missing credential status."
+
+#: vite/admin/dist/index.js:1009
+msgid "设置接口缺少有效配置版本"
+msgstr "Setting interface is missing valid configuration version."
+
+#: vite/admin/dist/index.js:1010
+#, javascript-format
+msgid "设置接口的凭据状态无效：%s"
+msgstr "Invalid credential status in setting interface: %s"
+
+#: vite/admin/dist/index.js:1011
+msgid "系统通知"
+msgstr "System Notification"
+
+#: vite/admin/dist/index.js:1012
+#, javascript-format
+msgid "设置缺少字段：%s"
+msgstr "Missing field in settings: %s"
+
+#: vite/admin/dist/index.js:1013
+#, javascript-format
+msgid "设置包含未知字段：%s"
+msgstr "Unknown field in settings: %s"
+
+#: vite/admin/dist/index.js:1014
+#, javascript-format
+msgid "设置字段类型错误：%s"
+msgstr "Incorrect field type in settings: %s"
+
+#: vite/admin/dist/index.js:1015
+#, javascript-format
+msgid "未定义的设置数组契约：%s"
+msgstr "Undefined setting array contract: %s"
+
+#: vite/admin/dist/index.js:1016
+#, javascript-format
+msgid "设置数据包含敏感字段：%s"
+msgstr "Setting data contains sensitive fields: %s"
+
+#: vite/admin/dist/index.js:1017 admin/class-npcink-toolbox-admin.php:315
+#: includes/class-npcink-toolbox-config-manager.php:113
+msgid "设置数据格式无效"
+msgstr "Invalid format of setting data"
+
+#: vite/admin/dist/index.js:1018 admin/class-npcink-toolbox-admin.php:296
+msgid "保存成功"
+msgstr "Saved"
+
+#: vite/admin/dist/index.js:1019
+msgid "设置已保存，但重新读取失败；保存功能已禁用，请重新读取后继续"
+msgstr ""
+"Settings saved but failed to refresh; save function is disabled, please try "
+"refreshing and continue."
+
+#: vite/admin/dist/index.js:1020
+msgid "保存确认界面加载失败，请重试"
+msgstr "Save Failed to load confirmation interface, please try again."
+
+#: vite/admin/dist/index.js:1021
+msgid "已保存"
+msgstr "Saved"
+
+#: vite/admin/dist/index.js:1022
+msgid "保存"
+msgstr "Save"
+
+#: vite/admin/dist/index.js:1023
+msgid "正在保存…"
+msgstr "Saving…"
+
+#: vite/admin/dist/index.js:1024
+msgid "正在准备确认…"
+msgstr "Preparing confirmation…"
+
+#: vite/admin/dist/index.js:1025
+msgid "正在准备…"
+msgstr "Preparing…"
+
+#: vite/admin/dist/index.js:1026
+msgid "正在读取设置…"
+msgstr "Loading settings…"
+
+#: vite/admin/dist/index.js:1027
+msgid "设置不可用"
+msgstr "Settings unavailable"
+
+#: vite/admin/dist/index.js:1028
+#, javascript-format
+msgid "%d 项待保存"
+msgstr "%d items to save"
+
+#: vite/admin/dist/index.js:1029
+msgid "查看并保存"
+msgstr "Review and save"
+
+#: admin/partials/page/function/maintenance/countdown/main.js:8
+msgid "倒计时结束"
+msgstr "Countdown complete"
+
+#: admin/partials/page/function/maintenance/countdown/main.js:9
+msgid "天"
+msgstr "days"
+
+#: admin/partials/page/function/maintenance/countdown/main.js:10
+msgid "时"
+msgstr "hours"
+
+#: admin/partials/page/function/maintenance/countdown/main.js:11
+msgid "分"
+msgstr "minutes"
+
+#. Plugin Name of the plugin
+#: npcink-site-toolbox.php includes/class-npcink-toolbox-block-patterns.php:26
+#: includes/class-npcink-toolbox-block-patterns.php:44
+#: includes/class-npcink-toolbox-site-health.php:91
+#: includes/class-npcink-toolbox-site-health.php:138
+#: includes/class-npcink-toolbox-site-health.php:182
+#: includes/class-npcink-toolbox-site-health.php:219
+#: includes/class-npcink-toolbox-site-health.php:258
+#: includes/class-npcink-toolbox-site-health.php:291
+#: includes/class-npcink-toolbox-site-health.php:315
+#: includes/class-npcink-toolbox-site-health.php:343
+#: includes/class-npcink-toolbox-site-health.php:374
+#: includes/class-npcink-toolbox-site-health.php:412
+msgid "Npcink Site Toolbox"
+msgstr "Npcink Site Toolbox"
+
+#. Plugin URI of the plugin
+#: npcink-site-toolbox.php
+msgid "https://www.npc.ink/277510.html"
+msgstr "https://www.npc.ink/277510.html"
+
+#. Description of the plugin
+#: npcink-site-toolbox.php
+msgid ""
+"An opt-in toolbox for site settings, media, SEO, security, integrations, "
+"diagnostics, and maintenance."
+msgstr ""
+"An opt-in toolbox for site settings, media, SEO, security, integrations, "
+"diagnostics, and maintenance."
+
+#. Author of the plugin
+#: npcink-site-toolbox.php
+msgid "Npcink"
+msgstr "Npcink"
+
+#. Author URI of the plugin
+#: npcink-site-toolbox.php
+msgid "https://www.npc.ink/"
+msgstr "https://www.npc.ink/"
+
+#: admin/class-npcink-toolbox-admin.php:88
+msgid "Npcink Site Toolbox 设置"
+msgstr "Site Toolbox Settings"
+
+#: admin/class-npcink-toolbox-admin.php:89
+msgid "Npcink 站点工具箱"
+msgstr "NPC Ink Site Toolbox"
+
+#: admin/class-npcink-toolbox-admin.php:98
+#: admin/class-npcink-toolbox-admin.php:99
+msgid "用户评论 REST 接口教程"
+msgstr "User Comments REST API Tutorial"
+
+#: admin/class-npcink-toolbox-admin.php:121
+msgid "抱歉，您不能访问此页面。"
+msgstr "Sorry, you can't access this page."
+
+#: admin/class-npcink-toolbox-admin.php:251
+#: includes/class-npcink-toolbox-config-manager.php:282
+msgid "保存失败，已恢复为之前的设置"
+msgstr "Save failed, reverted to previous settings."
+
+#: admin/class-npcink-toolbox-admin.php:252
+msgid "保存失败，无法确认所有设置已恢复。请重新读取并核对设置后再保存"
+msgstr ""
+"Save failed. Could not confirm all settings were restored. Please re-read "
+"and verify the settings before saving."
+
+#. translators: %s: comma-separated module names that could not be confirmed
+#. as restored.
+#: admin/class-npcink-toolbox-admin.php:256
+#: includes/class-npcink-toolbox-config-manager.php:285
+#, php-format
+msgid "保存失败，以下模块未能确认恢复：%s。请重新读取并核对设置后再保存"
+msgstr ""
+"Save failed. The following modules could not be confirmed for recovery: %s. "
+"Please re-read and verify the settings before saving."
+
+#: admin/class-npcink-toolbox-admin.php:268
+msgid "保存配置失败，已确认回滚"
+msgstr "Settings save failed, confirmed rollback."
+
+#: admin/class-npcink-toolbox-admin.php:269
+msgid "保存配置失败，回滚未能完整确认"
+msgstr "Settings save failed, rollback could not be fully confirmed."
+
+#: admin/class-npcink-toolbox-admin.php:298
+msgid "保存成功（部分字段已自动修正）"
+msgstr "Save Successful (Some Fields Were Automatically Corrected)"
+
+#: admin/class-npcink-toolbox-admin.php:310
+#: admin/class-npcink-toolbox-admin.php:356
+#: admin/class-npcink-toolbox-admin.php:374
+#: admin/partials/performance/db_clean/index.php:112
+#: admin/partials/performance/db_clean/index.php:130
+#: admin/partials/performance/db_clean/index.php:155
+#: admin/partials/performance/media_health/index.php:23
+#: admin/partials/performance/media_health/index.php:99
+#: admin/partials/performance/media_health/index.php:110
+#: admin/partials/performance/oss/index.php:80
+#: admin/partials/performance/seo_checker/index.php:12
+msgid "权限不足"
+msgstr "You do not have permission to perform this action."
+
+#: admin/class-npcink-toolbox-admin.php:326
+msgid "请求必须包含 settings、secretChanges 和有效 revision"
+msgstr "Request must include settings, secret changes, and valid revision."
+
+#: admin/class-npcink-toolbox-admin.php:333
+msgid "站点设置已在其他页面或会话中更新。请重新读取设置，核对差异后再保存。"
+msgstr ""
+"Site settings have been updated on other pages or sessions. Please refresh "
+"the settings to review any differences before saving."
+
+#: admin/class-npcink-toolbox-admin.php:399
+#: admin/class-npcink-toolbox-admin.php:420
+#: admin/class-npcink-toolbox-admin.php:439
+#: admin/class-npcink-toolbox-admin.php:463
+#: admin/class-npcink-toolbox-admin.php:487
+#: admin/class-npcink-toolbox-admin.php:504
+#: admin/class-npcink-toolbox-admin.php:526
+msgid "诊断服务暂不可用"
+msgstr "Diagnostic Services are currently unavailable"
+
+#: admin/class-npcink-toolbox-admin.php:652
+#: admin/class-npcink-toolbox-admin.php:703
+msgid "不含凭据的完整设置"
+msgstr "Settings without credentials"
+
+#: admin/class-npcink-toolbox-admin.php:663
+msgid "凭据 replace/clear 操作"
+msgstr "Credentials to clear/reload operation"
+
+#: admin/class-npcink-toolbox-admin.php:675
+msgid "读取设置时返回的不透明配置版本指纹"
+msgstr ""
+"Return opaque config version fingerprint from settings when reading back"
+
+#: admin/class-npcink-toolbox-admin.php:714
+msgid "对象存储凭据 replace/clear 操作"
+msgstr "Object storage credential replace/clear operations"
+
+#: admin/class-npcink-toolbox-admin.php:746
+msgid "每批最多 5 个 JPEG 附件 ID"
+msgstr "Maximum of 5 JPEG attachment IDs per batch"
+
+#: admin/class-npcink-toolbox-admin.php:874
+msgid "要修复的项目列表"
+msgstr "List of projects to be fixed"
+
+#: admin/class-npcink-toolbox-admin.php:1052
+msgid "统计天数范围"
+msgstr "Date Range Settings"
+
+#: admin/class-npcink-toolbox-admin.php:1132
+msgid "返回"
+msgstr "Return"
+
+#: admin/partials/domestic/comment_security/index.php:37
+msgid "评论包含敏感词，已被拦截。"
+msgstr "Comments contain sensitive words and have been blocked."
+
+#: admin/partials/domestic/comment_security/index.php:38
+msgid "评论拦截"
+msgstr "Comment Moderation"
+
+#: admin/partials/domestic/comment_security/index.php:67
+msgid "昵称包含不允许的词汇。"
+msgstr "Nickname contains prohibited words."
+
+#: admin/partials/domestic/comment_security/index.php:68
+msgid "昵称拦截"
+msgstr "Nickname Blocking"
+
+#: admin/partials/domestic/comment_security/index.php:83
+msgid "该邮箱域名不允许评论。"
+msgstr "Comments are disabled for this email domain."
+
+#: admin/partials/domestic/comment_security/index.php:84
+msgid "邮箱拦截"
+msgstr "Email Filtering"
+
+#: admin/partials/domestic/comment_security/index.php:103
+msgid "请勿重复提交相同评论。"
+msgstr "Don't submit duplicate comments."
+
+#: admin/partials/domestic/comment_security/index.php:104
+msgid "重复拦截"
+msgstr "Duplicate Blocking"
+
+#. translators: %d: Number of seconds before another comment can be submitted.
+#: admin/partials/domestic/comment_security/index.php:123
+#, php-format
+msgid "评论过于频繁，请 %d 秒后再试。"
+msgstr "You are commenting too frequently. Please try again in %d seconds."
+
+#: admin/partials/domestic/comment_security/index.php:127
+msgid "频率限制"
+msgstr "Frequency Limiting"
+
+#. translators: 1: Current year. 2: Site name.
+#: admin/partials/domestic/compliance/index.php:30
+#, php-format
+msgid "© %1$s %2$s 版权所有"
+msgstr "© %1$s %2$s Copyright"
+
+#: admin/partials/domestic/compliance/index.php:44
+msgid "Cookie 同意"
+msgstr "Cookie Consent"
+
+#: admin/partials/domestic/compliance/index.php:45
+msgid "本网站使用 Cookie 来改善您的体验。"
+msgstr "This website uses cookies to improve your experience."
+
+#: admin/partials/domestic/compliance/index.php:46
+msgid "我知道了"
+msgstr "OK"
+
+#: admin/partials/domestic/login_security/index.php:45
+msgid "登录尝试过多，请稍后再试。"
+msgstr "Too many login attempts, please try again later."
+
+#: admin/partials/domestic/wechat/index.php:57
+msgid "点击右上角 ··· 在浏览器中打开"
+msgstr "Click the upper right corner ··· Open in browser"
+
+#: admin/partials/function/auxiliary/ban_malice_search.php:41
+msgid "搜索内容包含敏感词，请换个关键词搜索"
+msgstr ""
+"Search results contain sensitive words, please try a different keyword "
+"search."
+
+#: admin/partials/function/auxiliary/census-single.php:33
+#: admin/partials/function/auxiliary/census-single.php:34
+msgid "发文统计"
+msgstr "Post Statistics"
+
+#: admin/partials/function/auxiliary/census-single.php:144
+msgid "已发布"
+msgstr "Published"
+
+#: admin/partials/function/auxiliary/census-single.php:146
+msgid "篇"
+msgstr "posts"
+
+#: admin/partials/function/auxiliary/census-single.php:150
+msgid "已评论"
+msgstr "comments"
+
+#: admin/partials/function/auxiliary/census-single.php:152
+msgid "条"
+msgstr "items"
+
+#: admin/partials/function/auxiliary/census-single.php:156
+msgid "已注册"
+msgstr "Registered"
+
+#: admin/partials/function/auxiliary/census-single.php:158
+msgid "位"
+msgstr "users"
+
+#: admin/partials/function/auxiliary/census-single.php:174
+msgid "统计"
+msgstr "Statistics"
+
+#: admin/partials/function/auxiliary/census-single.php:181
+msgid "月度统计"
+msgstr "Monthly Stats"
+
+#: admin/partials/function/auxiliary/census-single.php:199
+msgid "已统计人员 ID"
+msgstr "Staff ID Counted"
+
+#: admin/partials/function/auxiliary/census-single.php:207
+msgid "待统计人员"
+msgstr "Unlisted Users"
+
+#: admin/partials/function/auxiliary/census-single.php:212
+msgid "选择需要监控的用户（排除订阅者）"
+msgstr "Select Users to Monitor (excluding Subscribers)"
+
+#. translators: %s: Comma-separated user IDs.
+#: admin/partials/function/auxiliary/census-single.php:269
+#, php-format
+msgid "您选择的人员 ID 是：%s"
+msgstr "The selected user ID is: %s"
+
+#: admin/partials/function/auxiliary/census-single.php:274
+msgid "您没有选择值"
+msgstr "You didn't select a value."
+
+#: admin/partials/function/seo/seo_category_add_meat.php:26
+#: admin/partials/function/seo/seo_category_add_meat.php:45
+msgid "分类标题"
+msgstr "Category Title"
+
+#: admin/partials/function/seo/seo_category_add_meat.php:28
+msgid "用于 SEO 自定义标题"
+msgstr "SEO Custom Title"
+
+#: admin/partials/function/seo/seo_category_add_meat.php:32
+#: admin/partials/function/seo/seo_category_add_meat.php:61
+msgid "分类关键字"
+msgstr "Category Keywords"
+
+#: admin/partials/function/seo/seo_category_add_meat.php:34
+msgid "用于 SEO 自定义关键字"
+msgstr "SEO Custom Keywords"
+
+#. translators: %s: Category name.
+#: admin/partials/function/seo/seo_category_add_meat.php:52
+#, php-format
+msgid "用于 %s 分类的 SEO 自定义标题"
+msgstr "SEO Custom Title for %s Categories"
+
+#. translators: %s: Category name.
+#: admin/partials/function/seo/seo_category_add_meat.php:68
+#, php-format
+msgid "用于 %s 分类的 SEO 自定义关键字，用英文逗号分隔，如：keyword1,keyword2,keyword3"
+msgstr ""
+"SEO custom keywords for the %s category, separated by commas in English, "
+"such as: keyword1,keyword2,keyword3"
+
+#: admin/partials/optimize/admin/add_time_screen.php:67
+msgid "开始于"
+msgstr "Starts With"
+
+#: admin/partials/optimize/admin/add_time_screen.php:69
+msgid "结束于"
+msgstr "Ends On"
+
+#: admin/partials/optimize/admin/single_add_user_screen.php:39
+msgid "全部作者"
+msgstr "All Authors"
+
+#: admin/partials/optimize/admin/thumbnail_switcher/easy-thumbnail-switcher.php:22
+msgid "添加"
+msgstr "Add"
+
+#: admin/partials/optimize/admin/thumbnail_switcher/easy-thumbnail-switcher.php:23
+msgid "修改"
+msgstr "Edit"
+
+#: admin/partials/optimize/admin/thumbnail_switcher/easy-thumbnail-switcher.php:24
+msgid "移除"
+msgstr "Remove"
+
+#: admin/partials/optimize/admin/thumbnail_switcher/easy-thumbnail-switcher.php:25
+msgid "上传缩略图"
+msgstr "Upload Thumbnail"
+
+#: admin/partials/optimize/admin/thumbnail_switcher/easy-thumbnail-switcher.php:26
+msgid "使用选定的"
+msgstr "Use Selected"
+
+#: admin/partials/optimize/admin/thumbnail_switcher/easy-thumbnail-switcher.php:27
+msgid "确定吗？"
+msgstr "Are you sure?"
+
+#: admin/partials/optimize/medium/svg_support.php:146
+msgid "仅管理员可上传 SVG 文件"
+msgstr "Admins Only Can Upload SVG Files"
+
+#: admin/partials/optimize/medium/svg_support.php:153
+msgid "无法读取 SVG 文件内容"
+msgstr "Unable to read SVG file content"
+
+#: admin/partials/optimize/medium/svg_support.php:160
+msgid "SVG 文件格式无效（无效的 XML）"
+msgstr "Invalid SVG file format (invalid XML)"
+
+#: admin/partials/optimize/medium/svg_support.php:169
+msgid "无法保存清洗后的 SVG 文件"
+msgstr "Unable to save cleaned SVG file"
+
+#: admin/partials/optimize/site/hide_email_ip.php:44
+msgid "[IP 已隐藏]"
+msgstr "IP is Hidden"
+
+#: admin/partials/optimize/site/user_list_show_nickname.php:21
+msgid "昵称"
+msgstr "Display Name"
+
+#: admin/partials/optimize/widget/index.php:31
+msgid "Npcink Site Toolbox - 站点统计"
+msgstr "NPC Ink Site Toolbox - Site Statistics"
+
+#: admin/partials/optimize/widget/index.php:32
+msgid "显示站点文章、评论、用户等统计信息"
+msgstr "Display site article, comment, user, etc. statistics information"
+
+#: admin/partials/optimize/widget/index.php:52
+msgid "站点统计"
+msgstr "Site Stats"
+
+#: admin/partials/optimize/widget/index.php:55
+#: admin/partials/optimize/widget/index.php:119
+msgid "标题："
+msgstr "Title:"
+
+#: admin/partials/optimize/widget/index.php:76
+msgid "Npcink Site Toolbox - 最新文章（带图）"
+msgstr "Newest Posts (with Images)"
+
+#: admin/partials/optimize/widget/index.php:77
+msgid "显示最新文章列表，带特色图缩略图"
+msgstr "Show Latest Posts List with Featured Thumbnails"
+
+#: admin/partials/optimize/widget/index.php:115
+msgid "最新文章"
+msgstr "Latest Posts"
+
+#: admin/partials/optimize/widget/index.php:123
+msgid "显示数量："
+msgstr "Items per page:"
+
+#: admin/partials/page/comment/ban_pure_english.php:22
+msgid "您的评论中必须包含汉字！"
+msgstr "Your comments must contain Chinese characters!"
+
+#. translators: %d: Remaining seconds before another comment can be submitted.
+#: admin/partials/page/comment/comment_interval.php:28
+#, php-format
+msgid "评论过快！请在 %d 秒后再来评论。"
+msgstr "Comment too quickly! Please try again in %d seconds."
+
+#. translators: 1: Minimum comment length. 2: Current comment length.
+#: admin/partials/page/comment/limit_word_count.php:30
+#, php-format
+msgid "抱歉，您的评论字数过少，请至少输入 %1$d 个字（目前字数：%2$d 个字）。"
+msgstr ""
+"Sorry, your comment is too short. Please enter at least %1$d characters "
+"(current character count: %2$d )."
+
+#. translators: 1: Maximum comment length. 2: Current comment length.
+#: admin/partials/page/comment/limit_word_count.php:41
+#, php-format
+msgid "对不起，您的评论字数过多，请少于 %1$d 个字（目前字数：%2$d 个字）。"
+msgstr ""
+"Sorry, your comment is too long. Please keep it under %1$d characters "
+"(current length: %2$d characters)."
+
+#: admin/partials/page/comment/only_comment_once.php:44
+msgid "本站每篇文章仅允许评论一次。"
+msgstr "Only one comment is allowed per article on this site."
+
+#: admin/partials/page/comment/rest_help.php:11
+msgid "使用 WordPress 应用程序密码，外部客户端可以查看、发布、修改和删除当前认证用户自己的评论。"
+msgstr ""
+"Use WordPress Application Passwords, external clients can view, publish, "
+"edit, and delete comments made by the current authenticated user."
+
+#: admin/partials/page/comment/rest_help.php:13
+msgid "适用版本：Npcink Site Toolbox 3.3.0 及以上；该功能默认关闭，必须由管理员显式启用。"
+msgstr ""
+"WordPress Version: Npcink Site Toolbox 3.3.0 or higher; this feature is "
+"disabled by default and must be explicitly enabled by an administrator."
+
+#: admin/partials/page/comment/rest_help.php:16
+msgid "正式环境必须使用 HTTPS。"
+msgstr "HTTPS is required on Production environment."
+
+#: admin/partials/page/comment/rest_help.php:17
+msgid "HTTP 仅适用于 Local、WordPress Playground 等隔离的本地开发环境。"
+msgstr ""
+"HTTP is only used for isolated local development environments like Local and"
+" WordPress Playground."
+
+#: admin/partials/page/comment/rest_help.php:22
+msgid "1. 开启功能"
+msgstr "1. Enable the Feature"
+
+#: admin/partials/page/comment/rest_help.php:24
+msgid "打开“Npcink 站点工具箱 → 内容与页面 → 评论”。"
+msgstr "Open 'Npcink Site Toolbox > Content & Pages > Comments.'"
+
+#: admin/partials/page/comment/rest_help.php:25
+msgid "开启“用户评论 REST 接口”并保存设置。"
+msgstr "Enable 'User Comments REST API' and save settings."
+
+#: admin/partials/page/comment/rest_help.php:26
+msgid "“显示‘我的评论’后台页面”是独立的兜底界面开关，关闭后 REST 仍可使用。"
+msgstr ""
+"Show the ‘My Comments’ admin page is an independent toggle that turns off "
+"the fallback interface. It still works via REST when turned off."
+
+#: admin/partials/page/comment/rest_help.php:31
+msgid "2. 创建应用程序密码"
+msgstr "Create Application Password"
+
+#: admin/partials/page/comment/rest_help.php:33
+msgid "使用需要管理评论的 WordPress 用户登录。"
+msgstr "Use WordPress user login to manage comments."
+
+#: admin/partials/page/comment/rest_help.php:34
+msgid "打开“用户 → 个人资料 → 应用程序密码”"
+msgstr "Open 'Users > User Profiles > Application Passwords'"
+
+#: admin/partials/page/comment/rest_help.php:35
+msgid "填写客户端名称，创建并立即复制密码。密码离开页面后不会再次显示。"
+msgstr ""
+"Enter client name, create and immediately copy the password. Password will "
+"not reappear after leaving the page."
+
+#: admin/partials/page/comment/rest_help.php:40
+msgid "3. 准备 curl 变量"
+msgstr "Prepare cURL variable"
+
+#: admin/partials/page/comment/rest_help.php:42
+msgid "WordPress 显示的密码空格仅用于阅读，curl 可以直接使用完整密码。"
+msgstr ""
+"WordPress displays password spaces for reading only; curl can use the full "
+"password directly."
+
+#: admin/partials/page/comment/rest_help.php:46
+msgid "4. 查看自己的评论"
+msgstr "View Your Comments"
+
+#: admin/partials/page/comment/rest_help.php:48
+msgid "status 支持 all、approved、pending 和 trash。列表响应中的 expectedHash 用于修改时的并发校验。"
+msgstr ""
+"status supports all, approved, pending, and trash. The expectedHash in the "
+"list response is used for concurrent validation when modifying."
+
+#: admin/partials/page/comment/rest_help.php:52
+msgid "5. 发表评论"
+msgstr "5. Post a Comment"
+
+#: admin/partials/page/comment/rest_help.php:54
+msgid "成功返回 HTTP 201 和新评论对象。评论必须发布到已公开且允许评论的文章。"
+msgstr ""
+"Successfully returned HTTP 201 and new comment object. Comments must be "
+"published to articles that are public and allow comments."
+
+#: admin/partials/page/comment/rest_help.php:58
+msgid "6. 修改评论"
+msgstr "6. Edit a Comment"
+
+#: admin/partials/page/comment/rest_help.php:60
+msgid "成功返回 HTTP 200，评论重新进入待审核状态。哈希不一致时返回 409，应重新读取后再修改。"
+msgstr ""
+"Comments successfully re-entered the queue. Returns a 409 if hashes are "
+"inconsistent, should be read again and modified."
+
+#: admin/partials/page/comment/rest_help.php:64
+msgid "7. 删除评论"
+msgstr "7. Delete a Comment"
+
+#: admin/partials/page/comment/rest_help.php:66
+msgid "删除只会移入 WordPress 回收站。首次成功返回 deleted，重复删除返回 alreadyDeleted。"
+msgstr ""
+"Delete moves to WordPress Trash. First successful return as deleted, "
+"repeated deletes return as alreadyDeleted."
+
+#: admin/partials/page/comment/rest_help.php:70
+msgid "8. 批量删除"
+msgstr "8. Batch Delete"
+
+#: admin/partials/page/comment/rest_help.php:72
+msgid "每次最多 20 个评论 ID。系统逐条处理，部分失败不会回滚已经成功的结果。"
+msgstr ""
+"Up to 20 comment IDs at a time. The system processes them individually; "
+"partial failures do not roll back successful results."
+
+#: admin/partials/page/comment/rest_help.php:76
+msgid "常见状态码"
+msgstr "Common Status Codes"
+
+#: admin/partials/page/comment/rest_help.php:78
+msgid "状态码"
+msgstr "Status Code"
+
+#: admin/partials/page/comment/rest_help.php:78
+msgid "含义"
+msgstr "Meaning"
+
+#: admin/partials/page/comment/rest_help.php:80
+msgid "用户名或应用程序密码错误。"
+msgstr "Username or application password is incorrect."
+
+#: admin/partials/page/comment/rest_help.php:81
+msgid "功能未开启、评论不存在或不属于当前用户。"
+msgstr "Comments are disabled, do not exist, or belong to a different user."
+
+#: admin/partials/page/comment/rest_help.php:82
+msgid "评论已变化、已有回复或文章已关闭评论。"
+msgstr ""
+"Comments have changed, are replied to, or comments are closed on the post."
+
+#: admin/partials/page/comment/sensitive_words.php:66
+msgid "您的评论包含敏感词，请修改后重新提交。"
+msgstr "Your comments contain sensitive words. Please modify and resubmit."
+
+#: admin/partials/page/comment/sensitive_words.php:67
+msgid "评论被拦截"
+msgstr "Comments Blocked"
+
+#: admin/partials/page/function/add_article_update_time.php:29
+msgid "最后编辑于："
+msgstr "Last Updated:"
+
+#: admin/partials/page/function/login_search.php:22
+msgid "请先登录后再使用搜索功能。"
+msgstr "Please log in before using the search function."
+
+#: admin/partials/page/function/login_search.php:23
+msgid "需要登录"
+msgstr "You need to be logged in"
+
+#: admin/partials/page/function/maintenance/countdown/index.php:5
+msgid "倒计时结束后即可正常访问"
+msgstr "Countdown ends and site is accessible again."
+
+#: admin/partials/page/function/maintenance/index.php:36
+msgid "升级维护中"
+msgstr "Maintenance in Progress"
+
+#: admin/partials/page/function/maintenance/index.php:52
+msgid "抱歉，我们的网站正在维护中。"
+msgstr "Sorry, our site is currently undergoing maintenance."
+
+#: admin/partials/page/function/maintenance/index.php:53
+msgid "请在倒计时结束后再回来，我们正在准备新的内容。"
+msgstr ""
+"Please come back after the countdown ends, we are preparing new content."
+
+#. translators: %s: Site name.
+#: admin/partials/page/function/maintenance_tips.php:45
+#, php-format
+msgid "%s 正在升级维护，请稍后再来。"
+msgstr "%s is undergoing maintenance. Please come back later."
+
+#: admin/partials/page/function/search_limit.php:41
+msgid "搜索过于频繁，请稍后再试。"
+msgstr "Search too frequently, please try again later."
+
+#. translators: %s: Tag name used in the generated link title.
+#: admin/partials/page/function/single_keyword_add_link.php:42
+#, php-format
+msgid "查看所有文章关于 %s"
+msgstr "View all articles about %s"
+
+#: admin/partials/page/function/unlisted_vague_img.php:16
+msgid "登录可见"
+msgstr "Login Required"
+
+#: admin/partials/page/jurisdiction/interface_category_data.php:88
+msgid "无法获取分类、标签和页面数据。"
+msgstr "Unable to get category, tag, and page data."
+
+#: admin/partials/performance/db_clean/index.php:139
+#: admin/partials/performance/db_clean/index.php:167
+msgid "无效的清理类型"
+msgstr "Invalid cleanup type"
+
+#: admin/partials/performance/db_clean/index.php:185
+msgid "请先重新预览该清理项目，再确认执行。"
+msgstr "Please preview this cleanup task first and then confirm to proceed."
+
+#: admin/partials/performance/db_clean/index.php:210
+msgid "数据库表优化完成"
+msgstr "Database table optimization complete"
+
+#: admin/partials/performance/db_clean/index.php:249
+msgid "将优化当前站点的数据库表（不删除数据）"
+msgstr "Optimize current site's database tables (no data deletion)"
+
+#. translators: %d: number of post revisions that will be deleted.
+#: admin/partials/performance/db_clean/index.php:259
+#, php-format
+msgid "将删除 %d 个文章修订版本"
+msgstr "Delete %d article revisions"
+
+#. translators: %d: number of auto-drafts that will be deleted.
+#: admin/partials/performance/db_clean/index.php:261
+#, php-format
+msgid "将删除 %d 个自动草稿"
+msgstr "Delete %d draft(s)"
+
+#. translators: %d: number of spam comments that will be deleted.
+#: admin/partials/performance/db_clean/index.php:263
+#, php-format
+msgid "将删除 %d 条垃圾评论"
+msgstr "Delete %d spam comments"
+
+#. translators: %d: number of expired transients that will be deleted.
+#: admin/partials/performance/db_clean/index.php:265
+#, php-format
+msgid "将删除 %d 个过期临时选项"
+msgstr "Delete %d expired temporary options"
+
+#. translators: %d: number of pending posts that will be deleted.
+#: admin/partials/performance/db_clean/index.php:267
+#, php-format
+msgid "将删除 %d 个待审核文章"
+msgstr "Delete %d pending review posts"
+
+#. translators: %d: number of trashed posts that will be deleted.
+#: admin/partials/performance/db_clean/index.php:269
+#, php-format
+msgid "将删除 %d 个回收站文章"
+msgstr "Delete %d archived posts"
+
+#. translators: %d: number of affected records that will be deleted.
+#: admin/partials/performance/db_clean/index.php:275
+#, php-format
+msgid "将删除 %d 条数据"
+msgstr "Delete %d items"
+
+#: admin/partials/performance/db_clean/index.php:327
+#: admin/partials/performance/db_clean/index.php:344
+msgid "清理预览已失效或不属于当前操作，请重新预览。"
+msgstr "Clean up expired or unrelated previews; re-preview."
+
+#: admin/partials/performance/db_clean/index.php:357
+msgid "数据库内容已发生变化，请重新预览并确认最新影响范围。"
+msgstr ""
+"Database content has changed. Please re-preview and confirm the latest "
+"affected scope."
+
+#: admin/partials/performance/media_health/index.php:36
+msgid "缺少 Alt"
+msgstr "Missing Alt"
+
+#. translators: %d: number of recent attachments included in the sample.
+#: admin/partials/performance/media_health/index.php:44
+#, php-format
+msgid "超大图片（最近 %d 个附件抽样）"
+msgstr "Large Images (sample of the last %d attachments)"
+
+#: admin/partials/performance/media_health/index.php:45
+msgid "超大图片"
+msgstr "Large Images"
+
+#. translators: %d: number of recent attachments included in the sample.
+#: admin/partials/performance/media_health/index.php:57
+#, php-format
+msgid "中文文件名（最近 %d 个附件抽样）"
+msgstr "Chinese file name (sample of the last %d attachments)"
+
+#: admin/partials/performance/media_health/index.php:58
+msgid "中文文件名"
+msgstr "File Name"
+
+#: admin/partials/performance/media_health/index.php:75
+msgid "可能未使用"
+msgstr "Not in Use"
+
+#: admin/partials/performance/media_health/index.php:81
+msgid "无特色图文章"
+msgstr "No Featured Image Article"
+
+#: admin/partials/performance/media_health/webp_batch.php:99
+msgid "当前服务器不支持生成 WebP。"
+msgstr "Current server does not support generating WebP."
+
+#: admin/partials/performance/media_health/webp_batch.php:103
+#: admin/partials/performance/media_health/webp_batch.php:207
+msgid "该附件正在处理中，请稍后重试。"
+msgstr "The attachment is being processed. Please try again later."
+
+#: admin/partials/performance/media_health/webp_batch.php:110
+msgid "附件不存在。"
+msgstr "Attachment does not exist."
+
+#: admin/partials/performance/media_health/webp_batch.php:115
+msgid "该附件已转换，可先恢复后再重试。"
+msgstr ""
+"The attachment has been converted. You can try again after restoring it."
+
+#: admin/partials/performance/media_health/webp_batch.php:118
+msgid "检测到未完成的转换记录，请先恢复该附件。"
+msgstr ""
+"Found incomplete conversion records. Please restore this attachment first."
+
+#: admin/partials/performance/media_health/webp_batch.php:124
+msgid "仅处理本地可读的 JPEG 附件。"
+msgstr "Handle only locally readable JPEG attachments."
+
+#: admin/partials/performance/media_health/webp_batch.php:129
+msgid "原附件元数据不可读。"
+msgstr "Original attachment metadata is unreadable."
+
+#: admin/partials/performance/media_health/webp_batch.php:134
+#: admin/partials/performance/media_health/webp_batch.php:219
+msgid "上传目录不可用。"
+msgstr "Upload directory is unavailable."
+
+#: admin/partials/performance/media_health/webp_batch.php:139
+msgid "附件不在当前上传目录中。"
+msgstr "Attachments are not in the current upload directory."
+
+#: admin/partials/performance/media_health/webp_batch.php:164
+msgid "无法保存恢复记录，未切换附件。"
+msgstr "Unable to save restore record, attachments are not switched."
+
+#: admin/partials/performance/media_health/webp_batch.php:180
+msgid "数据库切换失败，已恢复原附件。"
+msgstr "Database switch failed and original attachments have been restored."
+
+#: admin/partials/performance/media_health/webp_batch.php:199
+msgid "已转换为 WebP，原 JPEG 与恢复记录已保留。"
+msgstr ""
+"Converted to WebP; original JPEG and restore records have been retained."
+
+#: admin/partials/performance/media_health/webp_batch.php:213
+msgid "未找到可用的恢复记录。"
+msgstr "No restore records available."
+
+#: admin/partials/performance/media_health/webp_batch.php:224
+msgid "原 JPEG 备份不可读，未执行恢复。"
+msgstr "Original JPEG backup is unreadable and no restore was executed."
+
+#: admin/partials/performance/media_health/webp_batch.php:239
+msgid "恢复数据库失败，附件保持转换前状态。"
+msgstr ""
+"Failed to restore database, attachments remain in their pre-conversion "
+"state."
+
+#: admin/partials/performance/media_health/webp_batch.php:245
+msgid "恢复记录清理失败，已撤销本次恢复。"
+msgstr "Restore failed to clean up logs. Restoration has been canceled."
+
+#: admin/partials/performance/media_health/webp_batch.php:263
+msgid "已恢复原 JPEG；部分无引用的本地 WebP 文件需人工清理。"
+msgstr ""
+"Recovery of original JPEG; some unlinked local WebP files need to be "
+"manually cleaned up."
+
+#: admin/partials/performance/media_health/webp_batch.php:264
+msgid "已恢复原 JPEG，并清理本次生成的本地 WebP 文件。"
+msgstr ""
+"Recovered original JPEG and cleaned up the local WebP file generated in this"
+" run."
+
+#: admin/partials/performance/media_health/webp_batch.php:274
+msgid "无法读取 JPEG 图像。"
+msgstr "Unable to read JPEG image."
+
+#: admin/partials/performance/media_health/webp_batch.php:279
+msgid "WebP 主图生成失败。"
+msgstr "WebP Thumbnail Generation Failed."
+
+#: admin/partials/performance/media_health/webp_batch.php:286
+msgid "生成的 WebP 主图不可读。"
+msgstr "The generated WebP featured image is unreadable."
+
+#: admin/partials/performance/media_health/webp_batch.php:312
+msgid "无法创建 WebP 缩略图。"
+msgstr "Unable to create WebP thumbnail."
+
+#. translators: %s: WordPress image sub-size name.
+#: admin/partials/performance/media_health/webp_batch.php:336
+#, php-format
+msgid "WebP 缩略图 %s 生成失败。"
+msgstr "Failed to generate the WebP thumbnail %s."
+
+#: admin/partials/performance/media_health/webp_batch.php:350
+msgid "WebP 文件集校验失败。"
+msgstr "WebP File Validation Failed."
+
+#: admin/partials/performance/oss/index.php:94
+msgid "请求仅允许 settings 和 secretChanges"
+msgstr "Request only allows settings and secret changes."
+
+#: admin/partials/performance/oss/index.php:133
+msgid "无法写入测试对象，请检查凭据、Bucket、地域节点和写入权限。"
+msgstr ""
+"Unable to write test object. Please check credentials, Bucket, region node, "
+"and write permissions."
+
+#: admin/partials/performance/oss/index.php:140
+msgid "连接成功，已写入并覆盖测试对象。"
+msgstr "Connection successful, written and overwritten test object."
+
+#: admin/partials/performance/oss/index.php:280
+msgid "请选择支持的对象存储服务商。"
+msgstr "Select a supported object storage service provider."
+
+#: admin/partials/performance/oss/index.php:291
+msgid "Bucket 格式无效，请填写 3 至 63 位小写字母、数字或连字符。"
+msgstr ""
+"Invalid bucket format. Please enter lowercase letters, numbers, or hyphens "
+"between 3 and 63 characters."
+
+#: admin/partials/performance/oss/index.php:298
+msgid "腾讯云 Bucket 需要包含 APPID 后缀，例如 npcink-media-1250000000。"
+msgstr ""
+"Object Storage bucket needs to include the APPID suffix, such as npcink-"
+"media-1250000000."
+
+#: admin/partials/performance/oss/index.php:328
+msgid "腾讯云需要填写 Region。"
+msgstr "You need to fill out the Region on Tencent Cloud."
+
+#: admin/partials/performance/oss/index.php:336
+msgid "腾讯云 Region 格式无效，请填写 ap-beijing 这样的地域 ID。"
+msgstr ""
+"Invalid Tencent Cloud Region format. Please enter a region ID like ap-"
+"beijing."
+
+#: admin/partials/performance/oss/index.php:347
+msgid "腾讯云 Bucket 与 Region 组成的请求域名不能超过 60 个字符。"
+msgstr ""
+"The request domain formed by Tencent Cloud Bucket and Region cannot exceed "
+"60 characters."
+
+#: admin/partials/performance/oss/index.php:369
+msgid "公开访问地址格式无效，请填写包含 http:// 或 https:// 的地址前缀。"
+msgstr ""
+"Invalid public access address format. Please provide a prefix with either "
+"'http://' or 'https://'."
+
+#: admin/partials/performance/oss/index.php:383
+msgid "请先完整填写 Access Key 和 Secret Key。"
+msgstr ""
+"Please make sure to fill out your Access Key and Secret Key completely."
+
+#: admin/partials/performance/oss/index.php:553
+msgid "上传目录格式无效，请使用字母、数字、中文、点、下划线、连字符和正斜杠。"
+msgstr ""
+"Invalid directory format for upload. Please use letters, numbers, Chinese "
+"characters, periods, underscores, hyphens, and forward slashes."
+
+#: admin/partials/performance/oss/index.php:567
+msgid "上传目录格式无效，请填写 www 或 uploads/site-a 这样的相对目录。"
+msgstr ""
+"Invalid directory format for upload. Please use a relative path like www or "
+"uploads/site-a."
+
+#: admin/partials/performance/oss/index.php:586
+msgid "阿里云需要填写 Endpoint（地域节点）。"
+msgstr "AliCloud requires you to fill out the Endpoint (region node)."
+
+#: admin/partials/performance/oss/index.php:614
+msgid "阿里云 Endpoint 格式无效，请粘贴地域节点，不要包含 Bucket、路径或查询参数。"
+msgstr ""
+"Invalid Aliyun Endpoint format. Please paste the region node without "
+"including Bucket, path, or query parameters."
+
+#: admin/partials/performance/oss/index.php:625
+msgid "阿里云 Endpoint 必须是官方地域节点，不要填写 Bucket 域名或其他服务器地址。"
+msgstr ""
+"Aliyun Endpoint must be a official region node and do not fill in the bucket"
+" domain name or other server address."
+
+#: admin/partials/performance/search_enhance/index.php:33
+msgid "未找到相关内容，试试这些热门标签："
+msgstr "No related content found, try these popular tags:"
+
+#: admin/partials/performance/seo_checker/index.php:17
+msgid "首页标题"
+msgstr "Home Title"
+
+#: admin/partials/performance/seo_checker/index.php:17
+msgid "首页 SEO 标题为空"
+msgstr "Home SEO Title is empty"
+
+#: admin/partials/performance/seo_checker/index.php:20
+msgid "首页描述"
+msgstr "Home Description"
+
+#: admin/partials/performance/seo_checker/index.php:20
+msgid "首页 SEO 描述为空"
+msgstr "Home SEO Description is empty."
+
+#. translators: %d: number of posts missing a title or excerpt.
+#: admin/partials/performance/seo_checker/index.php:30
+#, php-format
+msgid "%d 篇文章缺少标题或摘要"
+msgstr "%d posts are missing a title or excerpt"
+
+#: admin/partials/performance/seo_checker/index.php:43
+msgid "图片 Alt"
+msgstr "Image Alt"
+
+#. translators: %d: number of images missing alternative text.
+#: admin/partials/performance/seo_checker/index.php:45
+#, php-format
+msgid "%d 张图片缺少 Alt 文本"
+msgstr "%d images are missing alt text"
+
+#: admin/partials/performance/seo_checker/index.php:53
+msgid "特色图"
+msgstr "Featured Image"
+
+#. translators: %d: number of published posts without a featured image.
+#: admin/partials/performance/seo_checker/index.php:55
+#, php-format
+msgid "%d 篇文章没有特色图"
+msgstr "%d posts do not have a featured image"
+
+#: admin/partials/performance/seo_checker/index.php:63
+msgid "内容过短"
+msgstr "Content too short"
+
+#. translators: %d: number of posts with content shorter than 300 Chinese
+#. characters.
+#: admin/partials/performance/seo_checker/index.php:65
+#, php-format
+msgid "%d 篇文章内容过短（少于 300 字）"
+msgstr "%d posts have content shorter than 300 characters"
+
+#: admin/partials/privacy/index.php:178
+msgid "隐私提示：本插件只会在管理员明确启用或主动触发相关功能后连接已披露的外部服务。"
+msgstr ""
+"Privacy Tip: This plugin will only connect disclosed external services after"
+" the administrator explicitly enables or triggers related features."
+
+#: admin/partials/privacy/index.php:179
+msgid "查看完整隐私说明 →"
+msgstr "View full privacy statement →"
+
+#: includes/class-npcink-toolbox-block-patterns.php:70
+msgid "资源下载卡片"
+msgstr "Resource Download Card"
+
+#: includes/class-npcink-toolbox-block-patterns.php:71
+msgid "突出展示资源名称、简短说明、文件信息和下载入口。"
+msgstr ""
+"Highlight resource name, brief description, file info, and download link."
+
+#: includes/class-npcink-toolbox-block-patterns.php:74
+msgid "下载"
+msgstr "Download"
+
+#: includes/class-npcink-toolbox-block-patterns.php:75
+msgid "资源"
+msgstr "Resources"
+
+#: includes/class-npcink-toolbox-block-patterns.php:76
+msgid "文件"
+msgstr "Files"
+
+#: includes/class-npcink-toolbox-block-patterns.php:82
+msgid "文章结论卡片"
+msgstr "Article Summary Card"
+
+#: includes/class-npcink-toolbox-block-patterns.php:83
+msgid "用简洁的结论和要点列表收束文章。"
+msgstr "Conclude with a concise list of conclusions and key points."
+
+#: includes/class-npcink-toolbox-block-patterns.php:86
+msgid "结论"
+msgstr "Conclusion"
+
+#: includes/class-npcink-toolbox-block-patterns.php:87
+msgid "要点"
+msgstr "Key Points"
+
+#: includes/class-npcink-toolbox-block-patterns.php:88
+msgid "总结"
+msgstr "Summary"
+
+#: includes/class-npcink-toolbox-block-patterns.php:94
+#: patterns/source-copyright-note.php:23
+msgid "来源与版权说明"
+msgstr "Source & Copyright Notice"
+
+#: includes/class-npcink-toolbox-block-patterns.php:95
+msgid "在文章末尾清晰说明资料来源、授权方式和转载要求。"
+msgstr ""
+"Clearly indicate the source of information, licensing methods, and "
+"retransmission requirements at the end of articles."
+
+#: includes/class-npcink-toolbox-block-patterns.php:100
+msgid "转载"
+msgstr "Reblog"
+
+#: includes/class-npcink-toolbox-config-manager.php:118
+msgid "设置结构无效"
+msgstr "Invalid Structure Settings"
+
+#: includes/class-npcink-toolbox-config-manager.php:125
+msgid "敏感字段必须通过 secretChanges 更新"
+msgstr "Sensitive fields must be updated through secretChanges"
+
+#: includes/class-npcink-toolbox-config-manager.php:139
+msgid "包含未知的敏感字段路径"
+msgstr "contains unknown sensitive field path"
+
+#: includes/class-npcink-toolbox-config-manager.php:142
+msgid "敏感字段操作格式无效"
+msgstr "Invalid format for sensitive field operations"
+
+#: includes/class-npcink-toolbox-config-manager.php:149
+msgid "敏感字段操作包含未知参数"
+msgstr "Sensitive field operations include unknown parameters"
+
+#: includes/class-npcink-toolbox-config-manager.php:158
+msgid "不支持的敏感字段操作"
+msgstr "Unsupported sensitive field operation"
+
+#: includes/class-npcink-toolbox-config-manager.php:161
+msgid "替换凭据必须为非空字符串"
+msgstr "Credentials must be a non-empty string"
+
+#: includes/class-npcink-toolbox-config-manager.php:164
+msgid "凭据长度超出限制"
+msgstr "Credentials length exceeds limit"
+
+#: includes/class-npcink-toolbox-config-manager.php:167
+msgid "凭据不得包含控制字符"
+msgstr "Credentials must not contain control characters"
+
+#: includes/class-npcink-toolbox-config-manager.php:212
+msgid "配置格式无效，未写入任何设置"
+msgstr "Invalid configuration format, no settings were written."
+
+#: includes/class-npcink-toolbox-diagnostics.php:167
+msgid "WordPress 诊断数据暂不可用，未生成不完整报告。"
+msgstr ""
+"WordPress Diagnostic Data is unavailable and an incomplete report was not "
+"generated."
+
+#: includes/class-npcink-toolbox-diagnostics.php:177
+msgid "诊断数据生成失败，未保存或发送任何信息。"
+msgstr "Data generation failed, no data saved or sent."
+
+#: includes/class-npcink-toolbox-diagnostics.php:185
+msgid "WordPress 返回了无效诊断数据，未生成报告。"
+msgstr ""
+"Invalid diagnostic data was returned by WordPress, no report was generated."
+
+#: includes/class-npcink-toolbox-diagnostics.php:205
+msgid "不支持的 AI 审查范围。"
+msgstr "Unsupported AI review scope."
+
+#: includes/class-npcink-toolbox-diagnostics.php:253
+msgid "不支持的 AI 分析场景。"
+msgstr "Unsupported AI analysis scenarios."
+
+#: includes/class-npcink-toolbox-diagnostics.php:323
+msgid "不支持的追问场景。"
+msgstr "Unsupported question scenarios."
+
+#: includes/class-npcink-toolbox-diagnostics.php:332
+msgid "追问不能为空且不能超过 1000 字。"
+msgstr "Ask cannot be empty and must not exceed 1000 words."
+
+#: includes/class-npcink-toolbox-diagnostics.php:346
+msgid "缺少首次分析结果，请重新运行分析后再追问。"
+msgstr ""
+"Missing initial analysis results. Please run the analysis again and then ask"
+" your question."
+
+#: includes/class-npcink-toolbox-diagnostics.php:445
+msgid "当前 WordPress 环境未提供 AI Client，请使用手工复制报告。"
+msgstr ""
+"Current WordPress environment does not provide an AI Client. Please use "
+"manual copy of the report."
+
+#: includes/class-npcink-toolbox-diagnostics.php:453
+msgid "脱敏诊断快照超过安全上限，未发送给 DeepSeek。"
+msgstr ""
+"De-identified snapshot exceeds security limit and was not sent to DeepSeek."
+
+#: includes/class-npcink-toolbox-diagnostics.php:482
+msgid "DeepSeek 返回了无法识别的结果，未保存任何内容。"
+msgstr "DeepSeek returned unrecognized results and saved no content."
+
+#: includes/class-npcink-toolbox-diagnostics.php:495
+msgid "DeepSeek 回答因长度上限未能完整生成，请稍后重试或复制报告手工分析。"
+msgstr ""
+"DeepSeek didn't generate the full report due to length limits. Please try "
+"again later or manually analyze and copy the report."
+
+#: includes/class-npcink-toolbox-diagnostics.php:502
+msgid "DeepSeek 已完成请求但未生成可展示正文，请稍后重试或复制报告手工分析。"
+msgstr ""
+"DeepSeek has completed the request but no displayable content has been "
+"generated. Please try again later or manually analyze and copy the report."
+
+#: includes/class-npcink-toolbox-diagnostics.php:509
+msgid "DeepSeek 返回结果超过安全上限，未保存任何内容。"
+msgstr ""
+"DeepSeek Returned more results than the safety limit, no content was saved."
+
+#: includes/class-npcink-toolbox-diagnostics.php:531
+msgid "AI Client 未使用指定的 DeepSeek Provider，结果已丢弃。"
+msgstr ""
+"AI Client is discarding results because a specified DeepSeek Provider was "
+"not used."
+
+#: includes/class-npcink-toolbox-diagnostics.php:545
+#: includes/class-npcink-toolbox-diagnostics.php:1512
+msgid "DeepSeek 分析请求失败，请稍后重试或使用手工复制报告。"
+msgstr ""
+"DeepSeek Analysis Request Failed, please try again later or use manual "
+"report copy."
+
+#: includes/class-npcink-toolbox-diagnostics.php:552
+msgid "DeepSeek 分析请求未能完成，请稍后重试或使用手工复制报告。"
+msgstr ""
+"DeepSeek Analysis Request Failed. Please try again later or use a manual "
+"copy of the report."
+
+#: includes/class-npcink-toolbox-diagnostics.php:849
+msgid "没有可分析的普通设置变更，或变更数量超过 50 项。"
+msgstr "No settings changes to analyze, or more than 50 changes in total."
+
+#: includes/class-npcink-toolbox-diagnostics.php:894
+msgid "没有可分析的普通设置变更；未知字段和凭据字段不会发送给 AI。"
+msgstr ""
+"No general settings changes to analyze; unknown fields and credentials "
+"fields won't be sent to the AI."
+
+#: includes/class-npcink-toolbox-diagnostics.php:1000
+msgid "复验基线无效，请重新记录基线。"
+msgstr "Baseline invalid, please re-record baseline."
+
+#: includes/class-npcink-toolbox-diagnostics.php:1008
+msgid "复验基线范围无效，请重新记录基线。"
+msgstr "Baseline scope invalid. Please re-record baseline."
+
+#: includes/class-npcink-toolbox-diagnostics.php:1015
+msgid "复验基线过大或缺少事实，请重新记录基线。"
+msgstr "Baseline is too high or missing facts, please re-record the baseline."
+
+#: includes/class-npcink-toolbox-diagnostics.php:1049
+msgid "复验基线没有可用事实，请重新记录基线。"
+msgstr "Baseline review has no available facts, please re-record baseline."
+
+#: includes/class-npcink-toolbox-diagnostics.php:1199
+msgid "追问上下文无效，请重新运行分析。"
+msgstr "Invalid context, please re-run the analysis."
+
+#: includes/class-npcink-toolbox-diagnostics.php:1224
+msgid "追问上下文与当前分析场景不匹配，请重新运行分析。"
+msgstr ""
+"Context and current analysis scenario do not match. Please re-run the "
+"analysis."
+
+#: includes/class-npcink-toolbox-diagnostics.php:1271
+msgid "追问上下文没有可用事实，请重新运行分析。"
+msgstr "No available facts found in the context. Please run analysis again."
+
+#: includes/class-npcink-toolbox-diagnostics.php:1310
+msgid "追问上下文超过安全上限，请重新运行范围更小的分析。"
+msgstr ""
+"Ask context questions beyond the safety limit? Run a smaller analysis."
+
+#: includes/class-npcink-toolbox-diagnostics.php:1327
+msgid "每次分析最多追问三轮，请重新生成快照开始新的分析。"
+msgstr ""
+"Each analysis can only go up to three rounds of follow-up questions. Please "
+"generate a new snapshot and start a new analysis."
+
+#: includes/class-npcink-toolbox-diagnostics.php:1337
+#: includes/class-npcink-toolbox-diagnostics.php:1346
+msgid "追问历史无效，请重新运行分析。"
+msgstr "Invalid query to history. Please run analysis again."
+
+#: includes/class-npcink-toolbox-diagnostics.php:1473
+msgid "暂时无法连接 DeepSeek，请稍后重试或复制报告手工分析。"
+msgstr ""
+"Unable to connect to DeepSeek at this time. Please try again later or "
+"manually analyze the report."
+
+#: includes/class-npcink-toolbox-diagnostics.php:1481
+msgid "DeepSeek 连接凭据无效或无权访问，请前往“设置 → Connectors”检查连接。"
+msgstr ""
+"Invalid credentials or insufficient access for DeepSeek connection. Go to "
+"‘Settings → Connectors’ and check the connection."
+
+#: includes/class-npcink-toolbox-diagnostics.php:1489
+msgid "DeepSeek 当前请求过多或额度受限，请稍后重试。"
+msgstr "Too many requests detected. Please try again later."
+
+#: includes/class-npcink-toolbox-diagnostics.php:1497
+msgid "DeepSeek 服务暂时异常，请稍后重试或复制报告手工分析。"
+msgstr ""
+"China Services are temporarily unavailable. Please try again later or "
+"manually analyze the report."
+
+#: includes/class-npcink-toolbox-diagnostics.php:1505
+msgid "DeepSeek 拒绝了本次分析请求，请检查 Provider 配置或复制报告手工分析。"
+msgstr ""
+"DeepSeek rejected this analysis request. Check the Provider configuration or"
+" manually analyze the report."
+
+#: includes/class-npcink-toolbox-diagnostics.php:1557
+msgid "DeepSeek Provider 不可用或尚未连接，请前往“设置 → Connectors”检查连接。"
+msgstr ""
+"DeepSeek Provider is unavailable or not connected. Go to ‘Settings → "
+"Connectors’ to check the connection."
+
+#. translators: 1: Section title. 2: Maximum included facts.
+#: includes/class-npcink-toolbox-diagnostics.php:1643
+#, php-format
+msgid "“%1$s”最多包含 %2$d 项，其余项目未进入报告。"
+msgstr ""
+"“%1$s” contains at most %2$d items; the remaining items were excluded from "
+"the report."
+
+#: includes/class-npcink-toolbox-diagnostics.php:1987
+msgid "WebP 图片处理"
+msgstr "WebP Image Processing"
+
+#: includes/class-npcink-toolbox-diagnostics.php:1990
+msgid "当前 WordPress 图片编辑器支持 WebP。"
+msgstr "Current WordPress image editor supports WebP."
+
+#: includes/class-npcink-toolbox-diagnostics.php:1991
+msgid "当前 WordPress 图片编辑器不支持 WebP；JPEG 会保持原格式。"
+msgstr ""
+"Current WordPress image editor does not support WebP; JPEG will be kept in "
+"original format."
+
+#: includes/class-npcink-toolbox-diagnostics.php:2010
+#: includes/class-npcink-toolbox-site-health.php:31
+msgid "PHP 版本"
+msgstr "PHP Version"
+
+#. translators: %s: Current PHP version.
+#: includes/class-npcink-toolbox-diagnostics.php:2015
+#, php-format
+msgid "当前 PHP 版本 %s，满足最低要求（7.4+）。"
+msgstr "Current PHP version %s meets the minimum requirement (7.4+)."
+
+#. translators: %s: Current PHP version.
+#: includes/class-npcink-toolbox-diagnostics.php:2020
+#, php-format
+msgid "当前 PHP 版本 %s，低于最低要求 7.4。"
+msgstr "Current PHP version %s is below the minimum requirement of 7.4."
+
+#: includes/class-npcink-toolbox-diagnostics.php:2026
+#: includes/class-npcink-toolbox-site-health.php:36
+msgid "WordPress 版本"
+msgstr "WordPress Version"
+
+#. translators: %s: Current WordPress version.
+#: includes/class-npcink-toolbox-diagnostics.php:2031
+#, php-format
+msgid "当前 WordPress 版本 %s。"
+msgstr "Current WordPress version %s."
+
+#. translators: %s: Current WordPress version.
+#: includes/class-npcink-toolbox-diagnostics.php:2036
+#, php-format
+msgid "当前 WordPress 版本 %s，建议升级至 6.0+。"
+msgstr "Current WordPress version %s, recommended to upgrade to 6.0+"
+
+#: includes/class-npcink-toolbox-diagnostics.php:2070
+msgid "该模块被标记为高风险，可能影响站点稳定性。"
+msgstr "This module is flagged as high risk and may impact site stability."
+
+#: includes/class-npcink-toolbox-diagnostics.php:2071
+msgid "该模块为实验性功能，不建议在生产环境长期开启。"
+msgstr ""
+"This module is experimental and is not recommended to be enabled for long "
+"periods in a production environment."
+
+#: includes/class-npcink-toolbox-domestic-environment.php:78
+msgid "fixes 参数必须是数组"
+msgstr "fixes parameter must be an array"
+
+#: includes/class-npcink-toolbox-domestic-environment.php:85
+msgid "没有有效的修复项"
+msgstr "No valid fix items"
+
+#: includes/class-npcink-toolbox-domestic-environment.php:117
+#: includes/class-npcink-toolbox-domestic-environment.php:143
+#: includes/class-npcink-toolbox-domestic-environment.php:160
+msgid "CDN 替换总开关"
+msgstr "CDN Replacement Toggle"
+
+#: includes/class-npcink-toolbox-domestic-environment.php:181
+msgid "已生成建议变更，请确认后保存"
+msgstr "Suggestions generated. Please confirm and save."
+
+#: includes/class-npcink-toolbox-domestic-environment.php:193
+msgid "建议开启 Google Fonts CDN 替换，使用国内镜像"
+msgstr "suggest enabling Google Fonts CDN replacement with a China mirror"
+
+#: includes/class-npcink-toolbox-domestic-environment.php:194
+msgid "建议开启 Gravatar 头像替换，使用国内镜像"
+msgstr "suggest enabling Gravatar avatar replacement using a domestic mirror"
+
+#: includes/class-npcink-toolbox-domestic-environment.php:195
+msgid "建议开启 Google Ajax CDN 替换"
+msgstr "Recommend enabling Google Ajax CDN replacement."
+
+#: includes/class-npcink-toolbox-domestic-environment.php:196
+msgid "WordPress.org API 不可达，部分后台功能可能受影响；建议检查服务器网络或安全插件设置"
+msgstr ""
+"WordPress.org API is unavailable, some backend features may be affected; "
+"please check server network or security plugin settings"
+
+#: includes/class-npcink-toolbox-github-project.php:55
+msgid "已归档"
+msgstr "Archived"
+
+#: includes/class-npcink-toolbox-github-project.php:63
+msgid "暂时无法读取项目数据，可直接前往 GitHub 查看。"
+msgstr "Unable to read project data, please view on GitHub directly."
+
+#. translators: %s: GitHub repository owner and name.
+#: includes/class-npcink-toolbox-github-project.php:67
+#, php-format
+msgid "在 GitHub 查看 %s"
+msgstr "View %s on GitHub"
+
+#: includes/class-npcink-toolbox-github-project.php:80
+msgid "查看 GitHub 项目"
+msgstr "View GitHub Project"
+
+#: includes/class-npcink-toolbox-github-project.php:97
+msgid "主要语言"
+msgstr "Primary Language"
+
+#: includes/class-npcink-toolbox-my-comments.php:24
+#: includes/class-npcink-toolbox-my-comments.php:25
+#: includes/class-npcink-toolbox-my-comments.php:41
+msgid "我的评论"
+msgstr "My Comments"
+
+#: includes/class-npcink-toolbox-my-comments.php:37
+msgid "您没有权限访问此页面。"
+msgstr "You do not have permission to access this page."
+
+#: includes/class-npcink-toolbox-my-comments.php:42
+msgid "在这里发布、修改或将自己的评论移入回收站。已有回复的评论暂不支持修改或删除。"
+msgstr ""
+"Post, edit, or move your own comments to the Trash. Comments with replies "
+"are not supported for editing or deleting."
+
+#: includes/class-npcink-toolbox-my-comments.php:45
+msgid "管理应用程序密码"
+msgstr "Manage Application Passwords"
+
+#: includes/class-npcink-toolbox-my-comments.php:47
+msgid "应用程序密码仅用于 HTTPS 外部客户端，创建后只显示一次。"
+msgstr ""
+"Application Passwords are used only for external clients via HTTPS and are "
+"displayed only once after creation."
+
+#: includes/class-npcink-toolbox-my-comments.php:51
+msgid "发表评论"
+msgstr "Post a Comment"
+
+#: includes/class-npcink-toolbox-my-comments.php:53
+msgid "文章 ID"
+msgstr "Post ID"
+
+#: includes/class-npcink-toolbox-my-comments.php:55
+msgid "评论内容"
+msgstr "Comment Content"
+
+#: includes/class-npcink-toolbox-my-comments.php:57
+msgid "发布评论"
+msgstr "Post Comment"
+
+#: includes/class-npcink-toolbox-my-comments.php:64
+msgid "全部"
+msgstr "All"
+
+#: includes/class-npcink-toolbox-my-comments.php:65
+msgid "已通过"
+msgstr "Approved"
+
+#: includes/class-npcink-toolbox-my-comments.php:66
+msgid "待审核"
+msgstr "Pending Review"
+
+#: includes/class-npcink-toolbox-my-comments.php:67
+msgid "回收站"
+msgstr "Trash"
+
+#: includes/class-npcink-toolbox-my-comments.php:70
+msgid "批量移入回收站"
+msgstr "Move to Trash Batchly"
+
+#: includes/class-npcink-toolbox-my-comments.php:76
+msgid "上一页"
+msgstr "Previous Page"
+
+#: includes/class-npcink-toolbox-my-comments.php:78
+msgid "下一页"
+msgstr "Next Page"
+
+#: includes/class-npcink-toolbox-my-comments.php:316
+msgid "文章不存在或不可评论。"
+msgstr "Post does not exist or cannot be commented."
+
+#: includes/class-npcink-toolbox-my-comments.php:319
+msgid "该文章已关闭评论。"
+msgstr "Comments are closed for this post."
+
+#: includes/class-npcink-toolbox-my-comments.php:322
+#: includes/class-npcink-toolbox-my-comments.php:359
+msgid "评论内容不能为空。"
+msgstr "Comments content cannot be empty."
+
+#: includes/class-npcink-toolbox-my-comments.php:349
+msgid "评论已经进入回收站。"
+msgstr "Comments have been moved to the Trash."
+
+#: includes/class-npcink-toolbox-my-comments.php:352
+msgid "该评论已有回复，暂不支持修改。"
+msgstr "This comment already has a reply; edits are currently not supported."
+
+#: includes/class-npcink-toolbox-my-comments.php:355
+msgid "评论已经发生变化，请刷新后重试。"
+msgstr "Comments have changed. Please refresh and try again."
+
+#: includes/class-npcink-toolbox-my-comments.php:371
+msgid "评论修改失败。"
+msgstr "Comment updates failed."
+
+#: includes/class-npcink-toolbox-my-comments.php:424
+msgid "该评论已有回复，暂不支持删除。"
+msgstr "This comment already has a reply and is not supported for deletion."
+
+#: includes/class-npcink-toolbox-my-comments.php:427
+msgid "评论未能移入回收站。"
+msgstr "Comments could not be moved to Trash."
+
+#: includes/class-npcink-toolbox-my-comments.php:436
+msgid "评论不存在。"
+msgstr "No comments."
+
+#: includes/class-npcink-toolbox-rate-limiter.php:118
+#: includes/class-npcink-toolbox-rate-limiter.php:144
+msgid "请求过于频繁，请稍后再试"
+msgstr "Too many requests, please try again later"
+
+#: includes/class-npcink-toolbox-rate-limiter.php:161
+msgid "安全验证失败，请刷新页面重试"
+msgstr ""
+"Security verification failed, please try again by refreshing the page."
+
+#: includes/class-npcink-toolbox-search-health.php:472
+msgid "单关键词搜索频次异常（超过 100 次）"
+msgstr "Keyword search frequency anomaly (over 100 times)"
+
+#: includes/class-npcink-toolbox-search-health.php:474
+msgid "单关键词占比过高（超过 10%）"
+msgstr "Keyword percentage is too high (over 10%)"
+
+#: includes/class-npcink-toolbox-search-health.php:501
+msgid "限制搜索频次"
+msgstr "Limit Search Frequency"
+
+#: includes/class-npcink-toolbox-search-health.php:502
+msgid "未启用搜索频次限制，可能被恶意搜索消耗服务器资源。"
+msgstr ""
+"Search frequency limit is disabled, which may be exploited by malicious "
+"searches to consume server resources."
+
+#: includes/class-npcink-toolbox-search-health.php:519
+msgid "无结果搜索比例过高"
+msgstr "Too many high-probability search results"
+
+#. translators: %.0f: Percentage of searches with no results.
+#: includes/class-npcink-toolbox-search-health.php:521
+#, php-format
+msgid "超过 %.0f%% 的搜索无结果，建议为热门无结果词补充相关内容。"
+msgstr ""
+"More than %.0f%% of searches return no results. Add relevant content for "
+"popular no-result queries."
+
+#: includes/class-npcink-toolbox-search-health.php:526
+msgid "关注无结果搜索词"
+msgstr "Follow No Result Search Terms"
+
+#. translators: %.0f: Percentage of searches with no results.
+#: includes/class-npcink-toolbox-search-health.php:528
+#, php-format
+msgid "约 %.0f%% 的搜索无结果，可考虑补充相关内容。"
+msgstr ""
+"About %.0f%% of searches return no results. Consider adding relevant "
+"content."
+
+#: includes/class-npcink-toolbox-search-health.php:536
+msgid "检测到异常高频搜索"
+msgstr "Detect Abnormal High Frequency Searches"
+
+#. translators: %d: Number of suspicious high-frequency search terms.
+#: includes/class-npcink-toolbox-search-health.php:538
+#, php-format
+msgid "发现 %d 个异常高频搜索词，可能为爬虫或恶意行为，建议开启搜索频次限制。"
+msgstr ""
+"Found %d high-frequency search terms that may be from crawlers or malicious "
+"activities. Consider enabling a search frequency limit."
+
+#: includes/class-npcink-toolbox-search-health.php:546
+msgid "开启搜索日志"
+msgstr "Enable Search Logs"
+
+#: includes/class-npcink-toolbox-search-health.php:547
+msgid "搜索日志已关闭，无法收集搜索健康数据。建议开启以获得搜索分析。"
+msgstr ""
+"Search logs are disabled and cannot collect search health data. Please "
+"enable them to receive search analysis."
+
+#: includes/class-npcink-toolbox-site-health.php:41
+msgid "伪静态（固定链接）"
+msgstr "Permalinks (Static URLs)"
+
+#: includes/class-npcink-toolbox-site-health.php:46
+msgid "对象缓存"
+msgstr "Object Cache"
+
+#: includes/class-npcink-toolbox-site-health.php:51
+msgid "REST API 可用性"
+msgstr "REST API Availability"
+
+#: includes/class-npcink-toolbox-site-health.php:56
+msgid "已激活模块数"
+msgstr "Activated Modules Count"
+
+#: includes/class-npcink-toolbox-site-health.php:61
+msgid "高风险模块检查"
+msgstr "High-Risk Module Check"
+
+#: includes/class-npcink-toolbox-site-health.php:87
+msgid "PHP 版本符合要求"
+msgstr "PHP Version meets requirements"
+
+#: includes/class-npcink-toolbox-site-health.php:88
+msgid "PHP 版本过低"
+msgstr "PHP Version is too low"
+
+#. translators: 1: Current PHP version, 2: Minimum required PHP version.
+#: includes/class-npcink-toolbox-site-health.php:99
+#, php-format
+msgid "当前 PHP 版本 %1$s，满足最低要求（%2$s+）。"
+msgstr "Current PHP version %1$s, meets the minimum requirement (PHP %2$s+)."
+
+#. translators: 1: Current PHP version, 2: Minimum required PHP version.
+#: includes/class-npcink-toolbox-site-health.php:105
+#, php-format
+msgid "当前 PHP 版本 %1$s，低于最低要求 %2$s。部分功能可能无法正常工作。"
+msgstr ""
+"Current PHP version %1$s is below the minimum requirement of %2$s. Some "
+"features may not work properly."
+
+#: includes/class-npcink-toolbox-site-health.php:113
+msgid "了解如何升级 PHP 版本"
+msgstr "Learn how to upgrade the PHP version"
+
+#: includes/class-npcink-toolbox-site-health.php:134
+msgid "WordPress 版本符合要求"
+msgstr "WordPress version meets requirements"
+
+#: includes/class-npcink-toolbox-site-health.php:135
+msgid "WordPress 版本过低"
+msgstr "WordPress version is too low"
+
+#. translators: 1: Current WordPress version, 2: Recommended WordPress
+#. version.
+#: includes/class-npcink-toolbox-site-health.php:146
+#, php-format
+msgid "当前 WordPress 版本 %1$s，建议使用 %2$s+ 以获得最佳体验。"
+msgstr ""
+"Current WordPress version %1$s, recommended to use %2$s+ for best "
+"experience."
+
+#. translators: 1: Current WordPress version, 2: Recommended WordPress
+#. version.
+#: includes/class-npcink-toolbox-site-health.php:152
+#, php-format
+msgid "当前 WordPress 版本 %1$s，建议升级至 %2$s+。"
+msgstr "Current WordPress version %1$s, recommended to upgrade to %2$s+"
+
+#: includes/class-npcink-toolbox-site-health.php:160
+msgid "检查更新"
+msgstr "Check Updates"
+
+#: includes/class-npcink-toolbox-site-health.php:178
+msgid "伪静态已启用"
+msgstr "Static Links Enabled"
+
+#: includes/class-npcink-toolbox-site-health.php:179
+msgid "伪静态未启用"
+msgstr "Static Pages Not Enabled"
+
+#. translators: %s: Current permalink structure.
+#: includes/class-npcink-toolbox-site-health.php:190
+#, php-format
+msgid "当前固定链接结构：%s"
+msgstr "Current permalink structure: %s"
+
+#: includes/class-npcink-toolbox-site-health.php:193
+msgid "当前使用默认固定链接（?p=123），不利于 SEO 和部分插件功能。"
+msgstr ""
+"Current default permalinks (e.g.,?p=123) are not optimal for SEO and some "
+"plugin features."
+
+#: includes/class-npcink-toolbox-site-health.php:198
+msgid "设置固定链接"
+msgstr "Settings Fixed Links"
+
+#: includes/class-npcink-toolbox-site-health.php:215
+msgid "对象缓存已启用"
+msgstr "Object Cache is enabled"
+
+#: includes/class-npcink-toolbox-site-health.php:216
+msgid "对象缓存未启用"
+msgstr "Object Cache is disabled"
+
+#: includes/class-npcink-toolbox-site-health.php:225
+msgid "已启用外部对象缓存（如 Redis、Memcached），有助于提升性能。"
+msgstr ""
+"External object caching (such as Redis, Memcached) is enabled to help "
+"improve performance."
+
+#: includes/class-npcink-toolbox-site-health.php:226
+msgid "未启用外部对象缓存。对于高流量站点，建议安装 Redis 或 Memcached 对象缓存插件。"
+msgstr ""
+"External object caching is disabled. For high-traffic sites, it's "
+"recommended to install a plugin like Redis or Memcached for object caching."
+
+#: includes/class-npcink-toolbox-site-health.php:231
+msgid "浏览对象缓存插件"
+msgstr "View Object Cache Plugin"
+
+#: includes/class-npcink-toolbox-site-health.php:254
+msgid "REST API 可用"
+msgstr "REST API is available"
+
+#: includes/class-npcink-toolbox-site-health.php:255
+msgid "REST API 不可用"
+msgstr "REST API Not Available"
+
+#. translators: %s: REST API endpoint URL.
+#: includes/class-npcink-toolbox-site-health.php:266
+#, php-format
+msgid "REST API 端点 %s 响应正常。"
+msgstr "REST API endpoint %s is responding normally."
+
+#: includes/class-npcink-toolbox-site-health.php:269
+msgid "REST API 无法访问，可能导致插件后台功能异常。"
+msgstr ""
+"REST API can't be accessed, which may cause abnormality of plugin admin "
+"functions."
+
+#: includes/class-npcink-toolbox-site-health.php:273
+msgid "请检查是否有安全插件或服务器配置阻止了 REST API 访问。"
+msgstr ""
+"Check if there are any security plugins or server configurations blocking "
+"access to the REST API."
+
+#: includes/class-npcink-toolbox-site-health.php:288
+#: includes/class-npcink-toolbox-site-health.php:340
+msgid "模块检测不可用"
+msgstr "Modules Detection Not Available"
+
+#: includes/class-npcink-toolbox-site-health.php:296
+#: includes/class-npcink-toolbox-site-health.php:348
+msgid "模块加载器未初始化。"
+msgstr "Module Loader is not initialized."
+
+#. translators: 1: Number of active modules, 2: Total number of available
+#. modules.
+#: includes/class-npcink-toolbox-site-health.php:309
+#, php-format
+msgid "已激活 %1$d / %2$d 个模块"
+msgstr "activated %1$d / %2$d modules"
+
+#. translators: 1: Number of active modules, 2: Total number of available
+#. modules.
+#: includes/class-npcink-toolbox-site-health.php:322
+#, php-format
+msgid "当前已激活 %1$d 个模块，共 %2$d 个可用模块。按需加载机制有助于减少不必要的资源消耗。"
+msgstr ""
+"Currently activated %1$d modules out of a total of %2$d available modules. "
+"The lazy loading mechanism helps to reduce unnecessary resource consumption."
+
+#: includes/class-npcink-toolbox-site-health.php:371
+msgid "未启用高风险模块"
+msgstr "High Risk Modules Disabled"
+
+#: includes/class-npcink-toolbox-site-health.php:379
+msgid "当前未启用任何高风险或实验性模块，站点运行状态安全。"
+msgstr ""
+"No high-risk or experimental modules are currently enabled. The site is "
+"running in a safe state."
+
+#. translators: 1: Number of active high-risk modules, 2: Comma-separated
+#. high-risk module IDs.
+#: includes/class-npcink-toolbox-site-health.php:389
+#, php-format
+msgid "<strong>高风险模块（%1$d 个）：</strong>%2$s<br>"
+msgstr "<strong>High-risk modules (%1$d):</strong>%2$s<br>"
+
+#. translators: 1: Number of active experimental modules, 2: Comma-separated
+#. experimental module IDs.
+#: includes/class-npcink-toolbox-site-health.php:397
+#, php-format
+msgid "<strong>实验性模块（%1$d 个）：</strong>%2$s<br>"
+msgstr "<strong>Experimental modules (%1$d):</strong>%2$s<br>"
+
+#: includes/class-npcink-toolbox-site-health.php:402
+msgid "这些模块可能影响站点稳定性，建议在测试环境验证后再在生产环境启用。</p>"
+msgstr ""
+"These modules may affect site stability, and it is recommended to enable "
+"them only after testing in a test environment.</p>"
+
+#. translators: %d: Number of active high-risk or experimental modules.
+#: includes/class-npcink-toolbox-site-health.php:407
+#, php-format
+msgid "已启用 %d 个高风险/实验性模块"
+msgstr "Enabled %d high-risk/experimental modules"
+
+#: includes/class-npcink-toolbox-site-stats.php:54
+#: blocks/site-stats/index.js:32
+msgid "分类"
+msgstr "Categories"
+
+#: includes/class-npcink-toolbox-site-stats.php:58
+#: blocks/site-stats/index.js:33
+msgid "用户"
+msgstr "Users"
+
+#: includes/class-npcink-toolbox-site-stats.php:107
+msgid "站点数据"
+msgstr "Site Data"
+
+#: includes/class-npcink-toolbox-site-stats.php:121
+#: blocks/site-stats/index.js:53
+msgid "请至少选择一个统计项目。"
+msgstr "Please select at least one statistic."
+
+#: includes/class-npcink-toolbox-tool.php:161
+#: includes/class-npcink-toolbox-tool.php:258
+msgid "参数错误！"
+msgstr "Invalid parameters!"
+
+#: npcink-site-toolbox.php:100
+msgid "设置"
+msgstr "Settings"
+
+#: patterns/key-takeaway-card.php:33
+msgid "核心结论"
+msgstr "Core Conclusion"
+
+#: patterns/key-takeaway-card.php:34
+msgid "读完这篇文章，你只需要记住这件事"
+msgstr "Read this article and just remember this thing."
+
+#: patterns/key-takeaway-card.php:35
+msgid "用一两句话写出最重要的判断，让读者快速带走文章价值。"
+msgstr ""
+"Capture the most important judgment in just a few sentences to convey the "
+"article's value quickly."
+
+#: patterns/key-takeaway-card.php:36
+msgid "第一个关键要点"
+msgstr "First Key Point"
+
+#: patterns/key-takeaway-card.php:37
+msgid "第二个关键要点"
+msgstr "Second key point"
+
+#: patterns/key-takeaway-card.php:38
+msgid "下一步可以采取的行动"
+msgstr "Next actions to take"
+
+#: patterns/resource-download-card.php:33
+msgid "免费资源"
+msgstr "Free Resources"
+
+#: patterns/resource-download-card.php:34
+msgid "资源名称"
+msgstr "Resource Name"
+
+#: patterns/resource-download-card.php:35
+msgid "PDF · 2.4 MB"
+msgstr "PDF · 2.4 MB"
+
+#: patterns/resource-download-card.php:36
+msgid "在这里说明资源能解决什么问题，以及读者下载后会获得什么。"
+msgstr ""
+"Here explain what problems the resource solves and what readers will get "
+"after downloading."
+
+#: patterns/resource-download-card.php:37
+msgid "立即下载"
+msgstr "Download Now"
+
+#: patterns/source-copyright-note.php:24
+msgid "资料来源："
+msgstr "Source:"
+
+#: patterns/source-copyright-note.php:25
+msgid "请填写原始资料、采访对象或参考链接。"
+msgstr ""
+"Please enter the original data, interview subjects or reference links."
+
+#: patterns/source-copyright-note.php:26
+msgid "版权声明："
+msgstr "Copyright Notice:"
+
+#: patterns/source-copyright-note.php:27
+msgid "本文采用的授权方式及权利归属。"
+msgstr "The licensing terms and ownership rights of this content."
+
+#: patterns/source-copyright-note.php:28
+msgid "转载要求："
+msgstr "Republishing Requirements:"
+
+#: patterns/source-copyright-note.php:29
+msgid "请注明作者、出处和原文链接；如需商业使用，请先获得许可。"
+msgstr ""
+"Please specify the author, source, and original link; commercial use "
+"requires prior permission."
+
+#: blocks/github-project/index.js:26
+msgid "请输入 https://github.com/owner/repository 格式的公开仓库地址。"
+msgstr ""
+"Enter the public GitHub repository address in the format "
+"https://github.com/owner/repository."
+
+#: blocks/github-project/index.js:27
+msgid "仅获取公开仓库信息，不需要 GitHub Token。"
+msgstr ""
+"Only retrieve information from the public GitHub repository without needing "
+"a GitHub Token."
+
+#: blocks/github-project/index.js:28
+msgid "GitHub 仓库地址"
+msgstr "GitHub Repository Address:"
+
+#: blocks/github-project/index.js:41
+msgid "留空时使用 GitHub 项目描述；接口不可用时仍可显示这段摘要。"
+msgstr ""
+"Leave blank to use the project description of the GitHub project; this "
+"summary will still be displayed even if the interface is unavailable."
+
+#: blocks/github-project/index.js:42
+msgid "自定义项目摘要"
+msgstr "Custom Project Summary:"
+
+#: blocks/github-project/index.js:61
+msgid "项目设置"
+msgstr "Project Settings"
+
+#: blocks/github-project/index.js:70
+msgid "粘贴公开 GitHub 仓库地址，自动展示项目说明和实时数据。"
+msgstr ""
+"Paste the public GitHub repository address, automatically displaying the "
+"project explanation and real-time data."
+
+#: blocks/github-project/index.js:71
+msgid "GitHub 项目"
+msgstr "GitHub Project"
+
+#: blocks/site-stats/index.js:64
+msgid "显示设置"
+msgstr "Display Settings"
+
+#: blocks/site-stats/index.js:74
+msgid "显示文章数量"
+msgstr "Number of Articles to Display:"
+
+#: blocks/site-stats/index.js:75
+msgid "显示评论数量"
+msgstr "Number of Comments to Display:"
+
+#: blocks/site-stats/index.js:76
+msgid "显示分类数量"
+msgstr "Number of Categories to Display:"
+
+#: blocks/site-stats/index.js:77
+msgid "显示用户数量"
+msgstr "Number of Users to Display:"
+
+#: blocks/github-project/block.json
+msgctxt "block title"
+msgid "GitHub 项目"
+msgstr "GitHub Project"
+
+#: blocks/github-project/block.json
+msgctxt "block description"
+msgid "展示公开 GitHub 仓库的描述、主要语言、Stars 和 Forks。"
+msgstr ""
+"Display the description, main language, Stars and Forks of the public GitHub"
+" repository."
+
+#: blocks/github-project/block.json
+msgctxt "block keyword"
+msgid "GitHub"
+msgstr "GitHub"
+
+#: blocks/github-project/block.json
+msgctxt "block keyword"
+msgid "开源"
+msgstr "Open Source"
+
+#: blocks/github-project/block.json
+msgctxt "block keyword"
+msgid "项目"
+msgstr "Project"
+
+#: blocks/github-project/block.json
+msgctxt "block keyword"
+msgid "仓库"
+msgstr "Repository"
+
+#: blocks/site-stats/block.json
+msgctxt "block title"
+msgid "站点数据"
+msgstr "Site Data"
+
+#: blocks/site-stats/block.json
+msgctxt "block description"
+msgid "展示文章、评论、分类和用户数量，并始终读取当前站点数据。"
+msgstr ""
+"Display the number of articles, comments, categories, and users, always "
+"reading from the current site data."
+
+#: blocks/site-stats/block.json
+msgctxt "block keyword"
+msgid "统计"
+msgstr "Statistics"
+
+#: blocks/site-stats/block.json
+msgctxt "block keyword"
+msgid "数据"
+msgstr "Data"
+
+#: blocks/site-stats/block.json
+msgctxt "block keyword"
+msgid "站点"
+msgstr "Site"

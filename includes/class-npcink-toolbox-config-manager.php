@@ -77,6 +77,30 @@ if (!class_exists('Npcink_Toolbox_Config_Manager')) {
         }
 
         /**
+         * 获取当前完整配置的不透明版本指纹。
+         *
+         * 指纹使用站点盐值计算 HMAC，浏览器只能用于并发比较，不能据此还原
+         * 普通设置或凭据内容。
+         *
+         * @param array|null $config 仅供内部及测试传入的完整配置。
+         * @return string
+         */
+        public static function get_config_revision($config = null) {
+            $config = is_array($config) ? $config : self::get_merged_config();
+            $serialized = serialize($config);
+
+            if (function_exists('wp_salt')) {
+                $key = wp_salt('auth');
+            } elseif (defined('AUTH_SALT') && AUTH_SALT !== '') {
+                $key = AUTH_SALT;
+            } else {
+                $key = 'npcink-site-toolbox-settings-revision';
+            }
+
+            return hash_hmac('sha256', $serialized, $key);
+        }
+
+        /**
          * 验证浏览器设置契约，并在服务端合并凭据。
          *
          * @param array      $settings       不含敏感字段的完整设置。
@@ -86,19 +110,19 @@ if (!class_exists('Npcink_Toolbox_Config_Manager')) {
          */
         public static function merge_secret_changes($settings, $secret_changes, $current_config = null) {
             if (!is_array($settings) || !is_array($secret_changes)) {
-                return array('success' => false, 'error' => '设置数据格式无效');
+                return array('success' => false, 'error' => __('设置数据格式无效', 'npcink-site-toolbox'));
             }
 
             $structure = Npcink_Toolbox_Config_Schema::validate_browser_settings($settings);
             if (!$structure['valid']) {
-                $message = !empty($structure['errors'][0]) ? $structure['errors'][0] : '设置结构无效';
+                $message = !empty($structure['errors'][0]) ? $structure['errors'][0] : __('设置结构无效', 'npcink-site-toolbox');
                 return array('success' => false, 'error' => $message);
             }
 
             $secret_paths = self::get_secret_paths();
             foreach ($secret_paths as $path) {
                 if (self::has_nested_value($settings, $path)) {
-                    return array('success' => false, 'error' => '敏感字段必须通过 secretChanges 更新');
+                    return array('success' => false, 'error' => __('敏感字段必须通过 secretChanges 更新', 'npcink-site-toolbox'));
                 }
             }
 
@@ -112,17 +136,17 @@ if (!class_exists('Npcink_Toolbox_Config_Manager')) {
 
             foreach ($secret_changes as $path => $change) {
                 if (!is_string($path) || !in_array($path, $secret_paths, true)) {
-                    return array('success' => false, 'error' => '包含未知的敏感字段路径');
+                    return array('success' => false, 'error' => __('包含未知的敏感字段路径', 'npcink-site-toolbox'));
                 }
                 if (!is_array($change) || !isset($change['operation']) || !is_string($change['operation'])) {
-                    return array('success' => false, 'error' => '敏感字段操作格式无效');
+                    return array('success' => false, 'error' => __('敏感字段操作格式无效', 'npcink-site-toolbox'));
                 }
 
                 $allowed_keys = $change['operation'] === 'replace'
                     ? array('operation', 'value')
                     : array('operation');
                 if (!empty(array_diff(array_keys($change), $allowed_keys))) {
-                    return array('success' => false, 'error' => '敏感字段操作包含未知参数');
+                    return array('success' => false, 'error' => __('敏感字段操作包含未知参数', 'npcink-site-toolbox'));
                 }
 
                 if ($change['operation'] === 'clear') {
@@ -131,16 +155,16 @@ if (!class_exists('Npcink_Toolbox_Config_Manager')) {
                 }
 
                 if ($change['operation'] !== 'replace') {
-                    return array('success' => false, 'error' => '不支持的敏感字段操作');
+                    return array('success' => false, 'error' => __('不支持的敏感字段操作', 'npcink-site-toolbox'));
                 }
                 if (!array_key_exists('value', $change) || !is_string($change['value']) || trim($change['value']) === '') {
-                    return array('success' => false, 'error' => '替换凭据必须为非空字符串');
+                    return array('success' => false, 'error' => __('替换凭据必须为非空字符串', 'npcink-site-toolbox'));
                 }
                 if (strlen($change['value']) > 4096) {
-                    return array('success' => false, 'error' => '凭据长度超出限制');
+                    return array('success' => false, 'error' => __('凭据长度超出限制', 'npcink-site-toolbox'));
                 }
                 if (preg_match('/[\x00-\x1F\x7F]/', $change['value'])) {
-                    return array('success' => false, 'error' => '凭据不得包含控制字符');
+                    return array('success' => false, 'error' => __('凭据不得包含控制字符', 'npcink-site-toolbox'));
                 }
 
                 self::set_nested_value($merged, $path, $change['value']);
@@ -185,7 +209,7 @@ if (!class_exists('Npcink_Toolbox_Config_Manager')) {
                     'failed_modules' => array(),
                     'rollback_complete' => true,
                     'rollback_failed_modules' => array(),
-                    'error' => '配置格式无效，未写入任何设置',
+                    'error' => __('配置格式无效，未写入任何设置', 'npcink-site-toolbox'),
                 );
             }
 
@@ -255,9 +279,10 @@ if (!class_exists('Npcink_Toolbox_Config_Manager')) {
             self::$merged_cache = null;
             $rollback_complete = empty($rollback_failed_modules);
             $error = $rollback_complete
-                ? '保存失败，已恢复为之前的设置'
+                ? __('保存失败，已恢复为之前的设置', 'npcink-site-toolbox')
                 : sprintf(
-                    '保存失败，以下模块未能确认恢复：%s。请重新读取并核对设置后再保存',
+                    /* translators: %s: comma-separated module names that could not be confirmed as restored. */
+                    __('保存失败，以下模块未能确认恢复：%s。请重新读取并核对设置后再保存', 'npcink-site-toolbox'),
                     implode('、', $rollback_failed_modules)
                 );
 

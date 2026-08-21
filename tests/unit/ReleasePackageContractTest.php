@@ -31,8 +31,13 @@ class ReleasePackageContractTest extends TestCase
 
         $this->assertSame('bash bin/build-release-zip.sh', $composer['scripts']['release:build']);
         $this->assertSame('bash bin/verify-release-zip.sh', $composer['scripts']['release:verify']);
+        $this->assertSame(
+            'bash bin/verify-wordpress-org-release.sh npcink-site-toolbox.zip',
+            $composer['scripts']['release:wordpress-org-check']
+        );
         $this->assertTrue(is_executable($root . '/bin/build-release-zip.sh'));
         $this->assertTrue(is_executable($root . '/bin/verify-release-zip.sh'));
+        $this->assertTrue(is_executable($root . '/bin/verify-wordpress-org-release.sh'));
 
         $rules = array_values(array_filter(array_map(
             'trim',
@@ -91,6 +96,10 @@ class ReleasePackageContractTest extends TestCase
         $this->assertStringContainsString('trap cleanup', $build);
         $this->assertStringContainsString('"$VERIFY_SCRIPT" "$temporary_zip"', $build);
         foreach (array(
+            'languages/npcink-site-toolbox-en_US.po',
+            'languages/npcink-site-toolbox-en_US.mo',
+            'languages/npcink-site-toolbox-en_US-be96897d1813598cc6ffe96654a4f062.json',
+            'languages/npcink-site-toolbox-en_US-d4372d764458b4d5899ad1740400c0a9.json',
             'blocks/github-project/block.json',
             'blocks/github-project/index.js',
             'blocks/github-project/index.asset.php',
@@ -106,6 +115,38 @@ class ReleasePackageContractTest extends TestCase
         ) as $asset) {
             $this->assertStringContainsString($asset, $build);
         }
+    }
+
+    public function test_wordpress_org_release_gate_uses_the_exact_zip_debug_mode_and_latest_pcp(): void
+    {
+        $root = $this->root();
+        $script = (string) file_get_contents($root . '/bin/verify-wordpress-org-release.sh');
+        $workflow = (string) file_get_contents($root . '/.github/workflows/ci.yml');
+
+        foreach (array(
+            'wp_cli config set WP_DEBUG true --raw',
+            'wp_cli config set WP_DEBUG_LOG true --raw',
+            'wp_cli plugin install /var/www/html/release-under-test.zip --force',
+            'wp_cli plugin install plugin-check --force --activate',
+            'wp_cli plugin check npcink-site-toolbox --format=table',
+            'ERROR_COUNT=',
+            'UNEXPECTED_WARNING_COUNT=',
+            'WP_DEBUG log is not empty',
+            'release ZIP changed during verification',
+            'http://localhost/wp-admin/plugins.php?page=npcink-site-toolbox',
+            'admin authentication did not reach the WordPress dashboard',
+            'plugin settings page did not render its application root',
+            'Plugin Check reported $UNEXPECTED_WARNING_COUNT unexpected warning(s)',
+            'WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound',
+            'wp_generate_attachment_metadata',
+            'intermediate_image_sizes_advanced',
+        ) as $contract) {
+            $this->assertStringContainsString($contract, $script, $contract);
+        }
+
+        $this->assertStringNotContainsString('--ignore-warnings', $script);
+        $this->assertStringContainsString('run: composer release:wordpress-org-check', $workflow);
+        $this->assertStringContainsString('timeout-minutes: 15', $workflow);
     }
 
     public function test_verifier_accepts_a_valid_fixture_with_spaces_and_reports_release_facts(): void
@@ -127,6 +168,196 @@ class ReleasePackageContractTest extends TestCase
         );
     }
 
+    public function test_verifier_rejects_non_ascii_and_case_colliding_paths(): void
+    {
+        $non_ascii_archive = $this->createArchive('9.8.7', null, array(
+            'vite/admin/dist/assets/默认.png' => 'image',
+        ));
+        $non_ascii_result = $this->runCommand(array(
+            'bash',
+            $this->root() . '/bin/verify-release-zip.sh',
+            $non_ascii_archive,
+        ));
+        $this->assertNotSame(0, $non_ascii_result['status']);
+        $this->assertStringContainsString('non-ASCII path', $non_ascii_result['output']);
+
+        $case_collision_archive = $this->createArchive('9.8.7');
+        $zip = new ZipArchive();
+        $this->assertTrue($zip->open($case_collision_archive) === true);
+        $this->assertTrue($zip->addFromString(self::PACKAGE_SLUG . '/public/css/Release.css', 'one'));
+        $this->assertTrue($zip->addFromString(self::PACKAGE_SLUG . '/public/css/release.css', 'two'));
+        $this->assertTrue($zip->close());
+        $case_collision_result = $this->runCommand(array(
+            'bash',
+            $this->root() . '/bin/verify-release-zip.sh',
+            $case_collision_archive,
+        ));
+        $this->assertNotSame(0, $case_collision_result['status']);
+        $this->assertStringContainsString('differ only by letter case', $case_collision_result['output']);
+    }
+
+    public function test_release_php_uses_wordpress_asset_apis_instead_of_direct_tags(): void
+    {
+        $root = $this->root();
+        $directories = array('admin', 'includes', 'public');
+        $violations = array();
+
+        foreach ($directories as $directory) {
+            $iterator = new RecursiveIteratorIterator(
+                new RecursiveDirectoryIterator($root . '/' . $directory, FilesystemIterator::SKIP_DOTS)
+            );
+            foreach ($iterator as $file) {
+                if (!$file->isFile() || strtolower($file->getExtension()) !== 'php') {
+                    continue;
+                }
+
+                $source = file_get_contents($file->getPathname());
+                $this->assertIsString($source);
+                $source = str_replace(
+                    "str_replace('<script', '<script type=\"module\"', \$tag)",
+                    '',
+                    $source
+                );
+                if (preg_match('/<(?:script|style)(?:\s|>)/i', $source)) {
+                    $violations[] = substr($file->getPathname(), strlen($root) + 1);
+                }
+                if (preg_match('/\bonclick\s*=|href\s*=\s*["\']javascript:/i', $source)) {
+                    $violations[] = substr($file->getPathname(), strlen($root) + 1);
+                }
+            }
+        }
+
+        $this->assertSame(array(), array_values(array_unique($violations)));
+    }
+
+    public function test_content_filter_callbacks_escape_dynamic_values_before_returning_html(): void
+    {
+        $root = $this->root();
+        $contracts = array(
+            'admin/partials/page/function/add_article_update_time.php' => array('wp_kses_post', 'esc_html'),
+            'admin/partials/page/function/single_keyword_add_link.php' => array('wp_kses_post', 'esc_url', 'esc_attr', 'esc_html', 'preg_replace_callback'),
+            'admin/partials/performance/search_enhance/index.php' => array('wp_kses_post', 'esc_html', 'preg_replace_callback'),
+            'admin/partials/optimize/medium/image_add_tag.php' => array('wp_kses_post', 'WP_HTML_Tag_Processor'),
+        );
+
+        foreach ($contracts as $relative_path => $required_tokens) {
+            $source = (string) file_get_contents($root . '/' . $relative_path);
+            foreach ($required_tokens as $token) {
+                $this->assertStringContainsString($token, $source, $relative_path . ' must contain ' . $token);
+            }
+        }
+    }
+
+    public function test_release_php_uses_literal_gettext_arguments(): void
+    {
+        $root = $this->root();
+        $violations = array();
+        $iterators = array(
+            new RecursiveIteratorIterator(
+                new RecursiveDirectoryIterator($root . '/admin', FilesystemIterator::SKIP_DOTS)
+            ),
+        );
+        foreach (array('includes', 'public') as $directory) {
+            $iterators[] = new RecursiveIteratorIterator(
+                new RecursiveDirectoryIterator($root . '/' . $directory, FilesystemIterator::SKIP_DOTS)
+            );
+        }
+
+        foreach ($iterators as $iterator) {
+            foreach ($iterator as $file) {
+                if (!$file->isFile() || strtolower($file->getExtension()) !== 'php') {
+                    continue;
+                }
+                $source = (string) file_get_contents($file->getPathname());
+                if (preg_match('/\b(?:__|_e|_x|_ex|_n|_nx|esc_html__|esc_html_e|esc_attr__|esc_attr_e)\s*\(\s*\$/', $source)) {
+                    $violations[] = substr($file->getPathname(), strlen($root) + 1);
+                }
+                if (preg_match('/\b(?:__|_e|_x|_ex|_n|_nx|esc_html__|esc_html_e|esc_attr__|esc_attr_e)\s*\([^,\n]+,\s*\$/', $source)) {
+                    $violations[] = substr($file->getPathname(), strlen($root) + 1);
+                }
+            }
+        }
+
+        $this->assertSame(array(), array_values(array_unique($violations)));
+    }
+
+    public function test_external_service_disclosures_have_purpose_trigger_data_and_policy_links(): void
+    {
+        $root = $this->root();
+        $readme = (string) file_get_contents($root . '/readme.txt');
+        $privacy = (string) file_get_contents($root . '/admin/partials/privacy/index.php');
+
+        foreach (array(
+            'GitHub project block',
+            'WeChat JSSDK',
+            'Object storage',
+            'Baidu Analytics',
+            'Google Search Console',
+            'Bing Webmaster Tools',
+            'DeepSeek diagnostic analysis',
+        ) as $service) {
+            $this->assertStringContainsString($service, $readme, $service);
+        }
+
+        foreach (array('purpose', 'trigger', 'data_sent', 'terms_url', 'privacy_url') as $field) {
+            $this->assertStringContainsString("'$field'", $privacy, $field);
+        }
+
+        $this->assertStringNotContainsString('https://api.github.com/repos/{owner}/{repository}', $readme);
+        $this->assertStringContainsString('https://docs.github.com/en/rest/repos/repos#get-a-repository', $readme);
+    }
+
+    public function test_runtime_browser_and_ajax_identifiers_are_plugin_prefixed(): void
+    {
+        $root = $this->root();
+        $runtime_files = array(
+            'admin/class-npcink-toolbox-admin.php',
+            'admin/partials/function/auxiliary/census-single.php',
+            'admin/partials/optimize/admin/thumbnail_switcher/easy-thumbnail-switcher.php',
+            'admin/partials/optimize/admin/thumbnail_switcher/js/script.js',
+        );
+        $runtime_source = '';
+
+        foreach ($runtime_files as $relative_path) {
+            $source = file_get_contents($root . '/' . $relative_path);
+            $this->assertIsString($source);
+            $runtime_source .= "\n" . $source;
+        }
+
+        foreach (array('dataLocal', 'ets_strings', 'ts_ets_update', 'ts_ets_remove', 'window.ts_ets') as $generic_name) {
+            $this->assertStringNotContainsString($generic_name, $runtime_source, $generic_name);
+        }
+
+        foreach (array(
+            'npcinkSiteToolboxData',
+            'npcinkSiteToolboxThumbnail',
+            'npcink_site_toolbox_thumbnail_update',
+            'npcink_site_toolbox_thumbnail_remove',
+        ) as $prefixed_name) {
+            $this->assertStringContainsString($prefixed_name, $runtime_source, $prefixed_name);
+        }
+    }
+
+    public function test_wordpress_org_readme_exposes_public_readable_sources_and_build_steps(): void
+    {
+        $readme = file_get_contents($this->root() . '/readme.txt');
+        $this->assertIsString($readme);
+
+        foreach (array(
+            '== Source Code and Build ==',
+            'https://github.com/npcink/npcink-site-toolbox',
+            'https://github.com/npcink/npcink-site-toolbox/tree/v3.3.2',
+            'https://github.com/npcink/npcink-site-toolbox/tree/v3.3.2/vite/admin/src',
+            'https://github.com/npcink/npcink-site-toolbox/tree/v3.3.2/vite/count/src',
+            'https://github.com/npcink/npcink-site-toolbox/blob/v3.3.2/vite/package.json',
+            'git checkout v3.3.2',
+            'pnpm install --frozen-lockfile',
+            'pnpm run build',
+        ) as $source_contract) {
+            $this->assertStringContainsString($source_contract, $readme, $source_contract);
+        }
+    }
+
     public function test_verifier_rejects_vite_source_and_version_drift(): void
     {
         $source_archive = $this->createArchive('9.8.7', '9.8.7', array(
@@ -140,6 +371,22 @@ class ReleasePackageContractTest extends TestCase
         $version_result = $this->runCommand(array('bash', $this->root() . '/bin/verify-release-zip.sh', $version_archive));
         $this->assertNotSame(0, $version_result['status']);
         $this->assertStringContainsString('version mismatch', $version_result['output']);
+    }
+
+    public function test_verifier_rejects_a_readme_without_public_source_contract(): void
+    {
+        $archive = $this->createArchive('9.8.7');
+        $zip = new ZipArchive();
+        $this->assertTrue($zip->open($archive) === true);
+        $this->assertTrue($zip->addFromString(
+            self::PACKAGE_SLUG . '/readme.txt',
+            "=== Npcink Site Toolbox ===\nStable tag: 9.8.7\n"
+        ));
+        $this->assertTrue($zip->close());
+
+        $result = $this->runCommand(array('bash', $this->root() . '/bin/verify-release-zip.sh', $archive));
+        $this->assertNotSame(0, $result['status']);
+        $this->assertStringContainsString('readme is missing public source/build contract', $result['output']);
     }
 
     public function test_verifier_rejects_a_mismatched_checksum_sidecar(): void
@@ -427,7 +674,7 @@ BASH
     {
         return array(
             'npcink-site-toolbox.php' => "<?php\n/*\n * Plugin Name: Npcink Site Toolbox\n * Version: {$header_version}\n */\ndefine('NPCINK_SITE_TOOLBOX_VERSION', '{$constant_version}');\n",
-            'readme.txt' => "=== Npcink Site Toolbox ===\nStable tag: {$header_version}\n",
+            'readme.txt' => "=== Npcink Site Toolbox ===\nStable tag: {$header_version}\n\n== Source Code and Build ==\n\nhttps://github.com/npcink/npcink-site-toolbox\nhttps://github.com/npcink/npcink-site-toolbox/tree/v{$header_version}\nhttps://github.com/npcink/npcink-site-toolbox/tree/v{$header_version}/vite/admin/src\nhttps://github.com/npcink/npcink-site-toolbox/tree/v{$header_version}/vite/count/src\nhttps://github.com/npcink/npcink-site-toolbox/blob/v{$header_version}/vite/package.json\ngit checkout v{$header_version}\npnpm install --frozen-lockfile\npnpm run build\n",
             'LICENSE' => 'GPL-2.0-or-later',
             'index.php' => "<?php\n",
             'uninstall.php' => "<?php\n",
@@ -451,6 +698,11 @@ BASH
             'admin/class-npcink-toolbox-admin.php' => "<?php\n",
             'admin/partials/optimize/site/category_link_simplify.php' => "<?php\n",
             'public/class-npcink-toolbox-public.php' => "<?php\n",
+            'languages/npcink-site-toolbox.pot' => "msgid \"\"\nmsgstr \"\"\n\"Project-Id-Version: Npcink Site Toolbox 9.8.7\\n\"\n",
+            'languages/npcink-site-toolbox-en_US.po' => "msgid \"\"\nmsgstr \"\"\n\"Language: en_US\\n\"\n",
+            'languages/npcink-site-toolbox-en_US.mo' => 'compiled translations',
+            'languages/npcink-site-toolbox-en_US-be96897d1813598cc6ffe96654a4f062.json' => '{"locale_data":{"messages":{"":{"domain":"npcink-site-toolbox","lang":"en_US"}}}}',
+            'languages/npcink-site-toolbox-en_US-d4372d764458b4d5899ad1740400c0a9.json' => '{"locale_data":{"messages":{"":{"domain":"npcink-site-toolbox","lang":"en_US"}}}}',
             'blocks/github-project/block.json' => '{"name":"npcink/github-project"}',
             'blocks/github-project/index.js' => 'void 0;',
             'blocks/github-project/index.asset.php' => "<?php\nreturn array('dependencies' => array(), 'version' => '9.8.7');\n",

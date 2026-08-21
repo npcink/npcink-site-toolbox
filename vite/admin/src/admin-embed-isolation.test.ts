@@ -264,19 +264,10 @@ describe('WordPress admin embed isolation', () => {
       '.mabox-shell .ant-form-item-control',
     );
 
-    expect(domesticSource).toContain('className="mabox-environment-results"');
+    expect(domesticSource).not.toContain('mabox-environment-result');
     expect(domesticSource).not.toContain('md={8}');
     expect(searchEnhanceSource.match(/<Col xs=\{24\} xl=\{8\}>/g)).toHaveLength(3);
-    expect(appStyleSource).toContain(
-      '.mabox-environment-results {\n' +
-      '  display: grid;\n' +
-      '  grid-template-columns: repeat(2, minmax(0, 1fr));',
-    );
-    expect(appStyleSource).toContain(
-      '@media (max-width: 600px) {\n' +
-      '  .mabox-environment-results {\n' +
-      '    grid-template-columns: minmax(0, 1fr);',
-    );
+    expect(appStyleSource).not.toContain('.mabox-environment-result');
     expect(mediumLabelDeclarations).toMatchObject({
       flex: '0 0 160px',
       'max-width': '160px',

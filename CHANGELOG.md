@@ -6,6 +6,24 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [3.3.0] - 2026-08-13
+
+### Added
+
+- Added read-only DeepSeek diagnostics through the WordPress AI Client, with allowlisted previews and up to three temporary follow-up turns.
+- Added an opt-in authenticated self-service comment REST API and browser fallback page for users to manage their own comments.
+- Added production dependency auditing to CI and stricter WordPress.org release verification contracts.
+
+### Changed
+
+- Bounded search-health writes, daily unique terms, overflow aggregation, and serialized option size.
+- Upgraded ECharts and zrender to 6.1.0.
+
+### Fixed
+
+- Made compound modules activate from each documented secondary switch.
+- Load always-on modules on fresh installations with an empty saved configuration.
+
 ## [3.2.0] - 2026-07-18
 
 ### Added

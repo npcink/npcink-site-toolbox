@@ -1,0 +1,3102 @@
+{
+    "translation-revision-date": "2026-08-14 13:20+0800",
+    "generator": "WP-CLI\/2.12.0",
+    "source": "vite\/admin\/dist\/index.js",
+    "domain": "messages",
+    "locale_data": {
+        "messages": {
+            "": {
+                "domain": "messages",
+                "lang": "en_US",
+                "plural-forms": "nplurals=2; plural=(n != 1);"
+            },
+            "\u9690\u85cf\u9876\u90e8\u5de5\u5177\u6761": [
+                "Hide Top Toolbar"
+            ],
+            "\u7ad9\u70b9": [
+                "Site"
+            ],
+            "\u63a8\u8350": [
+                "Recommended"
+            ],
+            "\u4ec5\u540e\u53f0": [
+                "Admin only"
+            ],
+            "\u7981\u6b62 Title \u8f6c\u4e49": [
+                "Disable Title Escaping"
+            ],
+            "\u79fb\u9664\u7248\u672c\u4fe1\u606f": [
+                "Remove Version Info"
+            ],
+            "\u5b89\u5168": [
+                "Security"
+            ],
+            "\u5206\u7c7b\u94fe\u63a5\u7b80\u5316": [
+                "Simplify Category Links"
+            ],
+            "\u641c\u7d22\u94fe\u63a5\u4f18\u5316": [
+                "Optimize Search Links"
+            ],
+            "\u79fb\u9664\u7528\u6237\u7ad9\u70b9\u5730\u56fe": [
+                "Remove User Site Map"
+            ],
+            "\u7528\u6237\u5217\u8868\u5c55\u793a\u6635\u79f0": [
+                "Display Nicks in User List"
+            ],
+            "\u56fd\u5185 CDN \u66ff\u6362": [
+                "Replace Domestic CDN"
+            ],
+            "\u6027\u80fd": [
+                "Performance"
+            ],
+            "\u9690\u85cf\u90ae\u4ef6\u4e2d\u7684 IP": [
+                "Hide IP in Emails"
+            ],
+            "\u7ad9\u70b9\u5c0f\u5de5\u5177": [
+                "Site Widgets"
+            ],
+            "\u56fe\u7247\u81ea\u52a8\u6dfb\u52a0 Alt \u6807\u7b7e": [
+                "Auto Add Alt Tags to Images"
+            ],
+            "\u7981\u6b62\u7f29\u7565\u56fe": [
+                "Disable Thumbnails"
+            ],
+            "\u8c28\u614e": [
+                "Caution"
+            ],
+            "\u9700\u4e3b\u9898\u517c\u5bb9": [
+                "Theme compatibility required"
+            ],
+            "\u6dfb\u52a0 SVG \u56fe\u6807\u652f\u6301": [
+                "Add SVG Icon Support"
+            ],
+            "\u8fdb\u9636": [
+                "Advanced"
+            ],
+            "XSS \u98ce\u9669": [
+                "XSS Risk"
+            ],
+            "\u4e0a\u4f20\u6587\u4ef6\u91cd\u547d\u540d": [
+                "Rename Uploaded Files"
+            ],
+            "\u65b0\u751f\u6210\u56fe\u7247\u4f7f\u7528 WebP": [
+                "Newly generated images use WebP"
+            ],
+            "\u5a92\u4f53": [
+                "Media"
+            ],
+            "\u6dfb\u52a0\u4f5c\u8005\u7b5b\u9009\u9879": [
+                "Add author filter options"
+            ],
+            "\u6dfb\u52a0\u65f6\u95f4\u7b5b\u9009\u9879": [
+                "Add date filter options"
+            ],
+            "\u5404\u4e2a\u5217\u8868\u663e\u793a\u94fe\u63a5 ID": [
+                "Display link IDs for each list"
+            ],
+            "\u7f29\u7565\u56fe\u5207\u6362": [
+                "Thumbnail switch"
+            ],
+            "\u9605\u8bfb\u8fdb\u5ea6\u6761": [
+                "Reading progress bar"
+            ],
+            "\u4ec5\u524d\u53f0": [
+                "Frontend only"
+            ],
+            "\u4e24\u6b21\u8bc4\u8bba\u95f4\u9694\u65f6\u95f4": [
+                "Time interval between comments"
+            ],
+            "\u9650\u5236\u8bc4\u8bba\u5b57\u6570": [
+                "Limit comment word count"
+            ],
+            "\u7981\u6b62\u7eaf\u82f1\u6587\u8bc4\u8bba": [
+                "Block pure English comments"
+            ],
+            "\u5355\u7bc7\u6587\u7ae0\u4ec5\u9650\u8bc4\u8bba\u4e00\u6b21": [
+                "Only allow one comment per article"
+            ],
+            "\u654f\u611f\u8bcd\u8fc7\u6ee4": [
+                "Sensitive word filtering"
+            ],
+            "\u7528\u6237\u8bc4\u8bba\u81ea\u52a9\u7ba1\u7406": [
+                "User self-managed comments management"
+            ],
+            "\u9700\u8ba4\u8bc1": [
+                "Requires authentication"
+            ],
+            "\u9996\u56fe\u4f5c\u7279\u8272\u56fe": [
+                "Use first image as featured image"
+            ],
+            "\u5173\u952e\u8bcd\u81ea\u52a8\u5185\u94fe": [
+                "Auto create internal links for keywords"
+            ],
+            "\u6dfb\u52a0\u6700\u540e\u66f4\u65b0\u65f6\u95f4": [
+                "Add last updated time"
+            ],
+            "\u672a\u767b\u5f55\u6a21\u7cca\u6587\u7ae0\u5185\u56fe\u7247": [
+                "Blur Post Images for Logged-out Visitors"
+            ],
+            "\u7ef4\u62a4\u63d0\u793a\u9875": [
+                "Maintenance Notice Page"
+            ],
+            "\u9ed8\u8ba4\u7f29\u7565\u56fe": [
+                "Default Thumbnail"
+            ],
+            "\u641c\u7d22\u9891\u7387\u9650\u5236": [
+                "Search Frequency Limitation"
+            ],
+            "\u4ec5\u767b\u5f55\u7528\u6237\u53ef\u641c\u7d22": [
+                "Only Logged-In Users Can Search"
+            ],
+            "\u9690\u85cf\u6307\u5b9a\u5206\u7c7b\u6587\u7ae0": [
+                "Hide Articles by Specific Category"
+            ],
+            "\u9690\u85cf\u6307\u5b9a\u6807\u7b7e\u6587\u7ae0": [
+                "Hide Articles by Specific Tag"
+            ],
+            "\u9690\u85cf\u6307\u5b9a\u9875\u9762": [
+                "Hide Articles by Specific Page"
+            ],
+            "\u9996\u9875 SEO": [
+                "Home SEO Settings"
+            ],
+            "\u6587\u7ae0 SEO": [
+                "Post SEO Settings"
+            ],
+            "\u5206\u7c7b SEO \u5b57\u6bb5": [
+                "Category SEO Fields"
+            ],
+            "\u5206\u7c7b SEO": [
+                "Category SEO"
+            ],
+            "\u6807\u7b7e SEO": [
+                "Tag SEO"
+            ],
+            "\u6587\u7ae0\u8bbf\u95ee\u7edf\u8ba1": [
+                "Article Visits Statistics"
+            ],
+            "\u5c4f\u853d\u6076\u610f\u5173\u952e\u8bcd\u641c\u7d22": [
+                "Block Malicious Keyword Searches"
+            ],
+            "\u767e\u5ea6\u7edf\u8ba1": [
+                "Baidu Analytics"
+            ],
+            "\u5fc5\u5e94\u7edf\u8ba1": [
+                "Bing Analytics"
+            ],
+            "\u5206\u7c7b\u6570\u636e\u63a5\u53e3": [
+                "Category Data API"
+            ],
+            "\u5907\u6848\u4e0e\u5408\u89c4": [
+                "Registration & Compliance"
+            ],
+            "\u5fae\u4fe1\u751f\u6001": [
+                "WeChat Ecosystem"
+            ],
+            "\u8bc4\u8bba\u5b89\u5168": [
+                "Comments Security"
+            ],
+            "\u767b\u5f55\u5b89\u5168": [
+                "Login Security"
+            ],
+            "\u5bf9\u8c61\u5b58\u50a8 \/ OSS": [
+                "Object Storage \/ OSS"
+            ],
+            "SEO \u68c0\u67e5\u52a9\u624b": [
+                "SEO Check Assistant"
+            ],
+            "\u5a92\u4f53\u5e93\u4f53\u68c0": [
+                "Media Library Checkup"
+            ],
+            "\u641c\u7d22\u589e\u5f3a": [
+                "Search Enhancements"
+            ],
+            "\u6570\u636e\u5e93\u6e05\u7406\u4f18\u5316": [
+                "Database Cleanup & Optimization"
+            ],
+            "\u9ad8\u98ce\u9669": [
+                "High Risk"
+            ],
+            "\u4e0d\u53ef\u9006": [
+                "Irreversible"
+            ],
+            "\u5fae\u4fe1 JSSDK": [
+                "WeChat JSSDK"
+            ],
+            "\u817e\u8baf\uff08\u5fae\u4fe1\uff09": [
+                "Tencent (WeChat)"
+            ],
+            "\u5fae\u4fe1\u5185\u5206\u4eab\u81ea\u5b9a\u4e49\u6807\u9898\u3001\u63cf\u8ff0\u3001\u56fe\u6807": [
+                "Customize title, description, and icon for sharing within WeChat"
+            ],
+            "\u7ba1\u7406\u5458\u542f\u7528\u5fae\u4fe1 JSSDK\u3001\u914d\u7f6e AppID\/AppSecret\uff0c\u4e14\u8bbf\u5ba2\u6253\u5f00\u5355\u7bc7\u5185\u5bb9\u65f6": [
+                "Admin enables WeChat JSSDK and configures the AppID\/AppSecret, and visitors open a single post content when visiting."
+            ],
+            "\u670d\u52a1\u5668\u5411\u5fae\u4fe1 API \u53d1\u9001 AppID\u3001AppSecret \u548c\u540e\u7eed access token\uff1b\u8bbf\u5ba2\u6d4f\u89c8\u5668\u4ece\u5fae\u4fe1\u52a0\u8f7d JSSDK\uff0c\u5e76\u5411 SDK \u63d0\u4f9b\u9875\u9762 URL\u3001\u6807\u9898\u3001\u6458\u8981\u548c\u7f29\u7565\u56fe URL": [
+                "Send AppID, AppSecret, and subsequent access token to the WeChat API; visitor browser loads JSSDK and provides page URL, title, summary, and thumbnail URL to SDK."
+            ],
+            "AppID\/AppSecret \u5b58\u5728\u672c\u7ad9 WordPress \u6570\u636e\u5e93\uff1bjsapi_ticket \u5728\u672c\u7ad9\u77ed\u671f\u7f13\u5b58": [
+                "AppID\/AppSecret exist in the WordPress database; jsapi_ticket is cached short-term on this site."
+            ],
+            "\u963f\u91cc\u4e91\u5bf9\u8c61\u5b58\u50a8 OSS": [
+                "Aliyun Object Storage OSS"
+            ],
+            "\u963f\u91cc\u4e91": [
+                "Aliyun"
+            ],
+            "\u9a8c\u8bc1\u5bf9\u8c61\u5b58\u50a8\u5199\u5165\u8fde\u63a5\uff0c\u6216\u5c06 WordPress \u5a92\u4f53\u6587\u4ef6\u4e0a\u4f20\u5230\u7ba1\u7406\u5458\u9009\u62e9\u7684\u5bf9\u8c61\u5b58\u50a8": [
+                "Validate object storage write connection, or upload WordPress media files to the object storage selected by the admin."
+            ],
+            "\u7ba1\u7406\u5458\u9009\u62e9\u963f\u91cc\u4e91\u5e76\u4e3b\u52a8\u8fd0\u884c\u8fde\u63a5\u6d4b\u8bd5\u65f6\uff0c\u6216\u542f\u7528\u5bf9\u8c61\u5b58\u50a8\u5e76\u5728\u4e4b\u540e\u4e0a\u4f20\u5a92\u4f53\u6587\u4ef6\u65f6": [
+                "When the admin selects Aliyun and runs a connection test, or when object storage is enabled and media files are uploaded afterward."
+            ],
+            "\u8fde\u63a5\u6d4b\u8bd5\u6587\u672c\u6216\u5a92\u4f53\u6587\u4ef6\u5185\u5bb9\u3001\u542b\u53ef\u9009\u76ee\u5f55\u524d\u7f00\u7684\u5bf9\u8c61\u8def\u5f84\u3001Bucket\u3001\u963f\u91cc\u4e91 Endpoint\u3001AccessKey \u6807\u8bc6\u548c\u7b7e\u540d\u8bf7\u6c42\u5934": [
+                "Connection test text or media file content, including optional directory prefix in the object path, Bucket, Aliyun Endpoint, AccessKey identifier, and signature request header."
+            ],
+            "\u5df2\u4fdd\u5b58\u7684 AccessKey\u3001SecretKey\u3001Bucket\u3001\u4e0a\u4f20\u76ee\u5f55\u3001Endpoint \u4e0e\u516c\u5f00\u8bbf\u95ee\u5730\u5740\u5b58\u5728\u672c\u7ad9 WordPress \u6570\u636e\u5e93\uff1b\u672a\u4fdd\u5b58\u7684\u51ed\u636e\u8349\u7a3f\u53ea\u7528\u4e8e\u5f53\u6b21\u6d4b\u8bd5\u3002\u6d4b\u8bd5\u5bf9\u8c61\u4fdd\u7559\u5728 Bucket \u7684\u53ef\u9009\u76ee\u5f55\u4e0b\uff0c\u91cd\u590d\u6d4b\u8bd5\u4f1a\u8986\u76d6\u540c\u540d\u5bf9\u8c61": [
+                "Saved AccessKey, SecretKey, Bucket, upload directory, Endpoint, and public access address exist in this site's WordPress database; draft credentials for un-saved credentials are only used for this test. Test objects will be retained under the optional directory within the Bucket, and repeated tests will overwrite existing objects."
+            ],
+            "\u817e\u8baf\u4e91\u5bf9\u8c61\u5b58\u50a8 COS": [
+                "Tencent Cloud Object Storage COS"
+            ],
+            "\u817e\u8baf\u4e91": [
+                "Tencent Cloud"
+            ],
+            "\u7ba1\u7406\u5458\u9009\u62e9\u817e\u8baf\u4e91\u5e76\u4e3b\u52a8\u8fd0\u884c\u8fde\u63a5\u6d4b\u8bd5\u65f6\uff0c\u6216\u542f\u7528\u5bf9\u8c61\u5b58\u50a8\u5e76\u5728\u4e4b\u540e\u4e0a\u4f20\u5a92\u4f53\u6587\u4ef6\u65f6": [
+                "When the admin selects Tencent Cloud and runs a connection test, or when object storage is enabled and media files are uploaded afterward."
+            ],
+            "\u8fde\u63a5\u6d4b\u8bd5\u6587\u672c\u6216\u5a92\u4f53\u6587\u4ef6\u5185\u5bb9\u3001\u542b\u53ef\u9009\u76ee\u5f55\u524d\u7f00\u7684\u5bf9\u8c61\u8def\u5f84\u3001Bucket\/Region\u3001AccessKey \u6807\u8bc6\u548c\u7b7e\u540d\u8bf7\u6c42\u5934": [
+                "Connection test text or media file content, the object path with an optional directory prefix, Bucket\/Region, AccessKey identifier, and signed request headers."
+            ],
+            "\u5df2\u4fdd\u5b58\u7684 AccessKey\u3001SecretKey\u3001Bucket\u3001\u4e0a\u4f20\u76ee\u5f55\u3001Region \u4e0e\u516c\u5f00\u8bbf\u95ee\u5730\u5740\u5b58\u5728\u672c\u7ad9 WordPress \u6570\u636e\u5e93\uff1b\u672a\u4fdd\u5b58\u7684\u51ed\u636e\u8349\u7a3f\u53ea\u7528\u4e8e\u5f53\u6b21\u6d4b\u8bd5\u3002\u6d4b\u8bd5\u5bf9\u8c61\u4fdd\u7559\u5728 Bucket \u7684\u53ef\u9009\u76ee\u5f55\u4e0b\uff0c\u91cd\u590d\u6d4b\u8bd5\u4f1a\u8986\u76d6\u540c\u540d\u5bf9\u8c61": [
+                "Saved AccessKey, SecretKey, Bucket, upload directory, Region, and public access address exist in this site's WordPress database; draft credentials for un-saved credentials are only used for this test. Test objects will be retained under the optional directory within the Bucket, and repeated tests will overwrite existing objects."
+            ],
+            "\u4e03\u725b\u4e91\u5bf9\u8c61\u5b58\u50a8 Kodo": [
+                "Qiniu Cloud Object Storage Kodo"
+            ],
+            "\u4e03\u725b\u4e91": [
+                "Qiniu Cloud"
+            ],
+            "\u7ba1\u7406\u5458\u9009\u62e9\u4e03\u725b\u4e91\u5e76\u4e3b\u52a8\u8fd0\u884c\u8fde\u63a5\u6d4b\u8bd5\u65f6\uff0c\u6216\u542f\u7528\u5bf9\u8c61\u5b58\u50a8\u5e76\u5728\u4e4b\u540e\u4e0a\u4f20\u5a92\u4f53\u6587\u4ef6\u65f6": [
+                "When the admin selects Qiniu Cloud and runs a connection test, or when object storage is enabled and media files are uploaded afterward."
+            ],
+            "\u8fde\u63a5\u6d4b\u8bd5\u6587\u672c\u6216\u5a92\u4f53\u6587\u4ef6\u5185\u5bb9\u3001\u542b\u53ef\u9009\u76ee\u5f55\u524d\u7f00\u7684\u5bf9\u8c61\u8def\u5f84\u3001Bucket\u3001AccessKey \u6807\u8bc6\u548c\u4e0a\u4f20\u51ed\u8bc1": [
+                "Connection test text or media file content, including optional directory prefix in the object path, Bucket, AccessKey identifier, and upload credential."
+            ],
+            "\u5df2\u4fdd\u5b58\u7684 AccessKey\u3001SecretKey\u3001Bucket\u3001\u4e0a\u4f20\u76ee\u5f55\u4e0e\u516c\u5f00\u8bbf\u95ee\u5730\u5740\u5b58\u5728\u672c\u7ad9 WordPress \u6570\u636e\u5e93\uff1b\u672a\u4fdd\u5b58\u7684\u51ed\u636e\u8349\u7a3f\u53ea\u7528\u4e8e\u5f53\u6b21\u6d4b\u8bd5\u3002\u6d4b\u8bd5\u5bf9\u8c61\u4fdd\u7559\u5728 Bucket \u7684\u53ef\u9009\u76ee\u5f55\u4e0b\uff0c\u91cd\u590d\u6d4b\u8bd5\u4f1a\u8986\u76d6\u540c\u540d\u5bf9\u8c61": [
+                "Saved AccessKey, SecretKey, Bucket, Upload Directory and Public Access Address exist in the WordPress database; un-saved credential drafts are only used for current testing."
+            ],
+            "\u767e\u5ea6": [
+                "Baidu"
+            ],
+            "\u5728\u7ad9\u70b9\u524d\u53f0\u52a0\u8f7d\u767e\u5ea6\u7edf\u8ba1\u811a\u672c": [
+                "Load Baidu Analytics script on site front-end page"
+            ],
+            "\u7ba1\u7406\u5458\u542f\u7528\u767e\u5ea6\u7edf\u8ba1\u6a21\u5757\u5e76\u4fdd\u5b58\u975e\u7a7a\u7ad9\u70b9 ID \u540e\uff0c\u8bbf\u5ba2\u6253\u5f00\u524d\u53f0\u9875\u9762\u65f6": [
+                "Admin enables Baidu Analytics module after saving non-empty site ID, visitors will see the analytics script when opening a front-end page."
+            ],
+            "\u8bbf\u5ba2\u6d4f\u89c8\u5668\u4f1a\u5411\u767e\u5ea6\u53d1\u9001 IP \u5730\u5740\u3001User-Agent\u3001Referrer\u3001\u9875\u9762 URL \u4ee5\u53ca\u767e\u5ea6\u7edf\u8ba1\u811a\u672c\u6309\u5176\u653f\u7b56\u5904\u7406\u7684\u8bbf\u95ee\u6570\u636e": [
+                "Visitor's browser sends visitor's IP address, User-Agent, Referrer, URL and access data processed by Baidu according to its policy to Baidu."
+            ],
+            "\u767e\u5ea6\u7edf\u8ba1\u7ad9\u70b9 ID \u5b58\u5728\u672c\u7ad9 WordPress \u6570\u636e\u5e93": [
+                "Baidu Analytics site ID exists in the WordPress database."
+            ],
+            "Loli.net \u56fd\u5185\u8d44\u6e90\u955c\u50cf": [
+                "Loli.net Domestic Resource Mirror"
+            ],
+            "\u628a Gravatar\u3001Google Fonts \u548c Google Hosted Libraries \u8d44\u6e90 URL \u66ff\u6362\u4e3a gravatar.loli.net\u3001fonts.loli.net\u3001gstatic.loli.net \u6216 ajax.loli.net\uff1b\u4e5f\u652f\u6301\u7ba1\u7406\u5458\u81ea\u5b9a\u4e49\u76ee\u6807": [
+                "Replace Gravatar, Google Fonts and Google Hosted Libraries resource URLs with gravatar.loli.net, fonts.loli.net, gstatic.loli.net or ajax.loli.net; also supports administrator-defined targets."
+            ],
+            "\u7ba1\u7406\u5458\u542f\u7528 CDN \u66ff\u6362\u603b\u5f00\u5173\u53ca\u5bf9\u5e94\u5b50\u9879\u540e\uff0c\u8bbf\u5ba2\u9875\u9762\u9700\u8981\u76f8\u5173\u8d44\u6e90\u65f6": [
+                "After enabling CDN replacement total switch and corresponding sub-items in maintenance tools, visitor pages need to send request resource URL, IP address and standard HTTP headers when needing related resources."
+            ],
+            "\u8bbf\u5ba2\u6d4f\u89c8\u5668\u5411\u955c\u50cf\u53d1\u9001\u8bf7\u6c42\u8d44\u6e90 URL\u3001IP \u5730\u5740\u53ca\u6807\u51c6 HTTP \u8bf7\u6c42\u5934\uff1bGravatar \u8bf7\u6c42\u8fd8\u5305\u542b\u5934\u50cf\u54c8\u5e0c": [
+                "The mirror sends the requested resource URL, visitor's IP address and standard HTTP headers; Gravatar requests also include avatar hash."
+            ],
+            "\u955c\u50cf\u5730\u5740\u548c\u81ea\u5b9a\u4e49\u66ff\u6362\u89c4\u5219\u5b58\u5728\u672c\u7ad9 WordPress \u6570\u636e\u5e93": [
+                "Mirror addresses and custom replacement rules exist in the WordPress database."
+            ],
+            "\u56fd\u5185\u8bbf\u95ee\u8fde\u901a\u6027\u68c0\u6d4b": [
+                "Domestic Connectivity Test"
+            ],
+            "Google\u3001Automattic\uff08Gravatar\uff09\u4e0e WordPress.org": [
+                "Google, Automattic (Gravatar) and WordPress.org"
+            ],
+            "\u68c0\u6d4b\u670d\u52a1\u5668\u80fd\u5426\u8bbf\u95ee Google Fonts\u3001Google Hosted Libraries\u3001Gravatar \u548c WordPress.org API": [
+                "Test whether server can access Google Fonts, Google Hosted Libraries, Gravatar and WordPress.org API"
+            ],
+            "\u5177\u6709\u7ba1\u7406\u6743\u9650\u7684\u7ba1\u7406\u5458\u5728\u7ef4\u62a4\u5de5\u5177\u4e2d\u4e3b\u52a8\u8fd0\u884c\u68c0\u6d4b\u65f6": [
+                "When an administrator with management permissions runs the test in maintenance tools actively"
+            ],
+            "\u4e0d\u53d1\u9001\u7ad9\u70b9\u5185\u5bb9\u6216\u63d2\u4ef6\u914d\u7f6e\uff1b\u5404\u670d\u52a1\u53ef\u6536\u5230\u670d\u52a1\u5668 IP\u3001\u76ee\u6807 URL \u548c\u6807\u51c6 HTTP \u8bf7\u6c42\u5934": [
+                "Does not send site content or plugin configurations; each service can receive server IP, target URL and standard HTTP headers."
+            ],
+            "\u68c0\u6d4b\u53ef\u8fbe\u6027\u4e0e\u5ef6\u8fdf\u7ed3\u679c\u5728\u672c\u7ad9\u7f13\u5b58\u4e00\u5c0f\u65f6": [
+                "Check accessibility and latency results in site cache for one hour"
+            ],
+            "Google Search Console \u7ad9\u70b9\u9a8c\u8bc1": [
+                "Google Search Console Site Verification"
+            ],
+            "\u8f93\u51fa\u7ba1\u7406\u5458\u63d0\u4f9b\u7684\u7ad9\u70b9\u9a8c\u8bc1 meta \u6807\u7b7e": [
+                "Output the site verification meta tag provided by the administrator"
+            ],
+            "\u7ba1\u7406\u5458\u542f\u7528\u6a21\u5757\u5e76\u4fdd\u5b58\u975e\u7a7a\u9a8c\u8bc1\u7801\u540e": [
+                "Admin enables modules and saves a non-empty captcha after it"
+            ],
+            "\u65e0\uff1b\u63d2\u4ef6\u53ea\u8f93\u51fa meta \u6807\u7b7e\uff0c\u4e0d\u4e3b\u52a8\u8bf7\u6c42 Google": [
+                "No; the plugin only outputs meta tags and does not actively request Google."
+            ],
+            "\u7ad9\u70b9\u9a8c\u8bc1\u7801\u5b58\u5728\u672c\u7ad9 WordPress \u6570\u636e\u5e93": [
+                "Site CAPTCHA exists in this WordPress database"
+            ],
+            "Bing Webmaster Tools \u7ad9\u70b9\u9a8c\u8bc1": [
+                "Site Verification - Bing Webmaster Tools"
+            ],
+            "\u65e0\uff1b\u63d2\u4ef6\u53ea\u8f93\u51fa meta \u6807\u7b7e\uff0c\u4e0d\u4e3b\u52a8\u8bf7\u6c42 Microsoft": [
+                "No; the plugin only outputs meta tags and does not actively request Microsoft."
+            ],
+            "\u672c\u63d2\u4ef6\u9ed8\u8ba4\u4e0d\u6536\u96c6\u7528\u6237\u4e2a\u4eba\u8eab\u4efd\u4fe1\u606f\u3002\u6240\u6709\u914d\u7f6e\u6570\u636e\u5b58\u50a8\u5728 WordPress \u6570\u636e\u5e93\u5185\u3002": [
+                "This plugin does not collect any user personal information by default. All configuration data is stored in the WordPress database."
+            ],
+            "\u90e8\u5206\u529f\u80fd\u9700\u8981\u8fde\u63a5\u7b2c\u4e09\u65b9\u670d\u52a1\uff0c\u5177\u4f53\u89e6\u53d1\u6761\u4ef6\u3001\u6570\u636e\u6d41\u5411\u53ca\u670d\u52a1\u6761\u6b3e\u89c1\u4e0a\u65b9\u670d\u52a1\u5217\u8868\u3002": [
+                "Some features require connecting to third-party services. See the service list above for specific triggers, data flow, and terms of service."
+            ],
+            "\u6240\u6709\u5217\u51fa\u7684\u51fa\u7ad9\u8fde\u63a5\u90fd\u9700\u8981\u7ba1\u7406\u5458\u660e\u786e\u542f\u7528\u76f8\u5173\u529f\u80fd\u6216\u4e3b\u52a8\u8fd0\u884c\u68c0\u6d4b\uff1b\u63d2\u4ef6\u9ed8\u8ba4\u4e0d\u5411\u5f00\u53d1\u8005\u53d1\u9001\u9065\u6d4b\u3002": [
+                "All outbound links listed require explicit activation of related features or running a scan by an administrator; the plugin does not send telemetry to developers by default."
+            ],
+            "\u5df2\u4fdd\u5b58\u51ed\u636e\u5b58\u50a8\u5728 WordPress \u6570\u636e\u5e93\u4e2d\uff0c\u4ec5\u5728\u7ba1\u7406\u5458\u542f\u7528\u5bf9\u5e94\u529f\u80fd\u6216\u4e3b\u52a8\u8fd0\u884c\u5bf9\u8c61\u5b58\u50a8\u8fde\u63a5\u6d4b\u8bd5\u65f6\u7528\u4e8e\u670d\u52a1\u7aef\u9274\u6743\u8bf7\u6c42\uff1b\u672a\u4fdd\u5b58\u7684\u5bf9\u8c61\u5b58\u50a8\u51ed\u636e\u8349\u7a3f\u53ea\u7528\u4e8e\u5f53\u6b21\u6d4b\u8bd5\u3002\u63d2\u4ef6\u4e0d\u4f1a\u628a\u51ed\u636e\u53d1\u9001\u7ed9\u5f00\u53d1\u8005\u3002": [
+                "Credentials are saved in the WordPress database and used for server authentication requests when the corresponding feature is enabled by an administrator or during a storage connection test; unsaved object storage credentials only apply to this one-time test. The plugin does not send credentials to developers."
+            ],
+            "\u5378\u8f7d\u4f1a\u6e05\u7406\u63d2\u4ef6\u8bbe\u7f6e\u3001\u8ba1\u5212\u4efb\u52a1\u3001\u4e34\u65f6\u7f13\u5b58\u3001\u8bc4\u8bba\u62e6\u622a\u6807\u8bb0\u53ca\u7eaf\u8fd0\u884c\u6001\u9644\u4ef6\u6807\u8bb0\uff0c\u4f46\u4e0d\u4f1a\u5220\u9664\u6216\u6539\u5199\u5a92\u4f53\u6587\u4ef6\u3001\u6587\u7ae0\u3001\u8bc4\u8bba\u3001\u5206\u7c7b\u6216\u8fdc\u7aef\u5bf9\u8c61\u3002\u5df2\u8f6c\u6362\u9644\u4ef6\u7684 WebP \u6062\u590d\u8bb0\u5f55\u4f1a\u4fdd\u7559\uff0c\u907f\u514d\u5931\u53bb\u6062\u590d\u539f JPEG \u6240\u9700\u7684\u4fe1\u606f\uff1b\u5982\u9700\u7531\u63d2\u4ef6\u6267\u884c\u6062\u590d\uff0c\u8bf7\u5728\u5378\u8f7d\u524d\u5b8c\u6210\u3002": [
+                "Uninstalling will clean plugin settings, scheduled tasks, temporary cache, comment blocking flags, and pristine attachment flags, but it won't delete or rewrite media files, posts, comments, categories, or remote objects. WebP recovery records for converted attachments will be retained to avoid losing the information needed to restore from JPEG; if you need the plugin to perform a restoration, do so before uninstalling."
+            ],
+            "\u9876\u90e8": [
+                "Top"
+            ],
+            "\u5de5\u5177\u680f": [
+                "Toolbar"
+            ],
+            "\u7ad9\u70b9\u4e0e\u5a92\u4f53": [
+                "Site & Media"
+            ],
+            "\u8f6c\u4e49": [
+                "Escape"
+            ],
+            "\u7248\u672c": [
+                "Version"
+            ],
+            "\u79fb\u9664 WP \u7248\u672c\u53f7": [
+                "Remove WordPress Version Number"
+            ],
+            "\u52a0\u901f": [
+                "Acceleration"
+            ],
+            "\u56fe\u7247": [
+                "Images"
+            ],
+            "\u56fe\u7247\u81ea\u52a8\u6dfb\u52a0 Alt": [
+                "Automatically Add Alt to Images"
+            ],
+            "\u7f29\u7565\u56fe": [
+                "Thumbnail"
+            ],
+            "\u91cd\u547d\u540d": [
+                "Rename"
+            ],
+            "\u4e0a\u4f20": [
+                "Upload"
+            ],
+            "\u538b\u7f29": [
+                "Compress"
+            ],
+            "\u683c\u5f0f": [
+                "Format"
+            ],
+            "\u4f5c\u8005": [
+                "Author"
+            ],
+            "\u7b5b\u9009": [
+                "Filter"
+            ],
+            "\u6587\u7ae0\u4f5c\u8005\u7b5b\u9009": [
+                "Author Filter"
+            ],
+            "\u540e\u53f0": [
+                "Admin"
+            ],
+            "\u65e5\u671f": [
+                "Date"
+            ],
+            "\u6587\u7ae0\u65e5\u671f\u7b5b\u9009": [
+                "Post Date Filter"
+            ],
+            "\u5217\u8868": [
+                "List"
+            ],
+            "\u5217\u8868\u663e\u793a ID \u5217": [
+                "Display ID Column"
+            ],
+            "\u8bc4\u8bba": [
+                "Comments"
+            ],
+            "\u5e94\u7528\u7a0b\u5e8f\u5bc6\u7801": [
+                "App Password"
+            ],
+            "\u63a5\u53e3": [
+                "API"
+            ],
+            "\u6279\u91cf\u5220\u9664": [
+                "Batch Delete"
+            ],
+            "\u7528\u6237\u8bc4\u8bba REST \u63a5\u53e3": [
+                "User Comments REST Interface"
+            ],
+            "\u5185\u5bb9\u4e0e\u9875\u9762": [
+                "Content & Pages"
+            ],
+            "\u7ef4\u62a4": [
+                "Maintenance"
+            ],
+            "\u95ed\u7ad9": [
+                "Site Closure"
+            ],
+            "\u529f\u80fd": [
+                "Features"
+            ],
+            "\u9996\u9875": [
+                "Homepage"
+            ],
+            "\u6807\u9898": [
+                "Title"
+            ],
+            "\u63cf\u8ff0": [
+                "Description"
+            ],
+            "\u9996\u9875 TDK": [
+                "Homepage TDK"
+            ],
+            "SEO \u4e0e\u589e\u5f3a": [
+                "SEO & Enhancements"
+            ],
+            "\u6587\u7ae0": [
+                "Posts"
+            ],
+            "\u5173\u952e\u8bcd": [
+                "Keywords"
+            ],
+            "\u5907\u6848": [
+                "ICP Filing"
+            ],
+            "\u5408\u89c4": [
+                "Compliance"
+            ],
+            "ICP \u5907\u6848\u53f7": [
+                "ICP Filing Number"
+            ],
+            "\u56fd\u5185\u751f\u6001": [
+                "China Services"
+            ],
+            "\u516c\u5b89": [
+                "Public Security"
+            ],
+            "\u7f51\u5907": [
+                "Public Security Filing"
+            ],
+            "\u516c\u5b89\u7f51\u5907\u53f7": [
+                "Police Pre-Approval Number"
+            ],
+            "\u9690\u79c1": [
+                "Privacy"
+            ],
+            "\u5f39\u7a97": [
+                "Popup"
+            ],
+            "Cookie \u540c\u610f\u5f39\u7a97": [
+                "Cookie Consent Pop-Up"
+            ],
+            "\u7248\u6743": [
+                "Copyright"
+            ],
+            "\u7248\u6743\u4fe1\u606f": [
+                "Copyright Information"
+            ],
+            "\u5fae\u4fe1": [
+                "WeChat"
+            ],
+            "\u5206\u4eab": [
+                "Sharing"
+            ],
+            "\u5fae\u4fe1 JSSDK \u5206\u4eab": [
+                "WeChat JSSDK Share"
+            ],
+            "\u5f15\u5bfc": [
+                "Guidance"
+            ],
+            "\u906e\u5c42": [
+                "Overlay"
+            ],
+            "\u5fae\u4fe1\u6253\u5f00\u5f15\u5bfc": [
+                "WeChat Guidance Pop-Up"
+            ],
+            "\u654f\u611f\u8bcd": [
+                "Sensitive Words"
+            ],
+            "\u9ed1\u540d\u5355": [
+                "Blacklist"
+            ],
+            "\u8bc4\u8bba\u654f\u611f\u8bcd\u8fc7\u6ee4": [
+                "Comment Sensitive Word Filter"
+            ],
+            "\u94fe\u63a5": [
+                "Links"
+            ],
+            "\u5783\u573e": [
+                "Spam"
+            ],
+            "\u8bc4\u8bba\u94fe\u63a5\u9650\u5236": [
+                "Limit Comments Links"
+            ],
+            "\u91cd\u590d": [
+                "Duplicate"
+            ],
+            "\u62e6\u622a": [
+                "Block"
+            ],
+            "\u91cd\u590d\u8bc4\u8bba\u62e6\u622a": [
+                "Block Duplicate Comments"
+            ],
+            "\u9891\u7387": [
+                "Frequency"
+            ],
+            "\u8bc4\u8bba IP \u9891\u7387\u9650\u5236": [
+                "Comment IP Frequency Limit"
+            ],
+            "\u65e5\u5fd7": [
+                "Logs"
+            ],
+            "\u8bb0\u5f55\u62e6\u622a\u65e5\u5fd7": [
+                "Record Block Logs"
+            ],
+            "\u767b\u5f55": [
+                "Log in"
+            ],
+            "\u5931\u8d25": [
+                "Failed"
+            ],
+            "\u9650\u5236": [
+                "Limit"
+            ],
+            "\u9501\u5b9a": [
+                "Lockout"
+            ],
+            "\u4ee3\u7406": [
+                "Proxy"
+            ],
+            "\u767b\u5f55\u5c1d\u8bd5\u4fdd\u62a4": [
+                "Login Attempt Protection"
+            ],
+            "\u679a\u4e3e": [
+                "Enumeration"
+            ],
+            "\u7528\u6237\u540d": [
+                "Username"
+            ],
+            "\u9650\u5236\u533f\u540d\u4f5c\u8005\u679a\u4e3e": [
+                "Limit Anonymous Author Enumeration"
+            ],
+            "\u4e91\u5b58\u50a8": [
+                "Cloud Storage"
+            ],
+            "\u5b58\u50a8\u4e0e\u7ef4\u62a4": [
+                "Storage & Maintenance"
+            ],
+            "\u68c0\u67e5": [
+                "Check"
+            ],
+            "\u5065\u5eb7\u5ea6": [
+                "Health Checkup"
+            ],
+            "\u4f53\u68c0": [
+                "Checkup"
+            ],
+            "\u641c\u7d22": [
+                "Search"
+            ],
+            "\u9ad8\u4eae": [
+                "Highlight"
+            ],
+            "\u641c\u7d22\u5173\u952e\u8bcd\u9ad8\u4eae": [
+                "Highlight Search Keywords in Media Library"
+            ],
+            "\u6570\u636e\u5e93": [
+                "Database"
+            ],
+            "\u6e05\u7406": [
+                "Clean up"
+            ],
+            "\u4f18\u5316": [
+                "Optimize"
+            ],
+            "\u4fee\u8ba2\u7248\u672c": [
+                "Revision Versions"
+            ],
+            "\u786e\u8ba4\u5f00\u542f\u540e\u8bf7\u5728\u4fdd\u5b58\u524d\u6838\u5bf9\u53ef\u4fe1\u4ee3\u7406\uff1b\u5982\u53d1\u751f\u8bef\u9501\uff0c\u53ef\u5728 wp-config.php \u4e2d\u5c06 NPCINK_SITE_TOOLBOX_DISABLE_LOGIN_PROTECTION \u5b9a\u4e49\u4e3a true \u540e\u6062\u590d\u3002": [
+                "Confirm that the trusted proxy is enabled before saving. Review and correct any trusted proxies in wp-config.php if you encounter a lockout; set NPCINK_SITE_TOOLBOX_DISABLE_LOGIN_PROTECTION to true to unlock accounts."
+            ],
+            "\u53ef\u4fe1\u4ee3\u7406\u914d\u7f6e\u9519\u8bef\u53ef\u80fd\u8ba9\u591a\u4e2a\u8bbf\u5ba2\u5171\u4eab\u540c\u4e00\u6765\u6e90 IP\uff0c\u9020\u6210\u8d26\u53f7\u8bef\u9501\u3002": [
+                "Incorrect configuration of trusted proxies may cause multiple visitors to share the same source IP, leading to account lockouts."
+            ],
+            "SVG \u4e0a\u4f20\u652f\u6301": [
+                "SVG Upload Support"
+            ],
+            "\u4ec5\u5141\u8bb8\u53ef\u4fe1\u7528\u6237\u4e0a\u4f20 SVG \u6587\u4ef6\u3002": [
+                "Only allow SVG files to be uploaded by trusted users."
+            ],
+            "SVG \u6587\u4ef6\u53ef\u80fd\u5305\u542b\u6076\u610f\u811a\u672c\uff0c\u5df2\u505a\u5b89\u5168\u8fc7\u6ee4\u4f46\u4ecd\u9700\u6ce8\u610f\u3002": [
+                "SVG files can contain malicious scripts. Although they are filtered for security reasons, it is still important to review them."
+            ],
+            "\u5f00\u542f\u524d\u8bf7\u786e\u8ba4\u4e3b\u9898\u652f\u6301\u3002": [
+                "Make sure your theme is supported before enabling."
+            ],
+            "\u6b64\u529f\u80fd\u53ef\u80fd\u4e0e\u90e8\u5206\u4e3b\u9898\u4e0d\u517c\u5bb9\uff0c\u5bfc\u81f4\u56fe\u7247\u663e\u793a\u5f02\u5e38\u3002": [
+                "This feature may be incompatible with some themes and cause image display issues."
+            ],
+            "\u4ec5\u5728\u4f7f\u7528 HTTPS \u4e14\u786e\u5b9e\u9700\u8981\u5916\u90e8\u8bc4\u8bba\u5ba2\u6237\u7aef\u65f6\u5f00\u542f\u3002": [
+                "Enable only if using HTTPS and truly need an external comment client."
+            ],
+            "\u5f00\u653e\u7528\u6237\u8bc4\u8bba REST \u63a5\u53e3": [
+                "Open User Comments REST API"
+            ],
+            "\u5f00\u542f\u540e\uff0c\u767b\u5f55\u7528\u6237\u53ef\u901a\u8fc7\u5e94\u7528\u7a0b\u5e8f\u5bc6\u7801\u4ece\u5916\u90e8\u5ba2\u6237\u7aef\u53d1\u5e03\u3001\u4fee\u6539\u548c\u5220\u9664\u81ea\u5df1\u7684\u8bc4\u8bba\u3002": [
+                "Enable this to allow external client applications to publish, edit, and delete their own comments via application passwords."
+            ],
+            "\u6267\u884c\u524d\u52a1\u5fc5\u5148\u9884\u89c8\u5f71\u54cd\u6570\u91cf\uff0c\u5e76\u505a\u597d\u5907\u4efd\u3002": [
+                "Preview the impact first and make a backup."
+            ],
+            "\u6570\u636e\u5e93\u6e05\u7406": [
+                "Database cleanup"
+            ],
+            "\u6570\u636e\u5e93\u6e05\u7406\u64cd\u4f5c\u4e0d\u53ef\u9006\uff0c\u5220\u9664\u7684\u6570\u636e\u65e0\u6cd5\u6062\u590d\u3002": [
+                "Database cleanup operations are irreversible and deleted data cannot be recovered."
+            ],
+            "\u9884\u89c8\u6837\u5f0f\uff1a%s": [
+                "Preview Style: %s"
+            ],
+            "\u9884\u89c8\u6548\u679c": [
+                "Preview Effect"
+            ],
+            "\u5a92\u4f53\u5e93\u56fe\u7247": [
+                "Media Library Images"
+            ],
+            "\u5f53\u524d\u5b57\u6bb5": [
+                "Current Field"
+            ],
+            "\u5df2\u9009\u62e9\u56fe\u7247": [
+                "Selected Images"
+            ],
+            "\u5c1a\u672a\u9009\u62e9\u56fe\u7247": [
+                "No image selected"
+            ],
+            "\u53ef\u4ece\u5a92\u4f53\u5e93\u9009\u62e9\uff0c\u4e5f\u53ef\u4ee5\u5728\u4e0b\u65b9\u7c98\u8d34\u56fe\u7247 URL\u3002": [
+                "Choose from Media Library or paste image URL below."
+            ],
+            "\u4e3a%s\u9009\u62e9\u56fe\u7247": [
+                "Choose an image for %s"
+            ],
+            "\u4ece\u5a92\u4f53\u5e93\u9009\u62e9": [
+                "Select from Media Library"
+            ],
+            "\u6e05\u9664%s": [
+                "Clear %s"
+            ],
+            "\u6e05\u9664": [
+                "Clear"
+            ],
+            "\u6216\u7c98\u8d34\u56fe\u7247 URL": [
+                "or paste image URL"
+            ],
+            "\u9009\u62e9%s": [
+                "Select %s"
+            ],
+            "\u4f7f\u7528\u6240\u9009\u56fe\u7247": [
+                "Use selected image"
+            ],
+            "\u53d6\u6d88": [
+                "Cancel"
+            ],
+            "\u6b63\u5728\u52a0\u8f7d\u5a92\u4f53\u5e93\u2026": [
+                "Loading media library\u2026"
+            ],
+            "\u5a92\u4f53\u5e93\u52a0\u8f7d\u5931\u8d25\uff0c\u8bf7\u68c0\u67e5 REST API \u6743\u9650\u6216\u7f51\u7edc\u540e\u91cd\u8bd5\u3002": [
+                "Failed to load media library. Please check REST API permissions or network and retry."
+            ],
+            "\u91cd\u8bd5\u52a0\u8f7d\u5a92\u4f53\u5e93": [
+                "Retry loading media library"
+            ],
+            "\u5a92\u4f53\u5e93\u4e2d\u6682\u65e0\u53ef\u9009\u56fe\u7247\u3002": [
+                "No images available in media library."
+            ],
+            "\u66f4\u591a\u56fe\u7247\u52a0\u8f7d\u5931\u8d25\uff0c\u5df2\u52a0\u8f7d\u7684\u56fe\u7247\u4ecd\u53ef\u7ee7\u7eed\u9009\u62e9\u3002": [
+                "More images failed to load, previously loaded images can still be selected."
+            ],
+            "\u91cd\u8bd5\u52a0\u8f7d\u66f4\u591a\u56fe\u7247": [
+                "Retry loading more images"
+            ],
+            "\u52a0\u8f7d\u66f4\u591a\u56fe\u7247": [
+                "Load more images"
+            ],
+            "\u5df2\u52a0\u8f7d\u5168\u90e8\u56fe\u7247": [
+                "All images have been loaded."
+            ],
+            "\u53d6\u6d88\u6536\u85cf": [
+                "Unfavorite"
+            ],
+            "\u52a0\u5165\u5e38\u7528\u529f\u80fd": [
+                "Add to Favorites"
+            ],
+            "\u4ece\u5e38\u7528\u529f\u80fd\u4e2d\u79fb\u9664": [
+                "Remove from Favorites"
+            ],
+            "\u5f53\u524d\u6837\u5f0f\uff1a%s": [
+                "Current style: %s"
+            ],
+            "\u66f4\u6362\u7ef4\u62a4\u63d0\u793a\u6837\u5f0f\uff0c\u5f53\u524d\uff1a%s": [
+                "Change the maintenance notice style. Current: %s"
+            ],
+            "\u66f4\u6362\u6837\u5f0f": [
+                "Change Style"
+            ],
+            "\u9009\u62e9\u60a8\u9700\u8981\u7684\u6837\u5f0f": [
+                "Choose the Styles You Need"
+            ],
+            "\u7ef4\u62a4\u63d0\u793a\u6837\u5f0f": [
+                "Maintenance Notice Style"
+            ],
+            "\u7ef4\u62a4\u63d0\u793a\u6837\u5f0f\u9884\u89c8\uff1a%s": [
+                "Maintenance notice style preview: %s"
+            ],
+            "\u5916\u89c2": [
+                "Appearance"
+            ],
+            "\u6743\u9650": [
+                "Permissions"
+            ],
+            "\u5185\u5bb9\u4e0e\u9875\u9762\u5206\u7ec4": [
+                "Content & Pages Grouping"
+            ],
+            "\u7279\u6548": [
+                "Effects"
+            ],
+            "\u6587\u7ae0\u9875\u9762\u9876\u90e8\u663e\u793a\u9605\u8bfb\u8fdb\u5ea6\u6307\u793a\u5668\uff0c\u4ec5\u6587\u7ae0\u9875\u5c55\u793a": [
+                "Display Reading Progress Indicator on Article Page Top, Only for Article Pages"
+            ],
+            "\u8fdb\u5ea6\u6761\u989c\u8272": [
+                "Progress Bar Color"
+            ],
+            "\u8fdb\u5ea6\u6761\u9ad8\u5ea6": [
+                "Progress Bar Height"
+            ],
+            "\u5355\u4f4d\uff1a\u50cf\u7d20": [
+                "Units: Pixels"
+            ],
+            "\u521d\u6b21\u53d1\u5e03\u6587\u7ae0\uff0c\u672a\u8bbe\u7f6e\u7279\u8272\u56fe\u65f6\uff0c\u81ea\u52a8\u5c06\u7b2c\u4e00\u5f20\u56fe\u8bbe\u4e3a\u7279\u8272\u56fe": [
+                "Automatically Set the First Image as Featured Image When Publishing an Article with No Featured Image Set Initially"
+            ],
+            "\u6587\u7ae0\u5185\u5173\u952e\u8bcd\u6dfb\u52a0\u5185\u94fe": [
+                "Add Internal Links to Keywords in Article Content"
+            ],
+            "\u6587\u7ae0\u5185\u7684\u5185\u5bb9\u4e0e\u6dfb\u52a0\u7684\u6807\u7b7e\u76f8\u540c\uff0c\u5219\u6dfb\u52a0\u5bf9\u5e94\u6807\u7b7e\u7684\u94fe\u63a5": [
+                "Content added within a post is the same as any tags it has; link to those tags"
+            ],
+            "\u6587\u7ae0\u672b\u5c3e\u6dfb\u52a0\u6700\u540e\u66f4\u65b0\u65f6\u95f4\uff0c\u6587\u7ae0\u53d1\u5e0324\u5c0f\u65f6\u540e\u518d\u6b21\u4fee\u6539\uff0c\u5373\u53ef\u5c55\u793a": [
+                "Add last updated time to the end of articles; if an article is published and then edited within 24 hours, it will be displayed."
+            ],
+            "\u4e34\u65f6\u5173\u95ed\u524d\u53f0\u8bbf\u95ee\uff0c\u7ba1\u7406\u5458\u4ecd\u53ef\u6b63\u5e38\u8bbf\u95ee": [
+                "Temporarily disable front-end access, allow admin to still access."
+            ],
+            "\u9875\u9762\u6837\u5f0f": [
+                "Page Styles"
+            ],
+            "\u9009\u62e9\u8bbf\u5ba2\u770b\u5230\u7684\u7ef4\u62a4\u63d0\u793a\u6837\u5f0f\u3002": [
+                "Select the maintenance notice style that visitors see."
+            ],
+            "\u663e\u793a\u8ba1\u5212": [
+                "Show Schedule"
+            ],
+            "\u53ef\u9009\uff1b\u7559\u7a7a\u65f6\u542f\u7528\u540e\u6301\u7eed\u663e\u793a\u7ef4\u62a4\u63d0\u793a\u3002": [
+                "Optional; leave blank to display maintenance message continuously."
+            ],
+            "\u663e\u793a\u65f6\u95f4\uff08\u53ef\u9009\uff09": [
+                "Display Time (optional)"
+            ],
+            "\u7ef4\u62a4\u63d0\u793a\u663e\u793a\u65f6\u95f4": [
+                "Maintenance Display Schedule"
+            ],
+            "\u53ea\u6709\u5728\u6240\u9009\u65f6\u95f4\u6bb5\u5185\uff0c\u8bbf\u5ba2\u624d\u4f1a\u770b\u5230\u7ef4\u62a4\u63d0\u793a\u3002": [
+                "Maintenance notices will only be visible to visitors within the selected time frame."
+            ],
+            "\u7ef4\u62a4\u5185\u5bb9": [
+                "Maintenance Content"
+            ],
+            "\u586b\u5199\u63d0\u793a\u6807\u9898\u3001\u53ef\u9009\u80cc\u666f\u56fe\u7247\u548c\u8be6\u7ec6\u8bf4\u660e\u3002": [
+                "Enter a prompt title, optional background image, and detailed description."
+            ],
+            "\u7ef4\u62a4\u6807\u9898": [
+                "Maintenance Title"
+            ],
+            "\u4f8b\u5982\uff1a\u7f51\u7ad9\u7ef4\u62a4\u4e2d": [
+                "For example: Site Maintenance"
+            ],
+            "\u80cc\u666f\u56fe\u7247\uff08\u53ef\u9009\uff09": [
+                "Background Image (optional)"
+            ],
+            "\u7ef4\u62a4\u80cc\u666f\u56fe\u7247": [
+                "Maintenance Background Image"
+            ],
+            "\u4e0d\u540c\u6a21\u677f\u7684\u56fe\u7247\u4f4d\u7f6e\u4e0d\u540c\uff1b\u5168\u5c4f\u6837\u5f0f\u5efa\u8bae\u4f7f\u7528 1920\u00d71080 \u50cf\u7d20\u56fe\u7247\u3002": [
+                "Different templates have different image positions; for full-screen styles, use images with dimensions of 1920x1080 pixels."
+            ],
+            "\u7ef4\u62a4\u8bf4\u660e": [
+                "Maintenance Instructions"
+            ],
+            "HTML \u793a\u4f8b": [
+                "HTML Example"
+            ],
+            "\u67e5\u770b\u7ef4\u62a4\u8bf4\u660e HTML \u793a\u4f8b": [
+                "View Maintenance Instructions HTML Example"
+            ],
+            "\u4f8b\u5982\uff1a\u62b1\u6b49\uff0c\u6211\u4eec\u7684\u7f51\u7ad9\u6b63\u5728\u7ef4\u62a4\u4e2d\uff0c\u8bf7\u7a0d\u540e\u518d\u6765\u3002": [
+                "For example: Sorry, our website is currently undergoing maintenance. Please try again later."
+            ],
+            "\u652f\u6301\u5b89\u5168 HTML\uff1b\u53ef\u901a\u8fc7\u4fe1\u606f\u6309\u94ae\u67e5\u770b\u793a\u4f8b\u3002": [
+                "Supports secure HTML; view an example via the info button."
+            ],
+            "\u9ed8\u8ba4\u7b80\u6d01": [
+                "Default Simple"
+            ],
+            "\u9ed8\u8ba4\u5e26\u56fe": [
+                "Default with Image"
+            ],
+            "\u7ea2\u8272\u7eaf\u7cb9": [
+                "Minimal Red"
+            ],
+            "<p>\u62b1\u6b49\uff0c\u6211\u4eec\u7684\u7f51\u7ad9\u6b63\u5728\u7ef4\u62a4\u4e2d...<\/p>\n<h5 class=\"dull-text\">\n  \u8bf7\u5012\u8ba1\u65f6\u7ed3\u675f\u540e\u518d\u56de\u6765\uff0c\u6211\u4eec\u51c6\u5907\u4e86\u5168\u65b0\u7684\u5185\u5bb9\u54e6\uff01\n<\/h5>": [
+                "<p>Sorry, our site is currently undergoing maintenance...<\/p>\n<h5 class=\"dull-text\">Please come back after the countdown ends, we have some new content ready for you!<\/h5>"
+            ],
+            "\u907f\u514d\u77ed\u65f6\u95f4\u5185\u91cd\u590d\u704c\u6c34\u8bc4\u8bba\uff0c\u5bf9\u7ba1\u7406\u5458\u65e0\u6548": [
+                "Disable spam comments that are posted too frequently, which is ineffective for administrators."
+            ],
+            "\u65f6\u95f4\u95f4\u9694": [
+                "Time Interval"
+            ],
+            "\u6307\u5b9a\u65f6\u95f4\u540e\u624d\u80fd\u518d\u6b21\u8bc4\u8bba": [
+                "Commenting is disabled until later."
+            ],
+            "\u79d2": [
+                "seconds"
+            ],
+            "\u6307\u5b9a\u6700\u5c0f\u548c\u6700\u5927\u8bc4\u8bba\u5b57\u6570": [
+                "Specify minimum and maximum comment character count"
+            ],
+            "\u6700\u5c0f\u5b57\u6570": [
+                "Minimum Characters"
+            ],
+            "\u5b57": [
+                "Characters"
+            ],
+            "\u6700\u5927\u5b57\u6570": [
+                "Maximum Characters"
+            ],
+            "\u7ba1\u7406\u5458\u4e0d\u53d7\u6b64\u5f71\u54cd": [
+                "Admins are unaffected"
+            ],
+            "\u8bc4\u8bba\u63d0\u4ea4\u65f6\u68c0\u6d4b\u654f\u611f\u8bcd\uff0c\u66ff\u6362\u6216\u62e6\u622a": [
+                "Check for and replace or block sensitive words when comments are submitted"
+            ],
+            "\u654f\u611f\u8bcd\u5217\u8868": [
+                "Sensitive Word List"
+            ],
+            "\u6bcf\u884c\u4e00\u4e2a\u654f\u611f\u8bcd": [
+                "Enter each sensitive word on a separate line."
+            ],
+            "\u654f\u611f\u8bcd1\n\u654f\u611f\u8bcd2": [
+                "sensitive word 1\nsensitive word 2"
+            ],
+            "\u5904\u7406\u65b9\u5f0f": [
+                "Handling"
+            ],
+            "\u66ff\u6362\u4e3a ***": [
+                "Replace with ***"
+            ],
+            "\u62e6\u622a\u5e76\u963b\u6b62\u63d0\u4ea4": [
+                "Block and Prevent Submissions"
+            ],
+            "\u66ff\u6362\u5b57\u7b26": [
+                "Replace Characters"
+            ],
+            "\u9009\u62e9\u66ff\u6362\u65b9\u5f0f\u65f6\u751f\u6548": [
+                "Choose replacement method to apply"
+            ],
+            "\u5141\u8bb8\u5916\u90e8\u5ba2\u6237\u7aef\u901a\u8fc7 WordPress \u5e94\u7528\u7a0b\u5e8f\u5bc6\u7801\u53d1\u5e03\u3001\u4fee\u6539\u548c\u5220\u9664\u5f53\u524d\u7528\u6237\u81ea\u5df1\u7684\u8bc4\u8bba": [
+                "Allow external clients to publish, edit, and delete their own comments using the WordPress Application Passwords feature"
+            ],
+            "\u663e\u793a\u201c\u6211\u7684\u8bc4\u8bba\u201d\u540e\u53f0\u9875\u9762": [
+                "Display 'My Comments' admin page"
+            ],
+            "\u4f5c\u4e3a\u6d4f\u89c8\u5668\u5185\u7684\u515c\u5e95\u64cd\u4f5c\u754c\u9762\uff1b\u5173\u95ed\u540e REST \u63a5\u53e3\u4ecd\u53ef\u4f7f\u7528": [
+                "As a fallback browser interface; it will still be usable after closing the REST API."
+            ],
+            "\u672a\u767b\u5f55\u6743\u9650": [
+                "Not Logged In Permissions"
+            ],
+            "\u9690\u85cf\u6307\u5b9a\u5206\u7c7b\u4e0b\u7684\u5185\u5bb9": [
+                "Hide Content Within Specific Categories"
+            ],
+            "\u8be5\u5206\u7c7b\u4e0b\u7684\u5185\u5bb9\u672a\u767b\u5f55\u65f6\uff0c\u4e0d\u53ef\u89c1\uff0c\u4ec5\u5c55\u793a\u63d0\u793a\u5185\u5bb9": [
+                "Content within the selected category is not visible when logged out and only displays a message."
+            ],
+            "\u8bf7\u9009\u62e9\u8981\u9690\u85cf\u7684\u5206\u7c7b": [
+                "Select the categories to hide."
+            ],
+            "\u9690\u85cf\u6307\u5b9a\u6807\u7b7e\u4e0b\u7684\u5185\u5bb9": [
+                "Hide content under the selected tags."
+            ],
+            "\u8be5\u6807\u7b7e\u4e0b\u7684\u5185\u5bb9\u672a\u767b\u5f55\u65f6\uff0c\u4e0d\u53ef\u89c1\uff0c\u4ec5\u5c55\u793a\u63d0\u793a\u5185\u5bb9": [
+                "Content within the selected tag is not visible when logged out and only displays a message."
+            ],
+            "\u8bf7\u9009\u62e9\u8981\u9690\u85cf\u7684\u6807\u7b7e": [
+                "Select the tags to hide."
+            ],
+            "\u8be5\u9875\u9762\u4e0b\u7684\u5185\u5bb9\u672a\u767b\u5f55\u65f6\uff0c\u4e0d\u53ef\u89c1\uff0c\u4ec5\u5c55\u793a\u63d0\u793a\u5185\u5bb9": [
+                "Content within the selected page is not visible when logged out and only displays a message."
+            ],
+            "\u8bf7\u9009\u62e9\u8981\u9690\u85cf\u7684\u9875\u9762": [
+                "Select the pages to hide."
+            ],
+            "\u9690\u85cf\u65f6\u7684\u63d0\u793a\u5185\u5bb9": [
+                "The message displayed when hiding content."
+            ],
+            "\u5185\u5bb9\u88ab\u9690\u85cf\u65f6\u7684\u63d0\u793a\u5185\u5bb9\uff0c\u652f\u6301HTML": [
+                "Message displayed when content is hidden, supports HTML."
+            ],
+            "\u7ad9\u70b9\u4e0e\u5a92\u4f53\u5206\u7ec4": [
+                "Media & Site Groups"
+            ],
+            "\u5a92\u4f53\u6587\u4ef6\u76f8\u5173\u4f18\u5316": [
+                "Optimize media files related settings."
+            ],
+            "\u6807\u7b7e\u503c\u4e3a\uff1a\u5f53\u524d\u6587\u7ae0\u540d - \u7f51\u7ad9\u540d": [
+                "Tag value: Current post title - Website name."
+            ],
+            "\u7981\u7528\u81ea\u52a8\u56fe\u7247\u5c3a\u5bf8": [
+                "Disable automatic image sizes generation."
+            ],
+            "\u7981\u7528\u81ea\u52a8\u751f\u6210\u7684\u56fe\u7247\u5c3a\u5bf8\u3001\u7981\u7528\u7f29\u7565\u5c3a\u5bf8\uff0c\u53ef\u80fd\u5bfc\u81f4\u90e8\u5206\u4e3b\u9898\u6216\u63d2\u4ef6\u65e0\u6cd5\u83b7\u53d6\u6240\u9700\u5c3a\u5bf8": [
+                "Disables generated and thumbnail image sizes, may cause some themes or plugins to fail in fetching required sizes."
+            ],
+            "\u6dfb\u52a0SVG\u56fe\u6807\u652f\u6301": [
+                "Add support for SVG icons."
+            ],
+            "\u9009\u4e2d\u540e\u53ef\u5728\u5a92\u4f53\u5e93\u4e0a\u4f20SVG\u56fe\u6807\uff0cSVG\u6587\u4ef6\u53ef\u80fd\u5305\u542b\u811a\u672c\uff0c\u5b58\u5728\u5b89\u5168\u98ce\u9669": [
+                "Select to add SVG icon support. SVG files can contain scripts and pose a security risk."
+            ],
+            "\u5f53\u524d\u670d\u52a1\u5668\u7684 WordPress \u56fe\u7247\u7f16\u8f91\u5668\u4e0d\u652f\u6301 WebP\uff1b\u5373\u4f7f\u4fdd\u7559\u8bbe\u7f6e\uff0cJPEG \u4e5f\u4f1a\u5b89\u5168\u4fdd\u6301\u539f\u683c\u5f0f": [
+                "Current WordPress image editor on the server does not support WebP; JPEG will be saved in its original format even with settings retained."
+            ],
+            "\u539f\u59cb\u4e0a\u4f20\u7684 JPEG \u7559\u4f5c\u6062\u590d\u5907\u4efd\uff1b\u5a92\u4f53\u5e93\u4f7f\u7528 WordPress \u751f\u6210\u7684 WebP \u4e3b\u56fe\u548c\u7f29\u7565\u56fe\u3002\u4e0d\u8f6c\u6362 PNG\uff0c\u4e0d\u5220\u9664\u6216\u8986\u76d6\u539f\u56fe": [
+                "Original uploaded JPEGs are kept for backup restoration; the media library uses WordPress-generated WebP main images and thumbnails. No PNG conversion, no deletion or overwriting of originals."
+            ],
+            "\u4e0a\u4f20\u56fe\u7247\u81ea\u52a8\u91cd\u547d\u540d": [
+                "Images are automatically renamed when uploaded."
+            ],
+            "\u6570\u5b57\u91cd\u547d\u540d\u7c7b\u4f3c\uff1a": [
+                "Similar to numeric renaming:"
+            ],
+            "MD5\u91cd\u547d\u540d\u7c7b\u4f3c\uff1a": [
+                "MD5-based renaming:"
+            ],
+            "\u7981\u7528": [
+                "Disabled"
+            ],
+            "\u6570\u5b57\u91cd\u547d\u540d": [
+                "Numeric renaming enabled"
+            ],
+            "MD5\u91cd\u547d\u540d": [
+                "MD5 Rename"
+            ],
+            "\u7ad9\u70b9\u57fa\u7840\u4f18\u5316\u8bbe\u7f6e": [
+                "Basic optimization settings for the site."
+            ],
+            "\u5bf9\u65e0\u6cd5\u7f16\u8f91\u6587\u7ae0\u7684\u767b\u5f55\u7528\u6237\u9690\u85cf\u524d\u53f0\u9876\u90e8\u5de5\u5177\u6761": [
+                "Hide the top toolbar on the front-end for login users who cannot edit articles."
+            ],
+            "\u4eceRSS\u6e90\u548c\u7f51\u7ad9\u4e2d\u5220\u9664WordPress\u7248\u672c\u4fe1\u606f\uff0c\u5982\u679c\u60a8\u65e0\u6cd5\u4fdd\u6301\u60a8\u7684WordPres\u7248\u672c\u4e3a\u6700\u65b0\uff0c\u63a8\u8350\u5f00\u542f": [
+                "Remove WordPress version information from RSS sources and the website if you cannot keep your WordPress version up-to-date, recommended to enable."
+            ],
+            "\u7981\u6b62title\u4e2d\u7684 \"-\" \u88ab\u8f6c\u4e49": [
+                "Do not escape the '-' in title tags"
+            ],
+            "\u8ba9\u7f51\u9875\u6807\u9898\u7b26\u53f7\u6b63\u5e38\u663e\u793a": [
+                "Display web page titles correctly."
+            ],
+            "\u53bb\u6389\u5206\u7c7b\u76ee\u5f55\u94fe\u63a5\u4e2d\u7684 category \u5b57\u7b26\uff0c\u4fee\u6539\u540e\u65e7\u94fe\u63a5\u53ef\u80fd\u5931\u6548": [
+                "Remove 'category' characters from category links; changes may cause old links to become invalid."
+            ],
+            "\u5c06 ?s=\u5173\u952e\u8bcd \u6539\u4e3a \u57df\u540d\/search\/\u5173\u952e\u8bcd\uff0c\u90e8\u5206\u4e3b\u9898\u53ef\u80fd\u4e0d\u517c\u5bb9": [
+                "Change?s=keyword to domain\/search\/keyword, some themes might not be compatible with this change."
+            ],
+            "\u5b89\u5168 - \u79fb\u9664 wp-sitemap-users": [
+                "Security - Remove wp-sitemap-users"
+            ],
+            "\u79fb\u9664\u539f\u751f\u7ad9\u70b9\u5730\u56fe\u4e2d\u7684\u7528\u6237\u4fe1\u606f\u90e8\u5206\uff0c\u53ef\u51cf\u5c11\u7528\u6237\u4fe1\u606f\u66b4\u9732\u98ce\u9669": [
+                "Remove the user information portion from the native site map to reduce exposure risk"
+            ],
+            "\u5728\u7528\u6237\u5217\u8868\u4e2d\u4ee5\u201c\u6635\u79f0\u201d\u5217\u66ff\u4ee3\u201c\u59d3\u540d\u201d\u5217": [
+                "Replace 'Name' column with 'Nickname' column in User list"
+            ],
+            "\u5c06 WordPress \u52a0\u8f7d\u7684\u56fd\u5916\u8d44\u6e90\u66ff\u6362\u4e3a\u56fd\u5185 CDN \u955c\u50cf\uff0c\u63d0\u5347\u56fd\u5185\u8bbf\u95ee\u901f\u5ea6": [
+                "Replace foreign resources loaded by WordPress with domestic CDN mirrors to improve domestic access speed."
+            ],
+            "Gravatar \u5934\u50cf\u66ff\u6362": [
+                "Gravatar Avatar Replacement"
+            ],
+            "\u5c06 gravatar.com \u66ff\u6362\u4e3a\u56fd\u5185\u955c\u50cf\uff0c\u89e3\u51b3\u5934\u50cf\u65e0\u6cd5\u52a0\u8f7d\u7684\u95ee\u9898": [
+                "Replace gravatar.com with a domestic mirror to resolve the issue of profile pictures not loading."
+            ],
+            "Gravatar \u955c\u50cf\u5730\u5740": [
+                "Gravatar Mirror Address"
+            ],
+            "\u9ed8\u8ba4: gravatar.loli.net\/avatar\/": [
+                "Default: gravatar.loli.net\/avatar\/"
+            ],
+            "Google Fonts \u66ff\u6362": [
+                "Google Fonts Replacement"
+            ],
+            "\u5c06 fonts.googleapis.com \u66ff\u6362\u4e3a\u56fd\u5185\u955c\u50cf\uff0c\u9700\u786e\u8ba4\u955c\u50cf\u7ad9\u53ef\u7528\u6027": [
+                "Replace fonts.googleapis.com with a domestic mirror, make sure the mirror is available"
+            ],
+            "Google Fonts \u955c\u50cf\u5730\u5740": [
+                "Google Fonts mirror address"
+            ],
+            "\u9ed8\u8ba4: fonts.loli.net": [
+                "Default: fonts.loli.net"
+            ],
+            "Google Ajax \u66ff\u6362": [
+                "Google AJAX Replacement"
+            ],
+            "\u5c06 ajax.googleapis.com \u66ff\u6362\u4e3a ajax.loli.net": [
+                "Replace ajax.googleapis.com with ajax.loli.net"
+            ],
+            "\u81ea\u5b9a\u4e49 CDN \u66ff\u6362": [
+                "Custom CDN Replacement"
+            ],
+            "\u6bcf\u884c\u4e00\u6761\u89c4\u5219\uff0c\u683c\u5f0f: \u539f\u5730\u5740 => \u65b0\u5730\u5740\uff0c\u652f\u6301 style_loader_src \u548c script_loader_src": [
+                "one rule per line, format: original address => new address, supports style_loader_src and script_loader_src"
+            ],
+            "\u5728 WordPress \u53d1\u9001\u7684\u90ae\u4ef6\u4e2d\u9690\u85cf IP \u5730\u5740\uff0c\u4fdd\u62a4\u7528\u6237\u9690\u79c1": [
+                "Hide IP address in emails sent from WordPress to protect user privacy."
+            ],
+            "\u540e\u53f0\u6587\u7ae0\u7ba1\u7406\u589e\u5f3a": [
+                "enhance post management settings"
+            ],
+            "\u6587\u7ae0\u83dc\u5355\u6dfb\u52a0\u4f5c\u8005\u7b5b\u9009\u9879": [
+                "add author filter to the posts menu"
+            ],
+            "\u6587\u7ae0\u548c\u5a92\u4f53\u83dc\u5355\u6dfb\u52a0\u65f6\u95f4\u7b5b\u9009\u9879\uff0c\u5a92\u4f53\u83dc\u5355\u9700\u4e3a\u5217\u8868\u5e03\u5c40": [
+                "add date filter to the posts and media menus; media menu must be in list layout"
+            ],
+            "\u5404\u4e2a\u5217\u8868\u663e\u793a\u94fe\u63a5ID": [
+                "display link IDs for each list view"
+            ],
+            "\u652f\u6301 \u6587\u7ae0\u3001\u9875\u9762\u3001\u94fe\u63a5\u3001\u591a\u5a92\u4f53\u3001\u8bc4\u8bba\u3001\u5206\u7c7b\u3001\u6807\u7b7e\u3001\u7528\u6237 \u7b49": [
+                "supports articles, pages, links, media, comments, categories, tags, users, etc."
+            ],
+            "\u5c55\u793a\u3001\u6dfb\u52a0\u3001\u5220\u9664\u7f29\u7565\u56fe\uff0c\u4ec5\u7ecf\u5178\u7f16\u8f91\u5668\u53ef\u7528": [
+                "shows, adds, removes thumbnails; only available in Classic Editor"
+            ],
+            "\u6b63\u5728\u52a0\u8f7d\u5f53\u524d\u9875\u9762": [
+                "Loading the current page"
+            ],
+            "\u8bbe\u7f6e\u8bfb\u53d6\u5b8c\u6210\uff0c\u6b63\u5728\u51c6\u5907\u9875\u9762\u5185\u5bb9\u3002": [
+                "Settings loaded. Preparing the page."
+            ],
+            "\u5de5\u4f5c\u53f0": [
+                "Workspace"
+            ],
+            "\u6982\u89c8": [
+                "Overview"
+            ],
+            "\u7ad9\u70b9\u8bbe\u7f6e": [
+                "Site Settings"
+            ],
+            "\u5de5\u5177\u4e0e\u652f\u6301": [
+                "Tools & Support"
+            ],
+            "\u5173\u4e8e\u4e0e\u5e2e\u52a9": [
+                "About & Help"
+            ],
+            "\u65e0\u6cd5\u8bfb\u53d6\u8bbe\u7f6e": [
+                "cannot read settings"
+            ],
+            "\u6b63\u5728\u8bfb\u53d6\u7ad9\u70b9\u8bbe\u7f6e": [
+                "Loading site settings"
+            ],
+            "\u8bfb\u53d6\u5b8c\u6210\u524d\u4e0d\u4f1a\u542f\u7528\u4fdd\u5b58\u3002": [
+                "Saving remains disabled until loading is complete."
+            ],
+            "\u65e0\u6cd5\u8bfb\u53d6\u7ad9\u70b9\u8bbe\u7f6e": [
+                "Unable to load site settings"
+            ],
+            "\u8bbe\u7f6e\u63a5\u53e3\u8bf7\u6c42\u5931\u8d25": [
+                "The settings request failed"
+            ],
+            "\u4e3a\u907f\u514d\u8986\u76d6\u771f\u5b9e\u914d\u7f6e\uff0c\u4fdd\u5b58\u529f\u80fd\u5df2\u7981\u7528\u3002": [
+                "Saving is disabled to prevent overwriting the current configuration."
+            ],
+            "\u91cd\u65b0\u8bfb\u53d6": [
+                "Reload"
+            ],
+            "\u6253\u5f00\u5e2e\u52a9": [
+                "Open help"
+            ],
+            "\u5e2e\u52a9": [
+                "Help"
+            ],
+            "\u5bfc\u822a": [
+                "Navigation"
+            ],
+            "\u5173\u95ed\u5bfc\u822a": [
+                "Close navigation"
+            ],
+            "Npcink Site Toolbox \u4e3b\u5bfc\u822a": [
+                "Npcink Site Toolbox primary navigation"
+            ],
+            "\u4fdd\u5b58\u4e0e\u79bb\u5f00\u4fdd\u62a4": [
+                "Save and navigation protection"
+            ],
+            "\u4fee\u6539\u666e\u901a\u8bbe\u7f6e\u6216\u586b\u5199\u51ed\u636e\u540e\uff0c\u9875\u9762\u4f1a\u663e\u793a\u5f85\u4fdd\u5b58\u6570\u91cf\u3002\u5237\u65b0\u3001\u5173\u95ed\u6807\u7b7e\u9875\u6216\u5207\u6362\u5230\u63d2\u4ef6\u5185\u5176\u4ed6\u533a\u57df\u65f6\uff0c\u7cfb\u7edf\u4f1a\u5148\u786e\u8ba4\uff0c\u907f\u514d\u9759\u9ed8\u4e22\u5931\u8349\u7a3f\u3002": [
+                "after modifying general settings or filling credentials, the page will show how many changes are pending. Refreshing, closing a tab, or switching to another area within the plugin will first confirm before saving, avoiding silent loss of drafts."
+            ],
+            "\u4fdd\u5b58\u8bf7\u6c42\u5e26\u6709\u8bfb\u53d6\u8bbe\u7f6e\u65f6\u7684\u914d\u7f6e\u7248\u672c\u3002\u5982\u679c\u5176\u4ed6\u7ba1\u7406\u5458\u3001\u53e6\u4e00\u4e2a\u6807\u7b7e\u9875\u6216\u53d7\u63a7\u4ee3\u7801\u5df2\u7ecf\u66f4\u65b0\u8bbe\u7f6e\uff0c\u672c\u6b21\u4fdd\u5b58\u4f1a\u505c\u6b62\u5e76\u63d0\u793a\u91cd\u65b0\u8bfb\u53d6\uff0c\u4e0d\u4f1a\u7528\u65e7\u5feb\u7167\u8986\u76d6\u65b0\u914d\u7f6e\u3002": [
+                "save requests include the configuration version when reading settings; if other admins, another tab, or controlled code have updated settings, this save will stop and prompt for re-reading instead of using an old snapshot to overwrite new configurations."
+            ],
+            "\u53d1\u751f\u4fdd\u5b58\u51b2\u7a81\u65f6": [
+                "When a save conflict occurs"
+            ],
+            "\u5148\u8bb0\u4e0b\u5f53\u524d\u51c6\u5907\u4fee\u6539\u7684\u9879\u76ee\uff0c\u518d\u91cd\u65b0\u8bfb\u53d6\u6216\u5237\u65b0\u540e\u53f0\u3002\u6838\u5bf9\u6700\u65b0\u914d\u7f6e\u548c\u4fdd\u5b58\u5dee\u5f02\u540e\uff0c\u518d\u63d0\u4ea4\u9700\u8981\u4fdd\u7559\u7684\u4fee\u6539\u3002": [
+                "note down what you're about to modify first. Then either refresh or read again from the backend. After verifying the latest configuration against your changes, submit only those modifications that need to be retained."
+            ],
+            "\u6570\u636e\u5e93\u6e05\u7406\u5fc5\u987b\u6309\u9879\u76ee\u5148\u9884\u89c8\u3001\u518d\u786e\u8ba4\u3002\u9884\u89c8\u8d44\u683c\u4ec5\u5bf9\u5f53\u524d\u7ba1\u7406\u5458\u548c\u5f53\u524d\u6e05\u7406\u9879\u76ee\u6709\u6548\uff0c5 \u5206\u949f\u540e\u5931\u6548\u4e14\u53ea\u80fd\u4f7f\u7528\u4e00\u6b21\uff1b\u5982\u679c\u6267\u884c\u524d\u6570\u636e\u5e93\u5185\u5bb9\u53d1\u751f\u53d8\u5316\uff0c\u7cfb\u7edf\u4f1a\u505c\u6b62\u6e05\u7406\u5e76\u8981\u6c42\u91cd\u65b0\u9884\u89c8\u3002": [
+                "database cleanup must preview and confirm each project individually. Preview eligibility is limited to current admin and current cleanup project; expires in 5 minutes and can only be used once; if database content changes before execution, the cleanup will stop and require a new preview."
+            ],
+            "\u56fe\u7247 Alt \u68c0\u67e5": [
+                "Image alt text checks"
+            ],
+            "SEO \u68c0\u67e5\u52a9\u624b\u548c\u5a92\u4f53\u5e93\u4f53\u68c0\u53ea\u68c0\u67e5\u7f3a\u5c11 Alt \u7684\u56fe\u7247\u5e76\u663e\u793a\u6570\u91cf\u3002\u4e3a\u907f\u514d\u4e0e\u7ad9\u70b9\u5df2\u6709 SEO \u6216\u5a92\u4f53\u63d2\u4ef6\u91cd\u590d\u5199\u5165\uff0cNpcink Site Toolbox \u4e0d\u63d0\u4f9b Alt \u81ea\u52a8\u5199\u5165\uff1b\u8bf7\u5728\u8d1f\u8d23 SEO \u7684\u63d2\u4ef6\u6216\u5a92\u4f53\u5e93\u4e2d\u4eba\u5de5\u5904\u7406\u3002": [
+                "the SEO checker and media library health check only checks for missing Alt attributes on images and displays their count. To avoid duplicating with existing site SEO or media plugins, Npcink Site Toolbox does not provide automatic writing of Alt; please handle this manually in the plugin responsible for SEO or in the media library."
+            ],
+            "\u754c\u9762\u8bed\u8a00": [
+                "Interface Language"
+            ],
+            "\u63d2\u4ef6\u754c\u9762\u8ddf\u968f\u5f53\u524d WordPress \u7528\u6237\u8bed\u8a00\u3002\u7b80\u4f53\u4e2d\u6587\u4f7f\u7528\u5185\u7f6e\u6e90\u6587\u6848\uff1bEnglish (United States) \u4f7f\u7528\u968f\u63d2\u4ef6\u53d1\u5e03\u7684\u82f1\u6587\u8bed\u8a00\u5305\u3002\u4fee\u6539\u4e2a\u4eba\u8d44\u6599\u4e2d\u7684\u8bed\u8a00\u540e\uff0c\u91cd\u65b0\u6253\u5f00\u63d2\u4ef6\u9875\u9762\u5373\u53ef\u751f\u6548\u3002": [
+                "the plugin interface follows the current WordPress user's language setting. Simplified Chinese uses built-in source text; English (United States) uses the language package included with the plugin. After changing your profile language, re-opening the plugin page will take effect."
+            ],
+            "\u8fd9\u662f\u4e00\u6b3e\u5b8c\u5168\u514d\u8d39\u4e14\u5f00\u6e90\u7684\u63d2\u4ef6\uff0c\u8fd8\u5728\u6839\u636e\u5404\u4f4d\u7684\u4f7f\u7528\u548c\u53cd\u9988\uff0c\u4e0d\u65ad\u4f18\u5316\u548c\u589e\u6dfb\u65b0\u529f\u80fd\u4e2d\u3002": [
+                "'This is a completely free and open-source plugin that continues to be optimized and enhanced based on users' feedback.'"
+            ],
+            "\u4ecb\u7ecd\u5730\u5740\uff1a": [
+                "Introduction URL:"
+            ],
+            "\u5f00\u6e90\u5730\u5740\uff1a": [
+                "Open-source URL:"
+            ],
+            "\u65e9\u671f\u7ed9\u516c\u53f8\u7684\u5b50\u4e3b\u9898\u6dfb\u52a0\u5404\u9879\u529f\u80fd\uff0c\u7ba1\u7406\u4e0d\u4fbf\uff0c\u4fbf\u72ec\u7acb\u51fa\u6765\uff0c\u65b9\u4fbf\u7edf\u4e00\u7ba1\u7406\u548c\u7ef4\u62a4\uff1b\u968f\u7740\u8fdb\u4e00\u6b65\u7684\u53d1\u5c55\uff0c\u529f\u80fd\u589e\u591a\uff0c\u72ec\u4e50\u4e50\u4e0d\u5982\u4f17\u4e50\u4e50\uff0c\u4e8e\u662f\u514d\u8d39\u5206\u4eab\u51fa\u6765\uff0c\u4f9b\u5927\u5bb6\u4f7f\u7528\u3002": [
+                "Add various features to the company's child theme for easier management and maintenance; as development progressed, more features were added, making it beneficial to share them freely with others."
+            ],
+            "\u60a8\u53ef\u4ee5\u901a\u8fc7\u4ee5\u4e0b\u65b9\u5f0f\uff0c\u6216\u901a\u8fc7\u4e0b\u65b9\u8054\u7cfb\u65b9\u5f0f\uff0c\u7ed9\u51fa\u60a8\u7684\u5b9d\u8d35\u5efa\u8bae\uff1b\u6211\u4f1a\u914c\u60c5\u6392\u671f\uff0c\u5b9e\u73b0\u6709\u8da3\u7684\u529f\u80fd\u3002": [
+                "You can provide your valuable feedback through the following methods or via the contact information below. I will schedule interesting features accordingly."
+            ],
+            "\u60a8\u53ef\u4ee5\u901a\u8fc7\u4ee5\u4e0b\u65b9\u5f0f\u8054\u7cfb\u5230\u6211\uff1a": [
+                "Contact me through the following ways:"
+            ],
+            "\uff08QQ \u597d\u53cb\uff09": [
+                "(QQ Friends)"
+            ],
+            "\uff08\u90ae\u4ef6\uff09": [
+                "(Email)"
+            ],
+            "\u5173\u4e8e\u63d2\u4ef6": [
+                "About the plugin"
+            ],
+            "\u6211\u6709\u5efa\u8bae": [
+                "I have suggestions"
+            ],
+            "\u8054\u7cfb\u65b9\u5f0f": [
+                "Contact information"
+            ],
+            "\u6765\u6e90": [
+                "Source"
+            ],
+            "\u4f7f\u7528\u5e2e\u52a9": [
+                "Help"
+            ],
+            "\u8fd0\u884c\u72b6\u6001": [
+                "Runtime Status"
+            ],
+            "AI \u8bca\u65ad": [
+                "AI Diagnostics"
+            ],
+            "\u5173\u4e8e\u4e0e\u652f\u6301": [
+                "About & Support"
+            ],
+            "\u5173\u4e8e\u4e0e\u5e2e\u52a9\u5206\u7ec4": [
+                "Under the About & Help group"
+            ],
+            "\u6545\u969c\u6392\u67e5": [
+                "Troubleshooting"
+            ],
+            "\u89e3\u91ca WordPress\u3001PHP\u3001\u6570\u636e\u5e93\u3001\u4e3b\u9898\u4e0e\u63d2\u4ef6\u8fd0\u884c\u5feb\u7167\u3002": [
+                "Explain snapshots of WordPress, PHP, database, theme, and plugin performance."
+            ],
+            "\u6027\u80fd\u5206\u6790": [
+                "Performance Analysis"
+            ],
+            "\u68c0\u67e5\u81ea\u52a8\u52a0\u8f7d\u3001\u7f13\u5b58\u3001Cron \u4e0e\u6570\u636e\u5e93\u5355\u6b21\u5f80\u8fd4\u7b49\u6027\u80fd\u98ce\u9669\u4fe1\u53f7\u3002": [
+                "Check for performance risk signals such as automatic loading, caching, Cron jobs, and single database round trips."
+            ],
+            "\u7ef4\u62a4\u89e3\u8bfb": [
+                "Maintenance Analysis"
+            ],
+            "\u5f52\u7eb3\u6570\u636e\u5e93\u3001SEO\u3001\u5a92\u4f53\u3001\u641c\u7d22\u5065\u5eb7\u4e0e\u5bf9\u8c61\u5b58\u50a8\u914d\u7f6e\u72b6\u6001\u3002": [
+                "Summarize the status of database, SEO, media, search health, and object storage configuration."
+            ],
+            "\u8bbe\u7f6e\u98ce\u9669": [
+                "Settings Risk"
+            ],
+            "\u89e3\u91ca\u5f53\u524d\u5c1a\u672a\u4fdd\u5b58\u7684\u666e\u901a\u8bbe\u7f6e\u5dee\u5f02\uff0c\u4e0d\u5305\u542b\u4efb\u4f55\u51ed\u636e\u5b57\u6bb5\u3002": [
+                "Explain any differences between unsaved general settings, without including any credential fields."
+            ],
+            "\u4fee\u590d\u590d\u9a8c": [
+                "Fix Verification"
+            ],
+            "\u5bf9\u6bd4\u540c\u8303\u56f4\u7684\u524d\u540e\u5feb\u7167\uff0c\u533a\u5206\u6539\u5584\u3001\u6076\u5316\u4e0e\u8bc1\u636e\u4e0d\u8db3\u3002": [
+                "Compare previous and current snapshots to distinguish improvements, declines, and lack of evidence."
+            ],
+            "\u8bf7\u68c0\u67e5 WordPress 7.0+ \u7684 DeepSeek Connector \u662f\u5426\u5df2\u8fde\u63a5\uff1b\u6570\u636e\u672a\u7531\u672c\u63d2\u4ef6\u4fdd\u5b58\u3002": [
+                "Check if the DeepSeek Connector is connected to your WordPress site (version 7.0 or higher); data is not being saved by this plugin."
+            ],
+            "\u6a21\u578b\u5728\u81ea\u52a8\u91cd\u8bd5\u540e\u4ecd\u672a\u751f\u6210\u53ef\u5c55\u793a\u6b63\u6587\uff1b\u53ef\u7a0d\u540e\u91cd\u8bd5\u3002": [
+                "The model did not generate displayable content after automatic retries; please try again later."
+            ],
+            "DeepSeek \u5f53\u524d\u8bf7\u6c42\u8fc7\u591a\u6216\u989d\u5ea6\u53d7\u9650\uff1b\u8bf7\u7a0d\u540e\u91cd\u8bd5\u3002": [
+                "Too many requests detected; please try again later."
+            ],
+            "\u6682\u65f6\u65e0\u6cd5\u8fde\u63a5 DeepSeek \u670d\u52a1\uff1b\u8bf7\u7a0d\u540e\u91cd\u8bd5\u3002": [
+                "Unable to connect to DeepSeek service; please try again later."
+            ],
+            "\u6ca1\u6709\u4fdd\u5b58\u4e0d\u5b8c\u6574\u56de\u7b54\uff0c\u4e5f\u6ca1\u6709\u6267\u884c\u4efb\u4f55\u4fee\u6539\u3002\u53ef\u7a0d\u540e\u91cd\u8bd5\u3002": [
+                "No incomplete answers were saved and no modifications were made. Please try again later."
+            ],
+            "\u751f\u6210\u8bca\u65ad\u62a5\u544a": [
+                "Generate Diagnostic Report"
+            ],
+            "\u751f\u6210\u6027\u80fd\u5feb\u7167": [
+                "Generate Performance Snapshot"
+            ],
+            "\u751f\u6210\u7ef4\u62a4\u5feb\u7167": [
+                "Generate Maintenance Snapshot"
+            ],
+            "AI \u8bca\u65ad\u4e0e\u5206\u6790": [
+                "AI Diagnostics & Analysis"
+            ],
+            "\u7ba1\u7406\u5458\u5148\u68c0\u67e5\u767d\u540d\u5355\u5feb\u7167\uff0c\u518d\u663e\u5f0f\u53d1\u9001\u7ed9 DeepSeek\uff1bAI \u53ea\u89e3\u91ca\uff0c\u4e0d\u4fee\u6539\u7ad9\u70b9\u3002": [
+                "The admin reviews the allowlisted snapshot before explicitly sending it to DeepSeek. AI explains the data but does not modify the site."
+            ],
+            "AI \u5206\u6790\u80fd\u529b": [
+                "AI Analysis Capabilities"
+            ],
+            "\u6b63\u5728\u91c7\u96c6": [
+                "Collecting\u2026"
+            ],
+            "%d \u9879\u666e\u901a\u8bbe\u7f6e\u5f85\u4fdd\u5b58": [
+                "%d regular settings pending save"
+            ],
+            "\u3002\u51ed\u636e\u53d8\u66f4\u4e0d\u4f1a\u8fdb\u5165\u672c\u5206\u6790\u3002": [
+                "Credentials changes won't be analyzed."
+            ],
+            "\u5f53\u524d\u6ca1\u6709\u666e\u901a\u8bbe\u7f6e\u5dee\u5f02\u3002\u8bf7\u5148\u5728\u5176\u4ed6\u6807\u7b7e\u9875\u8c03\u6574\u8bbe\u7f6e\uff0c\u518d\u56de\u5230\u8fd9\u91cc\u5206\u6790\u3002": [
+                "No differences found in the current settings. Please adjust the settings on another tab and come back here for analysis."
+            ],
+            "\u57fa\u7ebf\u8303\u56f4": [
+                "Baseline Range"
+            ],
+            "\u6027\u80fd\u5feb\u7167": [
+                "Performance Snapshot"
+            ],
+            "\u7ef4\u62a4\u5feb\u7167": [
+                "Maintenance Snapshot"
+            ],
+            "\u6b63\u5728\u8bb0\u5f55": [
+                "Recording in progress"
+            ],
+            "\u91cd\u65b0\u8bb0\u5f55\u57fa\u7ebf": [
+                "Re-record Baseline"
+            ],
+            "\u8bb0\u5f55\u5f53\u524d\u57fa\u7ebf": [
+                "Record Current Baseline"
+            ],
+            "\u5df2\u5728\u672c\u9875\u6682\u5b58 %s \u7684%s\u57fa\u7ebf\uff1b\u5237\u65b0\u6216\u79bb\u5f00\u9875\u9762\u540e\u4e0d\u4f1a\u4fdd\u7559\u3002": [
+                "The %2$s baseline for %1$s is temporarily stored on this page and will be cleared when you refresh or leave."
+            ],
+            "\u5feb\u7167\u751f\u6210\u5931\u8d25": [
+                "Snapshot Generation Failed"
+            ],
+            "\u6ca1\u6709\u751f\u6210\u3001\u4fdd\u5b58\u6216\u53d1\u9001\u4e0d\u5b8c\u6574\u4fe1\u606f\uff0c\u8bf7\u7a0d\u540e\u91cd\u8bd5\u3002": [
+                "No complete information to generate, save, or send. Please try again later."
+            ],
+            "\u91cd\u65b0\u751f\u6210": [
+                "Regenerate"
+            ],
+            "\u53d1\u9001\u524d\u9884\u89c8": [
+                "Preview before sending"
+            ],
+            "\u7f51\u9875\u4e2d\u5c55\u793a\u767d\u540d\u5355\u4e8b\u5b9e\uff1b\u70b9\u51fb\u5206\u6790\u65f6\uff0c\u670d\u52a1\u7aef\u4f1a\u91cd\u65b0\u91c7\u96c6\u540c\u8303\u56f4\u6700\u65b0\u6570\u636e\u3002": [
+                "Whitelist of facts displayed on the webpage; when clicked for analysis, the server will re-collect latest data within the same range."
+            ],
+            "\u590d\u5236 Markdown": [
+                "Copy Markdown"
+            ],
+            "\u6392\u67e5\u76ee\u6807\uff08\u53ef\u9009\uff09": [
+                "Target to Exclude (Optional)"
+            ],
+            "\u5206\u6790\u76ee\u6807\uff08\u53ef\u9009\uff09": [
+                "Analyze Goals (optional)"
+            ],
+            "\u8865\u5145\u4f60\u5173\u5fc3\u7684\u73b0\u8c61\u6216\u672c\u6b21\u8c03\u6574\u76ee\u7684\uff1b\u4e0d\u8981\u586b\u5199\u5bc6\u7801\u3001\u5bc6\u94a5\u6216\u4e2a\u4eba\u4fe1\u606f\u3002": [
+                "Add any phenomena you're concerned about or the purpose of this adjustment; do not enter passwords, keys, or personal information."
+            ],
+            "\u70b9\u51fb\u540e\u4f1a\u5411 DeepSeek \u53d1\u9001\u540c\u8303\u56f4\u6700\u65b0\u767d\u540d\u5355\u4e8b\u5b9e\u3002": [
+                "Clicking this will send the latest whitelisted facts to DeepSeek."
+            ],
+            "\u82e5\u6a21\u578b\u53ea\u8fd4\u56de\u7a7a\u6b63\u6587\uff0c\u6700\u591a\u81ea\u52a8\u91cd\u8bd5\u4e00\u6b21\u3002": [
+                "If the model only returns an empty body text, it will automatically retry up to once."
+            ],
+            "API Key \u7531 WordPress Connectors \u7ba1\u7406\uff0c\u672c\u63d2\u4ef6\u4e0d\u8bfb\u53d6\u3001\u4e0d\u4fdd\u5b58\uff0c\u4e5f\u4e0d\u4f1a\u6267\u884c\u6a21\u578b\u5efa\u8bae\u3002": [
+                "API Key is managed by the WordPress Connectors plugin. This plugin does not read from, save, or execute model suggestions."
+            ],
+            "DeepSeek \u6b63\u5728\u5206\u6790": [
+                "DeepSeek is Analyzing"
+            ],
+            "\u91cd\u65b0\u91c7\u96c6\u5e76\u5bf9\u6bd4": [
+                "Resync and Compare"
+            ],
+            "\u4f7f\u7528 DeepSeek \u5206\u6790": [
+                "Use DeepSeek Analysis"
+            ],
+            "DeepSeek \u5206\u6790\u5931\u8d25": [
+                "DeepSeek Analysis Failed"
+            ],
+            "\u524d\u5f80 Connectors": [
+                "Go to Connectors"
+            ],
+            "DeepSeek \u5206\u6790\u7ed3\u679c": [
+                "DeepSeek Analysis Results"
+            ],
+            "Provider\uff1a%s%s\u3002\u7ed3\u679c\u672a\u4fdd\u5b58\uff0c\u4e5f\u672a\u81ea\u52a8\u4fee\u6539\u7ad9\u70b9\u3002": [
+                "Provider: %s%s. Results are not saved and have not been automatically updated for the site."
+            ],
+            " \u00b7 \u6a21\u578b\uff1a%s": [
+                " \u00b7 Model: %s"
+            ],
+            "\u7ee7\u7eed\u8ffd\u95ee": [
+                "Keep Asking"
+            ],
+            "%d\/3 \u8f6e \u00b7 \u4ec5\u4fdd\u5b58\u5728\u5f53\u524d\u9875\u9762\uff0c\u5207\u6362\u6a21\u5f0f\u6216\u5237\u65b0\u540e\u6e05\u9664\u3002": [
+                "Round %d\/3 \u00b7 Stored only on this page and cleared when you switch modes or refresh."
+            ],
+            "\u4e34\u65f6\u8ffd\u95ee\u8bb0\u5f55": [
+                "Temporary Ask Record"
+            ],
+            "\u8ffd\u95ee %d": [
+                "Follow-up %d"
+            ],
+            "\u5feb\u6377\u8ffd\u95ee": [
+                "Suggested Follow-ups"
+            ],
+            "\u4f9d\u636e\u662f\u4ec0\u4e48\uff1f": [
+                "What is it based on?"
+            ],
+            "\u8fd8\u7f3a\u54ea\u4e9b\u8bc1\u636e\uff1f": [
+                "What else do we need to provide?"
+            ],
+            "\u7ed9\u51fa\u5b89\u5168\u7684\u9a8c\u8bc1\u6b65\u9aa4\u3002": [
+                "Provide safe steps for verification."
+            ],
+            "\u5f53\u524d\u8ffd\u95ee": [
+                "Current Follow-up"
+            ],
+            "\u6700\u591a 1000 \u5b57\uff0c\u4e0d\u8981\u586b\u5199\u5bc6\u7801\u3001\u5bc6\u94a5\u6216\u4e2a\u4eba\u4fe1\u606f\u3002": [
+                "Maximum of 1000 characters, no password, key, or personal information needed."
+            ],
+            "\u63d0\u4ea4\u65f6\u4f1a\u518d\u6b21\u53d1\u9001\u539f\u767d\u540d\u5355\u4e8b\u5b9e\u3001\u9996\u6b21\u56de\u7b54\u548c\u672c\u9875\u5df2\u5b8c\u6210\u7684\u8ffd\u95ee\uff1b\u8fd9\u4e9b\u5185\u5bb9\u4e0d\u4f1a\u6301\u4e45\u5316\u3002": [
+                "Submit and resend the original whitelist facts, first answer, and any completed follow-ups; these contents will not persist."
+            ],
+            "DeepSeek \u6b63\u5728\u56de\u7b54": [
+                "DeepSeek is answering"
+            ],
+            "\u63d0\u4ea4\u8ffd\u95ee": [
+                "Submit Follow-up"
+            ],
+            "\u5df2\u5b8c\u6210 3 \u8f6e\u8ffd\u95ee\u3002\u82e5\u9700\u8981\u65b0\u7684\u4e0a\u4e0b\u6587\uff0c\u8bf7\u91cd\u65b0\u751f\u6210\u5feb\u7167\u5e76\u5f00\u59cb\u4e00\u6b21\u65b0\u5206\u6790\u3002": [
+                "Completed 3 rounds of follow-ups. If new context is needed, please take a new snapshot and start a new analysis."
+            ],
+            "\u8ffd\u95ee\u5931\u8d25": [
+                "Follow-up Failed"
+            ],
+            "\u672c\u8f6e\u672a\u52a0\u5165\u4e34\u65f6\u8bb0\u5f55\uff0c\u4e5f\u6ca1\u6709\u4fdd\u5b58\u4efb\u4f55\u5185\u5bb9\uff1b\u8bf7\u7a0d\u540e\u91cd\u8bd5\u3002": [
+                "No temporary records were added this round and no content was saved; please try again later."
+            ],
+            "\u5df2\u590d\u5236\u8131\u654f\u8bca\u65ad\u62a5\u544a\uff0c\u8bf7\u5728\u5206\u4eab\u524d\u518d\u6b21\u68c0\u67e5\u3002": [
+                "Copied and de-identified diagnosis report. Please review again before sharing."
+            ],
+            "\u5df2\u590d\u5236\u767d\u540d\u5355\u5feb\u7167\uff0c\u8bf7\u5728\u5206\u4eab\u524d\u518d\u6b21\u68c0\u67e5\u3002": [
+                "Whitelist snapshot has been copied. Please check again before sharing."
+            ],
+            "\u6d4f\u89c8\u5668\u672a\u5141\u8bb8\u590d\u5236\uff0c\u8bf7\u5237\u65b0\u9875\u9762\u540e\u91cd\u8bd5\u3002": [
+                "Your browser doesn't allow copying. Please refresh the page and try again."
+            ],
+            "\u8fd9\u662f\u4e00\u6b3e\u5b8c\u5168\u514d\u8d39\u4e14\u5f00\u6e90\u7684\u63d2\u4ef6\uff0c\u8fd8\u5728\u6839\u636e\u5404\u4f4d\u7684\u4f7f\u7528\u548c\u53cd\u9988\uff0c\u4e0d\u65ad\u4f18\u5316\u548c\u589e\u6dfb\u65b0\u529f\u80fd\u4e2d\uff1b": [
+                "This is a free and open-source plugin that continues to optimize and add new features based on your usage and feedback;"
+            ],
+            "\u65e9\u671f\u7ed9\u516c\u53f8\u7684\u5b50\u4e3b\u9898\u6dfb\u52a0\u5404\u9879\u529f\u80fd\uff0c\u7ba1\u7406\u4e0d\u4fbf\uff0c\u4fbf\u72ec\u7acb\u51fa\u6765\uff0c\u65b9\u4fbf\u7edf\u4e00\u7ba1\u7406\u548c\u7ef4\u62a4\uff1b": [
+                "As the number of features increased for the company's child theme, managing it became inconvenient, so I separated it out to make it easier to manage and maintain uniformly;"
+            ],
+            "\u968f\u7740\u8fdb\u4e00\u6b65\u7684\u53d1\u5c55\uff0c\u529f\u80fd\u589e\u591a\uff0c\u72ec\u4e50\u4e50\u4e0d\u5982\u4f17\u4e50\u4e50\uff0c\u4e8e\u662f\u514d\u8d39\u5206\u4eab\u51fa\u6765\uff0c\u4f9b\u5927\u5bb6\u4f7f\u7528\u3002": [
+                "As further development progressed, with more features added, enjoying things alone is not as good as sharing them with others. Thus, I decided to share it freely for everyone to use;"
+            ],
+            "\u60a8\u53ef\u4ee5\u901a\u8fc7\u4ee5\u4e0b\u65b9\u5f0f\uff0c\u6216\u901a\u8fc7\u4e0b\u65b9\u8054\u7cfb\u65b9\u5f0f\uff0c\u7ed9\u51fa\u60a8\u7684\u5b9d\u8d35\u5efa\u8bae\uff1b\u6211\u4f1a\u914c\u60c5\u6392\u671f\uff0c\u5b9e\u73b0\u6709\u8da3\u7684\u529f\u80fd\uff0c": [
+                "You can provide your valuable suggestions through the following methods or by contacting me via the below contact information; I will schedule interesting functions accordingly;"
+            ],
+            "\u6587\u7ae0\u8bc4\u8bba": [
+                "Post Comments"
+            ],
+            "\u60a8\u53ef\u4ee5\u901a\u8fc7\u4ee5\u4e0b\u65b9\u5f0f\uff0c\u8054\u7cfb\u5230\u6211\uff0c": [
+                "You can reach out to me through the following ways;"
+            ],
+            "\u6b63\u5728\u8bfb\u53d6\u8fd0\u884c\u72b6\u6001": [
+                "Reading and writing status is currently being read;"
+            ],
+            "\u53ea\u8bfb\u53d6\u6a21\u5757\u548c\u73af\u5883\u4e8b\u5b9e\uff0c\u4e0d\u4f1a\u4fee\u6539\u8bbe\u7f6e\u3002": [
+                "Only reads the read-only modules and environment facts, does not modify settings;"
+            ],
+            "\u8fd0\u884c\u72b6\u6001\u6682\u65f6\u4e0d\u53ef\u7528": [
+                "The running status is temporarily unavailable;"
+            ],
+            "\u8bfb\u53d6\u5931\u8d25\uff0c\u6ca1\u6709\u751f\u6210\u4e0d\u5b8c\u6574\u7684\u8bca\u65ad\u4fe1\u606f\u3002": [
+                "Failed to read, no incomplete diagnostic information was generated;"
+            ],
+            "\u91cd\u65b0\u83b7\u53d6": [
+                "Reload"
+            ],
+            "\u529f\u80fd\u4e0e\u8fd0\u884c\u72b6\u6001": [
+                "Function and running status;"
+            ],
+            "\u6838\u5bf9\u5f53\u524d\u5b9e\u9645\u52a0\u8f7d\u7684\u6a21\u5757\u3001\u7f16\u8f91\u5668\u5de5\u5177\u548c\u57fa\u7840\u8fd0\u884c\u73af\u5883\uff1b\u672c\u9875\u9762\u53ea\u8bfb\uff0c\u4e0d\u4f1a\u53d1\u9001\u5916\u90e8\u8bf7\u6c42\u3002": [
+                "Checks the actual modules loaded, editor tools, and basic runtime environment currently. This page is only for reading and will not send external requests;"
+            ],
+            "\u5237\u65b0": [
+                "Refresh"
+            ],
+            "\u8fd0\u884c\u72b6\u6001\u6458\u8981": [
+                "Summary of the running status;"
+            ],
+            "\u63d2\u4ef6\u7248\u672c": [
+                "Plugin Version"
+            ],
+            "\u672a\u77e5": [
+                "Unknown"
+            ],
+            "\u8fd0\u884c\u6a21\u5757": [
+                "Active Modules"
+            ],
+            "\u65e0\u9700\u5f00\u5173": [
+                "Always Active"
+            ],
+            "\u7f16\u8f91\u5668\u5de5\u5177": [
+                "Editor Tools"
+            ],
+            "\u8fd0\u884c\u73af\u5883": [
+                "Runtime Environment"
+            ],
+            "\u4ec5\u663e\u793a\u5f71\u54cd\u63d2\u4ef6\u8fd0\u884c\u7684\u7248\u672c\u4e8b\u5b9e\uff0c\u4e0d\u4f7f\u7528\u7efc\u5408\u8bc4\u5206\u3002": [
+                "Only show version facts that affect plugin operation, without using a consolidated score."
+            ],
+            "\u751f\u6210\u65f6\u95f4": [
+                "Generated At"
+            ],
+            "\u5f53\u524d\u8fd0\u884c\u6a21\u5757": [
+                "Current Running Modules"
+            ],
+            "\u4ec5\u5217\u51fa\u672c\u6b21\u5b9e\u9645\u52a0\u8f7d\u7684\u529f\u80fd\uff1b\u4f5c\u7528\u8303\u56f4\u53ef\u5e2e\u52a9\u5224\u65ad\u95ee\u9898\u51fa\u73b0\u5728\u54ea\u4e00\u4fa7\u3002": [
+                "List only the features actually loaded this time; scope can help determine where an issue lies."
+            ],
+            "\u524d\u5f80%s\u8bbe\u7f6e": [
+                "Go to %s Settings"
+            ],
+            "\u524d\u5f80\u8bbe\u7f6e": [
+                "Go to Settings"
+            ],
+            "\u59cb\u7ec8\u53ef\u7528\u7684\u7f16\u8f91\u5668\u5de5\u5177": [
+                "Always Available Editor Tools"
+            ],
+            "\u8fd9\u4e9b\u5de5\u5177\u4e0d\u53d7\u8bbe\u7f6e\u5f00\u5173\u63a7\u5236\uff0c\u5728\u6587\u7ae0\u6216\u9875\u9762\u7f16\u8f91\u5668\u7684 Npcink Site Toolbox \u5206\u7c7b\u4e2d\u4f7f\u7528\u3002": [
+                "These tools are not controlled by the settings switch and can be used in the Npcink Site Toolbox category of the article or page editor."
+            ],
+            "\u533a\u5757\u6837\u677f": [
+                "Block Templates"
+            ],
+            "\u52a8\u6001\u533a\u5757": [
+                "Dynamic Blocks"
+            ],
+            "DeepSeek \u5206\u6790\u7ed3\u679c\u5185\u5bb9": [
+                "DeepSeek Analysis Results Content"
+            ],
+            "\u53bb\u9664\u5206\u7c7b\u94fe\u63a5\u4e2d\u7684 category \u5b57\u7b26": [
+                "Remove 'category' characters from category links."
+            ],
+            "\u590d\u5236\u6587\u5b57\u8df3\u51fa\u5f39\u7a97\u63d0\u793a": [
+                "Copy Text Notification Popup"
+            ],
+            "\u7f8e\u5316": [
+                "Enhancements"
+            ],
+            "\u5176\u4ed6": [
+                "Other"
+            ],
+            "\u5f85\u5b8c\u5584": [
+                "Incomplete"
+            ],
+            "\u7c7b\u578b": [
+                "Type"
+            ],
+            "\u6548\u679c": [
+                "Results"
+            ],
+            "\u8bca\u65ad\u62a5\u544a\u9884\u89c8\u5185\u5bb9": [
+                "Preview Content of Diagnostic Report"
+            ],
+            "\u53d1\u9001\u524d\u6570\u636e\u9884\u89c8": [
+                "Preview before sending"
+            ],
+            "WordPress %s\u6570\u636e\u5305": [
+                "WordPress %s Data Package"
+            ],
+            "%d \u4e2a\u6570\u636e\u5206\u533a \u00b7 %d \u9879\u767d\u540d\u5355\u4e8b\u5b9e": [
+                "%d data partitions \u00b7 %d whitelist items"
+            ],
+            "\u5c1a\u672a\u53d1\u9001": [
+                "Not Sent"
+            ],
+            "\u6570\u636e\u5408\u540c": [
+                "Data Contract"
+            ],
+            "\u5206\u6790\u8303\u56f4": [
+                "Analyze Scope"
+            ],
+            "\u9690\u79c1\u72b6\u6001": [
+                "Privacy Status"
+            ],
+            "\u672a\u53d1\u9001 \u00b7 \u672a\u4fdd\u5b58": [
+                "Not Sent \u00b7 Not Saved"
+            ],
+            "\u53d1\u9001\u4e0e\u5206\u6790\u7ea6\u675f": [
+                "Send & Analyze Constraints"
+            ],
+            "\u4ec5\u4f7f\u7528\u4e0b\u5217\u5206\u533a\u4e0e\u5b57\u6bb5\u4e8b\u5b9e\uff0c\u5b57\u6bb5\u503c\u4e0d\u4f1a\u88ab\u5f53\u4f5c\u64cd\u4f5c\u6307\u4ee4\u3002": [
+                "Use only the following partitions and fields for facts. Field values will not be treated as action instructions."
+            ],
+            "\u8bc1\u636e\u4e0d\u8db3\u65f6\u8981\u6c42\u6a21\u578b\u660e\u786e\u8bf4\u660e\u65e0\u6cd5\u5224\u65ad\uff1b\u63d2\u4ef6\u4e0d\u4f1a\u6267\u884c\u4efb\u4f55\u4fee\u6539\u6216\u6e05\u7406\u3002": [
+                "Insufficient evidence to require the model to clearly state that it cannot determine; the plugin will not perform any modifications or cleanups."
+            ],
+            "\u68c0\u67e5\u9879": [
+                "Check Items"
+            ],
+            "\u5b57\u6bb5 ID": [
+                "Field ID"
+            ],
+            "\u5f53\u524d\u503c": [
+                "Current Value"
+            ],
+            "\u5df2\u77e5\u5c40\u9650": [
+                "Known Limitations"
+            ],
+            "\u672a\u8bbe\u7f6e": [
+                "Not set"
+            ],
+            "\u5f00\u542f": [
+                "Enable"
+            ],
+            "\u5173\u95ed": [
+                "Close"
+            ],
+            "\u7a7a": [
+                "Empty"
+            ],
+            "\u786e\u8ba4\u4fdd\u5b58\u4ee5\u4e0b\u66f4\u6539\uff1f": [
+                "Confirm save of these changes?"
+            ],
+            "\u786e\u8ba4\u4fdd\u5b58": [
+                "Confirm Save"
+            ],
+            "\u68c0\u6d4b\u5230 %d \u9879\u9ad8\u98ce\u9669\u529f\u80fd\u5c06\u88ab\u5f00\u542f\uff0c\u8bf7\u8c28\u614e\u786e\u8ba4\u3002": [
+                "Found %d high-risk features that will be enabled. Please confirm carefully."
+            ],
+            "\u539f\u503c\uff1a": [
+                "Original Value:"
+            ],
+            "\u65b0\u503c\uff1a": [
+                "New Value:"
+            ],
+            "\u6682\u65e0\u53d8\u66f4": [
+                "No changes"
+            ],
+            "\u81ea\u52a8\u5904\u7406\u4ee3\u7801": [
+                "Automatically Handle Code"
+            ],
+            "\u6e05\u7a7a": [
+                "Clear"
+            ],
+            "\u7b80\u5355 SEO": [
+                "Simple SEO"
+            ],
+            "\u57fa\u7840 SEO \u8bbe\u7f6e\uff0c\u63a8\u8350\u4f7f\u7528\u4e13\u4e1a SEO \u63d2\u4ef6\u66ff\u4ee3": [
+                "Basic SEO Settings - Recommended to use a professional SEO plugin instead."
+            ],
+            "\u914d\u7f6e": [
+                "Configuration"
+            ],
+            "SEO \u914d\u7f6e": [
+                "SEO Settings"
+            ],
+            "\u7b80\u5355 SEO \u8bbe\u7f6e\uff0c\u4ec5\u89e3\u51b3\u6709\u65e0\u95ee\u9898": [
+                "Simple SEO Settings, to address presence issues."
+            ],
+            "\u7ad9\u70b9\u6807\u9898": [
+                "Site Title"
+            ],
+            "\u7528\u82f1\u6587\u9017\u53f7\u5206\u9694\uff0c\u5efa\u8bae\u4e0d\u8d85\u8fc76\u4e2a\u8bcd": [
+                "use English commas, up to six words recommended"
+            ],
+            "\u5efa\u8bae240\u5b57\u4ee5\u5185": [
+                "Suggestions up to 240 characters."
+            ],
+            "\u5206\u7c7b\u548c\u6807\u7b7e SEO": [
+                "Categories and Tags SEO"
+            ],
+            "\u5206\u7c7b\u540d\u79f0\u4f5c\u6807\u9898\u3001\u5206\u7c7b\u5173\u952e\u8bcd\u548c\u63cf\u8ff0\u4f5c Meta\uff0c\u6807\u7b7e\u63cf\u8ff0\u4f5c Meta": [
+                "Category names as title, category keywords and description as Meta, tag descriptions as Meta"
+            ],
+            "\u672a\u8bc6\u522b\u7edf\u8ba1 ID\uff0c\u8bf7\u7c98\u8d34\u767e\u5ea6\u7edf\u8ba1\u5e73\u53f0\u63d0\u4f9b\u7684\u5b8c\u6574\u4ee3\u7801\u3002": [
+                "Unrecognized statistical ID. Please paste the complete code provided by Baidu Analytics platform."
+            ],
+            "\u672a\u8bc6\u522b\u9a8c\u8bc1\u7801\uff0c\u8bf7\u7c98\u8d34 Google Search Console \u63d0\u4f9b\u7684\u5b8c\u6574 HTML \u6807\u8bb0\u3002": [
+                "Unrecognized captcha detected. Please paste the complete HTML markup provided by Google Search Console."
+            ],
+            "\u672a\u8bc6\u522b\u9a8c\u8bc1\u7801\uff0c\u8bf7\u7c98\u8d34 Bing Webmaster Tools \u63d0\u4f9b\u7684\u5b8c\u6574 HTML Meta \u6807\u8bb0\u3002": [
+                "Unrecognized captcha detected. Please paste the complete HTML meta tags provided by Bing Webmaster Tools."
+            ],
+            "\u8f85\u52a9\u529f\u80fd": [
+                "Accessibility"
+            ],
+            "\u6587\u7ae0\u7edf\u8ba1\u3001\u6076\u610f\u641c\u7d22\u5c4f\u853d\u3001\u7ad9\u70b9\u9a8c\u8bc1": [
+                "Article Statistics, Malicious Search Blocking, Site Verification"
+            ],
+            "\u8f85\u52a9\u529f\u80fd\u914d\u7f6e": [
+                "Accessibility Settings"
+            ],
+            "\u6076\u610f\u5173\u952e\u8bcd": [
+                "Malicious Keywords"
+            ],
+            "\u4e00\u884c\u4e00\u4e2a": [
+                "One per line"
+            ],
+            "Google \u7ad9\u70b9\u9a8c\u8bc1": [
+                "Google Site Verification"
+            ],
+            "Bing \u7ad9\u70b9\u9a8c\u8bc1": [
+                "Bing Site Verification"
+            ],
+            "\u5904\u7406\u5931\u8d25\uff0c\u8bf7\u8f93\u5165\u767e\u5ea6\u7edf\u8ba1\u5e73\u53f0\u7684\u5b8c\u6574\u7edf\u8ba1\u4ee3\u7801": [
+                "Failed processing. Please input the complete statistical code of Baidu Analytics platform."
+            ],
+            "\u5904\u7406\u5931\u8d25\uff0c\u8bf7\u8f93\u5165\u8c37\u6b4c\u5e73\u53f0\u5b8c\u6574 HTML \u6807\u8bb0": [
+                "Failed processing. Please input the complete HTML tag of Google platform."
+            ],
+            "\u5904\u7406\u5931\u8d25\uff0c\u8bf7\u8f93\u5165\u5fc5\u5e94\u5e73\u53f0\u5b8c\u6574 HTML Meta \u6807\u8bb0": [
+                "Failed processing. Please input the complete HTML Meta tag of Bing platform."
+            ],
+            "\u6587\u7ae0\u7edf\u8ba1": [
+                "Article Statistics"
+            ],
+            "\u5f00\u542f\u540e\u663e\u793a\u5728\u4eea\u8868\u76d8\u4e0b": [
+                "Display on Dashboard after enabling"
+            ],
+            "\u7981\u6b62\u641c\u7d22\u6307\u5b9a\u8bcd\u6c47": [
+                "Block search for specified keywords"
+            ],
+            "\u8f93\u5165\u5173\u952e\u8bcd": [
+                "Input keyword(s)"
+            ],
+            "\u8f93\u5165\u60a8\u7684\u5173\u952e\u8bcd\uff0c\u4ee5\u201c\u56de\u8f66\u952e\u201d\u5206\u9694\uff0c\u4e00\u884c\u4e00\u4e2a": [
+                "Input your keywords, separated by the 'Enter' key. One per line."
+            ],
+            " \u2192 \u4ee3\u7801\u7ba1\u7406\uff08\u5de6\u4fa7\uff09 \u2192 \u4ee3\u7801\u83b7\u53d6 \u2192 \u83b7\u53d6\u4ee3\u7801 \u2192 \u590d\u5236\u4ee3\u7801\u8d34\u5165\u8f93\u5165\u6846\u4e2d\u5e76\u4fdd\u5b58\u5373\u53ef": [
+                "\u2192 Code Management (left) \u2192 Get Code \u2192 Copy code and paste into input box to save"
+            ],
+            "\u8c37\u6b4c\u7edf\u8ba1": [
+                "Google Analytics"
+            ],
+            "\u7b80\u5355SEO": [
+                "Simple SEO"
+            ],
+            "\u4ec5\u89e3\u51b3\u6709\u65e0\u95ee\u9898\uff0c\u63a8\u8350\u4f7f\u7528\u4e13\u4e1a SEO \u63d2\u4ef6": [
+                "Only resolve existence issues, recommend using a professional SEO plugin."
+            ],
+            "\u7f51\u7ad9\u76f8\u5173\u5173\u952e\u8bcd\uff0c\u7528\u82f1\u6587\u9017\u53f7\u5206\u9694\uff0c\u5efa\u8bae\u4e0d\u8d85\u8fc76\u4e2a\u8bcd": [
+                "Website-related keywords, separated by commas with up to 6 words each."
+            ],
+            "\u5173\u4e8e\u7f51\u7ad9\u7684\u63cf\u8ff0\uff0c\u5efa\u8bae240\u5b57\u4ee5\u5185": [
+                "About the site description, suggest less than 240 characters."
+            ],
+            "\u6587\u7ae0SEO": [
+                "Article SEO"
+            ],
+            "title\u662f\u6587\u7ae0\u6807\u9898\uff0ckeywords\u662f\u6587\u7ae0\u6807\u7b7e\uff0cdescription\u662f\u6587\u7ae0\u63cf\u8ff0\u6216\u6587\u7ae0\u9996\u6bb5\u524d40\u5b57": [
+                "Title is the article title, keywords are the article tags, description is the article summary or first 40 words of the article body."
+            ],
+            "\u5206\u7c7b\u548c\u6807\u7b7eSEO": [
+                "Categories and Tags SEO"
+            ],
+            "T \u662f\u5206\u7c7b\u540d\u79f0\uff0cK \u662f\u5206\u7c7b\u5173\u952e\u8bcd\uff0cD \u662f\u5206\u7c7b\u63cf\u8ff0\uff0c\u6807\u7b7e\u53ea\u505a\u4e86D\uff0c\u662f\u6807\u7b7e\u63cf\u8ff0": [
+                "T is the category name, K is the category keyword, D is the category description. Tags only do D, which is the tag description."
+            ],
+            "\u72b6\u6001\u826f\u597d": [
+                "Healthy"
+            ],
+            "\u9700\u8981\u5173\u6ce8": [
+                "Needs Attention"
+            ],
+            "\u9700\u8981\u5904\u7406": [
+                "Action Required"
+            ],
+            "\u5f85\u6838\u5bf9\uff1a%s%s": [
+                "Unreviewed: %s %s"
+            ],
+            "\u7b49 %d \u9879": [
+                "%d more items"
+            ],
+            "\u9700\u8bc4\u4f30\u6a21\u5757\uff1a%s%s": [
+                "Assessment Modules: %s%s"
+            ],
+            "\u767b\u5f55\u5b89\u5168\u914d\u7f6e": [
+                "Login Security Settings"
+            ],
+            "\u5df2\u542f\u7528 %d\/2 \u9879\u767b\u5f55\u5b89\u5168\u914d\u7f6e": [
+                "Enabled %d\/2 Login Security Configurations"
+            ],
+            "\u8bc4\u8bba\u9632\u62a4": [
+                "Comment Protection"
+            ],
+            "\u8bc4\u8bba\u9650\u5236\u4e0e\u8fc7\u6ee4\u5df2\u914d\u7f6e": [
+                "Comment Limiting and Filtering is configured"
+            ],
+            "\u5df2\u542f\u7528\u4e00\u9879\u57fa\u7840\u9632\u62a4": [
+                "Enabled a Basic Protection Feature"
+            ],
+            "\u5c1a\u672a\u542f\u7528\u8bc4\u8bba\u9632\u62a4": [
+                "Comments Protection Not Enabled"
+            ],
+            "\u4fe1\u606f\u66b4\u9732": [
+                "Information Exposure"
+            ],
+            "\u7248\u672c\u4e0e\u4f5c\u8005\u7ad9\u70b9\u5730\u56fe\u5747\u5df2\u9690\u85cf": [
+                "Version and Author site map are both hidden."
+            ],
+            "\u4ecd\u6709\u4e00\u9879\u66b4\u9732\u9762\u53ef\u6536\u7d27": [
+                "Still one area to tighten up"
+            ],
+            "\u5efa\u8bae\u9690\u85cf\u7248\u672c\u548c\u4f5c\u8005\u7ad9\u70b9\u5730\u56fe": [
+                "Suggest hiding version and author sitemap"
+            ],
+            "\u542f\u7528\u767b\u5f55\u5c1d\u8bd5\u4fdd\u62a4": [
+                "Enable Login Attempt Protection"
+            ],
+            "\u9650\u5236\u540c\u4e00\u5df2\u5b58\u5728\u8d26\u53f7\u4e0e\u6765\u6e90 IP \u7ec4\u5408\u7684\u8fde\u7eed\u5931\u8d25\u5c1d\u8bd5\uff0c\u5e76\u4f7f\u7528\u56fa\u5b9a\u7edf\u8ba1\u7a97\u53e3\u548c\u9501\u5b9a\u65f6\u957f\u3002": [
+                "Limit consecutive failed attempts from the same existing account and source IP combination using a fixed statistical window and lockout duration."
+            ],
+            "\u524d\u5f80\u56fd\u5185\u751f\u6001": [
+                "Go to China Services"
+            ],
+            "\u68c0\u67e5\u5a92\u4f53\u57fa\u7840\u8bbe\u7f6e": [
+                "Check Media Base Settings"
+            ],
+            "\u786e\u8ba4\u56fe\u7247\u66ff\u4ee3\u6587\u672c\u7b56\u7565\uff0c\u51cf\u5c11\u5185\u5bb9\u53ef\u8bbf\u95ee\u6027\u4e0e SEO \u7f3a\u53e3\u3002": [
+                "Confirm image alt text strategy to reduce accessibility gaps and improve SEO."
+            ],
+            "\u68c0\u67e5\u7ad9\u70b9\u4e0e\u5a92\u4f53": [
+                "Check Site & Media"
+            ],
+            "\u786e\u8ba4\u5185\u5bb9 SEO \u7b56\u7565": [
+                "Confirm Content SEO Strategy"
+            ],
+            "\u6309\u7ad9\u70b9\u5b9e\u9645\u60c5\u51b5\u51b3\u5b9a\u662f\u5426\u542f\u7528\u6587\u7ae0\u7ea7 SEO\uff0c\u800c\u4e0d\u662f\u5957\u7528\u9884\u8bbe\u65b9\u6848\u3002": [
+                "Enable article-level SEO based on site specifics instead of using preset solutions."
+            ],
+            "\u7ba1\u7406\u5185\u5bb9\u4e0e SEO": [
+                "Manage Content & SEO"
+            ],
+            "\u5904\u7406\u7ad9\u5185\u641c\u7d22\u95ee\u9898": [
+                "Handle Site Search Issues"
+            ],
+            "\u5b58\u5728\u65e0\u7ed3\u679c\u6216\u53ef\u7591\u641c\u7d22\u8bcd\uff0c\u5efa\u8bae\u68c0\u67e5\u5185\u5bb9\u8986\u76d6\u4e0e\u641c\u7d22\u9650\u5236\u3002": [
+                "There are no results or suspicious search terms present; consider checking content coverage and search restrictions."
+            ],
+            "\u67e5\u770b\u5185\u5bb9\u5de5\u5177": [
+                "View Content Tools"
+            ],
+            "\u6838\u5bf9\u56fd\u5185\u8bbf\u95ee\u4e0e\u5408\u89c4": [
+                "Verify Domestic Access & Compliance"
+            ],
+            "\u6309\u5b9e\u9645\u4e1a\u52a1\u68c0\u67e5\u5907\u6848\u3001Cookie\u3001\u5fae\u4fe1\u4e0e\u8bc4\u8bba\u5b89\u5168\u80fd\u529b\uff0c\u4e0d\u5fc5\u5168\u90e8\u5f00\u542f\u3002": [
+                "Check compliance with actual business needs for registration, cookies, WeChat and comment security features, without having to enable all of them."
+            ],
+            "\u67e5\u770b\u56fd\u5185\u751f\u6001": [
+                "View China Services"
+            ],
+            "\u5b9a\u671f\u68c0\u67e5\u7ef4\u62a4\u72b6\u6001": [
+                "Check Maintenance Status Regularly"
+            ],
+            "\u67e5\u770b\u6570\u636e\u5e93\u3001\u5a92\u4f53\u4e0e\u7ad9\u70b9\u670d\u52a1\u72b6\u6001\uff0c\u53ea\u6267\u884c\u5df2\u7ecf\u786e\u8ba4\u5f71\u54cd\u8303\u56f4\u7684\u7ef4\u62a4\u4efb\u52a1\u3002": [
+                "Check database, media, and site service status, only perform maintenance tasks that have been confirmed to affect a specific scope."
+            ],
+            "\u68c0\u67e5\u7ef4\u62a4\u72b6\u6001": [
+                "Check Maintenance Status"
+            ],
+            "\u7ad9\u70b9\u6982\u89c8": [
+                "Site Overview"
+            ],
+            "\u5148\u5904\u7406\u91cd\u8981\u4e8b\u9879\uff0c\u518d\u8fdb\u5165\u5177\u4f53\u8bbe\u7f6e": [
+                "Tackle important matters first, then go into specific settings."
+            ],
+            "\u8fd9\u91cc\u5c55\u793a\u5f53\u524d\u914d\u7f6e\u548c\u7ad9\u70b9\u670d\u52a1\u7684\u771f\u5b9e\u72b6\u6001\u3002\u6240\u6709\u8c03\u6574\u4ecd\u9700\u8fdb\u5165\u5bf9\u5e94\u9875\u9762\u786e\u8ba4\u5e76\u4fdd\u5b58\u3002": [
+                "Here you can see the current configuration and real status of your site services. All adjustments still need to be confirmed and saved on their respective pages."
+            ],
+            "\u6253\u5f00\u5b58\u50a8\u4e0e\u7ef4\u62a4": [
+                "Open Storage & Maintenance"
+            ],
+            "\u914d\u7f6e\u6458\u8981": [
+                "Settings Overview"
+            ],
+            "\u5df2\u542f\u7528\u914d\u7f6e": [
+                "Enabled Configuration"
+            ],
+            "\u5171 %d \u4e2a\u5e03\u5c14\u5f00\u5173": [
+                "%d boolean toggles in total"
+            ],
+            "\u5df2\u542f\u7528 %d\/2 \u9879": [
+                "Enabled %d\/2 items"
+            ],
+            "\u4e0b\u4e00\u6b65": [
+                "Next Step"
+            ],
+            "\u6309\u5f53\u524d\u72b6\u6001\u751f\u6210\u7684\u5efa\u8bae": [
+                "Generate suggestions based on the current state"
+            ],
+            "\u5feb\u6377\u5165\u53e3": [
+                "Quick Access"
+            ],
+            "\u5e38\u7528\u529f\u80fd": [
+                "Frequently Used Features"
+            ],
+            "%d \u9879": [
+                "%d Items"
+            ],
+            "\u6253\u5f00\u5e38\u7528\u529f\u80fd\uff1a%s": [
+                "Open Utility Features: %s"
+            ],
+            "\u53d6\u6d88\u6536\u85cf\uff1a%s": [
+                "Unfavorite: %s"
+            ],
+            "\u8fd8\u6ca1\u6709\u6536\u85cf\u5e38\u7528\u529f\u80fd": [
+                "No saved utilities are available yet."
+            ],
+            "\u70b9\u51fb\u8bbe\u7f6e\u9879\u53f3\u4fa7\u7684\u661f\u6807\uff0c\u4e4b\u540e\u53ef\u4ee5\u4ece\u8fd9\u91cc\u76f4\u63a5\u6253\u5f00\u3002": [
+                "Click the star next to a setting item to open it directly from here."
+            ],
+            "\u7ad9\u70b9\u670d\u52a1": [
+                "Site Services"
+            ],
+            "\u7ad9\u70b9\u8bca\u65ad": [
+                "Site Diagnostics"
+            ],
+            "\u6b63\u5728\u8bfb\u53d6\u7ad9\u70b9\u8bca\u65ad": [
+                "Reading Site Diagnosis"
+            ],
+            "\u8bf7\u7a0d\u5019\uff0c\u6b63\u5728\u6838\u5bf9\u8fd0\u884c\u73af\u5883\u3002": [
+                "Please wait, checking the environment."
+            ],
+            "\u7ad9\u70b9\u8bca\u65ad\u6682\u65f6\u4e0d\u53ef\u7528": [
+                "Site Diagnosis is currently unavailable"
+            ],
+            "\u8bf7\u6c42\u5931\u8d25\uff0c\u5f53\u524d\u6ca1\u6709\u53ef\u5c55\u793a\u7684\u68c0\u67e5\u7ed3\u679c\u3002": [
+                "Request failed, no results to display."
+            ],
+            "\u6682\u65e0\u8bca\u65ad\u6570\u636e": [
+                "No Diagnostics Data Available"
+            ],
+            "\u670d\u52a1\u5df2\u54cd\u5e94\uff0c\u4f46\u6ca1\u6709\u8fd4\u56de\u6709\u6548\u8bca\u65ad\u7ed3\u679c\u3002": [
+                "Service responded but no valid diagnostic results were returned."
+            ],
+            "\u91cd\u65b0\u68c0\u67e5": [
+                "Check Again"
+            ],
+            "\u7ad9\u70b9\u8bca\u65ad %d \/ %d \u9879\u901a\u8fc7%s": [
+                "Site diagnostics: %d\/%d passed%s"
+            ],
+            "\uff0c%d \u4e2a\u6a21\u5757\u98ce\u9669": [
+                ", %d module risks"
+            ],
+            "\/ %d \u9879\u901a\u8fc7": [
+                "\/ %d passed"
+            ],
+            "%d \u9879\u5f85\u5173\u6ce8\uff0c%d \u9879\u9700\u8981\u5904\u7406\uff1b": [
+                "%d Items to Watch, %d Items to Tackle;"
+            ],
+            "%d \u4e2a\u9ad8\u98ce\u9669\u6216\u5b9e\u9a8c\u6027\u6a21\u5757\u5df2\u542f\u7528\u3002": [
+                "%d high-risk or experimental modules are enabled."
+            ],
+            "\u672a\u542f\u7528\u9ad8\u98ce\u9669\u6216\u5b9e\u9a8c\u6027\u6a21\u5757\u3002": [
+                "High-risk or experimental modules are disabled."
+            ],
+            "\u751f\u6210\u4e8e %s": [
+                "Generated at %s"
+            ],
+            "\u67e5\u770b\u529f\u80fd\u4e0e\u8fd0\u884c\u72b6\u6001": [
+                "View Features & Status"
+            ],
+            "\u8fd1 30 \u5929": [
+                "Last 30 days"
+            ],
+            "\u641c\u7d22\u5065\u5eb7": [
+                "Search Health"
+            ],
+            "\u5df2\u6709\u6570\u636e": [
+                "Existing Data"
+            ],
+            "\u6b63\u5728\u6c47\u603b\u641c\u7d22\u6570\u636e": [
+                "Gathering search data"
+            ],
+            "\u641c\u7d22\u5065\u5eb7\u4e0e\u7ad9\u70b9\u8bca\u65ad\u5206\u522b\u52a0\u8f7d\u3002": [
+                "Search for health and site diagnostics separately load."
+            ],
+            "\u641c\u7d22\u5065\u5eb7\u6682\u65f6\u4e0d\u53ef\u7528": [
+                "Search for Health is temporarily unavailable"
+            ],
+            "\u8bca\u65ad\u5176\u4ed6\u533a\u57df\u4e0d\u53d7\u5f71\u54cd\uff0c\u53ef\u4ee5\u5355\u72ec\u91cd\u8bd5\u3002": [
+                "Diagnose any other unaffected areas and retry individually."
+            ],
+            "\u6682\u65e0\u641c\u7d22\u6570\u636e": [
+                "No search data available"
+            ],
+            "\u8fd1 30 \u5929\u6ca1\u6709\u53ef\u6c47\u603b\u7684\u7ad9\u5185\u641c\u7d22\u8bb0\u5f55\u3002": [
+                "No searchable activity within the last 30 days."
+            ],
+            "\u68c0\u67e5\u641c\u7d22\u8bbe\u7f6e": [
+                "Check Search Settings"
+            ],
+            "\u603b\u641c\u7d22\u91cf": [
+                "Total Search Volume"
+            ],
+            "\u65e0\u7ed3\u679c\u8bcd": [
+                "No-result Queries"
+            ],
+            "\u5185\u5bb9\u7f16\u8f91": [
+                "Content Editor"
+            ],
+            "3 \u4e2a\u53ef\u7f16\u8f91\u6837\u677f\u548c 2 \u4e2a\u5b9e\u65f6\u6570\u636e\u533a\u5757\uff0c\u53ea\u5728\u6587\u7ae0\u6216\u9875\u9762\u7f16\u8f91\u5668\u4e2d\u4f7f\u7528\u3002": [
+                "3 editable templates and 2 real-time data blocks, used only in the post or page editor."
+            ],
+            "5 \u9879\u53ef\u7528": [
+                "5 Available Items"
+            ],
+            "\u6837\u677f": [
+                "Patterns"
+            ],
+            "\u8d44\u6e90\u4e0b\u8f7d\u3001\u6587\u7ae0\u7ed3\u8bba\u3001\u6765\u6e90\u4e0e\u7248\u6743\u8bf4\u660e": [
+                "Resources Download, Article Conclusion, Source and Copyright Notice"
+            ],
+            "\u7ad9\u70b9\u6570\u636e\uff1bGitHub \u9879\u76ee\uff08\u63cf\u8ff0\u3001\u8bed\u8a00\u3001Stars \u4e0e Forks\uff09": [
+                "Site Data; GitHub Project (Description, Language, Stars, and Forks)"
+            ],
+            "\u5728\u533a\u5757\u63d2\u5165\u5668\u4e2d\u9009\u62e9 Npcink Site Toolbox\uff0c\u6216\u641c\u7d22\u201c\u7ad9\u70b9\u6570\u636e\u201d\u201cGitHub \u9879\u76ee\u201d\u3002": [
+                "Select Npcink Site Toolbox in the Block Editor, or search for 'site data' and 'GitHub project'."
+            ],
+            "\u65b0\u5efa\u6587\u7ae0\u4f7f\u7528": [
+                "Create New Post Using"
+            ],
+            "\u65b0\u5efa\u9875\u9762": [
+                "Create Page"
+            ],
+            "\u5efa\u8bae\u64cd\u4f5c": [
+                "Suggestions"
+            ],
+            "\u63a5\u4e0b\u6765\u53ef\u4ee5\u505a\u4ec0\u4e48": [
+                "What Can I Do Next"
+            ],
+            "\u57fa\u7840\u9632\u62a4": [
+                "Basic Protection"
+            ],
+            "\u5b89\u5168\u72b6\u6001": [
+                "Security Status"
+            ],
+            "\u90e8\u5206\u914d\u7f6e": [
+                "Some Configuration"
+            ],
+            "\u7ba1\u7406\u56fd\u5185\u5b89\u5168\u8bbe\u7f6e": [
+                "China Services Settings"
+            ],
+            "\u641c\u7d22\u529f\u80fd\u6216\u8bbe\u7f6e": [
+                "Search features or settings"
+            ],
+            "\u641c\u7d22\u529f\u80fd\u6216\u8bbe\u7f6e...": [
+                "Search features or settings\u2026"
+            ],
+            "\u6e05\u7a7a\u641c\u7d22": [
+                "Clear search"
+            ],
+            "\u627e\u5230 %d \u9879\uff0c\u663e\u793a\u524d %d \u9879": [
+                "Found %d items, showing the first %d items"
+            ],
+            "\u529f\u80fd\u641c\u7d22\u7ed3\u679c": [
+                "Feature search results"
+            ],
+            "\u6536\u85cf": [
+                "Favorites"
+            ],
+            "\u6253\u5f00": [
+                "Open"
+            ],
+            "\u529f\u80fd\u6807\u7b7e": [
+                "Function Tags"
+            ],
+            "\u672a\u627e\u5230\u5339\u914d\u7684\u529f\u80fd": [
+                "No matching features found"
+            ],
+            "\u5bf9\u8c61\u5b58\u50a8": [
+                "Object Storage"
+            ],
+            "SEO \u68c0\u67e5": [
+                "SEO Check"
+            ],
+            "\u5a92\u4f53\u4f53\u68c0": [
+                "Media Health Check"
+            ],
+            "\u5b58\u50a8\u4e0e\u7ef4\u62a4\u5206\u7ec4": [
+                "Storage & Maintenance Group"
+            ],
+            "\u793a\u4f8b\uff1anpcink-media": [
+                "Example: npcink-media"
+            ],
+            "\u53ea\u586b\u5199 Bucket \u540d\u79f0\uff1b\u4e0a\u4f20\u76ee\u5f55\u8bf7\u586b\u5199\u5728\u4e0b\u4e00\u9879\u3002": [
+                "Only enter the bucket name; upload directory should be entered in the next field."
+            ],
+            "\u793a\u4f8b\uff1anpcink-media-1250000000": [
+                "Example: npcink-media-1250000000"
+            ],
+            "\u586b\u5199\u5e26 APPID \u540e\u7f00\u7684\u5b8c\u6574 Bucket \u540d\u79f0\u3002": [
+                "Enter the full bucket name with a suffix of your APPID."
+            ],
+            "\u586b\u5199\u4e03\u725b\u4e91\u7a7a\u95f4\u540d\u79f0\uff0c\u4e0d\u8981\u586b\u5199\u8bbf\u95ee\u57df\u540d\u3002": [
+                "Enter Qiniu Cloud Space Name, do not enter domain name."
+            ],
+            "\u5c1a\u672a\u586b\u5199\u516c\u5f00\u8bbf\u95ee\u5730\u5740": [
+                "No public access address entered"
+            ],
+            "\u8fde\u63a5\u6d4b\u8bd5\u5931\u8d25": [
+                "Connection test failed"
+            ],
+            "\u8fde\u63a5\u6210\u529f": [
+                "Connection successful"
+            ],
+            "\u5df2\u5199\u5165\u6d4b\u8bd5\u5bf9\u8c61 \u00b7 %d ms": [
+                "Test object written \u00b7 %d ms"
+            ],
+            "\u5bf9\u8c61 %s\u3002\u56fa\u5b9a\u6d4b\u8bd5\u5bf9\u8c61\u4f1a\u88ab\u8986\u76d6\uff1b\u672c\u6b21\u6d4b\u8bd5\u672a\u4fdd\u5b58\u8bbe\u7f6e\uff0c\u4e5f\u672a\u6539\u53d8\u542f\u7528\u72b6\u6001\u3002": [
+                "Object: %s. The fixed test object is overwritten; this test does not save settings or change the enabled state."
+            ],
+            "\u8bf7\u68c0\u67e5\u51ed\u636e\u3001Bucket\u3001\u5730\u57df\u8282\u70b9\u548c\u5199\u5165\u6743\u9650\u3002": [
+                "Please check credentials, bucket, region node, and write permissions."
+            ],
+            "\u56fe\u7247\u81ea\u52a8\u4e0a\u4f20\u81f3\u4e91\u5b58\u50a8": [
+                "Automatically Upload Images to Object Storage"
+            ],
+            "\u542f\u7528\u5bf9\u8c61\u5b58\u50a8": [
+                "Enable Object Storage"
+            ],
+            "\u542f\u7528\u540e\u56fe\u7247\u5c06\u81ea\u52a8\u4e0a\u4f20\u81f3\u4e91\u5b58\u50a8": [
+                "Enable to automatically upload images to object storage."
+            ],
+            "\u5bf9\u8c61\u5b58\u50a8\u914d\u7f6e": [
+                "Object Storage Settings"
+            ],
+            "\u5148\u914d\u7f6e\u5e76\u6d4b\u8bd5\uff1b\u66f4\u6539\u968f\u9875\u9762\u9876\u90e8\u7684\u201c\u4fdd\u5b58\u201d\u751f\u6548\u3002": [
+                "Configure and test first; changes take effect after saving at the top of the page."
+            ],
+            "\u672c\u5730\u526f\u672c\u59cb\u7ec8\u4fdd\u7559\uff0c\u4e0a\u4f20\u5931\u8d25\u65f6\u81ea\u52a8\u56de\u9000\u3002": [
+                "Local copies are always retained and automatically rollback when upload fails."
+            ],
+            "\u67e5\u770b\u672c\u5730\u6587\u4ef6\u56de\u9000\u8bf4\u660e": [
+                "View Local File Retention Instructions"
+            ],
+            "\u672c\u5730\u6587\u4ef6\u56de\u9000": [
+                "Local File Rollback"
+            ],
+            "\u505c\u7528\u5bf9\u8c61\u5b58\u50a8\u3001\u4e0a\u4f20\u5931\u8d25\u6216\u66f4\u6362\u76ee\u6807\u65f6\uff0c\u5a92\u4f53\u6587\u4ef6\u4ecd\u53ef\u4ece\u672c\u7ad9\u8bfb\u53d6\u3002": [
+                "Media files remain available from this site when object storage is disabled, an upload fails, or the storage destination changes."
+            ],
+            "\u670d\u52a1\u5546\u4e0e\u51ed\u636e": [
+                "Service Providers & Credentials"
+            ],
+            "\u670d\u52a1\u5546": [
+                "Provider"
+            ],
+            "\u963f\u91cc\u4e91 OSS": [
+                "Aliyun Object Storage"
+            ],
+            "\u817e\u8baf\u4e91 COS": [
+                "Tencent Cloud Object Storage"
+            ],
+            "\u5b58\u50a8\u76ee\u6807": [
+                "Storage Destination"
+            ],
+            "\u67e5\u770b Bucket \u586b\u5199\u8bf4\u660e": [
+                "View Bucket Instructions"
+            ],
+            "\u4e0d\u8981\u586b\u5199 oss:\/\/\u3001\u8bbf\u95ee\u57df\u540d\u6216\u4e0a\u4f20\u76ee\u5f55\u3002": [
+                "Do not fill out oss:\/\/, access domain name, or upload directory."
+            ],
+            "\u4e0a\u4f20\u76ee\u5f55\uff08\u53ef\u9009\uff09": [
+                "Upload Directory (optional)"
+            ],
+            "\u793a\u4f8b\uff1awww \u6216 uploads\/site-a": [
+                "Example: www or uploads\/site-a"
+            ],
+            "\u67e5\u770b\u4e0a\u4f20\u76ee\u5f55\u586b\u5199\u8bf4\u660e": [
+                "View Upload Directory Instructions"
+            ],
+            "\u4e0a\u4f20\u76ee\u5f55": [
+                "Upload Directory"
+            ],
+            "\u4f5c\u4e3a\u5bf9\u8c61\u952e\u524d\u7f00\uff1b\u4e0d\u8981\u586b\u5199 Bucket\u3001oss:\/\/\uff0c\u4e5f\u4e0d\u8981\u6dfb\u52a0\u5f00\u5934\u6216\u7ed3\u5c3e\u659c\u6760\u3002": [
+                "As a prefix for object keys; do not enter Bucket or oss:\/\/ and do not add leading or trailing slashes."
+            ],
+            "\u793a\u4f8b\uff1aoss-cn-shanghai.aliyuncs.com": [
+                "Example: oss-cn-shanghai.aliyuncs.com"
+            ],
+            "\u67e5\u770b Endpoint \u586b\u5199\u8bf4\u660e": [
+                "View Endpoint Instructions"
+            ],
+            "\u53ef\u76f4\u63a5\u7c98\u8d34\u963f\u91cc\u4e91\u63a7\u5236\u53f0\u4e2d\u7684\u5916\u7f51 Endpoint\uff0c\u4e5f\u63a5\u53d7 cn-shanghai \u5feb\u6377\u5199\u6cd5\u3002": [
+                "paste directly from the public cloud console of Alibaba Cloud, also accepts the shorthand of cn-shanghai."
+            ],
+            "\u4ec5\u5f53 WordPress \u670d\u52a1\u5668\u4f4d\u4e8e\u540c\u5730\u57df\u963f\u91cc\u4e91\u5185\u7f51\u65f6\u4f7f\u7528 -internal \u8282\u70b9\u3002": [
+                "Use only when your WordPress server is located in the internal node of Alibaba Cloud within the same region."
+            ],
+            "\u67e5\u770b\u8282\u70b9\u5217\u8868": [
+                "View Node List"
+            ],
+            "\u793a\u4f8b\uff1aap-beijing": [
+                "Example: ap-beijing"
+            ],
+            "\u67e5\u770b Region \u586b\u5199\u8bf4\u660e": [
+                "View Region Instructions"
+            ],
+            "\u586b\u5199\u5730\u57df ID\uff0c\u4f8b\u5982 ap-beijing\uff1b\u4e0d\u8981\u586b\u5199\u5b8c\u6574 COS \u57df\u540d\u3002": [
+                "Enter your region ID, for example ap-beijing; do not include the full COS domain name."
+            ],
+            "\u4e03\u725b\u4e91\u4f7f\u7528\u5168\u5c40\u4e0a\u4f20\u8282\u70b9\uff0c\u65e0\u9700\u586b\u5199\u5730\u57df\u3002": [
+                "Use Qiniu Cloud global upload nodes, no need to fill in the region."
+            ],
+            "\u516c\u5f00\u8bbf\u95ee": [
+                "Public Access"
+            ],
+            "\u516c\u5f00\u8bbf\u95ee\u5730\u5740": [
+                "Public Access Address"
+            ],
+            "\u67e5\u770b\u516c\u5f00\u8bbf\u95ee\u5730\u5740\u586b\u5199\u8bf4\u660e": [
+                "View Public Access Address Instructions"
+            ],
+            "\u82e5\u4e0a\u4f20\u76ee\u5f55\u4e3a www\uff0c\u5730\u5740\u901a\u5e38\u4e5f\u4ee5 \/www \u7ed3\u5c3e\uff1b\u63d2\u4ef6\u4e0d\u4f1a\u91cd\u590d\u8ffd\u52a0\u76ee\u5f55\u3002": [
+                "If the upload directory is www, the address usually ends with \/www; the plugin won't add another directory."
+            ],
+            "\u76ee\u6807\u9884\u89c8": [
+                "Destination Preview"
+            ],
+            "\u8bf7\u6c42\u4e3b\u673a": [
+                "Request Host"
+            ],
+            "\u8fdc\u7aef\u5bf9\u8c61": [
+                "Remote Object"
+            ],
+            "\u516c\u5f00 URL": [
+                "Public URL"
+            ],
+            "\u8fde\u63a5\u6d4b\u8bd5": [
+                "Connection Test"
+            ],
+            "\u6d4b\u8bd5\u4e0d\u4f1a\u4fdd\u5b58\u8bbe\u7f6e\u6216\u6539\u53d8\u542f\u7528\u72b6\u6001\u3002": [
+                "Settings won't be saved or changed when enabled."
+            ],
+            "\u67e5\u770b\u8fde\u63a5\u6d4b\u8bd5\u8bf4\u660e": [
+                "View Connection Test Instructions"
+            ],
+            "\u6d4b\u8bd5\u4f1a\u5199\u5165\u5e76\u8986\u76d6 %s\uff1b\u516c\u5f00\u8bbf\u95ee\u5730\u5740\u53ef\u7a0d\u540e\u586b\u5199\uff0c\u4e0d\u5f71\u54cd\u5199\u5165\u6d4b\u8bd5\u3002": [
+                "Test writes to and overrides %s; the publicly accessible URL can be filled in later without affecting the test write."
+            ],
+            "\u6d4b\u8bd5\u8fde\u63a5": [
+                "Test Connection"
+            ],
+            "\u8bf7\u5148\u5b8c\u6574\u586b\u5199 Bucket\u3001\u670d\u52a1\u5546\u5730\u57df\u8282\u70b9\u548c\u4e24\u9879\u51ed\u636e\u3002": [
+                "Please make sure to fill out the Bucket, service provider region node, and two credentials completely."
+            ],
+            "\u6536\u8d77\u8be6\u60c5": [
+                "Collapse Details"
+            ],
+            "\u67e5\u770b\u8be6\u60c5": [
+                "View Details"
+            ],
+            "\u6587\u7ae0\u4fee\u8ba2\u7248\u672c": [
+                "Article Revision Versions"
+            ],
+            "\u81ea\u52a8\u8349\u7a3f": [
+                "Auto Drafts"
+            ],
+            "\u5783\u573e\u8bc4\u8bba": [
+                "Spam Comments"
+            ],
+            "\u8fc7\u671f\u4e34\u65f6\u9009\u9879": [
+                "Expired Temporary Options"
+            ],
+            "\u6570\u636e\u5e93\u8868\u4f18\u5316": [
+                "Optimize Database Tables"
+            ],
+            "\u5f85\u5ba1\u6838\u6587\u7ae0": [
+                "Pending Posts"
+            ],
+            "\u56de\u6536\u7ad9\u6587\u7ae0": [
+                "Trash Articles"
+            ],
+            "\u7edf\u8ba1\u83b7\u53d6\u5931\u8d25\uff0c\u8bf7\u91cd\u8bd5\u3002": [
+                "Failed to get statistics, please try again."
+            ],
+            "\u7edf\u8ba1\u8bf7\u6c42\u5931\u8d25\uff0c\u8bf7\u91cd\u8bd5\u3002": [
+                "Failed to count requests, please try again."
+            ],
+            "\u9884\u89c8\u5b8c\u6210\uff1a\u9884\u8ba1\u5f71\u54cd %d \u6761\u6570\u636e\u3002": [
+                "Preview complete: expected to affect %d items."
+            ],
+            "\u9884\u89c8\u5931\u8d25\uff0c\u8bf7\u91cd\u8bd5\u3002": [
+                "Preview failed, please try again."
+            ],
+            "\u9884\u89c8\u8bf7\u6c42\u5931\u8d25\uff0c\u8bf7\u91cd\u8bd5\u3002": [
+                "Preview request failed, please try again."
+            ],
+            "\u8bf7\u5148\u9884\u89c8\u8be5\u6e05\u7406\u9879\u76ee\uff0c\u518d\u786e\u8ba4\u6267\u884c\u3002": [
+                "Preview this cleanup project before confirming to execute."
+            ],
+            "\u786e\u8ba4\u6267\u884c\u6570\u636e\u5e93\u6e05\u7406\uff1f": [
+                "Confirm Database Cleanup?"
+            ],
+            "\u6b64\u64cd\u4f5c\u4e0d\u53ef\u9006": [
+                "This action cannot be undone"
+            ],
+            "\u5220\u9664\u7684\u6570\u636e\u65e0\u6cd5\u6062\u590d\uff0c\u8bf7\u786e\u4fdd\u5df2\u5907\u4efd\u6570\u636e\u5e93\u3002": [
+                "Data deleted cannot be recovered. Please ensure your database is backed up."
+            ],
+            "\u6e05\u7406\u9879\u76ee\uff1a%1$s\u3002\u9884\u8ba1\u5f71\u54cd %2$d \u6761\u6570\u636e\u3002": [
+                "Clean up project: %1$s. Estimated impact on %2$d records."
+            ],
+            "\u786e\u8ba4\u6e05\u7406": [
+                "Confirm Cleanup"
+            ],
+            "\u6e05\u7406\u5931\u8d25\uff0c\u8bf7\u91cd\u8bd5\u3002": [
+                "Cleanup failed, please try again."
+            ],
+            "\u6e05\u7406\u5b8c\u6210\uff0c\u5220\u9664 %d \u6761\u6570\u636e\u3002": [
+                "Cleanup complete, deleted %d items."
+            ],
+            "\u6e05\u7406\u5b8c\u6210\uff0c\u5220\u9664 %d \u6761\u6570\u636e\uff1b\u7edf\u8ba1\u5237\u65b0\u5931\u8d25\uff0c\u8bf7\u91cd\u65b0\u67e5\u770b\u7edf\u8ba1\u3002": [
+                "Cleanup complete, deleted %d items; statistics refresh failed, please check again."
+            ],
+            "\u68c0\u6d4b\u9879": [
+                "Scan Items"
+            ],
+            "\u72b6\u6001": [
+                "Status"
+            ],
+            "\u503c": [
+                "Value"
+            ],
+            "\u64cd\u4f5c": [
+                "Actions"
+            ],
+            "\u9884\u89c8": [
+                "Preview"
+            ],
+            "\u6570\u636e\u5e93\u5927\u5c0f": [
+                "Database Size"
+            ],
+            "%d \u6761": [
+                "%d items"
+            ],
+            "\u6570\u636e\u5e93\u6e05\u7406\u4e0e\u4f18\u5316": [
+                "Database Cleanup & Optimization"
+            ],
+            "\u6570\u636e\u5e93\u6e05\u7406\u64cd\u4f5c\u4e0d\u53ef\u9006\uff0c\u5220\u9664\u7684\u6570\u636e\u65e0\u6cd5\u6062\u590d": [
+                "Database cleanup operations are irreversible and deleted data cannot be recovered."
+            ],
+            "\u6267\u884c\u524d\u52a1\u5fc5\u5148\u9884\u89c8\u5f71\u54cd\u6570\u91cf\uff0c\u5e76\u505a\u597d\u5907\u4efd": [
+                "Before proceeding, preview the impact and make a backup."
+            ],
+            "\u542f\u7528\u6570\u636e\u5e93\u6e05\u7406": [
+                "Enable Database Cleanup"
+            ],
+            "\u6e05\u7406\u4fee\u8ba2\u7248\u672c": [
+                "Clean Revision Versions"
+            ],
+            "\u6e05\u7406\u81ea\u52a8\u8349\u7a3f": [
+                "Clean Auto Drafts"
+            ],
+            "\u6e05\u7406\u5783\u573e\u8bc4\u8bba": [
+                "Clean Garbage Comments"
+            ],
+            "\u6e05\u7406\u8fc7\u671f Transient": [
+                "Clean Expired Transients"
+            ],
+            "\u5b9a\u65f6\u81ea\u52a8\u6e05\u7406": [
+                "Schedule Automatic Cleanup"
+            ],
+            "\u6e05\u7406\u5468\u671f": [
+                "Cleanup Schedule"
+            ],
+            "\u6bcf\u5929": [
+                "Daily"
+            ],
+            "\u6bcf\u5468": [
+                "Weekly"
+            ],
+            "\u6bcf\u6708": [
+                "Monthly"
+            ],
+            "\u67e5\u770b\u7edf\u8ba1": [
+                "View Statistics"
+            ],
+            "\u68c0\u67e5\u5b8c\u6210\uff1a\u53d1\u73b0 %d \u9879\u9700\u8981\u5173\u6ce8\u3002": [
+                "Check complete: %d items need attention."
+            ],
+            "\u68c0\u67e5\u5b8c\u6210\uff1a\u672a\u53d1\u73b0\u9700\u8981\u5904\u7406\u7684\u95ee\u9898\u3002": [
+                "Check complete: No issues found."
+            ],
+            "\u68c0\u67e5\u5931\u8d25\uff0c\u8bf7\u91cd\u8bd5\u3002": [
+                "Check failed, please try again."
+            ],
+            "\u5f02\u5e38": [
+                "Abnormal"
+            ],
+            "\u5f85\u5904\u7406": [
+                "To Be Handled"
+            ],
+            "\u8bf4\u660e": [
+                "Note"
+            ],
+            "SEO \u5065\u5eb7\u5ea6\u68c0\u67e5": [
+                "SEO Health Check"
+            ],
+            "\u542f\u7528 SEO \u68c0\u67e5": [
+                "Enable SEO Check"
+            ],
+            "\u5b9a\u671f\u68c0\u67e5\u7f51\u7ad9 SEO \u5065\u5eb7\u5ea6": [
+                "Scheduled SEO Health Checks"
+            ],
+            "\u5f00\u59cb\u68c0\u67e5": [
+                "Start Check"
+            ],
+            "\u6700\u591a %d \u5f20": [
+                "Up to %d images"
+            ],
+            "\u672a\u53d6\u5f97\u6709\u6548\u4f53\u79ef\u6570\u636e": [
+                "No effective volume data obtained."
+            ],
+            "\u4f53\u79ef\u589e\u52a0 %s%%": [
+                "Size increased by %s%%"
+            ],
+            "\u9884\u8ba1\u8282\u7701 %s%%": [
+                "Estimated savings: %s%%"
+            ],
+            "\u5f53\u524d\u670d\u52a1\u5668\u4e0d\u652f\u6301\u751f\u6210 WebP\uff0c\u6682\u4e0d\u5e94\u542f\u7528\u8f6c\u6362\u3002": [
+                "WebP generation is not supported on the current server, do not enable conversion yet."
+            ],
+            "\u672a\u53d1\u73b0 JPEG \u5019\u9009\uff0c\u65e0\u9700\u5b89\u6392\u8f6c\u6362\u3002": [
+                "No JPEG candidates found, no need to schedule conversion."
+            ],
+            "\u4e34\u65f6\u6837\u672c\u672a\u80fd\u5b8c\u6574\u6e05\u7406\uff0c\u8bf7\u5148\u6392\u67e5\u6587\u4ef6\u6743\u9650\u3002": [
+                "Temporary samples could not be fully cleaned up, please check file permissions first."
+            ],
+            "\u53ef\u7528\u6837\u672c\u4e0d\u8db3\uff0c\u6682\u4e0d\u636e\u6b64\u51b3\u5b9a\u6279\u91cf\u8f6c\u6362\u3002": [
+                "Insufficient sample images, do not base batch conversion on this for now."
+            ],
+            "\u6837\u672c\u8f6c\u6362\u5931\u8d25\uff0c\u8bf7\u5148\u6392\u67e5\u56fe\u50cf\u5904\u7406\u73af\u5883\u3002": [
+                "Image processing environment issues encountered during sample conversion, please troubleshoot first."
+            ],
+            "\u6837\u672c\u4f53\u79ef\u6ca1\u6709\u660e\u663e\u4e0b\u964d\uff0c\u4e0d\u5efa\u8bae\u6279\u91cf\u8f6c\u6362\u3002": [
+                "No significant volume reduction observed in samples, no recommendation for batch conversion."
+            ],
+            "\u5019\u9009\u89c4\u6a21\u548c\u6837\u672c\u6536\u76ca\u5747\u8fbe\u5230\u9608\u503c\uff0c\u53ef\u8fde\u7eed\u5206\u6279\u8f6c\u6362\u3002": [
+                "Candidate size and sample yield meet the threshold for continuous batch conversion."
+            ],
+            "\u6837\u672c\u6709\u6536\u76ca\u4f46\u5019\u9009\u89c4\u6a21\u8f83\u5c0f\uff1b\u5982\u6709\u660e\u786e\u9700\u8981\uff0c\u53ef\u8fde\u7eed\u5206\u6279\u8f6c\u6362\u3002": [
+                "Samples have a yield but a small candidate size; if there is a clear need, they can be converted in batches."
+            ],
+            "\u5f85\u590d\u6838": [
+                "Unreviewed"
+            ],
+            "\u6b63\u5e38": [
+                "Normal"
+            ],
+            "\u4f53\u68c0\u5b8c\u6210\uff1a\u53d1\u73b0 %d \u7c7b\u95ee\u9898\u3002": [
+                "Health check complete: found %d issues."
+            ],
+            "\u4f53\u68c0\u5b8c\u6210\uff1a\u672a\u53d1\u73b0\u9700\u8981\u5904\u7406\u7684\u95ee\u9898\u3002": [
+                "Health check complete: No issues to address."
+            ],
+            "\u4f53\u68c0\u5931\u8d25\uff0c\u8bf7\u91cd\u8bd5\u3002": [
+                "Health check failed, please try again."
+            ],
+            "\u8fde\u7eed\u8f6c\u6362\u5df2\u505c\u6b62": [
+                "Continuous conversion has stopped."
+            ],
+            "\u5df2\u6309\u8981\u6c42\u505c\u6b62": [
+                "Stopped as requested"
+            ],
+            "\u672c\u6b21\u8fde\u7eed\u8f6c\u6362\u5df2\u5b8c\u6210": [
+                "Conversion completed"
+            ],
+            "%1$s%2$s\uff1a\u5df2\u8f6c\u6362 %3$d\/%4$d \u5f20\uff0c\u8df3\u8fc7 %5$d \u5f20\uff0c\u5931\u8d25 %6$d \u5f20\uff1b\u539f JPEG \u5df2\u4fdd\u7559\u3002": [
+                "%1$s%2$s: converted %3$d\/%4$d images, skipped %5$d, failed %6$d; original JPEG files were retained."
+            ],
+            "\uff08\u8bf7\u6c42\u5931\u8d25\uff09": [
+                "Request Failed"
+            ],
+            "\u8fde\u7eed\u8f6c\u6362\u6700\u591a %d \u5f20 JPEG\uff1f": [
+                "Convert up to %d JPEGs at a time."
+            ],
+            "\u6d4f\u89c8\u5668\u4f1a\u4f9d\u6b21\u63d0\u4ea4\u6bcf\u6279\u6700\u591a 5 \u5f20\uff0c\u9875\u9762\u9700\u8981\u4fdd\u6301\u6253\u5f00\uff1b\u53ef\u5728\u5f53\u524d\u5c0f\u6279\u5b8c\u6210\u540e\u505c\u6b62\u3002\u539f JPEG \u4e0e\u6062\u590d\u8bb0\u5f55\u4f1a\u4fdd\u7559\uff0c\u82e5\u5df2\u542f\u7528\u5bf9\u8c61\u5b58\u50a8\uff0cWebP \u4f1a\u6309\u73b0\u6709\u914d\u7f6e\u540c\u6b65\u3002": [
+                "Browser submits up to 5 images at a time; the page needs to stay open. You can stop after each batch completes. Original JPEG and restore records are retained, and if object storage is enabled, WebP will sync based on current configuration."
+            ],
+            "\u5f00\u59cb\u8fde\u7eed\u8f6c\u6362": [
+                "Start Continuous Conversion"
+            ],
+            "\u8fde\u7eed\u6062\u590d\u5df2\u505c\u6b62": [
+                "Continuous Resync Stopped Sites"
+            ],
+            "\u5df2\u6309\u8981\u6c42\u505c\u6b62\u6062\u590d": [
+                "Stopped recovery as requested."
+            ],
+            "\u672c\u6b21\u8f6c\u6362\u8bb0\u5f55\u5df2\u6062\u590d": [
+                "Conversion log has been restored."
+            ],
+            "%1$s%2$s\uff1a\u5df2\u6062\u590d %3$d\/%4$d \u5f20\uff0c\u8df3\u8fc7 %5$d \u5f20\uff0c\u5931\u8d25 %6$d \u5f20\u3002": [
+                "%1$s%2$s: restored %3$d\/%4$d images, skipped %5$d, failed %6$d."
+            ],
+            "\u6062\u590d\u672c\u6b21\u8f6c\u6362\u7684 %d \u5f20\u56fe\u7247\uff1f": [
+                "Restore the %d images converted in this run?"
+            ],
+            "\u9644\u4ef6\u4f1a\u91cd\u65b0\u6307\u5411\u539f JPEG\uff0c\u5e76\u6e05\u7406\u672c\u6b21\u751f\u6210\u7684\u672c\u5730 WebP \u6587\u4ef6\uff1b\u5bf9\u8c61\u5b58\u50a8\u4e2d\u7684\u65e0\u5f15\u7528\u526f\u672c\u4e0d\u4f1a\u81ea\u52a8\u5220\u9664\u3002": [
+                "Attachments will be redirected to the original JPEG and a local WebP file generated in this process will be cleaned up; there won't be an automatic deletion of the orphaned copies stored in Object Storage."
+            ],
+            "\u5f00\u59cb\u8fde\u7eed\u6062\u590d": [
+                "Start Continuous Recovery"
+            ],
+            "\u6570\u91cf": [
+                "Quantity"
+            ],
+            "%d \u4e2a": [
+                "%d items"
+            ],
+            "\u5a92\u4f53\u5e93\u5065\u5eb7\u4f53\u68c0": [
+                "Media Library Health Check"
+            ],
+            "\u542f\u7528\u5a92\u4f53\u5e93\u4f53\u68c0": [
+                "Enable Media Library Health Check"
+            ],
+            "\u68c0\u67e5\u5a92\u4f53\u5e93\u4e2d\u7684\u5f02\u5e38\u6587\u4ef6": [
+                "Check Abnormal Files in Media Library"
+            ],
+            "\u5f00\u59cb\u4f53\u68c0": [
+                "Start Check"
+            ],
+            "WebP \u8f6c\u6362\u9884\u68c0": [
+                "WebP Conversion Preflight"
+            ],
+            "JPEG \u5019\u9009": [
+                "JPEG Candidates"
+            ],
+            "%d \u5f20": [
+                "%d images"
+            ],
+            "PNG \u89c2\u5bdf": [
+                "PNG Review"
+            ],
+            "\u5df2\u6709 WebP": [
+                "WebP Available"
+            ],
+            "\u4e34\u65f6\u8f6c\u6362 %1$d\/%2$d \u5f20\uff1b%3$s\u3002": [
+                "temporarily convert %1$d\/%2$d images; %3$s."
+            ],
+            "\u672c\u6b21\u68c0\u67e5\u4e86 %d \u5f20\u56fe\u7247\uff0c\u672a\u5f62\u6210\u53ef\u7528\u8f6c\u6362\u6837\u672c\u3002": [
+                "checked %d images, no usable conversion samples were formed."
+            ],
+            "\u7ed3\u679c\u6765\u81ea\u6700\u8fd1\u9644\u4ef6\u62bd\u6837\u3002": [
+                "results come from the most recent attachment sampling."
+            ],
+            "%d \u4e2a\u6587\u4ef6\u4e0d\u53ef\u8bfb\u3002": [
+                "%d files are unreadable."
+            ],
+            "\u672c\u6b21\u8ba1\u5212": [
+                "Planned for This Run"
+            ],
+            "\u672c\u6b21\u8fde\u7eed\u8f6c\u6362\u6570\u91cf": [
+                "Continuous conversion quantity for this run"
+            ],
+            "\u8fde\u7eed\u8f6c\u6362\uff08\u6700\u591a %d \u5f20\uff09": [
+                "Continuous conversion (up to %d images at a time)"
+            ],
+            "\u6062\u590d\u672c\u6b21\u8f6c\u6362\uff08%d \u5f20\uff09": [
+                "Restore this conversion (%d images)"
+            ],
+            "\u6062\u590d\u4e00\u6279\uff08%d \u5f20\uff09": [
+                "Restore batch (%d images)"
+            ],
+            "\u5c06\u5728\u5f53\u524d\u5c0f\u6279\u5b8c\u6210\u540e\u505c\u6b62": [
+                "Stop after the current small batch is completed"
+            ],
+            "\u5b8c\u6210\u5f53\u524d\u5c0f\u6279\u540e\u505c\u6b62": [
+                "Stop after completing the current small batch"
+            ],
+            "\u8f6c\u6362\u8fdb\u5ea6": [
+                "Conversion progress"
+            ],
+            "\u6062\u590d\u8fdb\u5ea6": [
+                "Restore progress"
+            ],
+            "%1$d\/%2$d \u5f20": [
+                "%1$d\/%2$d images"
+            ],
+            "\u8fde\u7eed\u8f6c\u6362\u8fdb\u5ea6": [
+                "Continuous conversion progress"
+            ],
+            "\u8fde\u7eed\u6062\u590d\u8fdb\u5ea6": [
+                "Continuous restore progress"
+            ],
+            "\u9884\u68c0\u672c\u8eab\u53ea\u8bfb\uff1b\u8fde\u7eed\u64cd\u4f5c\u4ecd\u6309\u6bcf\u6279\u6700\u591a %d \u5f20\u4f9d\u6b21\u63d0\u4ea4\uff0c\u9875\u9762\u5173\u95ed\u540e\u4e0d\u4f1a\u7ee7\u7eed\u3002\u4ec5\u8f6c\u6362 JPEG\uff0c\u539f\u56fe\u4e0d\u4f1a\u5220\u9664\u6216\u8986\u76d6\u3002": [
+                "Pre-inspection is read-only; continuous operations are submitted in batches of up to %d images at a time, and will not continue after the page closes."
+            ],
+            "\u641c\u7d22\u5065\u5eb7\u6570\u636e\u52a0\u8f7d\u5931\u8d25": [
+                "Failed to load health data search"
+            ],
+            "\u6682\u65e0\u641c\u7d22\u6570\u636e\uff0c\u5f00\u542f\u70ed\u8bcd\u7edf\u8ba1\u540e\u79ef\u7d2f\u6570\u636e": [
+                "No search data available. Enable hot word statistics to accumulate data."
+            ],
+            "\u641c\u7d22\u5065\u5eb7\u5206\u6790": [
+                "Search health analysis"
+            ],
+            "\u552f\u4e00\u5173\u952e\u8bcd": [
+                "Unique keyword"
+            ],
+            "\u65e0\u7ed3\u679c\u6bd4\u4f8b": [
+                "Proportion of no results"
+            ],
+            "\u70ed\u95e8\u641c\u7d22\u8bcd": [
+                "Popular search terms"
+            ],
+            "\u65e0\u7ed3\u679c\u641c\u7d22\u8bcd": [
+                "No result search terms"
+            ],
+            "\u5f02\u5e38\u9ad8\u9891\u8bcd": [
+                "Abnormal frequent words"
+            ],
+            "\u5efa\u8bae": [
+                "Suggestions"
+            ],
+            "\u7ad9\u5185\u641c\u7d22\u4f53\u9a8c\u589e\u5f3a": [
+                "Enhance the experience for site internal search"
+            ],
+            "\u5173\u952e\u8bcd\u9ad8\u4eae": [
+                "Keyword highlighting"
+            ],
+            "\u65e0\u7ed3\u679c\u63a8\u8350": [
+                "Recommend no result suggestions"
+            ],
+            "\u641c\u7d22\u65e0\u7ed3\u679c\u65f6\u663e\u793a\u70ed\u95e8\u6807\u7b7e": [
+                "Display popular tags when there are no results in search"
+            ],
+            "\u70ed\u8bcd\u7edf\u8ba1": [
+                "Popular Query Statistics"
+            ],
+            "\u8bb0\u5f55\u641c\u7d22\u70ed\u8bcd\uff08\u540e\u53f0\u53ef\u67e5\u770b\uff09": [
+                "Record search hot words (can be viewed from backend)"
+            ],
+            "\u68c0\u6d4b\u5931\u8d25\uff0c\u8bf7\u91cd\u8bd5": [
+                "Failed to detect, please try again."
+            ],
+            "\u68c0\u6d4b\u8bf7\u6c42\u5931\u8d25": [
+                "Detect request failed"
+            ],
+            "\u6240\u6709\u670d\u52a1\u53ef\u8fbe\uff0c\u65e0\u9700\u4fee\u590d": [
+                "All Services Available, No Maintenance Needed"
+            ],
+            "\u83b7\u53d6\u4fee\u590d\u5efa\u8bae\u5931\u8d25": [
+                "Failed to Get Repair Suggestions"
+            ],
+            "\u4fee\u590d\u8bf7\u6c42\u5931\u8d25": [
+                "Failed to submit request for fixes"
+            ],
+            "\u4fee\u590d\u5efa\u8bae\u5df2\u52a0\u5165\u5f85\u4fdd\u5b58\u66f4\u6539\uff0c\u8bf7\u4f7f\u7528\u5168\u5c40\u4fdd\u5b58\u6309\u94ae\u786e\u8ba4": [
+                "Fix suggestions have been added to pending changes. Use the global save button to confirm."
+            ],
+            "\u4fee\u590d\u5efa\u8bae\u683c\u5f0f\u65e0\u6548": [
+                "Invalid suggestion format"
+            ],
+            "\u4e2d\u56fd\u8bbf\u95ee\u9002\u914d": [
+                "China Services Integration"
+            ],
+            "\u68c0\u6d4b\u56fd\u5916\u670d\u52a1\u53ef\u8fbe\u6027\u5e76\u4e00\u952e\u4fee\u590d": [
+                "Check foreign service accessibility and fix it with a single click."
+            ],
+            "\u68c0\u6d4b": [
+                "Scan"
+            ],
+            "\u68c0\u6d4b Google Fonts\u3001Gravatar \u7b49\u670d\u52a1\u5728\u56fd\u5185\u7684\u53ef\u8fbe\u6027": [
+                "Check accessibility of services like Google Fonts and Gravatars within China"
+            ],
+            "\u751f\u6210\u4fee\u590d\u5efa\u8bae": [
+                "Generate Repair Suggestions"
+            ],
+            "\u53ef\u8fbe": [
+                "Accessible"
+            ],
+            "\u4e0d\u53ef\u8fbe": [
+                "Unavailable"
+            ],
+            "\u5ef6\u8fdf\uff1a%dms": [
+                "Delay: %d ms"
+            ],
+            "\u786e\u8ba4\u52a0\u5165\u4ee5\u4e0b\u5f85\u4fdd\u5b58\u66f4\u6539\uff1f": [
+                "Confirm these saved changes?"
+            ],
+            "\u52a0\u5165\u5f85\u4fdd\u5b58\u66f4\u6539": [
+                "Add Changes to Save"
+            ],
+            "ICP \u5907\u6848\u53f7\u3001\u516c\u5b89\u7f51\u5907\u53f7\u3001Cookie \u540c\u610f\u5f39\u7a97": [
+                "ICP Registration Number, Public Security Network Precaution Number, Cookie Consent Pop-up"
+            ],
+            "\u5907\u6848\u4e0e\u5408\u89c4\u914d\u7f6e": [
+                "Domain Registration & Compliance Configuration"
+            ],
+            "\u9762\u5411\u4e2d\u56fd\u7ad9\u957f\u7684\u5907\u6848\u4e0e\u5408\u89c4\u5de5\u5177": [
+                "China Services for China Site Owners - Domain Mappings & Compliance Tools"
+            ],
+            "\u542f\u7528 ICP \u5907\u6848\u53f7\u663e\u793a": [
+                "Enable Display of ICP Registration Number"
+            ],
+            "\u5982\uff1a\u4eacICP\u590712345678\u53f7": [
+                "Example: Beijing ICP No. 12345678"
+            ],
+            "ICP \u67e5\u8be2\u94fe\u63a5": [
+                "Check ICP Link"
+            ],
+            "\u516c\u5b89\u7f51\u5907\u53f7\u663e\u793a": [
+                "China Services &gt; Police Network License Display"
+            ],
+            "\u5982\uff1a\u4eac\u516c\u7f51\u5b89\u590711010102001234\u53f7": [
+                "Your Provincial Public Security Bureau's Administrative License Number (e.g., Beijing Municipal Public Security Bureau No. 11010102001234)"
+            ],
+            "\u7f51\u5907\u67e5\u8be2\u94fe\u63a5": [
+                "Backup Link"
+            ],
+            "Cookie \u5f39\u7a97\u6837\u5f0f": [
+                "Cookie Popup Style"
+            ],
+            "\u5e95\u90e8": [
+                "Footer"
+            ],
+            "Cookie \u6807\u9898": [
+                "Cookie Title"
+            ],
+            "Cookie \u5185\u5bb9": [
+                "Cookie Content"
+            ],
+            "Cookie \u6309\u94ae\u6587\u5b57": [
+                "Cookie Button Text"
+            ],
+            "\u7248\u6743\u4fe1\u606f\u663e\u793a": [
+                "Display Copyright Information"
+            ],
+            "\u7248\u6743\u4fe1\u606f HTML": [
+                "Copyright Information HTML"
+            ],
+            "\u7559\u7a7a\u5219\u4f7f\u7528\u9ed8\u8ba4\u7248\u6743\u683c\u5f0f": [
+                "Leave blank to use default copyright format"
+            ],
+            "&copy; 2024 \u7f51\u7ad9\u540d\u79f0 \u7248\u6743\u6240\u6709": [
+                "&copy; 2024 Website Name All Rights Reserved"
+            ],
+            "JSSDK \u5206\u4eab\u3001\u5fae\u4fe1\/QQ \u6253\u5f00\u5f15\u5bfc": [
+                "JSSDK Sharing, WeChat\/QQ Open Guide"
+            ],
+            "\u5fae\u4fe1\u751f\u6001\u914d\u7f6e": [
+                "WeChat Ecosystem Configuration"
+            ],
+            "\u5fae\u4fe1\u751f\u6001\u589e\u5f3a\u529f\u80fd": [
+                "China Services & Enhancements"
+            ],
+            "JSSDK \u5206\u4eab": [
+                "JS SDK Share"
+            ],
+            "\u5fae\u4fe1\/QQ \u6253\u5f00\u5f15\u5bfc": [
+                "Open Guide with WeChat\/WhatsApp"
+            ],
+            "\u5f15\u5bfc\u5904\u7406\u65b9\u5f0f": [
+                "Handling Method"
+            ],
+            "\u4ec5\u63d0\u793a": [
+                "Only Notifications"
+            ],
+            "\u5f3a\u5236\u8df3\u8f6c": [
+                "Force Redirect"
+            ],
+            "\u5f15\u5bfc\u6587\u6848": [
+                "Welcome Message"
+            ],
+            "\u4e8c\u7ef4\u7801\u56fe\u7247": [
+                "QR Code Image"
+            ],
+            "\u56fe\u7247 URL\uff0c\u53ef\u9009": [
+                "Image URL, optional"
+            ],
+            "\u654f\u611f\u8bcd\u8fc7\u6ee4\u3001\u94fe\u63a5\u9650\u5236\u3001IP \u9891\u7387\u9650\u5236": [
+                "Sensitive word filtering, link restrictions, IP frequency limits"
+            ],
+            "\u8bc4\u8bba\u5b89\u5168\u914d\u7f6e": [
+                "Comment Security Settings"
+            ],
+            "\u8bc4\u8bba\u5b89\u5168\u4e2d\u5fc3\uff0c\u8fc7\u6ee4\u5783\u573e\u8bc4\u8bba": [
+                "Comments Security Center, Filter Junk Comments"
+            ],
+            "\u6bcf\u884c\u4e00\u4e2a": [
+                "one per line"
+            ],
+            "\u6807\u8bb0\u5f85\u5ba1\u6838": [
+                "Mark as Pending Review"
+            ],
+            "\u9650\u5236\u8bc4\u8bba\u4e2d\u7684\u6700\u5927\u94fe\u63a5\u6570\u91cf": [
+                "Limit the number of links in comments"
+            ],
+            "\u6700\u5927\u94fe\u63a5\u6570": [
+                "Max Links"
+            ],
+            "\u6635\u79f0\u8fc7\u6ee4": [
+                "Nickname Filter"
+            ],
+            "\u8fc7\u6ee4\u5305\u542b\u654f\u611f\u8bcd\u7684\u8bc4\u8bba\u6635\u79f0": [
+                "Filter Comment Nicknames Containing Sensitive Words"
+            ],
+            "\u7981\u7528\u6635\u79f0": [
+                "Disable Nickname"
+            ],
+            "\u90ae\u7bb1\u57df\u540d\u9ed1\u540d\u5355": [
+                "Email Domain Blacklist"
+            ],
+            "IP \u9891\u7387\u9650\u5236": [
+                "IP Rate Limiting"
+            ],
+            "\u9650\u5236\u540c\u4e00 IP \u7684\u8bc4\u8bba\u9891\u7387": [
+                "Limit comment frequency from the same IP"
+            ],
+            "IP \u9650\u5236\u6b21\u6570": [
+                "IP Limit Attempts"
+            ],
+            "IP \u65f6\u95f4\u7a97\u53e3(\u79d2)": [
+                "IP Time Window (seconds)"
+            ],
+            "\u7ba1\u7406\u767b\u5f55\u5c1d\u8bd5\u9650\u5236\u4e0e\u533f\u540d\u4f5c\u8005\u679a\u4e3e": [
+                "Manage Login Attempt Limits and Anonymous Author Enumeration"
+            ],
+            "\u767b\u5f55\u5b89\u5168\u8bbe\u7f6e": [
+                "Login Security Settings"
+            ],
+            "\u4e24\u9879\u80fd\u529b\u53ef\u72ec\u7acb\u542f\u7528\uff0c\u4fdd\u5b58\u540e\u624d\u4f1a\u5728\u7ad9\u70b9\u751f\u6548\u3002": [
+                "Two capabilities can be enabled independently and will take effect on the site after being saved."
+            ],
+            "\u5728\u7edf\u8ba1\u7a97\u53e3\u5185\u9650\u5236\u540c\u4e00\u5df2\u5b58\u5728\u8d26\u53f7\u4e0e\u6765\u6e90 IP \u7ec4\u5408\u7684\u8fde\u7eed\u5931\u8d25\u5c1d\u8bd5": [
+                "Limit consecutive failed attempts with the same existing account and source IP combination in the Statistics window."
+            ],
+            "\u5931\u8d25\u5c1d\u8bd5\u4e0a\u9650": [
+                "Failed Attempts Limit"
+            ],
+            "\u7edf\u8ba1\u7a97\u53e3\uff08\u5206\u949f\uff09": [
+                "Statistics Window (minutes)"
+            ],
+            "\u9501\u5b9a\u65f6\u957f\uff08\u5206\u949f\uff09": [
+                "Lock Duration (minutes)"
+            ],
+            "\u9ad8\u7ea7\uff1a\u53ef\u4fe1\u4ee3\u7406": [
+                "Advanced: Trusted Agent"
+            ],
+            "\u4ec5\u5728\u7ad9\u70b9\u4f4d\u4e8e CDN \u6216\u53cd\u5411\u4ee3\u7406\u4e4b\u540e\uff0c\u4e14\u4ee3\u7406\u4f1a\u8986\u76d6 X-Forwarded-For \u65f6\u586b\u5199\u3002": [
+                "Only fill this in if the site is located after a CDN or reverse proxy and the proxy covers X-Forwarded-For."
+            ],
+            "\u7559\u7a7a\u65f6\u7cfb\u7edf\u53ea\u4fe1\u4efb REMOTE_ADDR\u3002": [
+                "Leave blank to trust only REMOTE_ADDR."
+            ],
+            "\u4ee3\u7406\u51fa\u53e3 IP": [
+                "Proxy Export IP"
+            ],
+            "\u6bcf\u884c\u4e00\u4e2a\u53ef\u4fe1\u4ee3\u7406 IP\uff1b\u4e0d\u8981\u586b\u5199\u8bbf\u5ba2 IP \u6216\u6574\u4e2a\u516c\u7f51\u7f51\u6bb5\u3002": [
+                "Each line one trusted proxy IP; do not enter visitor IP or entire public network segment."
+            ],
+            "\u6536\u7d27\u672a\u767b\u5f55\u8bbf\u95ee\u4e2d\u7684\u4f5c\u8005\u53c2\u6570\u4e0e REST \u7528\u6237\u7aef\u70b9": [
+                "Tighten author parameters and REST endpoints for unauthenticated access"
+            ],
+            "\u5907\u6848\u53f7": [
+                "ICP Filing Number"
+            ],
+            "\u67e5\u8be2\u94fe\u63a5": [
+                "Lookup URL"
+            ],
+            "\u7f51\u5907\u53f7": [
+                "Public Security Filing Number"
+            ],
+            "\u5f39\u7a97\u6837\u5f0f": [
+                "Popup Style"
+            ],
+            "\u5185\u5bb9": [
+                "Content"
+            ],
+            "\u6309\u94ae\u6587\u5b57": [
+                "Button Text"
+            ],
+            "\u81ea\u5b9a\u4e49 HTML": [
+                "Custom HTML"
+            ],
+            "\u73af\u5883\u4fee\u590d\u5efa\u8bae\u683c\u5f0f\u65e0\u6548": [
+                "Environment restoration suggestion invalid format"
+            ],
+            "\u73af\u5883\u4fee\u590d\u5efa\u8bae\u5305\u542b\u65e0\u6548\u5b57\u6bb5\uff1a%s": [
+                "Environmental Restoration Recommendations include invalid fields: %s"
+            ],
+            "\u94fe\u63a5\u6570\u91cf\u9650\u5236": [
+                "Link Limit"
+            ],
+            "\u9ed1\u540d\u5355\u57df\u540d": [
+                "Blacklist Domain Names"
+            ],
+            "\u9650\u5236\u6b21\u6570": [
+                "Attempt Limit"
+            ],
+            "\u65f6\u95f4\u7a97\u53e3(\u79d2)": [
+                "Time Window (seconds)"
+            ],
+            "\u6682\u65e0\u9884\u89c8": [
+                "No Preview Available"
+            ],
+            "\u8be6\u60c5": [
+                "Details"
+            ],
+            "\u5c06\u66ff\u6362": [
+                "Will replace"
+            ],
+            "\u5c06\u6e05\u9664": [
+                "Will clear"
+            ],
+            "\u5df2\u914d\u7f6e": [
+                "Configured"
+            ],
+            "\u672a\u914d\u7f6e": [
+                "Not configured"
+            ],
+            "\u7559\u7a7a\u8868\u793a\u4fdd\u7559\u3002": [
+                "Leave blank to retain."
+            ],
+            "\u5df2\u4fdd\u5b58\u7684\u503c\u4e0d\u4f1a\u663e\u793a\uff1b\u7559\u7a7a\u8868\u793a\u4fdd\u7559\u3002": [
+                "Saved values will not be displayed; leave empty to retain."
+            ],
+            "\u5c1a\u672a\u4fdd\u5b58\u51ed\u636e\u3002": [
+                "Credentials have not been saved."
+            ],
+            "\u64a4\u9500\u66f4\u6539": [
+                "Revert Changes"
+            ],
+            "\u65b0\u503c": [
+                "New Value"
+            ],
+            "\u8f93\u5165\u65b0\u503c\u4ee5\u66ff\u6362": [
+                "Enter a new value to replace it."
+            ],
+            "\u8f93\u5165\u65b0\u503c": [
+                "Enter New Value"
+            ],
+            "\u6e05\u9664\u5df2\u4fdd\u5b58\u51ed\u636e": [
+                "Clear Saved Credentials"
+            ],
+            "\u64a4\u9500\u51ed\u636e\u66f4\u6539": [
+                "Cancel Credential Changes"
+            ],
+            "\u98ce\u9669\u63d0\u793a": [
+                "Risk Warning"
+            ],
+            "\u5efa\u8bae\uff1a": [
+                "Suggestion:"
+            ],
+            "\u6b63\u5728\u52a0\u8f7d\u5f53\u524d\u5206\u7ec4": [
+                "Loading current group settings..."
+            ],
+            "\u9996\u6b21\u6253\u5f00\u65f6\u6b63\u5728\u51c6\u5907\u76f8\u5173\u8bbe\u7f6e\u3002": [
+                "Preparing related settings for the first time when opening."
+            ],
+            "\u5206\u7c7b\u6570\u636e\u683c\u5f0f\u65e0\u6548": [
+                "Invalid category data format."
+            ],
+            "\u4fdd\u5b58\u5931\u8d25\uff0c\u8bf7\u91cd\u8bd5": [
+                "Save failed. Please try again."
+            ],
+            "[\u5df2\u9690\u85cf]": [
+                "[Hidden]"
+            ],
+            "\u672a\u77e5\u51ed\u636e\u8def\u5f84\uff1a%s": [
+                "Unknown credential path: %s"
+            ],
+            "\u672a\u77e5\u51ed\u636e\u64cd\u4f5c\uff1a%s": [
+                "Unknown credential operation: %s"
+            ],
+            "\u51ed\u636e\u66ff\u6362\u503c\u4e0d\u80fd\u4e3a\u7a7a\uff1a%s": [
+                "Credential replacement value cannot be empty: %s"
+            ],
+            "\u51ed\u636e\u957f\u5ea6\u8d85\u51fa\u9650\u5236\uff1a%s": [
+                "Credential length exceeds the limit: %s"
+            ],
+            "\u51ed\u636e\u4e0d\u5f97\u5305\u542b\u63a7\u5236\u5b57\u7b26\uff1a%s": [
+                "Credential must not contain control characters: %s"
+            ],
+            "\u914d\u7f6e\u7248\u672c\u65e0\u6548\uff0c\u8bf7\u91cd\u65b0\u8bfb\u53d6\u8bbe\u7f6e": [
+                "Invalid configuration version, please read settings again."
+            ],
+            "\u51fa\u9519\uff1a%s": [
+                "Error: %s"
+            ],
+            "\u672a\u77e5\u9519\u8bef": [
+                "Unknown error"
+            ],
+            "\u8bf7\u8f93\u5165\u6709\u6548\u7684\u94fe\u63a5 URL": [
+                "Please enter a valid link URL."
+            ],
+            "\u8fd8\u6709\u8bbe\u7f6e\u5c1a\u672a\u4fdd\u5b58\uff0c\u79bb\u5f00\u540e\u8fd9\u4e9b\u4fee\u6539\u5c06\u4e22\u5931\u3002\u786e\u5b9a\u79bb\u5f00\u5417\uff1f": [
+                "There are still unsaved settings. Leaving will cause these changes to be lost. Are you sure you want to leave?"
+            ],
+            "\u5df2\u6dfb\u52a0\u5230\u5e38\u7528\u529f\u80fd": [
+                "Added to the Quick Links"
+            ],
+            "\u5df2\u4ece\u5e38\u7528\u529f\u80fd\u79fb\u9664": [
+                "Removed from the Quick Links"
+            ],
+            "\u60a8\u6b63\u5728\u5f00\u542f\u300c%s\u300d": [
+                "You are enabling '%s'."
+            ],
+            "\u786e\u8ba4\u5f00\u542f": [
+                "Confirm Enablement"
+            ],
+            "\u4e0d\u518d\u63d0\u793a": [
+                "Don't show again"
+            ],
+            "\u8bbe\u7f6e\u63a5\u53e3\u8fd4\u56de\u683c\u5f0f\u65e0\u6548": [
+                "Invalid format of setting interface response."
+            ],
+            "\u8bbe\u7f6e\u63a5\u53e3\u7f3a\u5c11\u51ed\u636e\u72b6\u6001": [
+                "Setting interface is missing credential status."
+            ],
+            "\u8bbe\u7f6e\u63a5\u53e3\u7f3a\u5c11\u6709\u6548\u914d\u7f6e\u7248\u672c": [
+                "Setting interface is missing valid configuration version."
+            ],
+            "\u8bbe\u7f6e\u63a5\u53e3\u7684\u51ed\u636e\u72b6\u6001\u65e0\u6548\uff1a%s": [
+                "Invalid credential status in setting interface: %s"
+            ],
+            "\u7cfb\u7edf\u901a\u77e5": [
+                "System Notification"
+            ],
+            "\u8bbe\u7f6e\u7f3a\u5c11\u5b57\u6bb5\uff1a%s": [
+                "Missing field in settings: %s"
+            ],
+            "\u8bbe\u7f6e\u5305\u542b\u672a\u77e5\u5b57\u6bb5\uff1a%s": [
+                "Unknown field in settings: %s"
+            ],
+            "\u8bbe\u7f6e\u5b57\u6bb5\u7c7b\u578b\u9519\u8bef\uff1a%s": [
+                "Incorrect field type in settings: %s"
+            ],
+            "\u672a\u5b9a\u4e49\u7684\u8bbe\u7f6e\u6570\u7ec4\u5951\u7ea6\uff1a%s": [
+                "Undefined setting array contract: %s"
+            ],
+            "\u8bbe\u7f6e\u6570\u636e\u5305\u542b\u654f\u611f\u5b57\u6bb5\uff1a%s": [
+                "Setting data contains sensitive fields: %s"
+            ],
+            "\u8bbe\u7f6e\u6570\u636e\u683c\u5f0f\u65e0\u6548": [
+                "Invalid format of setting data"
+            ],
+            "\u4fdd\u5b58\u6210\u529f": [
+                "Saved"
+            ],
+            "\u8bbe\u7f6e\u5df2\u4fdd\u5b58\uff0c\u4f46\u91cd\u65b0\u8bfb\u53d6\u5931\u8d25\uff1b\u4fdd\u5b58\u529f\u80fd\u5df2\u7981\u7528\uff0c\u8bf7\u91cd\u65b0\u8bfb\u53d6\u540e\u7ee7\u7eed": [
+                "Settings saved but failed to refresh; save function is disabled, please try refreshing and continue."
+            ],
+            "\u4fdd\u5b58\u786e\u8ba4\u754c\u9762\u52a0\u8f7d\u5931\u8d25\uff0c\u8bf7\u91cd\u8bd5": [
+                "Save Failed to load confirmation interface, please try again."
+            ],
+            "\u5df2\u4fdd\u5b58": [
+                "Saved"
+            ],
+            "\u4fdd\u5b58": [
+                "Save"
+            ],
+            "\u6b63\u5728\u4fdd\u5b58\u2026": [
+                "Saving\u2026"
+            ],
+            "\u6b63\u5728\u51c6\u5907\u786e\u8ba4\u2026": [
+                "Preparing confirmation\u2026"
+            ],
+            "\u6b63\u5728\u51c6\u5907\u2026": [
+                "Preparing\u2026"
+            ],
+            "\u6b63\u5728\u8bfb\u53d6\u8bbe\u7f6e\u2026": [
+                "Loading settings\u2026"
+            ],
+            "\u8bbe\u7f6e\u4e0d\u53ef\u7528": [
+                "Settings unavailable"
+            ],
+            "%d \u9879\u5f85\u4fdd\u5b58": [
+                "%d items to save"
+            ],
+            "\u67e5\u770b\u5e76\u4fdd\u5b58": [
+                "Review and save"
+            ]
+        }
+    }
+}

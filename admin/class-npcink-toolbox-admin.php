@@ -85,12 +85,21 @@ class Npcink_Toolbox_Admin
         //添加插件菜单
 
         add_plugins_page(
-            'Npcink Site Toolbox 设置',   // 要在此页面的浏览器窗口中显示的标题。
-            'Npcink 站点工具箱',           // 要为此菜单项显示的文本
+            __('Npcink Site Toolbox 设置', 'npcink-site-toolbox'),
+            __('Npcink 站点工具箱', 'npcink-site-toolbox'),
             'manage_options',            // 哪种类型的用户可以看到此菜单项
             'npcink-site-toolbox', // The unique ID - that is, the slug - for this menu item.
             array(__CLASS__, 'Npcink_Toolbox_display'),   // 呈现此菜单的页面时要调用的函数的名称
             '200.2'
+        );
+
+        add_submenu_page(
+            null,
+            __('用户评论 REST 接口教程', 'npcink-site-toolbox'),
+            __('用户评论 REST 接口教程', 'npcink-site-toolbox'),
+            'manage_options',
+            'npcink-site-toolbox-comment-rest-help',
+            array(__CLASS__, 'display_comment_rest_help')
         );
     }
 
@@ -104,11 +113,35 @@ class Npcink_Toolbox_Admin
     }
 
     /**
+     * 显示插件内置的用户评论 REST 使用教程。
+     */
+    public static function display_comment_rest_help()
+    {
+        if (!current_user_can('manage_options')) {
+            wp_die(esc_html__('抱歉，您不能访问此页面。', 'npcink-site-toolbox'));
+        }
+
+        require plugin_dir_path(__FILE__) . 'partials/page/comment/rest_help.php';
+    }
+
+    /**
      * 加载JS和CSS资源
      */
     public static  function load_admin_script($hook)
     {
         $name = self::$plugin_name;
+
+        if ('admin_page_npcink-site-toolbox-comment-rest-help' === $hook) {
+            $help_css_path = plugin_dir_path(__FILE__) . 'css/comment-rest-help.css';
+            wp_enqueue_style(
+                $name . '-comment-rest-help',
+                plugin_dir_url(__FILE__) . 'css/comment-rest-help.css',
+                array(),
+                is_file($help_css_path) ? self::$version . '-' . (string) filemtime($help_css_path) : self::$version,
+                false
+            );
+            return;
+        }
 
         //是否是指定页面
         if ('plugins_page_npcink-site-toolbox' != $hook) {
@@ -128,19 +161,25 @@ class Npcink_Toolbox_Admin
             : self::$version;
 
         wp_enqueue_style($name, $index_css, array(), $index_css_version, false);
-        wp_enqueue_script($name, $index_js, array(), $index_js_version, true);
+        wp_enqueue_script($name, $index_js, array('wp-i18n'), $index_js_version, true);
+        if (function_exists('wp_set_script_translations')) {
+            wp_set_script_translations($name, 'npcink-site-toolbox', plugin_dir_path(__DIR__) . 'languages');
+        }
 
         $npcink_site_toolbox_array = array(
             'cat_arr' => self::get_cat_data(),
             'single_arr' => self::get_single_data(),
             'url_site' => get_site_url(),
             'ajaxurl' => admin_url('admin-ajax.php'),
+            'connectorsUrl' => admin_url('options-connectors.php'),
+            'commentRestHelpUrl' => admin_url('admin.php?page=npcink-site-toolbox-comment-rest-help'),
             'apiBase' => esc_url_raw(rest_url('npcink-site-toolbox/v1')),
             'restNonce' => wp_create_nonce('wp_rest'),
+            'locale' => determine_locale(),
             'webpSupported' => function_exists('wp_image_editor_supports')
                 && wp_image_editor_supports(array('mime_type' => 'image/webp')),
         );
-        wp_localize_script($name, 'dataLocal', $npcink_site_toolbox_array);
+        wp_localize_script($name, 'npcinkSiteToolboxData', $npcink_site_toolbox_array);
 
 
     }
@@ -209,20 +248,25 @@ class Npcink_Toolbox_Admin
         if (!$result['success']) {
             $rollback_complete = isset($result['rollback_complete']) && $result['rollback_complete'] === true;
             $fallback_message = $rollback_complete
-                ? '保存失败，已恢复为之前的设置'
-                : '保存失败，无法确认所有设置已恢复。请重新读取并核对设置后再保存';
-            $message = isset($result['error']) && is_string($result['error']) && trim($result['error']) !== ''
-                ? $result['error']
-                : $fallback_message;
-
-            // 回滚未确认时，即使底层意外返回了过度乐观的旧文案，也不能对外宣称已经恢复。
-            if (!$rollback_complete && strpos($message, '已恢复') !== false) {
-                $message = $fallback_message;
+                ? __('保存失败，已恢复为之前的设置', 'npcink-site-toolbox')
+                : __('保存失败，无法确认所有设置已恢复。请重新读取并核对设置后再保存', 'npcink-site-toolbox');
+            if (!$rollback_complete && !empty($result['rollback_failed_modules'])) {
+                $message = sprintf(
+                    /* translators: %s: comma-separated module names that could not be confirmed as restored. */
+                    __('保存失败，以下模块未能确认恢复：%s。请重新读取并核对设置后再保存', 'npcink-site-toolbox'),
+                    implode('、', $result['rollback_failed_modules'])
+                );
+            } else {
+                $message = isset($result['error']) && is_string($result['error']) && trim($result['error']) !== ''
+                    ? $result['error']
+                    : $fallback_message;
             }
 
             if (class_exists('Npcink_Toolbox_Audit_Logger')) {
                 Npcink_Toolbox_Audit_Logger::config(
-                    $rollback_complete ? '保存配置失败，已确认回滚' : '保存配置失败，回滚未能完整确认',
+                    $rollback_complete
+                        ? __('保存配置失败，已确认回滚', 'npcink-site-toolbox')
+                        : __('保存配置失败，回滚未能完整确认', 'npcink-site-toolbox'),
                     array(
                         'failed_modules' => isset($result['failed_modules']) ? $result['failed_modules'] : array(),
                         'rollback_failed_modules' => isset($result['rollback_failed_modules'])
@@ -249,9 +293,9 @@ class Npcink_Toolbox_Admin
             ));
         }
 
-        $message = '保存成功';
+        $message = __('保存成功', 'npcink-site-toolbox');
         if (!$validation['valid']) {
-            $message .= '（部分字段已自动修正）';
+            $message = __('保存成功（部分字段已自动修正）', 'npcink-site-toolbox');
         }
 
         return array('success' => true, 'message' => $message, 'status' => 200);
@@ -263,20 +307,32 @@ class Npcink_Toolbox_Admin
     public static function rest_save_settings($request)
     {
         if (!current_user_can('manage_options')) {
-            return new \WP_Error('rest_forbidden', '权限不足', array('status' => 403));
+            return new \WP_Error('rest_forbidden', __('权限不足', 'npcink-site-toolbox'), array('status' => 403));
         }
 
         $body = $request->get_json_params();
         if (!is_array($body)) {
-            return new \WP_Error('rest_invalid_data', '设置数据格式无效', array('status' => 400));
+            return new \WP_Error('rest_invalid_data', __('设置数据格式无效', 'npcink-site-toolbox'), array('status' => 400));
         }
 
-        $allowed_keys = array('settings', 'secretChanges');
+        $allowed_keys = array('settings', 'secretChanges', 'revision');
         if (!empty(array_diff(array_keys($body), $allowed_keys))
             || !array_key_exists('settings', $body)
             || !is_array($body['settings'])
+            || !isset($body['revision'])
+            || !is_string($body['revision'])
+            || !preg_match('/^[a-f0-9]{64}$/', $body['revision'])
             || (isset($body['secretChanges']) && !is_array($body['secretChanges']))) {
-            return new \WP_Error('rest_invalid_data', '请求仅允许 settings 和 secretChanges', array('status' => 400));
+            return new \WP_Error('rest_invalid_data', __('请求必须包含 settings、secretChanges 和有效 revision', 'npcink-site-toolbox'), array('status' => 400));
+        }
+
+        $current_revision = Npcink_Toolbox_Config_Manager::get_config_revision();
+        if (!hash_equals($current_revision, $body['revision'])) {
+            return new \WP_Error(
+                'rest_settings_conflict',
+                __('站点设置已在其他页面或会话中更新。请重新读取设置，核对差异后再保存。', 'npcink-site-toolbox'),
+                array('status' => 409, 'revision' => $current_revision)
+            );
         }
 
         $secret_changes = isset($body['secretChanges']) ? $body['secretChanges'] : array();
@@ -290,13 +346,14 @@ class Npcink_Toolbox_Admin
         return rest_ensure_response([
             'success' => true,
             'message' => $result['message'],
+            'revision' => Npcink_Toolbox_Config_Manager::get_config_revision(),
         ]);
     }
 
     public static function rest_get_settings($request)
     {
         if (!current_user_can('manage_options')) {
-            return new \WP_Error('rest_forbidden', '权限不足', array('status' => 403));
+            return new \WP_Error('rest_forbidden', __('权限不足', 'npcink-site-toolbox'), array('status' => 403));
         }
 
         $browser_config = Npcink_Toolbox_Config_Manager::get_browser_config();
@@ -304,6 +361,7 @@ class Npcink_Toolbox_Admin
             'success' => true,
             'data' => $browser_config['data'],
             'secretStatus' => $browser_config['secretStatus'],
+            'revision' => Npcink_Toolbox_Config_Manager::get_config_revision(),
         ]);
     }
 
@@ -313,7 +371,7 @@ class Npcink_Toolbox_Admin
     public static function rest_get_schema($request)
     {
         if (!current_user_can('manage_options')) {
-            return new \WP_Error('rest_forbidden', '权限不足', array('status' => 403));
+            return new \WP_Error('rest_forbidden', __('权限不足', 'npcink-site-toolbox'), array('status' => 403));
         }
 
         $schema = Npcink_Toolbox_Config_Schema::get_schema();
@@ -371,6 +429,191 @@ class Npcink_Toolbox_Admin
     }
 
     /**
+     * 按需生成脱敏支持报告；不会保存或发送报告内容。
+     */
+    public static function rest_get_support_report(\WP_REST_Request $request)
+    {
+        if (!class_exists('Npcink_Toolbox_Diagnostics')) {
+            return new \WP_Error(
+                'diagnostics_not_available',
+                __('诊断服务暂不可用', 'npcink-site-toolbox'),
+                array('status' => 500)
+            );
+        }
+
+        $report = Npcink_Toolbox_Diagnostics::get_support_report();
+        if (is_wp_error($report)) {
+            return $report;
+        }
+
+        return rest_ensure_response(array(
+            'success' => true,
+            'data'    => $report,
+        ));
+    }
+
+    /**
+     * 将最新脱敏诊断包一次性发送给 DeepSeek 进行只读分析。
+     */
+    public static function rest_analyze_support_report(\WP_REST_Request $request)
+    {
+        if (!class_exists('Npcink_Toolbox_Diagnostics')) {
+            return new \WP_Error(
+                'diagnostics_not_available',
+                __('诊断服务暂不可用', 'npcink-site-toolbox'),
+                array('status' => 500)
+            );
+        }
+
+        $analysis = Npcink_Toolbox_Diagnostics::analyze_support_report(
+            (string) $request->get_param('problem')
+        );
+        if (is_wp_error($analysis)) {
+            return $analysis;
+        }
+
+        return rest_ensure_response(array(
+            'success' => true,
+            'data'    => $analysis,
+        ));
+    }
+
+    /**
+     * 生成性能或维护场景的只读预览包；不会调用 AI。
+     */
+    public static function rest_get_review_pack(\WP_REST_Request $request)
+    {
+        if (!class_exists('Npcink_Toolbox_Diagnostics')) {
+            return new \WP_Error('diagnostics_not_available', __('诊断服务暂不可用', 'npcink-site-toolbox'), array('status' => 500));
+        }
+
+        $pack = Npcink_Toolbox_Diagnostics::get_review_pack((string) $request->get_param('scope'));
+        if (is_wp_error($pack)) {
+            return $pack;
+        }
+
+        return rest_ensure_response(array('success' => true, 'data' => $pack));
+    }
+
+    /**
+     * 按场景将最新白名单数据包一次性发送给 DeepSeek。
+     */
+    public static function rest_analyze_review(\WP_REST_Request $request)
+    {
+        if (!class_exists('Npcink_Toolbox_Diagnostics')) {
+            return new \WP_Error('diagnostics_not_available', __('诊断服务暂不可用', 'npcink-site-toolbox'), array('status' => 500));
+        }
+
+        $analysis = Npcink_Toolbox_Diagnostics::analyze_review(
+            (string) $request->get_param('scenario'),
+            (string) $request->get_param('problem'),
+            $request->get_param('changes'),
+            $request->get_param('baseline')
+        );
+        if (is_wp_error($analysis)) {
+            return $analysis;
+        }
+
+        return rest_ensure_response(array('success' => true, 'data' => $analysis));
+    }
+
+    /**
+     * 在当前页面临时上下文中创建一次受限追问。
+     */
+    public static function rest_create_follow_up(\WP_REST_Request $request)
+    {
+        if (!class_exists('Npcink_Toolbox_Diagnostics')) {
+            return new \WP_Error('diagnostics_not_available', __('诊断服务暂不可用', 'npcink-site-toolbox'), array('status' => 500));
+        }
+
+        $answer = Npcink_Toolbox_Diagnostics::analyze_follow_up(
+            (string) $request->get_param('scenario'),
+            (string) $request->get_param('question'),
+            $request->get_param('context'),
+            (string) $request->get_param('initial_analysis'),
+            $request->get_param('turns')
+        );
+        if (is_wp_error($answer)) {
+            return $answer;
+        }
+
+        return rest_ensure_response(array('success' => true, 'data' => $answer));
+    }
+
+    /**
+     * 仅保留设置风险分析需要的路径与前后值；凭据路径仍由诊断层再次排除。
+     *
+     * @param mixed $value 请求值。
+     * @return array<int,array<string,mixed>>
+     */
+    public static function sanitize_review_changes($value)
+    {
+        if (!is_array($value)) {
+            return array();
+        }
+
+        $changes = array();
+        foreach (array_slice($value, 0, 50) as $change) {
+            if (!is_array($change) || empty($change['path']) || !is_string($change['path'])) {
+                continue;
+            }
+            $changes[] = array(
+                'path'   => sanitize_text_field($change['path']),
+                'before' => array_key_exists('before', $change) ? $change['before'] : null,
+                'after'  => array_key_exists('after', $change) ? $change['after'] : null,
+            );
+        }
+        return $changes;
+    }
+
+    /**
+     * 基线会在诊断层按合同、范围、数量、长度和字段白名单重新规范化。
+     *
+     * @param mixed $value 请求值。
+     * @return array<string,mixed>|null
+     */
+    public static function sanitize_review_baseline($value)
+    {
+        return is_array($value) ? $value : null;
+    }
+
+    /**
+     * 追问上下文会在诊断层按固定合同重新构建。
+     *
+     * @param mixed $value 请求值。
+     * @return array<string,mixed>|null
+     */
+    public static function sanitize_follow_up_context($value)
+    {
+        return is_array($value) ? $value : null;
+    }
+
+    /**
+     * @param mixed $value 请求值。
+     * @return array<int,array<string,string>>
+     */
+    public static function sanitize_follow_up_turns($value)
+    {
+        if (!is_array($value)) {
+            return array();
+        }
+
+        $turns = array();
+        foreach (array_slice($value, 0, 2) as $turn) {
+            if (!is_array($turn)) {
+                continue;
+            }
+            $question = isset($turn['question']) && is_string($turn['question']) ? $turn['question'] : '';
+            $answer = isset($turn['answer']) && is_string($turn['answer']) ? $turn['answer'] : '';
+            $turns[] = array(
+                'question' => sanitize_textarea_field($question),
+                'answer'   => sanitize_textarea_field($answer),
+            );
+        }
+        return $turns;
+    }
+
+    /**
      * 注册 REST API 路由
      */
     public static function register_rest_routes()
@@ -381,8 +624,8 @@ class Npcink_Toolbox_Admin
         self::register_performance_routes();
         self::register_tools_routes();
         self::register_public_routes();
-        self::register_domestic_routes();
         self::register_diagnostics_routes();
+        Npcink_Toolbox_My_Comments::register_routes();
 
         Npcink_Toolbox_Rest_Route_Registry::register_all();
 
@@ -405,7 +648,7 @@ class Npcink_Toolbox_Admin
                     'settings' => array(
                         'required'          => true,
                         'type'              => 'object',
-                        'description'       => '不含凭据的完整设置',
+                        'description'       => __('不含凭据的完整设置', 'npcink-site-toolbox'),
                         'sanitize_callback' => function ($value) {
                             return is_array($value) ? $value : array();
                         },
@@ -416,7 +659,7 @@ class Npcink_Toolbox_Admin
                     'secretChanges' => array(
                         'required'          => false,
                         'type'              => 'object',
-                        'description'       => '凭据 replace/clear 操作',
+                        'description'       => __('凭据 replace/clear 操作', 'npcink-site-toolbox'),
                         'default'           => array(),
                         'sanitize_callback' => function ($value) {
                             return is_array($value) ? $value : array();
@@ -424,6 +667,13 @@ class Npcink_Toolbox_Admin
                         'validate_callback' => function ($value) {
                             return is_array($value);
                         },
+                    ),
+                    'revision' => array(
+                        'required'          => true,
+                        'type'              => 'string',
+                        'description'       => __('读取设置时返回的不透明配置版本指纹', 'npcink-site-toolbox'),
+                        'pattern'           => '^[a-f0-9]{64}$',
+                        'sanitize_callback' => 'sanitize_text_field',
                     ),
                 ),
             ),
@@ -449,7 +699,7 @@ class Npcink_Toolbox_Admin
                 'settings' => array(
                     'required'          => true,
                     'type'              => 'object',
-                    'description'       => '不含凭据的完整设置',
+                    'description'       => __('不含凭据的完整设置', 'npcink-site-toolbox'),
                     'sanitize_callback' => function ($value) {
                         return is_array($value) ? $value : array();
                     },
@@ -460,7 +710,7 @@ class Npcink_Toolbox_Admin
                 'secretChanges' => array(
                     'required'          => false,
                     'type'              => 'object',
-                    'description'       => '对象存储凭据 replace/clear 操作',
+                    'description'       => __('对象存储凭据 replace/clear 操作', 'npcink-site-toolbox'),
                     'default'           => array(),
                     'sanitize_callback' => function ($value) {
                         return is_array($value) ? $value : array();
@@ -487,26 +737,12 @@ class Npcink_Toolbox_Admin
             ),
         ), 'performance');
 
-        Npcink_Toolbox_Rest_Route_Registry::add('/performance/media/fix-alt', array(
-            'methods'             => \WP_REST_Server::CREATABLE,
-            'callback'            => array('Npcink_Toolbox_Performance_Media_Health', 'ajax_fix_alt'),
-            'permission_callback' => Npcink_Toolbox_Rest_Route_Registry::admin_permission(),
-            'args'                => array(
-                'post_id' => array(
-                    'required'          => false,
-                    'validate_callback' => function ($value) {
-                        return empty($value) || (is_numeric($value) && $value > 0);
-                    },
-                ),
-            ),
-        ), 'performance');
-
         $webp_attachment_args = array(
             'attachment_ids' => array(
                 'required'          => true,
                 'type'              => 'array',
                 'items'             => array('type' => 'integer', 'minimum' => 1),
-                'description'       => '每批最多 5 个 JPEG 附件 ID',
+                'description'       => __('每批最多 5 个 JPEG 附件 ID', 'npcink-site-toolbox'),
                 'validate_callback' => array('Npcink_Toolbox_Performance_Media_Health', 'validate_attachment_ids'),
                 'sanitize_callback' => array('Npcink_Toolbox_Performance_Media_Health', 'sanitize_attachment_ids'),
             ),
@@ -536,21 +772,6 @@ class Npcink_Toolbox_Admin
                     'validate_callback' => function ($value) {
                         return empty($value) || (is_numeric($value) && $value > 0);
                     },
-                ),
-            ),
-        ), 'performance');
-
-        Npcink_Toolbox_Rest_Route_Registry::add('/performance/seo/fix-alt', array(
-            'methods'             => \WP_REST_Server::CREATABLE,
-            'callback'            => array('Npcink_Toolbox_Performance_Seo_Checker', 'ajax_fix_alt'),
-            'permission_callback' => Npcink_Toolbox_Rest_Route_Registry::admin_permission(),
-            'args'                => array(
-                'post_id' => array(
-                    'required'          => false,
-                    'validate_callback' => function ($value) {
-                        return empty($value) || (is_numeric($value) && $value > 0);
-                    },
-                    'sanitize_callback' => array(__CLASS__, 'sanitize_int_arg'),
                 ),
             ),
         ), 'performance');
@@ -592,6 +813,12 @@ class Npcink_Toolbox_Admin
                     'default'           => true,
                     'sanitize_callback' => 'rest_sanitize_boolean',
                 ),
+                'preview_token' => array(
+                    'required'          => false,
+                    'type'              => 'string',
+                    'pattern'           => '^[A-Za-z0-9_-]+\.[a-f0-9]{64}$',
+                    'sanitize_callback' => 'sanitize_text_field',
+                ),
             ),
         ), 'performance');
     }
@@ -624,36 +851,6 @@ class Npcink_Toolbox_Admin
 
     }
 
-    private static function register_domestic_routes()
-    {
-        Npcink_Toolbox_Rest_Route_Registry::add('/domestic/environment/check', array(
-            array(
-                'methods'             => \WP_REST_Server::READABLE,
-                'callback'            => array('Npcink_Toolbox_Domestic_Environment', 'rest_check'),
-                'permission_callback' => Npcink_Toolbox_Rest_Route_Registry::admin_permission(),
-            ),
-        ), 'domestic');
-
-        Npcink_Toolbox_Rest_Route_Registry::add('/domestic/environment/apply', array(
-            array(
-                'methods'             => \WP_REST_Server::CREATABLE,
-                'callback'            => array('Npcink_Toolbox_Domestic_Environment', 'rest_apply'),
-                'permission_callback' => Npcink_Toolbox_Rest_Route_Registry::admin_permission(),
-                'args'                => array(
-                    'fixes' => array(
-                        'required'          => true,
-                        'type'              => 'array',
-                        'description'       => '要修复的项目列表',
-                        'items'             => array('type' => 'string'),
-                        'sanitize_callback' => function ($value) {
-                            return is_array($value) ? array_map('sanitize_text_field', $value) : array();
-                        },
-                    ),
-                ),
-            ),
-        ), 'domestic');
-    }
-
     private static function register_diagnostics_routes()
     {
         Npcink_Toolbox_Rest_Route_Registry::add('/diagnostics/summary', array(
@@ -672,6 +869,146 @@ class Npcink_Toolbox_Admin
             ),
         ), 'diagnostics');
 
+        Npcink_Toolbox_Rest_Route_Registry::add('/diagnostics/support-report', array(
+            array(
+                'methods'             => \WP_REST_Server::READABLE,
+                'callback'            => array(__CLASS__, 'rest_get_support_report'),
+                'permission_callback' => Npcink_Toolbox_Rest_Route_Registry::admin_permission(),
+            ),
+        ), 'diagnostics');
+
+        Npcink_Toolbox_Rest_Route_Registry::add('/diagnostics/analyses', array(
+            array(
+                'methods'             => \WP_REST_Server::CREATABLE,
+                'callback'            => array(__CLASS__, 'rest_analyze_support_report'),
+                'permission_callback' => Npcink_Toolbox_Rest_Route_Registry::admin_permission(),
+                'args'                => array(
+                    'problem' => array(
+                        'required'          => false,
+                        'type'              => 'string',
+                        'default'           => '',
+                        'sanitize_callback' => 'sanitize_textarea_field',
+                        'validate_callback' => function ($value) {
+                            return is_string($value) && strlen($value) <= 8000;
+                        },
+                    ),
+                ),
+            ),
+        ), 'diagnostics');
+
+        Npcink_Toolbox_Rest_Route_Registry::add('/diagnostics/review-packs', array(
+            array(
+                'methods'             => \WP_REST_Server::READABLE,
+                'callback'            => array(__CLASS__, 'rest_get_review_pack'),
+                'permission_callback' => Npcink_Toolbox_Rest_Route_Registry::admin_permission(),
+                'args'                => array(
+                    'scope' => array(
+                        'required'          => true,
+                        'type'              => 'string',
+                        'enum'              => array('performance', 'maintenance'),
+                        'sanitize_callback' => 'sanitize_key',
+                    ),
+                ),
+            ),
+        ), 'diagnostics');
+
+        Npcink_Toolbox_Rest_Route_Registry::add('/diagnostics/reviews', array(
+            array(
+                'methods'             => \WP_REST_Server::CREATABLE,
+                'callback'            => array(__CLASS__, 'rest_analyze_review'),
+                'permission_callback' => Npcink_Toolbox_Rest_Route_Registry::admin_permission(),
+                'args'                => array(
+                    'scenario' => array(
+                        'required'          => true,
+                        'type'              => 'string',
+                        'enum'              => array('performance', 'maintenance', 'settings_risk', 'verification'),
+                        'sanitize_callback' => 'sanitize_key',
+                    ),
+                    'problem' => array(
+                        'required'          => false,
+                        'type'              => 'string',
+                        'default'           => '',
+                        'sanitize_callback' => 'sanitize_textarea_field',
+                        'validate_callback' => function ($value) {
+                            return is_string($value) && strlen($value) <= 2000;
+                        },
+                    ),
+                    'changes' => array(
+                        'required'          => false,
+                        'type'              => 'array',
+                        'default'           => array(),
+                        'sanitize_callback' => array(__CLASS__, 'sanitize_review_changes'),
+                        'validate_callback' => function ($value) {
+                            return is_array($value) && count($value) <= 50;
+                        },
+                    ),
+                    'baseline' => array(
+                        'required'          => false,
+                        'type'              => 'object',
+                        'sanitize_callback' => array(__CLASS__, 'sanitize_review_baseline'),
+                    ),
+                ),
+            ),
+        ), 'diagnostics');
+
+        Npcink_Toolbox_Rest_Route_Registry::add('/diagnostics/follow-ups', array(
+            array(
+                'methods'             => \WP_REST_Server::CREATABLE,
+                'callback'            => array(__CLASS__, 'rest_create_follow_up'),
+                'permission_callback' => Npcink_Toolbox_Rest_Route_Registry::admin_permission(),
+                'args'                => array(
+                    'scenario' => array(
+                        'required'          => true,
+                        'type'              => 'string',
+                        'enum'              => array('troubleshooting', 'performance', 'maintenance', 'settings_risk', 'verification'),
+                        'sanitize_callback' => 'sanitize_key',
+                    ),
+                    'question' => array(
+                        'required'          => true,
+                        'type'              => 'string',
+                        'sanitize_callback' => 'sanitize_textarea_field',
+                        'validate_callback' => function ($value) {
+                            if (!is_string($value)) {
+                                return false;
+                            }
+                            $length = function_exists('mb_strlen') ? mb_strlen($value, 'UTF-8') : strlen($value);
+                            return $length > 0 && $length <= 1000;
+                        },
+                    ),
+                    'context' => array(
+                        'required'          => true,
+                        'type'              => 'object',
+                        'sanitize_callback' => array(__CLASS__, 'sanitize_follow_up_context'),
+                    ),
+                    'initial_analysis' => array(
+                        'required'          => true,
+                        'type'              => 'string',
+                        'sanitize_callback' => 'sanitize_textarea_field',
+                        'validate_callback' => function ($value) {
+                            return is_string($value) && trim($value) !== '' && strlen($value) <= 24000;
+                        },
+                    ),
+                    'turns' => array(
+                        'required'          => false,
+                        'type'              => 'array',
+                        'default'           => array(),
+                        'items'             => array(
+                            'type'       => 'object',
+                            'required'   => array('question', 'answer'),
+                            'properties' => array(
+                                'question' => array('type' => 'string'),
+                                'answer'   => array('type' => 'string'),
+                            ),
+                        ),
+                        'sanitize_callback' => array(__CLASS__, 'sanitize_follow_up_turns'),
+                        'validate_callback' => function ($value) {
+                            return is_array($value) && count($value) <= 2;
+                        },
+                    ),
+                ),
+            ),
+        ), 'diagnostics');
+
         Npcink_Toolbox_Rest_Route_Registry::add('/search-health/summary', array(
             array(
                 'methods'             => \WP_REST_Server::READABLE,
@@ -681,7 +1018,7 @@ class Npcink_Toolbox_Admin
                     'days' => array(
                         'required'          => false,
                         'type'              => 'integer',
-                        'description'       => '统计天数范围',
+                        'description'       => __('统计天数范围', 'npcink-site-toolbox'),
                         'default'           => 30,
                         'sanitize_callback' => array(__CLASS__, 'sanitize_int_arg'),
                         'validate_callback' => function ($value) {
@@ -738,9 +1075,6 @@ class Npcink_Toolbox_Admin
     public function load()
     {
         $option = Npcink_Toolbox_Config_Manager::get_merged_config();
-        if (empty($option)) {
-            return;
-        }
 
         $active_modules = false;
         if (function_exists('wp_cache_get')) {
@@ -762,27 +1096,19 @@ class Npcink_Toolbox_Admin
     }
 
     //公用返回按钮
-    public static function back_button($text = '返回')
+    public static function back_button($text = null)
     {
-        $button = sprintf(
-            '<br/><a href="javascript:void(0);" onclick="window.history.back();" class="back_box">
-            <button class="back_button">%s</button>
-        </a>
-                <style>
-                /**
-         * 返回按钮
-         */
-        .back_button {
-          padding: .2em 1em;
-          margin: 10px 0 0 0;
-          cursor: pointer;
-        }
-                </style>
-        
-        ',
+        $text = is_string($text) && $text !== '' ? $text : __('返回', 'npcink-site-toolbox');
+        $referer = wp_get_referer();
+        $target = wp_validate_redirect(
+            is_string($referer) ? $referer : '',
+            home_url('/')
+        );
 
+        return sprintf(
+            '<p><a href="%1$s" class="button back_button">%2$s</a></p>',
+            esc_url($target),
             esc_html($text)
         );
-        return $button;
     }
 }//end

@@ -1,6 +1,7 @@
 //基础组件 - 效果预览
 import { Image, Popover } from "antd";
-import Disabled from "@/assets/basic/禁用.svg";
+import Disabled from "@/assets/basic/disabled.svg";
+import { __, sprintf } from "@/tool/i18n";
 
 interface PreviewProps {
   title: string; //标题
@@ -21,9 +22,9 @@ const App: React.FC<PreviewProps> = (props: any) => {
             preview={{ rootClassName: "mabox-admin-modal" }}
           />
         }
-        title={"预览样式：" + props.title}
+        title={sprintf(__("预览样式：%s"), __(props.title))}
       >
-        <span className="mabox-preview-trigger">预览效果</span>
+        <span className="mabox-preview-trigger">{__("预览效果")}</span>
         
         {
           //props.title

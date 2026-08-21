@@ -20,7 +20,7 @@ if (!class_exists('Npcink_Toolbox_Performance_Media_Health')) {
         }
         public static function ajax_check() {
             if (!current_user_can('manage_options')) {
-                return new \WP_Error('rest_forbidden', '权限不足', array('status' => 403));
+                return new \WP_Error('rest_forbidden', __('权限不足', 'npcink-site-toolbox'), array('status' => 403));
             }
             $issues = array();
             global $wpdb;
@@ -33,15 +33,16 @@ if (!class_exists('Npcink_Toolbox_Performance_Media_Health')) {
                 'image/%'
             ));
             if ($missing_alt > 0) {
-                $issues[] = array('type' => '缺少Alt', 'count' => intval($missing_alt));
+                $issues[] = array('type' => __('缺少 Alt', 'npcink-site-toolbox'), 'count' => intval($missing_alt));
             }
 
             $attachment_scan = self::scan_recent_attachments();
             if ($attachment_scan['large'] > 0) {
                 $issues[] = array(
                     'type'         => $attachment_scan['sampled']
-                        ? sprintf('超大图片（最近 %d 个附件抽样）', $attachment_scan['checked'])
-                        : '超大图片',
+                        /* translators: %d: number of recent attachments included in the sample. */
+                        ? sprintf(__('超大图片（最近 %d 个附件抽样）', 'npcink-site-toolbox'), $attachment_scan['checked'])
+                        : __('超大图片', 'npcink-site-toolbox'),
                     'count'        => $attachment_scan['large'],
                     'sampled'      => $attachment_scan['sampled'],
                     'sample_size'  => $attachment_scan['checked'],
@@ -52,8 +53,9 @@ if (!class_exists('Npcink_Toolbox_Performance_Media_Health')) {
             if ($attachment_scan['chinese'] > 0) {
                 $issues[] = array(
                     'type'  => $attachment_scan['sampled']
-                        ? sprintf('中文文件名（最近 %d 个附件抽样）', $attachment_scan['checked'])
-                        : '中文文件名',
+                        /* translators: %d: number of recent attachments included in the sample. */
+                        ? sprintf(__('中文文件名（最近 %d 个附件抽样）', 'npcink-site-toolbox'), $attachment_scan['checked'])
+                        : __('中文文件名', 'npcink-site-toolbox'),
                     'count' => $attachment_scan['chinese'],
                 );
             }
@@ -70,13 +72,13 @@ if (!class_exists('Npcink_Toolbox_Performance_Media_Health')) {
                 )
             );
             if (count($unused) > 0) {
-                $issues[] = array('type' => '可能未使用', 'count' => count($unused));
+                $issues[] = array('type' => __('可能未使用', 'npcink-site-toolbox'), 'count' => count($unused));
             }
 
             // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching -- Administrator-triggered live aggregate; cached diagnostic counts would be stale.
             $missing_featured = $wpdb->get_var($wpdb->prepare("SELECT COUNT(*) FROM {$wpdb->posts} p LEFT JOIN {$wpdb->postmeta} pm ON p.ID = pm.post_id AND pm.meta_key = %s WHERE p.post_status = %s AND p.post_type = %s AND pm.meta_id IS NULL", '_thumbnail_id', 'publish', 'post'));
             if ($missing_featured > 0) {
-                $issues[] = array('type' => '无特色图文章', 'count' => intval($missing_featured));
+                $issues[] = array('type' => __('无特色图文章', 'npcink-site-toolbox'), 'count' => intval($missing_featured));
             }
 
             return rest_ensure_response(array(
@@ -92,43 +94,9 @@ if (!class_exists('Npcink_Toolbox_Performance_Media_Health')) {
                 ),
             ));
         }
-        public static function ajax_fix_alt() {
-            if (!current_user_can('manage_options')) {
-                return new \WP_Error('rest_forbidden', '权限不足', array('status' => 403));
-            }
-            $query = new WP_Query(array(
-                'post_type'              => 'attachment',
-                'post_status'            => 'inherit',
-                'post_mime_type'         => 'image',
-                'posts_per_page'         => 50,
-                'orderby'                => 'ID',
-                'order'                  => 'ASC',
-                'no_found_rows'          => true,
-                'update_post_meta_cache' => false,
-                'update_post_term_cache' => false,
-                // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query -- Administrator-triggered repair is bounded to 50 image attachments.
-                'meta_query'             => array(
-                    'relation' => 'OR',
-                    array('key' => '_wp_attachment_image_alt', 'compare' => 'NOT EXISTS'),
-                    array('key' => '_wp_attachment_image_alt', 'value' => '', 'compare' => '='),
-                ),
-            ));
-            $fixed = 0;
-            foreach ($query->posts as $img) {
-                if (!is_object($img) || !isset($img->ID)) continue;
-                $alt = !empty($img->post_title) ? $img->post_title : '图片';
-                update_post_meta($img->ID, '_wp_attachment_image_alt', sanitize_text_field($alt));
-                $fixed++;
-            }
-            return rest_ensure_response(array(
-                'success' => true,
-                'data'    => array('fixed' => $fixed),
-            ));
-        }
-
         public static function ajax_convert_webp($request) {
             if (!current_user_can('manage_options')) {
-                return new \WP_Error('rest_forbidden', '权限不足', array('status' => 403));
+                return new \WP_Error('rest_forbidden', __('权限不足', 'npcink-site-toolbox'), array('status' => 403));
             }
             $ids = self::sanitize_attachment_ids($request->get_param('attachment_ids'));
             return rest_ensure_response(array(
@@ -139,7 +107,7 @@ if (!class_exists('Npcink_Toolbox_Performance_Media_Health')) {
 
         public static function ajax_restore_webp($request) {
             if (!current_user_can('manage_options')) {
-                return new \WP_Error('rest_forbidden', '权限不足', array('status' => 403));
+                return new \WP_Error('rest_forbidden', __('权限不足', 'npcink-site-toolbox'), array('status' => 403));
             }
             $ids = self::sanitize_attachment_ids($request->get_param('attachment_ids'));
             return rest_ensure_response(array(

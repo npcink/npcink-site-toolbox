@@ -3,6 +3,7 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import "@/components/feature-search.css";
 import { isFavorite, toggleFavorite } from "@/tool/favorites";
 import { searchIndex } from "@/tool/featureIndex";
+import { __, sprintf } from "@/tool/i18n";
 import type { SearchItem } from "@/tool/featureIndex";
 
 interface FeatureSearchProps {
@@ -12,14 +13,14 @@ interface FeatureSearchProps {
 }
 
 const tagClassMap: Record<string, string> = {
-  "推荐": "success",
+  [__("推荐")]: "success",
   "SEO": "info",
-  "安全": "danger",
-  "性能": "warning",
-  "谨慎": "caution",
-  "仅前台": "purple",
-  "仅后台": "cyan",
-  "需主题兼容": "gold",
+  [__("安全")]: "danger",
+  [__("性能")]: "warning",
+  [__("谨慎")]: "caution",
+  [__("仅前台")]: "purple",
+  [__("仅后台")]: "cyan",
+  [__("需主题兼容")]: "gold",
 };
 
 const FeatureSearch: React.FC<FeatureSearchProps> = ({ onNavigate, className, style }) => {
@@ -160,8 +161,8 @@ const FeatureSearch: React.FC<FeatureSearchProps> = ({ onNavigate, className, st
           className="mabox-feature-search-input"
           aria-controls={panelVisible ? "mabox-feature-search-results" : undefined}
           aria-expanded={panelVisible}
-          aria-label="搜索功能或设置"
-          placeholder="搜索功能或设置..."
+          aria-label={__("搜索功能或设置")}
+          placeholder={__("搜索功能或设置...")}
           value={keyword}
           onChange={(event) => {
             setKeyword(event.target.value);
@@ -175,7 +176,7 @@ const FeatureSearch: React.FC<FeatureSearchProps> = ({ onNavigate, className, st
           <button
             type="button"
             className="mabox-feature-search-clear"
-            aria-label="清空搜索"
+            aria-label={__("清空搜索")}
             onClick={clearSearch}
           >
             <span className="dashicons dashicons-dismiss" aria-hidden="true" />
@@ -188,9 +189,9 @@ const FeatureSearch: React.FC<FeatureSearchProps> = ({ onNavigate, className, st
           {showResults ? (
             <>
               <div className="mabox-feature-search-count" aria-live="polite">
-                找到 {results.length} 项，显示前 {visibleResults.length} 项
+                {sprintf(__("找到 %d 项，显示前 %d 项"), results.length, visibleResults.length)}
               </div>
-              <ul className="mabox-feature-search-results" aria-label="功能搜索结果">
+              <ul className="mabox-feature-search-results" aria-label={__("功能搜索结果")}>
                 {visibleResults.map((item, index) => {
                   const favorite = isFavorite(item.id);
 
@@ -202,7 +203,7 @@ const FeatureSearch: React.FC<FeatureSearchProps> = ({ onNavigate, className, st
                       <button
                         type="button"
                         className="mabox-feature-search-favorite"
-                        aria-label={`${favorite ? "取消收藏" : "收藏"}${item.label}`}
+                          aria-label={`${favorite ? __("取消收藏") : __("收藏")}${item.label}`}
                         aria-pressed={favorite}
                         onClick={() => {
                           toggleFavorite(item.id);
@@ -220,7 +221,7 @@ const FeatureSearch: React.FC<FeatureSearchProps> = ({ onNavigate, className, st
                         }}
                         type="button"
                         className="mabox-feature-search-open"
-                        aria-label={`打开${item.label}`}
+                        aria-label={`${__("打开")}${item.label}`}
                         onClick={() => handleSelect(item)}
                         onFocus={() => setActiveIndex(index)}
                         onKeyDown={(event) => handleResultKeyDown(event, index)}
@@ -229,7 +230,7 @@ const FeatureSearch: React.FC<FeatureSearchProps> = ({ onNavigate, className, st
                           {highlightText(item.label)}
                         </span>
                         {item.tags && item.tags.length > 0 && (
-                          <span className="mabox-feature-search-tags" aria-label="功能标签">
+                          <span className="mabox-feature-search-tags" aria-label={__("功能标签")}>
                             {item.tags.map((tag) => (
                               <span
                                 className={`mabox-feature-search-tag mabox-feature-search-tag--${tagClassMap[tag] || "default"}`}
@@ -248,7 +249,7 @@ const FeatureSearch: React.FC<FeatureSearchProps> = ({ onNavigate, className, st
             </>
           ) : (
             <div className="mabox-feature-search-empty" role="status" aria-live="polite">
-              未找到匹配的功能
+              {__("未找到匹配的功能")}
             </div>
           )}
         </div>

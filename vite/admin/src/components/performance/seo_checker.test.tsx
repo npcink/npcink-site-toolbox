@@ -7,7 +7,6 @@ import { defaultVarOption } from "@/tool/defaultVar";
 
 const apiMocks = vi.hoisted(() => ({
   checkSeo: vi.fn(),
-  fixSeoAlt: vi.fn(),
 }));
 
 vi.mock("@/api", () => ({
@@ -47,7 +46,6 @@ beforeEach(() => {
       total: 1,
     },
   });
-  apiMocks.fixSeoAlt.mockReset().mockResolvedValue({ success: true, data: { fixed: 3 } });
 });
 
 afterEach(() => {
@@ -64,10 +62,9 @@ describe("SEO 检查操作反馈", () => {
     expect(screen.getByText("首页缺少描述")).toBeInTheDocument();
   });
 
-  it("在检查区保留修复数量，并显示请求失败", async () => {
+  it("保留 Alt 缺失检测但不提供写入入口，并显示请求失败", async () => {
     renderSeoChecker();
-    fireEvent.click(screen.getByRole("button", { name: "一键补全 Alt" }));
-    expect(await screen.findByRole("status")).toHaveTextContent("已补全 3 张图片的 Alt。");
+    expect(screen.queryByRole("button", { name: /补全 Alt/ })).not.toBeInTheDocument();
 
     apiMocks.checkSeo.mockRejectedValueOnce(new Error("network unavailable"));
     fireEvent.click(screen.getByRole("button", { name: "开始检查" }));

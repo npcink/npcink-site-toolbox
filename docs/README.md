@@ -1,0 +1,45 @@
+# 文档导航与职责边界
+
+本目录只保存仓库内部治理、发布证据、架构决策和开发过程资料。面向站长的功能教程、配置说明和 FAQ 统一放在 [`docs-site/`](../docs-site/)；插件安装包只携带 `readme.txt`，不携带本目录。
+
+## 当前有效入口
+
+| 主题 | 入口 | 用途 |
+|---|---|---|
+| 发布与 WordPress.org | [`operations/`](operations/) | 精确 ZIP、WP_DEBUG、Plugin Check、目录审核和外部服务披露 |
+| 开发与质量 | [`development/`](development/) | 工作区布局、测试、构建、国际化和维护约定 |
+| 产品与边界 | [`product/`](product/) | 产品能力、隐私、外部服务和本地/云边界 |
+| 架构决策 | [`decisions/`](decisions/) | ADR；记录不可逆或跨模块的设计取舍 |
+| 历史证据 | [`archive/`](archive/) | 已结束版本、阶段总结和不再作为当前规范的记录 |
+
+开发经验和长期执行原则见 [`development/project-development-principles.md`](development/project-development-principles.md)；它是历史阶段总结的归纳入口，具体发布命令仍以 `operations/` 文档为准。
+
+当前长期规范仍保留在根目录 `AGENTS.md` 和现有带日期的治理文档中；迁移旧文档时必须先更新本索引和对应交叉链接，不能只移动文件名。
+
+## 文档判定规则
+
+- 用户需要知道“怎么使用”时，写入 `docs-site/`。
+- 维护者需要知道“为什么这样设计、如何验收”时，写入 `docs/`。
+- 具体版本、旧 ZIP、旧扫描结果只进入 `docs/archive/` 或发布证据目录，不覆盖当前规范。
+- 同一规则只保留一个事实源；其他文档只链接，不复制整段流程。
+- 文件进入 `docs/` 前，必须注明状态：`当前有效`、`阶段性` 或 `历史证据`。
+
+## 迁移纪律
+
+文档整理不应与运行时代码重构混在同一个提交中。移动或合并文档时至少运行：
+
+```bash
+composer links:check
+git diff --check
+```
+
+若文档包含发布路径、源码 tag、ZIP 哈希或命令，必须重新核对对应精确制品，不能只修相对链接。
+
+## 已完成迁移
+
+| 原位置 | 当前路径 | 说明 |
+|---|---|---|
+| `docs/v2.4-stability-plan.md`、`docs/v2.4-implementation-report.md` | [`archive/2026-05/`](archive/2026-05/) | 2026-05 稳定性整改的历史计划与实施证据 |
+| `docs/v2.5-implementation-report.md`、`docs/v2.5-release-wrapup.md` | [`archive/2026-05/`](archive/2026-05/) | 2026-05 诊断闭环与发布收口的历史记录 |
+
+后续归档按小批次进行；当前规范、发布门禁和未完成事项不随历史文件移动。

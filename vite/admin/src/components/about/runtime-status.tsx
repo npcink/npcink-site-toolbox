@@ -1,17 +1,10 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 
 import { diagnosticsApi } from "@/api";
-import type {
-  RuntimeFeatureModule,
-  RuntimeFeatureStatus,
-} from "@/tool/interface";
+import type { RuntimeFeatureModule, RuntimeFeatureStatus } from "@/tool/interface";
 import { createAdminTargetUrl } from "@/tool/navigation";
-import {
-  buildSupportReport,
-  diagnosticLabels,
-  scopeLabels,
-  tierLabels,
-} from "./runtime-status-report";
+import { diagnosticLabels, scopeLabels, tierLabels } from "./runtime-status-report";
+import { __, sprintf } from "@/tool/i18n";
 
 import "./runtime-status.css";
 
@@ -22,33 +15,6 @@ type LoadState =
 
 interface RuntimeStatusProps {
   onNavigate?: (view: string, itemId?: string) => void;
-}
-
-async function copyText(text: string): Promise<boolean> {
-  if (navigator.clipboard?.writeText) {
-    try {
-      await navigator.clipboard.writeText(text);
-      return true;
-    } catch {
-      // Local HTTP sites may expose the Clipboard API but reject the write.
-    }
-  }
-
-  const textarea = document.createElement("textarea");
-  textarea.value = text;
-  textarea.setAttribute("readonly", "");
-  textarea.style.position = "fixed";
-  textarea.style.opacity = "0";
-  document.body.appendChild(textarea);
-  textarea.select();
-
-  try {
-    return document.execCommand("copy");
-  } catch {
-    return false;
-  } finally {
-    textarea.remove();
-  }
 }
 
 function isRuntimeFeatureStatus(value: unknown): value is RuntimeFeatureStatus {
@@ -82,11 +48,9 @@ function isRuntimeFeatureStatus(value: unknown): value is RuntimeFeatureStatus {
 
 const RuntimeStatus = ({ onNavigate }: RuntimeStatusProps) => {
   const [state, setState] = useState<LoadState>({ status: "loading", data: null });
-  const [copyState, setCopyState] = useState<"idle" | "success" | "error">("idle");
 
   const load = useCallback(async () => {
     setState({ status: "loading", data: null });
-    setCopyState("idle");
     try {
       const response = await diagnosticsApi.getFeatureStatus();
       if (!response?.success || !isRuntimeFeatureStatus(response.data)) {
@@ -114,20 +78,11 @@ const RuntimeStatus = ({ onNavigate }: RuntimeStatusProps) => {
     return Array.from(groups.entries());
   }, [state]);
 
-  const copyReport = async () => {
-    if (state.status !== "success") {
-      setCopyState("error");
-      return;
-    }
-    const copied = await copyText(buildSupportReport(state.data));
-    setCopyState(copied ? "success" : "error");
-  };
-
   if (state.status === "loading") {
     return (
       <div className="mabox-runtime-state" role="status">
         <span className="mabox-view-state-spinner" aria-hidden="true" />
-        <div><strong>正在读取运行状态</strong><span>只读取模块和环境事实，不会修改设置。</span></div>
+        <div><strong>{__("正在读取运行状态")}</strong><span>{__("只读取模块和环境事实，不会修改设置。")}</span></div>
       </div>
     );
   }
@@ -135,8 +90,8 @@ const RuntimeStatus = ({ onNavigate }: RuntimeStatusProps) => {
   if (state.status === "error") {
     return (
       <div className="mabox-runtime-state mabox-runtime-state--error" role="alert">
-        <div><strong>运行状态暂时不可用</strong><span>读取失败，没有生成不完整的诊断信息。</span></div>
-        <button type="button" className="button" onClick={() => void load()}>重新获取</button>
+        <div><strong>{__("运行状态暂时不可用")}</strong><span>{__("读取失败，没有生成不完整的诊断信息。")}</span></div>
+        <button type="button" className="button" onClick={() => void load()}>{__("重新获取")}</button>
       </div>
     );
   }
@@ -147,46 +102,33 @@ const RuntimeStatus = ({ onNavigate }: RuntimeStatusProps) => {
     <div className="mabox-runtime-status">
       <header className="mabox-runtime-status__header">
         <div>
-          <h2>功能与运行状态</h2>
-          <p>核对当前实际加载的模块、编辑器工具和基础运行环境。此页面只读，不执行外部检测。</p>
+          <h2>{__("功能与运行状态")}</h2>
+          <p>{__("核对当前实际加载的模块、编辑器工具和基础运行环境；本页面只读，不会发送外部请求。")}</p>
         </div>
-        <div className="mabox-runtime-status__actions">
-          <button type="button" className="button" onClick={() => void load()}>刷新</button>
-          <button type="button" className="button button-primary" onClick={() => void copyReport()}>
-            复制诊断信息
-          </button>
-        </div>
+        <button type="button" className="button" onClick={() => void load()}>{__("刷新")}</button>
       </header>
 
-      {copyState !== "idle" && (
-        <p className={`mabox-runtime-status__copy mabox-runtime-status__copy--${copyState}`} role="status">
-          {copyState === "success"
-            ? "已复制脱敏诊断信息，可直接粘贴到问题反馈中。"
-            : "浏览器未允许复制，请刷新页面后重试。"}
-        </p>
-      )}
-
-      <dl className="mabox-runtime-status__summary" aria-label="运行状态摘要">
-        <div><dt>插件版本</dt><dd>{data.plugin.version || "未知"}</dd></div>
-        <div><dt>运行模块</dt><dd>{data.counts.active} / {data.counts.registered}</dd></div>
-        <div><dt>无需开关</dt><dd>{data.counts.always_loaded}</dd></div>
-        <div><dt>编辑器工具</dt><dd>{data.counts.editor_tools}</dd></div>
+      <dl className="mabox-runtime-status__summary" aria-label={__("运行状态摘要")}>
+        <div><dt>{__("插件版本")}</dt><dd>{data.plugin.version || __("未知")}</dd></div>
+        <div><dt>{__("运行模块")}</dt><dd>{data.counts.active} / {data.counts.registered}</dd></div>
+        <div><dt>{__("无需开关")}</dt><dd>{data.counts.always_loaded}</dd></div>
+        <div><dt>{__("编辑器工具")}</dt><dd>{data.counts.editor_tools}</dd></div>
       </dl>
 
       <section className="mabox-runtime-status__section" aria-labelledby="runtime-environment-heading">
         <div className="mabox-runtime-status__section-heading">
           <div>
-            <h3 id="runtime-environment-heading">运行环境</h3>
-            <p>仅显示影响插件运行的版本事实，不使用综合评分。</p>
+            <h3 id="runtime-environment-heading">{__("运行环境")}</h3>
+            <p>{__("仅显示影响插件运行的版本事实，不使用综合评分。")}</p>
           </div>
           <span className={`mabox-runtime-status__badge mabox-runtime-status__badge--${data.diagnostics.status}`}>
-            {diagnosticLabels[data.diagnostics.status]}
+            {__(diagnosticLabels[data.diagnostics.status])}
           </span>
         </div>
         <dl className="mabox-runtime-status__facts">
           <div><dt>WordPress</dt><dd>{data.environment.wordpress_version}</dd></div>
           <div><dt>PHP</dt><dd>{data.environment.php_version}</dd></div>
-          <div><dt>生成时间</dt><dd>{data.generated_at}</dd></div>
+          <div><dt>{__("生成时间")}</dt><dd>{data.generated_at}</dd></div>
         </dl>
         <ul className="mabox-runtime-status__checks">
           {data.diagnostics.items.map((item) => (
@@ -201,14 +143,14 @@ const RuntimeStatus = ({ onNavigate }: RuntimeStatusProps) => {
       <section className="mabox-runtime-status__section" aria-labelledby="runtime-modules-heading">
         <div className="mabox-runtime-status__section-heading">
           <div>
-            <h3 id="runtime-modules-heading">当前运行模块</h3>
-            <p>仅列出本次实际加载的功能；作用范围可帮助判断问题出现在哪一侧。</p>
+            <h3 id="runtime-modules-heading">{__("当前运行模块")}</h3>
+            <p>{__("仅列出本次实际加载的功能；作用范围可帮助判断问题出现在哪一侧。")}</p>
           </div>
         </div>
         <div className="mabox-runtime-status__groups">
           {groupedModules.map(([category, modules]) => (
-            <section key={category} className="mabox-runtime-status__group" aria-label={category}>
-              <h4>{category}<span>{modules.length}</span></h4>
+              <section key={category} className="mabox-runtime-status__group" aria-label={__(category)}>
+              <h4>{__(category)}<span>{modules.length}</span></h4>
               <ul>
                 {modules.map((module) => (
                   <li key={module.id}>
@@ -218,26 +160,26 @@ const RuntimeStatus = ({ onNavigate }: RuntimeStatusProps) => {
                     <div className="mabox-runtime-status__module-meta">
                       {module.always_loaded && (
                         <span className="mabox-runtime-status__badge mabox-runtime-status__badge--active">
-                          无需开关
+                          {__("无需开关")}
                         </span>
                       )}
-                      <span>{scopeLabels[module.scope]}</span>
+                      <span>{__(scopeLabels[module.scope])}</span>
                       {module.tier !== "core" && (
                         <span className={`mabox-runtime-status__tier mabox-runtime-status__tier--${module.tier}`}>
-                          {tierLabels[module.tier]}
+                          {__(tierLabels[module.tier])}
                         </span>
                       )}
                       {module.view && module.target_id && (
                         <a
                           href={createAdminTargetUrl(window.location.href, module.view, module.target_id)}
-                          aria-label={`前往${module.label}设置`}
+                          aria-label={sprintf(__("前往%s设置"), module.label)}
                           onClick={(event) => {
                             if (!onNavigate) return;
                             event.preventDefault();
                             onNavigate(module.view, module.target_id);
                           }}
                         >
-                          前往设置
+                          {__("前往设置")}
                         </a>
                       )}
                     </div>
@@ -252,15 +194,15 @@ const RuntimeStatus = ({ onNavigate }: RuntimeStatusProps) => {
       <section className="mabox-runtime-status__section" aria-labelledby="runtime-editor-heading">
         <div className="mabox-runtime-status__section-heading">
           <div>
-            <h3 id="runtime-editor-heading">始终可用的编辑器工具</h3>
-            <p>这些工具不受设置开关控制，在文章或页面编辑器的 Npcink Site Toolbox 分类中使用。</p>
+            <h3 id="runtime-editor-heading">{__("始终可用的编辑器工具")}</h3>
+            <p>{__("这些工具不受设置开关控制，在文章或页面编辑器的 Npcink Site Toolbox 分类中使用。")}</p>
           </div>
         </div>
         <ul className="mabox-runtime-status__tool-list">
           {data.editor_tools.map((tool) => (
             <li key={tool.id}>
               <div><strong>{tool.title}</strong><span>{tool.description}</span></div>
-              <span>{tool.type === "pattern" ? "区块样板" : "动态区块"}</span>
+              <span>{tool.type === "pattern" ? __("区块样板") : __("动态区块")}</span>
             </li>
           ))}
         </ul>

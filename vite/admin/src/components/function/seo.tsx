@@ -6,6 +6,7 @@ import { FunctionSeo } from "@/tool/interface";
 import { defaultVarOption } from "@/tool/defaultVar";
 import { AntConfig } from "@/tool/tool";
 import { SettingsSection, ModuleRow } from "@/components/settings-ui";
+import { __ } from "@/tool/i18n";
 
 type FieldType = FunctionSeo;
 
@@ -32,7 +33,7 @@ const App: React.FC = () => {
   }, [formData]);
 
   return (
-    <SettingsSection title="简单SEO" description="仅解决有无问题，推荐使用专业 SEO 插件">
+    <SettingsSection title={__("简单SEO")} description={__("仅解决有无问题，推荐使用专业 SEO 插件")}>
       <Form
         name="seo"
         labelCol={fromConfig.labelCol}
@@ -43,26 +44,26 @@ const App: React.FC = () => {
         onFinish={() => {}}
         onValuesChange={onValuesChange}
       >
-        <Form.Item<FieldType> label="标题" name="title" extra={"站点标题"}>
+        <Form.Item<FieldType> label={__("标题")} name="title" extra={__("站点标题")}>
           <Input />
         </Form.Item>
         <Form.Item<FieldType>
-          label="关键词"
+          label={__("关键词")}
           name="keywords"
-          extra={"网站相关关键词，用英文逗号分隔，建议不超过6个词"}
+          extra={__("网站相关关键词，用英文逗号分隔，建议不超过6个词")}
         >
           <Input />
         </Form.Item>
         <Form.Item<FieldType>
-          label="描述"
+          label={__("描述")}
           name="description"
-          extra={"关于网站的描述，建议240字以内"}
+          extra={__("关于网站的描述，建议240字以内")}
         >
           <TextArea rows={4} />
         </Form.Item>
         <ModuleRow
-          title="文章SEO"
-          description="title是文章标题，keywords是文章标签，description是文章描述或文章首段前40字"
+          title={__("文章SEO")}
+          description={__("title是文章标题，keywords是文章标签，description是文章描述或文章首段前40字")}
           featureId="function-seo-seo_single"
           enabled={formData.seo_single as boolean}
           onChange={(checked: boolean) => {
@@ -70,8 +71,8 @@ const App: React.FC = () => {
           }}
         />
         <ModuleRow
-          title="分类和标签SEO"
-          description="T 是分类名称，K 是分类关键词，D 是分类描述，标签只做了D，是标签描述"
+          title={__("分类和标签SEO")}
+          description={__("T 是分类名称，K 是分类关键词，D 是分类描述，标签只做了D，是标签描述")}
           featureId="function-seo-seo_category"
           enabled={formData.seo_category as boolean}
           onChange={(checked: boolean) => {

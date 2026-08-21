@@ -16,6 +16,7 @@ import type { InputProps, InputRef, RadioChangeEvent } from "antd";
 import axios from "axios";
 
 import { ApiBase, RestNonce } from "@/tool/dataContext";
+import { __, sprintf } from "@/tool/i18n";
 import "./selectImage.css";
 
 interface MediaImage {
@@ -70,7 +71,7 @@ const buildMediaEndpoint = (apiBase: string, page: number): string => {
     return `/api/wp-json/wp/v2/media?per_page=${MEDIA_PAGE_SIZE}&page=${page}`;
   }
 
-  // dataLocal.apiBase points at this plugin's `{namespace}/vN` route. Remove
+  // npcinkSiteToolboxData.apiBase points at this plugin's `{namespace}/vN` route. Remove
   // that contract generically so product renames do not leak into core media
   // endpoint construction.
   const restRoot = normalizedBase.replace(/\/[^/]+\/v\d+$/, "");
@@ -97,7 +98,7 @@ const mediaAlt = (item: MediaImage): string => {
   const title = item.title?.rendered?.replace(/<[^>]*>/g, "").trim();
   if (title) return title;
 
-  return item.slug?.trim() || "媒体库图片";
+  return item.slug?.trim() || __("媒体库图片");
 };
 
 const mediaThumbnail = (item: MediaImage): string =>
@@ -127,7 +128,7 @@ const SelectImage = forwardRef<InputRef, SelectImageProps>(
     const [isLoadingMore, setIsLoadingMore] = useState(false);
     const [loadMoreFailed, setLoadMoreFailed] = useState(false);
     const [fieldLabel, setFieldLabel] = useState(
-      typeof ariaLabel === "string" ? ariaLabel : "当前字段",
+      typeof ariaLabel === "string" ? ariaLabel : __("当前字段"),
     );
     const requestId = useRef(0);
 
@@ -251,31 +252,31 @@ const SelectImage = forwardRef<InputRef, SelectImageProps>(
               <FileImageOutlined />
             </span>
             <span className="mabox-image-field-meta">
-              <strong>{value ? "已选择图片" : "尚未选择图片"}</strong>
+              <strong>{value ? __("已选择图片") : __("尚未选择图片")}</strong>
               <span className="mabox-image-field-value" title={value || undefined}>
-                {value || "可从媒体库选择，也可以在下方粘贴图片 URL。"}
+                {value || __("可从媒体库选择，也可以在下方粘贴图片 URL。")}
               </span>
             </span>
             <span className="mabox-image-field-actions">
               <Button
                 htmlType="button"
-                aria-label={`为${fieldLabel}选择图片`}
+                aria-label={sprintf(__("为%s选择图片"), fieldLabel)}
                 aria-describedby={ariaDescribedBy}
                 disabled={disabled || readOnly}
                 onClick={showModal}
               >
-                从媒体库选择
+                {__("从媒体库选择")}
               </Button>
               {value && (
                 <Button
                   type="text"
                   htmlType="button"
-                  aria-label={`清除${fieldLabel}`}
+                  aria-label={sprintf(__("清除%s"), fieldLabel)}
                   aria-describedby={ariaDescribedBy}
                   disabled={disabled || readOnly}
                   onClick={() => onChange?.("")}
                 >
-                  清除
+                  {__("清除")}
                 </Button>
               )}
             </span>
@@ -288,7 +289,7 @@ const SelectImage = forwardRef<InputRef, SelectImageProps>(
             aria-describedby={ariaDescribedBy}
             disabled={disabled}
             readOnly={readOnly}
-            placeholder={placeholder === "图片地址" ? "或粘贴图片 URL" : placeholder}
+            placeholder={placeholder === "图片地址" ? __("或粘贴图片 URL") : placeholder}
             prefix={<FileImageOutlined aria-hidden="true" />}
             value={value}
             onChange={(event) => onChange?.(event.target.value)}
@@ -298,44 +299,44 @@ const SelectImage = forwardRef<InputRef, SelectImageProps>(
         <Modal
           rootClassName="mabox-admin-modal"
           className="mabox-media-picker-modal"
-          title={`选择${fieldLabel}`}
+          title={sprintf(__("选择%s"), fieldLabel)}
           open={isModalOpen}
           width={760}
-          okText="使用所选图片"
-          cancelText="取消"
+          okText={__("使用所选图片")}
+          cancelText={__("取消")}
           okButtonProps={{
-            "aria-label": "使用所选图片",
+            "aria-label": __("使用所选图片"),
             disabled: !draftValue,
           }}
-          cancelButtonProps={{ "aria-label": "取消" }}
+          cancelButtonProps={{ "aria-label": __("取消") }}
           onOk={handleOk}
           onCancel={handleCancel}
         >
           <div aria-busy={loadState === "loading" || isLoadingMore}>
             {loadState === "loading" && (
               <div role="status" aria-live="polite">
-                正在加载媒体库…
+                {__("正在加载媒体库…")}
               </div>
             )}
 
             {loadState === "error" && (
               <div role="alert">
-                <p>媒体库加载失败，请检查 REST API 权限或网络后重试。</p>
+                <p>{__("媒体库加载失败，请检查 REST API 权限或网络后重试。")}</p>
                 <Button htmlType="button" onClick={() => void getMediaData()}>
-                  重试加载媒体库
+                  {__("重试加载媒体库")}
                 </Button>
               </div>
             )}
 
             {loadState === "ready" && mediaImages.length === 0 && (
-              <div role="status">媒体库中暂无可选图片。</div>
+              <div role="status">{__("媒体库中暂无可选图片。")}</div>
             )}
 
             {loadState === "ready" && mediaImages.length > 0 && (
               <>
                 <div
                   role="radiogroup"
-                  aria-label="媒体库图片"
+                  aria-label={__("媒体库图片")}
                   className="mabox-media-picker-grid"
                 >
                   <Radio.Group
@@ -374,12 +375,12 @@ const SelectImage = forwardRef<InputRef, SelectImageProps>(
                 <div className="mabox-media-picker-pagination" aria-live="polite">
                   {loadMoreFailed ? (
                     <div className="mabox-media-picker-more-error" role="alert">
-                      <span>更多图片加载失败，已加载的图片仍可继续选择。</span>
+                      <span>{__("更多图片加载失败，已加载的图片仍可继续选择。")}</span>
                       <Button
                         htmlType="button"
                         onClick={() => void getMediaData(currentPage + 1)}
                       >
-                        重试加载更多图片
+                        {__("重试加载更多图片")}
                       </Button>
                     </div>
                   ) : currentPage < totalPages ? (
@@ -389,10 +390,10 @@ const SelectImage = forwardRef<InputRef, SelectImageProps>(
                       disabled={isLoadingMore}
                       onClick={() => void getMediaData(currentPage + 1)}
                     >
-                      加载更多图片
+                      {__("加载更多图片")}
                     </Button>
                   ) : (
-                    <span role="status">已加载全部图片</span>
+                    <span role="status">{__("已加载全部图片")}</span>
                   )}
                 </div>
               </>

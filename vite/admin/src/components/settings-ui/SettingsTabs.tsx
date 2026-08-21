@@ -1,6 +1,7 @@
 import { Suspense, useEffect, useState, type KeyboardEvent, type ReactNode } from "react";
 
 import { getSettingsTabFromSearch, writeSettingsTabToHistory } from "@/tool/navigation";
+import { __ } from "@/tool/i18n";
 
 export interface SettingsTab {
   key: string;
@@ -20,8 +21,8 @@ const TabPanelFallback = (
   <div className="mabox-view-state mabox-view-state--loading" role="status" aria-live="polite">
     <span className="mabox-view-state-spinner" aria-hidden="true" />
     <span className="mabox-view-state-copy">
-      <strong>正在加载当前分组</strong>
-      <span>首次打开时正在准备相关设置。</span>
+      <strong>{__("正在加载当前分组")}</strong>
+      <span>{__("首次打开时正在准备相关设置。")}</span>
     </span>
   </div>
 );

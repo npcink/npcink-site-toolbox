@@ -1,5 +1,6 @@
 import React from "react";
 import { Alert } from "antd";
+import { __ } from "@/tool/i18n";
 
 interface RiskNoticeProps {
   title?: string;
@@ -19,12 +20,12 @@ const RiskNotice: React.FC<RiskNoticeProps> = ({
       type="warning"
       showIcon
       className={className}
-      message={title || "风险提示"}
+      message={title || __("风险提示")}
       description={
         <div>
           <p style={{ marginBottom: suggestion ? 4 : 0 }}>{warning}</p>
           {suggestion && (
-            <p style={{ color: "#666" }}>建议：{suggestion}</p>
+            <p style={{ color: "#666" }}>{__("建议：")} {suggestion}</p>
           )}
         </div>
       }

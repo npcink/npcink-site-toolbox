@@ -1,5 +1,6 @@
 import { settingsApi } from "@/api/index";
 import { UiSchemaMap } from "@/tool/interface";
+import { __ } from "@/tool/i18n";
 import settingsContract from "@/generated/settings-contract.json";
 
 function isRiskLevel(level: string): level is "none" | "low" | "high" {
@@ -18,12 +19,33 @@ const generatedSchema: UiSchemaMap = Object.fromEntries(
 let cachedServerSchema: UiSchemaMap | null = null;
 let fetchPromise: Promise<UiSchemaMap | null> | null = null;
 
-function mergeWithGeneratedSchema(serverSchema: UiSchemaMap | null): UiSchemaMap {
-  if (!serverSchema) return generatedSchema;
+function localizeEntry(entry: UiSchemaMap[string]): UiSchemaMap[string] {
+  return {
+    ...entry,
+    label: entry.label ? __(entry.label) : entry.label,
+    group: entry.group ? __(entry.group) : entry.group,
+    risk_tags: entry.risk_tags?.map((tag) => __(tag)),
+    risk: entry.risk
+      ? {
+          ...entry.risk,
+          title: entry.risk.title ? __(entry.risk.title) : entry.risk.title,
+          warning: entry.risk.warning ? __(entry.risk.warning) : entry.risk.warning,
+          suggestion: entry.risk.suggestion ? __(entry.risk.suggestion) : entry.risk.suggestion,
+        }
+      : entry.risk,
+  };
+}
 
-  const merged: UiSchemaMap = { ...generatedSchema };
+function localizeSchema(schema: UiSchemaMap): UiSchemaMap {
+  return Object.fromEntries(Object.entries(schema).map(([id, entry]) => [id, localizeEntry(entry)]));
+}
+
+function mergeWithGeneratedSchema(serverSchema: UiSchemaMap | null): UiSchemaMap {
+  if (!serverSchema) return localizeSchema(generatedSchema);
+
+  const merged: UiSchemaMap = localizeSchema(generatedSchema);
   for (const [id, entry] of Object.entries(serverSchema)) {
-    merged[id] = { ...generatedSchema[id], ...entry };
+    merged[id] = localizeEntry({ ...generatedSchema[id], ...entry });
   }
   return merged;
 }

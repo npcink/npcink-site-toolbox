@@ -10,6 +10,7 @@ import { AntConfig } from "@/tool/tool";
 import { CategoryData, getCategoryData } from "@/axios/axios";
 import TextAreaHtml from "@/basic/htmlInput";
 import { SettingsSection } from "@/components/settings-ui";
+import { __ } from "@/tool/i18n";
 
 type FieldType = PageJurisdiction;
 
@@ -48,7 +49,7 @@ const App: React.FC = () => {
   }, []);
 
   return (
-    <SettingsSection title="权限">
+    <SettingsSection title={__("权限")}>
       <Form
         name="jurisdiction"
         labelCol={fromConfig.labelCol}
@@ -59,51 +60,51 @@ const App: React.FC = () => {
         onFinish={() => {}}
         onValuesChange={onValuesChange}
       >
-        <h3 className="mabox-menu-header">未登录权限</h3>
+        <h3 className="mabox-menu-header">{__("未登录权限")}</h3>
 
         <Form.Item<FieldType>
-          label="隐藏指定分类下的内容"
+          label={__("隐藏指定分类下的内容")}
           name="category_id"
-          extra={"该分类下的内容未登录时，不可见，仅展示提示内容"}
+          extra={__("该分类下的内容未登录时，不可见，仅展示提示内容")}
         >
           <Select
             mode="multiple"
             allowClear
             style={{ width: "100%" }}
-            placeholder="请选择要隐藏的分类"
+            placeholder={__("请选择要隐藏的分类")}
             options={tagArray?.categorys}
           />
         </Form.Item>
         <Form.Item<FieldType>
-          label="隐藏指定标签下的内容"
+          label={__("隐藏指定标签下的内容")}
           name="tag_id"
-          extra={"该标签下的内容未登录时，不可见，仅展示提示内容"}
+          extra={__("该标签下的内容未登录时，不可见，仅展示提示内容")}
         >
           <Select
             mode="multiple"
             allowClear
             style={{ width: "100%" }}
-            placeholder="请选择要隐藏的标签"
+            placeholder={__("请选择要隐藏的标签")}
             options={tagArray?.tags}
           />
         </Form.Item>
         <Form.Item<FieldType>
-          label="隐藏指定页面"
+          label={__("隐藏指定页面")}
           name="page_id"
-          extra={"该页面下的内容未登录时，不可见，仅展示提示内容"}
+          extra={__("该页面下的内容未登录时，不可见，仅展示提示内容")}
         >
           <Select
             mode="multiple"
             allowClear
             style={{ width: "100%" }}
-            placeholder="请选择要隐藏的页面"
+            placeholder={__("请选择要隐藏的页面")}
             options={tagArray?.pages}
           />
         </Form.Item>
         <Form.Item<FieldType>
-          label="隐藏时的提示内容"
+          label={__("隐藏时的提示内容")}
           name="tip_content"
-          extra={"内容被隐藏时的提示内容，支持HTML"}
+          extra={__("内容被隐藏时的提示内容，支持HTML")}
         >
           <TextAreaHtml />
         </Form.Item>

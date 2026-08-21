@@ -5,6 +5,7 @@ import { diffConfig, diffSecretChanges } from "@/tool/diff";
 import { loadDiffModal } from "@/tool/diffModalLoader";
 import { ConfigDiffItem } from "@/tool/interface";
 import { notice } from "@/tool/notice";
+import { __, sprintf } from "@/tool/i18n";
 
 type DiffModalComponent = Awaited<ReturnType<typeof loadDiffModal>>["default"];
 
@@ -22,6 +23,7 @@ const App: React.FC = () => {
     secretChanges,
     clearSecretChanges,
     settingsState,
+    settingsRevision,
   } = useContext(DataContext);
   const [saving, setSaving] = useState(false);
   const [preparingConfirmation, setPreparingConfirmation] = useState(false);
@@ -44,22 +46,22 @@ const App: React.FC = () => {
     setSaving(true);
     let saved = false;
     try {
-      const response = await saveOption(optionData, secretChanges);
+      const response = await saveOption(optionData, secretChanges, settingsRevision || "");
       saved = true;
       clearSecretChanges();
       await refreshOption();
       setSaveFeedback(null);
-      notice.success(response.message || "保存成功");
+      notice.success(response.message || __("保存成功"));
     } catch (error) {
       if (saved) {
         setSaveFeedback({
           kind: "warning",
-          message: "设置已保存，但重新读取失败；保存功能已禁用，请重新读取后继续",
+          message: __("设置已保存，但重新读取失败；保存功能已禁用，请重新读取后继续"),
         });
       } else {
         setSaveFeedback({
           kind: "error",
-          message: error instanceof Error && error.message ? error.message : "保存失败，请重试",
+          message: error instanceof Error && error.message ? error.message : __("保存失败，请重试"),
         });
       }
     } finally {
@@ -85,7 +87,7 @@ const App: React.FC = () => {
     } catch {
       setSaveFeedback({
         kind: "error",
-        message: "保存确认界面加载失败，请重试",
+        message: __("保存确认界面加载失败，请重试"),
       });
     } finally {
       setPreparingConfirmation(false);
@@ -100,27 +102,27 @@ const App: React.FC = () => {
     });
   };
 
-  let statusText = "已保存";
-  let buttonText = "保存";
+  let statusText = __("已保存");
+  let buttonText = __("保存");
   let statusKind = "saved";
 
   if (saving) {
-    statusText = "正在保存…";
-    buttonText = "正在保存…";
+    statusText = __("正在保存…");
+    buttonText = __("正在保存…");
     statusKind = "saving";
   } else if (preparingConfirmation) {
-    statusText = "正在准备确认…";
-    buttonText = "正在准备…";
+    statusText = __("正在准备确认…");
+    buttonText = __("正在准备…");
     statusKind = "loading";
   } else if (settingsState === "loading") {
-    statusText = "正在读取设置…";
+    statusText = __("正在读取设置…");
     statusKind = "loading";
   } else if (settingsState === "error") {
-    statusText = "设置不可用";
+    statusText = __("设置不可用");
     statusKind = "error";
   } else if (changeCount > 0) {
-    statusText = `${changeCount} 项待保存`;
-    buttonText = "查看并保存";
+    statusText = sprintf(__("%d 项待保存"), changeCount);
+    buttonText = __("查看并保存");
     statusKind = "pending";
   }
 

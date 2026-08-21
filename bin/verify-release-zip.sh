@@ -28,8 +28,10 @@ hash_file() {
 require_command unzip
 require_command zipinfo
 require_command awk
+require_command grep
 require_command sed
 require_command sort
+require_command tr
 require_command uniq
 
 zip_path="$1"
@@ -63,8 +65,14 @@ fi
 duplicate_entry="$(LC_ALL=C sort "$entries_file" | uniq -d | sed -n '1p')"
 [ -z "$duplicate_entry" ] || fail "ZIP contains duplicate entry: $duplicate_entry"
 
+case_folded_duplicate="$(LC_ALL=C tr '[:upper:]' '[:lower:]' < "$entries_file" | LC_ALL=C sort | LC_ALL=C uniq -d | LC_ALL=C sed -n '1p')"
+[ -z "$case_folded_duplicate" ] || fail "ZIP contains paths that differ only by letter case: $case_folded_duplicate"
+
 while IFS= read -r entry || [ -n "$entry" ]; do
   [ -n "$entry" ] || fail 'ZIP contains an empty entry name'
+  if printf '%s' "$entry" | LC_ALL=C grep -q '[^ -~]'; then
+    fail "ZIP contains a non-ASCII path: $entry"
+  fi
   case "$entry" in
     /*|*\\*|*//*|*:*) fail "unsafe archive path: $entry" ;;
   esac
@@ -140,6 +148,11 @@ required_files=(
   "admin/class-npcink-toolbox-admin.php"
   "admin/partials/optimize/site/category_link_simplify.php"
   "public/class-npcink-toolbox-public.php"
+  "languages/npcink-site-toolbox.pot"
+  "languages/npcink-site-toolbox-en_US.po"
+  "languages/npcink-site-toolbox-en_US.mo"
+  "languages/npcink-site-toolbox-en_US-be96897d1813598cc6ffe96654a4f062.json"
+  "languages/npcink-site-toolbox-en_US-d4372d764458b4d5899ad1740400c0a9.json"
   "blocks/github-project/block.json"
   "blocks/github-project/index.js"
   "blocks/github-project/index.asset.php"
@@ -155,6 +168,17 @@ required_files=(
 )
 for required_file in "${required_files[@]}"; do
   [ -f "$package_root/$required_file" ] || fail "missing required release file: $required_file"
+done
+
+readme_path="$package_root/readme.txt"
+for source_contract in \
+  '== Source Code and Build ==' \
+  'https://github.com/npcink/npcink-site-toolbox' \
+  'pnpm install --frozen-lockfile' \
+  'pnpm run build'
+do
+  grep -Fq -- "$source_contract" "$readme_path" \
+    || fail "readme is missing public source/build contract: $source_contract"
 done
 
 header_versions="$(sed -nE 's/^[[:space:]]*\*[[:space:]]*Version:[[:space:]]*([^[:space:]]+).*/\1/p' "$package_root/npcink-site-toolbox.php")"
@@ -174,6 +198,18 @@ stable_version="$(printf '%s\n' "$stable_versions" | sed -n '1p')"
 if [ "$header_version" != "$constant_version" ] || [ "$header_version" != "$stable_version" ]; then
   fail "version mismatch: header=$header_version constant=$constant_version stable=$stable_version"
 fi
+
+release_tag="v$stable_version"
+for tagged_source_contract in \
+  "https://github.com/npcink/npcink-site-toolbox/tree/$release_tag" \
+  "https://github.com/npcink/npcink-site-toolbox/tree/$release_tag/vite/admin/src" \
+  "https://github.com/npcink/npcink-site-toolbox/tree/$release_tag/vite/count/src" \
+  "https://github.com/npcink/npcink-site-toolbox/blob/$release_tag/vite/package.json" \
+  "git checkout $release_tag"
+do
+  grep -Fq -- "$tagged_source_contract" "$readme_path" \
+    || fail "readme is missing version-matched source/build contract: $tagged_source_contract"
+done
 
 release_sha256="$(hash_file "$zip_path")"
 sidecar_path="$zip_path.sha256"

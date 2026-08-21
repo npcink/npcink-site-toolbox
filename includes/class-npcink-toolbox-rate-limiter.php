@@ -115,7 +115,7 @@ if (!class_exists('Npcink_Toolbox_Rate_Limiter')) {
                 if (!self::check($key, $config)) {
                     return new \WP_Error(
                         'rate_limit_exceeded',
-                        '请求过于频繁，请稍后再试',
+                        __('请求过于频繁，请稍后再试', 'npcink-site-toolbox'),
                         array('status' => 429)
                     );
                 }
@@ -141,7 +141,7 @@ if (!class_exists('Npcink_Toolbox_Rate_Limiter')) {
                 if (!self::check($key, $config)) {
                     return new \WP_Error(
                         'rate_limit_exceeded',
-                        '请求过于频繁，请稍后再试',
+                        __('请求过于频繁，请稍后再试', 'npcink-site-toolbox'),
                         array('status' => 429)
                     );
                 }
@@ -158,7 +158,7 @@ if (!class_exists('Npcink_Toolbox_Rate_Limiter')) {
                 if (empty($nonce) || wp_verify_nonce($nonce, $nonce_action) === false) {
                     return new \WP_Error(
                         'invalid_nonce',
-                        '安全验证失败，请刷新页面重试',
+                        __('安全验证失败，请刷新页面重试', 'npcink-site-toolbox'),
                         array('status' => 403)
                     );
                 }

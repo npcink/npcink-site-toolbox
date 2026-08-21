@@ -1,0 +1,72 @@
+services:
+  database:
+    image: mariadb:11.8
+    environment:
+      MARIADB_DATABASE: wordpress
+      MARIADB_USER: wordpress
+      MARIADB_PASSWORD: eval-db-password
+      MARIADB_ROOT_PASSWORD: eval-root-password
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+    volumes:
+      - database_data:/var/lib/mysql
+
+  wordpress:
+    image: wordpress:7.0.2-php8.2-apache
+    depends_on:
+      database:
+        condition: service_healthy
+    environment:
+      WORDPRESS_DB_HOST: database:3306
+      WORDPRESS_DB_NAME: wordpress
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: eval-db-password
+      WORDPRESS_DEBUG: "0"
+      DEEPSEEK_API_KEY: ${DEEPSEEK_API_KEY:-}
+      NPCINK_AI_EVAL_CASE: ${NPCINK_AI_EVAL_CASE:-baseline}
+      NPCINK_AI_EVAL_TOKEN: ${NPCINK_AI_EVAL_TOKEN:-npcink-ai-eval-local-only}
+      WORDPRESS_CONFIG_EXTRA: |
+        $$npcink_ai_eval_case = getenv( 'NPCINK_AI_EVAL_CASE' ) ?: 'baseline';
+        define( 'WP_MEMORY_LIMIT', 'low-memory' === $$npcink_ai_eval_case ? '40M' : '256M' );
+        define( 'WP_MAX_MEMORY_LIMIT', '256M' );
+        define( 'WP_DEBUG_DISPLAY', 'debug-display-mismatch' === $$npcink_ai_eval_case );
+        define( 'WP_ENVIRONMENT_TYPE', 'insufficient-evidence' === $$npcink_ai_eval_case ? 'production' : 'local' );
+    ports:
+      - "127.0.0.1:${NPCINK_AI_EVAL_PORT:-8897}:80"
+    volumes:
+      - wordpress_data:/var/www/html
+      - ../../:/var/www/html/wp-content/plugins/npcink-site-toolbox:ro
+      - "${AI_PROVIDER_FOR_DEEPSEEK_PATH}:/var/www/html/wp-content/plugins/ai-provider-for-deepseek:ro"
+      - ./mu-plugins/npcink-ai-eval-runner.inc:/var/www/html/wp-content/mu-plugins/npcink-ai-eval-runner.php:ro
+      - ./run-case.inc:/eval/run-case.php:ro
+    healthcheck:
+      test: ["CMD-SHELL", "curl --fail --silent http://localhost/wp-login.php >/dev/null"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+
+  cli:
+    image: wordpress:cli-php8.2
+    user: "33:33"
+    depends_on:
+      database:
+        condition: service_healthy
+    environment:
+      WORDPRESS_DB_HOST: database:3306
+      WORDPRESS_DB_NAME: wordpress
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: eval-db-password
+      DEEPSEEK_API_KEY: ${DEEPSEEK_API_KEY:-}
+      NPCINK_AI_EVAL_CASE: ${NPCINK_AI_EVAL_CASE:-baseline}
+    volumes:
+      - wordpress_data:/var/www/html
+      - ../../:/var/www/html/wp-content/plugins/npcink-site-toolbox:ro
+      - "${AI_PROVIDER_FOR_DEEPSEEK_PATH}:/var/www/html/wp-content/plugins/ai-provider-for-deepseek:ro"
+    working_dir: /var/www/html
+
+volumes:
+  database_data:
+  wordpress_data:

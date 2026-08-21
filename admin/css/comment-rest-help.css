@@ -1,0 +1,37 @@
+.npcink-comment-rest-help {
+    max-width: 960px;
+}
+
+.npcink-comment-rest-help__lead {
+    max-width: 760px;
+    color: #50575e;
+    font-size: 15px;
+}
+
+.npcink-comment-rest-help .card {
+    max-width: none;
+    margin-top: 20px;
+    padding: 8px 24px 20px;
+}
+
+.npcink-comment-rest-help pre {
+    overflow-x: auto;
+    padding: 16px;
+    border: 1px solid #dcdcde;
+    border-radius: 4px;
+    background: #f6f7f7;
+    color: #1d2327;
+    white-space: pre;
+}
+
+.npcink-comment-rest-help code {
+    font-size: 13px;
+}
+
+.npcink-comment-rest-help table {
+    margin-top: 12px;
+}
+
+.npcink-comment-rest-help .notice {
+    margin: 20px 0 0;
+}

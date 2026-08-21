@@ -9,22 +9,26 @@ if (!class_exists('Npcink_Toolbox_Performance_Seo_Checker')) {
         }
         public static function ajax_check() {
             if (!current_user_can('manage_options')) {
-                return new \WP_Error('rest_forbidden', '权限不足', array('status' => 403));
+                return new \WP_Error('rest_forbidden', __('权限不足', 'npcink-site-toolbox'), array('status' => 403));
             }
             $issues = array();
             $seo_home = Npcink_Toolbox_Config_Manager::get_module_config('function');
             if (isset($seo_home['seo']['title']) && empty($seo_home['seo']['title'])) {
-                $issues[] = array('type' => '首页标题', 'message' => '首页 SEO 标题为空');
+                $issues[] = array('type' => __('首页标题', 'npcink-site-toolbox'), 'message' => __('首页 SEO 标题为空', 'npcink-site-toolbox'));
             }
             if (isset($seo_home['seo']['description']) && empty($seo_home['seo']['description'])) {
-                $issues[] = array('type' => '首页描述', 'message' => '首页 SEO 描述为空');
+                $issues[] = array('type' => __('首页描述', 'npcink-site-toolbox'), 'message' => __('首页 SEO 描述为空', 'npcink-site-toolbox'));
             }
             global $wpdb;
 
             // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching -- Administrator-triggered live aggregate; cached diagnostic counts would be stale.
             $missing_seo = $wpdb->get_var($wpdb->prepare("SELECT COUNT(*) FROM {$wpdb->posts} WHERE post_status = %s AND post_type = %s AND (post_title = '' OR post_excerpt = '')", 'publish', 'post'));
             if ($missing_seo > 0) {
-                $issues[] = array('type' => '文章SEO', 'message' => $missing_seo . ' 篇文章缺少标题或摘要');
+                $issues[] = array(
+                    'type' => __('文章 SEO', 'npcink-site-toolbox'),
+                    /* translators: %d: number of posts missing a title or excerpt. */
+                    'message' => sprintf(__('%d 篇文章缺少标题或摘要', 'npcink-site-toolbox'), $missing_seo),
+                );
             }
 
             // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching -- Administrator-triggered live aggregate; cached diagnostic counts would be stale.
@@ -35,56 +39,35 @@ if (!class_exists('Npcink_Toolbox_Performance_Seo_Checker')) {
                 'image/%'
             ));
             if ($missing_alt > 0) {
-                $issues[] = array('type' => '图片Alt', 'message' => $missing_alt . ' 张图片缺少 Alt 文本');
+                $issues[] = array(
+                    'type' => __('图片 Alt', 'npcink-site-toolbox'),
+                    /* translators: %d: number of images missing alternative text. */
+                    'message' => sprintf(__('%d 张图片缺少 Alt 文本', 'npcink-site-toolbox'), $missing_alt),
+                );
             }
 
             // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching -- Administrator-triggered live aggregate; cached diagnostic counts would be stale.
             $missing_featured = $wpdb->get_var($wpdb->prepare("SELECT COUNT(*) FROM {$wpdb->posts} p LEFT JOIN {$wpdb->postmeta} pm ON p.ID = pm.post_id AND pm.meta_key = %s WHERE p.post_status = %s AND p.post_type = %s AND pm.meta_id IS NULL", '_thumbnail_id', 'publish', 'post'));
             if ($missing_featured > 0) {
-                $issues[] = array('type' => '特色图', 'message' => $missing_featured . ' 篇文章没有特色图');
+                $issues[] = array(
+                    'type' => __('特色图', 'npcink-site-toolbox'),
+                    /* translators: %d: number of published posts without a featured image. */
+                    'message' => sprintf(__('%d 篇文章没有特色图', 'npcink-site-toolbox'), $missing_featured),
+                );
             }
 
             // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching -- Administrator-triggered live aggregate; cached diagnostic counts would be stale.
             $short_posts = $wpdb->get_var($wpdb->prepare("SELECT COUNT(*) FROM {$wpdb->posts} WHERE post_status = %s AND post_type = %s AND LENGTH(post_content) < %d", 'publish', 'post', 300));
             if ($short_posts > 0) {
-                $issues[] = array('type' => '内容过短', 'message' => $short_posts . ' 篇文章内容过短（少于300字）');
+                $issues[] = array(
+                    'type' => __('内容过短', 'npcink-site-toolbox'),
+                    /* translators: %d: number of posts with content shorter than 300 Chinese characters. */
+                    'message' => sprintf(__('%d 篇文章内容过短（少于 300 字）', 'npcink-site-toolbox'), $short_posts),
+                );
             }
             return rest_ensure_response(array(
                 'success' => true,
                 'data'    => array('issues' => $issues, 'total' => count($issues)),
-            ));
-        }
-        public static function ajax_fix_alt() {
-            if (!current_user_can('manage_options')) {
-                return new \WP_Error('rest_forbidden', '权限不足', array('status' => 403));
-            }
-            $query = new WP_Query(array(
-                'post_type'              => 'attachment',
-                'post_status'            => 'inherit',
-                'post_mime_type'         => 'image',
-                'posts_per_page'         => 50,
-                'orderby'                => 'ID',
-                'order'                  => 'ASC',
-                'no_found_rows'          => true,
-                'update_post_meta_cache' => false,
-                'update_post_term_cache' => false,
-                // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query -- Administrator-triggered repair is bounded to 50 image attachments.
-                'meta_query'             => array(
-                    'relation' => 'OR',
-                    array('key' => '_wp_attachment_image_alt', 'compare' => 'NOT EXISTS'),
-                    array('key' => '_wp_attachment_image_alt', 'value' => '', 'compare' => '='),
-                ),
-            ));
-            $fixed = 0;
-            foreach ($query->posts as $img) {
-                if (!is_object($img) || !isset($img->ID)) continue;
-                $alt = !empty($img->post_title) ? $img->post_title : '图片';
-                update_post_meta($img->ID, '_wp_attachment_image_alt', sanitize_text_field($alt));
-                $fixed++;
-            }
-            return rest_ensure_response(array(
-                'success' => true,
-                'data'    => array('fixed' => $fixed),
             ));
         }
     }

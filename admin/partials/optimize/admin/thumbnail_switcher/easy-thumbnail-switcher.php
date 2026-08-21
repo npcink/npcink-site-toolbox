@@ -31,10 +31,10 @@ $this->add_new_str = __( '添加', 'npcink-site-toolbox' );
         add_action( 'admin_footer', array( $this, 'add_nonce' ) );
         add_action( 'admin_enqueue_scripts', array( $this, 'scripts' ) );
 
-        add_action( 'wp_ajax_ts_ets_update', array( $this, 'update' ) );
-        add_action( 'wp_ajax_ts_ets_remove', array( $this, 'remove' ) );
+        add_action( 'wp_ajax_npcink_site_toolbox_thumbnail_update', array( $this, 'update' ) );
+        add_action( 'wp_ajax_npcink_site_toolbox_thumbnail_remove', array( $this, 'remove' ) );
 
-        add_image_size( 'ts-ets-thumb', 75, 75, array( 'center', 'center' ) );
+        add_image_size( 'npcink-site-toolbox-thumbnail', 75, 75, array( 'center', 'center' ) );
 
     }
 
@@ -52,7 +52,7 @@ $this->add_new_str = __( '添加', 'npcink-site-toolbox' );
             return;
         }
 
-        wp_nonce_field( 'ts_ets_nonce', 'ts_ets_nonce' );
+        wp_nonce_field( 'npcink_site_toolbox_thumbnail', 'npcink_site_toolbox_thumbnail_nonce' );
 
     }
 
@@ -70,11 +70,11 @@ $this->add_new_str = __( '添加', 'npcink-site-toolbox' );
 
         wp_enqueue_media();
 
-        wp_enqueue_style( 'ts-ets-css', plugins_url( '\css\styles.css', __FILE__ ), array(), NPCINK_SITE_TOOLBOX_VERSION );
+        wp_enqueue_style( 'npcink-site-toolbox-thumbnail-switcher', plugins_url( 'css/styles.css', __FILE__ ), array(), NPCINK_SITE_TOOLBOX_VERSION );
 
-        wp_enqueue_script( 'ts-ets-js', plugins_url( '\js\script.js', __FILE__ ), array( 'jquery', 'media-upload', 'thickbox' ), '1.0', true );
+        wp_enqueue_script( 'npcink-site-toolbox-thumbnail-switcher', plugins_url( 'js/script.js', __FILE__ ), array( 'jquery', 'media-upload', 'thickbox' ), NPCINK_SITE_TOOLBOX_VERSION, true );
 
-        wp_localize_script( 'ts-ets-js', 'ets_strings', array(
+        wp_localize_script( 'npcink-site-toolbox-thumbnail-switcher', 'npcinkSiteToolboxThumbnail', array(
             'upload_title' => $this->upload_title,
             'upload_add' => $this->upload_add,
             'confirm' => $this->confirm_str,
@@ -112,7 +112,7 @@ $this->add_new_str = __( '添加', 'npcink-site-toolbox' );
             case 'ts-ets-option':
 
                 if( has_post_thumbnail() ) {
-                    the_post_thumbnail( 'ts-ets-thumb' );
+                    the_post_thumbnail( 'npcink-site-toolbox-thumbnail' );
                     echo '<br>';
                     echo sprintf( '<button type="button" class="button-primary ts-ets-add" data-id="%s">%s</button>', esc_attr( $id ), esc_html( $this->change_str ) );
                     echo sprintf( ' <button type="button" class="button-secondary ts-ets-remove" data-id="%s">%s</button>', esc_attr( $id ), esc_html( $this->remove_str ) );
@@ -148,7 +148,7 @@ $this->add_new_str = __( '添加', 'npcink-site-toolbox' );
         $nonce = sanitize_text_field( $nonce_value );
 
         // Verify nonce
-        if( !wp_verify_nonce( $nonce, 'ts_ets_nonce' ) ) {
+        if( !wp_verify_nonce( $nonce, 'npcink_site_toolbox_thumbnail' ) ) {
             wp_die();
         }
 
@@ -174,7 +174,7 @@ $this->add_new_str = __( '添加', 'npcink-site-toolbox' );
 
         set_post_thumbnail( $id, $thumb_id );
 
-        echo wp_get_attachment_image( $thumb_id, 'ts-ets-thumb' );
+        echo wp_get_attachment_image( $thumb_id, 'npcink-site-toolbox-thumbnail' );
         echo '<br>';
         echo sprintf( '<button type="button" class="button-primary ts-ets-add" data-id="%s">%s</button>', esc_attr( $id ), esc_html( $this->change_str ) );
         echo sprintf( ' <button type="button" class="button-secondary ts-ets-remove" data-id="%s">%s</button>', esc_attr( $id ), esc_html( $this->remove_str ) );
@@ -206,7 +206,7 @@ $this->add_new_str = __( '添加', 'npcink-site-toolbox' );
         $nonce = sanitize_text_field( $nonce_value );
 
         // Verify nonce
-        if( !wp_verify_nonce( $nonce, 'ts_ets_nonce' ) ) {
+        if( !wp_verify_nonce( $nonce, 'npcink_site_toolbox_thumbnail' ) ) {
             wp_die();
         }
 

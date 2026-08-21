@@ -83,13 +83,6 @@
             },
             "site": {
                 "category_link_simplify": false,
-                "cdn_custom": "",
-                "cdn_google_ajax": false,
-                "cdn_google_fonts": false,
-                "cdn_google_fonts_mirror": "fonts.loli.net",
-                "cdn_gravatar": false,
-                "cdn_gravatar_mirror": "gravatar.loli.net/avatar/",
-                "cdn_replace": false,
                 "hide_email_ip": false,
                 "hide_top_toolbar": false,
                 "no_escape": false,
@@ -105,6 +98,8 @@
                 "interval": false,
                 "interval_time": 5,
                 "only": false,
+                "self_service_admin_page_enabled": true,
+                "self_service_enabled": false,
                 "sensitive_words": false,
                 "sensitive_words_action": "replace",
                 "sensitive_words_list": "",
@@ -221,20 +216,6 @@
             ]
         },
         {
-            "id": "optimize-site-cdn_replace",
-            "keywords": [
-                "cdn",
-                "加速"
-            ],
-            "label": "国内 CDN 替换",
-            "section": "站点",
-            "tabKey": "site",
-            "tabLabel": "站点与媒体",
-            "tags": [
-                "性能"
-            ]
-        },
-        {
             "id": "optimize-medium-img_add_tag",
             "keywords": [
                 "alt",
@@ -343,6 +324,25 @@
             "section": "后台",
             "tabKey": "site",
             "tabLabel": "站点与媒体"
+        },
+        {
+            "id": "page-comment-self_service_enabled",
+            "keywords": [
+                "comment",
+                "评论",
+                "应用程序密码",
+                "rest",
+                "接口",
+                "批量删除"
+            ],
+            "label": "用户评论 REST 接口",
+            "section": "评论",
+            "tabKey": "content",
+            "tabLabel": "内容与页面",
+            "tags": [
+                "谨慎",
+                "REST API"
+            ]
         },
         {
             "aliases": [
@@ -745,6 +745,22 @@
             "risk": {
                 "level": "none"
             },
+            "type": "boolean"
+        },
+        "page-comment-self_service_enabled": {
+            "feature_id": "page-comment-self_service_enabled",
+            "group": "评论",
+            "label": "用户评论 REST 接口",
+            "path": "page.comment.self_service_enabled",
+            "risk": {
+                "level": "low",
+                "suggestion": "仅在使用 HTTPS 且确实需要外部评论客户端时开启。",
+                "title": "开放用户评论 REST 接口",
+                "warning": "开启后，登录用户可通过应用程序密码从外部客户端发布、修改和删除自己的评论。"
+            },
+            "risk_tags": [
+                "谨慎"
+            ],
             "type": "boolean"
         },
         "performance-db_clean-enabled": {

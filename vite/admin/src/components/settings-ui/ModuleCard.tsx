@@ -1,5 +1,6 @@
 import React from "react";
 import { Button } from "antd";
+import { __ } from "@/tool/i18n";
 import FeatureSwitch from "@/basic/feature-switch";
 import Preview from "@/basic/preview";
 import StatusTag, { type StatusType } from "./StatusTag";
@@ -48,12 +49,12 @@ const ModuleCard: React.FC<ModuleCardProps> = ({
       <div className="mabox-module-card-header">
         <div className="mabox-module-card-info">
           <div className="mabox-module-card-title-row">
-            <span className="mabox-module-card-title">{title}</span>
+            <span className="mabox-module-card-title">{__(title)}</span>
             {tags?.map((tag) => (
               <StatusTag key={tag} status={tag} />
             ))}
           </div>
-          <div className="mabox-module-card-desc">{description}</div>
+          <div className="mabox-module-card-desc">{__(description)}</div>
         </div>
         <div className="mabox-module-card-actions">
           {switchable && (
@@ -61,19 +62,19 @@ const ModuleCard: React.FC<ModuleCardProps> = ({
           )}
           {actionLabel && onAction && (
             <Button
-              aria-label={`${actionLabel}：${title}`}
+              aria-label={`${__(actionLabel)}：${__(title)}`}
               size="small"
               type="primary"
               onClick={onAction}
               loading={actionLoading}
             >
-              {actionLabel}
+              {__(actionLabel)}
             </Button>
           )}
           {preview && <Preview title={preview.title} img={preview.img} />}
           {onDetails && (
             <button className="mabox-module-card-details-btn" onClick={onDetails}>
-              详情
+              {__("详情")}
             </button>
           )}
         </div>
