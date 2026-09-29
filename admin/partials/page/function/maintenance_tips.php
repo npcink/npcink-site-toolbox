@@ -45,7 +45,10 @@ if (!class_exists('Npcink_Toolbox_Maintenance_Tips')) {
                                     __('%s 正在升级维护，请稍后再来。', 'npcink-site-toolbox'),
                                     self::$blogname
                                 )
-                            )
+                            ),
+                            '',
+                            // 维护期必须返回 503 而不是默认的 500，避免搜索引擎把站点判定为故障剔除索引
+                            array('response' => 503)
                         );
                         break;
                     case "default_img":

@@ -70,6 +70,15 @@ final class MaintenanceOutputEscapingTest extends TestCase
         $this->assertStringContainsString('esc_html($npcink_site_toolbox_page_title)', $source);
     }
 
+    public function test_maintenance_wp_die_branches_return_503_not_500(): void
+    {
+        $source = $this->source('admin/partials/page/function/maintenance_tips.php');
+
+        // 维护页的 wp_die 分支必须显式声明 503，不能依赖 wp_die 的 500 默认值
+        $this->assertSame(1, substr_count($source, 'wp_die('));
+        $this->assertSame(1, substr_count($source, "array('response' => 503)"));
+    }
+
     public function test_red_template_escapes_text_and_preserves_safe_content_markup(): void
     {
         $source = $this->source('admin/partials/page/function/maintenance/red.php');
