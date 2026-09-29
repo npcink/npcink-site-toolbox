@@ -1,5 +1,5 @@
 {
-    "translation-revision-date": "2026-08-14 13:20+0800",
+    "translation-revision-date": "2026-09-29 22:40+0800",
     "generator": "WP-CLI\/2.12.0",
     "source": "vite\/admin\/dist\/index.js",
     "domain": "messages",
@@ -43,12 +43,6 @@
             "\u7528\u6237\u5217\u8868\u5c55\u793a\u6635\u79f0": [
                 "Display Nicks in User List"
             ],
-            "\u56fd\u5185 CDN \u66ff\u6362": [
-                "Replace Domestic CDN"
-            ],
-            "\u6027\u80fd": [
-                "Performance"
-            ],
             "\u9690\u85cf\u90ae\u4ef6\u4e2d\u7684 IP": [
                 "Hide IP in Emails"
             ],
@@ -85,6 +79,9 @@
             "\u5a92\u4f53": [
                 "Media"
             ],
+            "\u6027\u80fd": [
+                "Performance"
+            ],
             "\u6dfb\u52a0\u4f5c\u8005\u7b5b\u9009\u9879": [
                 "Add author filter options"
             ],
@@ -96,6 +93,9 @@
             ],
             "\u7f29\u7565\u56fe\u5207\u6362": [
                 "Thumbnail switch"
+            ],
+            "\u5728\u65b0\u6807\u7b7e\u9875\u6253\u5f00\u5168\u90e8\u7f16\u8f91": [
+                "Open all edits in new tabs"
             ],
             "\u9605\u8bfb\u8fdb\u5ea6\u6761": [
                 "Reading progress bar"
@@ -181,8 +181,11 @@
             "\u767e\u5ea6\u7edf\u8ba1": [
                 "Baidu Analytics"
             ],
-            "\u5fc5\u5e94\u7edf\u8ba1": [
-                "Bing Analytics"
+            "Google \u7ad9\u70b9\u9a8c\u8bc1": [
+                "Google Site Verification"
+            ],
+            "\u5fc5\u5e94\u7ad9\u70b9\u9a8c\u8bc1": [
+                "Bing site verification"
             ],
             "\u5206\u7c7b\u6570\u636e\u63a5\u53e3": [
                 "Category Data API"
@@ -301,39 +304,6 @@
             "\u767e\u5ea6\u7edf\u8ba1\u7ad9\u70b9 ID \u5b58\u5728\u672c\u7ad9 WordPress \u6570\u636e\u5e93": [
                 "Baidu Analytics site ID exists in the WordPress database."
             ],
-            "Loli.net \u56fd\u5185\u8d44\u6e90\u955c\u50cf": [
-                "Loli.net Domestic Resource Mirror"
-            ],
-            "\u628a Gravatar\u3001Google Fonts \u548c Google Hosted Libraries \u8d44\u6e90 URL \u66ff\u6362\u4e3a gravatar.loli.net\u3001fonts.loli.net\u3001gstatic.loli.net \u6216 ajax.loli.net\uff1b\u4e5f\u652f\u6301\u7ba1\u7406\u5458\u81ea\u5b9a\u4e49\u76ee\u6807": [
-                "Replace Gravatar, Google Fonts and Google Hosted Libraries resource URLs with gravatar.loli.net, fonts.loli.net, gstatic.loli.net or ajax.loli.net; also supports administrator-defined targets."
-            ],
-            "\u7ba1\u7406\u5458\u542f\u7528 CDN \u66ff\u6362\u603b\u5f00\u5173\u53ca\u5bf9\u5e94\u5b50\u9879\u540e\uff0c\u8bbf\u5ba2\u9875\u9762\u9700\u8981\u76f8\u5173\u8d44\u6e90\u65f6": [
-                "After enabling CDN replacement total switch and corresponding sub-items in maintenance tools, visitor pages need to send request resource URL, IP address and standard HTTP headers when needing related resources."
-            ],
-            "\u8bbf\u5ba2\u6d4f\u89c8\u5668\u5411\u955c\u50cf\u53d1\u9001\u8bf7\u6c42\u8d44\u6e90 URL\u3001IP \u5730\u5740\u53ca\u6807\u51c6 HTTP \u8bf7\u6c42\u5934\uff1bGravatar \u8bf7\u6c42\u8fd8\u5305\u542b\u5934\u50cf\u54c8\u5e0c": [
-                "The mirror sends the requested resource URL, visitor's IP address and standard HTTP headers; Gravatar requests also include avatar hash."
-            ],
-            "\u955c\u50cf\u5730\u5740\u548c\u81ea\u5b9a\u4e49\u66ff\u6362\u89c4\u5219\u5b58\u5728\u672c\u7ad9 WordPress \u6570\u636e\u5e93": [
-                "Mirror addresses and custom replacement rules exist in the WordPress database."
-            ],
-            "\u56fd\u5185\u8bbf\u95ee\u8fde\u901a\u6027\u68c0\u6d4b": [
-                "Domestic Connectivity Test"
-            ],
-            "Google\u3001Automattic\uff08Gravatar\uff09\u4e0e WordPress.org": [
-                "Google, Automattic (Gravatar) and WordPress.org"
-            ],
-            "\u68c0\u6d4b\u670d\u52a1\u5668\u80fd\u5426\u8bbf\u95ee Google Fonts\u3001Google Hosted Libraries\u3001Gravatar \u548c WordPress.org API": [
-                "Test whether server can access Google Fonts, Google Hosted Libraries, Gravatar and WordPress.org API"
-            ],
-            "\u5177\u6709\u7ba1\u7406\u6743\u9650\u7684\u7ba1\u7406\u5458\u5728\u7ef4\u62a4\u5de5\u5177\u4e2d\u4e3b\u52a8\u8fd0\u884c\u68c0\u6d4b\u65f6": [
-                "When an administrator with management permissions runs the test in maintenance tools actively"
-            ],
-            "\u4e0d\u53d1\u9001\u7ad9\u70b9\u5185\u5bb9\u6216\u63d2\u4ef6\u914d\u7f6e\uff1b\u5404\u670d\u52a1\u53ef\u6536\u5230\u670d\u52a1\u5668 IP\u3001\u76ee\u6807 URL \u548c\u6807\u51c6 HTTP \u8bf7\u6c42\u5934": [
-                "Does not send site content or plugin configurations; each service can receive server IP, target URL and standard HTTP headers."
-            ],
-            "\u68c0\u6d4b\u53ef\u8fbe\u6027\u4e0e\u5ef6\u8fdf\u7ed3\u679c\u5728\u672c\u7ad9\u7f13\u5b58\u4e00\u5c0f\u65f6": [
-                "Check accessibility and latency results in site cache for one hour"
-            ],
             "Google Search Console \u7ad9\u70b9\u9a8c\u8bc1": [
                 "Google Search Console Site Verification"
             ],
@@ -354,6 +324,36 @@
             ],
             "\u65e0\uff1b\u63d2\u4ef6\u53ea\u8f93\u51fa meta \u6807\u7b7e\uff0c\u4e0d\u4e3b\u52a8\u8bf7\u6c42 Microsoft": [
                 "No; the plugin only outputs meta tags and does not actively request Microsoft."
+            ],
+            "GitHub \u9879\u76ee API": [
+                "GitHub repository API"
+            ],
+            "\u8bfb\u53d6\u4f5c\u8005\u4e3b\u52a8\u63d2\u5165\u7684\u516c\u5f00\u4ed3\u5e93\u6458\u8981\u3001\u4e3b\u8981\u8bed\u8a00\u3001Stars\u3001Forks \u548c\u5f52\u6863\u72b6\u6001": [
+                "Retrieves the description, primary language, Stars, Forks, and archive status of the public repository an author inserts"
+            ],
+            "\u4f5c\u8005\u63d2\u5165 GitHub \u9879\u76ee\u533a\u5757\u5e76\u586b\u5199\u516c\u5f00\u4ed3\u5e93\u5730\u5740\uff0c\u4e14\u672c\u5730\u7f13\u5b58\u8fc7\u671f\u65f6": [
+                "When a content author inserts the GitHub project block with a public repository URL and the local cache has expired"
+            ],
+            "\u516c\u5f00\u7684\u4ed3\u5e93\u6240\u6709\u8005\u548c\u4ed3\u5e93\u540d\u79f0\u3001\u7ad9\u70b9\u670d\u52a1\u5668 IP\u3001\u63d2\u4ef6 User-Agent \u548c\u6b63\u5e38 HTTP \u8bf7\u6c42\u5934\uff1b\u4e0d\u53d1\u9001\u6587\u7ae0\u5185\u5bb9\u3001\u8bbf\u5ba2 IP\u3001Token \u6216\u63d2\u4ef6\u8bbe\u7f6e": [
+                "The public repository owner and name, the site server IP, the plugin User-Agent, and normal HTTP headers; article content, visitor IP, tokens, and plugin settings are never sent"
+            ],
+            "\u6210\u529f\u54cd\u5e94\u5728\u672c\u7ad9\u77ed\u671f\u7f13\u5b58 12 \u5c0f\u65f6\uff0c\u5931\u8d25\u54cd\u5e94\u7f13\u5b58 30 \u5206\u949f\uff1b\u4e0d\u4fdd\u5b58 GitHub \u51ed\u636e": [
+                "Successful responses are cached locally for up to 12 hours and failures for 30 minutes; no GitHub credentials are stored"
+            ],
+            "DeepSeek \u8bca\u65ad\u670d\u52a1": [
+                "DeepSeek diagnostic service"
+            ],
+            "\u5728\u7ba1\u7406\u5458\u660e\u786e\u542f\u52a8 AI \u8bca\u65ad\u540e\u89e3\u91ca\u53d7\u9650\u7684\u7ad9\u70b9\u4e8b\u5b9e\u548c\u524d\u540e\u590d\u9a8c\u7ed3\u679c": [
+                "Interprets bounded site facts and before\/after verification results after an administrator explicitly starts AI diagnostics"
+            ],
+            "WordPress 7.0+\u3001\u5df2\u5b89\u88c5\u5e76\u8fde\u63a5 DeepSeek Provider\uff0c\u4e14\u7ba1\u7406\u5458\u5ba1\u9605\u767d\u540d\u5355\u5feb\u7167\u540e\u4e3b\u52a8\u5f00\u59cb\u5206\u6790\u6216\u8ffd\u95ee\u65f6": [
+                "WordPress 7.0 or newer, an installed and connected DeepSeek Provider, and an administrator who has reviewed the allowlisted snapshot and explicitly starts analysis or follow-up questions"
+            ],
+            "\u767d\u540d\u5355\u4e8b\u5b9e\u3001\u63d0\u793a\u8bcd\u3001\u670d\u52a1\u5668 IP\u3001\u6b63\u5e38 HTTP \u8bf7\u6c42\u5934\u548c\u7531 WordPress Connectors\/Provider \u7ba1\u7406\u7684 API \u51ed\u636e\uff1b\u4e0d\u53d1\u9001\u51ed\u636e\u5b57\u6bb5\u3001\u6587\u7ae0\u5185\u5bb9\u3001\u7528\u6237\u3001\u8bc4\u8bba\u3001\u8def\u5f84\u6216\u8bf7\u6c42\u65e5\u5fd7": [
+                "Allowlisted facts, the prompt, the server IP, normal HTTP headers, and the API credential managed by WordPress Connectors\/the Provider; credential fields, article content, users, comments, file paths, and request logs are never sent"
+            ],
+            "\u95ee\u9898\u3001\u5feb\u7167\u3001\u57fa\u7ebf\u3001\u8ffd\u95ee\u5386\u53f2\u548c\u56de\u7b54\u53ea\u5b58\u5728\u5f53\u524d\u6d4f\u89c8\u5668\u9875\u9762\uff1b\u672c\u63d2\u4ef6\u4e0d\u8bfb\u53d6\u6216\u4fdd\u5b58 Provider \u51ed\u636e": [
+                "Questions, snapshots, baselines, follow-up history, and answers exist only in the current browser page; this plugin does not read or store Provider credentials"
             ],
             "\u672c\u63d2\u4ef6\u9ed8\u8ba4\u4e0d\u6536\u96c6\u7528\u6237\u4e2a\u4eba\u8eab\u4efd\u4fe1\u606f\u3002\u6240\u6709\u914d\u7f6e\u6570\u636e\u5b58\u50a8\u5728 WordPress \u6570\u636e\u5e93\u5185\u3002": [
                 "This plugin does not collect any user personal information by default. All configuration data is stored in the WordPress database."
@@ -388,8 +388,32 @@
             "\u79fb\u9664 WP \u7248\u672c\u53f7": [
                 "Remove WordPress Version Number"
             ],
-            "\u52a0\u901f": [
-                "Acceleration"
+            "\u5206\u7c7b": [
+                "Categories"
+            ],
+            "\u94fe\u63a5": [
+                "Links"
+            ],
+            "\u641c\u7d22": [
+                "Search"
+            ],
+            "\u7ad9\u70b9\u5730\u56fe": [
+                "sitemap"
+            ],
+            "\u7528\u6237": [
+                "Users"
+            ],
+            "\u6635\u79f0": [
+                "Display Name"
+            ],
+            "\u5217\u8868": [
+                "List"
+            ],
+            "\u90ae\u4ef6": [
+                "email"
+            ],
+            "\u9690\u79c1": [
+                "Privacy"
             ],
             "\u56fe\u7247": [
                 "Images"
@@ -400,11 +424,17 @@
             "\u7f29\u7565\u56fe": [
                 "Thumbnail"
             ],
-            "\u91cd\u547d\u540d": [
-                "Rename"
-            ],
             "\u4e0a\u4f20": [
                 "Upload"
+            ],
+            "\u56fe\u6807": [
+                "icon"
+            ],
+            "SVG \u4e0a\u4f20\u652f\u6301": [
+                "SVG Upload Support"
+            ],
+            "\u91cd\u547d\u540d": [
+                "Rename"
             ],
             "\u538b\u7f29": [
                 "Compress"
@@ -430,14 +460,53 @@
             "\u6587\u7ae0\u65e5\u671f\u7b5b\u9009": [
                 "Post Date Filter"
             ],
-            "\u5217\u8868": [
-                "List"
-            ],
             "\u5217\u8868\u663e\u793a ID \u5217": [
                 "Display ID Column"
             ],
+            "\u6807\u7b7e\u9875": [
+                "tab"
+            ],
+            "\u7f16\u8f91": [
+                "edit"
+            ],
+            "\u6279\u91cf": [
+                "bulk"
+            ],
+            "\u6253\u5f00": [
+                "Open"
+            ],
+            "\u95f4\u9694": [
+                "interval"
+            ],
+            "\u9891\u7387": [
+                "Frequency"
+            ],
             "\u8bc4\u8bba": [
                 "Comments"
+            ],
+            "\u8bc4\u8bba\u95f4\u9694\u9650\u5236": [
+                "Comment interval limit"
+            ],
+            "\u5185\u5bb9\u4e0e\u9875\u9762": [
+                "Content & Pages"
+            ],
+            "\u5b57\u6570": [
+                "word count"
+            ],
+            "\u8bc4\u8bba\u5b57\u6570\u9650\u5236": [
+                "Comment length limit"
+            ],
+            "\u82f1\u6587": [
+                "english"
+            ],
+            "\u4e00\u6b21": [
+                "once"
+            ],
+            "\u5355\u7bc7\u6587\u7ae0\u9650\u8bc4\u4e00\u6b21": [
+                "One comment per post"
+            ],
+            "\u654f\u611f\u8bcd": [
+                "Sensitive Words"
             ],
             "\u5e94\u7528\u7a0b\u5e8f\u5bc6\u7801": [
                 "App Password"
@@ -451,8 +520,44 @@
             "\u7528\u6237\u8bc4\u8bba REST \u63a5\u53e3": [
                 "User Comments REST Interface"
             ],
-            "\u5185\u5bb9\u4e0e\u9875\u9762": [
-                "Content & Pages"
+            "\u8fdb\u5ea6": [
+                "progress"
+            ],
+            "\u9605\u8bfb": [
+                "reading"
+            ],
+            "\u5916\u89c2": [
+                "Appearance"
+            ],
+            "\u7279\u8272\u56fe": [
+                "Featured Image"
+            ],
+            "\u9996\u56fe": [
+                "first image"
+            ],
+            "\u5c01\u9762": [
+                "cover"
+            ],
+            "\u529f\u80fd": [
+                "Features"
+            ],
+            "\u5185\u94fe": [
+                "internal link"
+            ],
+            "\u5173\u952e\u8bcd": [
+                "Keywords"
+            ],
+            "\u6807\u7b7e": [
+                "tag"
+            ],
+            "\u66f4\u65b0\u65f6\u95f4": [
+                "updated"
+            ],
+            "\u6a21\u7cca": [
+                "blur"
+            ],
+            "\u767b\u5f55": [
+                "Log in"
             ],
             "\u7ef4\u62a4": [
                 "Maintenance"
@@ -460,8 +565,32 @@
             "\u95ed\u7ad9": [
                 "Site Closure"
             ],
-            "\u529f\u80fd": [
-                "Features"
+            "\u7edf\u8ba1": [
+                "Statistics"
+            ],
+            "\u8bbf\u95ee": [
+                "views"
+            ],
+            "\u6d4f\u89c8": [
+                "visits"
+            ],
+            "SEO \u4e0e\u589e\u5f3a": [
+                "SEO & Enhancements"
+            ],
+            "\u6076\u610f": [
+                "malicious"
+            ],
+            "\u5c4f\u853d": [
+                "block"
+            ],
+            "\u6076\u610f\u5173\u952e\u8bcd\u5c4f\u853d": [
+                "Malicious keyword blocking"
+            ],
+            "\u9a8c\u8bc1": [
+                "verification"
+            ],
+            "\u5fc5\u5e94": [
+                "bing"
             ],
             "\u9996\u9875": [
                 "Homepage"
@@ -472,17 +601,11 @@
             "\u63cf\u8ff0": [
                 "Description"
             ],
-            "\u9996\u9875 TDK": [
-                "Homepage TDK"
-            ],
-            "SEO \u4e0e\u589e\u5f3a": [
-                "SEO & Enhancements"
-            ],
             "\u6587\u7ae0": [
                 "Posts"
             ],
-            "\u5173\u952e\u8bcd": [
-                "Keywords"
+            "\u5206\u7c7b\u548c\u6807\u7b7e SEO": [
+                "Categories and Tags SEO"
             ],
             "\u5907\u6848": [
                 "ICP Filing"
@@ -504,9 +627,6 @@
             ],
             "\u516c\u5b89\u7f51\u5907\u53f7": [
                 "Police Pre-Approval Number"
-            ],
-            "\u9690\u79c1": [
-                "Privacy"
             ],
             "\u5f39\u7a97": [
                 "Popup"
@@ -538,23 +658,44 @@
             "\u5fae\u4fe1\u6253\u5f00\u5f15\u5bfc": [
                 "WeChat Guidance Pop-Up"
             ],
-            "\u654f\u611f\u8bcd": [
-                "Sensitive Words"
-            ],
             "\u9ed1\u540d\u5355": [
                 "Blacklist"
             ],
             "\u8bc4\u8bba\u654f\u611f\u8bcd\u8fc7\u6ee4": [
                 "Comment Sensitive Word Filter"
             ],
-            "\u94fe\u63a5": [
-                "Links"
-            ],
             "\u5783\u573e": [
                 "Spam"
             ],
             "\u8bc4\u8bba\u94fe\u63a5\u9650\u5236": [
                 "Limit Comments Links"
+            ],
+            "\u6570\u91cf": [
+                "Quantity"
+            ],
+            "\u94fe\u63a5\u6570\u91cf\u4e0a\u9650": [
+                "Link count limit"
+            ],
+            "\u8fc7\u6ee4": [
+                "filter"
+            ],
+            "\u6635\u79f0\u8fc7\u6ee4": [
+                "Nickname Filter"
+            ],
+            "\u6635\u79f0\u8fc7\u6ee4\u8bcd": [
+                "Nickname filter words"
+            ],
+            "\u90ae\u7bb1": [
+                "email address"
+            ],
+            "\u57df\u540d": [
+                "domain"
+            ],
+            "\u90ae\u7bb1\u57df\u540d\u9ed1\u540d\u5355": [
+                "Email Domain Blacklist"
+            ],
+            "\u90ae\u7bb1\u9ed1\u540d\u5355\u57df\u540d": [
+                "Email domain blacklist"
             ],
             "\u91cd\u590d": [
                 "Duplicate"
@@ -565,20 +706,20 @@
             "\u91cd\u590d\u8bc4\u8bba\u62e6\u622a": [
                 "Block Duplicate Comments"
             ],
-            "\u9891\u7387": [
-                "Frequency"
-            ],
             "\u8bc4\u8bba IP \u9891\u7387\u9650\u5236": [
                 "Comment IP Frequency Limit"
+            ],
+            "\u4e0a\u9650": [
+                "limit"
+            ],
+            "\u8bc4\u8bba\u9891\u7387\u4e0a\u9650": [
+                "Comment rate limit"
             ],
             "\u65e5\u5fd7": [
                 "Logs"
             ],
             "\u8bb0\u5f55\u62e6\u622a\u65e5\u5fd7": [
                 "Record Block Logs"
-            ],
-            "\u767b\u5f55": [
-                "Log in"
             ],
             "\u5931\u8d25": [
                 "Failed"
@@ -619,14 +760,23 @@
             "\u4f53\u68c0": [
                 "Checkup"
             ],
-            "\u641c\u7d22": [
-                "Search"
-            ],
             "\u9ad8\u4eae": [
                 "Highlight"
             ],
             "\u641c\u7d22\u5173\u952e\u8bcd\u9ad8\u4eae": [
                 "Highlight Search Keywords in Media Library"
+            ],
+            "\u76f8\u5173": [
+                "related"
+            ],
+            "\u641c\u7d22\u7ed3\u679c\u63a8\u8350": [
+                "Search result recommendations"
+            ],
+            "\u70ed\u8bcd": [
+                "hot words"
+            ],
+            "\u641c\u7d22\u70ed\u8bcd\u7edf\u8ba1": [
+                "Search hot-word statistics"
             ],
             "\u6570\u636e\u5e93": [
                 "Database"
@@ -640,14 +790,41 @@
             "\u4fee\u8ba2\u7248\u672c": [
                 "Revision Versions"
             ],
+            "\u4fee\u8ba2": [
+                "revisions"
+            ],
+            "\u6e05\u7406\u4fee\u8ba2\u7248\u672c": [
+                "Clean Revision Versions"
+            ],
+            "\u8349\u7a3f": [
+                "drafts"
+            ],
+            "\u6e05\u7406\u8349\u7a3f": [
+                "Clean drafts"
+            ],
+            "\u6e05\u7406\u5783\u573e\u8bc4\u8bba": [
+                "Clean Garbage Comments"
+            ],
+            "\u4e34\u65f6": [
+                "transient"
+            ],
+            "\u6e05\u7406\u8fc7\u671f\u4e34\u65f6\u9009\u9879": [
+                "Clean expired transients"
+            ],
+            "\u81ea\u52a8": [
+                "auto"
+            ],
+            "\u5b9a\u65f6": [
+                "scheduled"
+            ],
+            "\u81ea\u52a8\u5b9a\u65f6\u6e05\u7406": [
+                "Automatic scheduled cleanup"
+            ],
             "\u786e\u8ba4\u5f00\u542f\u540e\u8bf7\u5728\u4fdd\u5b58\u524d\u6838\u5bf9\u53ef\u4fe1\u4ee3\u7406\uff1b\u5982\u53d1\u751f\u8bef\u9501\uff0c\u53ef\u5728 wp-config.php \u4e2d\u5c06 NPCINK_SITE_TOOLBOX_DISABLE_LOGIN_PROTECTION \u5b9a\u4e49\u4e3a true \u540e\u6062\u590d\u3002": [
                 "Confirm that the trusted proxy is enabled before saving. Review and correct any trusted proxies in wp-config.php if you encounter a lockout; set NPCINK_SITE_TOOLBOX_DISABLE_LOGIN_PROTECTION to true to unlock accounts."
             ],
             "\u53ef\u4fe1\u4ee3\u7406\u914d\u7f6e\u9519\u8bef\u53ef\u80fd\u8ba9\u591a\u4e2a\u8bbf\u5ba2\u5171\u4eab\u540c\u4e00\u6765\u6e90 IP\uff0c\u9020\u6210\u8d26\u53f7\u8bef\u9501\u3002": [
                 "Incorrect configuration of trusted proxies may cause multiple visitors to share the same source IP, leading to account lockouts."
-            ],
-            "SVG \u4e0a\u4f20\u652f\u6301": [
-                "SVG Upload Support"
             ],
             "\u4ec5\u5141\u8bb8\u53ef\u4fe1\u7528\u6237\u4e0a\u4f20 SVG \u6587\u4ef6\u3002": [
                 "Only allow SVG files to be uploaded by trusted users."
@@ -669,6 +846,12 @@
             ],
             "\u5f00\u542f\u540e\uff0c\u767b\u5f55\u7528\u6237\u53ef\u901a\u8fc7\u5e94\u7528\u7a0b\u5e8f\u5bc6\u7801\u4ece\u5916\u90e8\u5ba2\u6237\u7aef\u53d1\u5e03\u3001\u4fee\u6539\u548c\u5220\u9664\u81ea\u5df1\u7684\u8bc4\u8bba\u3002": [
                 "Enable this to allow external client applications to publish, edit, and delete their own comments via application passwords."
+            ],
+            "\u4ec5\u5728\u5b9e\u9645\u7ef4\u62a4\u671f\u95f4\u5f00\u542f\uff0c\u7ef4\u62a4\u5b8c\u6210\u540e\u7acb\u5373\u5173\u95ed\u3002": [
+                "Enable only during actual maintenance and turn it off as soon as maintenance completes."
+            ],
+            "\u5f00\u542f\u540e\u5168\u7ad9\u524d\u53f0\u7acb\u5373\u8fdb\u5165\u7ef4\u62a4\u72b6\u6001\uff0c\u672a\u767b\u5f55\u8bbf\u5ba2\u53ea\u80fd\u770b\u5230\u7ef4\u62a4\u63d0\u793a\uff0c\u641c\u7d22\u5f15\u64ce\u4f1a\u6536\u5230 503 \u54cd\u5e94\u3002": [
+                "Once enabled, the whole front end immediately enters maintenance mode: logged-out visitors only see the maintenance notice, and search engines receive 503 responses."
             ],
             "\u6267\u884c\u524d\u52a1\u5fc5\u5148\u9884\u89c8\u5f71\u54cd\u6570\u91cf\uff0c\u5e76\u505a\u597d\u5907\u4efd\u3002": [
                 "Preview the impact first and make a backup."
@@ -775,9 +958,6 @@
             "\u7ef4\u62a4\u63d0\u793a\u6837\u5f0f\u9884\u89c8\uff1a%s": [
                 "Maintenance notice style preview: %s"
             ],
-            "\u5916\u89c2": [
-                "Appearance"
-            ],
             "\u6743\u9650": [
                 "Permissions"
             ],
@@ -807,6 +987,12 @@
             ],
             "\u6587\u7ae0\u5185\u7684\u5185\u5bb9\u4e0e\u6dfb\u52a0\u7684\u6807\u7b7e\u76f8\u540c\uff0c\u5219\u6dfb\u52a0\u5bf9\u5e94\u6807\u7b7e\u7684\u94fe\u63a5": [
                 "Content added within a post is the same as any tags it has; link to those tags"
+            ],
+            "\u6a21\u7cca\u56fe\u7247\u9009\u62e9\u5668": [
+                "Image selector to blur"
+            ],
+            "\u4e3b\u9898\u6b63\u6587\u5bb9\u5668\u4e0d\u662f .entry-content \u65f6\uff0c\u53ef\u6539\u6210\u5bf9\u5e94\u7684\u56fe\u7247\u9009\u62e9\u5668": [
+                "If your theme's content container is not .entry-content, replace this with the matching image selector"
             ],
             "\u6587\u7ae0\u672b\u5c3e\u6dfb\u52a0\u6700\u540e\u66f4\u65b0\u65f6\u95f4\uff0c\u6587\u7ae0\u53d1\u5e0324\u5c0f\u65f6\u540e\u518d\u6b21\u4fee\u6539\uff0c\u5373\u53ef\u5c55\u793a": [
                 "Add last updated time to the end of articles; if an article is published and then edited within 24 hours, it will be displayed."
@@ -1054,45 +1240,6 @@
             "\u5728\u7528\u6237\u5217\u8868\u4e2d\u4ee5\u201c\u6635\u79f0\u201d\u5217\u66ff\u4ee3\u201c\u59d3\u540d\u201d\u5217": [
                 "Replace 'Name' column with 'Nickname' column in User list"
             ],
-            "\u5c06 WordPress \u52a0\u8f7d\u7684\u56fd\u5916\u8d44\u6e90\u66ff\u6362\u4e3a\u56fd\u5185 CDN \u955c\u50cf\uff0c\u63d0\u5347\u56fd\u5185\u8bbf\u95ee\u901f\u5ea6": [
-                "Replace foreign resources loaded by WordPress with domestic CDN mirrors to improve domestic access speed."
-            ],
-            "Gravatar \u5934\u50cf\u66ff\u6362": [
-                "Gravatar Avatar Replacement"
-            ],
-            "\u5c06 gravatar.com \u66ff\u6362\u4e3a\u56fd\u5185\u955c\u50cf\uff0c\u89e3\u51b3\u5934\u50cf\u65e0\u6cd5\u52a0\u8f7d\u7684\u95ee\u9898": [
-                "Replace gravatar.com with a domestic mirror to resolve the issue of profile pictures not loading."
-            ],
-            "Gravatar \u955c\u50cf\u5730\u5740": [
-                "Gravatar Mirror Address"
-            ],
-            "\u9ed8\u8ba4: gravatar.loli.net\/avatar\/": [
-                "Default: gravatar.loli.net\/avatar\/"
-            ],
-            "Google Fonts \u66ff\u6362": [
-                "Google Fonts Replacement"
-            ],
-            "\u5c06 fonts.googleapis.com \u66ff\u6362\u4e3a\u56fd\u5185\u955c\u50cf\uff0c\u9700\u786e\u8ba4\u955c\u50cf\u7ad9\u53ef\u7528\u6027": [
-                "Replace fonts.googleapis.com with a domestic mirror, make sure the mirror is available"
-            ],
-            "Google Fonts \u955c\u50cf\u5730\u5740": [
-                "Google Fonts mirror address"
-            ],
-            "\u9ed8\u8ba4: fonts.loli.net": [
-                "Default: fonts.loli.net"
-            ],
-            "Google Ajax \u66ff\u6362": [
-                "Google AJAX Replacement"
-            ],
-            "\u5c06 ajax.googleapis.com \u66ff\u6362\u4e3a ajax.loli.net": [
-                "Replace ajax.googleapis.com with ajax.loli.net"
-            ],
-            "\u81ea\u5b9a\u4e49 CDN \u66ff\u6362": [
-                "Custom CDN Replacement"
-            ],
-            "\u6bcf\u884c\u4e00\u6761\u89c4\u5219\uff0c\u683c\u5f0f: \u539f\u5730\u5740 => \u65b0\u5730\u5740\uff0c\u652f\u6301 style_loader_src \u548c script_loader_src": [
-                "one rule per line, format: original address => new address, supports style_loader_src and script_loader_src"
-            ],
             "\u5728 WordPress \u53d1\u9001\u7684\u90ae\u4ef6\u4e2d\u9690\u85cf IP \u5730\u5740\uff0c\u4fdd\u62a4\u7528\u6237\u9690\u79c1": [
                 "Hide IP address in emails sent from WordPress to protect user privacy."
             ],
@@ -1113,6 +1260,9 @@
             ],
             "\u5c55\u793a\u3001\u6dfb\u52a0\u3001\u5220\u9664\u7f29\u7565\u56fe\uff0c\u4ec5\u7ecf\u5178\u7f16\u8f91\u5668\u53ef\u7528": [
                 "shows, adds, removes thumbnails; only available in Classic Editor"
+            ],
+            "\u5728\u6587\u7ae0\u3001\u9875\u9762\u7b49\u5168\u90e8\u5217\u8868\u9875\u6dfb\u52a0\u6309\u94ae\uff0c\u628a\u5f53\u524d\u7b5b\u9009\u7ed3\u679c\u4e00\u952e\u5728\u65b0\u6807\u7b7e\u9875\u6253\u5f00": [
+                "Adds a button to every post-type list screen (posts, pages, and more) that opens the current filtered results' edit screens in new tabs at once"
             ],
             "\u6b63\u5728\u52a0\u8f7d\u5f53\u524d\u9875\u9762": [
                 "Loading the current page"
@@ -1200,6 +1350,21 @@
             ],
             "\u63d2\u4ef6\u754c\u9762\u8ddf\u968f\u5f53\u524d WordPress \u7528\u6237\u8bed\u8a00\u3002\u7b80\u4f53\u4e2d\u6587\u4f7f\u7528\u5185\u7f6e\u6e90\u6587\u6848\uff1bEnglish (United States) \u4f7f\u7528\u968f\u63d2\u4ef6\u53d1\u5e03\u7684\u82f1\u6587\u8bed\u8a00\u5305\u3002\u4fee\u6539\u4e2a\u4eba\u8d44\u6599\u4e2d\u7684\u8bed\u8a00\u540e\uff0c\u91cd\u65b0\u6253\u5f00\u63d2\u4ef6\u9875\u9762\u5373\u53ef\u751f\u6548\u3002": [
                 "the plugin interface follows the current WordPress user's language setting. Simplified Chinese uses built-in source text; English (United States) uses the language package included with the plugin. After changing your profile language, re-opening the plugin page will take effect."
+            ],
+            "\u98ce\u9669\u63d0\u793a": [
+                "Risk Warning"
+            ],
+            "\u5f00\u542f\u6709\u98ce\u9669\u7684\u529f\u80fd\u65f6\u4f1a\u5f39\u51fa\u786e\u8ba4\u63d0\u793a\uff1b\u9009\u62e9\u8fc7\u300c\u4e0d\u518d\u63d0\u793a\u300d\u7684\u529f\u80fd\u4e0d\u4f1a\u518d\u786e\u8ba4\u3002": [
+                "A confirmation prompt appears when enabling risky features; features whose prompt was dismissed with \"don't ask again\" will no longer confirm."
+            ],
+            "\u5df2\u6062\u590d\u5168\u90e8\u98ce\u9669\u63d0\u793a": [
+                "All risk prompts restored"
+            ],
+            "\u91cd\u7f6e\u5931\u8d25\uff0c\u8bf7\u91cd\u8bd5": [
+                "Reset failed, please retry"
+            ],
+            "\u6062\u590d\u5168\u90e8\u98ce\u9669\u63d0\u793a": [
+                "Restore all risk prompts"
             ],
             "\u8fd9\u662f\u4e00\u6b3e\u5b8c\u5168\u514d\u8d39\u4e14\u5f00\u6e90\u7684\u63d2\u4ef6\uff0c\u8fd8\u5728\u6839\u636e\u5404\u4f4d\u7684\u4f7f\u7528\u548c\u53cd\u9988\uff0c\u4e0d\u65ad\u4f18\u5316\u548c\u589e\u6dfb\u65b0\u529f\u80fd\u4e2d\u3002": [
                 "'This is a completely free and open-source plugin that continues to be optimized and enhanced based on users' feedback.'"
@@ -1651,6 +1816,9 @@
             "\u68c0\u6d4b\u5230 %d \u9879\u9ad8\u98ce\u9669\u529f\u80fd\u5c06\u88ab\u5f00\u542f\uff0c\u8bf7\u8c28\u614e\u786e\u8ba4\u3002": [
                 "Found %d high-risk features that will be enabled. Please confirm carefully."
             ],
+            "\u4f4e\u98ce\u9669": [
+                "Low risk"
+            ],
             "\u539f\u503c\uff1a": [
                 "Original Value:"
             ],
@@ -1681,6 +1849,9 @@
             "\u7b80\u5355 SEO \u8bbe\u7f6e\uff0c\u4ec5\u89e3\u51b3\u6709\u65e0\u95ee\u9898": [
                 "Simple SEO Settings, to address presence issues."
             ],
+            "\u7528\u4e0b\u65b9\u6807\u9898\u3001\u5173\u952e\u8bcd\u548c\u63cf\u8ff0\u8f93\u51fa\u9996\u9875 TDK\uff0c\u9700\u8981\u4e3b\u9898\u652f\u6301\u81ea\u5b9a\u4e49\u6807\u9898": [
+                "Outputs the homepage TDK from the title, keywords, and description below; requires a theme with custom title support"
+            ],
             "\u7ad9\u70b9\u6807\u9898": [
                 "Site Title"
             ],
@@ -1689,9 +1860,6 @@
             ],
             "\u5efa\u8bae240\u5b57\u4ee5\u5185": [
                 "Suggestions up to 240 characters."
-            ],
-            "\u5206\u7c7b\u548c\u6807\u7b7e SEO": [
-                "Categories and Tags SEO"
             ],
             "\u5206\u7c7b\u540d\u79f0\u4f5c\u6807\u9898\u3001\u5206\u7c7b\u5173\u952e\u8bcd\u548c\u63cf\u8ff0\u4f5c Meta\uff0c\u6807\u7b7e\u63cf\u8ff0\u4f5c Meta": [
                 "Category names as title, category keywords and description as Meta, tag descriptions as Meta"
@@ -1719,9 +1887,6 @@
             ],
             "\u4e00\u884c\u4e00\u4e2a": [
                 "One per line"
-            ],
-            "Google \u7ad9\u70b9\u9a8c\u8bc1": [
-                "Google Site Verification"
             ],
             "Bing \u7ad9\u70b9\u9a8c\u8bc1": [
                 "Bing Site Verification"
@@ -1755,6 +1920,9 @@
             ],
             "\u8c37\u6b4c\u7edf\u8ba1": [
                 "Google Analytics"
+            ],
+            "\u5fc5\u5e94\u7edf\u8ba1": [
+                "Bing Analytics"
             ],
             "\u7b80\u5355SEO": [
                 "Simple SEO"
@@ -2083,9 +2251,6 @@
             "\u6536\u85cf": [
                 "Favorites"
             ],
-            "\u6253\u5f00": [
-                "Open"
-            ],
             "\u529f\u80fd\u6807\u7b7e": [
                 "Function Tags"
             ],
@@ -2371,14 +2536,14 @@
             "\u542f\u7528\u6570\u636e\u5e93\u6e05\u7406": [
                 "Enable Database Cleanup"
             ],
-            "\u6e05\u7406\u4fee\u8ba2\u7248\u672c": [
-                "Clean Revision Versions"
+            "\u542f\u7528\u540e\u5f00\u653e\u7edf\u8ba1\u3001\u9884\u89c8\u4e0e\u624b\u52a8\u6e05\u7406\u5165\u53e3\uff1b\u81ea\u52a8\u6e05\u7406\u8fd8\u9700\u5f00\u542f\u4e0b\u65b9\u300c\u5b9a\u65f6\u81ea\u52a8\u6e05\u7406\u300d\u5f00\u5173": [
+                "Enabling opens the statistics, preview, and manual cleanup actions; automatic cleanup additionally requires the scheduled cleanup switch below"
+            ],
+            "\u8bf7\u5148\u542f\u7528\u6570\u636e\u5e93\u6e05\u7406\uff0c\u518d\u4f7f\u7528\u7edf\u8ba1\u3001\u9884\u89c8\u4e0e\u624b\u52a8\u6e05\u7406\u64cd\u4f5c\u3002": [
+                "Enable database cleanup before using statistics, preview, or manual cleanup."
             ],
             "\u6e05\u7406\u81ea\u52a8\u8349\u7a3f": [
                 "Clean Auto Drafts"
-            ],
-            "\u6e05\u7406\u5783\u573e\u8bc4\u8bba": [
-                "Clean Garbage Comments"
             ],
             "\u6e05\u7406\u8fc7\u671f Transient": [
                 "Clean Expired Transients"
@@ -2527,9 +2692,6 @@
             "\u5f00\u59cb\u8fde\u7eed\u6062\u590d": [
                 "Start Continuous Recovery"
             ],
-            "\u6570\u91cf": [
-                "Quantity"
-            ],
             "%d \u4e2a": [
                 "%d items"
             ],
@@ -2656,57 +2818,6 @@
             "\u8bb0\u5f55\u641c\u7d22\u70ed\u8bcd\uff08\u540e\u53f0\u53ef\u67e5\u770b\uff09": [
                 "Record search hot words (can be viewed from backend)"
             ],
-            "\u68c0\u6d4b\u5931\u8d25\uff0c\u8bf7\u91cd\u8bd5": [
-                "Failed to detect, please try again."
-            ],
-            "\u68c0\u6d4b\u8bf7\u6c42\u5931\u8d25": [
-                "Detect request failed"
-            ],
-            "\u6240\u6709\u670d\u52a1\u53ef\u8fbe\uff0c\u65e0\u9700\u4fee\u590d": [
-                "All Services Available, No Maintenance Needed"
-            ],
-            "\u83b7\u53d6\u4fee\u590d\u5efa\u8bae\u5931\u8d25": [
-                "Failed to Get Repair Suggestions"
-            ],
-            "\u4fee\u590d\u8bf7\u6c42\u5931\u8d25": [
-                "Failed to submit request for fixes"
-            ],
-            "\u4fee\u590d\u5efa\u8bae\u5df2\u52a0\u5165\u5f85\u4fdd\u5b58\u66f4\u6539\uff0c\u8bf7\u4f7f\u7528\u5168\u5c40\u4fdd\u5b58\u6309\u94ae\u786e\u8ba4": [
-                "Fix suggestions have been added to pending changes. Use the global save button to confirm."
-            ],
-            "\u4fee\u590d\u5efa\u8bae\u683c\u5f0f\u65e0\u6548": [
-                "Invalid suggestion format"
-            ],
-            "\u4e2d\u56fd\u8bbf\u95ee\u9002\u914d": [
-                "China Services Integration"
-            ],
-            "\u68c0\u6d4b\u56fd\u5916\u670d\u52a1\u53ef\u8fbe\u6027\u5e76\u4e00\u952e\u4fee\u590d": [
-                "Check foreign service accessibility and fix it with a single click."
-            ],
-            "\u68c0\u6d4b": [
-                "Scan"
-            ],
-            "\u68c0\u6d4b Google Fonts\u3001Gravatar \u7b49\u670d\u52a1\u5728\u56fd\u5185\u7684\u53ef\u8fbe\u6027": [
-                "Check accessibility of services like Google Fonts and Gravatars within China"
-            ],
-            "\u751f\u6210\u4fee\u590d\u5efa\u8bae": [
-                "Generate Repair Suggestions"
-            ],
-            "\u53ef\u8fbe": [
-                "Accessible"
-            ],
-            "\u4e0d\u53ef\u8fbe": [
-                "Unavailable"
-            ],
-            "\u5ef6\u8fdf\uff1a%dms": [
-                "Delay: %d ms"
-            ],
-            "\u786e\u8ba4\u52a0\u5165\u4ee5\u4e0b\u5f85\u4fdd\u5b58\u66f4\u6539\uff1f": [
-                "Confirm these saved changes?"
-            ],
-            "\u52a0\u5165\u5f85\u4fdd\u5b58\u66f4\u6539": [
-                "Add Changes to Save"
-            ],
             "ICP \u5907\u6848\u53f7\u3001\u516c\u5b89\u7f51\u5907\u53f7\u3001Cookie \u540c\u610f\u5f39\u7a97": [
                 "ICP Registration Number, Public Security Network Precaution Number, Cookie Consent Pop-up"
             ],
@@ -2815,17 +2926,11 @@
             "\u6700\u5927\u94fe\u63a5\u6570": [
                 "Max Links"
             ],
-            "\u6635\u79f0\u8fc7\u6ee4": [
-                "Nickname Filter"
-            ],
             "\u8fc7\u6ee4\u5305\u542b\u654f\u611f\u8bcd\u7684\u8bc4\u8bba\u6635\u79f0": [
                 "Filter Comment Nicknames Containing Sensitive Words"
             ],
             "\u7981\u7528\u6635\u79f0": [
                 "Disable Nickname"
-            ],
-            "\u90ae\u7bb1\u57df\u540d\u9ed1\u540d\u5355": [
-                "Email Domain Blacklist"
             ],
             "IP \u9891\u7387\u9650\u5236": [
                 "IP Rate Limiting"
@@ -2899,12 +3004,6 @@
             "\u81ea\u5b9a\u4e49 HTML": [
                 "Custom HTML"
             ],
-            "\u73af\u5883\u4fee\u590d\u5efa\u8bae\u683c\u5f0f\u65e0\u6548": [
-                "Environment restoration suggestion invalid format"
-            ],
-            "\u73af\u5883\u4fee\u590d\u5efa\u8bae\u5305\u542b\u65e0\u6548\u5b57\u6bb5\uff1a%s": [
-                "Environmental Restoration Recommendations include invalid fields: %s"
-            ],
             "\u94fe\u63a5\u6570\u91cf\u9650\u5236": [
                 "Link Limit"
             ],
@@ -2961,9 +3060,6 @@
             ],
             "\u64a4\u9500\u51ed\u636e\u66f4\u6539": [
                 "Cancel Credential Changes"
-            ],
-            "\u98ce\u9669\u63d0\u793a": [
-                "Risk Warning"
             ],
             "\u5efa\u8bae\uff1a": [
                 "Suggestion:"
@@ -3067,6 +3163,9 @@
             "\u8bbe\u7f6e\u5df2\u4fdd\u5b58\uff0c\u4f46\u91cd\u65b0\u8bfb\u53d6\u5931\u8d25\uff1b\u4fdd\u5b58\u529f\u80fd\u5df2\u7981\u7528\uff0c\u8bf7\u91cd\u65b0\u8bfb\u53d6\u540e\u7ee7\u7eed": [
                 "Settings saved but failed to refresh; save function is disabled, please try refreshing and continue."
             ],
+            "\u7ad9\u70b9\u8bbe\u7f6e\u5df2\u5728\u5176\u4ed6\u9875\u9762\u66f4\u65b0\uff0c\u65e0\u6cd5\u76f4\u63a5\u4fdd\u5b58": [
+                "Site settings were updated in another page and cannot be saved directly"
+            ],
             "\u4fdd\u5b58\u786e\u8ba4\u754c\u9762\u52a0\u8f7d\u5931\u8d25\uff0c\u8bf7\u91cd\u8bd5": [
                 "Save Failed to load confirmation interface, please try again."
             ],
@@ -3096,6 +3195,9 @@
             ],
             "\u67e5\u770b\u5e76\u4fdd\u5b58": [
                 "Review and save"
+            ],
+            "\u91cd\u65b0\u8bfb\u53d6\u8bbe\u7f6e": [
+                "Reload settings"
             ]
         }
     }

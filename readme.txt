@@ -13,12 +13,12 @@ An opt-in toolbox for WordPress site settings, media, SEO, security, China-focus
 
 == Description ==
 
-Npcink Site Toolbox is a utility plugin for WordPress site owners. Version 3.3.2 provides 56 registered modules: 55 opt-in modules and one always-loaded runtime module, plus three editor patterns and two dynamic blocks. Features cover site and media settings, content and SEO, login and comment safeguards, China-focused integrations, diagnostics, and maintenance.
+Npcink Site Toolbox is a utility plugin for WordPress site owners. Version 3.3.2 provides 57 registered modules: 56 opt-in modules and one always-loaded runtime module, plus three editor patterns and two dynamic blocks. Features cover site and media settings, content and SEO, login and comment safeguards, China-focused integrations, diagnostics, and maintenance.
 
 = Current features =
 
 * Seven admin views: Overview, Site and Media, Content and Pages, SEO and Enhancements, China Ecosystem, Maintenance Tools, and About and Help.
-* Site and media: link, upload, image, admin-list, and optional CDN settings.
+* Site and media: link, upload, image, and admin-list enhancements, including opening every filtered post-type row's edit screen in new tabs.
 * Content and SEO: comment controls, restricted content, reading tools, metadata, internal links, search health, and publishing statistics.
 * Security: login-attempt protection and anonymous author-enumeration protection.
 * China-focused integrations: ICP information, WeChat JSSDK, cookie notice, and optional object storage.
