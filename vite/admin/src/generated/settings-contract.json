@@ -63,6 +63,7 @@
                 "description": "",
                 "keywords": "",
                 "seo_category": false,
+                "seo_home": false,
                 "seo_single": false,
                 "title": ""
             }
@@ -71,6 +72,7 @@
             "admin": {
                 "add_time": false,
                 "add_user": false,
+                "open_all_edit_tabs": false,
                 "show_id": false,
                 "thumbnail_switcher": false
             },
@@ -125,6 +127,7 @@
                 "login_search": false,
                 "maintenance_tips": "false",
                 "no_login_img": false,
+                "no_login_img_selector": ".entry-content img",
                 "search_limit": false,
                 "search_limit_count": 10
             },
@@ -216,6 +219,86 @@
             ]
         },
         {
+            "id": "optimize-site-category_link_simplify",
+            "keywords": [
+                "category",
+                "分类",
+                "链接",
+                "url"
+            ],
+            "label": "分类链接简化",
+            "section": "站点",
+            "tabKey": "site",
+            "tabLabel": "站点与媒体",
+            "tags": [
+                "SEO"
+            ]
+        },
+        {
+            "id": "optimize-site-search_link_simplify",
+            "keywords": [
+                "search",
+                "搜索",
+                "链接"
+            ],
+            "label": "搜索链接优化",
+            "section": "站点",
+            "tabKey": "site",
+            "tabLabel": "站点与媒体",
+            "tags": [
+                "SEO"
+            ]
+        },
+        {
+            "id": "optimize-site-remove_sitemap_users",
+            "keywords": [
+                "sitemap",
+                "站点地图",
+                "用户"
+            ],
+            "label": "移除用户站点地图",
+            "section": "站点",
+            "tabKey": "site",
+            "tabLabel": "站点与媒体",
+            "tags": [
+                "推荐",
+                "安全"
+            ]
+        },
+        {
+            "id": "optimize-site-user_list_show_nickname",
+            "keywords": [
+                "user",
+                "用户",
+                "昵称",
+                "列表"
+            ],
+            "label": "用户列表展示昵称",
+            "section": "站点",
+            "tabKey": "site",
+            "tabLabel": "站点与媒体",
+            "tags": [
+                "仅后台"
+            ]
+        },
+        {
+            "id": "optimize-site-hide_email_ip",
+            "keywords": [
+                "email",
+                "邮件",
+                "ip",
+                "隐私"
+            ],
+            "label": "隐藏邮件中的 IP",
+            "section": "站点",
+            "tabKey": "site",
+            "tabLabel": "站点与媒体",
+            "tags": [
+                "推荐",
+                "安全"
+            ]
+        },
+        {
             "id": "optimize-medium-img_add_tag",
             "keywords": [
                 "alt",
@@ -244,6 +327,22 @@
             "tags": [
                 "谨慎",
                 "需主题兼容"
+            ]
+        },
+        {
+            "id": "optimize-medium-medium_add_svg",
+            "keywords": [
+                "svg",
+                "上传",
+                "图标"
+            ],
+            "label": "SVG 上传支持",
+            "section": "媒体",
+            "tabKey": "site",
+            "tabLabel": "站点与媒体",
+            "tags": [
+                "进阶",
+                "XSS 风险"
             ]
         },
         {
@@ -326,6 +425,82 @@
             "tabLabel": "站点与媒体"
         },
         {
+            "id": "optimize-admin-open_all_edit_tabs",
+            "keywords": [
+                "tab",
+                "标签页",
+                "编辑",
+                "批量",
+                "打开"
+            ],
+            "label": "在新标签页打开全部编辑",
+            "section": "后台",
+            "tabKey": "site",
+            "tabLabel": "站点与媒体"
+        },
+        {
+            "id": "page-comment-interval",
+            "keywords": [
+                "interval",
+                "间隔",
+                "频率",
+                "评论"
+            ],
+            "label": "评论间隔限制",
+            "section": "评论",
+            "tabKey": "content",
+            "tabLabel": "内容与页面"
+        },
+        {
+            "id": "page-comment-words_number",
+            "keywords": [
+                "words",
+                "字数",
+                "评论"
+            ],
+            "label": "评论字数限制",
+            "section": "评论",
+            "tabKey": "content",
+            "tabLabel": "内容与页面"
+        },
+        {
+            "id": "page-comment-english",
+            "keywords": [
+                "english",
+                "英文",
+                "spam",
+                "评论"
+            ],
+            "label": "禁止纯英文评论",
+            "section": "评论",
+            "tabKey": "content",
+            "tabLabel": "内容与页面"
+        },
+        {
+            "id": "page-comment-only",
+            "keywords": [
+                "once",
+                "一次",
+                "评论"
+            ],
+            "label": "单篇文章限评一次",
+            "section": "评论",
+            "tabKey": "content",
+            "tabLabel": "内容与页面"
+        },
+        {
+            "id": "page-comment-sensitive_words",
+            "keywords": [
+                "sensitive",
+                "敏感词",
+                "评论"
+            ],
+            "label": "敏感词过滤",
+            "section": "评论",
+            "tabKey": "content",
+            "tabLabel": "内容与页面"
+        },
+        {
             "id": "page-comment-self_service_enabled",
             "keywords": [
                 "comment",
@@ -343,6 +518,73 @@
                 "谨慎",
                 "REST API"
             ]
+        },
+        {
+            "id": "page-feature-reading_progress",
+            "keywords": [
+                "progress",
+                "进度",
+                "阅读"
+            ],
+            "label": "阅读进度条",
+            "section": "外观",
+            "tabKey": "content",
+            "tabLabel": "内容与页面",
+            "tags": [
+                "仅前台"
+            ]
+        },
+        {
+            "id": "page-function-first_picture",
+            "keywords": [
+                "thumbnail",
+                "特色图",
+                "首图",
+                "封面"
+            ],
+            "label": "首图作特色图",
+            "section": "功能",
+            "tabKey": "content",
+            "tabLabel": "内容与页面"
+        },
+        {
+            "id": "page-function-add_inks",
+            "keywords": [
+                "link",
+                "内链",
+                "关键词",
+                "标签",
+                "tag"
+            ],
+            "label": "关键词自动内链",
+            "section": "功能",
+            "tabKey": "content",
+            "tabLabel": "内容与页面"
+        },
+        {
+            "id": "page-function-add_last_update",
+            "keywords": [
+                "update",
+                "更新时间",
+                "编辑"
+            ],
+            "label": "添加最后更新时间",
+            "section": "功能",
+            "tabKey": "content",
+            "tabLabel": "内容与页面"
+        },
+        {
+            "id": "page-function-no_login_img",
+            "keywords": [
+                "blur",
+                "模糊",
+                "登录",
+                "图片"
+            ],
+            "label": "未登录模糊文章内图片",
+            "section": "功能",
+            "tabKey": "content",
+            "tabLabel": "内容与页面"
         },
         {
             "aliases": [
@@ -363,15 +605,79 @@
             ]
         },
         {
+            "id": "function-auxiliary-single_count",
+            "keywords": [
+                "count",
+                "统计",
+                "访问",
+                "浏览"
+            ],
+            "label": "文章访问统计",
+            "section": "SEO",
+            "tabKey": "seo",
+            "tabLabel": "SEO 与增强"
+        },
+        {
+            "id": "function-auxiliary-no_malice_key",
+            "keywords": [
+                "malice",
+                "恶意",
+                "搜索",
+                "屏蔽"
+            ],
+            "label": "恶意关键词屏蔽",
+            "section": "SEO",
+            "tabKey": "seo",
+            "tabLabel": "SEO 与增强"
+        },
+        {
+            "id": "function-auxiliary-baidu_tonji",
+            "keywords": [
+                "baidu",
+                "百度",
+                "统计",
+                "hm"
+            ],
+            "label": "百度统计",
+            "section": "SEO",
+            "tabKey": "seo",
+            "tabLabel": "SEO 与增强"
+        },
+        {
+            "id": "function-auxiliary-google_tonji",
+            "keywords": [
+                "google",
+                "验证",
+                "search console"
+            ],
+            "label": "Google 站点验证",
+            "section": "SEO",
+            "tabKey": "seo",
+            "tabLabel": "SEO 与增强"
+        },
+        {
+            "id": "function-auxiliary-biying_tonji",
+            "keywords": [
+                "bing",
+                "必应",
+                "验证",
+                "webmaster"
+            ],
+            "label": "必应站点验证",
+            "section": "SEO",
+            "tabKey": "seo",
+            "tabLabel": "SEO 与增强"
+        },
+        {
             "id": "function-seo-seo_home",
             "keywords": [
                 "tdk",
                 "首页",
-                "seo",
                 "标题",
-                "描述"
+                "描述",
+                "seo"
             ],
-            "label": "首页 TDK",
+            "label": "首页 SEO",
             "section": "SEO",
             "tabKey": "seo",
             "tabLabel": "SEO 与增强",
@@ -393,6 +699,22 @@
             "tabLabel": "SEO 与增强",
             "tags": [
                 "推荐",
+                "SEO"
+            ]
+        },
+        {
+            "id": "function-seo-seo_category",
+            "keywords": [
+                "category",
+                "分类",
+                "标签",
+                "tdk"
+            ],
+            "label": "分类和标签 SEO",
+            "section": "SEO",
+            "tabKey": "seo",
+            "tabLabel": "SEO 与增强",
+            "tags": [
                 "SEO"
             ]
         },
@@ -521,6 +843,67 @@
             "tabLabel": "国内生态"
         },
         {
+            "id": "domestic-comment_security-link_limit",
+            "keywords": [
+                "link",
+                "链接",
+                "数量"
+            ],
+            "label": "链接数量上限",
+            "section": "评论安全",
+            "tabKey": "china",
+            "tabLabel": "国内生态"
+        },
+        {
+            "id": "domestic-comment_security-nickname_filter_enabled",
+            "keywords": [
+                "nickname",
+                "昵称",
+                "过滤"
+            ],
+            "label": "昵称过滤",
+            "section": "评论安全",
+            "tabKey": "china",
+            "tabLabel": "国内生态"
+        },
+        {
+            "id": "domestic-comment_security-nickname_filter",
+            "keywords": [
+                "nickname",
+                "昵称",
+                "关键词"
+            ],
+            "label": "昵称过滤词",
+            "section": "评论安全",
+            "tabKey": "china",
+            "tabLabel": "国内生态"
+        },
+        {
+            "id": "domestic-comment_security-email_domain_enabled",
+            "keywords": [
+                "email",
+                "邮箱",
+                "域名",
+                "黑名单"
+            ],
+            "label": "邮箱域名黑名单",
+            "section": "评论安全",
+            "tabKey": "china",
+            "tabLabel": "国内生态"
+        },
+        {
+            "id": "domestic-comment_security-email_blacklist",
+            "keywords": [
+                "email",
+                "邮箱",
+                "域名"
+            ],
+            "label": "邮箱黑名单域名",
+            "section": "评论安全",
+            "tabKey": "china",
+            "tabLabel": "国内生态"
+        },
+        {
             "id": "domestic-comment_security-duplicate_enabled",
             "keywords": [
                 "comment",
@@ -545,6 +928,19 @@
                 "频率"
             ],
             "label": "评论 IP 频率限制",
+            "section": "评论安全",
+            "tabKey": "china",
+            "tabLabel": "国内生态"
+        },
+        {
+            "id": "domestic-comment_security-ip_rate_limit",
+            "keywords": [
+                "ip",
+                "频率",
+                "上限",
+                "评论"
+            ],
+            "label": "评论频率上限",
             "section": "评论安全",
             "tabKey": "china",
             "tabLabel": "国内生态"
@@ -660,6 +1056,30 @@
             "tabLabel": "存储与维护"
         },
         {
+            "id": "performance-search_enhance-recommend_enabled",
+            "keywords": [
+                "recommend",
+                "推荐",
+                "相关"
+            ],
+            "label": "搜索结果推荐",
+            "section": "搜索",
+            "tabKey": "maintenance",
+            "tabLabel": "存储与维护"
+        },
+        {
+            "id": "performance-search_enhance-hotwords_enabled",
+            "keywords": [
+                "hotword",
+                "热词",
+                "统计"
+            ],
+            "label": "搜索热词统计",
+            "section": "搜索",
+            "tabKey": "maintenance",
+            "tabLabel": "存储与维护"
+        },
+        {
             "id": "performance-db_clean-enabled",
             "keywords": [
                 "db",
@@ -676,6 +1096,68 @@
                 "推荐",
                 "性能"
             ]
+        },
+        {
+            "id": "performance-db_clean-clean_revisions",
+            "keywords": [
+                "revision",
+                "修订",
+                "清理"
+            ],
+            "label": "清理修订版本",
+            "section": "数据库",
+            "tabKey": "maintenance",
+            "tabLabel": "存储与维护"
+        },
+        {
+            "id": "performance-db_clean-clean_drafts",
+            "keywords": [
+                "draft",
+                "草稿",
+                "清理"
+            ],
+            "label": "清理草稿",
+            "section": "数据库",
+            "tabKey": "maintenance",
+            "tabLabel": "存储与维护"
+        },
+        {
+            "id": "performance-db_clean-clean_spam_comments",
+            "keywords": [
+                "spam",
+                "垃圾",
+                "评论",
+                "清理"
+            ],
+            "label": "清理垃圾评论",
+            "section": "数据库",
+            "tabKey": "maintenance",
+            "tabLabel": "存储与维护"
+        },
+        {
+            "id": "performance-db_clean-clean_transients",
+            "keywords": [
+                "transient",
+                "临时",
+                "清理"
+            ],
+            "label": "清理过期临时选项",
+            "section": "数据库",
+            "tabKey": "maintenance",
+            "tabLabel": "存储与维护"
+        },
+        {
+            "id": "performance-db_clean-auto_clean",
+            "keywords": [
+                "auto",
+                "自动",
+                "定时",
+                "cron"
+            ],
+            "label": "自动定时清理",
+            "section": "数据库",
+            "tabKey": "maintenance",
+            "tabLabel": "存储与维护"
         }
     ],
     "uiSchema": {
@@ -762,6 +1244,20 @@
                 "谨慎"
             ],
             "type": "boolean"
+        },
+        "page-function-maintenance_tips": {
+            "path": "page.function.maintenance_tips",
+            "risk": {
+                "level": "high",
+                "noDismiss": true,
+                "suggestion": "仅在实际维护期间开启，维护完成后立即关闭。",
+                "title": "维护提示页",
+                "warning": "开启后全站前台立即进入维护状态，未登录访客只能看到维护提示，搜索引擎会收到 503 响应。"
+            },
+            "risk_tags": [
+                "安全"
+            ],
+            "type": "string"
         },
         "performance-db_clean-enabled": {
             "feature_id": "performance-db_clean-enabled",

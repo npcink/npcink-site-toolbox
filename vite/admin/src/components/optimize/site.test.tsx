@@ -36,6 +36,7 @@ function renderSite(siteOverrides: Partial<Option["optimize"]["site"]> = {}) {
         clearSecretChanges: vi.fn(),
         settingsState: "ready",
         settingsError: null,
+      configEpoch: 0,
       }}
     >
       <Site />

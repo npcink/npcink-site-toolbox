@@ -318,6 +318,7 @@ describe("AiDiagnostics", () => {
         clearSecretChanges: vi.fn(),
         settingsState: "ready",
         settingsError: null,
+      configEpoch: 0,
       }}>
         <AiDiagnostics />
       </DataContext.Provider>,

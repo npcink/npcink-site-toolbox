@@ -86,11 +86,11 @@ describe("FeatureSearch", () => {
 
     fireEvent.change(input, { target: { value: "评论" } });
     fireEvent.keyDown(input, { key: "ArrowDown" });
-    const firstResult = screen.getByRole("button", { name: "打开用户评论 REST 接口" });
+    const firstResult = screen.getByRole("button", { name: "打开评论间隔限制" });
     expect(document.activeElement).toBe(firstResult);
 
     fireEvent.keyDown(firstResult, { key: "ArrowDown" });
-    const secondResult = screen.getByRole("button", { name: "打开评论敏感词过滤" });
+    const secondResult = screen.getByRole("button", { name: "打开评论字数限制" });
     expect(document.activeElement).toBe(secondResult);
 
     fireEvent.keyDown(secondResult, { key: "Escape" });

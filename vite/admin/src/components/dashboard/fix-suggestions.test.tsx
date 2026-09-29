@@ -65,6 +65,7 @@ function renderDashboard(onNavigate = vi.fn(), optionData: Option = defaultVarOp
         clearSecretChanges: vi.fn(),
         settingsState: "ready",
         settingsError: null,
+      configEpoch: 0,
       }}
     >
       <Dashboard onNavigate={onNavigate} />

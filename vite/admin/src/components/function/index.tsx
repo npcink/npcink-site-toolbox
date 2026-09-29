@@ -28,7 +28,14 @@ const SiteInput = (props: any) => {
 const SeoCard: React.FC<{ drawerOpen?: boolean; onDrawerOpenChange?: (open: boolean) => void }> = ({ drawerOpen: extDrawerOpen, onDrawerOpenChange }) => {
   const { optionData, updateOption } = useContext(DataContext);
   const publicData = optionData.function?.seo || defaultVarOption.function.seo;
+  const { configEpoch } = useContext(DataContext);
   const [formData, setFormData] = useState(publicData || {});
+
+  // configEpoch 在保存或重新读取成功后自增，把服务端（可能已自动修正）的值同步回表单
+  useEffect(() => {
+    setFormData(publicData || {});
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [configEpoch]);
   const [intDrawerOpen, setIntDrawerOpen] = useState(false);
   const drawerOpen = extDrawerOpen ?? intDrawerOpen;
   const setDrawerOpen = onDrawerOpenChange ?? setIntDrawerOpen;
@@ -70,6 +77,13 @@ const SeoCard: React.FC<{ drawerOpen?: boolean; onDrawerOpenChange?: (open: bool
             enabled={!!formData.seo_single}
             onChange={(checked: boolean) => onValuesChange({ seo_single: checked })}
           />
+          <ModuleRow
+            title={__("首页 SEO")}
+            description={__("用下方标题、关键词和描述输出首页 TDK，需要主题支持自定义标题")}
+            featureId="function-seo-seo_home"
+            enabled={!!formData.seo_home}
+            onChange={(checked: boolean) => onValuesChange({ seo_home: checked })}
+          />
           <Form.Item label={__("标题")} name="title" extra={__("站点标题")}>
             <Input />
           </Form.Item>
@@ -95,7 +109,14 @@ const SeoCard: React.FC<{ drawerOpen?: boolean; onDrawerOpenChange?: (open: bool
 const AuxiliaryCard: React.FC<{ drawerOpen?: boolean; onDrawerOpenChange?: (open: boolean) => void }> = ({ drawerOpen: extDrawerOpen, onDrawerOpenChange }) => {
   const { optionData, updateOption } = useContext(DataContext);
   const publicData = optionData.function?.auxiliary || defaultVarOption.function.auxiliary;
+  const { configEpoch } = useContext(DataContext);
   const [formData, setFormData] = useState(publicData || {});
+
+  // configEpoch 在保存或重新读取成功后自增，把服务端（可能已自动修正）的值同步回表单
+  useEffect(() => {
+    setFormData(publicData || {});
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [configEpoch]);
   const [intDrawerOpen, setIntDrawerOpen] = useState(false);
   const [verificationErrors, setVerificationErrors] = useState<Partial<Record<VerificationField, string>>>({});
   const drawerOpen = extDrawerOpen ?? intDrawerOpen;

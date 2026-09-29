@@ -37,6 +37,7 @@ const Harness: React.FC<{ configured: boolean; compact?: boolean }> = ({ configu
         clearSecretChanges: () => setChanges({}),
         settingsState: "ready",
         settingsError: null,
+      configEpoch: 0,
       }}
     >
       <SecretField label="AppSecret" path={PATH} compact={compact} />

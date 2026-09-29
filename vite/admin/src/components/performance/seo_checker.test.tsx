@@ -28,6 +28,7 @@ function renderSeoChecker() {
         clearSecretChanges: vi.fn(),
         settingsState: "ready",
         settingsError: null,
+      configEpoch: 0,
       }}
     >
       <SeoChecker />

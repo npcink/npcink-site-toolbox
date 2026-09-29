@@ -32,12 +32,23 @@ function renderDbClean() {
           clearSecretChanges: vi.fn(),
           settingsState: "ready",
           settingsError: null,
+      configEpoch: 0,
         }}
       >
         <DbClean />
       </DataContext.Provider>
     </ConfigProvider>,
   );
+}
+
+
+function enableDbClean() {
+  const riskConfirm = vi.spyOn(Modal, "confirm").mockImplementation((config: any) => {
+    config.onOk?.();
+    return undefined as never;
+  });
+  fireEvent.click(screen.getByRole("switch", { name: "启用数据库清理" }));
+  riskConfirm.mockRestore();
 }
 
 const getComputedStyle = window.getComputedStyle.bind(window);
@@ -73,6 +84,7 @@ describe("数据库清理操作链", () => {
     expect(screen.queryByRole("button", { name: "预览清理" })).not.toBeInTheDocument();
     expect(screen.queryByRole("button", { name: "执行清理" })).not.toBeInTheDocument();
 
+    enableDbClean();
     fireEvent.click(screen.getByRole("button", { name: "查看统计" }));
 
     const revisionCount = await screen.findByText("12 条");
@@ -95,6 +107,7 @@ describe("数据库清理操作链", () => {
   it("清理后在表格附近保留删除数量并刷新统计", async () => {
     const confirm = vi.spyOn(Modal, "confirm").mockImplementation(() => undefined as never);
     renderDbClean();
+    enableDbClean();
     fireEvent.click(screen.getByRole("button", { name: "查看统计" }));
 
     const revisionRow = (await screen.findByText("12 条")).closest("tr");
@@ -121,6 +134,7 @@ describe("数据库清理操作链", () => {
       response: { data: { message: "数据库内容已发生变化，请重新预览并确认最新影响范围。" } },
     });
     renderDbClean();
+    enableDbClean();
     fireEvent.click(screen.getByRole("button", { name: "查看统计" }));
 
     const revisionRow = (await screen.findByText("12 条")).closest("tr");
@@ -140,6 +154,7 @@ describe("数据库清理操作链", () => {
     const confirm = vi.spyOn(Modal, "confirm").mockImplementation(() => undefined as never);
     apiMocks.cleanDb.mockRejectedValueOnce(new Error("network unavailable"));
     renderDbClean();
+    enableDbClean();
     fireEvent.click(screen.getByRole("button", { name: "查看统计" }));
 
     const revisionRow = (await screen.findByText("12 条")).closest("tr");
@@ -155,4 +170,16 @@ describe("数据库清理操作链", () => {
     const failureMessage = await screen.findByText("清理失败，请重试。");
     expect(failureMessage.closest('[role="alert"]')).not.toBeNull();
   }, 30_000);
+  it("未启用数据库清理时，统计与清理入口被禁用并给出提示", () => {
+    renderDbClean();
+
+    expect(screen.getByRole("button", { name: "查看统计" })).toBeDisabled();
+    expect(screen.getByRole("status")).toHaveTextContent("请先启用数据库清理，再使用统计、预览与手动清理操作。");
+
+    enableDbClean();
+    return waitFor(() => {
+      expect(screen.getByRole("button", { name: "查看统计" })).toBeEnabled();
+    });
+  });
 });
+

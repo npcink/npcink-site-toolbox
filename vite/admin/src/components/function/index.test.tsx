@@ -20,6 +20,7 @@ function renderFunctionSettings(updateOption = vi.fn()) {
         clearSecretChanges: vi.fn(),
         settingsState: "ready",
         settingsError: null,
+      configEpoch: 0,
       }}
     >
       <FunctionSettings />

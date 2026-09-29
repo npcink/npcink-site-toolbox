@@ -37,7 +37,14 @@ interface OperationFeedback {
 const App: React.FC = () => {
   const { optionData, updateOption } = useContext(DataContext);
   const publicData = optionData.performance?.db_clean || {};
+  const { configEpoch } = useContext(DataContext);
   const [formData, setFormData] = useState(publicData || {});
+
+  // configEpoch 在保存或重新读取成功后自增，把服务端（可能已自动修正）的值同步回表单
+  useEffect(() => {
+    setFormData(publicData || {});
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [configEpoch]);
   const [stats, setStats] = useState<DbStats | null>(null);
   const [previewData, setPreviewData] = useState<Partial<Record<DbCleanType, DbPreview>>>({});
   const [previewLoadingType, setPreviewLoadingType] = useState<DbCleanType | null>(null);
@@ -194,11 +201,11 @@ const App: React.FC = () => {
               size="small"
               onClick={() => handlePreview(type)}
               loading={previewLoadingType === type}
-              disabled={previewLoadingType !== null && previewLoadingType !== type}
+              disabled={!formData.enabled || (previewLoadingType !== null && previewLoadingType !== type)}
             >
               {__("预览")}
             </Button>
-            <Button size="small" style={{ marginLeft: 4 }} onClick={() => handleClean(type)} loading={cleanLoadingType === type} disabled={!previewData[type]}>{__("清理")}</Button>
+            <Button size="small" style={{ marginLeft: 4 }} onClick={() => handleClean(type)} loading={cleanLoadingType === type} disabled={!formData.enabled || !previewData[type]}>{__("清理")}</Button>
           </span>
         );
       },
@@ -237,6 +244,7 @@ const App: React.FC = () => {
 
         <ModuleRow
           title={__("启用数据库清理")}
+          description={__("启用后开放统计、预览与手动清理入口；自动清理还需开启下方「定时自动清理」开关")}
           featureId="performance-db_clean-enabled"
           enabled={!!formData.enabled}
           onChange={(checked) => {
@@ -244,6 +252,15 @@ const App: React.FC = () => {
           }}
           tags={["高风险", "不可逆"]}
         />
+        {!formData.enabled && (
+          <Alert
+            type="info"
+            showIcon
+            role="status"
+            message={__("请先启用数据库清理，再使用统计、预览与手动清理操作。")}
+            style={{ marginTop: 12 }}
+          />
+        )}
 
         <Form.Item label={__("清理修订版本")} name="clean_revisions" valuePropName="checked">
           <FeatureSwitch featureId="performance-db_clean-clean_revisions" label={__("清理修订版本")} />
@@ -272,7 +289,7 @@ const App: React.FC = () => {
         )}
 
         <Form.Item wrapperCol={fromConfig.wrapperCol}>
-          <Button onClick={() => void fetchStats()}>{__("查看统计")}</Button>
+          <Button onClick={() => void fetchStats()} disabled={!formData.enabled}>{__("查看统计")}</Button>
         </Form.Item>
 
         {statsDataSource.length > 0 && (

@@ -31,6 +31,7 @@ function renderMedium(webpSupported: boolean) {
         clearSecretChanges: vi.fn(),
         settingsState: "ready",
         settingsError: null,
+      configEpoch: 0,
       }}
     >
       <Medium />

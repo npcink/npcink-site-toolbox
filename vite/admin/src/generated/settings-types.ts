@@ -33,6 +33,7 @@ export type OptimizeAdmin = {
   add_time: boolean;
   show_id: boolean;
   thumbnail_switcher: boolean;
+  open_all_edit_tabs: boolean;
 };
 
 export type PageComment = {
@@ -62,6 +63,7 @@ export type PageFunction = {
   add_inks: boolean;
   add_last_update: boolean;
   no_login_img: boolean;
+  no_login_img_selector: string;
   maintenance_tips: string;
   countdown: string[];
   countdown_title: string;
@@ -92,6 +94,7 @@ export type FunctionAuxiliary = {
 };
 
 export type FunctionSeo = {
+  seo_home: boolean;
   title: string;
   keywords: string;
   description: string;

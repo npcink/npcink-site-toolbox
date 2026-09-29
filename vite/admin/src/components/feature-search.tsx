@@ -98,6 +98,12 @@ const FeatureSearch: React.FC<FeatureSearchProps> = ({ onNavigate, className, st
       event.preventDefault();
       setOpen(true);
       focusResult(visibleResults.length - 1);
+    } else if (event.key === "Enter" && visibleResults.length > 0) {
+      // 回车直接打开第一个结果，与主流搜索习惯一致
+      event.preventDefault();
+      const first = visibleResults[0];
+      onNavigate(first.tabKey, first.id);
+      closeResults();
     }
   };
 

@@ -93,6 +93,7 @@ const App: React.FC = () => {
   const [settingsState, setSettingsState] = useState<SettingsLoadState>("loading");
   const [settingsError, setSettingsError] = useState<string | null>(null);
   const [settingsRevision, setSettingsRevision] = useState<string>();
+  const [configEpoch, setConfigEpoch] = useState(0);
   const [isMobile, setIsMobile] = useState(() => window.innerWidth <= 782);
   const [activeView, setActiveView] = useState<AdminView>(() =>
     getAdminViewFromSearch(window.location.search),
@@ -147,6 +148,7 @@ const App: React.FC = () => {
       setSecretStatus(response.secretStatus);
       setSettingsRevision(response.revision);
       setSecretChanges({});
+      setConfigEpoch((epoch) => epoch + 1);
       setSettingsState("ready");
     } catch (error) {
       const message = error instanceof Error ? error.message : __("无法读取设置");
@@ -325,6 +327,7 @@ const App: React.FC = () => {
         settingsState,
         settingsError,
         settingsRevision,
+        configEpoch,
       }}
     >
       <div className="mabox-shell">

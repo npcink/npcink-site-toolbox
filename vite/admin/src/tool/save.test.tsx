@@ -47,6 +47,7 @@ function renderSave(overrides: Partial<OptionContextType> = {}) {
     clearSecretChanges: vi.fn(),
     settingsState: "ready",
     settingsError: null,
+      configEpoch: 0,
     settingsRevision: SETTINGS_REVISION,
     ...overrides,
   };

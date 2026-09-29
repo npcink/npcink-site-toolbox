@@ -6,12 +6,14 @@ import { loadDiffModal } from "@/tool/diffModalLoader";
 import { ConfigDiffItem } from "@/tool/interface";
 import { notice } from "@/tool/notice";
 import { __, sprintf } from "@/tool/i18n";
+import { confirmUnsavedNavigation } from "@/tool/unsavedChanges";
 
 type DiffModalComponent = Awaited<ReturnType<typeof loadDiffModal>>["default"];
 
 interface SaveFeedback {
   kind: "warning" | "error";
   message: string;
+  action?: "reload";
 }
 
 const App: React.FC = () => {
@@ -57,6 +59,16 @@ const App: React.FC = () => {
         setSaveFeedback({
           kind: "warning",
           message: __("设置已保存，但重新读取失败；保存功能已禁用，请重新读取后继续"),
+          action: "reload",
+        });
+      } else if ((error as { status?: number } | null)?.status === 409) {
+        // 保存冲突：服务端已更新，提供原地重新读取入口，避免用户只能刷新丢改动
+        setSaveFeedback({
+          kind: "error",
+          message:
+            (error instanceof Error && error.message ? error.message : "") ||
+            __("站点设置已在其他页面更新，无法直接保存"),
+          action: "reload",
         });
       } else {
         setSaveFeedback({
@@ -66,6 +78,18 @@ const App: React.FC = () => {
       }
     } finally {
       setSaving(false);
+    }
+  };
+
+  const handleRereadSettings = async () => {
+    if (!confirmUnsavedNavigation(true)) {
+      return;
+    }
+    setSaveFeedback(null);
+    try {
+      await refreshOption();
+    } catch {
+      // loadSettings 失败时已把错误写入全局 settingsState，这里无需重复提示
     }
   };
 
@@ -138,6 +162,16 @@ const App: React.FC = () => {
           aria-atomic="true"
         >
           {saveFeedback.message}
+          {saveFeedback.action === "reload" && (
+            <button
+              type="button"
+              className="mabox-save-action mabox-save-action--reload"
+              onClick={() => void handleRereadSettings()}
+              style={{ marginLeft: 8 }}
+            >
+              {__("重新读取设置")}
+            </button>
+          )}
         </div>
       )}
       <span

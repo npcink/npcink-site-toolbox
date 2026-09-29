@@ -3,6 +3,7 @@ import { Form, Input, InputNumber, Select } from "antd";
 import { DataContext } from "@/tool/dataContext";
 import { AntConfig } from "@/tool/tool";
 import { ModuleCard, DetailDrawer, ModuleRow, SecretField } from "@/components/settings-ui";
+import type { StatusType } from "@/components/settings-ui/StatusTag";
 import type { DomesticLoginSecurity } from "@/tool/interface";
 import { __ } from "@/tool/i18n";
 
@@ -11,7 +12,14 @@ const { TextArea } = Input;
 const ComplianceCard: React.FC<{ drawerOpen?: boolean; onDrawerOpenChange?: (open: boolean) => void }> = ({ drawerOpen: extDrawerOpen, onDrawerOpenChange }) => {
   const { optionData, updateOption } = useContext(DataContext);
   const publicData = optionData.domestic?.compliance || {};
+  const { configEpoch } = useContext(DataContext);
   const [formData, setFormData] = useState(publicData || {});
+
+  // configEpoch 在保存或重新读取成功后自增，把服务端（可能已自动修正）的值同步回表单
+  useEffect(() => {
+    setFormData(publicData || {});
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [configEpoch]);
   const [intDrawerOpen, setIntDrawerOpen] = useState(false);
   const drawerOpen = extDrawerOpen ?? intDrawerOpen;
   const setDrawerOpen = onDrawerOpenChange ?? setIntDrawerOpen;
@@ -22,13 +30,18 @@ const ComplianceCard: React.FC<{ drawerOpen?: boolean; onDrawerOpenChange?: (ope
 
   useEffect(() => { updateOption("domestic", "compliance", formData); }, [formData]);
 
+  // 状态标签按已保存的备案信息动态显示，不再写死「未配置」
+  const complianceConfigured = !!(publicData as Record<string, unknown> | undefined)?.icp_number
+    || !!(publicData as Record<string, unknown> | undefined)?.police_number;
+  const complianceTag: StatusType = complianceConfigured ? "已配置" : "未配置";
+
   return (
     <>
       <ModuleCard
         title={__("备案与合规")}
         description={__("ICP 备案号、公安网备号、Cookie 同意弹窗")}
         featureId="domestic-compliance-icp_enabled"
-        tags={["未配置"]}
+        tags={[complianceTag]}
         switchable={false}
         actionLabel={__("配置")}
         onAction={() => setDrawerOpen(true)}
@@ -78,7 +91,14 @@ const ComplianceCard: React.FC<{ drawerOpen?: boolean; onDrawerOpenChange?: (ope
 const WechatCard: React.FC<{ drawerOpen?: boolean; onDrawerOpenChange?: (open: boolean) => void }> = ({ drawerOpen: extDrawerOpen, onDrawerOpenChange }) => {
   const { optionData, updateOption } = useContext(DataContext);
   const publicData = optionData.domestic?.wechat || {};
+  const { configEpoch } = useContext(DataContext);
   const [formData, setFormData] = useState(publicData || {});
+
+  // configEpoch 在保存或重新读取成功后自增，把服务端（可能已自动修正）的值同步回表单
+  useEffect(() => {
+    setFormData(publicData || {});
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [configEpoch]);
   const [intDrawerOpen, setIntDrawerOpen] = useState(false);
   const drawerOpen = extDrawerOpen ?? intDrawerOpen;
   const setDrawerOpen = onDrawerOpenChange ?? setIntDrawerOpen;
@@ -128,7 +148,14 @@ const WechatCard: React.FC<{ drawerOpen?: boolean; onDrawerOpenChange?: (open: b
 const CommentSecurityCard: React.FC<{ drawerOpen?: boolean; onDrawerOpenChange?: (open: boolean) => void }> = ({ drawerOpen: extDrawerOpen, onDrawerOpenChange }) => {
   const { optionData, updateOption } = useContext(DataContext);
   const publicData = optionData.domestic?.comment_security || {};
+  const { configEpoch } = useContext(DataContext);
   const [formData, setFormData] = useState(publicData || {});
+
+  // configEpoch 在保存或重新读取成功后自增，把服务端（可能已自动修正）的值同步回表单
+  useEffect(() => {
+    setFormData(publicData || {});
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [configEpoch]);
   const [intDrawerOpen, setIntDrawerOpen] = useState(false);
   const drawerOpen = extDrawerOpen ?? intDrawerOpen;
   const setDrawerOpen = onDrawerOpenChange ?? setIntDrawerOpen;

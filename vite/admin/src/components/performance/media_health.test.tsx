@@ -32,6 +32,7 @@ function renderMediaHealth() {
           clearSecretChanges: vi.fn(),
           settingsState: "ready",
           settingsError: null,
+      configEpoch: 0,
         }}
       >
         <MediaHealth />

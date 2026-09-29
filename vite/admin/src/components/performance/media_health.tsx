@@ -73,7 +73,14 @@ const recommendationStatus = (assessment: MediaWebpAssessment) => {
 const App: React.FC = () => {
   const { optionData, updateOption } = useContext(DataContext);
   const publicData = optionData.performance?.media_health || {};
+  const { configEpoch } = useContext(DataContext);
   const [formData, setFormData] = useState(publicData || {});
+
+  // configEpoch 在保存或重新读取成功后自增，把服务端（可能已自动修正）的值同步回表单
+  useEffect(() => {
+    setFormData(publicData || {});
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [configEpoch]);
   const [issues, setIssues] = useState<MediaHealthIssue[]>([]);
   const [webpAssessment, setWebpAssessment] = useState<MediaWebpAssessment | null>(null);
   const [checking, setChecking] = useState(false);

@@ -27,6 +27,7 @@ function renderDomestic(targetItemId?: string, optionData: Option = defaultVarOp
         clearSecretChanges: vi.fn(),
         settingsState: "ready",
         settingsError: null,
+      configEpoch: 0,
       }}
     >
       <Domestic targetItemId={targetItemId} />

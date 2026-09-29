@@ -110,6 +110,7 @@ export interface OptionContextType {
   settingsState: SettingsLoadState;
   settingsError: string | null;
   settingsRevision?: string;
+  configEpoch: number;
 }
 
 export const DataContext = createContext<OptionContextType>({
@@ -125,4 +126,5 @@ export const DataContext = createContext<OptionContextType>({
   settingsState: "loading",
   settingsError: null,
   settingsRevision: undefined,
+  configEpoch: 0,
 });

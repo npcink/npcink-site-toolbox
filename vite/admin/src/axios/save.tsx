@@ -46,8 +46,13 @@ function sanitizeResponseMessage(message: string, secretChanges: SecretChanges):
 
 function normalizeSaveError(error: unknown, secretChanges: SecretChanges): Error {
   let message: string | undefined;
+  let status: number | undefined;
 
   if (isRecord(error) && isRecord(error.response)) {
+    const responseStatus = (error.response as { status?: unknown }).status;
+    if (typeof responseStatus === "number") {
+      status = responseStatus;
+    }
     message = extractResponseMessage(error.response.data);
   }
   if (!message) {
@@ -58,7 +63,11 @@ function normalizeSaveError(error: unknown, secretChanges: SecretChanges): Error
   }
 
   const sanitized = sanitizeResponseMessage(message || DEFAULT_SAVE_ERROR, secretChanges);
-  return new Error(sanitized || DEFAULT_SAVE_ERROR);
+  const normalized = new Error(sanitized || DEFAULT_SAVE_ERROR) as Error & { status?: number };
+  if (status !== undefined) {
+    normalized.status = status;
+  }
+  return normalized;
 }
 
 function assertSecretChangesAreValid(secretChanges: SecretChanges): void {
