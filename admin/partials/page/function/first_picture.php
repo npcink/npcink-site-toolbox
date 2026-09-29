@@ -12,19 +12,25 @@ if (!class_exists('Npcink_Toolbox_Single_First_Picture')) {
     {
         public static function run($config = array())
         {
-            add_action('the_post', array(__CLASS__, 'huitheme_auto_set_featured_image'));
+            // 在保存文章时一次性设置特色图，渲染路径（含归档、Feed）不再写数据库
+            add_action('save_post', array(__CLASS__, 'set_featured_image_on_save'), 10, 2);
         }
-        //自动添加特色图像
-        public static function huitheme_auto_set_featured_image()
+        //保存时自动添加特色图像
+        public static function set_featured_image_on_save($post_id, $post)
         {
-            global $post;
-            $featured_image_exists = has_post_thumbnail($post->ID);
-            if (!$featured_image_exists) {
-                $attached_image = get_children("post_parent=$post->ID&post_type=attachment&post_mime_type=image&numberposts=1");
-                if ($attached_image) {
-                    foreach ($attached_image as $attachment_id => $attachment) {
-                        set_post_thumbnail($post->ID, $attachment_id);
-                    }
+            if (wp_is_post_revision($post_id) || wp_is_post_autosave($post_id)) {
+                return;
+            }
+            if (!post_type_supports(get_post_type($post), 'thumbnail')) {
+                return;
+            }
+            if (has_post_thumbnail($post_id)) {
+                return;
+            }
+            $attached_image = get_children("post_parent=$post_id&post_type=attachment&post_mime_type=image&numberposts=1");
+            if ($attached_image) {
+                foreach ($attached_image as $attachment_id => $attachment) {
+                    set_post_thumbnail($post_id, $attachment_id);
                 }
             }
         }

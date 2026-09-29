@@ -29,7 +29,7 @@ if (!class_exists('Npcink_Toolbox_Page_Search_Limit')) {
                     return;
                 }
 
-                $ip = Npcink_Toolbox_Helpers::get_real_ip();
+                $ip = Npcink_Toolbox_Helpers::get_rate_limit_ip();
                 $transient_key = 'npcink_site_toolbox_search_limit_' . md5($ip);
                 $search_count = get_transient($transient_key);
 
@@ -38,7 +38,12 @@ if (!class_exists('Npcink_Toolbox_Page_Search_Limit')) {
                 }
 
                 if ($search_count >= $max_count) {
-                    wp_die(esc_html__('搜索过于频繁，请稍后再试。', 'npcink-site-toolbox'));
+                    // 明确返回 429，而不是 wp_die 默认的 500
+                    wp_die(
+                        esc_html__('搜索过于频繁，请稍后再试。', 'npcink-site-toolbox'),
+                        '',
+                        array('response' => 429)
+                    );
                 }
 
                 set_transient($transient_key, $search_count + 1, MINUTE_IN_SECONDS);

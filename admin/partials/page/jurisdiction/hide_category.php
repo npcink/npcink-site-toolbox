@@ -15,8 +15,25 @@ if (!class_exists('Npcink_Toolbox_Page_Hide_Category')) {
         {
             self::$id_array = Npcink_Toolbox_Admin::get_config($config, 'category_id', array());
             self::$tip_content = Npcink_Toolbox_Admin::get_config($config, 'tip_content', '');
+            // 查询级排除：未登录时把受限分类从列表、搜索与订阅源中整体移除，
+            // 避免仅替换正文导致标题/摘要在归档和 RSS 中泄漏
+            add_action('pre_get_posts', array(__CLASS__, 'exclude_from_listings'));
             add_action('the_content', array(__CLASS__, 'restrict_content_for_specific_categories'));
-            add_action('wp_enqueue_scripts', array(__CLASS__, 'enqueue_restricted_category_style'));
+        }
+
+        public static function exclude_from_listings($query)
+        {
+            if (Npcink_Toolbox_Helpers::is_logged_in() || is_admin() || !$query->is_main_query()) {
+                return;
+            }
+            if (!($query->is_home() || $query->is_archive() || $query->is_feed() || $query->is_search())) {
+                return;
+            }
+            $restricted = array_map('absint', array_filter((array) self::$id_array));
+            if (empty($restricted)) {
+                return;
+            }
+            $query->set('category__not_in', array_merge((array) $query->get('category__not_in'), $restricted));
         }
 
         public static function restrict_content_for_specific_categories($content)
@@ -29,22 +46,6 @@ if (!class_exists('Npcink_Toolbox_Page_Hide_Category')) {
                 }
             }
             return $content;
-        }
-
-        public static function enqueue_restricted_category_style()
-        {
-            if (Npcink_Toolbox_Helpers::is_logged_in()) {
-                return;
-            }
-
-            if (in_category(self::$id_array)) {
-                wp_register_style('npcink-site-toolbox-restricted-category', false, array(), NPCINK_SITE_TOOLBOX_VERSION);
-                wp_enqueue_style('npcink-site-toolbox-restricted-category');
-                wp_add_inline_style(
-                    'npcink-site-toolbox-restricted-category',
-                    '.b2-down-box, .down-box, .post-download, .download-box, .m-box.down { display: none !important; }'
-                );
-            }
         }
     }
 }

@@ -158,7 +158,7 @@ if (!class_exists('Npcink_Toolbox_Privacy')) {
         }
 
         /**
-         * 后台通知（仅显示一次）
+         * 后台通知（显示到管理员主动关闭）
          */
         public static function admin_notice()
         {
@@ -167,16 +167,25 @@ if (!class_exists('Npcink_Toolbox_Privacy')) {
             }
 
             $screen = get_current_screen();
-            if ($screen && $screen->id !== 'plugins_page_npcink-site-toolbox') {
+            $settings_screen_ids = array(
+                'plugins_page_npcink-site-toolbox',
+                'settings_page_npcink-site-toolbox',
+            );
+            if ($screen && !in_array($screen->id, $settings_screen_ids, true)) {
                 return;
             }
 
+            $dismiss_url = wp_nonce_url(
+                add_query_arg('npcink_site_toolbox_dismiss_privacy', '1'),
+                'npcink_site_toolbox_dismiss_privacy'
+            );
             ?>
-            <div class="notice notice-info is-dismissible">
+            <div class="notice notice-info">
                 <p>
                     <strong>Npcink Site Toolbox</strong>
                     <?php esc_html_e('隐私提示：本插件只会在管理员明确启用或主动触发相关功能后连接已披露的外部服务。', 'npcink-site-toolbox'); ?>
                     <a href="<?php echo esc_url(admin_url('plugins.php?page=npcink-site-toolbox')); ?>"><?php esc_html_e('查看完整隐私说明 →', 'npcink-site-toolbox'); ?></a>
+                    <a href="<?php echo esc_url($dismiss_url); ?>" style="text-decoration:none"><?php esc_html_e('不再提示', 'npcink-site-toolbox'); ?></a>
                 </p>
             </div>
             <?php

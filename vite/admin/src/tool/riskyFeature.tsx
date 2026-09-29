@@ -53,6 +53,16 @@ function getDismissedFeatures(): string[] {
   return [];
 }
 
+export function resetDismissedFeatures(): boolean {
+  try {
+    localStorage.removeItem(STORAGE_KEY);
+    return true;
+  } catch (e) {
+    console.error("重置风险提示失败", e);
+    return false;
+  }
+}
+
 function addDismissedFeature(featureId: string) {
   try {
     const dismissed = getDismissedFeatures();

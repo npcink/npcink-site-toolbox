@@ -66,6 +66,13 @@ class Npcink_Toolbox_Public
     //添加公共样式
     public static function public_css()
     {
+        // mami-public.css 只服务「添加最后更新时间」模块的 .npcink-last-updated，
+        // 未启用该模块时不再向全站输出这个请求
+        $page_config = Npcink_Toolbox_Helpers::get_config('page', 'function', array());
+        if (!is_array($page_config) || empty($page_config['add_last_update'])) {
+            return;
+        }
+
         //准备地址
         $url_css = plugin_dir_url(__FILE__) . 'css/mami-public.css';
         wp_enqueue_style(

@@ -24,6 +24,10 @@ function formatValue(value: unknown): string {
     return value;
   }
   if (typeof value === "number") return String(value);
+  if (Array.isArray(value)) {
+    // 多选值以列表呈现，避免裸 JSON（如 ["3","5"]）
+    return value.map((item) => formatValue(item)).join(__("、"));
+  }
   if (typeof value === "object") return JSON.stringify(value);
   return String(value);
 }
@@ -76,6 +80,11 @@ const DiffModal: React.FC<DiffModalProps> = ({
                   {item.riskLevel === "high" && (
                     <Tag color="red" className="mabox-diff-risk-tag">
                       {__("高风险")}
+                    </Tag>
+                  )}
+                  {item.riskLevel === "low" && (
+                    <Tag color="gold" className="mabox-diff-risk-tag">
+                      {__("低风险")}
                     </Tag>
                   )}
                 </div>

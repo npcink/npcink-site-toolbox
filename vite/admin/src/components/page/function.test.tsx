@@ -29,6 +29,7 @@ function renderSettings(maintenanceTips = "false") {
         clearSecretChanges: vi.fn(),
         settingsState: "ready",
         settingsError: null,
+      configEpoch: 0,
       }}
     >
       <PageFunctionSettings />

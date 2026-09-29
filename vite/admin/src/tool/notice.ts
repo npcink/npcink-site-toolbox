@@ -5,6 +5,8 @@ type NoticeKind = "info" | "success" | "warning" | "error";
 
 const MAX_NOTICES = 3;
 const NOTICE_DURATION_MS = 2000;
+// 错误一闪而过没人能读完，错误类通知保留更久
+const ERROR_NOTICE_DURATION_MS = 8000;
 const activeNotices: HTMLElement[] = [];
 const removalTimers = new Map<HTMLElement, number>();
 const announcementTimers = new Map<HTMLElement, number>();
@@ -117,9 +119,10 @@ const showNotice = (kind: NoticeKind, message: string): void => {
   stack.appendChild(element);
   activeNotices.push(element);
   announceNotice(announcers, kind, message);
+  const duration = kind === "error" ? ERROR_NOTICE_DURATION_MS : NOTICE_DURATION_MS;
   removalTimers.set(
     element,
-    window.setTimeout(() => removeNotice(element), NOTICE_DURATION_MS),
+    window.setTimeout(() => removeNotice(element), duration),
   );
 };
 

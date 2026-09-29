@@ -137,8 +137,50 @@ class Npcink_Site_Toolbox
         add_action('init', array('Npcink_Toolbox_Github_Project', 'register_block'));
         add_action('init', array('Npcink_Toolbox_Site_Stats', 'register_block'));
 
+        // 版本升级时做一次性的配置规范化，清掉退役功能残留在配置里的键
+        add_action('admin_init', array(__CLASS__, 'maybe_normalize_stored_config'));
+
         //对js文件进行module接入
         add_filter('script_loader_tag', array(__CLASS__, 'refund_type_script'), 10, 2);
+    }
+
+    /**
+     * 升级后的一次性清理。
+     *
+     * 读取原始存储配置，按当前 Schema 重建（未知键即退役功能的残留会被丢弃），
+     * 与存储不一致时写回，并记录已处理的版本号。
+     */
+    public static function maybe_normalize_stored_config()
+    {
+        $stored_version = get_option('npcink_site_toolbox_version', '');
+        if (is_string($stored_version) && $stored_version === NPCINK_SITE_TOOLBOX_VERSION) {
+            return;
+        }
+
+        $merged = Npcink_Toolbox_Config_Manager::get_merged_config();
+        $cleaned = Npcink_Toolbox_Config_Schema::validate_full_config($merged);
+        $cleaned_data = is_array($cleaned) && isset($cleaned['data']) && is_array($cleaned['data'])
+            ? $cleaned['data']
+            : array();
+
+        $schema = Npcink_Toolbox_Config_Schema::get_schema();
+        foreach (Npcink_Toolbox_Config_Manager::get_module_map_for_cleanup() as $top_key => $option_name) {
+            if (!isset($schema[$top_key]) || !is_array($schema[$top_key])) {
+                continue;
+            }
+            $raw = get_option($option_name, array());
+            if (!is_array($raw)) {
+                continue;
+            }
+            $normalized = isset($cleaned_data[$top_key]) && is_array($cleaned_data[$top_key])
+                ? $cleaned_data[$top_key]
+                : array();
+            if ($normalized != $raw) {
+                update_option($option_name, $normalized, false);
+            }
+        }
+
+        update_option('npcink_site_toolbox_version', NPCINK_SITE_TOOLBOX_VERSION, false);
     }
 
     /**

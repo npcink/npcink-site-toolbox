@@ -28,6 +28,10 @@ $this->add_new_str = __( '添加', 'npcink-site-toolbox' );
 
         add_filter( 'manage_posts_columns', array( $this, 'add_column' ) );
         add_action( 'manage_posts_custom_column', array( $this, 'thumb_column' ), 10, 2 );
+
+        // 页面列表同样支持特色图，脚本入口 edit.php 对所有文章类型列表一致
+        add_filter( 'manage_pages_columns', array( $this, 'add_column' ) );
+        add_action( 'manage_pages_custom_column', array( $this, 'thumb_column' ), 10, 2 );
         add_action( 'admin_footer', array( $this, 'add_nonce' ) );
         add_action( 'admin_enqueue_scripts', array( $this, 'scripts' ) );
 

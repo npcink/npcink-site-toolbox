@@ -35,12 +35,16 @@ if (!class_exists('Npcink_Toolbox_Seo_Single')) {
                         echo "\n";
                     }
 
-                    //拿到文章的描述
-                    $description_data = get_the_excerpt();
-                    if ($description_data !== '' &&  $description_data !== false) {
-                        $description = mb_substr($description_data, 0, 55, 'utf-8'); //只取前40个字
-                        echo '<meta name="description" content="' . esc_attr($description) . '" />';
-                        echo "\n";
+                    //拿到文章的描述：仅使用手动摘要。
+                    //无手动摘要时 get_the_excerpt() 会重跑整条 the_content 过滤链，
+                    //让单篇文章的过滤成本翻倍，因此跳过自动截断
+                    if (has_excerpt()) {
+                        $description_data = get_the_excerpt();
+                        if ($description_data !== '' &&  $description_data !== false) {
+                            $description = mb_substr($description_data, 0, 55, 'utf-8'); //只取前40个字
+                            echo '<meta name="description" content="' . esc_attr($description) . '" />';
+                            echo "\n";
+                        }
                     }
                    
 

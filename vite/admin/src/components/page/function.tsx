@@ -25,7 +25,14 @@ const App: React.FC = () => {
 
   const publicData = optionData.page?.function || defaultVarOption.page.function;
 
+  const { configEpoch } = useContext(DataContext);
   const [formData, setFormData] = useState(publicData || {});
+
+  // configEpoch 在保存或重新读取成功后自增，把服务端（可能已自动修正）的值同步回表单
+  useEffect(() => {
+    setFormData(publicData || {});
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [configEpoch]);
 
   const onValuesChange = (
     changedValues: Partial<FieldType>,
@@ -92,6 +99,15 @@ const App: React.FC = () => {
             onValuesChange({ no_login_img: checked } as Partial<FieldType>, formData);
           }}
         />
+        {formData.no_login_img && (
+          <Form.Item
+            label={__("模糊图片选择器")}
+            name="no_login_img_selector"
+            extra={__("主题正文容器不是 .entry-content 时，可改成对应的图片选择器")}
+          >
+            <Input placeholder=".entry-content img" />
+          </Form.Item>
+        )}
         <ModuleRow
           title={__("添加最后更新时间")}
           description={__("文章末尾添加最后更新时间，文章发布24小时后再次修改，即可展示")}

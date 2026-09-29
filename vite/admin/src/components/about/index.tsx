@@ -1,8 +1,11 @@
-import { Typography } from "antd";
+import { useState } from "react";
+import { Button, Typography } from "antd";
 import { SettingsSection, SettingsTabs } from "@/components/settings-ui";
 import Source from "@/components/about/table";
 import AiDiagnostics from "@/components/about/ai-diagnostics";
 import RuntimeStatus from "@/components/about/runtime-status";
+import { resetDismissedFeatures } from "@/tool/riskyFeature";
+import { notice } from "@/tool/notice";
 import { __ } from "@/tool/i18n";
 
 const { Paragraph, Link } = Typography;
@@ -37,8 +40,31 @@ const UsageHelp = () => (
         {__("插件界面跟随当前 WordPress 用户语言。简体中文使用内置源文案；English (United States) 使用随插件发布的英文语言包。修改个人资料中的语言后，重新打开插件页面即可生效。")}
       </Paragraph>
     </SettingsSection>
+    <RiskDismissalReset />
   </>
 );
+
+const RiskDismissalReset = () => {
+  const [resetting, setResetting] = useState(false);
+  return (
+    <SettingsSection title={__("风险提示")}>
+      <Paragraph>
+        {__("开启有风险的功能时会弹出确认提示；选择过「不再提示」的功能不会再确认。")}
+      </Paragraph>
+      <Button
+        loading={resetting}
+        onClick={() => {
+          setResetting(true);
+          const ok = resetDismissedFeatures();
+          notice.success(ok ? __("已恢复全部风险提示") : __("重置失败，请重试"));
+          setResetting(false);
+        }}
+      >
+        {__("恢复全部风险提示")}
+      </Button>
+    </SettingsSection>
+  );
+};
 
 const AboutPlugin = () => (
   <div>

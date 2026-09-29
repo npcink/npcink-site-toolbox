@@ -22,6 +22,14 @@ if (!class_exists('Npcink_Toolbox_Config_Manager')) {
         );
 
         /**
+         * 顶层配置组到 Option 名的映射（升级清理等内部维护逻辑使用）
+         */
+        public static function get_module_map_for_cleanup()
+        {
+            return self::$module_map;
+        }
+
+        /**
          * 单次请求内的合并配置缓存。
          */
         private static $merged_cache = null;

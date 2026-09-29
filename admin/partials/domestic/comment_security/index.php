@@ -157,15 +157,9 @@ if (!class_exists('Npcink_Toolbox_Domestic_Comment_Security')) {
             return array_filter($words);
         }
         private static function get_client_ip() {
-            // Forwarded headers are client-controlled unless a trusted proxy boundary exists.
-            if (!isset($_SERVER['REMOTE_ADDR']) || !is_string($_SERVER['REMOTE_ADDR'])) {
-                return '0.0.0.0';
-            }
-
-            $remote_addr = sanitize_text_field(wp_unslash($_SERVER['REMOTE_ADDR']));
-            return filter_var($remote_addr, FILTER_VALIDATE_IP) !== false
-                ? $remote_addr
-                : '0.0.0.0';
+            // 复用登录安全的信任代理配置，避免 CDN/反代站点全体访客共享限流桶
+            $ip = Npcink_Toolbox_Helpers::get_rate_limit_ip();
+            return $ip !== '' ? $ip : '0.0.0.0';
         }
     }
 }

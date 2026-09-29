@@ -75,6 +75,7 @@ add_action(
 register_activation_hook(__FILE__, array('Npcink_Toolbox_Category_Link_Simplify', 'activate'));
 register_deactivation_hook(__FILE__, array('Npcink_Toolbox_Category_Link_Simplify', 'deactivate'));
 register_deactivation_hook(__FILE__, array('Npcink_Toolbox_Performance_Db_Clean', 'clear_schedule'));
+register_deactivation_hook(__FILE__, array('Npcink_Toolbox_Domestic_Wechat', 'clear_ticket_schedule'));
 add_action(
     'update_option_' . NPCINK_SITE_TOOLBOX_OPTION_OPTIMIZE,
     array('Npcink_Toolbox_Category_Link_Simplify', 'handle_optimize_option_update'),
@@ -88,9 +89,10 @@ add_action(
 // 插件仅通过 WordPress 钩子注册行为，不需要暴露额外的全局启动函数。
 (new Npcink_Site_Toolbox())->run();
 
-// 插件激活时初始化路由表
+// 插件激活时初始化路由表，并显示一次性引导提示
 register_activation_hook(__FILE__, function() {
     update_option(NPCINK_SITE_TOOLBOX_ACTIVE_MODULES, array());
+    add_option('npcink_site_toolbox_show_activation_notice', 1, '', false);
 });
 
 

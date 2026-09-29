@@ -15,7 +15,24 @@ if (!class_exists('Npcink_Toolbox_Page_Hide_Tag')) {
         {
             self::$id_array = Npcink_Toolbox_Admin::get_config($config, 'tag_id', array());
             self::$tip_content = Npcink_Toolbox_Admin::get_config($config, 'tip_content', '');
+            // 查询级排除：未登录时把受限标签文章从列表、搜索与订阅源中整体移除
+            add_action('pre_get_posts', array(__CLASS__, 'exclude_from_listings'));
             add_action('the_content', array(__CLASS__, 'restrict_content_for_specific_tags')); //隐藏标签下的文章
+        }
+
+        public static function exclude_from_listings($query)
+        {
+            if (Npcink_Toolbox_Helpers::is_logged_in() || is_admin() || !$query->is_main_query()) {
+                return;
+            }
+            if (!($query->is_home() || $query->is_archive() || $query->is_feed() || $query->is_search())) {
+                return;
+            }
+            $restricted = array_map('absint', array_filter((array) self::$id_array));
+            if (empty($restricted)) {
+                return;
+            }
+            $query->set('tag__not_in', array_merge((array) $query->get('tag__not_in'), $restricted));
         }
 
         //隐藏指定标签下的文章

@@ -72,6 +72,14 @@ class Npcink_Toolbox_Admin
 
         // 注册 REST API 端点
         add_action('rest_api_init', array(__CLASS__, 'register_rest_routes'));
+
+        // 激活引导提示与站内隐私披露
+        add_action('admin_notices', array(__CLASS__, 'show_activation_notice'));
+        add_action('admin_init', array(__CLASS__, 'handle_notice_dismissals'));
+        if (class_exists('Npcink_Toolbox_Privacy')) {
+            // 隐私模块自带 admin_notices 钩子与已关闭状态检查
+            Npcink_Toolbox_Privacy::run();
+        }
     }
 
 
@@ -88,9 +96,18 @@ class Npcink_Toolbox_Admin
             __('Npcink Site Toolbox 设置', 'npcink-site-toolbox'),
             __('Npcink 站点工具箱', 'npcink-site-toolbox'),
             'manage_options',            // 哪种类型的用户可以看到此菜单项
-            'npcink-site-toolbox', // The unique ID - that is, the slug - for this menu item.
+            'npcink-site-toolbox', // The unique ID - that is the slug - for this menu item.
             array(__CLASS__, 'Npcink_Toolbox_display'),   // 呈现此菜单的页面时要调用的函数的名称
             '200.2'
+        );
+
+        // 设置菜单下保留同入口，降低新用户发现成本
+        add_options_page(
+            __('Npcink Site Toolbox 设置', 'npcink-site-toolbox'),
+            __('Npcink 站点工具箱', 'npcink-site-toolbox'),
+            'manage_options',
+            'npcink-site-toolbox',
+            array(__CLASS__, 'Npcink_Toolbox_display')
         );
 
         add_submenu_page(
@@ -101,6 +118,67 @@ class Npcink_Toolbox_Admin
             'npcink-site-toolbox-comment-rest-help',
             array(__CLASS__, 'display_comment_rest_help')
         );
+    }
+
+    /**
+     * 激活后的引导提示：显示到用户第一次进入设置页或主动关闭为止
+     */
+    public static function show_activation_notice()
+    {
+        if (!current_user_can('manage_options')) {
+            return;
+        }
+        $screen = function_exists('get_current_screen') ? get_current_screen() : null;
+        $on_settings_page = $screen && strpos((string) $screen->id, 'npcink-site-toolbox') !== false;
+        if ($on_settings_page) {
+            delete_option('npcink_site_toolbox_show_activation_notice');
+            return;
+        }
+        if (!get_option('npcink_site_toolbox_show_activation_notice')) {
+            return;
+        }
+
+        $settings_url = admin_url('plugins.php?page=npcink-site-toolbox');
+        $dismiss_url = wp_nonce_url(
+            add_query_arg('npcink_site_toolbox_dismiss_activation', '1'),
+            'npcink_site_toolbox_dismiss_activation'
+        );
+        echo '<div class="notice notice-info is-dismissible"><p>';
+        printf(
+            /* translators: %s: Settings page link. */
+            esc_html__('Npcink Site Toolbox 已激活，可前往 %s 按需启用功能。', 'npcink-site-toolbox'),
+            '<a href="' . esc_url($settings_url) . '">' . esc_html__('设置页面', 'npcink-site-toolbox') . '</a>'
+        );
+        echo ' <a href="' . esc_url($dismiss_url) . '" style="text-decoration:none">' . esc_html__('不再提示', 'npcink-site-toolbox') . '</a>';
+        echo '</p></div>';
+    }
+
+    /**
+     * 处理激活/隐私提示的关闭（带 nonce 的 GET 参数）
+     */
+    public static function handle_notice_dismissals()
+    {
+        if (!current_user_can('manage_options')) {
+            return;
+        }
+        // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Value is type-checked and verified below.
+        $nonce = isset($_GET['_wpnonce']) && is_string($_GET['_wpnonce']) ? sanitize_text_field(wp_unslash($_GET['_wpnonce'])) : '';
+        if ($nonce === '') {
+            return;
+        }
+
+        if (
+            isset($_GET['npcink_site_toolbox_dismiss_activation'])
+            && wp_verify_nonce($nonce, 'npcink_site_toolbox_dismiss_activation')
+        ) {
+            delete_option('npcink_site_toolbox_show_activation_notice');
+        }
+        if (
+            isset($_GET['npcink_site_toolbox_dismiss_privacy'])
+            && wp_verify_nonce($nonce, 'npcink_site_toolbox_dismiss_privacy')
+        ) {
+            update_option('npcink_site_toolbox_privacy_notice_dismissed', 1, false);
+        }
     }
 
     /**

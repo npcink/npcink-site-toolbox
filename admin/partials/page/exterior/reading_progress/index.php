@@ -20,6 +20,12 @@ if (!class_exists('Npcink_Toolbox_Page_Reading_Progress')) {
                 return;
             }
 
+            // 进度条只在单篇文章页渲染，样式与脚本也只在同场景入队，
+            // 避免首页、归档、搜索页为用不上的功能多背两个请求
+            if (!is_single()) {
+                return;
+            }
+
             $dir = plugin_dir_url(__DIR__) . 'reading_progress/';
             wp_enqueue_style(
                 NPCINK_SITE_TOOLBOX_NAME . '_reading_progress_css',
