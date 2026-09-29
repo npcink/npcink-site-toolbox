@@ -17,7 +17,14 @@ const App: React.FC = () => {
 
   const publicData = optionData.optimize?.admin || defaultVarOption.optimize.admin;
 
+  const { configEpoch } = useContext(DataContext);
   const [formData, setFormData] = useState(publicData || {});
+
+  // configEpoch 在保存或重新读取成功后自增，把服务端（可能已自动修正）的值同步回表单
+  useEffect(() => {
+    setFormData(publicData || {});
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [configEpoch]);
 
   const onValuesChange = (
     changedValues: Partial<FieldType>,
@@ -73,6 +80,13 @@ const App: React.FC = () => {
           enabled={formData.thumbnail_switcher as boolean}
           onChange={(checked: boolean) => onValuesChange({ thumbnail_switcher: checked } as Partial<FieldType>, formData)}
           tags={["经典编辑器"]}
+        />
+        <ModuleRow
+          title={__("在新标签页打开全部编辑")}
+          description={__("在文章、页面等全部列表页添加按钮，把当前筛选结果一键在新标签页打开")}
+          featureId="optimize-admin-open_all_edit_tabs"
+          enabled={formData.open_all_edit_tabs as boolean}
+          onChange={(checked: boolean) => onValuesChange({ open_all_edit_tabs: checked } as Partial<FieldType>, formData)}
         />
       </Form>
     </SettingsSection>

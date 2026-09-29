@@ -192,6 +192,15 @@ return array(
         'scope'     => 'admin',
         'risk_tags' => array('仅后台'),
     ),
+    'optimize.admin_open_all_edit_tabs' => array(
+        'class'     => 'Npcink_Toolbox_Admin_Open_All_Edit_Tabs',
+        'label'     => '在新标签页打开全部编辑',
+        'file'      => 'optimize/admin/open_all_edit_tabs.php',
+        'option_key'=> 'optimize.admin.open_all_edit_tabs',
+        'category'  => 'optimize',
+        'scope'     => 'admin',
+        'risk_tags' => array('仅后台'),
+    ),
 
     // ========== 页面外观 ==========
 
@@ -443,7 +452,7 @@ return array(
         'category'  => 'function',
         'scope'     => 'frontend',
         'config_path' => 'function.auxiliary',
-        'label'     => 'Google Analytics',
+        'label'     => 'Google 站点验证',
     ),
     'auxiliary.biying_tonji' => array(
         'class'     => 'Npcink_Toolbox_Biying_Tonji',
@@ -452,7 +461,7 @@ return array(
         'category'  => 'function',
         'scope'     => 'frontend',
         'config_path' => 'function.auxiliary',
-        'label'     => '必应统计',
+        'label'     => '必应站点验证',
     ),
 
     // ========== 页面 jurisdiction interface ==========

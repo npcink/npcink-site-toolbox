@@ -109,6 +109,8 @@ if (!class_exists('Npcink_Toolbox_Module_Metadata')) {
                     return __('各个列表显示链接 ID', 'npcink-site-toolbox');
                 case '缩略图切换':
                     return __('缩略图切换', 'npcink-site-toolbox');
+                case '在新标签页打开全部编辑':
+                    return __('在新标签页打开全部编辑', 'npcink-site-toolbox');
                 case '阅读进度条':
                     return __('阅读进度条', 'npcink-site-toolbox');
                 case '仅前台':
@@ -167,10 +169,10 @@ if (!class_exists('Npcink_Toolbox_Module_Metadata')) {
                     return __('屏蔽恶意关键词搜索', 'npcink-site-toolbox');
                 case '百度统计':
                     return __('百度统计', 'npcink-site-toolbox');
-                case 'Google Analytics':
-                    return __('Google Analytics', 'npcink-site-toolbox');
-                case '必应统计':
-                    return __('必应统计', 'npcink-site-toolbox');
+                case 'Google 站点验证':
+                    return __('Google 站点验证', 'npcink-site-toolbox');
+                case '必应站点验证':
+                    return __('必应站点验证', 'npcink-site-toolbox');
                 case '分类数据接口':
                     return __('分类数据接口', 'npcink-site-toolbox');
                 case '备案与合规':
