@@ -1,5 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import { Form, Input, Button, Space } from "antd";
+import type { InputProps } from "antd";
 import { DataContext } from "@/tool/dataContext";
 import { FunctionSeo, FunctionAuxiliary } from "@/tool/interface";
 import { defaultVarOption } from "@/tool/defaultVar";
@@ -11,9 +12,10 @@ const fromConfig = AntConfig.from;
 
 type VerificationField = "baidu_tonji" | "google_tonji" | "biying_tonji";
 
-const SiteInput = (props: any) => {
+const SiteInput = (props: InputProps) => {
   const handleReset = () => {
-    props.onChange("");
+    // antd Form 注入的 onChange 实际按 (value: string) 约定消费，清空时直接传空串
+    (props.onChange as ((value: string) => void) | undefined)?.("");
   };
   return (
     <div>
@@ -41,10 +43,10 @@ const SeoCard: React.FC<{ drawerOpen?: boolean; onDrawerOpenChange?: (open: bool
   const setDrawerOpen = onDrawerOpenChange ?? setIntDrawerOpen;
 
   const onValuesChange = (changedValues: Partial<FunctionSeo>, _allValues?: FunctionSeo) => {
-    setFormData((prev: any) => ({ ...prev, ...changedValues }));
+    setFormData((prev) => ({ ...prev, ...changedValues }));
   };
 
-  useEffect(() => { updateOption("function", "seo", formData); }, [formData]);
+  useEffect(() => { updateOption("function", "seo", formData); }, [formData, updateOption]);
 
   return (
     <>
@@ -123,10 +125,10 @@ const AuxiliaryCard: React.FC<{ drawerOpen?: boolean; onDrawerOpenChange?: (open
   const setDrawerOpen = onDrawerOpenChange ?? setIntDrawerOpen;
 
   const onValuesChange = (changedValues: Partial<FunctionAuxiliary>, _allValues?: FunctionAuxiliary) => {
-    setFormData((prev: any) => ({ ...prev, ...changedValues }));
+    setFormData((prev) => ({ ...prev, ...changedValues }));
   };
 
-  useEffect(() => { updateOption("function", "auxiliary", formData); }, [formData]);
+  useEffect(() => { updateOption("function", "auxiliary", formData); }, [formData, updateOption]);
 
   const setVerificationError = (field: VerificationField, message?: string) => {
     setVerificationErrors((current) => {

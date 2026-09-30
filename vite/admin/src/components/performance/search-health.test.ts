@@ -91,7 +91,7 @@ describe('searchHealthApi', () => {
     }));
 
     vi.doMock('@/tool/interface', () => ({
-      SearchHealthSummary: {} as any,
+      SearchHealthSummary: {} as never,
     }));
 
     const { searchHealthApi } = await import('@/api');

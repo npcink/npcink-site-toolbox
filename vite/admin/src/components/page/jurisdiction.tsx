@@ -40,7 +40,7 @@ const App: React.FC = () => {
 
   useEffect(() => {
     updateOption("page", "jurisdiction", formData);
-  }, [formData]);
+  }, [formData, updateOption]);
 
   const [tagArray, setTagArray] = useState<CategoryData>();
   const [taxonomyLoading, setTaxonomyLoading] = useState(true);

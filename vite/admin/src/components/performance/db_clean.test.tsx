@@ -1,9 +1,11 @@
 import { act, cleanup, fireEvent, render, screen, waitFor, within } from "@testing-library/react";
 import { ConfigProvider, Modal } from "antd";
+import type { ModalFuncProps } from "antd";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import DbClean from "@/components/performance/db_clean";
-import { DataContext, emptySecretStatus } from "@/tool/dataContext";
+import { DataContext } from "@/tool/dataContext";
+import { emptySecretStatus } from "@/tool/settingsSource";
 import { defaultVarOption } from "@/tool/defaultVar";
 
 const apiMocks = vi.hoisted(() => ({
@@ -44,7 +46,7 @@ function renderDbClean() {
 
 
 function enableDbClean() {
-  const riskConfirm = vi.spyOn(Modal, "confirm").mockImplementation((config: any) => {
+  const riskConfirm = vi.spyOn(Modal, "confirm").mockImplementation((config: ModalFuncProps) => {
     config.onOk?.();
     return undefined as never;
   });

@@ -20,7 +20,7 @@ export const AntConfig: AntFrom = {
 };
 
 //网址验证
-export const validateLink = (_: any, value: string) => {
+export const validateLink = (_: unknown, value: string) => {
   const urlPattern =
     /^(https?):\/\/(?:www\.)?([a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*)(?:\/[^\s]*)?$/;
   if (!value || value.match(urlPattern)) {

@@ -11,17 +11,17 @@ import {
 } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
-const dataContextMock = vi.hoisted(() => ({
+const bootEnvMock = vi.hoisted(() => ({
   apiBase: "https://example.com/subdirectory/wp-json/npcink-site-toolbox/v1",
   restNonce: "rest-nonce",
 }));
 
-vi.mock("@/tool/dataContext", () => ({
+vi.mock("@/tool/bootEnv", () => ({
   get ApiBase() {
-    return dataContextMock.apiBase;
+    return bootEnvMock.apiBase;
   },
   get RestNonce() {
-    return dataContextMock.restNonce;
+    return bootEnvMock.restNonce;
   },
 }));
 
@@ -72,9 +72,9 @@ afterEach(() => {
 });
 
 beforeEach(() => {
-  dataContextMock.apiBase =
+  bootEnvMock.apiBase =
     "https://example.com/subdirectory/wp-json/npcink-site-toolbox/v1";
-  dataContextMock.restNonce = "rest-nonce";
+  bootEnvMock.restNonce = "rest-nonce";
   const getComputedStyle = window.getComputedStyle.bind(window);
   vi.spyOn(window, "getComputedStyle").mockImplementation((element) =>
     getComputedStyle(element),
@@ -97,7 +97,7 @@ describe("SelectImage", () => {
       "/api/wp-json/wp/v2/media?per_page=12&page=1",
     ],
   ])("从现有 API 契约推导媒体端点：%s", (apiBase, expected) => {
-    dataContextMock.apiBase = apiBase;
+    bootEnvMock.apiBase = apiBase;
     vi.mocked(axios.get).mockReturnValueOnce(
       new Promise<never>(() => undefined),
     );

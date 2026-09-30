@@ -5,7 +5,7 @@ import { Button, Form, Input, Popconfirm, Table } from "antd";
 
 type FormInstance<T> = GetRef<typeof Form<T>>;
 
-const EditableContext = React.createContext<FormInstance<any> | null>(null);
+const EditableContext = React.createContext<FormInstance<Item> | null>(null);
 
 interface Item {
   key: string;
@@ -138,7 +138,7 @@ const convertBackToOriginal = (convertedMarkers: DataType[]) => {
   }));
 };
 
-const App: React.FC = (props: any) => {
+const App: React.FC<{ value?: MarkersType[]; onChange?: (value: MarkersType[]) => void }> = (props) => {
   //const markers = [
   //  // 足迹位置
   //  {
@@ -150,7 +150,7 @@ const App: React.FC = (props: any) => {
   //    name: "天津",
   //  },
   //];
-  const markers = props.value;
+  const markers = props.value || [];
 
   //准备默认表格数据
   const convertedMarkers = convertMarkers(markers);
@@ -168,7 +168,7 @@ const App: React.FC = (props: any) => {
 
     //传出数据
     const data = convertBackToOriginal(newData);
-    props.onChange(data);
+    props.onChange?.(data);
   };
 
   //准备表头
@@ -243,7 +243,7 @@ const App: React.FC = (props: any) => {
 
     //传出数据
     const data = convertBackToOriginal(newData);
-    props.onChange(data);
+    props.onChange?.(data);
   };
 
   const components = {

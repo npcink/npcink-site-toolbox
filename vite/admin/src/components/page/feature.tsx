@@ -37,7 +37,7 @@ const App: React.FC = () => {
 
   useEffect(() => {
     updateOption("page", "feature", formData);
-  }, [formData]);
+  }, [formData, updateOption]);
 
   return (
     <SettingsSection title={__("外观")}>

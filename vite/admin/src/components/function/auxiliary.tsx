@@ -1,6 +1,7 @@
 import React from "react";
 import { useState, useContext, useEffect } from "react";
 import { Form, Input, Button, Space } from "antd";
+import type { InputProps } from "antd";
 import { DataContext } from "@/tool/dataContext";
 import { FunctionAuxiliary } from "@/tool/interface";
 import { defaultVarOption } from "@/tool/defaultVar";
@@ -32,9 +33,9 @@ const App: React.FC = () => {
 
   useEffect(() => {
     updateOption("function", "auxiliary", formData);
-  }, [formData]);
+  }, [formData, updateOption]);
 
-  const handleValueChange = (e: { target: { value: any } }) => {
+  const handleValueChange = (e: { target: { value: string } }) => {
     if (!e) {
       return;
     }
@@ -50,7 +51,7 @@ const App: React.FC = () => {
     }
   };
 
-  const extract_google = (e: { target: { value: any } }) => {
+  const extract_google = (e: { target: { value: string } }) => {
     if (!e) {
       return;
     }
@@ -67,7 +68,7 @@ const App: React.FC = () => {
     }
   };
 
-  const extract_biying = (e: { target: { value: any } }) => {
+  const extract_biying = (e: { target: { value: string } }) => {
     if (!e) {
       return;
     }
@@ -186,9 +187,10 @@ const App: React.FC = () => {
   );
 };
 
-const SiteInput = (props: any) => {
+const SiteInput = (props: InputProps) => {
   const handleReset = () => {
-    props.onChange("");
+    // antd Form 注入的 onChange 实际按 (value: string) 约定消费，清空时直接传空串
+    (props.onChange as ((value: string) => void) | undefined)?.("");
   };
 
   return (

@@ -2,7 +2,8 @@ import { cleanup, fireEvent, render, screen } from "@testing-library/react";
 import { afterEach, describe, expect, it, vi } from "vitest";
 
 import PageFunctionSettings from "@/components/page/function";
-import { DataContext, emptySecretStatus } from "@/tool/dataContext";
+import { DataContext } from "@/tool/dataContext";
+import { emptySecretStatus } from "@/tool/settingsSource";
 import { defaultVarOption } from "@/tool/defaultVar";
 import type { Option } from "@/tool/interface";
 

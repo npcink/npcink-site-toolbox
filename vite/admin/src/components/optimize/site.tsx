@@ -38,7 +38,7 @@ const App: React.FC = () => {
 
   useEffect(() => {
     updateOption("optimize", "site", formData);
-  }, [formData]);
+  }, [formData, updateOption]);
 
   return (
     <SettingsSection title={__("站点")} description={__("站点基础优化设置")}>

@@ -166,7 +166,7 @@ class AdminSettingsContractTest extends TestCase
         $this->assertStringContainsString('export type SecretPath = (typeof SECRET_PATHS)[number];', $types);
         $this->assertStringContainsString('  countdown: string[];', $types);
         $this->assertStringContainsString('  category_id: number[];', $types);
-        $this->assertStringContainsString('  [key: string]: any;', $types);
+        $this->assertStringContainsString('  [key: string]: unknown;', $types);
         $this->assertStringNotContainsString('export type FunctionTips = {', $types);
         $this->assertStringNotContainsString('    config: FunctionTips;', $types);
 

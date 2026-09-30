@@ -19,7 +19,7 @@ const SearchHealthPanel: React.FC = () => {
     setLoading(true);
     searchHealthApi
       .getSummary(30)
-      .then((res: any) => {
+      .then((res) => {
         if (res?.success && res?.data) {
           setData(res.data as SearchHealthSummary);
           setError(false);
@@ -116,13 +116,13 @@ const App: React.FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [configEpoch]);
 
-  const onValuesChange = (changedValues: any, _allValues: any) => {
-    setFormData((prev: any) => ({ ...prev, ...changedValues }));
+  const onValuesChange = (changedValues: object) => {
+    setFormData((prev) => ({ ...prev, ...changedValues }));
   };
 
   useEffect(() => {
     updateOption("performance", "search_enhance", formData);
-  }, [formData]);
+  }, [formData, updateOption]);
 
   return (
     <SettingsSection title={__("搜索增强")} description={__("站内搜索体验增强")}>
@@ -140,7 +140,7 @@ const App: React.FC = () => {
           featureId="performance-search_enhance-highlight_enabled"
           enabled={!!formData.highlight_enabled}
           onChange={(checked) => {
-            setFormData((prev: any) => ({ ...prev, highlight_enabled: checked }));
+            setFormData((prev) => ({ ...prev, highlight_enabled: checked }));
           }}
         />
 
@@ -150,7 +150,7 @@ const App: React.FC = () => {
           featureId="performance-search_enhance-recommend_enabled"
           enabled={!!formData.recommend_enabled}
           onChange={(checked) => {
-            setFormData((prev: any) => ({ ...prev, recommend_enabled: checked }));
+            setFormData((prev) => ({ ...prev, recommend_enabled: checked }));
           }}
         />
 
@@ -160,7 +160,7 @@ const App: React.FC = () => {
           featureId="performance-search_enhance-hotwords_enabled"
           enabled={!!formData.hotwords_enabled}
           onChange={(checked) => {
-            setFormData((prev: any) => ({ ...prev, hotwords_enabled: checked }));
+            setFormData((prev) => ({ ...prev, hotwords_enabled: checked }));
           }}
         />
 

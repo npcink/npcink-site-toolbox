@@ -1,10 +1,7 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 import { buildSettingsSavePayload, saveOption } from "@/axios/save";
-import {
-  emptySecretStatus,
-  fetchSettings,
-} from "@/tool/dataContext";
+import { emptySecretStatus, fetchSettings } from "@/tool/settingsSource";
 import { defaultVarOption } from "@/tool/defaultVar";
 import { diffConfig } from "@/tool/diff";
 import { Option } from "@/tool/interface";

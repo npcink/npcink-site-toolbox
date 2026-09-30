@@ -269,7 +269,7 @@ function npcink_site_toolbox_render_admin_settings_types($schema) {
 
     $lines[] = '';
     $lines[] = 'export type Option = {';
-    $lines[] = '  [key: string]: any;';
+    $lines[] = '  [key: string]: unknown;';
     foreach ($module_type_references as $module_key => $module_reference) {
         $module_property = npcink_site_toolbox_typescript_property($module_key);
         if (is_string($module_reference)) {

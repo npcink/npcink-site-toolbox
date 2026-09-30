@@ -188,7 +188,7 @@ export type PerformanceDbClean = {
 };
 
 export type Option = {
-  [key: string]: any;
+  [key: string]: unknown;
   optimize: {
     site: OptimizeSite;
     medium: OptimizeMedium;

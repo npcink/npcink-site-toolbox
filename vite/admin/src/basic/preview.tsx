@@ -8,7 +8,7 @@ interface PreviewProps {
   img: string; //图片链接
 }
 
-const App: React.FC<PreviewProps> = (props: any) => {
+const App: React.FC<PreviewProps> = (props) => {
   return (
     <>
       <Popover

@@ -29,13 +29,13 @@ const App: React.FC = () => {
   const [checking, setChecking] = useState(false);
   const [operationFeedback, setOperationFeedback] = useState<OperationFeedback | null>(null);
 
-  const onValuesChange = (changedValues: any, _allValues: any) => {
-    setFormData((prev: any) => ({ ...prev, ...changedValues }));
+  const onValuesChange = (changedValues: object) => {
+    setFormData((prev) => ({ ...prev, ...changedValues }));
   };
 
   useEffect(() => {
     updateOption("performance", "seo_checker", formData);
-  }, [formData]);
+  }, [formData, updateOption]);
 
   const handleCheck = async () => {
     setOperationFeedback(null);
@@ -73,7 +73,7 @@ const App: React.FC = () => {
       dataIndex: "severity",
       key: "severity",
       width: 80,
-      render: (severity: string) => {
+      render: (severity: unknown) => {
         if (severity === "error") return <StatusTag status="异常" label={__("异常")} />;
         if (severity === "warning") return <StatusTag status="待处理" label={__("待处理")} />;
         return <StatusTag status="推荐" label={__("推荐")} />;
@@ -110,7 +110,7 @@ const App: React.FC = () => {
           featureId="performance-seo_checker-enabled"
           enabled={!!formData.enabled}
           onChange={(checked) => {
-            setFormData((prev: any) => ({ ...prev, enabled: checked }));
+            setFormData((prev) => ({ ...prev, enabled: checked }));
           }}
           tags={["SEO"]}
         />

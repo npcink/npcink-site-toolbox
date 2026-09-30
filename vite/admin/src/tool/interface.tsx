@@ -95,7 +95,7 @@ export interface SettingsSavePayload extends SettingsPreviewPayload {
 export interface axiosType {
   success: boolean; //状态
   data: {
-    data?: any; //返回值
+    data?: unknown; //返回值
     message?: string; //成功信息
     error?: string; //失败信息
   };
@@ -123,8 +123,8 @@ export interface ConfigDiffItem {
   path: string;
   label: string;
   module: string;
-  before: any;
-  after: any;
+  before: unknown;
+  after: unknown;
   riskLevel: "none" | "low" | "high";
 }
 

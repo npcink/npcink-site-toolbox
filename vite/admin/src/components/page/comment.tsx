@@ -39,7 +39,7 @@ const App: React.FC = () => {
 
   useEffect(() => {
     updateOption("page", "comment", formData);
-  }, [formData]);
+  }, [formData, updateOption]);
 
   return (
     <SettingsSection title={__("评论")}>

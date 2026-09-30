@@ -2,7 +2,8 @@ import { cleanup, fireEvent, render, screen, waitFor, within } from "@testing-li
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import Dashboard from "@/components/dashboard";
-import { DataContext, emptySecretStatus } from "@/tool/dataContext";
+import { DataContext } from "@/tool/dataContext";
+import { emptySecretStatus } from "@/tool/settingsSource";
 import { defaultVarOption } from "@/tool/defaultVar";
 import { FAVORITES_CHANGED_EVENT, FAVORITES_STORAGE_KEY } from "@/tool/favorites";
 import type { DiagnosticSummary, Option, SearchHealthSummary } from "@/tool/interface";

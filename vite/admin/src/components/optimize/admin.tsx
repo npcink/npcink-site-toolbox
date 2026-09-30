@@ -38,7 +38,7 @@ const App: React.FC = () => {
 
   useEffect(() => {
     updateOption("optimize", "admin", formData);
-  }, [formData]);
+  }, [formData, updateOption]);
 
   return (
     <SettingsSection title={__("后台")} description={__("后台文章管理增强")}>

@@ -3,7 +3,8 @@ import { cleanup, fireEvent, render, screen } from "@testing-library/react";
 import { afterEach, describe, expect, it, vi } from "vitest";
 
 import SecretField from "@/components/settings-ui/SecretField";
-import { DataContext, emptySecretStatus } from "@/tool/dataContext";
+import { DataContext } from "@/tool/dataContext";
+import { emptySecretStatus } from "@/tool/settingsSource";
 import { defaultVarOption } from "@/tool/defaultVar";
 import { SecretChange, SecretChanges, SecretPath } from "@/tool/interface";
 

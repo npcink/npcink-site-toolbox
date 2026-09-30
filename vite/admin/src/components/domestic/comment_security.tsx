@@ -20,13 +20,13 @@ const App: React.FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [configEpoch]);
 
-  const onValuesChange = (changedValues: any, _allValues?: any) => {
-    setFormData((prev: any) => ({ ...prev, ...changedValues }));
+  const onValuesChange = (changedValues: object) => {
+    setFormData((prev) => ({ ...prev, ...changedValues }));
   };
 
   useEffect(() => {
     updateOption("domestic", "comment_security", formData);
-  }, [formData]);
+  }, [formData, updateOption]);
 
   return (
     <SettingsSection title={__("评论安全")} description={__("评论安全中心，过滤垃圾评论")}>

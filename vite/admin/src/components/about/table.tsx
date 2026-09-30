@@ -1,17 +1,7 @@
 import { Table } from "antd";
 import { __ } from "@/tool/i18n";
 
-export const renderSource = (source: string) => {
-  const isExternalUrl = /^https?:\/\//i.test(source);
-
-  return isExternalUrl ? (
-    <a href={source} target="_blank" rel="noreferrer" title="Npcink">
-      {source}
-    </a>
-  ) : (
-    <span>{source}</span>
-  );
-};
+import { renderSource } from "./renderSource";
 
 const App: React.FC = () => {
   const dataSource = [
@@ -51,7 +41,7 @@ const App: React.FC = () => {
       title: __("来源"),
       dataIndex: "source",
       key: "source",
-      render: (_: any, { source }: any) => renderSource(source),
+      render: (_: unknown, { source }: { source: string }) => renderSource(source),
     },
   ];
   return (

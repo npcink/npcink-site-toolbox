@@ -1,7 +1,8 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
-import { DataContext, emptySecretStatus } from "@/tool/dataContext";
+import { DataContext } from "@/tool/dataContext";
+import { emptySecretStatus } from "@/tool/settingsSource";
 import { defaultVarOption } from "@/tool/defaultVar";
 import type {
   AiFollowUp,

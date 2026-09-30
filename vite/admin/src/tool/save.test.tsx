@@ -1,11 +1,8 @@
 import { act, cleanup, fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
-import {
-  DataContext,
-  emptySecretStatus,
-  OptionContextType,
-} from "@/tool/dataContext";
+import { DataContext, OptionContextType } from "@/tool/dataContext";
+import { emptySecretStatus } from "@/tool/settingsSource";
 import DiffModal from "@/components/diff-modal";
 import { defaultVarOption } from "@/tool/defaultVar";
 import { Option } from "@/tool/interface";

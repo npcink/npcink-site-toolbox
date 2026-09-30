@@ -15,7 +15,7 @@ import { FileImageOutlined } from "@ant-design/icons";
 import type { InputProps, InputRef, RadioChangeEvent } from "antd";
 import axios from "axios";
 
-import { ApiBase, RestNonce } from "@/tool/dataContext";
+import { ApiBase, RestNonce } from "@/tool/bootEnv";
 import { __, sprintf } from "@/tool/i18n";
 import "./selectImage.css";
 

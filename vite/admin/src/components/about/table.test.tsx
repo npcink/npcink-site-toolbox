@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 
-import { renderSource } from "./table";
+import { renderSource } from "./renderSource";
 
 describe("来源链接", () => {
   it("只将真实 HTTP URL 渲染为链接", () => {

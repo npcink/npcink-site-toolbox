@@ -33,7 +33,7 @@ const App: React.FC = () => {
 
   useEffect(() => {
     updateOption("optimize", "medium", formData);
-  }, [formData]);
+  }, [formData, updateOption]);
 
   return (
     <SettingsSection title={__("媒体")} description={__("媒体文件相关优化")}>

@@ -56,7 +56,7 @@ export async function fetchUiSchema(): Promise<UiSchemaMap | null> {
 
   fetchPromise = settingsApi
     .getSchema()
-    .then((response: any) => {
+    .then((response) => {
       const data = response?.data;
       if (data?.uiSchema && typeof data.uiSchema === "object") {
         cachedServerSchema = data.uiSchema as UiSchemaMap;

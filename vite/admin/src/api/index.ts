@@ -251,5 +251,5 @@ export const searchHealthApi = {
     restInstance.get(
       `/search-health/summary?days=${days}`,
       { maboxNotify: false },
-    ) as Promise<any>,
+    ) as Promise<ApiResponse<SearchHealthSummary>>,
 };

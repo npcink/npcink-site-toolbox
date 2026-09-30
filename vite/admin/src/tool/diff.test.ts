@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { diffConfig, diffSecretChanges, getDiffSummary, hasConfigChanged } from "./diff";
-import { emptySecretStatus } from "./dataContext";
+import { emptySecretStatus } from "./settingsSource";
 
 describe("diffConfig", () => {
   it("返回空数组当配置完全相同时", () => {

@@ -24,11 +24,11 @@ const ComplianceCard: React.FC<{ drawerOpen?: boolean; onDrawerOpenChange?: (ope
   const drawerOpen = extDrawerOpen ?? intDrawerOpen;
   const setDrawerOpen = onDrawerOpenChange ?? setIntDrawerOpen;
 
-  const onValuesChange = (changedValues: any, _allValues?: any) => {
-    setFormData((prev: any) => ({ ...prev, ...changedValues }));
+  const onValuesChange = (changedValues: object) => {
+    setFormData((prev) => ({ ...prev, ...changedValues }));
   };
 
-  useEffect(() => { updateOption("domestic", "compliance", formData); }, [formData]);
+  useEffect(() => { updateOption("domestic", "compliance", formData); }, [formData, updateOption]);
 
   // 状态标签按已保存的备案信息动态显示，不再写死「未配置」
   const complianceConfigured = !!(publicData as Record<string, unknown> | undefined)?.icp_number
@@ -103,11 +103,11 @@ const WechatCard: React.FC<{ drawerOpen?: boolean; onDrawerOpenChange?: (open: b
   const drawerOpen = extDrawerOpen ?? intDrawerOpen;
   const setDrawerOpen = onDrawerOpenChange ?? setIntDrawerOpen;
 
-  const onValuesChange = (changedValues: any, _allValues?: any) => {
-    setFormData((prev: any) => ({ ...prev, ...changedValues }));
+  const onValuesChange = (changedValues: object) => {
+    setFormData((prev) => ({ ...prev, ...changedValues }));
   };
 
-  useEffect(() => { updateOption("domestic", "wechat", formData); }, [formData]);
+  useEffect(() => { updateOption("domestic", "wechat", formData); }, [formData, updateOption]);
 
   return (
     <>
@@ -160,11 +160,11 @@ const CommentSecurityCard: React.FC<{ drawerOpen?: boolean; onDrawerOpenChange?:
   const drawerOpen = extDrawerOpen ?? intDrawerOpen;
   const setDrawerOpen = onDrawerOpenChange ?? setIntDrawerOpen;
 
-  const onValuesChange = (changedValues: any, _allValues?: any) => {
-    setFormData((prev: any) => ({ ...prev, ...changedValues }));
+  const onValuesChange = (changedValues: object) => {
+    setFormData((prev) => ({ ...prev, ...changedValues }));
   };
 
-  useEffect(() => { updateOption("domestic", "comment_security", formData); }, [formData]);
+  useEffect(() => { updateOption("domestic", "comment_security", formData); }, [formData, updateOption]);
 
   return (
     <>
@@ -250,7 +250,7 @@ const LoginSecurityCard: React.FC<{ drawerOpen?: boolean; onDrawerOpenChange?: (
     setFormData((previous) => ({ ...previous, ...changedValues }));
   };
 
-  useEffect(() => { updateOption("domestic", "login_security", formData); }, [formData]);
+  useEffect(() => { updateOption("domestic", "login_security", formData); }, [formData, updateOption]);
 
   return (
     <>

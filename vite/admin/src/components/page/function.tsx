@@ -46,7 +46,7 @@ const App: React.FC = () => {
 
   useEffect(() => {
     updateOption("page", "function", formData);
-  }, [formData]);
+  }, [formData, updateOption]);
 
   const maintenanceEnabled = formData.maintenance_tips !== "false";
 

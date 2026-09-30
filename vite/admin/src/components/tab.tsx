@@ -1,12 +1,8 @@
 import React, { lazy, Suspense, useCallback, useEffect, useMemo, useState } from "react";
 
 import FeatureSearch from "@/components/feature-search";
-import {
-  DataContext,
-  emptySecretStatus,
-  fetchSettings,
-  SettingsLoadState,
-} from "@/tool/dataContext";
+import { DataContext, SettingsLoadState } from "@/tool/dataContext";
+import { emptySecretStatus, fetchSettings } from "@/tool/settingsSource";
 import { defaultVarOption } from "@/tool/defaultVar";
 import { diffConfig, diffSecretChanges } from "@/tool/diff";
 import { Option, SecretChange, SecretChanges, SecretPath } from "@/tool/interface";
@@ -50,7 +46,7 @@ interface NavItem {
   key: AdminView;
   label: string;
   icon: string;
-  component: React.LazyExoticComponent<React.FC<any>>;
+  component: React.LazyExoticComponent<React.ComponentType<Record<string, unknown>>>;
 }
 
 interface NavGroup {
@@ -172,11 +168,11 @@ const App: React.FC = () => {
     return () => window.removeEventListener("keydown", handleEscape);
   }, [mobileMenuOpen]);
 
-  const updateOption = (father: string, son: string, newValue: any) => {
+  const updateOption = useCallback((father: string, son: string, newValue: unknown) => {
     setOptionData((previousOptionData) =>
       updateOptionValue(previousOptionData, father, son, newValue),
     );
-  };
+  }, []);
 
   const refreshOption = loadSettings;
 

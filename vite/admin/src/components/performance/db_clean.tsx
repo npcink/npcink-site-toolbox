@@ -51,13 +51,13 @@ const App: React.FC = () => {
   const [cleanLoadingType, setCleanLoadingType] = useState<DbCleanType | null>(null);
   const [operationFeedback, setOperationFeedback] = useState<OperationFeedback | null>(null);
 
-  const onValuesChange = (changedValues: any, _allValues: any) => {
-    setFormData((prev: any) => ({ ...prev, ...changedValues }));
+  const onValuesChange = (changedValues: object) => {
+    setFormData((prev) => ({ ...prev, ...changedValues }));
   };
 
   useEffect(() => {
     updateOption("performance", "db_clean", formData);
-  }, [formData]);
+  }, [formData, updateOption]);
 
   const fetchStats = async (clearFeedback = true): Promise<boolean> => {
     if (clearFeedback) setOperationFeedback(null);
@@ -248,7 +248,7 @@ const App: React.FC = () => {
           featureId="performance-db_clean-enabled"
           enabled={!!formData.enabled}
           onChange={(checked) => {
-            setFormData((prev: any) => ({ ...prev, enabled: checked }));
+            setFormData((prev) => ({ ...prev, enabled: checked }));
           }}
           tags={["高风险", "不可逆"]}
         />

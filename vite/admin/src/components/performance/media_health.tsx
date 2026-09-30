@@ -99,13 +99,13 @@ const App: React.FC = () => {
   )
     && (webpAssessment?.batch.candidate_ids.length || 0) > 0;
 
-  const onValuesChange = (changedValues: any, _allValues: any) => {
-    setFormData((prev: any) => ({ ...prev, ...changedValues }));
+  const onValuesChange = (changedValues: object) => {
+    setFormData((prev) => ({ ...prev, ...changedValues }));
   };
 
   useEffect(() => {
     updateOption("performance", "media_health", formData);
-  }, [formData]);
+  }, [formData, updateOption]);
 
   const refreshHealth = async (announce = true) => {
     if (announce) setOperationFeedback(null);
@@ -345,7 +345,7 @@ const App: React.FC = () => {
       dataIndex: "severity",
       key: "severity",
       width: 80,
-      render: (severity: string) => {
+      render: (severity: unknown) => {
         if (severity === "error") return <StatusTag status="异常" label={__("异常")} />;
         return <StatusTag status="待处理" label={__("待处理")} />;
       },
@@ -355,7 +355,7 @@ const App: React.FC = () => {
       dataIndex: "count",
       key: "count",
       width: 80,
-      render: (count: number) => sprintf(__("%d 个"), count),
+      render: (count: unknown) => sprintf(__("%d 个"), Number(count)),
     },
   ];
 
@@ -383,7 +383,7 @@ const App: React.FC = () => {
           featureId="performance-media_health-enabled"
           enabled={!!formData.enabled}
           onChange={(checked) => {
-            setFormData((prev: any) => ({ ...prev, enabled: checked }));
+            setFormData((prev) => ({ ...prev, enabled: checked }));
           }}
         />
 

@@ -56,6 +56,10 @@ function getPathLabel(path: string): string {
   return __(label);
 }
 
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
 /**
  * 递归比较两个配置对象，生成差异列表
  *
@@ -63,12 +67,12 @@ function getPathLabel(path: string): string {
  * @param after 当前配置（用户修改后的 optionData）
  * @returns ConfigDiffItem[]
  */
-export function diffConfig(before: any, after: any): ConfigDiffItem[] {
+export function diffConfig(before: unknown, after: unknown): ConfigDiffItem[] {
   const diffs: ConfigDiffItem[] = [];
 
   function traverse(
-    currentBefore: any,
-    currentAfter: any,
+    currentBefore: unknown,
+    currentAfter: unknown,
     pathParts: string[],
     moduleRoot: string
   ) {
@@ -119,18 +123,13 @@ export function diffConfig(before: any, after: any): ConfigDiffItem[] {
 
     // after 是对象，遍历其键
     const keys = new Set([
-      ...Object.keys(currentAfter || {}),
-      ...(typeof currentBefore === "object" && currentBefore !== null && !Array.isArray(currentBefore)
-        ? Object.keys(currentBefore)
-        : []),
+      ...Object.keys(isRecord(currentAfter) ? currentAfter : {}),
+      ...(isRecord(currentBefore) ? Object.keys(currentBefore) : []),
     ]);
 
     keys.forEach((key) => {
-      const nextBefore =
-        typeof currentBefore === "object" && currentBefore !== null
-          ? currentBefore[key]
-          : undefined;
-      const nextAfter = currentAfter[key];
+      const nextBefore = isRecord(currentBefore) ? currentBefore[key] : undefined;
+      const nextAfter = isRecord(currentAfter) ? currentAfter[key] : undefined;
 
       // 确定模块根（第一层）
       const nextModuleRoot = pathParts.length === 0 ? key : moduleRoot;
@@ -191,6 +190,6 @@ export function getDiffSummary(diffs: ConfigDiffItem[]) {
 /**
  * 判断两个配置是否有差异
  */
-export function hasConfigChanged(before: any, after: any): boolean {
+export function hasConfigChanged(before: unknown, after: unknown): boolean {
   return diffConfig(before, after).length > 0;
 }

@@ -21,12 +21,12 @@ function getRestNonce(): string {
 const ApiBase = getApiBase();
 const RestNonce = getRestNonce();
 
-export interface ApiResponse<T = any> {
+export interface ApiResponse<T = unknown> {
   success: boolean;
-  data?: T & Record<string, any>;
+  data?: T & Record<string, unknown>;
   message?: string;
   error?: string;
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 export const instance = axios.create({});
@@ -94,9 +94,9 @@ restInstance.interceptors.response.use(
 export const addParamIfDefined = (
   params: URLSearchParams,
   key: string,
-  value: any
+  value: unknown
 ) => {
   if (value !== undefined) {
-    params.append(key, value);
+    params.append(key, String(value));
   }
 };

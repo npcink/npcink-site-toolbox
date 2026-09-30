@@ -3,7 +3,8 @@ import { ConfigProvider } from "antd";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import Oss from "@/components/performance/oss";
-import { DataContext, emptySecretStatus } from "@/tool/dataContext";
+import { DataContext } from "@/tool/dataContext";
+import { emptySecretStatus } from "@/tool/settingsSource";
 import { defaultVarOption } from "@/tool/defaultVar";
 import type { Option, PerformanceOss, SecretChanges } from "@/tool/interface";
 

@@ -30,7 +30,7 @@ const App: React.FC = () => {
 
   useEffect(() => {
     updateOption("function", "seo", formData);
-  }, [formData]);
+  }, [formData, updateOption]);
 
   return (
     <SettingsSection title={__("简单SEO")} description={__("仅解决有无问题，推荐使用专业 SEO 插件")}>
