@@ -144,7 +144,8 @@ jobs:
       - name: Verify frontend build outputs
         run: |
           test -s vite/admin/dist/index.js
-          test -s vite/admin/dist/index.css
+          # admin 开启 cssCodeSplit 后无固定 index.css，改为 assets 下的哈希 CSS chunk
+          ls vite/admin/dist/assets/*.css >/dev/null
           test -s vite/count/dist/index.js
           test -s vite/count/dist/index.css
           test ! -e vite/public
