@@ -2,7 +2,7 @@
 
 defined('ABSPATH') || exit;
 
-$npcink_toolbox_api_base = esc_url_raw(rest_url('npcink-site-toolbox/v1'));
+$npcink_toolbox_api_base    = esc_url_raw(rest_url('npcink-site-toolbox/v1'));
 $npcink_toolbox_profile_url = admin_url('profile.php#application-passwords-section');
 ?>
 <div class="wrap npcink-comment-rest-help">

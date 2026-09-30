@@ -57,9 +57,9 @@ if (!class_exists('Npcink_Toolbox_Rest_Route_Registry')) {
         public static function validate_all_have_permission() {
             $missing = array();
             foreach (self::$routes as $route) {
-                $args = $route['args'];
+                $args              = $route['args'];
                 $is_multi_endpoint = is_array($args) && isset($args[0]);
-                $endpoints = $is_multi_endpoint ? $args : array($args);
+                $endpoints         = $is_multi_endpoint ? $args : array($args);
 
                 foreach ($endpoints as $index => $endpoint) {
                     if ($is_multi_endpoint && !is_int($index)) {
@@ -69,7 +69,7 @@ if (!class_exists('Npcink_Toolbox_Rest_Route_Registry')) {
                         continue;
                     }
 
-                    $suffix = $is_multi_endpoint ? '[' . $index . ']' : '';
+                    $suffix    = $is_multi_endpoint ? '[' . $index . ']' : '';
                     $missing[] = $route['path'] . $suffix;
                 }
             }

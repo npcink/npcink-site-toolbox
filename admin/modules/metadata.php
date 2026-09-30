@@ -15,24 +15,24 @@ if (!class_exists('Npcink_Toolbox_Module_Metadata')) {
 
         public static function get_module($id) {
             $registry = self::get_registry();
-            return isset($registry[$id]) ? $registry[$id] : null;
+            return isset($registry[ $id ]) ? $registry[ $id ] : null;
         }
 
         public static function get_ui_metadata() {
             $registry = self::get_registry();
-            $ui = array();
+            $ui       = array();
 
             foreach ($registry as $module_id => $meta) {
                 $entry = array(
-                    'id'        => $module_id,
-                    'category'  => $meta['category'],
-                    'scope'     => $meta['scope'],
-                    'label'     => isset($meta['label']) ? self::translate($meta['label']) : '',
-                    'group'     => isset($meta['group']) ? self::translate($meta['group']) : '',
-                    'feature_id' => isset($meta['feature_id']) ? $meta['feature_id'] : '',
-                    'risk_tags' => isset($meta['risk_tags']) ? self::translate_list($meta['risk_tags']) : array(),
-                    'risk'      => isset($meta['risk']) ? $meta['risk'] : array('level' => 'none'),
-                    'depends_on' => isset($meta['depends_on']) ? $meta['depends_on'] : array(),
+                    'id'          => $module_id,
+                    'category'    => $meta['category'],
+                    'scope'       => $meta['scope'],
+                    'label'       => isset($meta['label']) ? self::translate($meta['label']) : '',
+                    'group'       => isset($meta['group']) ? self::translate($meta['group']) : '',
+                    'feature_id'  => isset($meta['feature_id']) ? $meta['feature_id'] : '',
+                    'risk_tags'   => isset($meta['risk_tags']) ? self::translate_list($meta['risk_tags']) : array(),
+                    'risk'        => isset($meta['risk']) ? $meta['risk'] : array('level' => 'none'),
+                    'depends_on'  => isset($meta['depends_on']) ? $meta['depends_on'] : array(),
                     'preset_tags' => isset($meta['preset_tags']) ? $meta['preset_tags'] : array(),
                 );
 
@@ -43,14 +43,14 @@ if (!class_exists('Npcink_Toolbox_Module_Metadata')) {
                     $entry['mobile_only'] = true;
                 }
 
-                $ui[$module_id] = $entry;
+                $ui[ $module_id ] = $entry;
             }
 
             return $ui;
         }
 
         private static function translate($value) {
-            switch ((string) $value) {
+            switch ( (string) $value) {
                 case '隐藏顶部工具条':
                     return __('隐藏顶部工具条', 'npcink-site-toolbox');
                 case '站点':

@@ -34,9 +34,9 @@ final class MediaWebpBatchTest extends TestCase
         );
         $this->assertIsString($source);
 
-        $this->assertStringContainsString("const MAX_BATCH_SIZE = 5;", $source);
+        $this->assertStringContainsString("const MAX_BATCH_SIZE        = 5;", $source);
         $this->assertStringContainsString("const SOURCE_MAX_FILE_BYTES = 20971520;", $source);
-        $this->assertStringContainsString("const SOURCE_MAX_PIXELS = 20000000;", $source);
+        $this->assertStringContainsString("const SOURCE_MAX_PIXELS     = 20000000;", $source);
         $this->assertStringContainsString("(string) \$mime_type !== 'image/jpeg'", $source);
         $this->assertStringContainsString('BACKUP_META_KEY', $source);
         $this->assertStringContainsString('generated_files', $source);

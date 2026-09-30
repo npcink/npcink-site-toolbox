@@ -37,7 +37,7 @@ final class BlockPatternsContractTest extends TestCase
             $core
         );
         $this->assertStringContainsString(
-            "'Npcink_Toolbox_Block_Patterns' => 'includes/class-npcink-toolbox-block-patterns.php'",
+            "'Npcink_Toolbox_Block_Patterns'                  => 'includes/class-npcink-toolbox-block-patterns.php',",
             $autoload
         );
     }

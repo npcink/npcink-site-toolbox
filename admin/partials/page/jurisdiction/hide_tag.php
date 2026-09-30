@@ -13,7 +13,7 @@ if (!class_exists('Npcink_Toolbox_Page_Hide_Tag')) {
         private static $tip_content; //提示信息
         public static function run($config = array())
         {
-            self::$id_array = Npcink_Toolbox_Admin::get_config($config, 'tag_id', array());
+            self::$id_array    = Npcink_Toolbox_Admin::get_config($config, 'tag_id', array());
             self::$tip_content = Npcink_Toolbox_Admin::get_config($config, 'tip_content', '');
             // 查询级排除：未登录时把受限标签文章从列表、搜索与订阅源中整体移除
             add_action('pre_get_posts', array(__CLASS__, 'exclude_from_listings'));
@@ -28,11 +28,11 @@ if (!class_exists('Npcink_Toolbox_Page_Hide_Tag')) {
             if (!($query->is_home() || $query->is_archive() || $query->is_feed() || $query->is_search())) {
                 return;
             }
-            $restricted = array_map('absint', array_filter((array) self::$id_array));
+            $restricted = array_map('absint', array_filter( (array) self::$id_array));
             if (empty($restricted)) {
                 return;
             }
-            $query->set('tag__not_in', array_merge((array) $query->get('tag__not_in'), $restricted));
+            $query->set('tag__not_in', array_merge( (array) $query->get('tag__not_in'), $restricted));
         }
 
         //隐藏指定标签下的文章

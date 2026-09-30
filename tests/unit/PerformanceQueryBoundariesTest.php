@@ -39,8 +39,8 @@ final class PerformanceQueryBoundariesTest extends TestCase
     {
         $source = $this->source('admin/partials/performance/media_health/index.php');
 
-        $this->assertStringContainsString('const ATTACHMENT_SCAN_BATCH_SIZE = 100;', $source);
-        $this->assertStringContainsString('const ATTACHMENT_SCAN_LIMIT = 500;', $source);
+        $this->assertStringContainsString('const ATTACHMENT_SCAN_BATCH_SIZE     = 100;', $source);
+        $this->assertStringContainsString('const ATTACHMENT_SCAN_LIMIT          = 500;', $source);
         $this->assertStringContainsString('while ($checked < self::ATTACHMENT_SCAN_LIMIT)', $source);
         $this->assertStringContainsString("update_meta_cache('post', \$image_ids);", $source);
         $this->assertStringContainsString("'attachment_scan' => array(", $source);

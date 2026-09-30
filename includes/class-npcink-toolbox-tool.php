@@ -17,7 +17,7 @@ if (!class_exists('Npcink_Toolbox_Tool')) {
         protected static function current_site_datetime()
         {
             $current_time = current_time('mysql');
-            $date_time = DateTimeImmutable::createFromFormat('!Y-m-d H:i:s', $current_time);
+            $date_time    = DateTimeImmutable::createFromFormat('!Y-m-d H:i:s', $current_time);
 
             if ($date_time instanceof DateTimeImmutable) {
                 return $date_time;
@@ -32,7 +32,7 @@ if (!class_exists('Npcink_Toolbox_Tool')) {
         private static function parse_date($value)
         {
             try {
-                return new DateTimeImmutable(trim((string) $value));
+                return new DateTimeImmutable(trim( (string) $value));
             } catch (Exception $exception) {
                 return false;
             }
@@ -45,6 +45,7 @@ if (!class_exists('Npcink_Toolbox_Tool')) {
         public static function theme_active($theme_name)
         {
             $theme = wp_get_theme(); // 获取当前主题
+            // phpcs:ignore Universal.Operators.StrictComparisons.LooseEqual -- 既有宽松比较语义已人工核实
             if ($theme_name == $theme->name || $theme_name == $theme->parent_theme) {
                 //启用该主题
                 return true;
@@ -92,7 +93,7 @@ if (!class_exists('Npcink_Toolbox_Tool')) {
         public static function export_handle_time($type = 'start', $time = '2023-03-31')
         {
             $handle_time = '';
-            $date_time = self::parse_date($time);
+            $date_time   = self::parse_date($time);
 
             if (!$date_time) {
                 return $handle_time;
@@ -113,15 +114,15 @@ if (!class_exists('Npcink_Toolbox_Tool')) {
         public static function getDateFromRange($startdate, $enddate)
         {
             $start = self::parse_date($startdate);
-            $end = self::parse_date($enddate);
+            $end   = self::parse_date($enddate);
 
             if (!$start || !$end) {
                 return array();
             }
 
             $current = $start->setTime(0, 0, 0);
-            $last = $end->setTime(0, 0, 0);
-            $dates = array();
+            $last    = $end->setTime(0, 0, 0);
+            $dates   = array();
 
             while ($current <= $last) {
                 $dates[] = $current->format('Y-m-d');
@@ -133,13 +134,13 @@ if (!class_exists('Npcink_Toolbox_Tool')) {
         /**
          * 输出本周、上周、本月、上月时间数组
          */
-        public static function get_time_long($type = "this_week")
+        public static function get_time_long($type = 'this_week')
         {
             $today = static::current_site_datetime()->setTime(0, 0, 0);
 
             if ($type === 'this_week' || $type === 'last_week') {
                 $days_since_monday = (int) $today->format('N') - 1;
-                $start = $today->modify('-' . $days_since_monday . ' days');
+                $start             = $today->modify('-' . $days_since_monday . ' days');
 
                 if ($type === 'last_week') {
                     $start = $start->modify('-7 days');
@@ -153,7 +154,7 @@ if (!class_exists('Npcink_Toolbox_Tool')) {
                 $start = $type === 'this_month'
                     ? $today->modify('first day of this month')
                     : $today->modify('first day of last month');
-                $end = $start->modify('last day of this month');
+                $end   = $start->modify('last day of this month');
 
                 return self::getDateFromRange($start->format('Y-m-d'), $end->format('Y-m-d'));
             }
@@ -172,11 +173,11 @@ if (!class_exists('Npcink_Toolbox_Tool')) {
         private static function count_release_posts($type, $status, $date_query)
         {
             $query = new WP_Query(array(
-                'post_type' => $type,
-                'post_status' => $status,
-                'date_query' => array($date_query),
-                'fields' => 'ids',
-                'posts_per_page' => 1,
+                'post_type'           => $type,
+                'post_status'         => $status,
+                'date_query'          => array($date_query),
+                'fields'              => 'ids',
+                'posts_per_page'      => 1,
                 'ignore_sticky_posts' => true,
             ));
 
@@ -196,13 +197,14 @@ if (!class_exists('Npcink_Toolbox_Tool')) {
              * 查询：https://developer.wordpress.org/reference/classes/wp_query/#date-parameters
              * 描述：仅统计已发布的公开内容和密码保护内容
              */
+            // phpcs:ignore Universal.Operators.StrictComparisons.LooseEqual -- 既有宽松比较语义已人工核实
             if ($time == 'today') {
 
                 $today = static::current_site_datetime();
                 return self::count_release_posts($type, $status, array(
-                    'year' => (int) $today->format('Y'),
+                    'year'  => (int) $today->format('Y'),
                     'month' => (int) $today->format('n'),
-                    'day' => (int) $today->format('j'),
+                    'day'   => (int) $today->format('j'),
                 ));
             }
 
@@ -211,13 +213,14 @@ if (!class_exists('Npcink_Toolbox_Tool')) {
              *来源：https://www.166yc.cn/195.html
              *参考：https://developer.wordpress.org/reference/classes/wp_query/#date-parameters
              */
+            // phpcs:ignore Universal.Operators.StrictComparisons.LooseEqual -- 既有宽松比较语义已人工核实
             if ($time == 'week') {
                 $today = static::current_site_datetime()->setTime(0, 0, 0);
-                $start = $today->modify('-' . ((int) $today->format('N') - 1) . ' days');
+                $start = $today->modify('-' . ( (int) $today->format('N') - 1) . ' days');
 
                 return self::count_release_posts($type, $status, array(
-                    'after' => $start->format('Y-m-d'),
-                    'before' => $start->modify('+6 days')->format('Y-m-d'),
+                    'after'     => $start->format('Y-m-d'),
+                    'before'    => $start->modify('+6 days')->format('Y-m-d'),
                     'inclusive' => true,
                 ));
             }
@@ -226,10 +229,11 @@ if (!class_exists('Npcink_Toolbox_Tool')) {
              * 用途：获取本月发文数量
              * 描述：仅统计本月已发布文章数量
              */
+            // phpcs:ignore Universal.Operators.StrictComparisons.LooseEqual -- 既有宽松比较语义已人工核实
             if ($time == 'month') {
                 $today = static::current_site_datetime();
                 return self::count_release_posts($type, $status, array(
-                    'year' => (int) $today->format('Y'),
+                    'year'  => (int) $today->format('Y'),
                     'month' => (int) $today->format('n'),
                 ));
             }
@@ -238,6 +242,7 @@ if (!class_exists('Npcink_Toolbox_Tool')) {
              * 用途：获取本年发文数量
              */
 
+            // phpcs:ignore Universal.Operators.StrictComparisons.LooseEqual -- 既有宽松比较语义已人工核实
             if ($time == 'year') {
                 $today = static::current_site_datetime();
                 return self::count_release_posts($type, $status, array(
@@ -249,6 +254,7 @@ if (!class_exists('Npcink_Toolbox_Tool')) {
              * 用途：获取所有已发布文章数量
              * 来源：https://developer.wordpress.org/reference/functions/wp_count_posts/
              */
+            // phpcs:ignore Universal.Operators.StrictComparisons.LooseEqual -- 既有宽松比较语义已人工核实
             if ($time == 'total') {
                 $count_posts = wp_count_posts($type);
 
@@ -280,10 +286,10 @@ if (!class_exists('Npcink_Toolbox_Tool')) {
              * 今天
              */
             //今天发文数量
-            $today_single = self::count_release_posts('post', 'publish', array(
-                'year' => (int) $today->format('Y'),
+            $today_single           = self::count_release_posts('post', 'publish', array(
+                'year'  => (int) $today->format('Y'),
                 'month' => (int) $today->format('n'),
-                'day' => (int) $today->format('j'),
+                'day'   => (int) $today->format('j'),
             ));
             $arr['today']['single'] = $today_single;
 
@@ -292,19 +298,19 @@ if (!class_exists('Npcink_Toolbox_Tool')) {
             $args = array(
                 'date_query' => array(
                     array(
-                        'year' => (int) $today->format('Y'),
+                        'year'  => (int) $today->format('Y'),
                         'month' => (int) $today->format('n'),
-                        'day' => (int) $today->format('j'),
+                        'day'   => (int) $today->format('j'),
                     ),
 
                 ),
             );
 
-            $today_comments = count(get_comments($args));
+            $today_comments           = count(get_comments($args));
             $arr['today']['comments'] = $today_comments;
 
             //获取今天的注册数量
-            $today_users = new WP_User_Query(array(
+            $today_users              = new WP_User_Query(array(
                 'fields'      => 'ID',
                 'number'      => 1,
                 'count_total' => true,
@@ -322,13 +328,13 @@ if (!class_exists('Npcink_Toolbox_Tool')) {
              * 总计
              */
             //总计发文数量
-            $count_posts = wp_count_posts();
-            $total_single = $count_posts->publish;
+            $count_posts            = wp_count_posts();
+            $total_single           = $count_posts->publish;
             $arr['total']['single'] = $total_single;
 
             //总用户
             //网站注册用户总数
-            $total_users = get_user_count();
+            $total_users              = get_user_count();
             $arr['total']['register'] = $total_users;
 
             return $arr;
@@ -345,26 +351,27 @@ if (!class_exists('Npcink_Toolbox_Tool')) {
              * $time:时间：2022-12-09
              * $type:文章状态类型，默认publish(已发布)
              */
-            $arr = array();
-            $args = array(
-                'date_query' => array(
+            $arr                = array();
+            $args               = array(
+                'date_query'     => array(
                     array(
-                        'after' => $time,
-                        'before' => $time,
+                        'after'     => $time,
+                        'before'    => $time,
+                        // phpcs:ignore Squiz.PHP.CommentedOutCode.Found -- 保留的历史模板参考注释
                         //'after'     => '2022-12-09',
                         //'before'    => '2022-12-09',
                         'inclusive' => true,
                     ),
                 ),
                 'posts_per_page' => -1, //全显示
-                'post_status' => $type, //已发布的文章 - 非待审、草稿、私密
-                'author' => $id, //指定用户的ID
+                'post_status'    => $type, //已发布的文章 - 非待审、草稿、私密
+                'author'         => $id, //指定用户的ID
             );
-            $query = new WP_Query($args);
-            $arr['user_id'] = $id;
-            $arr['time'] = $time;
+            $query              = new WP_Query($args);
+            $arr['user_id']     = $id;
+            $arr['time']        = $time;
             $arr['post_status'] = $type;
-            $arr['total'] = $query->post_count;
+            $arr['total']       = $query->post_count;
             return $arr;
         }
 

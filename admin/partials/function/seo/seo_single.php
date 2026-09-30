@@ -22,15 +22,15 @@ if (!class_exists('Npcink_Toolbox_Seo_Single')) {
             if (is_singular()) {
                 if (get_query_var('paged') < 2) {
                      //拿到文章的关键词
-                     $tags = get_the_tags();
+                     $tags     = get_the_tags();
                      $keywords = '';
-                     if ($tags) {
-                         foreach ($tags as $tag) {
-                             $keywords .= $tag->name . ', ';
-                         }
-                         $keywords = rtrim($keywords, ', '); // 去除最后一个逗号和空格
-                     }
-                     if ($keywords !== '' && $keywords !== false) {
+                    if ($tags) {
+                        foreach ($tags as $tag) {
+                            $keywords .= $tag->name . ', ';
+                        }
+                        $keywords = rtrim($keywords, ', '); // 去除最后一个逗号和空格
+                    }
+                    if ($keywords !== '' && $keywords !== false) {
                         echo '<meta name="keywords" content="' . esc_attr($keywords) . '" />';
                         echo "\n";
                     }
@@ -46,11 +46,10 @@ if (!class_exists('Npcink_Toolbox_Seo_Single')) {
                             echo "\n";
                         }
                     }
-                   
 
+                    // phpcs:ignore Squiz.PHP.CommentedOutCode.Found -- 保留的历史模板参考注释
                     //echo $description . $keywords;
 
-                  
                 }
             }
         }

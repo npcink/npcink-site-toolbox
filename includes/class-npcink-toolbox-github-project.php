@@ -7,8 +7,8 @@ defined('ABSPATH') || exit;
  */
 final class Npcink_Toolbox_Github_Project
 {
-    private const API_VERSION = '2022-11-28';
-    private const CACHE_TTL = 43200;
+    private const API_VERSION     = '2022-11-28';
+    private const CACHE_TTL       = 43200;
     private const ERROR_CACHE_TTL = 1800;
 
     /**
@@ -37,7 +37,7 @@ final class Npcink_Toolbox_Github_Project
         $repository_url = isset($attributes['repositoryUrl']) && is_string($attributes['repositoryUrl'])
             ? $attributes['repositoryUrl']
             : '';
-        $repository = self::parse_repository_url($repository_url);
+        $repository     = self::parse_repository_url($repository_url);
 
         if ($repository === null) {
             return '';
@@ -46,23 +46,23 @@ final class Npcink_Toolbox_Github_Project
         $custom_description = isset($attributes['customDescription']) && is_string($attributes['customDescription'])
             ? sanitize_text_field($attributes['customDescription'])
             : '';
-        $data = self::get_repository_data($repository);
-        $project_name = $repository['owner'] . '/' . $repository['repo'];
-        $description = $custom_description !== ''
+        $data               = self::get_repository_data($repository);
+        $project_name       = $repository['owner'] . '/' . $repository['repo'];
+        $description        = $custom_description !== ''
             ? $custom_description
             : (is_array($data) ? $data['description'] : '');
-        $archive_badge = is_array($data) && $data['archived']
+        $archive_badge      = is_array($data) && $data['archived']
             ? '<span class="npcink-github-project__badge">' . esc_html__('已归档', 'npcink-site-toolbox') . '</span>'
             : '';
         $description_markup = $description !== ''
             ? '<p class="npcink-github-project__description">' . esc_html($description) . '</p>'
             : '';
-        $metadata = is_array($data)
+        $metadata           = is_array($data)
             ? self::render_metadata($data)
             : '<p class="npcink-github-project__status">'
                 . esc_html__('暂时无法读取项目数据，可直接前往 GitHub 查看。', 'npcink-site-toolbox')
                 . '</p>';
-        $link_label = sprintf(
+        $link_label         = sprintf(
             /* translators: %s: GitHub repository owner and name. */
             __('在 GitHub 查看 %s', 'npcink-site-toolbox'),
             $project_name
@@ -117,7 +117,7 @@ final class Npcink_Toolbox_Github_Project
     private static function get_repository_data($repository)
     {
         $cache_key = 'npcink_site_toolbox_github_' . md5(strtolower($repository['owner'] . '/' . $repository['repo']));
-        $cached = get_transient($cache_key);
+        $cached    = get_transient($cache_key);
 
         if (is_array($cached) && isset($cached['status'])) {
             if ($cached['status'] === 'success' && isset($cached['data']) && is_array($cached['data'])) {
@@ -128,7 +128,7 @@ final class Npcink_Toolbox_Github_Project
             }
         }
 
-        $api_url = sprintf(
+        $api_url  = sprintf(
             'https://api.github.com/repos/%1$s/%2$s',
             rawurlencode($repository['owner']),
             rawurlencode($repository['repo'])
@@ -222,7 +222,7 @@ final class Npcink_Toolbox_Github_Project
         }
 
         $scheme = isset($parts['scheme']) && is_string($parts['scheme']) ? strtolower($parts['scheme']) : '';
-        $host = isset($parts['host']) && is_string($parts['host']) ? strtolower($parts['host']) : '';
+        $host   = isset($parts['host']) && is_string($parts['host']) ? strtolower($parts['host']) : '';
         if ($scheme !== 'https' || !in_array($host, array('github.com', 'www.github.com'), true)) {
             return null;
         }
@@ -237,10 +237,10 @@ final class Npcink_Toolbox_Github_Project
             return null;
         }
 
-        $owner = $segments[0];
-        $repo = preg_replace('/\.git$/i', '', $segments[1]);
+        $owner         = $segments[0];
+        $repo          = preg_replace('/\.git$/i', '', $segments[1]);
         $owner_pattern = '/^[A-Za-z0-9](?:[A-Za-z0-9-]{0,37}[A-Za-z0-9])?$/';
-        $repo_pattern = '/^[A-Za-z0-9._-]{1,100}$/';
+        $repo_pattern  = '/^[A-Za-z0-9._-]{1,100}$/';
         if (!is_string($repo) || !preg_match($owner_pattern, $owner) || !preg_match($repo_pattern, $repo)) {
             return null;
         }

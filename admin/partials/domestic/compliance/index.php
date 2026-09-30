@@ -9,19 +9,23 @@ if (!class_exists('Npcink_Toolbox_Domestic_Compliance')) {
             add_action('wp_enqueue_scripts', array(__CLASS__, 'enqueue_cookie_assets'));
         }
         public static function render_footer() {
-            $c = self::$config;
+            $c      = self::$config;
             $output = '';
             if (!empty($c['icp_enabled']) && !empty($c['icp_number'])) {
-                $link = !empty($c['icp_link']) ? esc_url($c['icp_link']) : 'https://beian.miit.gov.cn/';
+                $link    = !empty($c['icp_link']) ? esc_url($c['icp_link']) : 'https://beian.miit.gov.cn/';
                 $output .= '<a class="mabox-icp" href="' . $link . '" target="_blank" rel="nofollow noopener">' . esc_html($c['icp_number']) . '</a>';
             }
             if (!empty($c['police_enabled']) && !empty($c['police_number'])) {
                 $link = !empty($c['police_link']) ? esc_url($c['police_link']) : 'https://www.beian.gov.cn/portal/registerSystemInfo';
-                if ($output) $output .= ' | ';
+                if ($output) {
+                    $output .= ' | ';
+                }
                 $output .= '<a href="' . $link . '" target="_blank" rel="nofollow noopener">' . esc_html($c['police_number']) . '</a>';
             }
             if (!empty($c['copyright_enabled'])) {
-                if ($output) $output .= ' | ';
+                if ($output) {
+                    $output .= ' | ';
+                }
                 if (!empty($c['copyright_html'])) {
                     $output .= wp_kses_post($c['copyright_html']);
                 } else {
@@ -39,12 +43,16 @@ if (!class_exists('Npcink_Toolbox_Domestic_Compliance')) {
         }
         public static function enqueue_cookie_assets() {
             $c = self::$config;
-            if (empty($c['cookie_enabled'])) return;
-            if (isset($_COOKIE['npcink_site_toolbox_cookie_consent'])) return;
-            $title = !empty($c['cookie_title']) ? $c['cookie_title'] : __('Cookie 同意', 'npcink-site-toolbox');
+            if (empty($c['cookie_enabled'])) {
+                return;
+            }
+            if (isset($_COOKIE['npcink_site_toolbox_cookie_consent'])) {
+                return;
+            }
+            $title   = !empty($c['cookie_title']) ? $c['cookie_title'] : __('Cookie 同意', 'npcink-site-toolbox');
             $content = !empty($c['cookie_content']) ? $c['cookie_content'] : __('本网站使用 Cookie 来改善您的体验。', 'npcink-site-toolbox');
-            $button = !empty($c['cookie_button']) ? $c['cookie_button'] : __('我知道了', 'npcink-site-toolbox');
-            $style = !empty($c['cookie_style']) ? $c['cookie_style'] : 'bottom';
+            $button  = !empty($c['cookie_button']) ? $c['cookie_button'] : __('我知道了', 'npcink-site-toolbox');
+            $style   = !empty($c['cookie_style']) ? $c['cookie_style'] : 'bottom';
             if ($style === 'center') {
                 $position = 'top:50%;left:50%;transform:translate(-50%,-50%);max-width:min(520px,calc(100vw - 32px));border-radius:8px;';
             } elseif ($style === 'top') {
@@ -52,7 +60,7 @@ if (!class_exists('Npcink_Toolbox_Domestic_Compliance')) {
             } else {
                 $position = 'bottom:0;left:0;right:0;';
             }
-            $css = '.mabox-cookie-banner{position:fixed;' . $position . 'background:rgba(0,0,0,0.85);color:#fff;z-index:99999;padding:15px;text-align:center;font-size:14px;display:flex;align-items:center;justify-content:center;gap:15px;flex-wrap:wrap;}';
+            $css  = '.mabox-cookie-banner{position:fixed;' . $position . 'background:rgba(0,0,0,0.85);color:#fff;z-index:99999;padding:15px;text-align:center;font-size:14px;display:flex;align-items:center;justify-content:center;gap:15px;flex-wrap:wrap;}';
             $css .= '.mabox-cookie-banner button{background:#1677ff;color:#fff;border:none;padding:8px 20px;border-radius:4px;cursor:pointer;}';
             wp_register_style('mabox-cookie-style', false, array(), NPCINK_SITE_TOOLBOX_VERSION);
             wp_add_inline_style('mabox-cookie-style', $css);
@@ -70,7 +78,9 @@ if (!class_exists('Npcink_Toolbox_Domestic_Compliance')) {
                 ),
                 JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT
             );
-            if (!is_string($payload)) return;
+            if (!is_string($payload)) {
+                return;
+            }
             $js = "document.addEventListener('DOMContentLoaded',function(){const c={$payload};const b=document.createElement('div');b.className='mabox-cookie-banner';const t=document.createElement('span');t.textContent=c.title+': '+c.content;const a=document.createElement('button');a.type='button';a.textContent=c.button;a.addEventListener('click',function(){b.remove();document.cookie=c.cookie;});b.append(t,a);document.body.appendChild(b);});";
             wp_register_script('mabox-cookie-script', false, array(), NPCINK_SITE_TOOLBOX_VERSION, true);
             wp_add_inline_script('mabox-cookie-script', $js);

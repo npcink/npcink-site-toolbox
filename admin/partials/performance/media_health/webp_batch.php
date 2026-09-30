@@ -9,13 +9,13 @@ if (!class_exists('Npcink_Toolbox_Webp_Batch')) {
      * 更新全部成功后，附件才会指向 WebP；最近一批可按附件 ID 恢复。
      */
     class Npcink_Toolbox_Webp_Batch {
-        const MAX_BATCH_SIZE = 5;
-        const BACKUP_META_KEY = '_npcink_site_toolbox_webp_backup_v1';
-        const LOCK_META_KEY = '_npcink_site_toolbox_webp_lock';
-        const OSS_META_KEY = '_npcink_site_toolbox_oss_offloaded';
-        const LOCK_TIMEOUT = 600;
+        const MAX_BATCH_SIZE        = 5;
+        const BACKUP_META_KEY       = '_npcink_site_toolbox_webp_backup_v1';
+        const LOCK_META_KEY         = '_npcink_site_toolbox_webp_lock';
+        const OSS_META_KEY          = '_npcink_site_toolbox_oss_offloaded';
+        const LOCK_TIMEOUT          = 600;
         const SOURCE_MAX_FILE_BYTES = 20971520;
-        const SOURCE_MAX_PIXELS = 20000000;
+        const SOURCE_MAX_PIXELS     = 20000000;
 
         /**
          * @param mixed $value REST 参数值。
@@ -34,26 +34,38 @@ if (!class_exists('Npcink_Toolbox_Webp_Batch')) {
          * @return int[]
          */
         public static function normalize_attachment_ids($value) {
-            if (!is_array($value)) return array();
+            if (!is_array($value)) {
+                return array();
+            }
 
             $ids = array();
             foreach ($value as $candidate) {
-                if (is_bool($candidate) || !is_scalar($candidate) || !is_numeric($candidate)) continue;
+                if (is_bool($candidate) || !is_scalar($candidate) || !is_numeric($candidate)) {
+                    continue;
+                }
                 $id = (int) $candidate;
-                if ($id < 1 || (string) $id !== trim((string) $candidate)) continue;
-                $ids[$id] = $id;
-                if (count($ids) >= self::MAX_BATCH_SIZE) break;
+                if ($id < 1 || (string) $id !== trim( (string) $candidate)) {
+                    continue;
+                }
+                $ids[ $id ] = $id;
+                if (count($ids) >= self::MAX_BATCH_SIZE) {
+                    break;
+                }
             }
             return array_values($ids);
         }
 
         public static function is_candidate($attachment_id, $file, $mime_type) {
-            if ((string) $mime_type !== 'image/jpeg') return false;
-            if (!is_string($file) || !is_file($file)) return false;
-            if (!in_array(strtolower((string) pathinfo($file, PATHINFO_EXTENSION)), array('jpg', 'jpeg', 'jpe'), true)) {
+            if ( (string) $mime_type !== 'image/jpeg') {
                 return false;
             }
-            $file_size = filesize($file);
+            if (!is_string($file) || !is_file($file)) {
+                return false;
+            }
+            if (!in_array(strtolower( (string) pathinfo($file, PATHINFO_EXTENSION)), array('jpg', 'jpeg', 'jpe'), true)) {
+                return false;
+            }
+            $file_size  = filesize($file);
             $image_size = wp_getimagesize($file);
             if (!is_int($file_size) || $file_size < 1 || $file_size > self::SOURCE_MAX_FILE_BYTES) {
                 return false;
@@ -61,10 +73,10 @@ if (!class_exists('Npcink_Toolbox_Webp_Batch')) {
             if (!is_array($image_size) || empty($image_size[0]) || empty($image_size[1])) {
                 return false;
             }
-            if (((int) $image_size[0] * (int) $image_size[1]) > self::SOURCE_MAX_PIXELS) {
+            if (( (int) $image_size[0] * (int) $image_size[1]) > self::SOURCE_MAX_PIXELS) {
                 return false;
             }
-            return empty(get_post_meta((int) $attachment_id, self::BACKUP_META_KEY, true));
+            return empty(get_post_meta( (int) $attachment_id, self::BACKUP_META_KEY, true));
         }
 
         /**
@@ -72,7 +84,7 @@ if (!class_exists('Npcink_Toolbox_Webp_Batch')) {
          * @return array<string,mixed>
          */
         public static function convert_many($attachment_ids) {
-            $ids = self::normalize_attachment_ids($attachment_ids);
+            $ids     = self::normalize_attachment_ids($attachment_ids);
             $results = array();
             foreach ($ids as $attachment_id) {
                 $results[] = self::convert_one($attachment_id);
@@ -85,7 +97,7 @@ if (!class_exists('Npcink_Toolbox_Webp_Batch')) {
          * @return array<string,mixed>
          */
         public static function restore_many($attachment_ids) {
-            $ids = self::normalize_attachment_ids($attachment_ids);
+            $ids     = self::normalize_attachment_ids($attachment_ids);
             $results = array();
             foreach ($ids as $attachment_id) {
                 $results[] = self::restore_one($attachment_id);
@@ -118,7 +130,7 @@ if (!class_exists('Npcink_Toolbox_Webp_Batch')) {
                     return self::result($attachment_id, 'failed', __('检测到未完成的转换记录，请先恢复该附件。', 'npcink-site-toolbox'));
                 }
 
-                $source = get_attached_file($attachment_id, true);
+                $source    = get_attached_file($attachment_id, true);
                 $mime_type = (string) get_post_mime_type($attachment_id);
                 if (!self::is_candidate($attachment_id, $source, $mime_type)) {
                     return self::result($attachment_id, 'skipped', __('仅处理本地可读的 JPEG 附件。', 'npcink-site-toolbox'));
@@ -140,13 +152,13 @@ if (!class_exists('Npcink_Toolbox_Webp_Batch')) {
                 }
 
                 $destination = self::make_destination($source_real);
-                $generated = self::generate_webp_set($attachment_id, $source_real, $destination, $old_metadata);
+                $generated   = self::generate_webp_set($attachment_id, $source_real, $destination, $old_metadata);
                 if (is_wp_error($generated)) {
                     return self::result($attachment_id, 'failed', $generated->get_error_message());
                 }
-                $metadata = $generated['metadata'];
+                $metadata        = $generated['metadata'];
                 $generated_files = $generated['files'];
-                $destination = $generated['main_file'];
+                $destination     = $generated['main_file'];
 
                 $backup = array(
                     'version'          => 1,
@@ -213,18 +225,18 @@ if (!class_exists('Npcink_Toolbox_Webp_Batch')) {
                     return self::result($attachment_id, 'skipped', __('未找到可用的恢复记录。', 'npcink-site-toolbox'));
                 }
 
-                $upload_dir = wp_get_upload_dir();
+                $upload_dir  = wp_get_upload_dir();
                 $upload_root = !empty($upload_dir['basedir']) ? realpath($upload_dir['basedir']) : false;
                 if ($upload_root === false) {
                     return self::result($attachment_id, 'failed', __('上传目录不可用。', 'npcink-site-toolbox'));
                 }
-                $original_file = $upload_root . '/' . ltrim((string) $backup['attached_file'], '/');
+                $original_file = $upload_root . '/' . ltrim( (string) $backup['attached_file'], '/');
                 $original_real = realpath($original_file);
                 if ($original_real === false || !is_file($original_real) || !self::is_path_inside($original_real, $upload_root)) {
                     return self::result($attachment_id, 'failed', __('原 JPEG 备份不可读，未执行恢复。', 'npcink-site-toolbox'));
                 }
 
-                $current = array(
+                $current  = array(
                     'file'      => get_attached_file($attachment_id, true),
                     'metadata'  => wp_get_attachment_metadata($attachment_id, true),
                     'mime_type' => (string) get_post_mime_type($attachment_id),
@@ -246,14 +258,18 @@ if (!class_exists('Npcink_Toolbox_Webp_Batch')) {
                 }
 
                 $cleanup_failed = false;
-                foreach ((array) $backup['generated_files'] as $relative_path) {
-                    $path = $upload_root . '/' . ltrim((string) $relative_path, '/');
+                foreach ( (array) $backup['generated_files'] as $relative_path) {
+                    $path = $upload_root . '/' . ltrim( (string) $relative_path, '/');
                     if (!self::is_path_inside($path, $upload_root) || strtolower(pathinfo($path, PATHINFO_EXTENSION)) !== 'webp') {
                         $cleanup_failed = true;
                         continue;
                     }
-                    if (is_file($path)) wp_delete_file($path);
-                    if (is_file($path)) $cleanup_failed = true;
+                    if (is_file($path)) {
+                        wp_delete_file($path);
+                    }
+                    if (is_file($path)) {
+                        $cleanup_failed = true;
+                    }
                 }
 
                 return self::result(
@@ -280,7 +296,7 @@ if (!class_exists('Npcink_Toolbox_Webp_Batch')) {
             }
 
             $destination = $saved['path'];
-            $image_size = wp_getimagesize($destination);
+            $image_size  = wp_getimagesize($destination);
             if (!is_array($image_size) || empty($image_size[0]) || empty($image_size[1])) {
                 wp_delete_file($destination);
                 return new WP_Error('npcink_webp_invalid_main', __('生成的 WebP 主图不可读。', 'npcink-site-toolbox'));
@@ -302,7 +318,9 @@ if (!class_exists('Npcink_Toolbox_Webp_Batch')) {
 
             $sizes = wp_get_registered_image_subsizes();
             $sizes = apply_filters('intermediate_image_sizes_advanced', $sizes, $metadata, $attachment_id);
-            if (!is_array($sizes)) $sizes = array();
+            if (!is_array($sizes)) {
+                $sizes = array();
+            }
 
             $generated_files = array($destination);
             if (!empty($sizes)) {
@@ -314,19 +332,21 @@ if (!class_exists('Npcink_Toolbox_Webp_Batch')) {
 
                 $expected_sizes = array();
                 foreach ($sizes as $name => $size) {
-                    if (!is_array($size)) continue;
-                    $width = !empty($size['width']) ? (int) $size['width'] : 0;
+                    if (!is_array($size)) {
+                        continue;
+                    }
+                    $width  = !empty($size['width']) ? (int) $size['width'] : 0;
                     $height = !empty($size['height']) ? (int) $size['height'] : 0;
-                    $crop = !empty($size['crop']) ? $size['crop'] : false;
+                    $crop   = !empty($size['crop']) ? $size['crop'] : false;
                     if (!image_resize_dimensions($metadata['width'], $metadata['height'], $width, $height, $crop)) {
                         continue;
                     }
-                    $expected_sizes[$name] = $size;
+                    $expected_sizes[ $name ] = $size;
                 }
 
                 $created_sizes = $subsize_editor->multi_resize($expected_sizes);
                 foreach ($expected_sizes as $name => $size) {
-                    if (empty($created_sizes[$name]) || empty($created_sizes[$name]['file'])) {
+                    if (empty($created_sizes[ $name ]) || empty($created_sizes[ $name ]['file'])) {
                         unset($subsize_editor);
                         self::delete_generated_files($generated_files, dirname(dirname($destination)));
                         return new WP_Error(
@@ -338,8 +358,8 @@ if (!class_exists('Npcink_Toolbox_Webp_Batch')) {
                             )
                         );
                     }
-                    $metadata['sizes'][$name] = $created_sizes[$name];
-                    $generated_files[] = dirname($destination) . '/' . $created_sizes[$name]['file'];
+                    $metadata['sizes'][ $name ] = $created_sizes[ $name ];
+                    $generated_files[]          = dirname($destination) . '/' . $created_sizes[ $name ]['file'];
                 }
                 unset($subsize_editor);
             }
@@ -360,7 +380,7 @@ if (!class_exists('Npcink_Toolbox_Webp_Batch')) {
 
         private static function make_destination($source) {
             $directory = dirname($source);
-            $filename = pathinfo($source, PATHINFO_FILENAME) . '.webp';
+            $filename  = pathinfo($source, PATHINFO_FILENAME) . '.webp';
             return $directory . '/' . wp_unique_filename($directory, $filename);
         }
 
@@ -368,8 +388,12 @@ if (!class_exists('Npcink_Toolbox_Webp_Batch')) {
             if (empty($snapshot['file']) || !is_array($snapshot['metadata']) || empty($snapshot['mime_type'])) {
                 return false;
             }
-            if (!update_attached_file($attachment_id, $snapshot['file'])) return false;
-            if (!wp_update_attachment_metadata($attachment_id, $snapshot['metadata'])) return false;
+            if (!update_attached_file($attachment_id, $snapshot['file'])) {
+                return false;
+            }
+            if (!wp_update_attachment_metadata($attachment_id, $snapshot['metadata'])) {
+                return false;
+            }
             $updated = wp_update_post(array(
                 'ID'             => $attachment_id,
                 'post_mime_type' => $snapshot['mime_type'],
@@ -404,7 +428,7 @@ if (!class_exists('Npcink_Toolbox_Webp_Batch')) {
         }
 
         private static function relative_paths($files, $upload_root) {
-            $root = trailingslashit(wp_normalize_path($upload_root));
+            $root     = trailingslashit(wp_normalize_path($upload_root));
             $relative = array();
             foreach ($files as $file) {
                 $normalized = wp_normalize_path($file);
@@ -416,10 +440,16 @@ if (!class_exists('Npcink_Toolbox_Webp_Batch')) {
         }
 
         private static function delete_generated_files($files, $upload_root) {
-            foreach (array_unique((array) $files) as $file) {
-                if (!is_string($file) || strtolower(pathinfo($file, PATHINFO_EXTENSION)) !== 'webp') continue;
-                if (!self::is_path_inside($file, $upload_root)) continue;
-                if (is_file($file)) wp_delete_file($file);
+            foreach (array_unique( (array) $files) as $file) {
+                if (!is_string($file) || strtolower(pathinfo($file, PATHINFO_EXTENSION)) !== 'webp') {
+                    continue;
+                }
+                if (!self::is_path_inside($file, $upload_root)) {
+                    continue;
+                }
+                if (is_file($file)) {
+                    wp_delete_file($file);
+                }
             }
         }
 
@@ -442,9 +472,13 @@ if (!class_exists('Npcink_Toolbox_Webp_Batch')) {
             );
             foreach ($results as $result) {
                 $status = isset($result['status']) ? $result['status'] : 'failed';
-                if ($status === $success_status) $summary[$success_status]++;
-                elseif ($status === 'skipped') $summary['skipped']++;
-                else $summary['failed']++;
+                if ($status === $success_status) {
+                    ++$summary[ $success_status ];
+                } elseif ($status === 'skipped') {
+                    ++$summary['skipped'];
+                } else {
+                    ++$summary['failed'];
+                }
             }
             return $summary;
         }

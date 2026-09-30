@@ -56,6 +56,7 @@ require_once plugin_dir_path(__FILE__) . 'includes/autoload.php';
 require_once plugin_dir_path(__FILE__) . 'includes/class-npcink-site-toolbox.php';
 
 // Cron 回调必须在所有请求上下文中注册；类本身仍由自动加载器按需加载。
+// phpcs:ignore WordPress.WP.CronInterval.ChangeDetected -- 自定义清理周期属既定功能契约
 add_filter('cron_schedules', array('Npcink_Toolbox_Performance_Db_Clean', 'add_cron_schedules'));
 add_action('npcink_site_toolbox_auto_db_clean', array('Npcink_Toolbox_Performance_Db_Clean', 'run_scheduled_cleanup'));
 add_action(
@@ -90,7 +91,7 @@ add_action(
 (new Npcink_Site_Toolbox())->run();
 
 // 插件激活时初始化路由表，并显示一次性引导提示
-register_activation_hook(__FILE__, function() {
+register_activation_hook(__FILE__, function () {
     update_option(NPCINK_SITE_TOOLBOX_ACTIVE_MODULES, array());
     add_option('npcink_site_toolbox_show_activation_notice', 1, '', false);
 });

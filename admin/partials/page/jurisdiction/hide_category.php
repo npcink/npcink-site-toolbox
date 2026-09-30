@@ -13,7 +13,7 @@ if (!class_exists('Npcink_Toolbox_Page_Hide_Category')) {
         private static $tip_content; //提示信息
         public static function run($config = array())
         {
-            self::$id_array = Npcink_Toolbox_Admin::get_config($config, 'category_id', array());
+            self::$id_array    = Npcink_Toolbox_Admin::get_config($config, 'category_id', array());
             self::$tip_content = Npcink_Toolbox_Admin::get_config($config, 'tip_content', '');
             // 查询级排除：未登录时把受限分类从列表、搜索与订阅源中整体移除，
             // 避免仅替换正文导致标题/摘要在归档和 RSS 中泄漏
@@ -29,11 +29,11 @@ if (!class_exists('Npcink_Toolbox_Page_Hide_Category')) {
             if (!($query->is_home() || $query->is_archive() || $query->is_feed() || $query->is_search())) {
                 return;
             }
-            $restricted = array_map('absint', array_filter((array) self::$id_array));
+            $restricted = array_map('absint', array_filter( (array) self::$id_array));
             if (empty($restricted)) {
                 return;
             }
-            $query->set('category__not_in', array_merge((array) $query->get('category__not_in'), $restricted));
+            $query->set('category__not_in', array_merge( (array) $query->get('category__not_in'), $restricted));
         }
 
         public static function restrict_content_for_specific_categories($content)

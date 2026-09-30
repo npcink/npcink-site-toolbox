@@ -10,7 +10,7 @@ final class DbCleanCoreApiContractTest extends TestCase
     {
         $source = $this->source();
 
-        $this->assertStringContainsString('private const BATCH_SIZE = 100;', $source);
+        $this->assertStringContainsString('private const BATCH_SIZE                = 100;', $source);
         $this->assertStringContainsString('LIMIT %d', $source);
         $this->assertStringContainsString('ID > %d', $source);
         $this->assertStringContainsString('comment_ID > %d', $source);

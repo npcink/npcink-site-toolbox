@@ -229,7 +229,7 @@ class ModuleRegistryConsistency_Test extends TestCase {
         $autoload = file_get_contents(self::$plugin_dir . '/includes/autoload.php');
 
         $this->assertStringContainsString(
-            "'Npcink_Toolbox_Module_Interface' => 'includes/interface-npcink-toolbox-module.php'",
+            "'Npcink_Toolbox_Module_Interface'                => 'includes/interface-npcink-toolbox-module.php',",
             $autoload
         );
     }

@@ -10,12 +10,12 @@ final class PerformanceComplianceTest extends TestCase
     {
         $source = $this->source('includes/class-npcink-toolbox-tool.php');
 
-        $this->assertStringContainsString('$today_users = new WP_User_Query(array(', $source);
+        $this->assertStringContainsString('$today_users              = new WP_User_Query(array(', $source);
         $this->assertStringContainsString("'date_query'  => array(", $source);
         $this->assertStringContainsString("'count_total' => true", $source);
         $this->assertStringContainsString('$today_users->get_total()', $source);
         $this->assertStringNotContainsString('$wpdb', $source);
-        $this->assertStringContainsString('$total_users = get_user_count();', $source);
+        $this->assertStringContainsString('$total_users              = get_user_count();', $source);
         $this->assertStringNotContainsString('count_users()', $source);
         $this->assertStringNotContainsString('SELECT COUNT(ID) FROM', $source);
     }
@@ -24,11 +24,11 @@ final class PerformanceComplianceTest extends TestCase
     {
         $source = $this->source('admin/partials/performance/media_health/index.php');
 
-        $this->assertStringContainsString('const ATTACHMENT_SCAN_BATCH_SIZE = 100;', $source);
-        $this->assertStringContainsString('const ATTACHMENT_SCAN_LIMIT = 500;', $source);
-        $this->assertStringContainsString('const WEBP_SAMPLE_LIMIT = 3;', $source);
-        $this->assertStringContainsString('const WEBP_SAMPLE_MAX_FILE_BYTES = 5242880;', $source);
-        $this->assertStringContainsString('const WEBP_SAMPLE_MAX_PIXELS = 12000000;', $source);
+        $this->assertStringContainsString('const ATTACHMENT_SCAN_BATCH_SIZE     = 100;', $source);
+        $this->assertStringContainsString('const ATTACHMENT_SCAN_LIMIT          = 500;', $source);
+        $this->assertStringContainsString('const WEBP_SAMPLE_LIMIT              = 3;', $source);
+        $this->assertStringContainsString('const WEBP_SAMPLE_MAX_FILE_BYTES     = 5242880;', $source);
+        $this->assertStringContainsString('const WEBP_SAMPLE_MAX_PIXELS         = 12000000;', $source);
         $this->assertStringContainsString('const WEBP_CONTINUOUS_MAX_CANDIDATES = 50;', $source);
         $this->assertStringContainsString('private static function scan_recent_attachments()', $source);
         $this->assertStringContainsString('private static function estimate_webp_savings(', $source);

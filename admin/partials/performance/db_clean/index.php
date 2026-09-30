@@ -5,9 +5,9 @@ defined('ABSPATH') || exit;
 if (!class_exists('Npcink_Toolbox_Performance_Db_Clean')) {
     class Npcink_Toolbox_Performance_Db_Clean implements Npcink_Toolbox_Module_Interface
     {
-        private const BATCH_SIZE = 100;
-        private const CRON_HOOK = 'npcink_site_toolbox_auto_db_clean';
-        private const PREVIEW_TTL = 300;
+        private const BATCH_SIZE                = 100;
+        private const CRON_HOOK                 = 'npcink_site_toolbox_auto_db_clean';
+        private const PREVIEW_TTL               = 300;
         private const CONSUMED_PREVIEW_META_KEY = 'npcink_site_toolbox_consumed_db_previews';
 
         private static $config = array();
@@ -46,10 +46,10 @@ if (!class_exists('Npcink_Toolbox_Performance_Db_Clean')) {
             }
 
             $allowed_schedules = array('daily', 'weekly', 'monthly');
-            $schedule = isset($config['auto_clean_schedule']) && in_array($config['auto_clean_schedule'], $allowed_schedules, true)
+            $schedule          = isset($config['auto_clean_schedule']) && in_array($config['auto_clean_schedule'], $allowed_schedules, true)
                 ? $config['auto_clean_schedule']
                 : 'weekly';
-            $event = wp_get_scheduled_event(self::CRON_HOOK);
+            $event             = wp_get_scheduled_event(self::CRON_HOOK);
 
             if ($event && isset($event->schedule) && $event->schedule === $schedule) {
                 return;
@@ -66,7 +66,7 @@ if (!class_exists('Npcink_Toolbox_Performance_Db_Clean')) {
                     'weekly'  => 604800,
                     'monthly' => 2592000,
                 );
-                wp_schedule_event(time() + $schedule_intervals[$schedule], $schedule, self::CRON_HOOK);
+                wp_schedule_event(time() + $schedule_intervals[ $schedule ], $schedule, self::CRON_HOOK);
             }
         }
 
@@ -84,7 +84,7 @@ if (!class_exists('Npcink_Toolbox_Performance_Db_Clean')) {
         public static function run_scheduled_cleanup()
         {
             $performance = get_option(NPCINK_SITE_TOOLBOX_OPTION_PERFORMANCE, array());
-            $config = is_array($performance) && isset($performance['db_clean']) && is_array($performance['db_clean'])
+            $config      = is_array($performance) && isset($performance['db_clean']) && is_array($performance['db_clean'])
                 ? $performance['db_clean']
                 : array();
 
@@ -100,7 +100,7 @@ if (!class_exists('Npcink_Toolbox_Performance_Db_Clean')) {
 
         public static function add_cron_schedules($schedules)
         {
-            $schedules['weekly'] = array('interval' => 604800, 'display' => __('每周', 'npcink-site-toolbox'));
+            $schedules['weekly']  = array('interval' => 604800, 'display' => __('每周', 'npcink-site-toolbox'));
             $schedules['monthly'] = array('interval' => 2592000, 'display' => __('每月', 'npcink-site-toolbox'));
 
             return $schedules;
@@ -112,7 +112,7 @@ if (!class_exists('Npcink_Toolbox_Performance_Db_Clean')) {
                 return new \WP_Error('rest_forbidden', __('权限不足', 'npcink-site-toolbox'), array('status' => 403));
             }
 
-            $stats = self::get_cleanup_counts();
+            $stats            = self::get_cleanup_counts();
             $stats['db_size'] = self::get_database_size();
 
             return rest_ensure_response(array(
@@ -130,18 +130,18 @@ if (!class_exists('Npcink_Toolbox_Performance_Db_Clean')) {
                 return new \WP_Error('rest_forbidden', __('权限不足', 'npcink-site-toolbox'), array('status' => 403));
             }
 
-            $params = $request->get_json_params();
-            $params = is_array($params) ? $params : array();
-            $type_value = isset($params['type']) ? $params['type'] : '';
-            $type = is_string($type_value) ? sanitize_key($type_value) : '';
+            $params        = $request->get_json_params();
+            $params        = is_array($params) ? $params : array();
+            $type_value    = isset($params['type']) ? $params['type'] : '';
+            $type          = is_string($type_value) ? sanitize_key($type_value) : '';
             $allowed_types = array('revisions', 'drafts', 'spam', 'transients', 'optimize', 'pending', 'trash');
             if (!in_array($type, $allowed_types, true)) {
                 return new \WP_Error('rest_invalid_param', __('无效的清理类型', 'npcink-site-toolbox'), array('status' => 400));
             }
 
-            $preview = self::build_preview($type);
+            $preview                  = self::build_preview($type);
             $preview['preview_token'] = self::issue_preview_token($type, $preview);
-            $preview['expires_in'] = self::PREVIEW_TTL;
+            $preview['expires_in']    = self::PREVIEW_TTL;
 
             return rest_ensure_response(array(
                 'success' => true,
@@ -155,12 +155,12 @@ if (!class_exists('Npcink_Toolbox_Performance_Db_Clean')) {
                 return new \WP_Error('rest_forbidden', __('权限不足', 'npcink-site-toolbox'), array('status' => 403));
             }
 
-            $params = $request->get_json_params();
-            $params = is_array($params) ? $params : array();
-            $type_value = isset($params['type']) ? $params['type'] : '';
-            $type = is_string($type_value) ? sanitize_key($type_value) : '';
+            $params        = $request->get_json_params();
+            $params        = is_array($params) ? $params : array();
+            $type_value    = isset($params['type']) ? $params['type'] : '';
+            $type          = is_string($type_value) ? sanitize_key($type_value) : '';
             $dry_run_value = array_key_exists('dry_run', $params) ? $params['dry_run'] : true;
-            $dry_run = is_scalar($dry_run_value) ? rest_sanitize_boolean($dry_run_value) : true;
+            $dry_run       = is_scalar($dry_run_value) ? rest_sanitize_boolean($dry_run_value) : true;
 
             $allowed_types = array('revisions', 'drafts', 'spam', 'transients', 'optimize', 'pending', 'trash');
             if (!in_array($type, $allowed_types, true)) {
@@ -168,16 +168,16 @@ if (!class_exists('Npcink_Toolbox_Performance_Db_Clean')) {
             }
 
             if ($dry_run) {
-                $preview = self::build_preview($type);
+                $preview                  = self::build_preview($type);
                 $preview['preview_token'] = self::issue_preview_token($type, $preview);
-                $preview['expires_in'] = self::PREVIEW_TTL;
+                $preview['expires_in']    = self::PREVIEW_TTL;
                 return rest_ensure_response(array(
                     'success' => true,
                     'data'    => $preview,
                 ));
             }
 
-            $token_value = isset($params['preview_token']) ? $params['preview_token'] : '';
+            $token_value   = isset($params['preview_token']) ? $params['preview_token'] : '';
             $preview_token = is_string($token_value) ? sanitize_text_field($token_value) : '';
             if (!preg_match('/^[A-Za-z0-9_-]+\.[a-f0-9]{64}$/', $preview_token)) {
                 return new \WP_Error(
@@ -198,7 +198,7 @@ if (!class_exists('Npcink_Toolbox_Performance_Db_Clean')) {
 
             if (class_exists('Npcink_Toolbox_Audit_Logger')) {
                 Npcink_Toolbox_Audit_Logger::database('数据库清理: type=' . $type, array(
-                    'type' => $type,
+                    'type'    => $type,
                     'user_id' => get_current_user_id(),
                     'dry_run' => false,
                 ));
@@ -207,7 +207,7 @@ if (!class_exists('Npcink_Toolbox_Performance_Db_Clean')) {
             $result = array('deleted' => 0);
             if ('optimize' === $type) {
                 $result['optimized'] = self::optimize_tables();
-                $result['message'] = __('数据库表优化完成', 'npcink-site-toolbox');
+                $result['message']   = __('数据库表优化完成', 'npcink-site-toolbox');
             } else {
                 $result['deleted'] = self::clean_type($type);
             }
@@ -246,38 +246,39 @@ if (!class_exists('Npcink_Toolbox_Performance_Db_Clean')) {
             if ('optimize' === $type) {
                 $tables = self::get_optimizable_tables();
                 return array(
-                    'message' => __('将优化当前站点的数据库表（不删除数据）', 'npcink-site-toolbox'),
-                    'table_count' => count($tables),
+                    'message'           => __('将优化当前站点的数据库表（不删除数据）', 'npcink-site-toolbox'),
+                    'table_count'       => count($tables),
+                    // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.serialize_serialize -- 互斥锁令牌仅存标量，无对象注入面
                     'table_fingerprint' => hash('sha256', serialize($tables)),
-                    'dry_run' => true,
+                    'dry_run'           => true,
                 );
             }
 
-            $counts = self::get_cleanup_counts();
-            $messages = array(
+            $counts         = self::get_cleanup_counts();
+            $messages       = array(
                 /* translators: %d: number of post revisions that will be deleted. */
-                'revisions' => __('将删除 %d 个文章修订版本', 'npcink-site-toolbox'),
+                'revisions'  => __('将删除 %d 个文章修订版本', 'npcink-site-toolbox'),
                 /* translators: %d: number of auto-drafts that will be deleted. */
-                'drafts' => __('将删除 %d 个自动草稿', 'npcink-site-toolbox'),
+                'drafts'     => __('将删除 %d 个自动草稿', 'npcink-site-toolbox'),
                 /* translators: %d: number of spam comments that will be deleted. */
-                'spam' => __('将删除 %d 条垃圾评论', 'npcink-site-toolbox'),
+                'spam'       => __('将删除 %d 条垃圾评论', 'npcink-site-toolbox'),
                 /* translators: %d: number of expired transients that will be deleted. */
                 'transients' => __('将删除 %d 个过期临时选项', 'npcink-site-toolbox'),
                 /* translators: %d: number of pending posts that will be deleted. */
-                'pending' => __('将删除 %d 个待审核文章', 'npcink-site-toolbox'),
+                'pending'    => __('将删除 %d 个待审核文章', 'npcink-site-toolbox'),
                 /* translators: %d: number of trashed posts that will be deleted. */
-                'trash' => __('将删除 %d 个回收站文章', 'npcink-site-toolbox'),
+                'trash'      => __('将删除 %d 个回收站文章', 'npcink-site-toolbox'),
             );
-            $affected = isset($counts[$type]) ? $counts[$type] : 0;
-            $message_format = isset($messages[$type])
-                ? $messages[$type]
+            $affected       = isset($counts[ $type ]) ? $counts[ $type ] : 0;
+            $message_format = isset($messages[ $type ])
+                ? $messages[ $type ]
                 /* translators: %d: number of affected records that will be deleted. */
                 : __('将删除 %d 条数据', 'npcink-site-toolbox');
 
             return array(
                 'affected' => $affected,
-                'message' => sprintf($message_format, $affected),
-                'dry_run' => true,
+                'message'  => sprintf($message_format, $affected),
+                'dry_run'  => true,
             );
         }
 
@@ -296,14 +297,14 @@ if (!class_exists('Npcink_Toolbox_Performance_Db_Clean')) {
                 $nonce = hash('sha256', uniqid(self::CONSUMED_PREVIEW_META_KEY, true));
             }
 
-            $payload = array(
-                'type' => $type,
-                'user_id' => get_current_user_id(),
-                'expires_at' => time() + self::PREVIEW_TTL,
+            $payload   = array(
+                'type'        => $type,
+                'user_id'     => get_current_user_id(),
+                'expires_at'  => time() + self::PREVIEW_TTL,
                 'fingerprint' => self::preview_fingerprint($type, $preview),
-                'nonce' => $nonce,
+                'nonce'       => $nonce,
             );
-            $encoded = self::base64url_encode(wp_json_encode($payload));
+            $encoded   = self::base64url_encode(wp_json_encode($payload));
             $signature = hash_hmac('sha256', $encoded, self::preview_signing_key());
 
             return $encoded . '.' . $signature;
@@ -322,8 +323,8 @@ if (!class_exists('Npcink_Toolbox_Performance_Db_Clean')) {
             if (count($parts) !== 2
                 || !hash_equals(hash_hmac('sha256', $parts[0], self::preview_signing_key()), $parts[1])) {
                 return array(
-                    'valid' => false,
-                    'code' => 'rest_db_preview_expired',
+                    'valid'   => false,
+                    'code'    => 'rest_db_preview_expired',
                     'message' => __('清理预览已失效或不属于当前操作，请重新预览。', 'npcink-site-toolbox'),
                 );
             }
@@ -339,21 +340,21 @@ if (!class_exists('Npcink_Toolbox_Performance_Db_Clean')) {
                 || (int) $payload['expires_at'] < time()
                 || self::is_preview_consumed($token)) {
                 return array(
-                    'valid' => false,
-                    'code' => 'rest_db_preview_expired',
+                    'valid'   => false,
+                    'code'    => 'rest_db_preview_expired',
                     'message' => __('清理预览已失效或不属于当前操作，请重新预览。', 'npcink-site-toolbox'),
                 );
             }
 
             self::mark_preview_consumed($token, (int) $payload['expires_at']);
 
-            $current_preview = self::build_preview($type);
+            $current_preview     = self::build_preview($type);
             $current_fingerprint = self::preview_fingerprint($type, $current_preview);
 
             if (!hash_equals($payload['fingerprint'], $current_fingerprint)) {
                 return array(
-                    'valid' => false,
-                    'code' => 'rest_db_preview_conflict',
+                    'valid'   => false,
+                    'code'    => 'rest_db_preview_conflict',
                     'message' => __('数据库内容已发生变化，请重新预览并确认最新影响范围。', 'npcink-site-toolbox'),
                 );
             }
@@ -374,6 +375,7 @@ if (!class_exists('Npcink_Toolbox_Performance_Db_Clean')) {
 
         private static function base64url_encode($value)
         {
+            // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_encode -- 对象存储服务商签名规范要求 base64
             return rtrim(strtr(base64_encode($value), '+/', '-_'), '=');
         }
 
@@ -383,27 +385,28 @@ if (!class_exists('Npcink_Toolbox_Performance_Db_Clean')) {
             if ($padding) {
                 $value .= str_repeat('=', 4 - $padding);
             }
+            // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_decode -- 对象存储回调签名解码要求
             return base64_decode(strtr($value, '-_', '+/'), true);
         }
 
         private static function is_preview_consumed($token)
         {
             $consumed = get_user_meta(get_current_user_id(), self::CONSUMED_PREVIEW_META_KEY, true);
-            return is_array($consumed) && isset($consumed[hash('sha256', $token)]);
+            return is_array($consumed) && isset($consumed[ hash('sha256', $token) ]);
         }
 
         private static function mark_preview_consumed($token, $expires_at)
         {
-            $user_id = get_current_user_id();
+            $user_id  = get_current_user_id();
             $consumed = get_user_meta($user_id, self::CONSUMED_PREVIEW_META_KEY, true);
             $consumed = is_array($consumed) ? $consumed : array();
-            $now = time();
+            $now      = time();
             foreach ($consumed as $token_hash => $expiry) {
-                if ((int) $expiry < $now) {
-                    unset($consumed[$token_hash]);
+                if ( (int) $expiry < $now) {
+                    unset($consumed[ $token_hash ]);
                 }
             }
-            $consumed[hash('sha256', $token)] = $expires_at;
+            $consumed[ hash('sha256', $token) ] = $expires_at;
             update_user_meta($user_id, self::CONSUMED_PREVIEW_META_KEY, $consumed);
         }
 
@@ -414,8 +417,9 @@ if (!class_exists('Npcink_Toolbox_Performance_Db_Clean')) {
          */
         private static function preview_fingerprint($type, $preview)
         {
+            // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.serialize_serialize -- 互斥锁令牌仅存标量，无对象注入面
             return hash('sha256', serialize(array(
-                'type' => $type,
+                'type'    => $type,
                 'preview' => $preview,
             )));
         }
@@ -429,9 +433,9 @@ if (!class_exists('Npcink_Toolbox_Performance_Db_Clean')) {
         {
             global $wpdb;
 
-            $transient_timeout_pattern = $wpdb->esc_like('_transient_timeout_') . '%';
+            $transient_timeout_pattern      = $wpdb->esc_like('_transient_timeout_') . '%';
             $site_transient_timeout_pattern = $wpdb->esc_like('_site_transient_timeout_') . '%';
-            $now = time();
+            $now                            = time();
             // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching -- Admin stats and dry-run previews require a fresh snapshot; one merged query replaces repeated uncached counts.
             $row = $wpdb->get_row(
                 $wpdb->prepare(
@@ -458,12 +462,12 @@ if (!class_exists('Npcink_Toolbox_Performance_Db_Clean')) {
             $row = is_array($row) ? $row : array();
 
             return array(
-                'revisions' => isset($row['revisions']) ? absint($row['revisions']) : 0,
-                'drafts' => isset($row['drafts']) ? absint($row['drafts']) : 0,
-                'spam' => isset($row['spam']) ? absint($row['spam']) : 0,
+                'revisions'  => isset($row['revisions']) ? absint($row['revisions']) : 0,
+                'drafts'     => isset($row['drafts']) ? absint($row['drafts']) : 0,
+                'spam'       => isset($row['spam']) ? absint($row['spam']) : 0,
                 'transients' => isset($row['transients']) ? absint($row['transients']) : 0,
-                'pending' => isset($row['pending']) ? absint($row['pending']) : 0,
-                'trash' => isset($row['trash']) ? absint($row['trash']) : 0,
+                'pending'    => isset($row['pending']) ? absint($row['pending']) : 0,
+                'trash'      => isset($row['trash']) ? absint($row['trash']) : 0,
             );
         }
 
@@ -482,12 +486,12 @@ if (!class_exists('Npcink_Toolbox_Performance_Db_Clean')) {
                 $wpdb->prepare('SHOW TABLE STATUS LIKE %s', $table_pattern),
                 ARRAY_A
             );
-            $db_size = 0;
+            $db_size        = 0;
             if (is_array($table_statuses)) {
                 foreach ($table_statuses as $table_status) {
-                    $data_length = isset($table_status['Data_length']) ? (int) $table_status['Data_length'] : 0;
+                    $data_length  = isset($table_status['Data_length']) ? (int) $table_status['Data_length'] : 0;
                     $index_length = isset($table_status['Index_length']) ? (int) $table_status['Index_length'] : 0;
-                    $db_size += $data_length + $index_length;
+                    $db_size     += $data_length + $index_length;
                 }
             }
 
@@ -550,6 +554,7 @@ if (!class_exists('Npcink_Toolbox_Performance_Db_Clean')) {
                         ++$deleted;
                     }
                 }
+            // phpcs:ignore Squiz.PHP.DisallowSizeFunctionsInLoops.Found -- 循环规模恒为小常数批次
             } while (count($post_ids) === self::BATCH_SIZE);
 
             return $deleted;
@@ -591,6 +596,7 @@ if (!class_exists('Npcink_Toolbox_Performance_Db_Clean')) {
                         ++$deleted;
                     }
                 }
+            // phpcs:ignore Squiz.PHP.DisallowSizeFunctionsInLoops.Found -- 循环规模恒为小常数批次
             } while (count($post_ids) === self::BATCH_SIZE);
 
             return $deleted;
@@ -623,11 +629,12 @@ if (!class_exists('Npcink_Toolbox_Performance_Db_Clean')) {
 
                 foreach ($comment_ids as $comment_id) {
                     $comment_id = absint($comment_id);
-                    $last_id = max($last_id, $comment_id);
+                    $last_id    = max($last_id, $comment_id);
                     if ($comment_id && wp_delete_comment($comment_id, true)) {
                         ++$deleted;
                     }
                 }
+            // phpcs:ignore Squiz.PHP.DisallowSizeFunctionsInLoops.Found -- 循环规模恒为小常数批次
             } while (count($comment_ids) === self::BATCH_SIZE);
 
             return $deleted;
@@ -643,13 +650,13 @@ if (!class_exists('Npcink_Toolbox_Performance_Db_Clean')) {
         {
             global $wpdb;
 
-            $patterns = array(
+            $patterns         = array(
                 $wpdb->esc_like('_transient_timeout_') . '%',
                 $wpdb->esc_like('_site_transient_timeout_') . '%',
             );
-            $deleted = 0;
+            $deleted          = 0;
             $last_option_name = '';
-            $now = time();
+            $now              = time();
 
             do {
                 // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching -- Maintenance reads a bounded, fresh option-name batch; Transient and Options APIs perform cache-aware deletion.
@@ -677,21 +684,22 @@ if (!class_exists('Npcink_Toolbox_Performance_Db_Clean')) {
                         continue;
                     }
                     $last_option_name = $option_name;
-                    $transient = self::parse_transient_option_name($option_name);
+                    $transient        = self::parse_transient_option_name($option_name);
                     if (null === $transient) {
                         continue;
                     }
 
-                    $key = $transient['key'];
-                    $api_deleted = $transient['site'] ? delete_site_transient($key) : delete_transient($key);
-                    $option_prefix = $transient['site'] ? '_site_transient_' : '_transient_';
-                    $timeout_prefix = $transient['site'] ? '_site_transient_timeout_' : '_transient_timeout_';
-                    $value_deleted = delete_option($option_prefix . $key);
+                    $key             = $transient['key'];
+                    $api_deleted     = $transient['site'] ? delete_site_transient($key) : delete_transient($key);
+                    $option_prefix   = $transient['site'] ? '_site_transient_' : '_transient_';
+                    $timeout_prefix  = $transient['site'] ? '_site_transient_timeout_' : '_transient_timeout_';
+                    $value_deleted   = delete_option($option_prefix . $key);
                     $timeout_deleted = delete_option($timeout_prefix . $key);
                     if ($api_deleted || $value_deleted || $timeout_deleted) {
                         ++$deleted;
                     }
                 }
+            // phpcs:ignore Squiz.PHP.DisallowSizeFunctionsInLoops.Found -- 循环规模恒为小常数批次
             } while (count($option_names) === self::BATCH_SIZE);
 
             return $deleted;
@@ -705,9 +713,9 @@ if (!class_exists('Npcink_Toolbox_Performance_Db_Clean')) {
         {
             $prefixes = array(
                 '_site_transient_timeout_' => true,
-                '_site_transient_' => true,
-                '_transient_timeout_' => false,
-                '_transient_' => false,
+                '_site_transient_'         => true,
+                '_transient_timeout_'      => false,
+                '_transient_'              => false,
             );
 
             foreach ($prefixes as $prefix => $site) {

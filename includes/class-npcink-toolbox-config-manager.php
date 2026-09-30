@@ -48,7 +48,7 @@ if (!class_exists('Npcink_Toolbox_Config_Manager')) {
             foreach (self::$module_map as $top_key => $option_name) {
                 $module_data = get_option($option_name, array());
                 if (is_array($module_data) && !empty($module_data)) {
-                    $merged[$top_key] = $module_data;
+                    $merged[ $top_key ] = $module_data;
                 }
             }
 
@@ -67,19 +67,19 @@ if (!class_exists('Npcink_Toolbox_Config_Manager')) {
             // 新安装时 Option 尚不存在，但读取契约仍必须向前端提供
             // 完整且已清洗的配置结构，避免各设置组件自行猜测缺失分支。
             $validation = Npcink_Toolbox_Config_Schema::validate_full_config($config);
-            $data = $validation['data'];
-            $status = array();
+            $data       = $validation['data'];
+            $status     = array();
 
             foreach (self::get_secret_paths() as $path) {
-                $value = self::get_nested_value($config, $path, '');
-                $status[$path] = array(
+                $value           = self::get_nested_value($config, $path, '');
+                $status[ $path ] = array(
                     'configured' => is_string($value) && $value !== '',
                 );
                 self::remove_nested_value($data, $path);
             }
 
             return array(
-                'data' => $data,
+                'data'         => $data,
                 'secretStatus' => $status,
             );
         }
@@ -95,6 +95,7 @@ if (!class_exists('Npcink_Toolbox_Config_Manager')) {
          */
         public static function get_config_revision($config = null) {
             $config = is_array($config) ? $config : self::get_merged_config();
+            // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.serialize_serialize -- 互斥锁令牌仅存标量，无对象注入面
             $serialized = serialize($config);
 
             if (function_exists('wp_salt')) {
@@ -135,7 +136,7 @@ if (!class_exists('Npcink_Toolbox_Config_Manager')) {
             }
 
             $current_config = is_array($current_config) ? $current_config : self::get_merged_config();
-            $merged = $settings;
+            $merged         = $settings;
 
             foreach ($secret_paths as $path) {
                 $current_value = self::get_nested_value($current_config, $path, '');
@@ -185,10 +186,10 @@ if (!class_exists('Npcink_Toolbox_Config_Manager')) {
          * 获取单个模块的服务端配置。
          */
         public static function get_module_config($module) {
-            if (!isset(self::$module_map[$module])) {
+            if (!isset(self::$module_map[ $module ])) {
                 return array();
             }
-            $config = get_option(self::$module_map[$module], array());
+            $config = get_option(self::$module_map[ $module ], array());
             return is_array($config) ? $config : array();
         }
 
@@ -212,16 +213,16 @@ if (!class_exists('Npcink_Toolbox_Config_Manager')) {
         public static function save_full_config($full_config) {
             if (!is_array($full_config)) {
                 return array(
-                    'success' => false,
-                    'saved_modules' => array(),
-                    'failed_modules' => array(),
-                    'rollback_complete' => true,
+                    'success'                 => false,
+                    'saved_modules'           => array(),
+                    'failed_modules'          => array(),
+                    'rollback_complete'       => true,
                     'rollback_failed_modules' => array(),
-                    'error' => __('配置格式无效，未写入任何设置', 'npcink-site-toolbox'),
+                    'error'                   => __('配置格式无效，未写入任何设置', 'npcink-site-toolbox'),
                 );
             }
 
-            $saved = array();
+            $saved   = array();
             $changed = array();
             $missing = new \stdClass();
 
@@ -231,7 +232,7 @@ if (!class_exists('Npcink_Toolbox_Config_Manager')) {
                 }
 
                 $previous = get_option($option_name, $missing);
-                $next = $full_config[$top_key];
+                $next     = $full_config[ $top_key ];
 
                 if ($previous !== $missing && $previous === $next) {
                     $saved[] = $top_key;
@@ -242,17 +243,17 @@ if (!class_exists('Npcink_Toolbox_Config_Manager')) {
                     return self::rollback_failed_save($top_key, $changed, $missing);
                 }
 
-                $changed[$option_name] = array(
-                    'module' => $top_key,
+                $changed[ $option_name ] = array(
+                    'module'   => $top_key,
                     'previous' => $previous,
                 );
-                $saved[] = $top_key;
+                $saved[]                 = $top_key;
             }
 
             self::$merged_cache = null;
             return array(
-                'success' => true,
-                'saved_modules' => $saved,
+                'success'        => true,
+                'saved_modules'  => $saved,
                 'failed_modules' => array(),
             );
         }
@@ -285,8 +286,8 @@ if (!class_exists('Npcink_Toolbox_Config_Manager')) {
             }
 
             self::$merged_cache = null;
-            $rollback_complete = empty($rollback_failed_modules);
-            $error = $rollback_complete
+            $rollback_complete  = empty($rollback_failed_modules);
+            $error              = $rollback_complete
                 ? __('保存失败，已恢复为之前的设置', 'npcink-site-toolbox')
                 : sprintf(
                     /* translators: %s: comma-separated module names that could not be confirmed as restored. */
@@ -295,12 +296,12 @@ if (!class_exists('Npcink_Toolbox_Config_Manager')) {
                 );
 
             return array(
-                'success' => false,
-                'saved_modules' => array(),
-                'failed_modules' => array($failed_module),
-                'rollback_complete' => $rollback_complete,
+                'success'                 => false,
+                'saved_modules'           => array(),
+                'failed_modules'          => array($failed_module),
+                'rollback_complete'       => $rollback_complete,
                 'rollback_failed_modules' => $rollback_failed_modules,
-                'error' => $error,
+                'error'                   => $error,
             );
         }
 
@@ -308,18 +309,18 @@ if (!class_exists('Npcink_Toolbox_Config_Manager')) {
          * 保存单个模块，同值写入视为成功。
          */
         public static function save_module_config($module, $data) {
-            if (!isset(self::$module_map[$module])) {
+            if (!isset(self::$module_map[ $module ])) {
                 return false;
             }
 
-            $option_name = self::$module_map[$module];
-            $missing = new \stdClass();
-            $previous = get_option($option_name, $missing);
+            $option_name = self::$module_map[ $module ];
+            $missing     = new \stdClass();
+            $previous    = get_option($option_name, $missing);
             if ($previous !== $missing && $previous === $data) {
                 return true;
             }
 
-            $result = update_option($option_name, $data);
+            $result             = update_option($option_name, $data);
             self::$merged_cache = null;
             return $result !== false;
         }
@@ -333,7 +334,7 @@ if (!class_exists('Npcink_Toolbox_Config_Manager')) {
         }
 
         public static function get_secret_paths() {
-            $paths = array();
+            $paths  = array();
             $schema = Npcink_Toolbox_Config_Schema::get_schema();
 
             foreach ($schema as $module_key => $module_def) {
@@ -355,13 +356,14 @@ if (!class_exists('Npcink_Toolbox_Config_Manager')) {
             return $paths;
         }
 
+        // phpcs:ignore Universal.NamingConventions.NoReservedKeywordParameterNames.defaultFound -- 参数名沿用既有公共签名
         private static function get_nested_value($data, $path, $default = null) {
             $current = $data;
             foreach (explode('.', $path) as $key) {
                 if (!is_array($current) || !array_key_exists($key, $current)) {
                     return $default;
                 }
-                $current = $current[$key];
+                $current = $current[ $key ];
             }
             return $current;
         }
@@ -372,35 +374,35 @@ if (!class_exists('Npcink_Toolbox_Config_Manager')) {
                 if (!is_array($current) || !array_key_exists($key, $current)) {
                     return false;
                 }
-                $current = $current[$key];
+                $current = $current[ $key ];
             }
             return true;
         }
 
         private static function set_nested_value(&$data, $path, $value) {
-            $keys = explode('.', $path);
+            $keys    = explode('.', $path);
             $current =& $data;
             foreach ($keys as $key) {
-                if (!isset($current[$key]) || !is_array($current[$key])) {
-                    $current[$key] = array();
+                if (!isset($current[ $key ]) || !is_array($current[ $key ])) {
+                    $current[ $key ] = array();
                 }
-                $current =& $current[$key];
+                $current =& $current[ $key ];
             }
             $current = $value;
             unset($current);
         }
 
         private static function remove_nested_value(&$data, $path) {
-            $keys = explode('.', $path);
-            $last = array_pop($keys);
+            $keys    = explode('.', $path);
+            $last    = array_pop($keys);
             $current =& $data;
             foreach ($keys as $key) {
-                if (!isset($current[$key]) || !is_array($current[$key])) {
+                if (!isset($current[ $key ]) || !is_array($current[ $key ])) {
                     return;
                 }
-                $current =& $current[$key];
+                $current =& $current[ $key ];
             }
-            unset($current[$last]);
+            unset($current[ $last ]);
             unset($current);
         }
     }

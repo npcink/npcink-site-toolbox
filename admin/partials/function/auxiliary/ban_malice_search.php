@@ -43,16 +43,16 @@ if (!class_exists('Npcink_Toolbox_Ban_Malice_Search')) {
             // 关键词列表中的空行会产生空关键词；PHP 8 下空串匹配任何搜索词，
             // 会把全站搜索全部拦截，因此必须跳过空白条目
             foreach (explode('|', $keyword_list) as $Key) {
-                $Key = trim((string) $Key);
+                $Key = trim( (string) $Key);
                 if ('' === $Key) {
                     continue;
                 }
                 if (false !== stripos($search_term, $Key)) {
-                    $message = __('搜索内容包含敏感词，请换个关键词搜索', 'npcink-site-toolbox');
-                    $message = $message . Npcink_Toolbox_Admin::back_button();
+                    $message      = __('搜索内容包含敏感词，请换个关键词搜索', 'npcink-site-toolbox');
+                    $message      = $message . Npcink_Toolbox_Admin::back_button();
                     $allowed_html = array(
-                        'p'  => array(),
-                        'a'  => array(
+                        'p' => array(),
+                        'a' => array(
                             'href'  => true,
                             'class' => true,
                         ),

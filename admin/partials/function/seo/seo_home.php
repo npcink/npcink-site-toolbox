@@ -1,6 +1,6 @@
 <?php
 defined('ABSPATH') || exit;
-//简单SEO - 首页TDK 
+//简单SEO - 首页TDK
 if (!class_exists('Npcink_Toolbox_Seo_Home')) {
     class Npcink_Toolbox_Seo_Home implements Npcink_Toolbox_Module_Interface
     {

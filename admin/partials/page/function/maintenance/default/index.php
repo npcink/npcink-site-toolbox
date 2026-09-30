@@ -3,7 +3,7 @@
 defined('ABSPATH') || exit;
 
 //默认带图
-include plugin_dir_path((__FILE__)) . '../index.php'; // 获取数据
+require plugin_dir_path((__FILE__)) . '../index.php'; // 获取数据
 
 $npcink_site_toolbox_logo = $npcink_site_toolbox_file_url . 'default/tips.svg';
 wp_die(

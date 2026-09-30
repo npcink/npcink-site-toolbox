@@ -19,7 +19,7 @@ if (!class_exists('Npcink_Toolbox_Seo_Category_Add_Meat')) {
         }
 
         // 分类添加字段
-        public static  function add_category_field()
+        public static function add_category_field()
         {
             ?>
             <div class="form-field">
@@ -83,16 +83,16 @@ if (!class_exists('Npcink_Toolbox_Seo_Category_Add_Meat')) {
                 return $term_id;
             }
 
-            $action = isset($_POST['action']) && is_string($_POST['action'])
+            $action      = isset($_POST['action']) && is_string($_POST['action'])
                 ? sanitize_key(wp_unslash($_POST['action']))
                 : '';
             $nonce_valid = false;
 
             if ('add-tag' === $action && isset($_POST['_wpnonce_add-tag']) && is_string($_POST['_wpnonce_add-tag'])) {
-                $nonce = sanitize_text_field(wp_unslash($_POST['_wpnonce_add-tag']));
+                $nonce       = sanitize_text_field(wp_unslash($_POST['_wpnonce_add-tag']));
                 $nonce_valid = wp_verify_nonce($nonce, 'add-tag') !== false;
             } elseif ('editedtag' === $action && isset($_POST['_wpnonce']) && is_string($_POST['_wpnonce'])) {
-                $nonce = sanitize_text_field(wp_unslash($_POST['_wpnonce']));
+                $nonce       = sanitize_text_field(wp_unslash($_POST['_wpnonce']));
                 $nonce_valid = wp_verify_nonce($nonce, 'update-tag_' . absint($term_id)) !== false;
             }
 
@@ -105,9 +105,9 @@ if (!class_exists('Npcink_Toolbox_Seo_Category_Add_Meat')) {
                 return $term_id;
             }
 
-            $title_key = 'npcink_site_toolbox_category_title_' . absint($term_id);
+            $title_key   = 'npcink_site_toolbox_category_title_' . absint($term_id);
             $title_value = sanitize_text_field(wp_unslash($_POST['cat-title']));
-            $words_key = 'npcink_site_toolbox_category_keywords_' . absint($term_id);
+            $words_key   = 'npcink_site_toolbox_category_keywords_' . absint($term_id);
             $words_value = sanitize_text_field(wp_unslash($_POST['cat-words']));
 
             update_option($title_key, $title_value, false);

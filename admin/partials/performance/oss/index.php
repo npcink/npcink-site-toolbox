@@ -2,15 +2,17 @@
 defined('ABSPATH') || exit;
 if (!class_exists('Npcink_Toolbox_Performance_Oss')) {
     class Npcink_Toolbox_Performance_Oss implements Npcink_Toolbox_Module_Interface {
-        private const OFFLOADED_META = '_npcink_site_toolbox_oss_offloaded';
-        private const CONNECTION_TEST_OBJECT = 'npcink-site-toolbox/connection-test.txt';
+        private const OFFLOADED_META          = '_npcink_site_toolbox_oss_offloaded';
+        private const CONNECTION_TEST_OBJECT  = 'npcink-site-toolbox/connection-test.txt';
         private const CONNECTION_TEST_CONTENT = "Npcink Site Toolbox object storage connection test.\n";
 
         private static $config;
 
         public static function run($config = array()) {
             self::$config = $config;
-            if (empty($config['enabled'])) return;
+            if (empty($config['enabled'])) {
+                return;
+            }
             add_filter('wp_generate_attachment_metadata', array(__CLASS__, 'sync_attachment_to_oss'), 20, 3);
             add_filter('wp_get_attachment_url', array(__CLASS__, 'replace_attachment_url'), 10, 2);
             add_filter('wp_calculate_image_srcset', array(__CLASS__, 'replace_srcset_urls'), 10, 5);
@@ -43,7 +45,7 @@ if (!class_exists('Npcink_Toolbox_Performance_Oss')) {
             }
 
             $upload_dir = wp_upload_dir();
-            $baseurl = $upload_dir['baseurl'];
+            $baseurl    = $upload_dir['baseurl'];
             if (strpos($url, $baseurl) === 0) {
                 $path = substr($url, strlen($baseurl));
                 return rtrim($domain, '/') . $path;
@@ -82,7 +84,7 @@ if (!class_exists('Npcink_Toolbox_Performance_Oss')) {
                 );
             }
 
-            $body = $request->get_json_params();
+            $body         = $request->get_json_params();
             $allowed_keys = array('settings', 'secretChanges');
             if (!is_array($body)
                 || !empty(array_diff(array_keys($body), $allowed_keys))
@@ -97,7 +99,7 @@ if (!class_exists('Npcink_Toolbox_Performance_Oss')) {
             }
 
             $secret_changes = isset($body['secretChanges']) ? $body['secretChanges'] : array();
-            $merge = Npcink_Toolbox_Config_Manager::merge_secret_changes($body['settings'], $secret_changes);
+            $merge          = Npcink_Toolbox_Config_Manager::merge_secret_changes($body['settings'], $secret_changes);
             if (!$merge['success']) {
                 return new WP_Error(
                     'npcink_oss_invalid_request',
@@ -106,7 +108,7 @@ if (!class_exists('Npcink_Toolbox_Performance_Oss')) {
                 );
             }
 
-            $config = isset($merge['data']['performance']['oss'])
+            $config    = isset($merge['data']['performance']['oss'])
                 && is_array($merge['data']['performance']['oss'])
                 ? $merge['data']['performance']['oss']
                 : array();
@@ -120,7 +122,7 @@ if (!class_exists('Npcink_Toolbox_Performance_Oss')) {
                 $validated['path']
             );
             $started_at = microtime(true);
-            $result = self::upload_content(
+            $result     = self::upload_content(
                 self::CONNECTION_TEST_CONTENT,
                 $object_key,
                 $validated
@@ -138,8 +140,8 @@ if (!class_exists('Npcink_Toolbox_Performance_Oss')) {
             return rest_ensure_response(array(
                 'success' => true,
                 'message' => __('连接成功，已写入并覆盖测试对象。', 'npcink-site-toolbox'),
-                'data' => array(
-                    'provider' => $validated['provider'],
+                'data'    => array(
+                    'provider'  => $validated['provider'],
                     'objectKey' => $object_key,
                     'latencyMs' => max(0, $latency_ms),
                 ),
@@ -154,9 +156,9 @@ if (!class_exists('Npcink_Toolbox_Performance_Oss')) {
         }
 
         private static function target_fingerprint() {
-            $provider = !empty(self::$config['provider']) ? self::$config['provider'] : 'aliyun';
-            $bucket = !empty(self::$config['bucket']) ? self::$config['bucket'] : '';
-            $path = isset(self::$config['path']) && is_string(self::$config['path'])
+            $provider        = !empty(self::$config['provider']) ? self::$config['provider'] : 'aliyun';
+            $bucket          = !empty(self::$config['bucket']) ? self::$config['bucket'] : '';
+            $path            = isset(self::$config['path']) && is_string(self::$config['path'])
                 ? self::$config['path']
                 : '';
             $normalized_path = self::normalize_object_prefix($path);
@@ -165,7 +167,7 @@ if (!class_exists('Npcink_Toolbox_Performance_Oss')) {
             }
             $endpoint = '';
             if ($provider === 'aliyun') {
-                $endpoint_value = isset(self::$config['endpoint']) && is_string(self::$config['endpoint'])
+                $endpoint_value      = isset(self::$config['endpoint']) && is_string(self::$config['endpoint'])
                     ? self::$config['endpoint']
                     : '';
                 $normalized_endpoint = self::normalize_aliyun_endpoint($endpoint_value);
@@ -196,7 +198,7 @@ if (!class_exists('Npcink_Toolbox_Performance_Oss')) {
                 return array();
             }
 
-            $files = array($main_file);
+            $files          = array($main_file);
             $attachment_dir = dirname($main_file);
 
             if (is_array($metadata)) {
@@ -213,13 +215,13 @@ if (!class_exists('Npcink_Toolbox_Performance_Oss')) {
                 }
             }
 
-            $upload_dir = wp_upload_dir();
+            $upload_dir  = wp_upload_dir();
             $upload_root = realpath($upload_dir['basedir']);
             if ($upload_root === false) {
                 return array();
             }
 
-            $upload_root = trailingslashit(wp_normalize_path($upload_root));
+            $upload_root     = trailingslashit(wp_normalize_path($upload_root));
             $validated_files = array();
             foreach (array_unique($files) as $file) {
                 $real_file = realpath($file);
@@ -239,8 +241,8 @@ if (!class_exists('Npcink_Toolbox_Performance_Oss')) {
         }
 
         private static function do_upload($file, $provider) {
-            $upload_dir = wp_upload_dir();
-            $upload_root = trailingslashit(wp_normalize_path($upload_dir['basedir']));
+            $upload_dir      = wp_upload_dir();
+            $upload_root     = trailingslashit(wp_normalize_path($upload_dir['basedir']));
             $normalized_file = wp_normalize_path($file);
             if (strpos($normalized_file, $upload_root) !== 0) {
                 return false;
@@ -251,12 +253,15 @@ if (!class_exists('Npcink_Toolbox_Performance_Oss')) {
                 return false;
             }
 
+            // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents -- 读取本地文件而非远程 URL
             $file_content = file_get_contents($file);
-            if ($file_content === false) return false;
+            if ($file_content === false) {
+                return false;
+            }
 
-            $config = is_array(self::$config) ? self::$config : array();
+            $config             = is_array(self::$config) ? self::$config : array();
             $config['provider'] = $provider;
-            $validated = self::validate_connection_config($config);
+            $validated          = self::validate_connection_config($config);
             if (is_wp_error($validated)) {
                 return false;
             }
@@ -303,7 +308,7 @@ if (!class_exists('Npcink_Toolbox_Performance_Oss')) {
             $path_value = isset($config['path']) && is_string($config['path'])
                 ? $config['path']
                 : '';
-            $path = self::normalize_object_prefix($path_value);
+            $path       = self::normalize_object_prefix($path_value);
             if (is_wp_error($path)) {
                 return $path;
             }
@@ -313,7 +318,7 @@ if (!class_exists('Npcink_Toolbox_Performance_Oss')) {
                 $endpoint_value = isset($config['endpoint']) && is_string($config['endpoint'])
                     ? $config['endpoint']
                     : '';
-                $endpoint = self::normalize_aliyun_endpoint($endpoint_value);
+                $endpoint       = self::normalize_aliyun_endpoint($endpoint_value);
                 if (is_wp_error($endpoint)) {
                     return $endpoint;
                 }
@@ -349,7 +354,7 @@ if (!class_exists('Npcink_Toolbox_Performance_Oss')) {
                 );
             }
 
-            $domain = isset($config['domain']) && is_string($config['domain'])
+            $domain       = isset($config['domain']) && is_string($config['domain'])
                 ? rtrim(trim($config['domain']), '/')
                 : '';
             $domain_parts = $domain !== '' ? wp_parse_url($domain) : false;
@@ -386,12 +391,12 @@ if (!class_exists('Npcink_Toolbox_Performance_Oss')) {
             }
 
             return array(
-                'provider' => $provider,
-                'bucket' => $bucket,
-                'path' => $path,
-                'endpoint' => $endpoint,
-                'region' => $region,
-                'domain' => $domain,
+                'provider'   => $provider,
+                'bucket'     => $bucket,
+                'path'       => $path,
+                'endpoint'   => $endpoint,
+                'region'     => $region,
+                'domain'     => $domain,
                 'access_key' => $access_key,
                 'secret_key' => $secret_key,
             );
@@ -428,20 +433,21 @@ if (!class_exists('Npcink_Toolbox_Performance_Oss')) {
             return false;
         }
         private static function upload_aliyun($content, $key, $ak, $sk, $bucket, $endpoint) {
-            $host = $bucket . '.' . $endpoint;
+            $host         = $bucket . '.' . $endpoint;
             $request_path = self::encode_object_key($key);
-            $date = gmdate('D, d M Y H:i:s T');
-            $sign_str = "PUT\n\napplication/octet-stream\n" . $date . "\n/" . $bucket . "/" . $key;
+            $date         = gmdate('D, d M Y H:i:s T');
+            $sign_str     = "PUT\n\napplication/octet-stream\n" . $date . "\n/" . $bucket . '/' . $key;
+            // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_encode -- 对象存储服务商签名规范要求 base64
             $signature = base64_encode(hash_hmac('sha1', $sign_str, $sk, true));
-            $auth = 'OSS ' . $ak . ':' . $signature;
-            $response = wp_remote_request('https://' . $host . $request_path, array(
+            $auth      = 'OSS ' . $ak . ':' . $signature;
+            $response  = wp_remote_request('https://' . $host . $request_path, array(
                 'method'  => 'PUT',
                 'body'    => $content,
                 'headers' => array(
-                    'Host'           => $host,
-                    'Date'           => $date,
-                    'Authorization'  => $auth,
-                    'Content-Type'   => 'application/octet-stream',
+                    'Host'          => $host,
+                    'Date'          => $date,
+                    'Authorization' => $auth,
+                    'Content-Type'  => 'application/octet-stream',
                 ),
                 'timeout' => 60,
             ));
@@ -451,11 +457,11 @@ if (!class_exists('Npcink_Toolbox_Performance_Oss')) {
             return false;
         }
         private static function upload_tencent($content, $key, $ak, $sk, $bucket, $region) {
-            $host = $bucket . '.cos.' . $region . '.myqcloud.com';
+            $host         = $bucket . '.cos.' . $region . '.myqcloud.com';
             $request_path = self::encode_object_key($key);
-            $start_time = time();
-            $end_time = $start_time + 3600;
-            $auth = self::build_tencent_authorization(
+            $start_time   = time();
+            $end_time     = $start_time + 3600;
+            $auth         = self::build_tencent_authorization(
                 'PUT',
                 $request_path,
                 $host,
@@ -464,13 +470,13 @@ if (!class_exists('Npcink_Toolbox_Performance_Oss')) {
                 $start_time,
                 $end_time
             );
-            $response = wp_remote_request('https://' . $host . $request_path, array(
+            $response     = wp_remote_request('https://' . $host . $request_path, array(
                 'method'  => 'PUT',
                 'body'    => $content,
                 'headers' => array(
-                    'Host'           => $host,
-                    'Authorization'  => $auth,
-                    'Content-Type'   => 'application/octet-stream',
+                    'Host'          => $host,
+                    'Authorization' => $auth,
+                    'Content-Type'  => 'application/octet-stream',
                 ),
                 'timeout' => 60,
             ));
@@ -481,12 +487,12 @@ if (!class_exists('Npcink_Toolbox_Performance_Oss')) {
         }
 
         private static function build_tencent_authorization($method, $path, $host, $ak, $sk, $start_time, $end_time) {
-            $key_time = $start_time . ';' . $end_time;
-            $http_headers = 'host=' . rawurlencode(strtolower($host));
-            $http_string = strtolower($method) . "\n" . urldecode($path) . "\n\n" . $http_headers . "\n";
-            $sign_key = hash_hmac('sha1', $key_time, $sk);
+            $key_time       = $start_time . ';' . $end_time;
+            $http_headers   = 'host=' . rawurlencode(strtolower($host));
+            $http_string    = strtolower($method) . "\n" . urldecode($path) . "\n\n" . $http_headers . "\n";
+            $sign_key       = hash_hmac('sha1', $key_time, $sk);
             $string_to_sign = "sha1\n" . $key_time . "\n" . sha1($http_string) . "\n";
-            $signature = hash_hmac('sha1', $string_to_sign, $sign_key);
+            $signature      = hash_hmac('sha1', $string_to_sign, $sign_key);
 
             return 'q-sign-algorithm=sha1'
                 . '&q-ak=' . rawurlencode($ak)
@@ -504,17 +510,17 @@ if (!class_exists('Npcink_Toolbox_Performance_Oss')) {
 
         private static function upload_qiniu($content, $key, $ak, $sk, $bucket) {
             $upload_url = 'https://up.qiniup.com/';
-            $token = self::qiniu_token($bucket, $ak, $sk);
-            $boundary = wp_generate_password(24, false);
-            $body = "--" . $boundary . "\r\n";
-            $body .= "Content-Disposition: form-data; name=\"token\"\r\n\r\n" . $token . "\r\n";
-            $body .= "--" . $boundary . "\r\n";
-            $body .= "Content-Disposition: form-data; name=\"key\"\r\n\r\n" . $key . "\r\n";
-            $body .= "--" . $boundary . "\r\n";
-            $body .= "Content-Disposition: form-data; name=\"file\"; filename=\"" . basename($key) . "\"\r\n";
-            $body .= "Content-Type: application/octet-stream\r\n\r\n" . $content . "\r\n";
-            $body .= "--" . $boundary . "--";
-            $response = wp_remote_post($upload_url, array(
+            $token      = self::qiniu_token($bucket, $ak, $sk);
+            $boundary   = wp_generate_password(24, false);
+            $body       = '--' . $boundary . "\r\n";
+            $body      .= "Content-Disposition: form-data; name=\"token\"\r\n\r\n" . $token . "\r\n";
+            $body      .= '--' . $boundary . "\r\n";
+            $body      .= "Content-Disposition: form-data; name=\"key\"\r\n\r\n" . $key . "\r\n";
+            $body      .= '--' . $boundary . "\r\n";
+            $body      .= 'Content-Disposition: form-data; name="file"; filename="' . basename($key) . "\"\r\n";
+            $body      .= "Content-Type: application/octet-stream\r\n\r\n" . $content . "\r\n";
+            $body      .= '--' . $boundary . '--';
+            $response   = wp_remote_post($upload_url, array(
                 'body'    => $body,
                 'headers' => array('Content-Type' => 'multipart/form-data; boundary=' . $boundary),
                 'timeout' => 60,
@@ -532,7 +538,7 @@ if (!class_exists('Npcink_Toolbox_Performance_Oss')) {
          * 将可选目录前缀安全地添加到对象键。
          */
         private static function prefix_object_key($object_key, $path) {
-            $object_key = ltrim((string) $object_key, '/');
+            $object_key = ltrim( (string) $object_key, '/');
             return $path === '' ? $object_key : $path . '/' . $object_key;
         }
 
@@ -542,7 +548,7 @@ if (!class_exists('Npcink_Toolbox_Performance_Oss')) {
          * @return string|WP_Error
          */
         private static function normalize_object_prefix($value) {
-            $path = trim((string) $value);
+            $path = trim( (string) $value);
             if ($path === '') {
                 return '';
             }
@@ -555,7 +561,7 @@ if (!class_exists('Npcink_Toolbox_Performance_Oss')) {
                 );
             }
 
-            $path = trim($path, '/');
+            $path     = trim($path, '/');
             $segments = explode('/', $path);
             foreach ($segments as $segment) {
                 if ($segment === ''
@@ -579,7 +585,7 @@ if (!class_exists('Npcink_Toolbox_Performance_Oss')) {
          * @return string|WP_Error
          */
         private static function normalize_aliyun_endpoint($value) {
-            $endpoint = strtolower(trim((string) $value));
+            $endpoint = strtolower(trim( (string) $value));
             if ($endpoint === '') {
                 return new WP_Error(
                     'npcink_oss_invalid_config',
@@ -598,7 +604,7 @@ if (!class_exists('Npcink_Toolbox_Performance_Oss')) {
             $candidate = strpos($endpoint, '://') === false
                 ? 'https://' . $endpoint
                 : $endpoint;
-            $parts = wp_parse_url($candidate);
+            $parts     = wp_parse_url($candidate);
             if (!is_array($parts)
                 || empty($parts['scheme'])
                 || empty($parts['host'])
@@ -616,8 +622,8 @@ if (!class_exists('Npcink_Toolbox_Performance_Oss')) {
                 );
             }
 
-            $host = strtolower(rtrim($parts['host'], '.'));
-            $is_standard = preg_match('/^oss-[a-z0-9][a-z0-9-]*\\.aliyuncs\\.com$/', $host);
+            $host          = strtolower(rtrim($parts['host'], '.'));
+            $is_standard   = preg_match('/^oss-[a-z0-9][a-z0-9-]*\\.aliyuncs\\.com$/', $host);
             $is_dual_stack = preg_match('/^[a-z0-9][a-z0-9-]*\\.oss\\.aliyuncs\\.com$/', $host);
             if (!$is_standard && !$is_dual_stack) {
                 return new WP_Error(
@@ -631,13 +637,14 @@ if (!class_exists('Npcink_Toolbox_Performance_Oss')) {
         }
 
         private static function qiniu_token($bucket, $ak, $sk) {
-            $policy = json_encode(array('scope' => $bucket, 'deadline' => time() + 3600));
+            $policy         = wp_json_encode(array('scope' => $bucket, 'deadline' => time() + 3600));
             $encoded_policy = self::qiniu_base64_url_safe($policy);
-            $sign = hash_hmac('sha1', $encoded_policy, $sk, true);
-            $encoded_sign = self::qiniu_base64_url_safe($sign);
+            $sign           = hash_hmac('sha1', $encoded_policy, $sk, true);
+            $encoded_sign   = self::qiniu_base64_url_safe($sign);
             return $ak . ':' . $encoded_sign . ':' . $encoded_policy;
         }
         private static function qiniu_base64_url_safe($data) {
+            // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_encode -- 对象存储服务商签名规范要求 base64
             $encoded = base64_encode($data);
             return str_replace(array('+', '/'), array('-', '_'), $encoded);
         }

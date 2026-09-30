@@ -37,9 +37,9 @@ if (!class_exists('Npcink_Toolbox_Medium_Image_Rename')) {
         /*图片按时间自动重命名*/
         public static function custom_upload_filter_time($file)
         {
-            $info = pathinfo($file['name']);
-            $ext = $info['extension'];
-            $filedate = wp_date('YmdHis') . wp_rand(10, 99); //为了避免时间重复，再加一段2位的随机数
+            $info         = pathinfo($file['name']);
+            $ext          = $info['extension'];
+            $filedate     = wp_date('YmdHis') . wp_rand(10, 99); //为了避免时间重复，再加一段2位的随机数
             $file['name'] = $filedate . '.' . $ext;
             return $file;
         }
@@ -47,9 +47,9 @@ if (!class_exists('Npcink_Toolbox_Medium_Image_Rename')) {
         /*使用md5转码重命名媒体文件名*/
         public static function custom_upload_filter_md5($file)
         {
-            $info = pathinfo($file['name']);
-            $ext = '.' . $info['extension'];
-            $md5 = md5($file['name']);
+            $info         = pathinfo($file['name']);
+            $ext          = '.' . $info['extension'];
+            $md5          = md5($file['name']);
             $file['name'] = $md5 . $ext;
             return $file;
         }

@@ -32,6 +32,7 @@ if (!class_exists('Npcink_Toolbox_Domestic_Wechat')) {
             if (!is_array($config) || empty($config['jssdk_enabled']) || empty($config['appid']) || empty($config['appsecret'])) {
                 return;
             }
+            // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.urlencode_urlencode -- 对象存储签名规范要求 RFC1738 编码
             $token_url = 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=' . urlencode($config['appid']) . '&secret=' . urlencode($config['appsecret']);
             $token_res = wp_remote_get($token_url, array('timeout' => 5));
             if (is_wp_error($token_res)) {
@@ -41,6 +42,7 @@ if (!class_exists('Npcink_Toolbox_Domestic_Wechat')) {
             if (empty($token_data['access_token'])) {
                 return;
             }
+            // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.urlencode_urlencode -- 对象存储签名规范要求 RFC1738 编码
             $ticket_url = 'https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=' . urlencode($token_data['access_token']) . '&type=jsapi';
             $ticket_res = wp_remote_get($ticket_url, array('timeout' => 5));
             if (is_wp_error($ticket_res)) {
@@ -53,30 +55,37 @@ if (!class_exists('Npcink_Toolbox_Domestic_Wechat')) {
         }
 
         public static function jssdk_config() {
-            if (!is_singular()) return;
-            $appid = self::$config['appid'];
+            if (!is_singular()) {
+                return;
+            }
+            $appid  = self::$config['appid'];
             $ticket = get_transient('npcink_site_toolbox_wx_jsapi_ticket');
             // 渲染期绝不发起远程请求：票据缺失时本次跳过分享配置，待后台任务补齐
-            if (empty($ticket)) return;
-            $url = get_permalink();
-            $nonce = wp_create_nonce('npcink_site_toolbox_wx_jssdk');
+            if (empty($ticket)) {
+                return;
+            }
+            $url       = get_permalink();
+            $nonce     = wp_create_nonce('npcink_site_toolbox_wx_jssdk');
             $timestamp = time();
-            $string = "jsapi_ticket=$ticket&noncestr=$nonce&timestamp=$timestamp&url=$url";
+            $string    = "jsapi_ticket=$ticket&noncestr=$nonce&timestamp=$timestamp&url=$url";
             $signature = sha1($string);
-            $title = get_the_title();
-            $desc = has_excerpt() ? get_the_excerpt() : wp_trim_words(get_the_content(), 50);
+            $title     = get_the_title();
+            $desc      = has_excerpt() ? get_the_excerpt() : wp_trim_words(get_the_content(), 50);
+            // phpcs:ignore Universal.Operators.DisallowShortTernary.Found -- 语义已核实，显式展开反而冗长
             $img = get_the_post_thumbnail_url(get_the_ID(), 'thumbnail') ?: '';
-            $js = "wx.config({appId:'" . esc_js($appid) . "',timestamp:$timestamp,nonceStr:'" . esc_js($nonce) . "',signature:'" . esc_js($signature) . "',jsApiList:['onMenuShareTimeline','onMenuShareAppMessage','updateAppMessageShareData','updateTimelineShareData']});";
+            $js  = "wx.config({appId:'" . esc_js($appid) . "',timestamp:$timestamp,nonceStr:'" . esc_js($nonce) . "',signature:'" . esc_js($signature) . "',jsApiList:['onMenuShareTimeline','onMenuShareAppMessage','updateAppMessageShareData','updateTimelineShareData']});";
             $js .= "wx.ready(function(){var shareData={title:'" . esc_js($title) . "',desc:'" . esc_js($desc) . "',link:'" . esc_js($url) . "',imgUrl:'" . esc_js($img) . "'};wx.onMenuShareAppMessage(shareData);wx.onMenuShareTimeline(shareData);});";
             wp_register_script('mabox-wechat-jssdk', 'https://res.wx.qq.com/open/js/jweixin-1.6.0.js', array(), '1.6.0', true);
             wp_add_inline_script('mabox-wechat-jssdk', $js);
             wp_enqueue_script('mabox-wechat-jssdk');
         }
         public static function guide_overlay() {
-            if (!self::is_wechat_qq()) return;
+            if (!self::is_wechat_qq()) {
+                return;
+            }
             $mode = !empty(self::$config['guide_mode']) ? self::$config['guide_mode'] : 'guide';
             $text = !empty(self::$config['guide_text']) ? self::$config['guide_text'] : __('点击右上角 ··· 在浏览器中打开', 'npcink-site-toolbox');
-            $css = '.mabox-wechat-guide{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.9);z-index:99999;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;text-align:center;padding:20px;}';
+            $css  = '.mabox-wechat-guide{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.9);z-index:99999;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;text-align:center;padding:20px;}';
             $css .= '.mabox-wechat-guide .arrow{position:absolute;top:20px;right:30px;font-size:40px;transform:rotate(-45deg);}';
             $css .= '.mabox-wechat-guide .text{font-size:18px;margin-top:60px;line-height:1.6;}';
             $css .= '.mabox-wechat-guide .dismiss{margin-top:28px;padding:10px 28px;font-size:15px;line-height:1;border:none;border-radius:20px;background:#fff;color:#333;cursor:pointer;}';
@@ -85,15 +94,15 @@ if (!class_exists('Npcink_Toolbox_Domestic_Wechat')) {
             wp_enqueue_style('mabox-wechat-guide-style');
             // 保留关闭途径：遮罩必须可退出，避免误命中 UA 的访客被永久挡在页面外
             $dismiss_text = __('继续浏览', 'npcink-site-toolbox');
-            $html = '<div class="mabox-wechat-guide"><div class="arrow">↗</div><div class="text">' . esc_html($text) . '</div>';
+            $html         = '<div class="mabox-wechat-guide"><div class="arrow">↗</div><div class="text">' . esc_html($text) . '</div>';
             if (!empty(self::$config['guide_qrcode'])) {
                 $html .= '<div style="margin-top:20px;"><img src="' . esc_url(self::$config['guide_qrcode']) . '" style="width:150px;height:150px;background:#fff;padding:5px;border-radius:8px;" alt="qrcode"></div>';
             }
             $html .= '<button type="button" class="dismiss">' . esc_html($dismiss_text) . '</button></div>';
-            $js = "document.addEventListener('DOMContentLoaded',function(){document.body.insertAdjacentHTML('beforeend','" . str_replace("'", "\\'", $html) . "');";
-            $js .= "var dismissBtn=document.querySelector('.mabox-wechat-guide .dismiss');";
-            $js .= "if(dismissBtn){dismissBtn.addEventListener('click',function(){var overlay=document.querySelector('.mabox-wechat-guide');if(overlay){overlay.remove();}document.body.style.overflow='';});}";
-            $js .= "});";
+            $js    = "document.addEventListener('DOMContentLoaded',function(){document.body.insertAdjacentHTML('beforeend','" . str_replace("'", "\\'", $html) . "');";
+            $js   .= "var dismissBtn=document.querySelector('.mabox-wechat-guide .dismiss');";
+            $js   .= "if(dismissBtn){dismissBtn.addEventListener('click',function(){var overlay=document.querySelector('.mabox-wechat-guide');if(overlay){overlay.remove();}document.body.style.overflow='';});}";
+            $js   .= '});';
             if ($mode === 'redirect') {
                 $js .= "if(document.querySelector('.mabox-wechat-guide')){document.body.style.overflow='hidden';}";
             }

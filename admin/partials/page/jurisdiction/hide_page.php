@@ -13,7 +13,7 @@ if (!class_exists('Npcink_Toolbox_Page_Hide_Page')) {
         private static $tip_content; //提示信息
         public static function run($config = array())
         {
-            self::$id_array = Npcink_Toolbox_Admin::get_config($config, 'page_id', array());
+            self::$id_array    = Npcink_Toolbox_Admin::get_config($config, 'page_id', array());
             self::$tip_content = Npcink_Toolbox_Admin::get_config($config, 'tip_content', '');
             // 查询级排除：未登录时把受限页面从搜索结果中移除，正文替换继续兜底
             add_action('pre_get_posts', array(__CLASS__, 'exclude_from_search'));
@@ -28,11 +28,11 @@ if (!class_exists('Npcink_Toolbox_Page_Hide_Page')) {
             if (!$query->is_search) {
                 return;
             }
-            $page_ids = array_map('absint', array_filter((array) self::$id_array));
+            $page_ids = array_map('absint', array_filter( (array) self::$id_array));
             if (empty($page_ids)) {
                 return;
             }
-            $query->set('post__not_in', array_merge((array) $query->get('post__not_in'), $page_ids));
+            $query->set('post__not_in', array_merge( (array) $query->get('post__not_in'), $page_ids));
         }
 
         public static function restrict_content_for_specific_categories($content)

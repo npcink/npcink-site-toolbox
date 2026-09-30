@@ -19,12 +19,12 @@ class Npcink_Toolbox_Easy_Thumbnail_Switcher {
      */
     public function __construct() {
 
-$this->add_new_str = __( '添加', 'npcink-site-toolbox' );
-            $this->change_str = __( '修改', 'npcink-site-toolbox' );
-            $this->remove_str = __( '移除', 'npcink-site-toolbox' );
+        $this->add_new_str      = __( '添加', 'npcink-site-toolbox' );
+            $this->change_str   = __( '修改', 'npcink-site-toolbox' );
+            $this->remove_str   = __( '移除', 'npcink-site-toolbox' );
             $this->upload_title = __( '上传缩略图', 'npcink-site-toolbox' );
-            $this->upload_add = __( '使用选定的', 'npcink-site-toolbox' );
-            $this->confirm_str = __( '确定吗？', 'npcink-site-toolbox' );
+            $this->upload_add   = __( '使用选定的', 'npcink-site-toolbox' );
+            $this->confirm_str  = __( '确定吗？', 'npcink-site-toolbox' );
 
         add_filter( 'manage_posts_columns', array( $this, 'add_column' ) );
         add_action( 'manage_posts_custom_column', array( $this, 'thumb_column' ), 10, 2 );
@@ -39,7 +39,6 @@ $this->add_new_str = __( '添加', 'npcink-site-toolbox' );
         add_action( 'wp_ajax_npcink_site_toolbox_thumbnail_remove', array( $this, 'remove' ) );
 
         add_image_size( 'npcink-site-toolbox-thumbnail', 75, 75, array( 'center', 'center' ) );
-
     }
 
     /**
@@ -52,12 +51,11 @@ $this->add_new_str = __( '添加', 'npcink-site-toolbox' );
 
         global $pagenow;
 
-        if( $pagenow !== 'edit.php' ) {
+        if ( $pagenow !== 'edit.php' ) {
             return;
         }
 
         wp_nonce_field( 'npcink_site_toolbox_thumbnail', 'npcink_site_toolbox_thumbnail_nonce' );
-
     }
 
     /**
@@ -68,7 +66,7 @@ $this->add_new_str = __( '添加', 'npcink-site-toolbox' );
      */
     public function scripts( $pagenow ) {
 
-        if( $pagenow !== 'edit.php' ) {
+        if ( $pagenow !== 'edit.php' ) {
             return;
         }
 
@@ -80,10 +78,9 @@ $this->add_new_str = __( '添加', 'npcink-site-toolbox' );
 
         wp_localize_script( 'npcink-site-toolbox-thumbnail-switcher', 'npcinkSiteToolboxThumbnail', array(
             'upload_title' => $this->upload_title,
-            'upload_add' => $this->upload_add,
-            'confirm' => $this->confirm_str,
+            'upload_add'   => $this->upload_add,
+            'confirm'      => $this->confirm_str,
         ) );
-
     }
 
     /**
@@ -98,7 +95,6 @@ $this->add_new_str = __( '添加', 'npcink-site-toolbox' );
 
         $columns['ts-ets-option'] = __( '缩略图', 'npcink-site-toolbox' );
         return $columns;
-
     }
 
     /**
@@ -112,21 +108,19 @@ $this->add_new_str = __( '添加', 'npcink-site-toolbox' );
      */
     public function thumb_column( $column, $id ) {
 
-        switch( $column ) {
+        switch ( $column ) {
             case 'ts-ets-option':
-
-                if( has_post_thumbnail() ) {
+                if ( has_post_thumbnail() ) {
                     the_post_thumbnail( 'npcink-site-toolbox-thumbnail' );
                     echo '<br>';
-                    echo sprintf( '<button type="button" class="button-primary ts-ets-add" data-id="%s">%s</button>', esc_attr( $id ), esc_html( $this->change_str ) );
-                    echo sprintf( ' <button type="button" class="button-secondary ts-ets-remove" data-id="%s">%s</button>', esc_attr( $id ), esc_html( $this->remove_str ) );
+                    printf( '<button type="button" class="button-primary ts-ets-add" data-id="%s">%s</button>', esc_attr( $id ), esc_html( $this->change_str ) );
+                    printf( ' <button type="button" class="button-secondary ts-ets-remove" data-id="%s">%s</button>', esc_attr( $id ), esc_html( $this->remove_str ) );
                 } else {
-                    echo sprintf( '<button type="button" class="button-primary ts-ets-add" data-id="%s">%s</button>', esc_attr( $id ), esc_html( $this->add_new_str ) );
+                    printf( '<button type="button" class="button-primary ts-ets-add" data-id="%s">%s</button>', esc_attr( $id ), esc_html( $this->add_new_str ) );
                 }
 
                 break;
         }
-
     }
 
     /**
@@ -138,7 +132,7 @@ $this->add_new_str = __( '添加', 'npcink-site-toolbox' );
     public function update() {
 
         // Check if all required data are set or not
-        if( !isset( $_POST['nonce'] ) || !isset( $_POST['post_id'] ) || !isset( $_POST['thumb_id'] ) ) {
+        if ( !isset( $_POST['nonce'] ) || !isset( $_POST['post_id'] ) || !isset( $_POST['thumb_id'] ) ) {
             wp_die();
         }
 
@@ -152,7 +146,7 @@ $this->add_new_str = __( '添加', 'npcink-site-toolbox' );
         $nonce = sanitize_text_field( $nonce_value );
 
         // Verify nonce
-        if( !wp_verify_nonce( $nonce, 'npcink_site_toolbox_thumbnail' ) ) {
+        if ( !wp_verify_nonce( $nonce, 'npcink_site_toolbox_thumbnail' ) ) {
             wp_die();
         }
 
@@ -165,7 +159,7 @@ $this->add_new_str = __( '添加', 'npcink-site-toolbox' );
             wp_die();
         }
 
-        $id = absint( $post_id );
+        $id       = absint( $post_id );
         $thumb_id = absint( $thumbnail_id );
 
         if ($id <= 0 || $thumb_id <= 0) {
@@ -180,11 +174,10 @@ $this->add_new_str = __( '添加', 'npcink-site-toolbox' );
 
         echo wp_get_attachment_image( $thumb_id, 'npcink-site-toolbox-thumbnail' );
         echo '<br>';
-        echo sprintf( '<button type="button" class="button-primary ts-ets-add" data-id="%s">%s</button>', esc_attr( $id ), esc_html( $this->change_str ) );
-        echo sprintf( ' <button type="button" class="button-secondary ts-ets-remove" data-id="%s">%s</button>', esc_attr( $id ), esc_html( $this->remove_str ) );
+        printf( '<button type="button" class="button-primary ts-ets-add" data-id="%s">%s</button>', esc_attr( $id ), esc_html( $this->change_str ) );
+        printf( ' <button type="button" class="button-secondary ts-ets-remove" data-id="%s">%s</button>', esc_attr( $id ), esc_html( $this->remove_str ) );
 
         wp_die();
-
     }
 
     /**
@@ -196,7 +189,7 @@ $this->add_new_str = __( '添加', 'npcink-site-toolbox' );
     public function remove() {
 
         // Check if all required data are set or not
-        if( !isset( $_POST['nonce'] ) || !isset( $_POST['post_id'] ) ) {
+        if ( !isset( $_POST['nonce'] ) || !isset( $_POST['post_id'] ) ) {
             wp_die();
         }
 
@@ -210,7 +203,7 @@ $this->add_new_str = __( '添加', 'npcink-site-toolbox' );
         $nonce = sanitize_text_field( $nonce_value );
 
         // Verify nonce
-        if( !wp_verify_nonce( $nonce, 'npcink_site_toolbox_thumbnail' ) ) {
+        if ( !wp_verify_nonce( $nonce, 'npcink_site_toolbox_thumbnail' ) ) {
             wp_die();
         }
 
@@ -233,12 +226,10 @@ $this->add_new_str = __( '添加', 'npcink-site-toolbox' );
 
         delete_post_thumbnail( $id );
 
-        echo sprintf( '<button type="button" class="button-primary ts-ets-add" data-id="%s">%s</button>', esc_attr( $id ), esc_html( $this->add_new_str ) );
+        printf( '<button type="button" class="button-primary ts-ets-add" data-id="%s">%s</button>', esc_attr( $id ), esc_html( $this->add_new_str ) );
 
         wp_die();
-
     }
-
 }
 
 new Npcink_Toolbox_Easy_Thumbnail_Switcher();

@@ -30,7 +30,7 @@ if (!class_exists('Npcink_Toolbox_Domestic_Login_Security')) {
                 return $user;
             }
 
-            $user_id = self::get_user_id($user);
+            $user_id   = self::get_user_id($user);
             $client_ip = self::resolve_client_ip();
             if ($user_id < 1 || $client_ip === null) {
                 return $user;
@@ -51,21 +51,21 @@ if (!class_exists('Npcink_Toolbox_Domestic_Login_Security')) {
                 return;
             }
 
-            $user_id = self::resolve_existing_user_id($username);
+            $user_id   = self::resolve_existing_user_id($username);
             $client_ip = self::resolve_client_ip();
             if ($user_id < 1 || $client_ip === null) {
                 return;
             }
 
             $counter_key = self::counter_key($user_id, $client_ip);
-            $lock_key = self::lock_key($user_id, $client_ip);
+            $lock_key    = self::lock_key($user_id, $client_ip);
             if (self::has_active_lock($lock_key)) {
                 return;
             }
 
-            $now = time();
+            $now            = time();
             $window_seconds = self::$config['attempt_window_minutes'] * MINUTE_IN_SECONDS;
-            $state = get_transient($counter_key);
+            $state          = get_transient($counter_key);
 
             if (
                 !is_array($state)
@@ -75,12 +75,12 @@ if (!class_exists('Npcink_Toolbox_Domestic_Login_Security')) {
                 || $state['window_expires_at'] <= $now
             ) {
                 $state = array(
-                    'count' => 0,
+                    'count'             => 0,
                     'window_expires_at' => $now + $window_seconds,
                 );
             }
 
-            $state['count']++;
+            ++$state['count'];
 
             if ($state['count'] >= self::$config['attempt_limit_count']) {
                 $lock_seconds = self::$config['lock_duration_minutes'] * MINUTE_IN_SECONDS;
@@ -102,7 +102,7 @@ if (!class_exists('Npcink_Toolbox_Domestic_Login_Security')) {
                 return;
             }
 
-            $user_id = self::get_user_id($user);
+            $user_id   = self::get_user_id($user);
             $client_ip = self::resolve_client_ip();
             if ($user_id < 1 || $client_ip === null) {
                 return;
@@ -134,7 +134,7 @@ if (!class_exists('Npcink_Toolbox_Domestic_Login_Security')) {
                     is_string($route)
                     && ($route === '/wp/v2/users' || strpos($route, '/wp/v2/users/') === 0)
                 ) {
-                    unset($endpoints[$route]);
+                    unset($endpoints[ $route ]);
                 }
             }
 
@@ -145,13 +145,13 @@ if (!class_exists('Npcink_Toolbox_Domestic_Login_Security')) {
             $config = is_array($config) ? $config : array();
 
             return array(
-                'attempt_limit_enabled' => self::to_boolean(
+                'attempt_limit_enabled'          => self::to_boolean(
                     isset($config['attempt_limit_enabled']) ? $config['attempt_limit_enabled'] : false
                 ),
-                'attempt_limit_count' => self::bounded_integer($config, 'attempt_limit_count', 5, 2, 20),
-                'attempt_window_minutes' => self::bounded_integer($config, 'attempt_window_minutes', 15, 1, 1440),
-                'lock_duration_minutes' => self::bounded_integer($config, 'lock_duration_minutes', 30, 1, 1440),
-                'trusted_proxies' => isset($config['trusted_proxies']) && is_string($config['trusted_proxies'])
+                'attempt_limit_count'            => self::bounded_integer($config, 'attempt_limit_count', 5, 2, 20),
+                'attempt_window_minutes'         => self::bounded_integer($config, 'attempt_window_minutes', 15, 1, 1440),
+                'lock_duration_minutes'          => self::bounded_integer($config, 'lock_duration_minutes', 30, 1, 1440),
+                'trusted_proxies'                => isset($config['trusted_proxies']) && is_string($config['trusted_proxies'])
                     ? $config['trusted_proxies']
                     : '',
                 'anonymous_author_guard_enabled' => self::to_boolean(
@@ -162,12 +162,13 @@ if (!class_exists('Npcink_Toolbox_Domestic_Login_Security')) {
             );
         }
 
+        // phpcs:ignore Universal.NamingConventions.NoReservedKeywordParameterNames.defaultFound -- 参数名沿用既有公共签名
         private static function bounded_integer($config, $key, $default, $minimum, $maximum) {
-            if (!isset($config[$key]) || !is_int($config[$key])) {
+            if (!isset($config[ $key ]) || !is_int($config[ $key ])) {
                 return $default;
             }
 
-            return max($minimum, min($maximum, $config[$key]));
+            return max($minimum, min($maximum, $config[ $key ]));
         }
 
         private static function to_boolean($value) {
@@ -196,7 +197,7 @@ if (!class_exists('Npcink_Toolbox_Domestic_Login_Security')) {
                 return 0;
             }
 
-            $identifier = trim((string) $username);
+            $identifier = trim( (string) $username);
             if ($identifier === '') {
                 return 0;
             }
@@ -281,7 +282,7 @@ if (!class_exists('Npcink_Toolbox_Domestic_Login_Security')) {
             }
 
             $forwarded_chain = explode(',', $forwarded_for);
-            $chain = array();
+            $chain           = array();
             foreach ($forwarded_chain as $forwarded_ip) {
                 $normalized = self::normalize_ip($forwarded_ip);
                 if ($normalized === null) {
@@ -292,11 +293,11 @@ if (!class_exists('Npcink_Toolbox_Domestic_Login_Security')) {
             $chain[] = $remote_addr;
 
             for ($index = count($chain) - 1; $index >= 0; $index--) {
-                if (in_array($chain[$index], $trusted_proxies, true)) {
+                if (in_array($chain[ $index ], $trusted_proxies, true)) {
                     continue;
                 }
 
-                return $chain[$index];
+                return $chain[ $index ];
             }
 
             return null;
@@ -308,7 +309,7 @@ if (!class_exists('Npcink_Toolbox_Domestic_Login_Security')) {
             }
 
             $trusted = array();
-            $lines = preg_split('/\r\n|\r|\n/', self::$config['trusted_proxies']);
+            $lines   = preg_split('/\r\n|\r|\n/', self::$config['trusted_proxies']);
             if (!is_array($lines)) {
                 return array();
             }
@@ -320,7 +321,7 @@ if (!class_exists('Npcink_Toolbox_Domestic_Login_Security')) {
                 if ($normalized === null) {
                     return array();
                 }
-                $trusted[$normalized] = true;
+                $trusted[ $normalized ] = true;
             }
 
             return array_keys($trusted);
@@ -336,11 +337,13 @@ if (!class_exists('Npcink_Toolbox_Domestic_Login_Security')) {
                 return null;
             }
 
+            // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged -- 失败为预期分支，靠返回值判断
             $packed = @inet_pton($value);
             if ($packed === false) {
                 return null;
             }
 
+            // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged -- 失败为预期分支，靠返回值判断
             $normalized = @inet_ntop($packed);
             return is_string($normalized) ? strtolower($normalized) : null;
         }

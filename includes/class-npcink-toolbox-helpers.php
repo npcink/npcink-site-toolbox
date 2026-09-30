@@ -78,7 +78,7 @@ if (!class_exists('Npcink_Toolbox_Helpers')) {
         private static function get_trusted_proxies()
         {
             $domestic = self::get_config('domestic', 'login_security', array());
-            $raw = is_array($domestic) && isset($domestic['trusted_proxies']) && is_string($domestic['trusted_proxies'])
+            $raw      = is_array($domestic) && isset($domestic['trusted_proxies']) && is_string($domestic['trusted_proxies'])
                 ? $domestic['trusted_proxies']
                 : '';
             if ($raw === '') {
@@ -86,7 +86,7 @@ if (!class_exists('Npcink_Toolbox_Helpers')) {
             }
 
             $trusted = array();
-            $lines = preg_split('/\r\n|\r|\n/', $raw);
+            $lines   = preg_split('/\r\n|\r|\n/', $raw);
             if (!is_array($lines)) {
                 return array();
             }
@@ -95,7 +95,7 @@ if (!class_exists('Npcink_Toolbox_Helpers')) {
                 if ($ip === false) {
                     return array();
                 }
-                $trusted[$ip] = true;
+                $trusted[ $ip ] = true;
             }
 
             return array_keys($trusted);
@@ -128,11 +128,12 @@ if (!class_exists('Npcink_Toolbox_Helpers')) {
         /**
          * 安全获取配置值（直接读取 Config_Manager，不依赖 Npcink_Toolbox_Admin）
          */
+        // phpcs:ignore Universal.NamingConventions.NoReservedKeywordParameterNames.defaultFound -- 参数名沿用既有公共签名
         public static function get_config($module, $key, $default = false)
         {
             $module_config = Npcink_Toolbox_Config_Manager::get_module_config($module);
             if (is_array($module_config) && array_key_exists($key, $module_config)) {
-                return $module_config[$key];
+                return $module_config[ $key ];
             }
             return $default;
         }

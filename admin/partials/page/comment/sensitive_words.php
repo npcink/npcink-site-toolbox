@@ -12,25 +12,25 @@ if (!class_exists('Npcink_Toolbox_Comment_Sensitive_Words')) {
          * 用于识别用户通过拼音、缩写等方式规避敏感词的行为
          */
         private static $pinyin_variants = array(
-            '微信' => array('vx', 'v信', '威信', '薇信', 'vxin', 'weixin'),
-            '支付宝' => array('zfb', '支福宝', '芝麻信用'),
-            'QQ' => array('qq', '扣扣', 'Q Q'),
-            '淘宝' => array('tb', '掏宝', '桃宝'),
-            '京东' => array('jd', '京東', '京dong'),
-            '拼多多' => array('pdd', '拼夕夕', 'pin duo duo'),
-            '抖音' => array('dy', '斗音', '抖阴'),
-            '快手' => array('ks', '快守', '快 shou'),
-            '小红书' => array('xhs', '红书', 'hong shu'),
-            '微博' => array('wb', '围脖', 'wei bo'),
-            '百度' => array('bd', '摆渡', 'bai du'),
-            '谷歌' => array('gg', '谷哥', 'google'),
-            'facebook' => array('fb', '脸书', 'fb'),
-            'twitter' => array('tw', '推特', 'tui te'),
+            '微信'        => array('vx', 'v信', '威信', '薇信', 'vxin', 'weixin'),
+            '支付宝'       => array('zfb', '支福宝', '芝麻信用'),
+            'QQ'        => array('qq', '扣扣', 'Q Q'),
+            '淘宝'        => array('tb', '掏宝', '桃宝'),
+            '京东'        => array('jd', '京東', '京dong'),
+            '拼多多'       => array('pdd', '拼夕夕', 'pin duo duo'),
+            '抖音'        => array('dy', '斗音', '抖阴'),
+            '快手'        => array('ks', '快守', '快 shou'),
+            '小红书'       => array('xhs', '红书', 'hong shu'),
+            '微博'        => array('wb', '围脖', 'wei bo'),
+            '百度'        => array('bd', '摆渡', 'bai du'),
+            '谷歌'        => array('gg', '谷哥', 'google'),
+            'facebook'  => array('fb', '脸书', 'fb'),
+            'twitter'   => array('tw', '推特', 'tui te'),
             'instagram' => array('ins', 'IG', 'insta'),
-            'whatsapp' => array('wa', 'ws', 'whats app'),
-            'telegram' => array('tg', '电报', 'telegram'),
-            'youtube' => array('yt', '油管', 'you tube'),
-            'netflix' => array('nf', '网飞', 'nai fei'),
+            'whatsapp'  => array('wa', 'ws', 'whats app'),
+            'telegram'  => array('tg', '电报', 'telegram'),
+            'youtube'   => array('yt', '油管', 'you tube'),
+            'netflix'   => array('nf', '网飞', 'nai fei'),
         );
 
         public static function run($config = array())
@@ -51,7 +51,7 @@ if (!class_exists('Npcink_Toolbox_Comment_Sensitive_Words')) {
                 return $commentdata;
             }
 
-            $action = Npcink_Toolbox_Admin::get_config(self::$option, 'sensitive_words_action', 'replace');
+            $action       = Npcink_Toolbox_Admin::get_config(self::$option, 'sensitive_words_action', 'replace');
             $replace_char = Npcink_Toolbox_Admin::get_config(self::$option, 'sensitive_words_replace_char', '***');
 
             $all_words = self::expand_with_pinyin_variants($words);
@@ -84,11 +84,12 @@ if (!class_exists('Npcink_Toolbox_Comment_Sensitive_Words')) {
             $expanded = $words;
 
             foreach ($words as $word) {
-                if (isset(self::$pinyin_variants[$word])) {
-                    $expanded = array_merge($expanded, self::$pinyin_variants[$word]);
+                if (isset(self::$pinyin_variants[ $word ])) {
+                    $expanded = array_merge($expanded, self::$pinyin_variants[ $word ]);
                 }
 
                 foreach (self::$pinyin_variants as $original => $variants) {
+                    // phpcs:ignore WordPress.PHP.StrictInArray.MissingTrueStrict -- 待逐处核实类型后再启用严格比较
                     if (in_array(strtolower($word), array_map('strtolower', $variants))) {
                         $expanded[] = $original;
                     }

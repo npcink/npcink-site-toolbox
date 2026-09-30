@@ -76,13 +76,11 @@ jobs:
       - name: Run PHPStan
         run: composer phpstan
 
-  # PHPCS 全量摸底（非阻断）：存量违规约 3.3 万条、96% 可由 phpcbf 机械修复，
-  # 修复需专门会话统一处理；当前先保证每次推送可见，不阻断合并。
-  phpcs-baseline:
-    name: PHPCS Baseline (non-blocking)
+  # PHPCS（阻断）：存量已于 2026-09 清零，所有豁免为带理由的就地 phpcs:ignore。
+  phpcs:
+    name: PHPCS Coding Standards
     runs-on: ubuntu-latest
     needs: php-lint
-    continue-on-error: true
     steps:
       - uses: actions/checkout@v7
 

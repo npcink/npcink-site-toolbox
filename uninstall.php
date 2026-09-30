@@ -90,7 +90,7 @@ function npcink_site_toolbox_uninstall_cleanup()
 if (is_multisite()) {
     $npcink_site_toolbox_site_ids = get_sites(array('fields' => 'ids', 'number' => 0));
     foreach ($npcink_site_toolbox_site_ids as $npcink_site_toolbox_site_id) {
-        switch_to_blog((int) $npcink_site_toolbox_site_id);
+        switch_to_blog( (int) $npcink_site_toolbox_site_id);
         npcink_site_toolbox_uninstall_cleanup();
         restore_current_blog();
     }

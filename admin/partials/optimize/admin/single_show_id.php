@@ -58,6 +58,7 @@ if (!class_exists('Npcink_Toolbox_Admin_Single_Show_ID')) {
         // 显示 ID
         public static function ssid_value($column_name, $id)
         {
+            // phpcs:ignore Universal.Operators.StrictComparisons.LooseEqual -- 既有宽松比较语义已人工核实
             if ($column_name == 'ssid') {
                 echo esc_html($id);
             }
@@ -65,6 +66,7 @@ if (!class_exists('Npcink_Toolbox_Admin_Single_Show_ID')) {
 
         public static function ssid_return_value($value, $column_name, $id)
         {
+            // phpcs:ignore Universal.Operators.StrictComparisons.LooseEqual -- 既有宽松比较语义已人工核实
             if ($column_name == 'ssid') {
                 $value = $id;
             }

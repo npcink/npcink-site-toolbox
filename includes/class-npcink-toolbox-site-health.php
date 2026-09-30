@@ -79,8 +79,8 @@ if (!class_exists('Npcink_Toolbox_Site_Health')) {
         public static function test_php_version()
         {
             $recommended = '7.4';
-            $current = PHP_VERSION;
-            $is_ok = version_compare($current, $recommended, '>=');
+            $current     = PHP_VERSION;
+            $is_ok       = version_compare($current, $recommended, '>=');
 
             $result = array(
                 'label'       => $is_ok
@@ -124,10 +124,10 @@ if (!class_exists('Npcink_Toolbox_Site_Health')) {
         public static function test_wp_version()
         {
             $recommended = '6.0';
-            $current = get_bloginfo('version');
+            $current     = get_bloginfo('version');
             // 提取主版本号
             $main_version = preg_replace('/^(\d+\.\d+).*/', '$1', $current);
-            $is_ok = version_compare($main_version, $recommended, '>=');
+            $is_ok        = version_compare($main_version, $recommended, '>=');
 
             $result = array(
                 'label'       => $is_ok
@@ -171,7 +171,7 @@ if (!class_exists('Npcink_Toolbox_Site_Health')) {
         public static function test_permalink()
         {
             $permalink_structure = get_option('permalink_structure');
-            $is_ok = !empty($permalink_structure);
+            $is_ok               = !empty($permalink_structure);
 
             $result = array(
                 'label'       => $is_ok
@@ -243,7 +243,7 @@ if (!class_exists('Npcink_Toolbox_Site_Health')) {
         {
             $rest_url = get_rest_url();
             $response = wp_remote_get($rest_url, array(
-                'timeout' => 5,
+                'timeout'   => 5,
                 'sslverify' => false,
             ));
 
@@ -285,9 +285,9 @@ if (!class_exists('Npcink_Toolbox_Site_Health')) {
         {
             if (!class_exists('Npcink_Toolbox_Module_Loader')) {
                 return array(
-                    'label'  => __('模块检测不可用', 'npcink-site-toolbox'),
-                    'status' => 'recommended',
-                    'badge'  => array(
+                    'label'       => __('模块检测不可用', 'npcink-site-toolbox'),
+                    'status'      => 'recommended',
+                    'badge'       => array(
                         'label' => __('Npcink Site Toolbox', 'npcink-site-toolbox'),
                         'color' => 'blue',
                     ),
@@ -295,13 +295,13 @@ if (!class_exists('Npcink_Toolbox_Site_Health')) {
                         '<p>%s</p>',
                         __('模块加载器未初始化。', 'npcink-site-toolbox')
                     ),
-                    'test'   => 'npcink_site_toolbox_module_count',
+                    'test'        => 'npcink_site_toolbox_module_count',
                 );
             }
 
             $active = get_option(NPCINK_SITE_TOOLBOX_ACTIVE_MODULES, array());
-            $count = count($active);
-            $total = count(Npcink_Toolbox_Module_Loader::get_all_module_ids());
+            $count  = count($active);
+            $total  = count(Npcink_Toolbox_Module_Loader::get_all_module_ids());
 
             $result = array(
                 'label'       => sprintf(
@@ -337,9 +337,9 @@ if (!class_exists('Npcink_Toolbox_Site_Health')) {
         {
             if (!class_exists('Npcink_Toolbox_Module_Loader')) {
                 return array(
-                    'label'  => __('模块检测不可用', 'npcink-site-toolbox'),
-                    'status' => 'recommended',
-                    'badge'  => array(
+                    'label'       => __('模块检测不可用', 'npcink-site-toolbox'),
+                    'status'      => 'recommended',
+                    'badge'       => array(
                         'label' => __('Npcink Site Toolbox', 'npcink-site-toolbox'),
                         'color' => 'blue',
                     ),
@@ -347,12 +347,12 @@ if (!class_exists('Npcink_Toolbox_Site_Health')) {
                         '<p>%s</p>',
                         __('模块加载器未初始化。', 'npcink-site-toolbox')
                     ),
-                    'test'   => 'npcink_site_toolbox_high_risk_modules',
+                    'test'        => 'npcink_site_toolbox_high_risk_modules',
                 );
             }
 
-            $active = get_option(NPCINK_SITE_TOOLBOX_ACTIVE_MODULES, array());
-            $tiers = Npcink_Toolbox_Module_Loader::get_tiers();
+            $active           = get_option(NPCINK_SITE_TOOLBOX_ACTIVE_MODULES, array());
+            $tiers            = Npcink_Toolbox_Module_Loader::get_tiers();
             $high_risk_active = array();
 
             if (isset($tiers['high_risk'])) {

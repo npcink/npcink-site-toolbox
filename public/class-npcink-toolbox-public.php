@@ -45,8 +45,8 @@ class Npcink_Toolbox_Public
     {
 
         $this->plugin_name = $plugin_name;
-        $this->version = $version;
-        $this->version = $version;
+        $this->version     = $version;
+        $this->version     = $version;
         $this->load();
         $this->run();
     }
@@ -57,10 +57,6 @@ class Npcink_Toolbox_Public
     {
         //加载公共样式
         add_action('wp_enqueue_scripts', array(__CLASS__, 'public_css'));
-
-      
-
-        
     }
 
     //添加公共样式
@@ -83,6 +79,4 @@ class Npcink_Toolbox_Public
             'all'
         );
     }
-
-    
 }

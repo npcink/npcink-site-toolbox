@@ -22,7 +22,7 @@ final class ImageAddTagTest extends TestCase
         $source = $this->source();
 
         $this->assertStringContainsString(
-            'trim((string) $existing_alt)',
+            'trim( (string) $existing_alt)',
             $source
         );
     }

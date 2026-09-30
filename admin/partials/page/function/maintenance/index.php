@@ -13,7 +13,7 @@ $npcink_site_toolbox_file_url = plugin_dir_url(__FILE__);
 //传来的值
 
 //获取设置选项值
-$npcink_site_toolbox_config = Npcink_Toolbox_Admin::get_seting('page');
+$npcink_site_toolbox_config   = Npcink_Toolbox_Admin::get_seting('page');
 $npcink_site_toolbox_function = Npcink_Toolbox_Admin::get_config($npcink_site_toolbox_config, 'function');
 
 //时间
@@ -25,13 +25,11 @@ $npcink_site_toolbox_countdown_end = is_array($npcink_site_toolbox_countdown_dat
     && is_string($npcink_site_toolbox_countdown_data[1])
         ? trim($npcink_site_toolbox_countdown_data[1])
         : '';
-$npcink_site_toolbox_countdown = '' !== $npcink_site_toolbox_countdown_end ? $npcink_site_toolbox_countdown_end . ':00' : '';
+$npcink_site_toolbox_countdown     = '' !== $npcink_site_toolbox_countdown_end ? $npcink_site_toolbox_countdown_end . ':00' : '';
 
 //标题
 $npcink_site_toolbox_countdown_title = Npcink_Toolbox_Admin::get_config($npcink_site_toolbox_function, 'countdown_title');
 
-//标题默认值
-// $npcink_site_toolbox_countdown_title = isset($npcink_site_toolbox_countdown_title) && !empty($npcink_site_toolbox_countdown_title) ? $npcink_site_toolbox_countdown_title : "升级维护中";
 if (isset($npcink_site_toolbox_countdown_title) && empty($npcink_site_toolbox_countdown_title)) {
     $npcink_site_toolbox_countdown_title = __('升级维护中', 'npcink-site-toolbox');
 }

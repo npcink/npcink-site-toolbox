@@ -40,7 +40,7 @@ final class InternationalizationContractTest extends TestCase
         $this->assertStringContainsString('"Language: en_US\\n"', $po);
         $this->assertSame('Save', $adminJson['locale_data']['messages']['保存'][0] ?? null);
         $this->assertSame('Countdown complete', $countdownJson['locale_data']['messages']['倒计时结束'][0] ?? null);
-        $this->assertStringContainsString("'locale' => determine_locale()", $admin);
+        $this->assertStringContainsString("'locale'             => determine_locale(),", $admin);
         $this->assertStringContainsString('import enUS from "antd/locale/en_US"', $app);
         $this->assertStringContainsString('locale.toLowerCase().startsWith("en") ? enUS : zhCN', $app);
     }

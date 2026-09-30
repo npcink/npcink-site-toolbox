@@ -106,7 +106,7 @@ class Npcink_Toolbox_Db_Clean_DryRun_Test extends TestCase {
         $content = file_get_contents($admin_file);
 
         // 验证 /performance/db/clean 路由配置中 dry_run 默认为 true
-        $this->assertStringContainsString("'dry_run' => array(", $content);
+        $this->assertStringContainsString("'dry_run'       => array(", $content);
         $this->assertStringContainsString("'default'           => true", $content);
     }
 
@@ -129,7 +129,7 @@ class Npcink_Toolbox_Db_Clean_DryRun_Test extends TestCase {
 
         $content = file_get_contents($admin_file);
 
-        $this->assertStringContainsString("'dry_run' => array(", $content);
+        $this->assertStringContainsString("'dry_run'       => array(", $content);
         $this->assertStringContainsString("'default'           => true", $content);
     }
 
@@ -203,7 +203,7 @@ class Npcink_Toolbox_Db_Clean_DryRun_Test extends TestCase {
         $db_clean_file = dirname(__FILE__) . '/../../admin/partials/performance/db_clean/index.php';
         $content = file_get_contents($db_clean_file);
 
-        $this->assertStringContainsString("private const PREVIEW_TTL = 300", $content);
+        $this->assertStringContainsString("private const PREVIEW_TTL               = 300;", $content);
         $this->assertStringContainsString('issue_preview_token($type, $preview)', $content);
         $this->assertStringContainsString('consume_preview_token($type, $preview_token)', $content);
         $this->assertStringContainsString("'rest_db_preview_conflict'", $content);

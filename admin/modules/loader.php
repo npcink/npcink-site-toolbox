@@ -10,7 +10,7 @@ defined('ABSPATH') || exit;
  */
 
 // 加载模块接口契约
-require_once plugin_dir_path(dirname(dirname(__FILE__))) . 'includes/interface-npcink-toolbox-module.php';
+require_once plugin_dir_path(dirname(__DIR__)) . 'includes/interface-npcink-toolbox-module.php';
 
 // 加载元数据聚合层
 require_once plugin_dir_path(__FILE__) . 'metadata.php';
@@ -29,7 +29,7 @@ if (!class_exists('Npcink_Toolbox_Module_Loader')) {
 
         public static function get_active_modules($config) {
             $registry = self::get_registry();
-            $active = array();
+            $active   = array();
 
             foreach ($registry as $module_id => $meta) {
                 if (!empty($meta['always_load'])) {
@@ -48,7 +48,7 @@ if (!class_exists('Npcink_Toolbox_Module_Loader')) {
                 }
 
                 $activation_paths = self::get_activation_paths($meta);
-                $is_active = false;
+                $is_active        = false;
 
                 foreach ($activation_paths as $activation_path) {
                     $value = self::get_nested_value($config, $activation_path);
@@ -69,11 +69,11 @@ if (!class_exists('Npcink_Toolbox_Module_Loader')) {
         public static function load_module($module_id, $config) {
             $registry = self::get_registry();
 
-            if (!isset($registry[$module_id])) {
+            if (!isset($registry[ $module_id ])) {
                 return;
             }
 
-            $meta = $registry[$module_id];
+            $meta = $registry[ $module_id ];
 
             // Scope 过滤：根据当前请求上下文跳过不相关的模块
             if (!empty($meta['scope'])) {
@@ -128,16 +128,16 @@ if (!class_exists('Npcink_Toolbox_Module_Loader')) {
 
         public static function get_module_meta($module_id) {
             $registry = self::get_registry();
-            return isset($registry[$module_id]) ? $registry[$module_id] : null;
+            return isset($registry[ $module_id ]) ? $registry[ $module_id ] : null;
         }
 
         public static function get_modules_by_category($category) {
             $registry = self::get_registry();
-            $modules = array();
+            $modules  = array();
 
             foreach ($registry as $module_id => $meta) {
                 if ($meta['category'] === $category) {
-                    $modules[$module_id] = $meta;
+                    $modules[ $module_id ] = $meta;
                 }
             }
 
@@ -241,12 +241,12 @@ if (!class_exists('Npcink_Toolbox_Module_Loader')) {
         }
 
         private static function get_nested_value($data, $path) {
-            $keys = explode('.', $path);
+            $keys    = explode('.', $path);
             $current = $data;
 
             foreach ($keys as $key) {
-                if (is_array($current) && isset($current[$key])) {
-                    $current = $current[$key];
+                if (is_array($current) && isset($current[ $key ])) {
+                    $current = $current[ $key ];
                 } elseif (is_object($current) && isset($current->$key)) {
                     $current = $current->$key;
                 } else {

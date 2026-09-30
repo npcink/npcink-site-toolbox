@@ -13,7 +13,7 @@ if (!class_exists('Npcink_Toolbox_No_Escape')) {
         public static function disable_title_escaping($title)
         {
             foreach ($title as $key => $value) {
-                $title[$key] = wp_specialchars_decode($value, ENT_QUOTES);
+                $title[ $key ] = wp_specialchars_decode($value, ENT_QUOTES);
             }
             return $title;
         }

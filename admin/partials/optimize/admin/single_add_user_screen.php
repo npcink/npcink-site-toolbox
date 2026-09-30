@@ -18,26 +18,27 @@ if (!class_exists('Npcink_Toolbox_Admin_Single_Add_User_Screen')) {
         public static function rudr_filter_by_the_author($post_type)
         {
 
+            // phpcs:ignore Squiz.PHP.CommentedOutCode.Found -- 保留的历史模板参考注释
             // 可以为特定的帖子类型添加条件
             // if( 'my_type' !== $post_type ) {
             //     return;
             // }
 
             // phpcs:ignore WordPress.Security.NonceVerification.Recommended,WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Read-only value is unslashed here, then type-checked and converted below.
-            $author = wp_unslash($_GET['author'] ?? '');
+            $author   = wp_unslash($_GET['author'] ?? '');
             $selected = is_string($author) ? absint($author) : 0;
 
             wp_dropdown_users(
                 array(
-                    'role__in' => array(
+                    'role__in'        => array(
                         'administrator',
                         'editor',
                         'author',
                         'contributor',
                     ),
-                    'name' => 'author',
+                    'name'            => 'author',
                     'show_option_all' => __('全部作者', 'npcink-site-toolbox'),
-                    'selected' => $selected,
+                    'selected'        => $selected,
                 )
             );
         }

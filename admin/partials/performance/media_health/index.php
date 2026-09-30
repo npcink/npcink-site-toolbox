@@ -3,20 +3,22 @@ defined('ABSPATH') || exit;
 require_once __DIR__ . '/webp_batch.php';
 if (!class_exists('Npcink_Toolbox_Performance_Media_Health')) {
     class Npcink_Toolbox_Performance_Media_Health implements Npcink_Toolbox_Module_Interface {
-        const ATTACHMENT_SCAN_BATCH_SIZE = 100;
-        const ATTACHMENT_SCAN_LIMIT = 500;
-        const WEBP_SAMPLE_LIMIT = 3;
-        const WEBP_SAMPLE_MAX_FILE_BYTES = 5242880;
-        const WEBP_SAMPLE_MAX_PIXELS = 12000000;
+        const ATTACHMENT_SCAN_BATCH_SIZE     = 100;
+        const ATTACHMENT_SCAN_LIMIT          = 500;
+        const WEBP_SAMPLE_LIMIT              = 3;
+        const WEBP_SAMPLE_MAX_FILE_BYTES     = 5242880;
+        const WEBP_SAMPLE_MAX_PIXELS         = 12000000;
         const WEBP_CONTINUOUS_MAX_CANDIDATES = 50;
-        const WEBP_BATCH_MIN_CANDIDATES = 100;
-        const WEBP_BATCH_MIN_BYTES = 209715200;
-        const WEBP_MIN_SAVINGS_PERCENT = 15.0;
+        const WEBP_BATCH_MIN_CANDIDATES      = 100;
+        const WEBP_BATCH_MIN_BYTES           = 209715200;
+        const WEBP_MIN_SAVINGS_PERCENT       = 15.0;
 
         private static $config;
         public static function run($config = array()) {
             self::$config = $config;
-            if (empty($config['enabled'])) return;
+            if (empty($config['enabled'])) {
+                return;
+            }
         }
         public static function ajax_check() {
             if (!current_user_can('manage_options')) {
@@ -39,13 +41,13 @@ if (!class_exists('Npcink_Toolbox_Performance_Media_Health')) {
             $attachment_scan = self::scan_recent_attachments();
             if ($attachment_scan['large'] > 0) {
                 $issues[] = array(
-                    'type'         => $attachment_scan['sampled']
+                    'type'              => $attachment_scan['sampled']
                         /* translators: %d: number of recent attachments included in the sample. */
                         ? sprintf(__('超大图片（最近 %d 个附件抽样）', 'npcink-site-toolbox'), $attachment_scan['checked'])
                         : __('超大图片', 'npcink-site-toolbox'),
-                    'count'        => $attachment_scan['large'],
-                    'sampled'      => $attachment_scan['sampled'],
-                    'sample_size'  => $attachment_scan['checked'],
+                    'count'             => $attachment_scan['large'],
+                    'sampled'           => $attachment_scan['sampled'],
+                    'sample_size'       => $attachment_scan['checked'],
                     'total_attachments' => $attachment_scan['total'],
                 );
             }
@@ -84,7 +86,7 @@ if (!class_exists('Npcink_Toolbox_Performance_Media_Health')) {
             return rest_ensure_response(array(
                 'success' => true,
                 'data'    => array(
-                    'issues' => $issues,
+                    'issues'          => $issues,
                     'attachment_scan' => array(
                         'checked' => $attachment_scan['checked'],
                         'total'   => $attachment_scan['total'],
@@ -125,17 +127,17 @@ if (!class_exists('Npcink_Toolbox_Performance_Media_Health')) {
         }
 
         private static function scan_recent_attachments() {
-            $checked = 0;
-            $large = 0;
-            $chinese = 0;
-            $total = 0;
-            $page = 1;
-            $image_checked = 0;
-            $missing_files = 0;
-            $sample_candidates = array();
+            $checked             = 0;
+            $large               = 0;
+            $chinese             = 0;
+            $total               = 0;
+            $page                = 1;
+            $image_checked       = 0;
+            $missing_files       = 0;
+            $sample_candidates   = array();
             $batch_candidate_ids = array();
-            $restorable_ids = array();
-            $formats = array(
+            $restorable_ids      = array();
+            $formats             = array(
                 'jpeg'  => array('count' => 0, 'bytes' => 0),
                 'png'   => array('count' => 0, 'bytes' => 0),
                 'webp'  => array('count' => 0, 'bytes' => 0),
@@ -143,7 +145,7 @@ if (!class_exists('Npcink_Toolbox_Performance_Media_Health')) {
             );
 
             while ($checked < self::ATTACHMENT_SCAN_LIMIT) {
-                $query = new WP_Query(array(
+                $query       = new WP_Query(array(
                     'post_type'              => 'attachment',
                     'post_status'            => 'inherit',
                     'posts_per_page'         => self::ATTACHMENT_SCAN_BATCH_SIZE,
@@ -158,14 +160,16 @@ if (!class_exists('Npcink_Toolbox_Performance_Media_Health')) {
                 if ($page === 1) {
                     $total = max(0, intval($query->found_posts));
                 }
-                if (empty($attachments)) break;
+                if (empty($attachments)) {
+                    break;
+                }
 
                 $image_ids = array();
                 foreach ($attachments as $attachment) {
                     if (
                         is_object($attachment)
                         && isset($attachment->ID, $attachment->post_mime_type)
-                        && strpos((string) $attachment->post_mime_type, 'image/') === 0
+                        && strpos( (string) $attachment->post_mime_type, 'image/') === 0
                     ) {
                         $image_ids[] = intval($attachment->ID);
                     }
@@ -175,30 +179,40 @@ if (!class_exists('Npcink_Toolbox_Performance_Media_Health')) {
                 }
 
                 foreach ($attachments as $attachment) {
-                    if ($checked >= self::ATTACHMENT_SCAN_LIMIT) break;
-                    if (!is_object($attachment) || !isset($attachment->ID)) continue;
-                    $checked++;
+                    if ($checked >= self::ATTACHMENT_SCAN_LIMIT) {
+                        break;
+                    }
+                    if (!is_object($attachment) || !isset($attachment->ID)) {
+                        continue;
+                    }
+                    ++$checked;
 
                     $post_name = isset($attachment->post_name) ? (string) $attachment->post_name : '';
-                    if (preg_match('/[\x{4e00}-\x{9fff}]/u', $post_name)) $chinese++;
+                    if (preg_match('/[\x{4e00}-\x{9fff}]/u', $post_name)) {
+                        ++$chinese;
+                    }
 
                     $mime_type = isset($attachment->post_mime_type)
                         ? (string) $attachment->post_mime_type
                         : '';
-                    if (strpos($mime_type, 'image/') !== 0) continue;
-                    $image_checked++;
+                    if (strpos($mime_type, 'image/') !== 0) {
+                        continue;
+                    }
+                    ++$image_checked;
 
                     $file = get_attached_file(intval($attachment->ID));
                     if (!is_string($file) || !is_file($file)) {
-                        $missing_files++;
+                        ++$missing_files;
                         continue;
                     }
                     $size = filesize($file);
-                    if (!is_int($size) || $size < 0) continue;
+                    if (!is_int($size) || $size < 0) {
+                        continue;
+                    }
 
                     $format = self::classify_image_format($file, $mime_type);
-                    $formats[$format]['count']++;
-                    $formats[$format]['bytes'] += $size;
+                    ++$formats[ $format ]['count'];
+                    $formats[ $format ]['bytes'] += $size;
 
                     $webp_backup = get_post_meta(
                         intval($attachment->ID),
@@ -225,7 +239,9 @@ if (!class_exists('Npcink_Toolbox_Performance_Media_Health')) {
                         $batch_candidate_ids[] = intval($attachment->ID);
                     }
 
-                    if ($size > 512000) $large++;
+                    if ($size > 512000) {
+                        ++$large;
+                    }
                     if (
                         $format === 'jpeg'
                         && count($sample_candidates) < self::WEBP_SAMPLE_LIMIT
@@ -238,13 +254,15 @@ if (!class_exists('Npcink_Toolbox_Performance_Media_Health')) {
                     }
                 }
 
-                if (count($attachments) < self::ATTACHMENT_SCAN_BATCH_SIZE) break;
-                $page++;
+                if (count($attachments) < self::ATTACHMENT_SCAN_BATCH_SIZE) {
+                    break;
+                }
+                ++$page;
             }
 
-            $webp_supported = function_exists('wp_image_editor_supports')
+            $webp_supported           = function_exists('wp_image_editor_supports')
                 && wp_image_editor_supports(array('mime_type' => 'image/webp'));
-            $sample = self::estimate_webp_savings($sample_candidates, $webp_supported);
+            $sample                   = self::estimate_webp_savings($sample_candidates, $webp_supported);
             $sample['recommendation'] = self::get_webp_recommendation(
                 $webp_supported,
                 $formats['jpeg']['count'],
@@ -253,11 +271,11 @@ if (!class_exists('Npcink_Toolbox_Performance_Media_Health')) {
             );
 
             return array(
-                'checked' => $checked,
-                'total'   => $total,
-                'large'   => $large,
-                'chinese' => $chinese,
-                'sampled' => $total > $checked,
+                'checked'         => $checked,
+                'total'           => $total,
+                'large'           => $large,
+                'chinese'         => $chinese,
+                'sampled'         => $total > $checked,
                 'webp_assessment' => array(
                     'supported'     => $webp_supported,
                     'checked'       => $image_checked,
@@ -271,18 +289,18 @@ if (!class_exists('Npcink_Toolbox_Performance_Media_Health')) {
                         'savings_percent' => self::WEBP_MIN_SAVINGS_PERCENT,
                     ),
                     'batch'         => array(
-                        'candidate_ids'    => $batch_candidate_ids,
-                        'restorable_ids'   => $restorable_ids,
-                        'batch_size'       => Npcink_Toolbox_Webp_Batch::MAX_BATCH_SIZE,
-                        'original_retained'=> true,
-                        'restorable'       => true,
+                        'candidate_ids'     => $batch_candidate_ids,
+                        'restorable_ids'    => $restorable_ids,
+                        'batch_size'        => Npcink_Toolbox_Webp_Batch::MAX_BATCH_SIZE,
+                        'original_retained' => true,
+                        'restorable'        => true,
                     ),
                 ),
             );
         }
 
         private static function classify_image_format($file, $mime_type) {
-            $extension = strtolower((string) pathinfo($file, PATHINFO_EXTENSION));
+            $extension = strtolower( (string) pathinfo($file, PATHINFO_EXTENSION));
             if (in_array($extension, array('jpg', 'jpeg', 'jpe'), true)) {
                 return 'jpeg';
             }
@@ -292,9 +310,15 @@ if (!class_exists('Npcink_Toolbox_Performance_Media_Health')) {
             if ($extension === 'webp') {
                 return 'webp';
             }
-            if ($mime_type === 'image/jpeg') return 'jpeg';
-            if ($mime_type === 'image/png') return 'png';
-            if ($mime_type === 'image/webp') return 'webp';
+            if ($mime_type === 'image/jpeg') {
+                return 'jpeg';
+            }
+            if ($mime_type === 'image/png') {
+                return 'png';
+            }
+            if ($mime_type === 'image/webp') {
+                return 'webp';
+            }
             return 'other';
         }
 
@@ -308,7 +332,7 @@ if (!class_exists('Npcink_Toolbox_Performance_Media_Health')) {
                 return false;
             }
 
-            return ((int) $image_size[0] * (int) $image_size[1]) <= self::WEBP_SAMPLE_MAX_PIXELS;
+            return ( (int) $image_size[0] * (int) $image_size[1]) <= self::WEBP_SAMPLE_MAX_PIXELS;
         }
 
         private static function estimate_webp_savings($candidates, $supported) {
@@ -333,19 +357,19 @@ if (!class_exists('Npcink_Toolbox_Performance_Media_Health')) {
             }
 
             foreach (array_slice($candidates, 0, self::WEBP_SAMPLE_LIMIT) as $candidate) {
-                $result['attempted']++;
+                ++$result['attempted'];
                 $temporary_paths = array();
-                $editor = null;
+                $editor          = null;
 
                 try {
                     $temporary_stub = wp_tempnam('npcink-webp-assessment');
                     if (!is_string($temporary_stub) || $temporary_stub === '') {
-                        $result['errors']++;
+                        ++$result['errors'];
                         continue;
                     }
 
                     $temporary_paths[] = $temporary_stub;
-                    $destination = $temporary_stub . '.webp';
+                    $destination       = $temporary_stub . '.webp';
                     $temporary_paths[] = $destination;
                     if (is_file($temporary_stub)) {
                         wp_delete_file($temporary_stub);
@@ -353,25 +377,25 @@ if (!class_exists('Npcink_Toolbox_Performance_Media_Health')) {
 
                     $editor = wp_get_image_editor($candidate['file']);
                     if (is_wp_error($editor)) {
-                        $result['errors']++;
+                        ++$result['errors'];
                         continue;
                     }
 
                     $saved = $editor->save($destination, 'image/webp');
                     if (is_wp_error($saved) || empty($saved['path']) || !is_file($saved['path'])) {
-                        $result['errors']++;
+                        ++$result['errors'];
                         continue;
                     }
 
                     $temporary_paths[] = $saved['path'];
-                    $output_bytes = filesize($saved['path']);
+                    $output_bytes      = filesize($saved['path']);
                     if (!is_int($output_bytes) || $output_bytes < 0) {
-                        $result['errors']++;
+                        ++$result['errors'];
                         continue;
                     }
 
-                    $result['successful']++;
-                    $result['input_bytes'] += (int) $candidate['bytes'];
+                    ++$result['successful'];
+                    $result['input_bytes']  += (int) $candidate['bytes'];
                     $result['output_bytes'] += $output_bytes;
                 } finally {
                     unset($editor);
@@ -387,7 +411,7 @@ if (!class_exists('Npcink_Toolbox_Performance_Media_Health')) {
             }
 
             if ($result['successful'] > 0 && $result['input_bytes'] > 0) {
-                $result['savings_bytes'] = $result['input_bytes'] - $result['output_bytes'];
+                $result['savings_bytes']   = $result['input_bytes'] - $result['output_bytes'];
                 $result['savings_percent'] = round(
                     ($result['savings_bytes'] / $result['input_bytes']) * 100,
                     1
@@ -398,12 +422,24 @@ if (!class_exists('Npcink_Toolbox_Performance_Media_Health')) {
         }
 
         private static function get_webp_recommendation($supported, $candidate_count, $candidate_bytes, $sample) {
-            if (!$supported) return 'unsupported';
-            if ($candidate_count < 1) return 'no_candidates';
-            if (empty($sample['temporary_files_cleaned'])) return 'cleanup_failed';
-            if ($sample['successful'] < min(3, $candidate_count)) return 'insufficient_sample';
-            if ($sample['savings_percent'] === null) return 'sample_failed';
-            if ($sample['savings_percent'] < self::WEBP_MIN_SAVINGS_PERCENT) return 'low_savings';
+            if (!$supported) {
+                return 'unsupported';
+            }
+            if ($candidate_count < 1) {
+                return 'no_candidates';
+            }
+            if (empty($sample['temporary_files_cleaned'])) {
+                return 'cleanup_failed';
+            }
+            if ($sample['successful'] < min(3, $candidate_count)) {
+                return 'insufficient_sample';
+            }
+            if ($sample['savings_percent'] === null) {
+                return 'sample_failed';
+            }
+            if ($sample['savings_percent'] < self::WEBP_MIN_SAVINGS_PERCENT) {
+                return 'low_savings';
+            }
 
             if (
                 $candidate_count >= self::WEBP_BATCH_MIN_CANDIDATES

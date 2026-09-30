@@ -63,8 +63,18 @@ if (!class_exists('Npcink_Toolbox_Medium_Svg_Support')) {
         {
             // 移除危险标签
             $dangerous_tags = array(
-                'script', 'object', 'embed', 'iframe', 'form', 'input',
-                'button', 'select', 'textarea', 'link', 'meta', 'base',
+                'script',
+				'object',
+				'embed',
+				'iframe',
+				'form',
+				'input',
+                'button',
+				'select',
+				'textarea',
+				'link',
+				'meta',
+				'base',
             );
 
             foreach ($dangerous_tags as $tag) {
@@ -103,9 +113,9 @@ if (!class_exists('Npcink_Toolbox_Medium_Svg_Support')) {
             $decoded_attribute_result = preg_replace_callback(
                 '/\s+([a-zA-Z_:][a-zA-Z0-9_.:-]*)\s*=\s*(["\'])(.*?)\2/s',
                 static function ($matches) {
-                    $attribute_name = strtolower($matches[1]);
+                    $attribute_name  = strtolower($matches[1]);
                     $attribute_value = html_entity_decode($matches[3], ENT_QUOTES | ENT_HTML5, 'UTF-8');
-                    $compact_value = preg_replace('/[\x00-\x20\x7f]+/u', '', $attribute_value);
+                    $compact_value   = preg_replace('/[\x00-\x20\x7f]+/u', '', $attribute_value);
 
                     if (
                         strpos($attribute_name, 'on') === 0
@@ -148,6 +158,7 @@ if (!class_exists('Npcink_Toolbox_Medium_Svg_Support')) {
             }
 
             // 读取文件内容
+            // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents -- 读取本地文件而非远程 URL
             $content = file_get_contents($file['tmp_name']);
             if ($content === false) {
                 $file['error'] = __('无法读取 SVG 文件内容', 'npcink-site-toolbox');
@@ -155,6 +166,7 @@ if (!class_exists('Npcink_Toolbox_Medium_Svg_Support')) {
             }
 
             // 检查是否为有效的 XML
+            // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged -- 失败为预期分支，靠返回值判断
             $xml = @simplexml_load_string($content);
             if ($xml === false) {
                 $file['error'] = __('SVG 文件格式无效（无效的 XML）', 'npcink-site-toolbox');
@@ -165,6 +177,7 @@ if (!class_exists('Npcink_Toolbox_Medium_Svg_Support')) {
             $sanitized = self::sanitize_svg_content($content);
 
             // 写回文件
+            // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_file_put_contents -- 上传清洗流程需在临时文件上原地重写
             if (file_put_contents($file['tmp_name'], $sanitized) === false) {
                 $file['error'] = __('无法保存清洗后的 SVG 文件', 'npcink-site-toolbox');
                 return $file;
@@ -202,16 +215,17 @@ if (!class_exists('Npcink_Toolbox_Medium_Svg_Support')) {
                 return $metadata;
             }
 
-            $content = file_get_contents($file);
+            // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents -- 读取本地文件而非远程 URL
+            $content    = file_get_contents($file);
             $dimensions = self::get_svg_dimensions($content);
             if (null === $dimensions) {
                 return $metadata;
             }
 
-            $metadata = is_array($metadata) ? $metadata : array();
-            $metadata['width'] = $dimensions['width'];
+            $metadata           = is_array($metadata) ? $metadata : array();
+            $metadata['width']  = $dimensions['width'];
             $metadata['height'] = $dimensions['height'];
-            $metadata['sizes'] = isset($metadata['sizes']) && is_array($metadata['sizes'])
+            $metadata['sizes']  = isset($metadata['sizes']) && is_array($metadata['sizes'])
                 ? $metadata['sizes']
                 : array();
 
@@ -235,28 +249,29 @@ if (!class_exists('Npcink_Toolbox_Medium_Svg_Support')) {
                 return null;
             }
 
+            // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged -- 失败为预期分支，靠返回值判断
             $xml = @simplexml_load_string($content, 'SimpleXMLElement', LIBXML_NONET);
             if (false === $xml) {
                 return null;
             }
 
-            $width = self::parse_svg_length((string) $xml['width']);
-            $height = self::parse_svg_length((string) $xml['height']);
+            $width  = self::parse_svg_length( (string) $xml['width']);
+            $height = self::parse_svg_length( (string) $xml['height']);
 
             if (null === $width || null === $height) {
-                $view_box = preg_split('/[\s,]+/', trim((string) $xml['viewBox']));
+                $view_box = preg_split('/[\s,]+/', trim( (string) $xml['viewBox']));
                 if (is_array($view_box) && 4 === count($view_box)) {
-                    $view_box_width = is_numeric($view_box[2]) ? (float) $view_box[2] : 0.0;
+                    $view_box_width  = is_numeric($view_box[2]) ? (float) $view_box[2] : 0.0;
                     $view_box_height = is_numeric($view_box[3]) ? (float) $view_box[3] : 0.0;
                     if ($view_box_width > 0 && $view_box_height > 0) {
-                        $width = max(1, (int) round($view_box_width));
+                        $width  = max(1, (int) round($view_box_width));
                         $height = max(1, (int) round($view_box_height));
                     }
                 }
             }
 
             return array(
-                'width' => null === $width ? 0 : $width,
+                'width'  => null === $width ? 0 : $width,
                 'height' => null === $height ? 0 : $height,
             );
         }

@@ -29,9 +29,9 @@ if (!class_exists('Npcink_Toolbox_Page_Search_Limit')) {
                     return;
                 }
 
-                $ip = Npcink_Toolbox_Helpers::get_rate_limit_ip();
+                $ip            = Npcink_Toolbox_Helpers::get_rate_limit_ip();
                 $transient_key = 'npcink_site_toolbox_search_limit_' . md5($ip);
-                $search_count = get_transient($transient_key);
+                $search_count  = get_transient($transient_key);
 
                 if ($search_count === false) {
                     $search_count = 0;

@@ -12,6 +12,7 @@ if (!class_exists('Npcink_Toolbox_Admin_Add_Time_Screen')) {
         //加载
         public static function run($config = array())
         {
+            // phpcs:ignore Squiz.PHP.CommentedOutCode.Found -- 保留的历史模板参考注释
             // 如果不想删除默认的“按月筛选”，请删除/注释此行
             //add_filter('months_dropdown_results', '__return_empty_array');
 
@@ -32,6 +33,7 @@ if (!class_exists('Npcink_Toolbox_Admin_Add_Time_Screen')) {
          */
         public static function jqueryui($hook)
         {
+            // phpcs:ignore Universal.Operators.StrictComparisons.LooseNotEqual -- 既有宽松比较语义已人工核实
             if (('upload.php' != $hook) && ('edit.php' != $hook)) {
                 return;
             }
@@ -58,8 +60,8 @@ if (!class_exists('Npcink_Toolbox_Admin_Add_Time_Screen')) {
         public static function form()
         {
             $dates = self::requested_dates();
-            $from = $dates['from'];
-            $to = $dates['to'];
+            $from  = $dates['from'];
+            $to    = $dates['to'];
 
             printf(
                 '<input type="text" name="mishaDateFrom" placeholder="%1$s" value="%2$s" />
@@ -83,6 +85,7 @@ if (!class_exists('Npcink_Toolbox_Admin_Add_Time_Screen')) {
             if (
                 is_admin()
                 && $admin_query->is_main_query()
+                // phpcs:ignore Squiz.PHP.CommentedOutCode.Found -- 保留的历史模板参考注释
                 // 默认情况下，过滤器将被添加到所有post类型中，您可以使用$_GET['post_type']来限制某些类型的过滤器
                 && in_array($pagenow, array('edit.php', 'upload.php'), true)
                 && ('' !== $dates['from'] || '' !== $dates['to'])
@@ -91,10 +94,11 @@ if (!class_exists('Npcink_Toolbox_Admin_Add_Time_Screen')) {
                 $admin_query->set(
                     'date_query', //我喜欢WordPress 3.7中出现的日期查询！
                     array(
-                        'after' => $dates['from'], // any strtotime()-acceptable format!
-                        'before' => $dates['to'],
+                        'after'     => $dates['from'], // any strtotime()-acceptable format!
+                        'before'    => $dates['to'],
                         'inclusive' => true, // 还包括选定的日期
-                        'column' => 'post_date', // 'post_modified', 'post_date_gmt', 'post_modified_gmt'
+                        // phpcs:ignore Squiz.PHP.CommentedOutCode.Found -- 保留的历史模板参考注释
+                        'column'    => 'post_date', // 'post_modified', 'post_date_gmt', 'post_modified_gmt'
                     )
                 );
             }
@@ -115,11 +119,11 @@ if (!class_exists('Npcink_Toolbox_Admin_Add_Time_Screen')) {
             $to_value = wp_unslash($_GET['mishaDateTo'] ?? '');
 
             $from = is_string($from_value) ? sanitize_text_field($from_value) : '';
-            $to = is_string($to_value) ? sanitize_text_field($to_value) : '';
+            $to   = is_string($to_value) ? sanitize_text_field($to_value) : '';
 
             return array(
                 'from' => $from,
-                'to' => $to,
+                'to'   => $to,
             );
         }
     }

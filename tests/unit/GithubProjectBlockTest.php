@@ -160,7 +160,7 @@ final class GithubProjectBlockTest extends TestCase
         $this->assertStringContainsString("blocks.registerBlockType( 'npcink/github-project'", $editor);
         $this->assertStringContainsString('ServerSideRender', $editor);
         $this->assertStringContainsString("add_action('init', array('Npcink_Toolbox_Github_Project', 'register_block'))", $core);
-        $this->assertStringContainsString("'Npcink_Toolbox_Github_Project' => 'includes/class-npcink-toolbox-github-project.php'", $autoload);
+        $this->assertStringContainsString("'Npcink_Toolbox_Github_Project'                  => 'includes/class-npcink-toolbox-github-project.php',", $autoload);
         $this->assertFileDoesNotExist($this->root() . '/vite/blocks');
     }
 

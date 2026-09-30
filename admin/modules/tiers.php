@@ -14,30 +14,50 @@ defined('ABSPATH') || exit;
  */
 return array(
     // ===== core: 核心功能 =====
-    'core' => array(
-        'optimize.hide_top_toolbar', 'optimize.no_escape', 'optimize.remove_wp_version',
-        'optimize.category_link_simplify', 'optimize.search_link_simplify',
-        'optimize.remove_sitemap_users', 'optimize.hide_email_ip',
-        'optimize.image_add_tag', 'optimize.image_rename', 'optimize.webp_conversion',
+    'core'         => array(
+        'optimize.hide_top_toolbar',
+		'optimize.no_escape',
+		'optimize.remove_wp_version',
+        'optimize.category_link_simplify',
+		'optimize.search_link_simplify',
+        'optimize.remove_sitemap_users',
+		'optimize.hide_email_ip',
+        'optimize.image_add_tag',
+		'optimize.image_rename',
+		'optimize.webp_conversion',
         'optimize.widgets',
-        'optimize.admin_single_add_user_screen', 'optimize.admin_add_time_screen',
-        'optimize.admin_single_show_id', 'optimize.admin_thumbnail_switcher',
+        'optimize.admin_single_add_user_screen',
+		'optimize.admin_add_time_screen',
+        'optimize.admin_single_show_id',
+		'optimize.admin_thumbnail_switcher',
         'optimize.user_list_show_nickname',
-        'seo.seo_home', 'seo.seo_single', 'seo.seo_category', 'seo.seo_tag',
+        'seo.seo_home',
+		'seo.seo_single',
+		'seo.seo_category',
+		'seo.seo_tag',
         'seo.seo_category_add_meat',
-        'auxiliary.census_single', 'auxiliary.ban_malice_search',
+        'auxiliary.census_single',
+		'auxiliary.ban_malice_search',
 
-        'domestic.compliance', 'domestic.wechat',
-        'domestic.comment_security', 'domestic.login_security',
-        'performance.oss', 'performance.seo_checker', 'performance.media_health',
+        'domestic.compliance',
+		'domestic.wechat',
+        'domestic.comment_security',
+		'domestic.login_security',
+        'performance.oss',
+		'performance.seo_checker',
+		'performance.media_health',
         'performance.search_enhance',
 
         'page.interface_category_data',
 
-        'page.first_picture', 'page.add_article_update_time',
-        'page.search_limit', 'page.default_thumbnail',
-        'page.comment_interval', 'page.limit_word_count',
-        'page.ban_pure_english', 'page.only_comment_once',
+        'page.first_picture',
+		'page.add_article_update_time',
+        'page.search_limit',
+		'page.default_thumbnail',
+        'page.comment_interval',
+		'page.limit_word_count',
+        'page.ban_pure_english',
+		'page.only_comment_once',
         'page.comment_sensitive_words',
         'page.my_comments',
         'page.reading_progress',
@@ -47,13 +67,13 @@ return array(
     ),
 
     // ===== advanced: 进阶功能 =====
-    'advanced' => array(
+    'advanced'     => array(
         'page.maintenance_tips',
         'optimize.svg_support',
     ),
 
     // ===== high_risk: 高风险功能 =====
-    'high_risk' => array(
+    'high_risk'    => array(
         'optimize.ban_auto_size',
         'page.single_keyword_add_link',
         'performance.db_clean',
@@ -62,7 +82,11 @@ return array(
 
     // ===== experimental: 实验性功能 =====
     'experimental' => array(
-        'page.hide_category', 'page.hide_tag', 'page.hide_page',
-        'auxiliary.baidu_tonji', 'auxiliary.google_tonji', 'auxiliary.biying_tonji',
+        'page.hide_category',
+		'page.hide_tag',
+		'page.hide_page',
+        'auxiliary.baidu_tonji',
+		'auxiliary.google_tonji',
+		'auxiliary.biying_tonji',
     ),
 );

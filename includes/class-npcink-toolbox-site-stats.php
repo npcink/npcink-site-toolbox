@@ -36,9 +36,9 @@ final class Npcink_Toolbox_Site_Stats
             return self::$cached_stats;
         }
 
-        $post_counts = wp_count_posts('post');
+        $post_counts    = wp_count_posts('post');
         $comment_counts = wp_count_comments();
-        $user_counts = count_users();
+        $user_counts    = count_users();
         $category_count = wp_count_terms('category');
 
         self::$cached_stats = array(
@@ -76,7 +76,7 @@ final class Npcink_Toolbox_Site_Stats
         $items = '';
 
         foreach ($stats as $key => $stat) {
-            if (isset($visibility[$key]) && !$visibility[$key]) {
+            if (isset($visibility[ $key ]) && !$visibility[ $key ]) {
                 continue;
             }
 
@@ -102,7 +102,7 @@ final class Npcink_Toolbox_Site_Stats
      */
     public static function render_block($attributes)
     {
-        $title = isset($attributes['title']) && is_string($attributes['title'])
+        $title      = isset($attributes['title']) && is_string($attributes['title'])
             ? $attributes['title']
             : __('站点数据', 'npcink-site-toolbox');
         $visibility = array(
@@ -111,12 +111,12 @@ final class Npcink_Toolbox_Site_Stats
             'categories' => !isset($attributes['showCategories']) || (bool) $attributes['showCategories'],
             'users'      => !isset($attributes['showUsers']) || (bool) $attributes['showUsers'],
         );
-        $items = self::render_items($visibility);
+        $items      = self::render_items($visibility);
 
         $heading = trim($title) === ''
             ? ''
             : '<h2 class="npcink-site-stats__title">' . esc_html($title) . '</h2>';
-        $body = $items !== ''
+        $body    = $items !== ''
             ? $items
             : '<p class="npcink-site-stats__empty">' . esc_html__('请至少选择一个统计项目。', 'npcink-site-toolbox') . '</p>';
 

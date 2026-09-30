@@ -31,8 +31,9 @@ if (!class_exists('Npcink_Toolbox_Admin_Open_All_Edit_Tabs')) {
             );
 
             wp_localize_script('npcink-site-toolbox-open-all-edit-tabs', 'npcinkSiteToolboxOpenAllEditTabs', array(
-                'buttonLabel'  => __('在新标签页打开全部编辑', 'npcink-site-toolbox'),
-                'emptyMessage' => __('当前列表没有可编辑的内容。', 'npcink-site-toolbox'),
+                'buttonLabel'     => __('在新标签页打开全部编辑', 'npcink-site-toolbox'),
+                'emptyMessage'    => __('当前列表没有可编辑的内容。', 'npcink-site-toolbox'),
+                /* translators: %d: Number of tabs blocked by the browser's pop-up blocker. */
                 'blockedTemplate' => __('有 %d 个标签页被浏览器拦截，请在允许本站弹出式窗口后重试。', 'npcink-site-toolbox'),
             ));
         }

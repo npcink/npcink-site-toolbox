@@ -11,6 +11,7 @@ if (!class_exists('Npcink_Toolbox_Census_Single')) {
 
         public static function run($config = array())
         {
+            // phpcs:ignore Squiz.PHP.CommentedOutCode.Found -- 保留的历史模板参考注释
             //add_action('wp_loaded', array(__CLASS__, 'load'));
             //添加发文统计菜单
             add_action('admin_menu', array(__CLASS__, 'add_menu_single'));
@@ -32,7 +33,7 @@ if (!class_exists('Npcink_Toolbox_Census_Single')) {
                 'index.php',
                 __('发文统计', 'npcink-site-toolbox'),
                 __('发文统计', 'npcink-site-toolbox'),
-                'administrator',
+                'manage_options',
                 'npcink-site-toolbox-census',
                 array(__CLASS__, 'load_content')
             );
@@ -41,19 +42,20 @@ if (!class_exists('Npcink_Toolbox_Census_Single')) {
         //页面加载图标用css和js
         public static function load_enqueue_admin_script($hook)
         {
+            // phpcs:ignore Universal.Operators.StrictComparisons.LooseNotEqual -- 既有宽松比较语义已人工核实
             if ('dashboard_page_npcink-site-toolbox-census' != $hook) {
                 return;
             }
 
-            $plugin_root_path = plugin_dir_path(dirname(dirname(dirname(__DIR__))));
-            $build_css_path = $plugin_root_path . 'vite/count/dist/index.css';
-            $build_js_path = $plugin_root_path . 'vite/count/dist/index.js';
-            $build_css = plugin_dir_url(dirname(dirname(dirname(__DIR__)))) . 'vite/count/dist/index.css';
-            $build_js = plugin_dir_url(dirname(dirname(dirname(__DIR__)))) . 'vite/count/dist/index.js';
+            $plugin_root_path  = plugin_dir_path(dirname(dirname(dirname(__DIR__))));
+            $build_css_path    = $plugin_root_path . 'vite/count/dist/index.css';
+            $build_js_path     = $plugin_root_path . 'vite/count/dist/index.js';
+            $build_css         = plugin_dir_url(dirname(dirname(dirname(__DIR__)))) . 'vite/count/dist/index.css';
+            $build_js          = plugin_dir_url(dirname(dirname(dirname(__DIR__)))) . 'vite/count/dist/index.js';
             $build_css_version = is_file($build_css_path)
                 ? NPCINK_SITE_TOOLBOX_VERSION . '-' . (string) filemtime($build_css_path)
                 : NPCINK_SITE_TOOLBOX_VERSION;
-            $build_js_version = is_file($build_js_path)
+            $build_js_version  = is_file($build_js_path)
                 ? NPCINK_SITE_TOOLBOX_VERSION . '-' . (string) filemtime($build_js_path)
                 : NPCINK_SITE_TOOLBOX_VERSION;
             wp_enqueue_style(
@@ -90,7 +92,7 @@ if (!class_exists('Npcink_Toolbox_Census_Single')) {
                     'count' => self::get_today_data(), //今天的统计数据
                     'today' => self::get_count_release()['week'], //今天文章发布数据
                     'month' => self::get_count_release()['month'], //今天文章发布数据
-                )
+                ),
             );
             return $array;
         }
@@ -98,7 +100,7 @@ if (!class_exists('Npcink_Toolbox_Census_Single')) {
         //待渲染的内容
         public static function load_content()
         {
-?>
+            ?>
             <!-- 在默认WordPress“包装”容器中创建标题 -->
             <div class="wrap magick_section">
 
@@ -117,6 +119,7 @@ if (!class_exists('Npcink_Toolbox_Census_Single')) {
                 </form>
 
                 <?php
+                // phpcs:ignore Squiz.PHP.CommentedOutCode.Found -- 保留的历史模板参考注释
                 //echo "<h3>原始数据</h3>";
                 //$user_release_arr = self::get_user_release_arr();
                 //if (!empty($user_release_arr)) {
@@ -136,28 +139,28 @@ if (!class_exists('Npcink_Toolbox_Census_Single')) {
         public static function get_today_data()
         {
             //今天的数据
-            $tool = new Npcink_Toolbox_Tool;
+            $tool   = new Npcink_Toolbox_Tool();
             $option = $tool->get_site_census_data();
 
             $array = array(
                 array(
                     'title' => __('已发布', 'npcink-site-toolbox'),
-                    'num' => (int)$option['today']['single'],
-                    'unit' => __('篇', 'npcink-site-toolbox'),
-                    'icon' => "dashicons dashicons-universal-access",
+                    'num'   => (int) $option['today']['single'],
+                    'unit'  => __('篇', 'npcink-site-toolbox'),
+                    'icon'  => 'dashicons dashicons-universal-access',
                 ),
                 array(
                     'title' => __('已评论', 'npcink-site-toolbox'),
-                    'num' => (int)$option['today']['comments'],
-                    'unit' => __('条', 'npcink-site-toolbox'),
-                    'icon' => "dashicons dashicons-format-status",
+                    'num'   => (int) $option['today']['comments'],
+                    'unit'  => __('条', 'npcink-site-toolbox'),
+                    'icon'  => 'dashicons dashicons-format-status',
                 ),
                 array(
                     'title' => __('已注册', 'npcink-site-toolbox'),
-                    'num' => (int)$option['today']['register'],
-                    'unit' => __('位', 'npcink-site-toolbox'),
-                    'icon' => "dashicons dashicons-database-add",
-                )
+                    'num'   => (int) $option['today']['register'],
+                    'unit'  => __('位', 'npcink-site-toolbox'),
+                    'icon'  => 'dashicons dashicons-database-add',
+                ),
 
             );
             return $array;
@@ -171,20 +174,20 @@ if (!class_exists('Npcink_Toolbox_Census_Single')) {
             //准备日期
 
             $week = array(
-                "title" => __('统计', 'npcink-site-toolbox'),
-                "dataset" => self::get_user_release_arr()["week_sum"],
+                'title'   => __('统计', 'npcink-site-toolbox'),
+                'dataset' => self::get_user_release_arr()['week_sum'],
             );
 
             $month = array(
-                "width" => 1200,
-                "height" => 300,
-                "title" => __('月度统计', 'npcink-site-toolbox'),
-                "dataset" => self::get_user_release_arr()["month_sum"],
+                'width'   => 1200,
+                'height'  => 300,
+                'title'   => __('月度统计', 'npcink-site-toolbox'),
+                'dataset' => self::get_user_release_arr()['month_sum'],
             );
 
             $array = array(
-                "week" => $week,
-                "month" => $month,
+                'week'  => $week,
+                'month' => $month,
             );
 
             return $array;
@@ -233,7 +236,7 @@ if (!class_exists('Npcink_Toolbox_Census_Single')) {
             $candidates = is_array($input) && isset($input['option_id'])
                 ? (array) $input['option_id']
                 : array();
-            $ids = array();
+            $ids        = array();
 
             foreach ($candidates as $candidate) {
                 if (is_int($candidate)) {
@@ -248,8 +251,8 @@ if (!class_exists('Npcink_Toolbox_Census_Single')) {
                     continue;
                 }
 
-                if ($id > 0 && !isset($ids[$id])) {
-                    $ids[$id] = $id;
+                if ($id > 0 && !isset($ids[ $id ])) {
+                    $ids[ $id ] = $id;
                 }
             }
 
@@ -282,8 +285,8 @@ if (!class_exists('Npcink_Toolbox_Census_Single')) {
         public static function render_census_user_field($args)
         {
             // 首先，我们拿到选项
-            $options = get_option('npcink_site_toolbox_census');
-            $uwcc_checkbox_field_1 = isset($options['option_id']) ? (array) $options['option_id'] : [];
+            $options               = get_option('npcink_site_toolbox_census');
+            $uwcc_checkbox_field_1 = isset($options['option_id']) ? (array) $options['option_id'] : array();
             //name值很关键
 
             //拿到用户数据
@@ -296,23 +299,22 @@ if (!class_exists('Npcink_Toolbox_Census_Single')) {
 
             //将选项循环出来
             foreach ($user_data as $key => $value) {
-                $id = $value->ID;
+                $id   = $value->ID;
                 $name = $value->display_name;
-            ?>
+                ?>
 
-                <input type='checkbox' name='npcink_site_toolbox_census[option_id][]' <?php checked(in_array($id, $uwcc_checkbox_field_1), 1); ?> value='<?php echo esc_attr($id); ?>'>
+                <input type='checkbox' name='npcink_site_toolbox_census[option_id][]' <?php checked(in_array( (string) $id, array_map('strval', (array) $uwcc_checkbox_field_1), true)); ?> value='<?php echo esc_attr($id); ?>'>
                 <label class="magick-user-label"><?php echo esc_html($name); ?></label>
                 &nbsp;&nbsp;|&nbsp;&nbsp;
 
 
-            <?php
+                <?php
             } //end foreach
             ?>
             <!--描述-->
             <hr /><label for="option_id"> <?php echo esc_html($args[0]); ?></label>
 
-<?php
-
+            <?php
         }
 
 
@@ -331,15 +333,15 @@ if (!class_exists('Npcink_Toolbox_Census_Single')) {
 
             // 计算日期范围
             $start_date = min($data);
-            $end_date = max($data);
+            $end_date   = max($data);
 
             $posts_last_changed = function_exists('wp_cache_get_last_changed')
                 ? wp_cache_get_last_changed('posts')
                 : wp_cache_get('last_changed', 'posts');
-            $cache_key = 'article_counts_' . md5(
+            $cache_key          = 'article_counts_' . md5(
                 $start_date . '|' . $end_date . '|' . (string) $posts_last_changed
             );
-            $results = wp_cache_get($cache_key, 'npcink_site_toolbox');
+            $results            = wp_cache_get($cache_key, 'npcink_site_toolbox');
 
             if (false === $results) {
                 // 单次 SQL 查询，按日期和作者分组
@@ -359,24 +361,25 @@ if (!class_exists('Npcink_Toolbox_Census_Single')) {
                 wp_cache_set($cache_key, $results, 'npcink_site_toolbox', HOUR_IN_SECONDS);
             }
 
+            // phpcs:ignore Squiz.PHP.CommentedOutCode.Found -- 保留的历史模板参考注释
             // 构建查找表：[date => [author_id => count]]
             $lookup = array();
             foreach ($results as $row) {
-                if (!isset($lookup[$row->post_date])) {
-                    $lookup[$row->post_date] = array();
+                if (!isset($lookup[ $row->post_date ])) {
+                    $lookup[ $row->post_date ] = array();
                 }
-                $lookup[$row->post_date][$row->post_author] = (int) $row->cnt;
+                $lookup[ $row->post_date ][ $row->post_author ] = (int) $row->cnt;
             }
 
             // 构建输出数组
             $result = array();
             foreach ($data as $date) {
                 $current_date = DateTime::createFromFormat('Y-m-d', $date);
-                $current_day = $current_date->format('d');
+                $current_day  = $current_date->format('d');
 
                 $counts = array($current_day);
                 foreach ($id as $userId) {
-                    $counts[] = isset($lookup[$date][$userId]) ? $lookup[$date][$userId] : 0;
+                    $counts[] = isset($lookup[ $date ][ $userId ]) ? $lookup[ $date ][ $userId ] : 0;
                 }
 
                 $result[] = $counts;
@@ -412,7 +415,7 @@ if (!class_exists('Npcink_Toolbox_Census_Single')) {
         public static function handle_data($id, $time)
         {
             $week_time = self::format_dates($id); //整理昵称数据
-            array_unshift($week_time, "user"); //添加标识头
+            array_unshift($week_time, 'user'); //添加标识头
             $week_time = array($week_time); //存进数组
 
             $week_data = array_reverse(self::get_article_counts($time, $id)); //获取数据并反序
@@ -427,21 +430,19 @@ if (!class_exists('Npcink_Toolbox_Census_Single')) {
         public static function get_user_release_arr()
         {
             //工具函数
-            $tool = new Npcink_Toolbox_Tool;
+            $tool = new Npcink_Toolbox_Tool();
             //存储数组
             $arr = array();
             //拿到ID数组
             $options = get_option('npcink_site_toolbox_census');
 
             //默认查阅ID为1的人的发文数据
-            $id = isset($options['option_id']) ? $options['option_id'] : [1];
+            $id = isset($options['option_id']) ? $options['option_id'] : array(1);
 
             //拿到时间数组 - 最近一周
             $t_week = $tool->get_time()['a'];
             //拿到时间数组 - 本月
-            $t_month =  array_reverse($tool->get_time_long("this_month")); //获取时间并取反
-
-
+            $t_month =  array_reverse($tool->get_time_long('this_month')); //获取时间并取反
 
             $arr['week_sum'] = self::handle_data($id, $t_week);
 

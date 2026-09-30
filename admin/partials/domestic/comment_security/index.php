@@ -29,7 +29,9 @@ if (!class_exists('Npcink_Toolbox_Domestic_Comment_Security')) {
         }
         public static function check_blacklist($commentdata) {
             $words = self::get_word_list('blacklist_words');
-            if (empty($words)) return $commentdata;
+            if (empty($words)) {
+                return $commentdata;
+            }
             $text = $commentdata['comment_content'];
             foreach ($words as $word) {
                 if (stripos($text, $word) !== false) {
@@ -56,7 +58,7 @@ if (!class_exists('Npcink_Toolbox_Domestic_Comment_Security')) {
             $count = count($matches[0]);
             if ($count > $limit) {
                 $commentdata['comment_approved'] = 'spam';
-                self::$pending_block_reasons[] = '链接数量超限: ' . $count;
+                self::$pending_block_reasons[]   = '链接数量超限: ' . $count;
             }
             return $commentdata;
         }
@@ -68,7 +70,9 @@ if (!class_exists('Npcink_Toolbox_Domestic_Comment_Security')) {
          * 直接 add_comment_meta 会写到 ID 0 上（静默无效）。
          */
         public static function record_pending_block_reasons($comment_id, $comment, $request = array()) {
-            if (empty(self::$pending_block_reasons)) return;
+            if (empty(self::$pending_block_reasons)) {
+                return;
+            }
             foreach (self::$pending_block_reasons as $reason) {
                 add_comment_meta($comment_id, '_npcink_site_toolbox_block_reason', $reason);
             }
@@ -76,7 +80,9 @@ if (!class_exists('Npcink_Toolbox_Domestic_Comment_Security')) {
         }
         public static function check_nickname($commentdata) {
             $words = self::get_word_list('nickname_filter_words');
-            if (empty($words)) return $commentdata;
+            if (empty($words)) {
+                return $commentdata;
+            }
             $name = $commentdata['comment_author'];
             foreach ($words as $word) {
                 if (stripos($name, $word) !== false) {
@@ -91,8 +97,10 @@ if (!class_exists('Npcink_Toolbox_Domestic_Comment_Security')) {
         }
         public static function check_email_domain($commentdata) {
             $domains = self::get_word_list('email_domain_blacklist');
-            if (empty($domains)) return $commentdata;
-            $email = $commentdata['comment_author_email'];
+            if (empty($domains)) {
+                return $commentdata;
+            }
+            $email  = $commentdata['comment_author_email'];
             $domain = substr(strrchr($email, '@'), 1);
             foreach ($domains as $d) {
                 if (stripos($domain, trim($d)) !== false) {
@@ -125,13 +133,15 @@ if (!class_exists('Npcink_Toolbox_Domestic_Comment_Security')) {
             return $commentdata;
         }
         public static function check_ip_rate($commentdata) {
-            $limit = !empty(self::$config['ip_rate_limit']) ? intval(self::$config['ip_rate_limit']) : 5;
+            $limit  = !empty(self::$config['ip_rate_limit']) ? intval(self::$config['ip_rate_limit']) : 5;
             $window = !empty(self::$config['ip_rate_window']) ? intval(self::$config['ip_rate_window']) : 60;
-            $ip = self::get_client_ip();
-            $key = 'npcink_site_toolbox_comment_rate_' . md5($ip);
-            $count = get_transient($key);
-            if ($count === false) $count = 0;
-            $count++;
+            $ip     = self::get_client_ip();
+            $key    = 'npcink_site_toolbox_comment_rate_' . md5($ip);
+            $count  = get_transient($key);
+            if ($count === false) {
+                $count = 0;
+            }
+            ++$count;
             if ($count > $limit) {
                 wp_die(
                     esc_html(
@@ -152,7 +162,7 @@ if (!class_exists('Npcink_Toolbox_Domestic_Comment_Security')) {
             if (!empty(self::$config['log_enabled']) && $status === 'spam') {
                 $comment = get_comment($comment_id);
                 if ($comment) {
-                    $log = get_option('npcink_site_toolbox_spam_comment_log', array());
+                    $log   = get_option('npcink_site_toolbox_spam_comment_log', array());
                     $log[] = array(
                         'time'    => current_time('mysql'),
                         'id'      => $comment_id,
@@ -162,14 +172,18 @@ if (!class_exists('Npcink_Toolbox_Domestic_Comment_Security')) {
                         'content' => mb_substr($comment->comment_content, 0, 100),
                         'reason'  => get_comment_meta($comment_id, '_npcink_site_toolbox_block_reason', true),
                     );
-                    if (count($log) > 500) array_shift($log);
+                    if (count($log) > 500) {
+                        array_shift($log);
+                    }
                     update_option('npcink_site_toolbox_spam_comment_log', $log, false);
                 }
             }
         }
         private static function get_word_list($key) {
-            $text = !empty(self::$config[$key]) ? self::$config[$key] : '';
-            if (empty($text)) return array();
+            $text = !empty(self::$config[ $key ]) ? self::$config[ $key ] : '';
+            if (empty($text)) {
+                return array();
+            }
             $words = array_map('trim', explode("\n", $text));
             return array_filter($words);
         }

@@ -1,10 +1,10 @@
-(function($) {
+(function ($) {
     "use strict";
 
-    const thumbnail = window.npcinkSiteToolboxThumbnail || {};
+    const thumbnail       = window.npcinkSiteToolboxThumbnail || {};
     thumbnail.uploadFrame = false;
 
-    $(document).on('click', 'button.ts-ets-remove', function() {
+    $(document).on('click', 'button.ts-ets-remove', function () {
         thumbnail.postId = $(this).data('id');
         thumbnail.parent = $(this).closest('td.ts-ets-option');
 
@@ -20,7 +20,7 @@
                 nonce: $('#npcink_site_toolbox_thumbnail_nonce').val(),
                 post_id: thumbnail.postId
             },
-            success: function(data) {
+            success: function (data) {
                 if (data !== '') {
                     thumbnail.parent.html(data);
                 }
@@ -28,7 +28,7 @@
         });
     });
 
-    $(document).ready(function() {
+    $(document).ready(function () {
         thumbnail.uploadFrame = wp.media({
             title: thumbnail.upload_title,
             button: {
@@ -37,10 +37,10 @@
             multiple: false
         });
 
-        thumbnail.uploadFrame.on('select', function() {
+        thumbnail.uploadFrame.on('select', function () {
             thumbnail.selection = thumbnail.uploadFrame.state().get('selection');
 
-            thumbnail.selection.map(function(attachment) {
+            thumbnail.selection.map(function (attachment) {
                 if (attachment.id) {
                     $.ajax({
                         url: ajaxurl,
@@ -51,7 +51,7 @@
                             post_id: thumbnail.postId,
                             thumb_id: attachment.id
                         },
-                        success: function(data) {
+                        success: function (data) {
                             if (data !== '') {
                                 thumbnail.parent.html(data);
                             }
@@ -62,7 +62,7 @@
         });
     });
 
-    $(document).on('click', 'button.ts-ets-add', function(event) {
+    $(document).on('click', 'button.ts-ets-add', function (event) {
         event.preventDefault();
 
         thumbnail.postId = $(this).data('id');

@@ -19,8 +19,8 @@ if (!class_exists('Npcink_Toolbox_Comment_Limit_Word_Count')) {
 
         public static function set_comments_length($approved, $commentdata)
         {
-            $minCommentlength =  Npcink_Toolbox_Admin::get_config(self::$option, 'words_number_min'); //最少字數限制
-            $maxCommentlength = Npcink_Toolbox_Admin::get_config(self::$option, 'words_number_max'); //最多字數限制
+            $minCommentlength   =  Npcink_Toolbox_Admin::get_config(self::$option, 'words_number_min'); //最少字數限制
+            $maxCommentlength   = Npcink_Toolbox_Admin::get_config(self::$option, 'words_number_max'); //最多字數限制
             $pointCommentlength = mb_strlen($commentdata['comment_content'], 'UTF8'); //mb_strlen 1個中文字符當作1個長度
             if ($pointCommentlength < $minCommentlength) {
                 return new \WP_Error(

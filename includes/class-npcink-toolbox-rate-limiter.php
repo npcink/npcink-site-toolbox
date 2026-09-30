@@ -29,15 +29,15 @@ if (!class_exists('Npcink_Toolbox_Rate_Limiter')) {
          */
         public static function check($key, $config = array())
         {
-            $config = array_merge(self::$defaults, $config);
+            $config        = array_merge(self::$defaults, $config);
             $transient_key = 'npcink_site_toolbox_rate_limit_' . md5($key);
-            $data = get_transient($transient_key);
+            $data          = get_transient($transient_key);
 
             if ($data === false) {
                 // 首次请求，初始化计数
                 set_transient($transient_key, array(
-                    'count' => 1,
-                    'start' => time(),
+                    'count'   => 1,
+                    'start'   => time(),
                     'blocked' => false,
                 ), $config['time_window']);
                 return true;
@@ -52,27 +52,27 @@ if (!class_exists('Npcink_Toolbox_Rate_Limiter')) {
             if (time() - $data['start'] > $config['time_window']) {
                 // 重置计数
                 set_transient($transient_key, array(
-                    'count' => 1,
-                    'start' => time(),
+                    'count'   => 1,
+                    'start'   => time(),
                     'blocked' => false,
                 ), $config['time_window']);
                 return true;
             }
 
             // 增加计数
-            $data['count']++;
+            ++$data['count'];
 
             // 检查是否超过限制
             if ($data['count'] > $config['max_requests']) {
                 // 触发封禁
-                $data['blocked'] = true;
+                $data['blocked']    = true;
                 $data['blocked_at'] = time();
                 set_transient($transient_key, $data, $config['block_time']);
 
                 // 记录日志
                 if (class_exists('Npcink_Toolbox_Audit_Logger')) {
                     Npcink_Toolbox_Audit_Logger::rate_limit('频率限制触发: ' . $key, array(
-                        'count' => $data['count'],
+                        'count'       => $data['count'],
                         'time_window' => $config['time_window'],
                     ));
                 }
@@ -110,7 +110,7 @@ if (!class_exists('Npcink_Toolbox_Rate_Limiter')) {
         {
             return function () use ($endpoint, $config) {
                 $client_id = self::get_client_id();
-                $key = $endpoint . ':' . $client_id;
+                $key       = $endpoint . ':' . $client_id;
 
                 if (!self::check($key, $config)) {
                     return new \WP_Error(
@@ -136,7 +136,7 @@ if (!class_exists('Npcink_Toolbox_Rate_Limiter')) {
         {
             return function ($request = null) use ($endpoint, $nonce_action, $config) {
                 $client_id = self::get_client_id();
-                $key = $endpoint . ':' . $client_id;
+                $key       = $endpoint . ':' . $client_id;
 
                 if (!self::check($key, $config)) {
                     return new \WP_Error(

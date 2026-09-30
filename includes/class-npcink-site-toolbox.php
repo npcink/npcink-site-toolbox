@@ -42,7 +42,6 @@ class Npcink_Site_Toolbox
         $this->load_dependencies(); //加载此插件所需的依赖项
         $this->define_admin_hooks(); //注册与后台功能相关的所有挂钩
         $this->define_public_hooks(); //注册与前台功能相关的所有挂钩
-
     }
 
     /**
@@ -102,13 +101,10 @@ class Npcink_Site_Toolbox
             Npcink_Toolbox_Site_Health::run();
         }
 
-
         //01 要向其添加回调的操作的名称。
         //02 调用操作时要运行的回调。
         //03 用于指定与特定操作关联的函数的执行顺序
         //04 函数接受的参数数
-
-
     }
 
     /**
@@ -157,8 +153,8 @@ class Npcink_Site_Toolbox
             return;
         }
 
-        $merged = Npcink_Toolbox_Config_Manager::get_merged_config();
-        $cleaned = Npcink_Toolbox_Config_Schema::validate_full_config($merged);
+        $merged       = Npcink_Toolbox_Config_Manager::get_merged_config();
+        $cleaned      = Npcink_Toolbox_Config_Schema::validate_full_config($merged);
         $cleaned_data = is_array($cleaned) && isset($cleaned['data']) && is_array($cleaned['data'])
             ? $cleaned['data']
             : array();
@@ -173,16 +169,17 @@ class Npcink_Site_Toolbox
 
         $schema = Npcink_Toolbox_Config_Schema::get_schema();
         foreach (Npcink_Toolbox_Config_Manager::get_module_map_for_cleanup() as $top_key => $option_name) {
-            if (!isset($schema[$top_key]) || !is_array($schema[$top_key])) {
+            if (!isset($schema[ $top_key ]) || !is_array($schema[ $top_key ])) {
                 continue;
             }
             $raw = get_option($option_name, array());
             if (!is_array($raw)) {
                 continue;
             }
-            $normalized = isset($cleaned_data[$top_key]) && is_array($cleaned_data[$top_key])
-                ? $cleaned_data[$top_key]
+            $normalized = isset($cleaned_data[ $top_key ]) && is_array($cleaned_data[ $top_key ])
+                ? $cleaned_data[ $top_key ]
                 : array();
+            // phpcs:ignore Universal.Operators.StrictComparisons.LooseNotEqual -- 既有宽松比较语义已人工核实
             if ($normalized != $raw) {
                 update_option($option_name, $normalized, false);
             }

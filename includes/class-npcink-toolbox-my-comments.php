@@ -6,7 +6,7 @@ defined('ABSPATH') || exit;
  */
 final class Npcink_Toolbox_My_Comments implements Npcink_Toolbox_Module_Interface
 {
-    const PAGE_SLUG = 'npcink-site-toolbox-my-comments';
+    const PAGE_SLUG   = 'npcink-site-toolbox-my-comments';
     const BATCH_LIMIT = 20;
 
     public static function run($config = array())
@@ -87,9 +87,9 @@ final class Npcink_Toolbox_My_Comments implements Npcink_Toolbox_Module_Interfac
             return;
         }
 
-        $style_path = plugin_dir_path(__DIR__) . 'admin/css/my-comments.css';
-        $script_path = plugin_dir_path(__DIR__) . 'admin/js/my-comments.js';
-        $style_version = is_file($style_path) ? NPCINK_SITE_TOOLBOX_VERSION . '-' . filemtime($style_path) : NPCINK_SITE_TOOLBOX_VERSION;
+        $style_path     = plugin_dir_path(__DIR__) . 'admin/css/my-comments.css';
+        $script_path    = plugin_dir_path(__DIR__) . 'admin/js/my-comments.js';
+        $style_version  = is_file($style_path) ? NPCINK_SITE_TOOLBOX_VERSION . '-' . filemtime($style_path) : NPCINK_SITE_TOOLBOX_VERSION;
         $script_version = is_file($script_path) ? NPCINK_SITE_TOOLBOX_VERSION . '-' . filemtime($script_path) : NPCINK_SITE_TOOLBOX_VERSION;
 
         wp_enqueue_style(
@@ -106,9 +106,9 @@ final class Npcink_Toolbox_My_Comments implements Npcink_Toolbox_Module_Interfac
             true
         );
         wp_localize_script('npcink-site-toolbox-my-comments', 'npcinkMyComments', array(
-            'apiBase' => esc_url_raw(rest_url('npcink-site-toolbox/v1/me/comments')),
-            'nonce'   => wp_create_nonce('wp_rest'),
-            'pageSize'=> 20,
+            'apiBase'  => esc_url_raw(rest_url('npcink-site-toolbox/v1/me/comments')),
+            'nonce'    => wp_create_nonce('wp_rest'),
+            'pageSize' => 20,
         ));
     }
 
@@ -172,12 +172,12 @@ final class Npcink_Toolbox_My_Comments implements Npcink_Toolbox_Module_Interfac
     private static function list_args()
     {
         return array(
-            'page' => array('type' => 'integer', 'minimum' => 1, 'default' => 1),
+            'page'     => array('type' => 'integer', 'minimum' => 1, 'default' => 1),
             'pageSize' => array('type' => 'integer', 'minimum' => 1, 'maximum' => 50, 'default' => 20),
-            'status' => array(
-                'type' => 'string',
-                'enum' => array('all', 'approved', 'pending', 'trash'),
-                'default' => 'all',
+            'status'   => array(
+                'type'              => 'string',
+                'enum'              => array('all', 'approved', 'pending', 'trash'),
+                'default'           => 'all',
                 'sanitize_callback' => 'sanitize_key',
             ),
         );
@@ -186,11 +186,11 @@ final class Npcink_Toolbox_My_Comments implements Npcink_Toolbox_Module_Interfac
     private static function create_args()
     {
         return array(
-            'postId' => array('required' => true, 'type' => 'integer', 'minimum' => 1),
+            'postId'  => array('required' => true, 'type' => 'integer', 'minimum' => 1),
             'content' => array(
-                'required' => true,
-                'type' => 'string',
-                'minLength' => 1,
+                'required'          => true,
+                'type'              => 'string',
+                'minLength'         => 1,
                 'sanitize_callback' => array(__CLASS__, 'sanitize_comment_content'),
             ),
         );
@@ -199,17 +199,17 @@ final class Npcink_Toolbox_My_Comments implements Npcink_Toolbox_Module_Interfac
     private static function update_args()
     {
         return array(
-            'id' => array('required' => true, 'type' => 'integer', 'minimum' => 1),
-            'content' => array(
-                'required' => true,
-                'type' => 'string',
-                'minLength' => 1,
+            'id'           => array('required' => true, 'type' => 'integer', 'minimum' => 1),
+            'content'      => array(
+                'required'          => true,
+                'type'              => 'string',
+                'minLength'         => 1,
                 'sanitize_callback' => array(__CLASS__, 'sanitize_comment_content'),
             ),
             'expectedHash' => array(
-                'required' => true,
-                'type' => 'string',
-                'pattern' => '^[a-f0-9]{64}$',
+                'required'          => true,
+                'type'              => 'string',
+                'pattern'           => '^[a-f0-9]{64}$',
                 'sanitize_callback' => 'sanitize_key',
             ),
         );
@@ -274,33 +274,33 @@ final class Npcink_Toolbox_My_Comments implements Npcink_Toolbox_Module_Interfac
 
     public static function list_comments($request)
     {
-        $user_id = get_current_user_id();
-        $page = max(1, (int) $request->get_param('page'));
-        $page_size = min(50, max(1, (int) $request->get_param('pageSize')));
-        $status = self::query_status((string) $request->get_param('status'));
-        $query = array(
+        $user_id     = get_current_user_id();
+        $page        = max(1, (int) $request->get_param('page'));
+        $page_size   = min(50, max(1, (int) $request->get_param('pageSize')));
+        $status      = self::query_status( (string) $request->get_param('status'));
+        $query       = array(
             'user_id' => $user_id,
-            'status' => $status,
-            'number' => $page_size,
-            'offset' => ($page - 1) * $page_size,
+            'status'  => $status,
+            'number'  => $page_size,
+            'offset'  => ($page - 1) * $page_size,
             'orderby' => 'comment_date_gmt',
-            'order' => 'DESC',
+            'order'   => 'DESC',
         );
-        $comments = get_comments($query);
-        $reply_map = self::get_reply_map($comments);
+        $comments    = get_comments($query);
+        $reply_map   = self::get_reply_map($comments);
         $total_query = $query;
         unset($total_query['number'], $total_query['offset'], $total_query['orderby'], $total_query['order']);
         $total_query['count'] = true;
-        $total = (int) get_comments($total_query);
+        $total                = (int) get_comments($total_query);
 
         return rest_ensure_response(array(
-            'data' => array_map(function ($comment) use ($reply_map) {
+            'data'       => array_map(function ($comment) use ($reply_map) {
                 $comment_id = (int) $comment->comment_ID;
-                return self::prepare_comment($comment, !empty($reply_map[$comment_id]));
+                return self::prepare_comment($comment, !empty($reply_map[ $comment_id ]));
             }, $comments),
             'pagination' => array(
-                'page' => $page,
-                'pageSize' => $page_size,
+                'page'       => $page,
+                'pageSize'   => $page_size,
                 'totalItems' => $total,
                 'totalPages' => $total > 0 ? (int) ceil($total / $page_size) : 0,
             ),
@@ -311,7 +311,7 @@ final class Npcink_Toolbox_My_Comments implements Npcink_Toolbox_Module_Interfac
     {
         $post_id = (int) $request->get_param('postId');
         $content = self::sanitize_comment_content($request->get_param('content'));
-        $post = get_post($post_id);
+        $post    = get_post($post_id);
         if (!$post || 'publish' !== $post->post_status) {
             return new WP_Error('npcink_comment_post_not_found', __('文章不存在或不可评论。', 'npcink-site-toolbox'), array('status' => 404));
         }
@@ -322,15 +322,15 @@ final class Npcink_Toolbox_My_Comments implements Npcink_Toolbox_Module_Interfac
             return new WP_Error('npcink_comment_empty', __('评论内容不能为空。', 'npcink-site-toolbox'), array('status' => 400));
         }
 
-        $user = wp_get_current_user();
+        $user       = wp_get_current_user();
         $comment_id = wp_new_comment(array(
-            'comment_post_ID' => $post_id,
-            'comment_content' => $content,
-            'comment_parent' => 0,
-            'user_id' => (int) $user->ID,
-            'comment_author' => $user->display_name,
+            'comment_post_ID'      => $post_id,
+            'comment_content'      => $content,
+            'comment_parent'       => 0,
+            'user_id'              => (int) $user->ID,
+            'comment_author'       => $user->display_name,
             'comment_author_email' => $user->user_email,
-            'comment_author_url' => $user->user_url,
+            'comment_author_url'   => $user->user_url,
         ), true);
         if (is_wp_error($comment_id)) {
             return $comment_id;
@@ -341,14 +341,14 @@ final class Npcink_Toolbox_My_Comments implements Npcink_Toolbox_Module_Interfac
 
     public static function update_comment($request)
     {
-        $comment = self::get_owned_comment((int) $request->get_param('id'));
+        $comment = self::get_owned_comment( (int) $request->get_param('id'));
         if (is_wp_error($comment)) {
             return $comment;
         }
         if (self::is_trashed($comment)) {
             return new WP_Error('npcink_comment_already_deleted', __('评论已经进入回收站。', 'npcink-site-toolbox'), array('status' => 409));
         }
-        if (self::has_effective_replies((int) $comment->comment_ID)) {
+        if (self::has_effective_replies( (int) $comment->comment_ID)) {
             return new WP_Error('npcink_comment_has_replies', __('该评论已有回复，暂不支持修改。', 'npcink-site-toolbox'), array('status' => 409));
         }
         if (!hash_equals(self::comment_hash($comment), (string) $request->get_param('expectedHash'))) {
@@ -360,8 +360,8 @@ final class Npcink_Toolbox_My_Comments implements Npcink_Toolbox_Module_Interfac
         }
 
         $updated = wp_update_comment(array(
-            'comment_ID' => (int) $comment->comment_ID,
-            'comment_content' => $content,
+            'comment_ID'       => (int) $comment->comment_ID,
+            'comment_content'  => $content,
             'comment_approved' => 0,
         ), true);
         if (is_wp_error($updated)) {
@@ -371,41 +371,41 @@ final class Npcink_Toolbox_My_Comments implements Npcink_Toolbox_Module_Interfac
             return new WP_Error('npcink_comment_update_failed', __('评论修改失败。', 'npcink-site-toolbox'), array('status' => 500));
         }
 
-        clean_comment_cache((int) $comment->comment_ID);
-        return rest_ensure_response(self::prepare_comment(get_comment((int) $comment->comment_ID)));
+        clean_comment_cache( (int) $comment->comment_ID);
+        return rest_ensure_response(self::prepare_comment(get_comment( (int) $comment->comment_ID)));
     }
 
     public static function delete_comment($request)
     {
-        $result = self::delete_owned_comment((int) $request->get_param('id'));
+        $result = self::delete_owned_comment( (int) $request->get_param('id'));
         return is_wp_error($result) ? $result : rest_ensure_response($result);
     }
 
     public static function batch_delete_comments($request)
     {
-        $ids = self::sanitize_comment_ids($request->get_param('commentIds'));
+        $ids     = self::sanitize_comment_ids($request->get_param('commentIds'));
         $results = array();
         $deleted = 0;
         foreach ($ids as $id) {
             $result = self::delete_owned_comment($id);
             if (is_wp_error($result)) {
                 $results[] = array(
-                    'id' => $id,
-                    'status' => 'rejected',
-                    'code' => $result->get_error_code(),
+                    'id'      => $id,
+                    'status'  => 'rejected',
+                    'code'    => $result->get_error_code(),
                     'message' => $result->get_error_message(),
                 );
                 continue;
             }
-            $deleted++;
+            ++$deleted;
             $results[] = $result;
         }
 
         return rest_ensure_response(array(
             'summary' => array(
                 'requested' => count($ids),
-                'deleted' => $deleted,
-                'failed' => count($ids) - $deleted,
+                'deleted'   => $deleted,
+                'failed'    => count($ids) - $deleted,
             ),
             'results' => $results,
         ));
@@ -443,7 +443,7 @@ final class Npcink_Toolbox_My_Comments implements Npcink_Toolbox_Module_Interfac
         return (int) get_comments(array(
             'parent' => $comment_id,
             'status' => array('approve', 'hold'),
-            'count' => true,
+            'count'  => true,
         )) > 0;
     }
 
@@ -456,32 +456,32 @@ final class Npcink_Toolbox_My_Comments implements Npcink_Toolbox_Module_Interfac
     {
         $map = array(
             'approved' => 'approve',
-            'pending' => 'hold',
-            'trash' => 'trash',
-            'all' => array('approve', 'hold', 'trash'),
+            'pending'  => 'hold',
+            'trash'    => 'trash',
+            'all'      => array('approve', 'hold', 'trash'),
         );
-        return isset($map[$status]) ? $map[$status] : $map['all'];
+        return isset($map[ $status ]) ? $map[ $status ] : $map['all'];
     }
 
     public static function prepare_comment($comment, $has_replies = null)
     {
-        $status = wp_get_comment_status($comment);
+        $status     = wp_get_comment_status($comment);
         $status_map = array('approved' => 'approved', 'unapproved' => 'pending', 'trash' => 'trash');
         if (null === $has_replies) {
-            $has_replies = self::has_effective_replies((int) $comment->comment_ID);
+            $has_replies = self::has_effective_replies( (int) $comment->comment_ID);
         }
         return array(
-            'id' => (int) $comment->comment_ID,
-            'postId' => (int) $comment->comment_post_ID,
-            'postTitle' => get_the_title((int) $comment->comment_post_ID),
-            'postUrl' => esc_url_raw(get_permalink((int) $comment->comment_post_ID)),
-            'content' => (string) $comment->comment_content,
-            'status' => isset($status_map[$status]) ? $status_map[$status] : $status,
-            'date' => mysql_to_rfc3339($comment->comment_date_gmt),
+            'id'           => (int) $comment->comment_ID,
+            'postId'       => (int) $comment->comment_post_ID,
+            'postTitle'    => get_the_title( (int) $comment->comment_post_ID),
+            'postUrl'      => esc_url_raw(get_permalink( (int) $comment->comment_post_ID)),
+            'content'      => (string) $comment->comment_content,
+            'status'       => isset($status_map[ $status ]) ? $status_map[ $status ] : $status,
+            'date'         => mysql_to_rfc3339($comment->comment_date_gmt),
             'expectedHash' => self::comment_hash($comment),
-            'hasReplies' => $has_replies,
-            'canEdit' => !self::is_trashed($comment) && !$has_replies,
-            'canDelete' => !self::is_trashed($comment) && !$has_replies,
+            'hasReplies'   => $has_replies,
+            'canEdit'      => !self::is_trashed($comment) && !$has_replies,
+            'canDelete'    => !self::is_trashed($comment) && !$has_replies,
         );
     }
 
@@ -494,14 +494,14 @@ final class Npcink_Toolbox_My_Comments implements Npcink_Toolbox_Module_Interfac
             return array();
         }
 
-        $replies = get_comments(array(
+        $replies   = get_comments(array(
             'parent__in' => $parent_ids,
-            'status' => array('approve', 'hold'),
-            'number' => 0,
+            'status'     => array('approve', 'hold'),
+            'number'     => 0,
         ));
         $reply_map = array();
         foreach ($replies as $reply) {
-            $reply_map[(int) $reply->comment_parent] = true;
+            $reply_map[ (int) $reply->comment_parent ] = true;
         }
         return $reply_map;
     }

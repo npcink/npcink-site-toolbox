@@ -20,16 +20,17 @@ if (!class_exists('Npcink_Toolbox_Seo_Tag')) {
             //是标签
             if (is_tag()) {
                 if (get_query_var('paged') < 2) {
+                    // phpcs:ignore Squiz.PHP.CommentedOutCode.Found -- 保留的历史模板参考注释
                     //标签ID
                     // $term_id = get_query_var('tag_id');
 
+                    // phpcs:ignore Squiz.PHP.CommentedOutCode.Found -- 保留的历史模板参考注释
                     //分类关键词
                     // $keywords =  get_option('tag-words-' . $term_id);
                     // if ($keywords !== '' && $keywords !== false) {
                     //     echo '<meta name="keywords" content="' . $keywords . '" />';
                     //     echo "\n";
                     // }
-
 
                     //拿到标签的描述，关键词
                     $description_data = trim(wp_strip_all_tags(tag_description()));

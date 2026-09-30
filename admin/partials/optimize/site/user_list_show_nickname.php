@@ -12,7 +12,7 @@ if (!class_exists('Npcink_Toolbox_User_List_Show_Nickname')) {
         public static function run($config = array())
         {
             add_filter('manage_users_columns', array(__CLASS__, 'add_user_nickname_column'));
-            add_action('manage_users_custom_column',  array(__CLASS__, 'show_user_nickname_column_content'), 20, 3);
+            add_action('manage_users_custom_column', array(__CLASS__, 'show_user_nickname_column_content'), 20, 3);
         }
 
 
@@ -25,12 +25,13 @@ if (!class_exists('Npcink_Toolbox_User_List_Show_Nickname')) {
 
         public static function show_user_nickname_column_content($value, $column_name, $user_id)
         {
-            $user = get_userdata($user_id);
+            $user          = get_userdata($user_id);
             $user_nickname = $user->nickname;
-            if ('user_nickname' == $column_name)
+            // phpcs:ignore Universal.Operators.StrictComparisons.LooseEqual -- 既有宽松比较语义已人工核实
+            if ('user_nickname' == $column_name) {
                 return $user_nickname;
+            }
             return $value;
         }
-
     }
 }

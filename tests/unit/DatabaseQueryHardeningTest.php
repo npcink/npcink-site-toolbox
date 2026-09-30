@@ -83,7 +83,7 @@ final class DatabaseQueryHardeningTest extends TestCase
     {
         $source = $this->source('includes/class-npcink-toolbox-tool.php');
 
-        $this->assertStringContainsString('$today_users = new WP_User_Query(array(', $source);
+        $this->assertStringContainsString('$today_users              = new WP_User_Query(array(', $source);
         $this->assertStringContainsString("'date_query'  => array(", $source);
         $this->assertStringContainsString("'count_total' => true", $source);
         $this->assertStringContainsString('$today_users->get_total()', $source);

@@ -49,7 +49,7 @@ if (!class_exists('Npcink_Toolbox_Page_Reading_Progress')) {
                 return;
             }
 
-            $color = Npcink_Toolbox_Admin::get_config(self::$option, 'reading_progress_color', '#1677ff');
+            $color  = Npcink_Toolbox_Admin::get_config(self::$option, 'reading_progress_color', '#1677ff');
             $height = Npcink_Toolbox_Admin::get_config(self::$option, 'reading_progress_height', 3);
 
             if (empty($color)) {

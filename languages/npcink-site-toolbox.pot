@@ -267,7 +267,7 @@ msgstr ""
 
 #: vite/admin/dist/index.js:51
 #: admin/modules/metadata.php:159
-#: admin/partials/performance/seo_checker/index.php:28
+#: admin/partials/performance/seo_checker/index.php:30
 msgid "文章 SEO"
 msgstr ""
 
@@ -630,7 +630,7 @@ msgid "工具栏"
 msgstr ""
 
 #: vite/admin/dist/index.js:123
-#: includes/class-npcink-toolbox-diagnostics.php:1898
+#: includes/class-npcink-toolbox-diagnostics.php:1902
 msgid "站点与媒体"
 msgstr ""
 
@@ -696,7 +696,7 @@ msgid "图片自动添加 Alt"
 msgstr ""
 
 #: vite/admin/dist/index.js:138
-#: admin/partials/optimize/admin/thumbnail_switcher/easy-thumbnail-switcher.php:99
+#: admin/partials/optimize/admin/thumbnail_switcher/easy-thumbnail-switcher.php:96
 msgid "缩略图"
 msgstr ""
 
@@ -787,7 +787,7 @@ msgid "评论间隔限制"
 msgstr ""
 
 #: vite/admin/dist/index.js:160
-#: includes/class-npcink-toolbox-diagnostics.php:1899
+#: includes/class-npcink-toolbox-diagnostics.php:1903
 msgid "内容与页面"
 msgstr ""
 
@@ -845,7 +845,7 @@ msgid "外观"
 msgstr ""
 
 #: vite/admin/dist/index.js:174
-#: admin/partials/performance/seo_checker/index.php:53
+#: admin/partials/performance/seo_checker/index.php:55
 msgid "特色图"
 msgstr ""
 
@@ -894,7 +894,7 @@ msgid "闭站"
 msgstr ""
 
 #: vite/admin/dist/index.js:186
-#: admin/partials/function/auxiliary/census-single.php:174
+#: admin/partials/function/auxiliary/census-single.php:177
 msgid "统计"
 msgstr ""
 
@@ -907,7 +907,7 @@ msgid "浏览"
 msgstr ""
 
 #: vite/admin/dist/index.js:189
-#: includes/class-npcink-toolbox-diagnostics.php:1900
+#: includes/class-npcink-toolbox-diagnostics.php:1904
 msgid "SEO 与增强"
 msgstr ""
 
@@ -967,7 +967,7 @@ msgid "ICP 备案号"
 msgstr ""
 
 #: vite/admin/dist/index.js:203
-#: includes/class-npcink-toolbox-diagnostics.php:1901
+#: includes/class-npcink-toolbox-diagnostics.php:1905
 msgid "国内生态"
 msgstr ""
 
@@ -1145,7 +1145,7 @@ msgid "云存储"
 msgstr ""
 
 #: vite/admin/dist/index.js:247
-#: includes/class-npcink-toolbox-diagnostics.php:1902
+#: includes/class-npcink-toolbox-diagnostics.php:1906
 msgid "存储与维护"
 msgstr ""
 
@@ -1597,7 +1597,7 @@ msgid "指定时间后才能再次评论"
 msgstr ""
 
 #: vite/admin/dist/index.js:357
-#: admin/partials/page/function/maintenance/countdown/main.js:12
+#: admin/partials/page/function/maintenance/countdown/main.js:11
 msgid "秒"
 msgstr ""
 
@@ -2505,7 +2505,7 @@ msgid "美化"
 msgstr ""
 
 #: vite/admin/dist/index.js:581
-#: includes/class-npcink-toolbox-diagnostics.php:1904
+#: includes/class-npcink-toolbox-diagnostics.php:1908
 msgid "其他"
 msgstr ""
 
@@ -4410,7 +4410,7 @@ msgid "确认开启"
 msgstr ""
 
 #: vite/admin/dist/index.js:1043
-#: admin/class-npcink-toolbox-admin.php:152
+#: admin/class-npcink-toolbox-admin.php:151
 #: admin/partials/privacy/index.php:188
 msgid "不再提示"
 msgstr ""
@@ -4462,13 +4462,13 @@ msgid "设置数据包含敏感字段：%s"
 msgstr ""
 
 #: vite/admin/dist/index.js:1054
-#: admin/class-npcink-toolbox-admin.php:393
-#: includes/class-npcink-toolbox-config-manager.php:121
+#: admin/class-npcink-toolbox-admin.php:392
+#: includes/class-npcink-toolbox-config-manager.php:122
 msgid "设置数据格式无效"
 msgstr ""
 
 #: vite/admin/dist/index.js:1055
-#: admin/class-npcink-toolbox-admin.php:374
+#: admin/class-npcink-toolbox-admin.php:373
 msgid "保存成功"
 msgstr ""
 
@@ -4538,19 +4538,19 @@ msgstr ""
 msgid "放弃更改"
 msgstr ""
 
-#: admin/partials/page/function/maintenance/countdown/main.js:8
+#: admin/partials/page/function/maintenance/countdown/main.js:7
 msgid "倒计时结束"
 msgstr ""
 
-#: admin/partials/page/function/maintenance/countdown/main.js:9
+#: admin/partials/page/function/maintenance/countdown/main.js:8
 msgid "天"
 msgstr ""
 
-#: admin/partials/page/function/maintenance/countdown/main.js:10
+#: admin/partials/page/function/maintenance/countdown/main.js:9
 msgid "时"
 msgstr ""
 
-#: admin/partials/page/function/maintenance/countdown/main.js:11
+#: admin/partials/page/function/maintenance/countdown/main.js:10
 msgid "分"
 msgstr ""
 
@@ -4591,121 +4591,121 @@ msgstr ""
 msgid "https://www.npc.ink/"
 msgstr ""
 
-#: admin/class-npcink-toolbox-admin.php:96
-#: admin/class-npcink-toolbox-admin.php:106
+#: admin/class-npcink-toolbox-admin.php:95
+#: admin/class-npcink-toolbox-admin.php:105
 msgid "Npcink Site Toolbox 设置"
 msgstr ""
 
-#: admin/class-npcink-toolbox-admin.php:97
-#: admin/class-npcink-toolbox-admin.php:107
+#: admin/class-npcink-toolbox-admin.php:96
+#: admin/class-npcink-toolbox-admin.php:106
 msgid "Npcink 站点工具箱"
 msgstr ""
 
+#: admin/class-npcink-toolbox-admin.php:114
 #: admin/class-npcink-toolbox-admin.php:115
-#: admin/class-npcink-toolbox-admin.php:116
 msgid "用户评论 REST 接口教程"
 msgstr ""
 
 #. translators: %s: Settings page link.
-#: admin/class-npcink-toolbox-admin.php:149
+#: admin/class-npcink-toolbox-admin.php:148
 #, php-format
 msgid "Npcink Site Toolbox 已激活，可前往 %s 按需启用功能。"
 msgstr ""
 
-#: admin/class-npcink-toolbox-admin.php:150
+#: admin/class-npcink-toolbox-admin.php:149
 msgid "设置页面"
 msgstr ""
 
-#: admin/class-npcink-toolbox-admin.php:199
+#: admin/class-npcink-toolbox-admin.php:198
 msgid "抱歉，您不能访问此页面。"
 msgstr ""
 
-#: admin/class-npcink-toolbox-admin.php:329
-#: includes/class-npcink-toolbox-config-manager.php:290
+#: admin/class-npcink-toolbox-admin.php:328
+#: includes/class-npcink-toolbox-config-manager.php:291
 msgid "保存失败，已恢复为之前的设置"
 msgstr ""
 
-#: admin/class-npcink-toolbox-admin.php:330
+#: admin/class-npcink-toolbox-admin.php:329
 msgid "保存失败，无法确认所有设置已恢复。请重新读取并核对设置后再保存"
 msgstr ""
 
 #. translators: %s: comma-separated module names that could not be confirmed as restored.
-#: admin/class-npcink-toolbox-admin.php:334
-#: includes/class-npcink-toolbox-config-manager.php:293
+#: admin/class-npcink-toolbox-admin.php:333
+#: includes/class-npcink-toolbox-config-manager.php:294
 #, php-format
 msgid "保存失败，以下模块未能确认恢复：%s。请重新读取并核对设置后再保存"
 msgstr ""
 
-#: admin/class-npcink-toolbox-admin.php:346
+#: admin/class-npcink-toolbox-admin.php:345
 msgid "保存配置失败，已确认回滚"
 msgstr ""
 
-#: admin/class-npcink-toolbox-admin.php:347
+#: admin/class-npcink-toolbox-admin.php:346
 msgid "保存配置失败，回滚未能完整确认"
 msgstr ""
 
-#: admin/class-npcink-toolbox-admin.php:376
+#: admin/class-npcink-toolbox-admin.php:375
 msgid "保存成功（部分字段已自动修正）"
 msgstr ""
 
-#: admin/class-npcink-toolbox-admin.php:388
+#: admin/class-npcink-toolbox-admin.php:387
 #: admin/class-npcink-toolbox-admin.php:434
-#: admin/class-npcink-toolbox-admin.php:452
+#: admin/class-npcink-toolbox-admin.php:453
 #: admin/partials/performance/db_clean/index.php:112
 #: admin/partials/performance/db_clean/index.php:130
 #: admin/partials/performance/db_clean/index.php:155
-#: admin/partials/performance/media_health/index.php:23
-#: admin/partials/performance/media_health/index.php:99
-#: admin/partials/performance/media_health/index.php:110
-#: admin/partials/performance/oss/index.php:80
-#: admin/partials/performance/seo_checker/index.php:12
+#: admin/partials/performance/media_health/index.php:25
+#: admin/partials/performance/media_health/index.php:101
+#: admin/partials/performance/media_health/index.php:112
+#: admin/partials/performance/oss/index.php:82
+#: admin/partials/performance/seo_checker/index.php:14
 msgid "权限不足"
 msgstr ""
 
-#: admin/class-npcink-toolbox-admin.php:404
+#: admin/class-npcink-toolbox-admin.php:403
 msgid "请求必须包含 settings、secretChanges 和有效 revision"
 msgstr ""
 
-#: admin/class-npcink-toolbox-admin.php:411
+#: admin/class-npcink-toolbox-admin.php:410
 msgid "站点设置已在其他页面或会话中更新。请重新读取设置，核对差异后再保存。"
 msgstr ""
 
-#: admin/class-npcink-toolbox-admin.php:477
-#: admin/class-npcink-toolbox-admin.php:498
-#: admin/class-npcink-toolbox-admin.php:517
-#: admin/class-npcink-toolbox-admin.php:541
-#: admin/class-npcink-toolbox-admin.php:565
-#: admin/class-npcink-toolbox-admin.php:582
-#: admin/class-npcink-toolbox-admin.php:604
+#: admin/class-npcink-toolbox-admin.php:479
+#: admin/class-npcink-toolbox-admin.php:501
+#: admin/class-npcink-toolbox-admin.php:521
+#: admin/class-npcink-toolbox-admin.php:545
+#: admin/class-npcink-toolbox-admin.php:569
+#: admin/class-npcink-toolbox-admin.php:586
+#: admin/class-npcink-toolbox-admin.php:608
 msgid "诊断服务暂不可用"
 msgstr ""
 
-#: admin/class-npcink-toolbox-admin.php:729
-#: admin/class-npcink-toolbox-admin.php:780
+#: admin/class-npcink-toolbox-admin.php:733
+#: admin/class-npcink-toolbox-admin.php:783
 msgid "不含凭据的完整设置"
 msgstr ""
 
-#: admin/class-npcink-toolbox-admin.php:740
+#: admin/class-npcink-toolbox-admin.php:744
 msgid "凭据 replace/clear 操作"
 msgstr ""
 
-#: admin/class-npcink-toolbox-admin.php:752
+#: admin/class-npcink-toolbox-admin.php:756
 msgid "读取设置时返回的不透明配置版本指纹"
 msgstr ""
 
-#: admin/class-npcink-toolbox-admin.php:791
+#: admin/class-npcink-toolbox-admin.php:794
 msgid "对象存储凭据 replace/clear 操作"
 msgstr ""
 
-#: admin/class-npcink-toolbox-admin.php:823
+#: admin/class-npcink-toolbox-admin.php:826
 msgid "每批最多 5 个 JPEG 附件 ID"
 msgstr ""
 
-#: admin/class-npcink-toolbox-admin.php:1099
+#: admin/class-npcink-toolbox-admin.php:1101
 msgid "统计天数范围"
 msgstr ""
 
-#: admin/class-npcink-toolbox-admin.php:1179
+#: admin/class-npcink-toolbox-admin.php:1181
 msgid "返回"
 msgstr ""
 
@@ -4717,63 +4717,63 @@ msgstr ""
 msgid "REST API"
 msgstr ""
 
-#: admin/partials/domestic/comment_security/index.php:39
+#: admin/partials/domestic/comment_security/index.php:41
 msgid "评论包含敏感词，已被拦截。"
 msgstr ""
 
-#: admin/partials/domestic/comment_security/index.php:40
+#: admin/partials/domestic/comment_security/index.php:42
 msgid "评论拦截"
 msgstr ""
 
-#: admin/partials/domestic/comment_security/index.php:84
+#: admin/partials/domestic/comment_security/index.php:90
 msgid "昵称包含不允许的词汇。"
 msgstr ""
 
-#: admin/partials/domestic/comment_security/index.php:85
+#: admin/partials/domestic/comment_security/index.php:91
 msgid "昵称拦截"
 msgstr ""
 
-#: admin/partials/domestic/comment_security/index.php:100
+#: admin/partials/domestic/comment_security/index.php:108
 msgid "该邮箱域名不允许评论。"
 msgstr ""
 
-#: admin/partials/domestic/comment_security/index.php:101
+#: admin/partials/domestic/comment_security/index.php:109
 msgid "邮箱拦截"
 msgstr ""
 
-#: admin/partials/domestic/comment_security/index.php:120
+#: admin/partials/domestic/comment_security/index.php:128
 msgid "请勿重复提交相同评论。"
 msgstr ""
 
-#: admin/partials/domestic/comment_security/index.php:121
+#: admin/partials/domestic/comment_security/index.php:129
 msgid "重复拦截"
 msgstr ""
 
 #. translators: %d: Number of seconds before another comment can be submitted.
-#: admin/partials/domestic/comment_security/index.php:140
+#: admin/partials/domestic/comment_security/index.php:150
 #, php-format
 msgid "评论过于频繁，请 %d 秒后再试。"
 msgstr ""
 
-#: admin/partials/domestic/comment_security/index.php:144
+#: admin/partials/domestic/comment_security/index.php:154
 msgid "频率限制"
 msgstr ""
 
 #. translators: 1: Current year. 2: Site name.
-#: admin/partials/domestic/compliance/index.php:30
+#: admin/partials/domestic/compliance/index.php:34
 #, php-format
 msgid "© %1$s %2$s 版权所有"
 msgstr ""
 
-#: admin/partials/domestic/compliance/index.php:44
+#: admin/partials/domestic/compliance/index.php:52
 msgid "Cookie 同意"
 msgstr ""
 
-#: admin/partials/domestic/compliance/index.php:45
+#: admin/partials/domestic/compliance/index.php:53
 msgid "本网站使用 Cookie 来改善您的体验。"
 msgstr ""
 
-#: admin/partials/domestic/compliance/index.php:46
+#: admin/partials/domestic/compliance/index.php:54
 msgid "我知道了"
 msgstr ""
 
@@ -4781,11 +4781,11 @@ msgstr ""
 msgid "登录尝试过多，请稍后再试。"
 msgstr ""
 
-#: admin/partials/domestic/wechat/index.php:78
+#: admin/partials/domestic/wechat/index.php:87
 msgid "点击右上角 ··· 在浏览器中打开"
 msgstr ""
 
-#: admin/partials/domestic/wechat/index.php:87
+#: admin/partials/domestic/wechat/index.php:96
 msgid "继续浏览"
 msgstr ""
 
@@ -4793,58 +4793,58 @@ msgstr ""
 msgid "搜索内容包含敏感词，请换个关键词搜索"
 msgstr ""
 
-#: admin/partials/function/auxiliary/census-single.php:33
 #: admin/partials/function/auxiliary/census-single.php:34
+#: admin/partials/function/auxiliary/census-single.php:35
 msgid "发文统计"
 msgstr ""
 
-#: admin/partials/function/auxiliary/census-single.php:144
+#: admin/partials/function/auxiliary/census-single.php:147
 msgid "已发布"
 msgstr ""
 
-#: admin/partials/function/auxiliary/census-single.php:146
+#: admin/partials/function/auxiliary/census-single.php:149
 msgid "篇"
 msgstr ""
 
-#: admin/partials/function/auxiliary/census-single.php:150
+#: admin/partials/function/auxiliary/census-single.php:153
 msgid "已评论"
 msgstr ""
 
-#: admin/partials/function/auxiliary/census-single.php:152
+#: admin/partials/function/auxiliary/census-single.php:155
 msgid "条"
 msgstr ""
 
-#: admin/partials/function/auxiliary/census-single.php:156
+#: admin/partials/function/auxiliary/census-single.php:159
 msgid "已注册"
 msgstr ""
 
-#: admin/partials/function/auxiliary/census-single.php:158
+#: admin/partials/function/auxiliary/census-single.php:161
 msgid "位"
 msgstr ""
 
-#: admin/partials/function/auxiliary/census-single.php:181
+#: admin/partials/function/auxiliary/census-single.php:184
 msgid "月度统计"
 msgstr ""
 
-#: admin/partials/function/auxiliary/census-single.php:199
+#: admin/partials/function/auxiliary/census-single.php:202
 msgid "已统计人员 ID"
 msgstr ""
 
-#: admin/partials/function/auxiliary/census-single.php:207
+#: admin/partials/function/auxiliary/census-single.php:210
 msgid "待统计人员"
 msgstr ""
 
-#: admin/partials/function/auxiliary/census-single.php:212
+#: admin/partials/function/auxiliary/census-single.php:215
 msgid "选择需要监控的用户（排除订阅者）"
 msgstr ""
 
 #. translators: %s: Comma-separated user IDs.
-#: admin/partials/function/auxiliary/census-single.php:269
+#: admin/partials/function/auxiliary/census-single.php:272
 #, php-format
 msgid "您选择的人员 ID 是：%s"
 msgstr ""
 
-#: admin/partials/function/auxiliary/census-single.php:274
+#: admin/partials/function/auxiliary/census-single.php:277
 msgid "您没有选择值"
 msgstr ""
 
@@ -4878,11 +4878,11 @@ msgstr ""
 msgid "用于 %s 分类的 SEO 自定义关键字，用英文逗号分隔，如：keyword1,keyword2,keyword3"
 msgstr ""
 
-#: admin/partials/optimize/admin/add_time_screen.php:67
+#: admin/partials/optimize/admin/add_time_screen.php:69
 msgid "开始于"
 msgstr ""
 
-#: admin/partials/optimize/admin/add_time_screen.php:69
+#: admin/partials/optimize/admin/add_time_screen.php:71
 msgid "结束于"
 msgstr ""
 
@@ -4890,12 +4890,13 @@ msgstr ""
 msgid "当前列表没有可编辑的内容。"
 msgstr ""
 
-#: admin/partials/optimize/admin/open_all_edit_tabs.php:36
+#. translators: %d: Number of tabs blocked by the browser's pop-up blocker.
+#: admin/partials/optimize/admin/open_all_edit_tabs.php:37
 #, php-format
 msgid "有 %d 个标签页被浏览器拦截，请在允许本站弹出式窗口后重试。"
 msgstr ""
 
-#: admin/partials/optimize/admin/single_add_user_screen.php:39
+#: admin/partials/optimize/admin/single_add_user_screen.php:40
 msgid "全部作者"
 msgstr ""
 
@@ -4923,19 +4924,19 @@ msgstr ""
 msgid "确定吗？"
 msgstr ""
 
-#: admin/partials/optimize/medium/svg_support.php:146
+#: admin/partials/optimize/medium/svg_support.php:156
 msgid "仅管理员可上传 SVG 文件"
 msgstr ""
 
-#: admin/partials/optimize/medium/svg_support.php:153
+#: admin/partials/optimize/medium/svg_support.php:164
 msgid "无法读取 SVG 文件内容"
 msgstr ""
 
-#: admin/partials/optimize/medium/svg_support.php:160
+#: admin/partials/optimize/medium/svg_support.php:172
 msgid "SVG 文件格式无效（无效的 XML）"
 msgstr ""
 
-#: admin/partials/optimize/medium/svg_support.php:169
+#: admin/partials/optimize/medium/svg_support.php:182
 msgid "无法保存清洗后的 SVG 文件"
 msgstr ""
 
@@ -4943,36 +4944,36 @@ msgstr ""
 msgid "[IP 已隐藏]"
 msgstr ""
 
-#: admin/partials/optimize/widget/index.php:31
+#: admin/partials/optimize/widget/index.php:32
 msgid "Npcink Site Toolbox - 站点统计"
 msgstr ""
 
-#: admin/partials/optimize/widget/index.php:32
+#: admin/partials/optimize/widget/index.php:33
 msgid "显示站点文章、评论、用户等统计信息"
 msgstr ""
 
-#: admin/partials/optimize/widget/index.php:52
+#: admin/partials/optimize/widget/index.php:53
 msgid "站点统计"
 msgstr ""
 
-#: admin/partials/optimize/widget/index.php:55
-#: admin/partials/optimize/widget/index.php:119
+#: admin/partials/optimize/widget/index.php:56
+#: admin/partials/optimize/widget/index.php:121
 msgid "标题："
 msgstr ""
 
-#: admin/partials/optimize/widget/index.php:76
+#: admin/partials/optimize/widget/index.php:78
 msgid "Npcink Site Toolbox - 最新文章（带图）"
 msgstr ""
 
-#: admin/partials/optimize/widget/index.php:77
+#: admin/partials/optimize/widget/index.php:79
 msgid "显示最新文章列表，带特色图缩略图"
 msgstr ""
 
-#: admin/partials/optimize/widget/index.php:115
+#: admin/partials/optimize/widget/index.php:117
 msgid "最新文章"
 msgstr ""
 
-#: admin/partials/optimize/widget/index.php:123
+#: admin/partials/optimize/widget/index.php:125
 msgid "显示数量："
 msgstr ""
 
@@ -5146,20 +5147,20 @@ msgstr ""
 msgid "倒计时结束后即可正常访问"
 msgstr ""
 
-#: admin/partials/page/function/maintenance/index.php:36
+#: admin/partials/page/function/maintenance/index.php:34
 msgid "升级维护中"
 msgstr ""
 
-#: admin/partials/page/function/maintenance/index.php:52
+#: admin/partials/page/function/maintenance/index.php:50
 msgid "抱歉，我们的网站正在维护中。"
 msgstr ""
 
-#: admin/partials/page/function/maintenance/index.php:53
+#: admin/partials/page/function/maintenance/index.php:51
 msgid "请在倒计时结束后再回来，我们正在准备新的内容。"
 msgstr ""
 
 #. translators: %s: Site name.
-#: admin/partials/page/function/maintenance_tips.php:45
+#: admin/partials/page/function/maintenance_tips.php:43
 #, php-format
 msgid "%s 正在升级维护，请稍后再来。"
 msgstr ""
@@ -5169,7 +5170,7 @@ msgid "搜索过于频繁，请稍后再试。"
 msgstr ""
 
 #. translators: %s: Tag name used in the generated link title.
-#: admin/partials/page/function/single_keyword_add_link.php:67
+#: admin/partials/page/function/single_keyword_add_link.php:68
 #, php-format
 msgid "查看所有文章关于 %s"
 msgstr ""
@@ -5200,300 +5201,300 @@ msgid "将优化当前站点的数据库表（不删除数据）"
 msgstr ""
 
 #. translators: %d: number of post revisions that will be deleted.
-#: admin/partials/performance/db_clean/index.php:259
+#: admin/partials/performance/db_clean/index.php:260
 #, php-format
 msgid "将删除 %d 个文章修订版本"
 msgstr ""
 
 #. translators: %d: number of auto-drafts that will be deleted.
-#: admin/partials/performance/db_clean/index.php:261
+#: admin/partials/performance/db_clean/index.php:262
 #, php-format
 msgid "将删除 %d 个自动草稿"
 msgstr ""
 
 #. translators: %d: number of spam comments that will be deleted.
-#: admin/partials/performance/db_clean/index.php:263
+#: admin/partials/performance/db_clean/index.php:264
 #, php-format
 msgid "将删除 %d 条垃圾评论"
 msgstr ""
 
 #. translators: %d: number of expired transients that will be deleted.
-#: admin/partials/performance/db_clean/index.php:265
+#: admin/partials/performance/db_clean/index.php:266
 #, php-format
 msgid "将删除 %d 个过期临时选项"
 msgstr ""
 
 #. translators: %d: number of pending posts that will be deleted.
-#: admin/partials/performance/db_clean/index.php:267
+#: admin/partials/performance/db_clean/index.php:268
 #, php-format
 msgid "将删除 %d 个待审核文章"
 msgstr ""
 
 #. translators: %d: number of trashed posts that will be deleted.
-#: admin/partials/performance/db_clean/index.php:269
+#: admin/partials/performance/db_clean/index.php:270
 #, php-format
 msgid "将删除 %d 个回收站文章"
 msgstr ""
 
 #. translators: %d: number of affected records that will be deleted.
-#: admin/partials/performance/db_clean/index.php:275
+#: admin/partials/performance/db_clean/index.php:276
 #, php-format
 msgid "将删除 %d 条数据"
 msgstr ""
 
-#: admin/partials/performance/db_clean/index.php:327
-#: admin/partials/performance/db_clean/index.php:344
+#: admin/partials/performance/db_clean/index.php:328
+#: admin/partials/performance/db_clean/index.php:345
 msgid "清理预览已失效或不属于当前操作，请重新预览。"
 msgstr ""
 
-#: admin/partials/performance/db_clean/index.php:357
+#: admin/partials/performance/db_clean/index.php:358
 msgid "数据库内容已发生变化，请重新预览并确认最新影响范围。"
 msgstr ""
 
-#: admin/partials/performance/media_health/index.php:36
+#: admin/partials/performance/media_health/index.php:38
 msgid "缺少 Alt"
 msgstr ""
 
 #. translators: %d: number of recent attachments included in the sample.
-#: admin/partials/performance/media_health/index.php:44
+#: admin/partials/performance/media_health/index.php:46
 #, php-format
 msgid "超大图片（最近 %d 个附件抽样）"
 msgstr ""
 
-#: admin/partials/performance/media_health/index.php:45
+#: admin/partials/performance/media_health/index.php:47
 msgid "超大图片"
 msgstr ""
 
 #. translators: %d: number of recent attachments included in the sample.
-#: admin/partials/performance/media_health/index.php:57
+#: admin/partials/performance/media_health/index.php:59
 #, php-format
 msgid "中文文件名（最近 %d 个附件抽样）"
 msgstr ""
 
-#: admin/partials/performance/media_health/index.php:58
+#: admin/partials/performance/media_health/index.php:60
 msgid "中文文件名"
 msgstr ""
 
-#: admin/partials/performance/media_health/index.php:75
+#: admin/partials/performance/media_health/index.php:77
 msgid "可能未使用"
 msgstr ""
 
-#: admin/partials/performance/media_health/index.php:81
+#: admin/partials/performance/media_health/index.php:83
 msgid "无特色图文章"
 msgstr ""
 
-#: admin/partials/performance/media_health/webp_batch.php:99
+#: admin/partials/performance/media_health/webp_batch.php:111
 msgid "当前服务器不支持生成 WebP。"
 msgstr ""
 
-#: admin/partials/performance/media_health/webp_batch.php:103
-#: admin/partials/performance/media_health/webp_batch.php:207
+#: admin/partials/performance/media_health/webp_batch.php:115
+#: admin/partials/performance/media_health/webp_batch.php:219
 msgid "该附件正在处理中，请稍后重试。"
 msgstr ""
 
-#: admin/partials/performance/media_health/webp_batch.php:110
+#: admin/partials/performance/media_health/webp_batch.php:122
 msgid "附件不存在。"
 msgstr ""
 
-#: admin/partials/performance/media_health/webp_batch.php:115
+#: admin/partials/performance/media_health/webp_batch.php:127
 msgid "该附件已转换，可先恢复后再重试。"
 msgstr ""
 
-#: admin/partials/performance/media_health/webp_batch.php:118
+#: admin/partials/performance/media_health/webp_batch.php:130
 msgid "检测到未完成的转换记录，请先恢复该附件。"
 msgstr ""
 
-#: admin/partials/performance/media_health/webp_batch.php:124
+#: admin/partials/performance/media_health/webp_batch.php:136
 msgid "仅处理本地可读的 JPEG 附件。"
 msgstr ""
 
-#: admin/partials/performance/media_health/webp_batch.php:129
+#: admin/partials/performance/media_health/webp_batch.php:141
 msgid "原附件元数据不可读。"
 msgstr ""
 
-#: admin/partials/performance/media_health/webp_batch.php:134
-#: admin/partials/performance/media_health/webp_batch.php:219
+#: admin/partials/performance/media_health/webp_batch.php:146
+#: admin/partials/performance/media_health/webp_batch.php:231
 msgid "上传目录不可用。"
 msgstr ""
 
-#: admin/partials/performance/media_health/webp_batch.php:139
+#: admin/partials/performance/media_health/webp_batch.php:151
 msgid "附件不在当前上传目录中。"
 msgstr ""
 
-#: admin/partials/performance/media_health/webp_batch.php:164
+#: admin/partials/performance/media_health/webp_batch.php:176
 msgid "无法保存恢复记录，未切换附件。"
 msgstr ""
 
-#: admin/partials/performance/media_health/webp_batch.php:180
+#: admin/partials/performance/media_health/webp_batch.php:192
 msgid "数据库切换失败，已恢复原附件。"
 msgstr ""
 
-#: admin/partials/performance/media_health/webp_batch.php:199
+#: admin/partials/performance/media_health/webp_batch.php:211
 msgid "已转换为 WebP，原 JPEG 与恢复记录已保留。"
 msgstr ""
 
-#: admin/partials/performance/media_health/webp_batch.php:213
+#: admin/partials/performance/media_health/webp_batch.php:225
 msgid "未找到可用的恢复记录。"
 msgstr ""
 
-#: admin/partials/performance/media_health/webp_batch.php:224
+#: admin/partials/performance/media_health/webp_batch.php:236
 msgid "原 JPEG 备份不可读，未执行恢复。"
 msgstr ""
 
-#: admin/partials/performance/media_health/webp_batch.php:239
+#: admin/partials/performance/media_health/webp_batch.php:251
 msgid "恢复数据库失败，附件保持转换前状态。"
 msgstr ""
 
-#: admin/partials/performance/media_health/webp_batch.php:245
+#: admin/partials/performance/media_health/webp_batch.php:257
 msgid "恢复记录清理失败，已撤销本次恢复。"
 msgstr ""
 
-#: admin/partials/performance/media_health/webp_batch.php:263
+#: admin/partials/performance/media_health/webp_batch.php:279
 msgid "已恢复原 JPEG；部分无引用的本地 WebP 文件需人工清理。"
 msgstr ""
 
-#: admin/partials/performance/media_health/webp_batch.php:264
+#: admin/partials/performance/media_health/webp_batch.php:280
 msgid "已恢复原 JPEG，并清理本次生成的本地 WebP 文件。"
 msgstr ""
 
-#: admin/partials/performance/media_health/webp_batch.php:274
+#: admin/partials/performance/media_health/webp_batch.php:290
 msgid "无法读取 JPEG 图像。"
 msgstr ""
 
-#: admin/partials/performance/media_health/webp_batch.php:279
+#: admin/partials/performance/media_health/webp_batch.php:295
 msgid "WebP 主图生成失败。"
 msgstr ""
 
-#: admin/partials/performance/media_health/webp_batch.php:286
+#: admin/partials/performance/media_health/webp_batch.php:302
 msgid "生成的 WebP 主图不可读。"
 msgstr ""
 
-#: admin/partials/performance/media_health/webp_batch.php:312
+#: admin/partials/performance/media_health/webp_batch.php:330
 msgid "无法创建 WebP 缩略图。"
 msgstr ""
 
 #. translators: %s: WordPress image sub-size name.
-#: admin/partials/performance/media_health/webp_batch.php:336
+#: admin/partials/performance/media_health/webp_batch.php:356
 #, php-format
 msgid "WebP 缩略图 %s 生成失败。"
 msgstr ""
 
-#: admin/partials/performance/media_health/webp_batch.php:350
+#: admin/partials/performance/media_health/webp_batch.php:370
 msgid "WebP 文件集校验失败。"
 msgstr ""
 
-#: admin/partials/performance/oss/index.php:94
+#: admin/partials/performance/oss/index.php:96
 msgid "请求仅允许 settings 和 secretChanges"
 msgstr ""
 
-#: admin/partials/performance/oss/index.php:133
+#: admin/partials/performance/oss/index.php:135
 msgid "无法写入测试对象，请检查凭据、Bucket、地域节点和写入权限。"
 msgstr ""
 
-#: admin/partials/performance/oss/index.php:140
+#: admin/partials/performance/oss/index.php:142
 msgid "连接成功，已写入并覆盖测试对象。"
 msgstr ""
 
-#: admin/partials/performance/oss/index.php:280
+#: admin/partials/performance/oss/index.php:285
 msgid "请选择支持的对象存储服务商。"
 msgstr ""
 
-#: admin/partials/performance/oss/index.php:291
+#: admin/partials/performance/oss/index.php:296
 msgid "Bucket 格式无效，请填写 3 至 63 位小写字母、数字或连字符。"
 msgstr ""
 
-#: admin/partials/performance/oss/index.php:298
+#: admin/partials/performance/oss/index.php:303
 msgid "腾讯云 Bucket 需要包含 APPID 后缀，例如 npcink-media-1250000000。"
 msgstr ""
 
-#: admin/partials/performance/oss/index.php:328
+#: admin/partials/performance/oss/index.php:333
 msgid "腾讯云需要填写 Region。"
 msgstr ""
 
-#: admin/partials/performance/oss/index.php:336
+#: admin/partials/performance/oss/index.php:341
 msgid "腾讯云 Region 格式无效，请填写 ap-beijing 这样的地域 ID。"
 msgstr ""
 
-#: admin/partials/performance/oss/index.php:347
+#: admin/partials/performance/oss/index.php:352
 msgid "腾讯云 Bucket 与 Region 组成的请求域名不能超过 60 个字符。"
 msgstr ""
 
-#: admin/partials/performance/oss/index.php:369
+#: admin/partials/performance/oss/index.php:374
 msgid "公开访问地址格式无效，请填写包含 http:// 或 https:// 的地址前缀。"
 msgstr ""
 
-#: admin/partials/performance/oss/index.php:383
+#: admin/partials/performance/oss/index.php:388
 msgid "请先完整填写 Access Key 和 Secret Key。"
 msgstr ""
 
-#: admin/partials/performance/oss/index.php:553
+#: admin/partials/performance/oss/index.php:559
 msgid "上传目录格式无效，请使用字母、数字、中文、点、下划线、连字符和正斜杠。"
 msgstr ""
 
-#: admin/partials/performance/oss/index.php:567
+#: admin/partials/performance/oss/index.php:573
 msgid "上传目录格式无效，请填写 www 或 uploads/site-a 这样的相对目录。"
 msgstr ""
 
-#: admin/partials/performance/oss/index.php:586
+#: admin/partials/performance/oss/index.php:592
 msgid "阿里云需要填写 Endpoint（地域节点）。"
 msgstr ""
 
-#: admin/partials/performance/oss/index.php:614
+#: admin/partials/performance/oss/index.php:620
 msgid "阿里云 Endpoint 格式无效，请粘贴地域节点，不要包含 Bucket、路径或查询参数。"
 msgstr ""
 
-#: admin/partials/performance/oss/index.php:625
+#: admin/partials/performance/oss/index.php:631
 msgid "阿里云 Endpoint 必须是官方地域节点，不要填写 Bucket 域名或其他服务器地址。"
 msgstr ""
 
-#: admin/partials/performance/search_enhance/index.php:47
+#: admin/partials/performance/search_enhance/index.php:57
 msgid "未找到相关内容，试试这些热门标签："
 msgstr ""
 
-#: admin/partials/performance/seo_checker/index.php:17
+#: admin/partials/performance/seo_checker/index.php:19
 msgid "首页标题"
 msgstr ""
 
-#: admin/partials/performance/seo_checker/index.php:17
+#: admin/partials/performance/seo_checker/index.php:19
 msgid "首页 SEO 标题为空"
 msgstr ""
 
-#: admin/partials/performance/seo_checker/index.php:20
+#: admin/partials/performance/seo_checker/index.php:22
 msgid "首页描述"
 msgstr ""
 
-#: admin/partials/performance/seo_checker/index.php:20
+#: admin/partials/performance/seo_checker/index.php:22
 msgid "首页 SEO 描述为空"
 msgstr ""
 
 #. translators: %d: number of posts missing a title or excerpt.
-#: admin/partials/performance/seo_checker/index.php:30
+#: admin/partials/performance/seo_checker/index.php:32
 #, php-format
 msgid "%d 篇文章缺少标题或摘要"
 msgstr ""
 
-#: admin/partials/performance/seo_checker/index.php:43
+#: admin/partials/performance/seo_checker/index.php:45
 msgid "图片 Alt"
 msgstr ""
 
 #. translators: %d: number of images missing alternative text.
-#: admin/partials/performance/seo_checker/index.php:45
+#: admin/partials/performance/seo_checker/index.php:47
 #, php-format
 msgid "%d 张图片缺少 Alt 文本"
 msgstr ""
 
 #. translators: %d: number of published posts without a featured image.
-#: admin/partials/performance/seo_checker/index.php:55
+#: admin/partials/performance/seo_checker/index.php:57
 #, php-format
 msgid "%d 篇文章没有特色图"
 msgstr ""
 
-#: admin/partials/performance/seo_checker/index.php:63
+#: admin/partials/performance/seo_checker/index.php:65
 msgid "内容过短"
 msgstr ""
 
 #. translators: %d: number of posts with content shorter than 300 Chinese characters.
-#: admin/partials/performance/seo_checker/index.php:65
+#: admin/partials/performance/seo_checker/index.php:67
 #, php-format
 msgid "%d 篇文章内容过短（少于 300 字）"
 msgstr ""
@@ -5571,43 +5572,43 @@ msgstr ""
 msgid "转载"
 msgstr ""
 
-#: includes/class-npcink-toolbox-config-manager.php:126
+#: includes/class-npcink-toolbox-config-manager.php:127
 msgid "设置结构无效"
 msgstr ""
 
-#: includes/class-npcink-toolbox-config-manager.php:133
+#: includes/class-npcink-toolbox-config-manager.php:134
 msgid "敏感字段必须通过 secretChanges 更新"
 msgstr ""
 
-#: includes/class-npcink-toolbox-config-manager.php:147
+#: includes/class-npcink-toolbox-config-manager.php:148
 msgid "包含未知的敏感字段路径"
 msgstr ""
 
-#: includes/class-npcink-toolbox-config-manager.php:150
+#: includes/class-npcink-toolbox-config-manager.php:151
 msgid "敏感字段操作格式无效"
 msgstr ""
 
-#: includes/class-npcink-toolbox-config-manager.php:157
+#: includes/class-npcink-toolbox-config-manager.php:158
 msgid "敏感字段操作包含未知参数"
 msgstr ""
 
-#: includes/class-npcink-toolbox-config-manager.php:166
+#: includes/class-npcink-toolbox-config-manager.php:167
 msgid "不支持的敏感字段操作"
 msgstr ""
 
-#: includes/class-npcink-toolbox-config-manager.php:169
+#: includes/class-npcink-toolbox-config-manager.php:170
 msgid "替换凭据必须为非空字符串"
 msgstr ""
 
-#: includes/class-npcink-toolbox-config-manager.php:172
+#: includes/class-npcink-toolbox-config-manager.php:173
 msgid "凭据长度超出限制"
 msgstr ""
 
-#: includes/class-npcink-toolbox-config-manager.php:175
+#: includes/class-npcink-toolbox-config-manager.php:176
 msgid "凭据不得包含控制字符"
 msgstr ""
 
-#: includes/class-npcink-toolbox-config-manager.php:220
+#: includes/class-npcink-toolbox-config-manager.php:221
 msgid "配置格式无效，未写入任何设置"
 msgstr ""
 
@@ -5672,7 +5673,7 @@ msgid "AI Client 未使用指定的 DeepSeek Provider，结果已丢弃。"
 msgstr ""
 
 #: includes/class-npcink-toolbox-diagnostics.php:545
-#: includes/class-npcink-toolbox-diagnostics.php:1512
+#: includes/class-npcink-toolbox-diagnostics.php:1514
 msgid "DeepSeek 分析请求失败，请稍后重试或使用手工复制报告。"
 msgstr ""
 
@@ -5704,112 +5705,112 @@ msgstr ""
 msgid "复验基线没有可用事实，请重新记录基线。"
 msgstr ""
 
-#: includes/class-npcink-toolbox-diagnostics.php:1199
+#: includes/class-npcink-toolbox-diagnostics.php:1201
 msgid "追问上下文无效，请重新运行分析。"
 msgstr ""
 
-#: includes/class-npcink-toolbox-diagnostics.php:1224
+#: includes/class-npcink-toolbox-diagnostics.php:1226
 msgid "追问上下文与当前分析场景不匹配，请重新运行分析。"
 msgstr ""
 
-#: includes/class-npcink-toolbox-diagnostics.php:1271
+#: includes/class-npcink-toolbox-diagnostics.php:1273
 msgid "追问上下文没有可用事实，请重新运行分析。"
 msgstr ""
 
-#: includes/class-npcink-toolbox-diagnostics.php:1310
+#: includes/class-npcink-toolbox-diagnostics.php:1312
 msgid "追问上下文超过安全上限，请重新运行范围更小的分析。"
 msgstr ""
 
-#: includes/class-npcink-toolbox-diagnostics.php:1327
+#: includes/class-npcink-toolbox-diagnostics.php:1329
 msgid "每次分析最多追问三轮，请重新生成快照开始新的分析。"
 msgstr ""
 
-#: includes/class-npcink-toolbox-diagnostics.php:1337
-#: includes/class-npcink-toolbox-diagnostics.php:1346
+#: includes/class-npcink-toolbox-diagnostics.php:1339
+#: includes/class-npcink-toolbox-diagnostics.php:1348
 msgid "追问历史无效，请重新运行分析。"
 msgstr ""
 
-#: includes/class-npcink-toolbox-diagnostics.php:1473
+#: includes/class-npcink-toolbox-diagnostics.php:1475
 msgid "暂时无法连接 DeepSeek，请稍后重试或复制报告手工分析。"
 msgstr ""
 
-#: includes/class-npcink-toolbox-diagnostics.php:1481
+#: includes/class-npcink-toolbox-diagnostics.php:1483
 msgid "DeepSeek 连接凭据无效或无权访问，请前往“设置 → Connectors”检查连接。"
 msgstr ""
 
-#: includes/class-npcink-toolbox-diagnostics.php:1489
+#: includes/class-npcink-toolbox-diagnostics.php:1491
 msgid "DeepSeek 当前请求过多或额度受限，请稍后重试。"
 msgstr ""
 
-#: includes/class-npcink-toolbox-diagnostics.php:1497
+#: includes/class-npcink-toolbox-diagnostics.php:1499
 msgid "DeepSeek 服务暂时异常，请稍后重试或复制报告手工分析。"
 msgstr ""
 
-#: includes/class-npcink-toolbox-diagnostics.php:1505
+#: includes/class-npcink-toolbox-diagnostics.php:1507
 msgid "DeepSeek 拒绝了本次分析请求，请检查 Provider 配置或复制报告手工分析。"
 msgstr ""
 
-#: includes/class-npcink-toolbox-diagnostics.php:1557
+#: includes/class-npcink-toolbox-diagnostics.php:1561
 msgid "DeepSeek Provider 不可用或尚未连接，请前往“设置 → Connectors”检查连接。"
 msgstr ""
 
 #. translators: 1: Section title. 2: Maximum included facts.
-#: includes/class-npcink-toolbox-diagnostics.php:1643
+#: includes/class-npcink-toolbox-diagnostics.php:1647
 #, php-format
 msgid "“%1$s”最多包含 %2$d 项，其余项目未进入报告。"
 msgstr ""
 
-#: includes/class-npcink-toolbox-diagnostics.php:1987
+#: includes/class-npcink-toolbox-diagnostics.php:1992
 msgid "WebP 图片处理"
 msgstr ""
 
-#: includes/class-npcink-toolbox-diagnostics.php:1990
+#: includes/class-npcink-toolbox-diagnostics.php:1995
 msgid "当前 WordPress 图片编辑器支持 WebP。"
 msgstr ""
 
-#: includes/class-npcink-toolbox-diagnostics.php:1991
+#: includes/class-npcink-toolbox-diagnostics.php:1996
 msgid "当前 WordPress 图片编辑器不支持 WebP；JPEG 会保持原格式。"
 msgstr ""
 
-#: includes/class-npcink-toolbox-diagnostics.php:2010
+#: includes/class-npcink-toolbox-diagnostics.php:2015
 #: includes/class-npcink-toolbox-site-health.php:31
 msgid "PHP 版本"
 msgstr ""
 
 #. translators: %s: Current PHP version.
-#: includes/class-npcink-toolbox-diagnostics.php:2015
+#: includes/class-npcink-toolbox-diagnostics.php:2020
 #, php-format
 msgid "当前 PHP 版本 %s，满足最低要求（7.4+）。"
 msgstr ""
 
 #. translators: %s: Current PHP version.
-#: includes/class-npcink-toolbox-diagnostics.php:2020
+#: includes/class-npcink-toolbox-diagnostics.php:2025
 #, php-format
 msgid "当前 PHP 版本 %s，低于最低要求 7.4。"
 msgstr ""
 
-#: includes/class-npcink-toolbox-diagnostics.php:2026
+#: includes/class-npcink-toolbox-diagnostics.php:2031
 #: includes/class-npcink-toolbox-site-health.php:36
 msgid "WordPress 版本"
 msgstr ""
 
 #. translators: %s: Current WordPress version.
-#: includes/class-npcink-toolbox-diagnostics.php:2031
+#: includes/class-npcink-toolbox-diagnostics.php:2036
 #, php-format
 msgid "当前 WordPress 版本 %s。"
 msgstr ""
 
 #. translators: %s: Current WordPress version.
-#: includes/class-npcink-toolbox-diagnostics.php:2036
+#: includes/class-npcink-toolbox-diagnostics.php:2041
 #, php-format
 msgid "当前 WordPress 版本 %s，建议升级至 6.0+。"
 msgstr ""
 
-#: includes/class-npcink-toolbox-diagnostics.php:2070
+#: includes/class-npcink-toolbox-diagnostics.php:2075
 msgid "该模块被标记为高风险，可能影响站点稳定性。"
 msgstr ""
 
-#: includes/class-npcink-toolbox-diagnostics.php:2071
+#: includes/class-npcink-toolbox-diagnostics.php:2076
 msgid "该模块为实验性功能，不建议在生产环境长期开启。"
 msgstr ""
 
@@ -5951,57 +5952,57 @@ msgstr ""
 msgid "安全验证失败，请刷新页面重试"
 msgstr ""
 
-#: includes/class-npcink-toolbox-search-health.php:472
+#: includes/class-npcink-toolbox-search-health.php:473
 msgid "单关键词搜索频次异常（超过 100 次）"
 msgstr ""
 
-#: includes/class-npcink-toolbox-search-health.php:474
+#: includes/class-npcink-toolbox-search-health.php:475
 msgid "单关键词占比过高（超过 10%）"
 msgstr ""
 
-#: includes/class-npcink-toolbox-search-health.php:501
+#: includes/class-npcink-toolbox-search-health.php:502
 msgid "限制搜索频次"
 msgstr ""
 
-#: includes/class-npcink-toolbox-search-health.php:502
+#: includes/class-npcink-toolbox-search-health.php:503
 msgid "未启用搜索频次限制，可能被恶意搜索消耗服务器资源。"
 msgstr ""
 
-#: includes/class-npcink-toolbox-search-health.php:519
+#: includes/class-npcink-toolbox-search-health.php:520
 msgid "无结果搜索比例过高"
 msgstr ""
 
 #. translators: %.0f: Percentage of searches with no results.
-#: includes/class-npcink-toolbox-search-health.php:521
+#: includes/class-npcink-toolbox-search-health.php:522
 #, php-format
 msgid "超过 %.0f%% 的搜索无结果，建议为热门无结果词补充相关内容。"
 msgstr ""
 
-#: includes/class-npcink-toolbox-search-health.php:526
+#: includes/class-npcink-toolbox-search-health.php:527
 msgid "关注无结果搜索词"
 msgstr ""
 
 #. translators: %.0f: Percentage of searches with no results.
-#: includes/class-npcink-toolbox-search-health.php:528
+#: includes/class-npcink-toolbox-search-health.php:529
 #, php-format
 msgid "约 %.0f%% 的搜索无结果，可考虑补充相关内容。"
 msgstr ""
 
-#: includes/class-npcink-toolbox-search-health.php:536
+#: includes/class-npcink-toolbox-search-health.php:537
 msgid "检测到异常高频搜索"
 msgstr ""
 
 #. translators: %d: Number of suspicious high-frequency search terms.
-#: includes/class-npcink-toolbox-search-health.php:538
+#: includes/class-npcink-toolbox-search-health.php:539
 #, php-format
 msgid "发现 %d 个异常高频搜索词，可能为爬虫或恶意行为，建议开启搜索频次限制。"
 msgstr ""
 
-#: includes/class-npcink-toolbox-search-health.php:546
+#: includes/class-npcink-toolbox-search-health.php:547
 msgid "开启搜索日志"
 msgstr ""
 
-#: includes/class-npcink-toolbox-search-health.php:547
+#: includes/class-npcink-toolbox-search-health.php:548
 msgid "搜索日志已关闭，无法收集搜索健康数据。建议开启以获得搜索分析。"
 msgstr ""
 
@@ -6198,12 +6199,12 @@ msgstr ""
 msgid "请至少选择一个统计项目。"
 msgstr ""
 
-#: includes/class-npcink-toolbox-tool.php:161
-#: includes/class-npcink-toolbox-tool.php:258
+#: includes/class-npcink-toolbox-tool.php:162
+#: includes/class-npcink-toolbox-tool.php:264
 msgid "参数错误！"
 msgstr ""
 
-#: npcink-site-toolbox.php:102
+#: npcink-site-toolbox.php:103
 msgid "设置"
 msgstr ""
 

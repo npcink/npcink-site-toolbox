@@ -6,7 +6,7 @@ defined('ABSPATH') || exit;
  暂停页模版
  */
 
-include plugin_dir_path((__FILE__)) . 'index.php'; // 获取数据
+require plugin_dir_path((__FILE__)) . 'index.php'; // 获取数据
 
 wp_add_inline_style(
     'mabox-maintenance-responsive',
@@ -67,7 +67,8 @@ if ('' !== $npcink_site_toolbox_countdown) {
 
 
         <h2 class="n-title main">
-            <?php echo esc_html($npcink_site_toolbox_countdown_title);
+            <?php
+            echo esc_html($npcink_site_toolbox_countdown_title);
             ?>
         </h2>
 

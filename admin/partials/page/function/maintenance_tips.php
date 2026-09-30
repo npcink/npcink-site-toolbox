@@ -21,23 +21,21 @@ if (!class_exists('Npcink_Toolbox_Maintenance_Tips')) {
          */
         public static function run($config = array())
         {
-            self::$configs = Npcink_Toolbox_Admin::get_config($config, 'maintenance_tips', 'false'); //展示类型
-            self::$blogname =  get_bloginfo('name');
+            self::$configs         = Npcink_Toolbox_Admin::get_config($config, 'maintenance_tips', 'false'); //展示类型
+            self::$blogname        =  get_bloginfo('name');
             self::$blogdescription = get_bloginfo('description');
-            self::$url = plugin_dir_url((__FILE__)) . 'maintenance/';
-            self::$path = plugin_dir_path((__FILE__)) . 'maintenance/';
+            self::$url             = plugin_dir_url((__FILE__)) . 'maintenance/';
+            self::$path            = plugin_dir_path((__FILE__)) . 'maintenance/';
             //检查
             add_action('template_redirect', array(__CLASS__, 'check_administrator_permission'));
         }
-        public static  function check_administrator_permission()
+        public static function check_administrator_permission()
         {
-            //不是管理员
-            // if (!current_user_can('edit_themes') || !is_user_logged_in()) {
             if (!current_user_can('manage_options')) {
                 self::add_responsive_css();
 
                 switch (self::$configs) {
-                    case "default":
+                    case 'default':
                         wp_die(
                             esc_html(
                                 sprintf(
@@ -51,14 +49,12 @@ if (!class_exists('Npcink_Toolbox_Maintenance_Tips')) {
                             array('response' => 503)
                         );
                         break;
-                    case "default_img":
-                        include(self::$path . 'default/index.php');
+                    case 'default_img':
+                        include self::$path . 'default/index.php';
                         exit;
-                        break;
-                    case "red":
-                        include(self::$path . 'red.php');
+                    case 'red':
+                        include self::$path . 'red.php';
                         exit;
-                        break;
                     default:
                         break;
                 }
@@ -74,6 +70,5 @@ if (!class_exists('Npcink_Toolbox_Maintenance_Tips')) {
                 NPCINK_SITE_TOOLBOX_VERSION
             );
         }
-
     }
 }

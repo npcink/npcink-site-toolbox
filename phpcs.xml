@@ -2,6 +2,15 @@
 <ruleset name="Npcink Site Toolbox">
     <description>Npcink Site Toolbox Coding Standards</description>
 
+    <!--
+      风格基线（2026-09 治理决策）：
+      本仓库长期使用 4 空格缩进、func($arg) 括号风格、!$x/$a.$b 运算符不加空格、
+      类/方法左大括号换行、中文注释、紧凑单行字段数组。
+      规则集基于 WordPress-Core + WordPress-Extra（不含 Docs 注释规范），
+      排除与上述既有风格系统性冲突的 sniff；缩进一致性仍强制检查（4 空格）。
+      修改排除项须同步更新 docs/development/ 下的治理记录。
+    -->
+
     <!-- 扫描路径 -->
     <file>admin</file>
     <file>includes</file>
@@ -15,16 +24,86 @@
     <exclude-pattern>*/tests/*</exclude-pattern>
     <exclude-pattern>admin/partials/function/b2/*</exclude-pattern>
 
-    <!-- 使用 WordPress 编码标准 -->
-    <rule ref="WordPress">
-        <!-- 适当放宽部分规则，避免过度干扰 -->
-        <exclude name="WordPress.Files.FileName.InvalidClassFileName"/>
-        <exclude name="WordPress.Files.FileName.NotHyphenatedLowercase"/>
-        <exclude name="WordPress.NamingConventions.ValidVariableName.VariableNotSnakeCase"/>
-        <exclude name="WordPress.NamingConventions.ValidVariableName.UsedPropertiesNotSnakeCase"/>
-        <exclude name="WordPress.NamingConventions.ValidVariableName.MemberNotSnakeCase"/>
-        <exclude name="WordPress.NamingConventions.ValidFunctionName.MethodNameInvalid"/>
-        <exclude name="WordPress.NamingConventions.ValidVariableName.NotSnakeCaseMemberVar"/>
+    <!-- 第三方压缩资源不做嗅探 -->
+    <exclude-pattern>*.min.css</exclude-pattern>
+    <exclude-pattern>*.min.js</exclude-pattern>
+
+    <!-- WordPress 核心与进阶规则（不含 Docs：中文注释无法满足英文注释标点规则） -->
+    <rule ref="WordPress-Core"/>
+    <rule ref="WordPress-Extra"/>
+
+    <!-- 与既有风格系统性冲突的规则：关闭而不是全库改写 -->
+    <rule ref="Generic.WhiteSpace.DisallowSpaceIndent">
+        <severity>0</severity>
+    </rule>
+    <rule ref="Generic.WhiteSpace.ScopeIndent">
+        <properties>
+            <property name="indent" value="4"/>
+            <property name="tabIndent" value="false"/>
+        </properties>
+    </rule>
+    <rule ref="PEAR.Functions.FunctionCallSignature">
+        <severity>0</severity>
+    </rule>
+    <rule ref="WordPress.WhiteSpace.ControlStructureSpacing">
+        <severity>0</severity>
+    </rule>
+    <rule ref="Generic.WhiteSpace.ArbitraryParenthesesSpacing">
+        <severity>0</severity>
+    </rule>
+    <rule ref="WordPress.WhiteSpace.OperatorSpacing">
+        <severity>0</severity>
+    </rule>
+    <rule ref="NormalizedArrays.Arrays.ArrayBraceSpacing.SpaceAfterArrayOpenerSingleLine">
+        <severity>0</severity>
+    </rule>
+    <rule ref="NormalizedArrays.Arrays.ArrayBraceSpacing.SpaceBeforeArrayCloserSingleLine">
+        <severity>0</severity>
+    </rule>
+    <rule ref="Squiz.Functions.FunctionDeclarationArgumentSpacing.SpacingAfterOpen">
+        <severity>0</severity>
+    </rule>
+    <rule ref="Squiz.Functions.FunctionDeclarationArgumentSpacing.SpacingBeforeClose">
+        <severity>0</severity>
+    </rule>
+    <rule ref="Generic.Functions.OpeningFunctionBraceKernighanRitchie">
+        <severity>0</severity>
+    </rule>
+    <rule ref="Generic.Classes.OpeningBraceSameLine">
+        <severity>0</severity>
+    </rule>
+    <rule ref="WordPress.PHP.YodaConditions">
+        <severity>0</severity>
+    </rule>
+    <rule ref="Universal.WhiteSpace.PrecisionAlignment">
+        <severity>0</severity>
+    </rule>
+    <rule ref="WordPress.Arrays.ArrayDeclarationSpacing.AssociativeArrayFound">
+        <!-- 仓库刻意使用紧凑的单行字段数组（如 Schema 的 search_metadata），不做逐值换行展开 -->
+        <severity>0</severity>
+    </rule>
+
+    <!-- 历史保留的放宽项 -->
+    <rule ref="WordPress.Files.FileName.InvalidClassFileName">
+        <severity>0</severity>
+    </rule>
+    <rule ref="WordPress.Files.FileName.NotHyphenatedLowercase">
+        <severity>0</severity>
+    </rule>
+    <rule ref="WordPress.NamingConventions.ValidVariableName.VariableNotSnakeCase">
+        <severity>0</severity>
+    </rule>
+    <rule ref="WordPress.NamingConventions.ValidVariableName.UsedPropertiesNotSnakeCase">
+        <severity>0</severity>
+    </rule>
+    <rule ref="WordPress.NamingConventions.ValidVariableName.MemberNotSnakeCase">
+        <severity>0</severity>
+    </rule>
+    <rule ref="WordPress.NamingConventions.ValidFunctionName.MethodNameInvalid">
+        <severity>0</severity>
+    </rule>
+    <rule ref="WordPress.NamingConventions.ValidVariableName.NotSnakeCaseMemberVar">
+        <severity>0</severity>
     </rule>
 
     <!-- 额外安全规则 -->

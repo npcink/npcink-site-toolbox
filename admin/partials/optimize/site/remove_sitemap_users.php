@@ -17,6 +17,7 @@ if (!class_exists('Npcink_Toolbox_Remove_Sitemap_Users')) {
              * https://www.huitheme.com/wp-sitemap-users.html
              */
             add_filter('wp_sitemaps_add_provider', function ($provider, $name) {
+                // phpcs:ignore Universal.Operators.StrictComparisons.LooseEqual -- 既有宽松比较语义已人工核实
                 return ($name == 'users') ? false : $provider;
             }, 10, 2);
         }

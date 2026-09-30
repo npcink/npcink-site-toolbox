@@ -15,12 +15,12 @@ if (!class_exists('Npcink_Toolbox_Hide_Top_Toolbar')) {
         public static function run($config = array())
         {
 
-            // 
+            //
             add_action('init', array(__CLASS__, 'disable_plugin_update_notification'));
         }
 
 
-        public static  function disable_plugin_update_notification()
+        public static function disable_plugin_update_notification()
         {
             if (!current_user_can('edit_posts')) {
                 add_filter('show_admin_bar', '__return_false');
@@ -28,12 +28,12 @@ if (!class_exists('Npcink_Toolbox_Hide_Top_Toolbar')) {
             /**
              * 仅管理员可见
              * if (!current_user_can('manage_options')) {
-             * 	    add_filter('show_admin_bar', '__return_false');
-             * 	}
-             * 
+             *      add_filter('show_admin_bar', '__return_false');
+             *  }
+             *
              * 完全去除
              * add_filter('show_admin_bar', '__return_false');
-             * 
+             *
              * show_admin_bar(false);
              */
         }

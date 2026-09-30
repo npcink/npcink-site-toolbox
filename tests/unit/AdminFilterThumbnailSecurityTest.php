@@ -67,7 +67,7 @@ final class AdminFilterThumbnailSecurityTest extends TestCase
         $source = $this->source('single_add_user_screen.php');
 
         $this->assertStringContainsString(
-            "\$author = wp_unslash(\$_GET['author'] ?? '')",
+            "\$author   = wp_unslash(\$_GET['author'] ?? '')",
             $source
         );
         $this->assertStringContainsString(
@@ -75,7 +75,7 @@ final class AdminFilterThumbnailSecurityTest extends TestCase
             $source
         );
         $this->assertStringNotContainsString("\$_GET['user']", $source);
-        $this->assertStringContainsString("'name' => 'author'", $source);
+        $this->assertStringContainsString("'name'            => 'author',", $source);
     }
 
     public function test_thumbnail_mutations_require_sanitized_input_and_object_capability(): void

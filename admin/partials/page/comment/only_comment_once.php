@@ -26,7 +26,7 @@ if (!class_exists('Npcink_Toolbox_Comment_Only_Once')) {
             $currentUser = wp_get_current_user();
 
             // 不限制管理员发表评论
-            if (empty($currentUser->roles) || !in_array('administrator', $currentUser->roles)) {
+            if (empty($currentUser->roles) || !in_array('administrator', $currentUser->roles, true)) {
                 // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching -- Pre-insert per-post uniqueness check must read current comment rows; persistent cache could be stale.
                 $bool = $wpdb->get_var($wpdb->prepare(
                     "SELECT comment_ID FROM $wpdb->comments WHERE comment_post_ID = %d AND (comment_author = %s OR comment_author_email = %s OR comment_author_IP = %s) LIMIT 0, 1",

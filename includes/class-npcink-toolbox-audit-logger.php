@@ -23,13 +23,13 @@ if (!class_exists('Npcink_Toolbox_Audit_Logger')) {
         /**
          * 日志类别
          */
-        const CATEGORY_SECURITY    = 'security';
-        const CATEGORY_DATABASE    = 'database';
-        const CATEGORY_CONFIG      = 'config';
-        const CATEGORY_API         = 'api';
-        const CATEGORY_FILE        = 'file';
-        const CATEGORY_AUTH        = 'auth';
-        const CATEGORY_RATE_LIMIT  = 'rate_limit';
+        const CATEGORY_SECURITY   = 'security';
+        const CATEGORY_DATABASE   = 'database';
+        const CATEGORY_CONFIG     = 'config';
+        const CATEGORY_API        = 'api';
+        const CATEGORY_FILE       = 'file';
+        const CATEGORY_AUTH       = 'auth';
+        const CATEGORY_RATE_LIMIT = 'rate_limit';
 
         /**
          * 日志存储选项名
@@ -53,14 +53,14 @@ if (!class_exists('Npcink_Toolbox_Audit_Logger')) {
         public static function log($level, $category, $message, $context = array())
         {
             $entry = array(
-                'timestamp'  => current_time('mysql'),
-                'level'      => $level,
-                'category'   => $category,
-                'message'    => $message,
-                'context'    => $context,
-                'user_id'    => get_current_user_id(),
-                'user_login' => function_exists('wp_get_current_user') ? wp_get_current_user()->user_login : 'cli',
-                'ip'         => Npcink_Toolbox_Helpers::get_real_ip(),
+                'timestamp'   => current_time('mysql'),
+                'level'       => $level,
+                'category'    => $category,
+                'message'     => $message,
+                'context'     => $context,
+                'user_id'     => get_current_user_id(),
+                'user_login'  => function_exists('wp_get_current_user') ? wp_get_current_user()->user_login : 'cli',
+                'ip'          => Npcink_Toolbox_Helpers::get_real_ip(),
                 'request_uri' => isset($_SERVER['REQUEST_URI']) && is_string($_SERVER['REQUEST_URI'])
                     ? sanitize_text_field(wp_unslash($_SERVER['REQUEST_URI']))
                     : '',
@@ -183,7 +183,7 @@ if (!class_exists('Npcink_Toolbox_Audit_Logger')) {
                 return;
             }
 
-            $logs = get_option(self::OPTION_NAME, array());
+            $logs   = get_option(self::OPTION_NAME, array());
             $logs[] = $entry;
 
             // 限制日志数量

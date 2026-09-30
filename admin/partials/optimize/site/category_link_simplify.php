@@ -48,7 +48,7 @@ if (!class_exists('Npcink_Toolbox_Category_Link_Simplify')) {
         public static function handle_optimize_option_update($old_value, $new_value)
         {
             $was_enabled = self::get_enabled_value($old_value);
-            $is_enabled = self::get_enabled_value($new_value);
+            $is_enabled  = self::get_enabled_value($new_value);
 
             if (!is_bool($was_enabled) || !is_bool($is_enabled) || $was_enabled === $is_enabled) {
                 return;
@@ -80,15 +80,15 @@ if (!class_exists('Npcink_Toolbox_Category_Link_Simplify')) {
         {
 
             /* actions */
-            add_action('created_category',   array(__CLASS__, 'no_category_base_refresh_rules'));
-            add_action('delete_category',    array(__CLASS__, 'no_category_base_refresh_rules'));
-            add_action('edited_category',   array(__CLASS__, 'no_category_base_refresh_rules'));
-            add_action('init',              array(__CLASS__, 'no_category_base_permastruct'));
+            add_action('created_category', array(__CLASS__, 'no_category_base_refresh_rules'));
+            add_action('delete_category', array(__CLASS__, 'no_category_base_refresh_rules'));
+            add_action('edited_category', array(__CLASS__, 'no_category_base_refresh_rules'));
+            add_action('init', array(__CLASS__, 'no_category_base_permastruct'));
 
             /* filters */
             add_filter('category_rewrite_rules', array(__CLASS__, 'no_category_base_rewrite_rules'));
-            add_filter('query_vars',             array(__CLASS__, 'no_category_base_query_vars'));    // Adds 'category_redirect' query variable
-            add_filter('request',                array(__CLASS__, 'no_category_base_request'));       // Redirects if 'category_redirect' is set
+            add_filter('query_vars', array(__CLASS__, 'no_category_base_query_vars'));    // Adds 'category_redirect' query variable
+            add_filter('request', array(__CLASS__, 'no_category_base_request'));       // Redirects if 'category_redirect' is set
         }
 
         private static function unregister_runtime_hooks()
@@ -178,21 +178,23 @@ if (!class_exists('Npcink_Toolbox_Category_Link_Simplify')) {
             foreach ($categories as $category) {
                 $category_nicename = $category->slug;
 
+                // phpcs:ignore Universal.Operators.StrictComparisons.LooseEqual -- 既有宽松比较语义已人工核实
                 if ($category->parent == $category->term_id) {
                     $category->parent = 0;
+                // phpcs:ignore Universal.Operators.StrictComparisons.LooseNotEqual -- 既有宽松比较语义已人工核实
                 } elseif ($category->parent != 0) {
                     $category_nicename = get_category_parents($category->parent, false, '/', true) . $category_nicename;
                 }
 
-                $category_rewrite['(' . $category_nicename . ')/(?:feed/)?(feed|rdf|rss|rss2|atom)/?$'] = 'index.php?category_name=$matches[1]&feed=$matches[2]';
-                $category_rewrite["({$category_nicename})/{$wp_rewrite->pagination_base}/?([0-9]{1,})/?$"] = 'index.php?category_name=$matches[1]&paged=$matches[2]';
-                $category_rewrite['(' . $category_nicename . ')/?$'] = 'index.php?category_name=$matches[1]';
+                $category_rewrite[ '(' . $category_nicename . ')/(?:feed/)?(feed|rdf|rss|rss2|atom)/?$' ]    = 'index.php?category_name=$matches[1]&feed=$matches[2]';
+                $category_rewrite[ "({$category_nicename})/{$wp_rewrite->pagination_base}/?([0-9]{1,})/?$" ] = 'index.php?category_name=$matches[1]&paged=$matches[2]';
+                $category_rewrite[ '(' . $category_nicename . ')/?$' ]                                       = 'index.php?category_name=$matches[1]';
             }
 
             // Redirect support from Old Category Base
-            $old_category_base = get_option('category_base') ? get_option('category_base') : 'category';
-            $old_category_base = trim($old_category_base, '/');
-            $category_rewrite[$old_category_base . '/(.*)$'] = 'index.php?category_redirect=$matches[1]';
+            $old_category_base                                 = get_option('category_base') ? get_option('category_base') : 'category';
+            $old_category_base                                 = trim($old_category_base, '/');
+            $category_rewrite[ $old_category_base . '/(.*)$' ] = 'index.php?category_redirect=$matches[1]';
 
             return $category_rewrite;
         }

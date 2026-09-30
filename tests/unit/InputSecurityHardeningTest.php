@@ -200,11 +200,12 @@ final class InputSecurityHardeningTest extends TestCase
             $combined .= $source;
         }
 
+        // 三处均为只读 GET 搜索的合法豁免：搜索词读取、重定向与参数透传循环
         $this->assertSame(
-            1,
+            3,
             substr_count($combined, 'phpcs:ignore WordPress.Security.NonceVerification.Recommended')
         );
-        $this->assertSame(1, substr_count($combined, 'no state is changed.'));
+        $this->assertSame(3, substr_count($combined, 'no state is changed.'));
     }
 
     public function test_category_seo_uses_wordpress_core_form_nonce_actions(): void

@@ -23,6 +23,7 @@ if (!class_exists('Npcink_Toolbox_Widgets')) {
     /**
      * 站点统计小工具
      */
+    // phpcs:ignore Generic.Files.OneObjectStructurePerFile.MultipleFound -- 历史小工具文件，两个微型小工具类共存
     class Npcink_Toolbox_Widget_Site_Stats extends WP_Widget {
 
         public function __construct() {
@@ -59,7 +60,7 @@ if (!class_exists('Npcink_Toolbox_Widgets')) {
         }
 
         public function update($new_instance, $old_instance) {
-            $instance = array();
+            $instance          = array();
             $instance['title'] = sanitize_text_field($new_instance['title']);
             return $instance;
         }
@@ -68,6 +69,7 @@ if (!class_exists('Npcink_Toolbox_Widgets')) {
     /**
      * 带缩略图的最新文章小工具
      */
+    // phpcs:ignore Generic.Files.OneObjectStructurePerFile.MultipleFound -- 历史小工具文件，两个微型小工具类共存
     class Npcink_Toolbox_Widget_Recent_Posts_With_Thumb extends WP_Widget {
 
         public function __construct() {
@@ -87,10 +89,10 @@ if (!class_exists('Npcink_Toolbox_Widgets')) {
             }
 
             $number = !empty($instance['number']) ? absint($instance['number']) : 5;
-            $posts = get_posts(array(
+            $posts  = get_posts(array(
                 'numberposts' => $number,
                 'post_status' => 'publish',
-                'post_type' => 'post',
+                'post_type'   => 'post',
             ));
 
             if ($posts) {
@@ -112,7 +114,7 @@ if (!class_exists('Npcink_Toolbox_Widgets')) {
         }
 
         public function form($instance) {
-            $title = !empty($instance['title']) ? $instance['title'] : __('最新文章', 'npcink-site-toolbox');
+            $title  = !empty($instance['title']) ? $instance['title'] : __('最新文章', 'npcink-site-toolbox');
             $number = !empty($instance['number']) ? absint($instance['number']) : 5;
             ?>
             <p>
@@ -127,8 +129,8 @@ if (!class_exists('Npcink_Toolbox_Widgets')) {
         }
 
         public function update($new_instance, $old_instance) {
-            $instance = array();
-            $instance['title'] = sanitize_text_field($new_instance['title']);
+            $instance           = array();
+            $instance['title']  = sanitize_text_field($new_instance['title']);
             $instance['number'] = absint($new_instance['number']);
             return $instance;
         }

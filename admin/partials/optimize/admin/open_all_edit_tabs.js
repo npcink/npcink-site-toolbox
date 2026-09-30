@@ -4,16 +4,16 @@
  */
 (function () {
     var settings = window.npcinkSiteToolboxOpenAllEditTabs || {};
-    var nav = document.querySelector('.tablenav.top');
+    var nav      = document.querySelector('.tablenav.top');
     if (!nav) {
         return;
     }
 
-    var btn = document.createElement('button');
-    btn.type = 'button';
-    btn.className = 'button';
+    var btn              = document.createElement('button');
+    btn.type             = 'button';
+    btn.className        = 'button';
     btn.style.marginLeft = '8px';
-    btn.textContent = settings.buttonLabel || '在新标签页打开全部编辑';
+    btn.textContent      = settings.buttonLabel || '在新标签页打开全部编辑';
 
     var actions = nav.querySelector('.actions');
     (actions || nav).appendChild(btn);

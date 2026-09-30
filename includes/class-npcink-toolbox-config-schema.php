@@ -54,48 +54,48 @@ if (!class_exists('Npcink_Toolbox_Config_Schema')) {
 
         private static function build_schema() {
             return array(
-                'optimize' => array(
+                'optimize'    => array(
                     '_option_key' => NPCINK_SITE_TOOLBOX_OPTION_OPTIMIZE,
-                    'site' => array(
-                        'hide_top_toolbar'       => array('type' => 'boolean', 'default' => false, 'search' => self::search_metadata('optimize-site-hide_top_toolbar', '隐藏顶部工具条', 'site', '站点与媒体', '站点', array('toolbar', '顶部', '工具栏'), array('推荐', '仅后台'))),
-                        'no_escape'              => array('type' => 'boolean', 'default' => false, 'search' => self::search_metadata('optimize-site-no_escape', '禁止 Title 转义', 'site', '站点与媒体', '站点', array('title', '转义'), array('推荐'))),
-                        'remove_RSS_version'     => array('type' => 'boolean', 'default' => false, 'search' => self::search_metadata('optimize-site-remove_RSS_version', '移除 WP 版本号', 'site', '站点与媒体', '站点', array('version', '版本', 'rss'), array('推荐', '安全'))),
-                        'category_link_simplify' => array('type' => 'boolean', 'default' => false, 'search' => self::search_metadata('optimize-site-category_link_simplify', '分类链接简化', 'site', '站点与媒体', '站点', array('category', '分类', '链接', 'url'), array('SEO'))),
-                        'search_link_simplify'   => array('type' => 'boolean', 'default' => false, 'search' => self::search_metadata('optimize-site-search_link_simplify', '搜索链接优化', 'site', '站点与媒体', '站点', array('search', '搜索', '链接'), array('SEO'))),
-                        'remove_sitemap_users'   => array('type' => 'boolean', 'default' => false, 'search' => self::search_metadata('optimize-site-remove_sitemap_users', '移除用户站点地图', 'site', '站点与媒体', '站点', array('sitemap', '站点地图', '用户'), array('推荐', '安全'))),
+                    'site'        => array(
+                        'hide_top_toolbar'        => array('type' => 'boolean', 'default' => false, 'search' => self::search_metadata('optimize-site-hide_top_toolbar', '隐藏顶部工具条', 'site', '站点与媒体', '站点', array('toolbar', '顶部', '工具栏'), array('推荐', '仅后台'))),
+                        'no_escape'               => array('type' => 'boolean', 'default' => false, 'search' => self::search_metadata('optimize-site-no_escape', '禁止 Title 转义', 'site', '站点与媒体', '站点', array('title', '转义'), array('推荐'))),
+                        'remove_RSS_version'      => array('type' => 'boolean', 'default' => false, 'search' => self::search_metadata('optimize-site-remove_RSS_version', '移除 WP 版本号', 'site', '站点与媒体', '站点', array('version', '版本', 'rss'), array('推荐', '安全'))),
+                        'category_link_simplify'  => array('type' => 'boolean', 'default' => false, 'search' => self::search_metadata('optimize-site-category_link_simplify', '分类链接简化', 'site', '站点与媒体', '站点', array('category', '分类', '链接', 'url'), array('SEO'))),
+                        'search_link_simplify'    => array('type' => 'boolean', 'default' => false, 'search' => self::search_metadata('optimize-site-search_link_simplify', '搜索链接优化', 'site', '站点与媒体', '站点', array('search', '搜索', '链接'), array('SEO'))),
+                        'remove_sitemap_users'    => array('type' => 'boolean', 'default' => false, 'search' => self::search_metadata('optimize-site-remove_sitemap_users', '移除用户站点地图', 'site', '站点与媒体', '站点', array('sitemap', '站点地图', '用户'), array('推荐', '安全'))),
                         'user_list_show_nickname' => array('type' => 'boolean', 'default' => false, 'search' => self::search_metadata('optimize-site-user_list_show_nickname', '用户列表展示昵称', 'site', '站点与媒体', '站点', array('user', '用户', '昵称', '列表'), array('仅后台'))),
-                        'hide_email_ip'          => array('type' => 'boolean', 'default' => false, 'search' => self::search_metadata('optimize-site-hide_email_ip', '隐藏邮件中的 IP', 'site', '站点与媒体', '站点', array('email', '邮件', 'ip', '隐私'), array('推荐', '安全'))),
+                        'hide_email_ip'           => array('type' => 'boolean', 'default' => false, 'search' => self::search_metadata('optimize-site-hide_email_ip', '隐藏邮件中的 IP', 'site', '站点与媒体', '站点', array('email', '邮件', 'ip', '隐私'), array('推荐', '安全'))),
                     ),
-                    'medium' => array(
-                        'img_add_tag'     => array('type' => 'boolean', 'default' => false, 'search' => self::search_metadata('optimize-medium-img_add_tag', '图片自动添加 Alt', 'site', '站点与媒体', '媒体', array('alt', '图片', 'seo'), array('推荐', 'SEO'))),
-                        'no_auto_size'    => array('type' => 'boolean', 'default' => false, 'risk' => array('level' => 'low', 'title' => '禁止缩略图', 'warning' => '此功能可能与部分主题不兼容，导致图片显示异常。', 'suggestion' => '开启前请确认主题支持。'), 'feature_id' => 'optimize-medium-no_auto_size', 'label' => '禁止缩略图', 'group' => '媒体', 'search' => self::search_metadata('optimize-medium-no_auto_size', '禁止缩略图', 'site', '站点与媒体', '媒体', array('thumbnail', '缩略图'), array('谨慎', '需主题兼容'))),
-                        'medium_add_svg'  => array('type' => 'boolean', 'default' => false, 'risk' => array('level' => 'low', 'title' => 'SVG 上传支持', 'warning' => 'SVG 文件可能包含恶意脚本，已做安全过滤但仍需注意。', 'suggestion' => '仅允许可信用户上传 SVG 文件。'), 'feature_id' => 'optimize-medium-medium_add_svg', 'label' => 'SVG 上传支持', 'group' => '媒体', 'search' => self::search_metadata('optimize-medium-medium_add_svg', 'SVG 上传支持', 'site', '站点与媒体', '媒体', array('svg', '上传', '图标'), array('进阶', 'XSS 风险'))),
-                        'upload_auto_name' => array('type' => 'string',  'default' => 'false', 'sanitize' => 'sanitize_text_field', 'search' => self::search_metadata('optimize-medium-upload_auto_name', '上传文件重命名', 'site', '站点与媒体', '媒体', array('rename', '重命名', '上传'), array('推荐'))),
-                        'webp_conversion' => array('type' => 'boolean', 'default' => false, 'risk' => array('level' => 'none'), 'feature_id' => 'optimize-medium-webp_conversion', 'label' => '新生成图片使用 WebP', 'group' => '媒体', 'search' => self::search_metadata('optimize-medium-webp_conversion', '新生成图片使用 WebP', 'site', '站点与媒体', '媒体', array('webp', '图片', '压缩', '格式', '缩略图'), array('性能', '安全'))),
+                    'medium'      => array(
+                        'img_add_tag'      => array('type' => 'boolean', 'default' => false, 'search' => self::search_metadata('optimize-medium-img_add_tag', '图片自动添加 Alt', 'site', '站点与媒体', '媒体', array('alt', '图片', 'seo'), array('推荐', 'SEO'))),
+                        'no_auto_size'     => array('type' => 'boolean', 'default' => false, 'risk' => array('level' => 'low', 'title' => '禁止缩略图', 'warning' => '此功能可能与部分主题不兼容，导致图片显示异常。', 'suggestion' => '开启前请确认主题支持。'), 'feature_id' => 'optimize-medium-no_auto_size', 'label' => '禁止缩略图', 'group' => '媒体', 'search' => self::search_metadata('optimize-medium-no_auto_size', '禁止缩略图', 'site', '站点与媒体', '媒体', array('thumbnail', '缩略图'), array('谨慎', '需主题兼容'))),
+                        'medium_add_svg'   => array('type' => 'boolean', 'default' => false, 'risk' => array('level' => 'low', 'title' => 'SVG 上传支持', 'warning' => 'SVG 文件可能包含恶意脚本，已做安全过滤但仍需注意。', 'suggestion' => '仅允许可信用户上传 SVG 文件。'), 'feature_id' => 'optimize-medium-medium_add_svg', 'label' => 'SVG 上传支持', 'group' => '媒体', 'search' => self::search_metadata('optimize-medium-medium_add_svg', 'SVG 上传支持', 'site', '站点与媒体', '媒体', array('svg', '上传', '图标'), array('进阶', 'XSS 风险'))),
+                        'upload_auto_name' => array('type' => 'string', 'default' => 'false', 'sanitize' => 'sanitize_text_field', 'search' => self::search_metadata('optimize-medium-upload_auto_name', '上传文件重命名', 'site', '站点与媒体', '媒体', array('rename', '重命名', '上传'), array('推荐'))),
+                        'webp_conversion'  => array('type' => 'boolean', 'default' => false, 'risk' => array('level' => 'none'), 'feature_id' => 'optimize-medium-webp_conversion', 'label' => '新生成图片使用 WebP', 'group' => '媒体', 'search' => self::search_metadata('optimize-medium-webp_conversion', '新生成图片使用 WebP', 'site', '站点与媒体', '媒体', array('webp', '图片', '压缩', '格式', '缩略图'), array('性能', '安全'))),
                     ),
-                    'admin' => array(
-                        'add_user'            => array('type' => 'boolean', 'default' => false, 'search' => self::search_metadata('optimize-admin-add_user', '文章作者筛选', 'site', '站点与媒体', '后台', array('author', '作者', '筛选'))),
-                        'add_time'            => array('type' => 'boolean', 'default' => false, 'search' => self::search_metadata('optimize-admin-add_time', '文章日期筛选', 'site', '站点与媒体', '后台', array('date', '日期', '筛选'))),
-                        'show_id'             => array('type' => 'boolean', 'default' => false, 'search' => self::search_metadata('optimize-admin-show_id', '列表显示 ID 列', 'site', '站点与媒体', '后台', array('id', '列表'))),
-                        'thumbnail_switcher'  => array('type' => 'boolean', 'default' => false, 'search' => self::search_metadata('optimize-admin-thumbnail_switcher', '缩略图切换', 'site', '站点与媒体', '后台', array('thumbnail', '缩略图'))),
-                        'open_all_edit_tabs'  => array('type' => 'boolean', 'default' => false, 'search' => self::search_metadata('optimize-admin-open_all_edit_tabs', '在新标签页打开全部编辑', 'site', '站点与媒体', '后台', array('tab', '标签页', '编辑', '批量', '打开'))),
+                    'admin'       => array(
+                        'add_user'           => array('type' => 'boolean', 'default' => false, 'search' => self::search_metadata('optimize-admin-add_user', '文章作者筛选', 'site', '站点与媒体', '后台', array('author', '作者', '筛选'))),
+                        'add_time'           => array('type' => 'boolean', 'default' => false, 'search' => self::search_metadata('optimize-admin-add_time', '文章日期筛选', 'site', '站点与媒体', '后台', array('date', '日期', '筛选'))),
+                        'show_id'            => array('type' => 'boolean', 'default' => false, 'search' => self::search_metadata('optimize-admin-show_id', '列表显示 ID 列', 'site', '站点与媒体', '后台', array('id', '列表'))),
+                        'thumbnail_switcher' => array('type' => 'boolean', 'default' => false, 'search' => self::search_metadata('optimize-admin-thumbnail_switcher', '缩略图切换', 'site', '站点与媒体', '后台', array('thumbnail', '缩略图'))),
+                        'open_all_edit_tabs' => array('type' => 'boolean', 'default' => false, 'search' => self::search_metadata('optimize-admin-open_all_edit_tabs', '在新标签页打开全部编辑', 'site', '站点与媒体', '后台', array('tab', '标签页', '编辑', '批量', '打开'))),
                     ),
                 ),
-                'page' => array(
-                    '_option_key' => NPCINK_SITE_TOOLBOX_OPTION_PAGE,
-                    'comment' => array(
-                        'interval'                   => array('type' => 'boolean', 'default' => false, 'search' => self::search_metadata('page-comment-interval', '评论间隔限制', 'content', '内容与页面', '评论', array('interval', '间隔', '频率', '评论'))),
-                        'interval_time'              => array('type' => 'number',  'default' => 5, 'min' => 1, 'max' => 3600),
-                        'words_number'               => array('type' => 'boolean', 'default' => false, 'search' => self::search_metadata('page-comment-words_number', '评论字数限制', 'content', '内容与页面', '评论', array('words', '字数', '评论'))),
-                        'words_number_min'           => array('type' => 'number',  'default' => 0, 'min' => 0),
-                        'words_number_max'           => array('type' => 'number',  'default' => 120, 'min' => 1),
-                        'english'                    => array('type' => 'boolean', 'default' => false, 'search' => self::search_metadata('page-comment-english', '禁止纯英文评论', 'content', '内容与页面', '评论', array('english', '英文', 'spam', '评论'))),
-                        'only'                       => array('type' => 'boolean', 'default' => false, 'search' => self::search_metadata('page-comment-only', '单篇文章限评一次', 'content', '内容与页面', '评论', array('once', '一次', '评论'))),
-                        'sensitive_words'            => array('type' => 'boolean', 'default' => false, 'search' => self::search_metadata('page-comment-sensitive_words', '敏感词过滤', 'content', '内容与页面', '评论', array('sensitive', '敏感词', '评论'))),
-                        'sensitive_words_list'       => array('type' => 'string',  'default' => '', 'sanitize' => 'sanitize_textarea_field'),
-                        'sensitive_words_action'     => array('type' => 'string',  'default' => 'replace', 'enum' => array('replace', 'block')),
-                        'sensitive_words_replace_char' => array('type' => 'string',  'default' => '***', 'sanitize' => 'sanitize_text_field'),
-                        'self_service_enabled'        => array(
+                'page'        => array(
+                    '_option_key'  => NPCINK_SITE_TOOLBOX_OPTION_PAGE,
+                    'comment'      => array(
+                        'interval'                        => array('type' => 'boolean', 'default' => false, 'search' => self::search_metadata('page-comment-interval', '评论间隔限制', 'content', '内容与页面', '评论', array('interval', '间隔', '频率', '评论'))),
+                        'interval_time'                   => array('type' => 'number', 'default' => 5, 'min' => 1, 'max' => 3600),
+                        'words_number'                    => array('type' => 'boolean', 'default' => false, 'search' => self::search_metadata('page-comment-words_number', '评论字数限制', 'content', '内容与页面', '评论', array('words', '字数', '评论'))),
+                        'words_number_min'                => array('type' => 'number', 'default' => 0, 'min' => 0),
+                        'words_number_max'                => array('type' => 'number', 'default' => 120, 'min' => 1),
+                        'english'                         => array('type' => 'boolean', 'default' => false, 'search' => self::search_metadata('page-comment-english', '禁止纯英文评论', 'content', '内容与页面', '评论', array('english', '英文', 'spam', '评论'))),
+                        'only'                            => array('type' => 'boolean', 'default' => false, 'search' => self::search_metadata('page-comment-only', '单篇文章限评一次', 'content', '内容与页面', '评论', array('once', '一次', '评论'))),
+                        'sensitive_words'                 => array('type' => 'boolean', 'default' => false, 'search' => self::search_metadata('page-comment-sensitive_words', '敏感词过滤', 'content', '内容与页面', '评论', array('sensitive', '敏感词', '评论'))),
+                        'sensitive_words_list'            => array('type' => 'string', 'default' => '', 'sanitize' => 'sanitize_textarea_field'),
+                        'sensitive_words_action'          => array('type' => 'string', 'default' => 'replace', 'enum' => array('replace', 'block')),
+                        'sensitive_words_replace_char'    => array('type' => 'string', 'default' => '***', 'sanitize' => 'sanitize_text_field'),
+                        'self_service_enabled'            => array(
                             'type'       => 'boolean',
                             'default'    => false,
                             'feature_id' => 'page-comment-self_service_enabled',
@@ -122,100 +122,100 @@ if (!class_exists('Npcink_Toolbox_Config_Schema')) {
                             'default' => true,
                         ),
                     ),
-                    'feature' => array(
-                        'reading_progress'         => array('type' => 'boolean', 'default' => false, 'search' => self::search_metadata('page-feature-reading_progress', '阅读进度条', 'content', '内容与页面', '外观', array('progress', '进度', '阅读'), array('仅前台'))),
-                        'reading_progress_color'    => array('type' => 'string',  'default' => '#1677ff', 'sanitize' => 'sanitize_hex_color'),
-                        'reading_progress_height'  => array('type' => 'number',  'default' => 3, 'min' => 1, 'max' => 20),
+                    'feature'      => array(
+                        'reading_progress'        => array('type' => 'boolean', 'default' => false, 'search' => self::search_metadata('page-feature-reading_progress', '阅读进度条', 'content', '内容与页面', '外观', array('progress', '进度', '阅读'), array('仅前台'))),
+                        'reading_progress_color'  => array('type' => 'string', 'default' => '#1677ff', 'sanitize' => 'sanitize_hex_color'),
+                        'reading_progress_height' => array('type' => 'number', 'default' => 3, 'min' => 1, 'max' => 20),
                     ),
-                    'function' => array(
-                        'first_picture'           => array('type' => 'boolean', 'default' => false, 'search' => self::search_metadata('page-function-first_picture', '首图作特色图', 'content', '内容与页面', '功能', array('thumbnail', '特色图', '首图', '封面'))),
-                        'add_inks'                => array('type' => 'boolean', 'default' => false, 'search' => self::search_metadata('page-function-add_inks', '关键词自动内链', 'content', '内容与页面', '功能', array('link', '内链', '关键词', '标签', 'tag'))),
-                        'add_last_update'         => array('type' => 'boolean', 'default' => false, 'search' => self::search_metadata('page-function-add_last_update', '添加最后更新时间', 'content', '内容与页面', '功能', array('update', '更新时间', '编辑'))),
-                        'no_login_img'            => array('type' => 'boolean', 'default' => false, 'search' => self::search_metadata('page-function-no_login_img', '未登录模糊文章内图片', 'content', '内容与页面', '功能', array('blur', '模糊', '登录', '图片'))),
-                        'no_login_img_selector'   => array('type' => 'string',  'default' => '.entry-content img', 'sanitize' => 'sanitize_text_field'),
-                        'maintenance_tips'        => array('type' => 'string',  'default' => 'false', 'sanitize' => 'sanitize_text_field', 'risk' => array('level' => 'high', 'title' => '维护提示页', 'warning' => '开启后全站前台立即进入维护状态，未登录访客只能看到维护提示，搜索引擎会收到 503 响应。', 'suggestion' => '仅在实际维护期间开启，维护完成后立即关闭。', 'noDismiss' => true), 'search' => self::search_metadata('page-function-maintenance_tips', '维护提示页', 'content', '内容与页面', '功能', array('maintenance', '维护', '闭站'), array('谨慎'), array('page-feature-maintenance_tips'))),
-                        'countdown'               => array('type' => 'array',   'default' => array(), 'items' => self::string_list_items()),
-                        'countdown_title'         => array('type' => 'string',  'default' => '', 'sanitize' => 'sanitize_text_field'),
-                        'countdown_image'         => array('type' => 'string',  'default' => '', 'sanitize' => 'esc_url_raw'),
-                        'countdown_content'       => array('type' => 'string',  'default' => '', 'sanitize' => 'sanitize_textarea_field'),
-                        'default_thumbnail'       => array('type' => 'string',  'default' => '', 'sanitize' => 'esc_url_raw'),
-                        'search_limit'            => array('type' => 'boolean', 'default' => false),
-                        'search_limit_count'      => array('type' => 'number',  'default' => 10, 'min' => 1, 'max' => 100),
-                        'login_search'            => array('type' => 'boolean', 'default' => false),
+                    'function'     => array(
+                        'first_picture'         => array('type' => 'boolean', 'default' => false, 'search' => self::search_metadata('page-function-first_picture', '首图作特色图', 'content', '内容与页面', '功能', array('thumbnail', '特色图', '首图', '封面'))),
+                        'add_inks'              => array('type' => 'boolean', 'default' => false, 'search' => self::search_metadata('page-function-add_inks', '关键词自动内链', 'content', '内容与页面', '功能', array('link', '内链', '关键词', '标签', 'tag'))),
+                        'add_last_update'       => array('type' => 'boolean', 'default' => false, 'search' => self::search_metadata('page-function-add_last_update', '添加最后更新时间', 'content', '内容与页面', '功能', array('update', '更新时间', '编辑'))),
+                        'no_login_img'          => array('type' => 'boolean', 'default' => false, 'search' => self::search_metadata('page-function-no_login_img', '未登录模糊文章内图片', 'content', '内容与页面', '功能', array('blur', '模糊', '登录', '图片'))),
+                        'no_login_img_selector' => array('type' => 'string', 'default' => '.entry-content img', 'sanitize' => 'sanitize_text_field'),
+                        'maintenance_tips'      => array('type' => 'string', 'default' => 'false', 'sanitize' => 'sanitize_text_field', 'risk' => array('level' => 'high', 'title' => '维护提示页', 'warning' => '开启后全站前台立即进入维护状态，未登录访客只能看到维护提示，搜索引擎会收到 503 响应。', 'suggestion' => '仅在实际维护期间开启，维护完成后立即关闭。', 'noDismiss' => true), 'search' => self::search_metadata('page-function-maintenance_tips', '维护提示页', 'content', '内容与页面', '功能', array('maintenance', '维护', '闭站'), array('谨慎'), array('page-feature-maintenance_tips'))),
+                        'countdown'             => array('type' => 'array', 'default' => array(), 'items' => self::string_list_items()),
+                        'countdown_title'       => array('type' => 'string', 'default' => '', 'sanitize' => 'sanitize_text_field'),
+                        'countdown_image'       => array('type' => 'string', 'default' => '', 'sanitize' => 'esc_url_raw'),
+                        'countdown_content'     => array('type' => 'string', 'default' => '', 'sanitize' => 'sanitize_textarea_field'),
+                        'default_thumbnail'     => array('type' => 'string', 'default' => '', 'sanitize' => 'esc_url_raw'),
+                        'search_limit'          => array('type' => 'boolean', 'default' => false),
+                        'search_limit_count'    => array('type' => 'number', 'default' => 10, 'min' => 1, 'max' => 100),
+                        'login_search'          => array('type' => 'boolean', 'default' => false),
                     ),
                     'jurisdiction' => array(
-                        'category_id'             => array('type' => 'array',   'default' => array(), 'items' => self::number_list_items()),
-                        'tag_id'                  => array('type' => 'array',   'default' => array(), 'items' => self::number_list_items()),
-                        'page_id'                => array('type' => 'array',   'default' => array(), 'items' => self::number_list_items()),
-                        'single_id'              => array('type' => 'array',   'default' => array(), 'items' => self::number_list_items()),
-                        'tip_content'             => array('type' => 'string',  'default' => '', 'sanitize' => 'wp_kses_post'),
+                        'category_id' => array('type' => 'array', 'default' => array(), 'items' => self::number_list_items()),
+                        'tag_id'      => array('type' => 'array', 'default' => array(), 'items' => self::number_list_items()),
+                        'page_id'     => array('type' => 'array', 'default' => array(), 'items' => self::number_list_items()),
+                        'single_id'   => array('type' => 'array', 'default' => array(), 'items' => self::number_list_items()),
+                        'tip_content' => array('type' => 'string', 'default' => '', 'sanitize' => 'wp_kses_post'),
                     ),
                 ),
-                'function' => array(
+                'function'    => array(
                     '_option_key' => NPCINK_SITE_TOOLBOX_OPTION_FUNCTION,
-                    'auxiliary' => array(
+                    'auxiliary'   => array(
                         'single_count'       => array('type' => 'boolean', 'default' => false, 'search' => self::search_metadata('function-auxiliary-single_count', '文章访问统计', 'seo', 'SEO 与增强', 'SEO', array('count', '统计', '访问', '浏览'))),
                         'no_malice_key'      => array('type' => 'boolean', 'default' => false, 'search' => self::search_metadata('function-auxiliary-no_malice_key', '恶意关键词屏蔽', 'seo', 'SEO 与增强', 'SEO', array('malice', '恶意', '搜索', '屏蔽'))),
-                        'malice_keu_content' => array('type' => 'string',  'default' => '', 'sanitize' => 'sanitize_textarea_field'),
-                        'baidu_tonji'        => array('type' => 'string',  'default' => '', 'sanitize' => 'sanitize_text_field', 'search' => self::search_metadata('function-auxiliary-baidu_tonji', '百度统计', 'seo', 'SEO 与增强', 'SEO', array('baidu', '百度', '统计', 'hm'))),
-                        'google_tonji'       => array('type' => 'string',  'default' => '', 'sanitize' => 'sanitize_text_field', 'search' => self::search_metadata('function-auxiliary-google_tonji', 'Google 站点验证', 'seo', 'SEO 与增强', 'SEO', array('google', '验证', 'search console'))),
-                        'biying_tonji'       => array('type' => 'string',  'default' => '', 'sanitize' => 'sanitize_text_field', 'search' => self::search_metadata('function-auxiliary-biying_tonji', '必应站点验证', 'seo', 'SEO 与增强', 'SEO', array('bing', '必应', '验证', 'webmaster'))),
-                        'uniqueKey'         => array('type' => 'number',  'default' => 0),
+                        'malice_keu_content' => array('type' => 'string', 'default' => '', 'sanitize' => 'sanitize_textarea_field'),
+                        'baidu_tonji'        => array('type' => 'string', 'default' => '', 'sanitize' => 'sanitize_text_field', 'search' => self::search_metadata('function-auxiliary-baidu_tonji', '百度统计', 'seo', 'SEO 与增强', 'SEO', array('baidu', '百度', '统计', 'hm'))),
+                        'google_tonji'       => array('type' => 'string', 'default' => '', 'sanitize' => 'sanitize_text_field', 'search' => self::search_metadata('function-auxiliary-google_tonji', 'Google 站点验证', 'seo', 'SEO 与增强', 'SEO', array('google', '验证', 'search console'))),
+                        'biying_tonji'       => array('type' => 'string', 'default' => '', 'sanitize' => 'sanitize_text_field', 'search' => self::search_metadata('function-auxiliary-biying_tonji', '必应站点验证', 'seo', 'SEO 与增强', 'SEO', array('bing', '必应', '验证', 'webmaster'))),
+                        'uniqueKey'          => array('type' => 'number', 'default' => 0),
                     ),
 
-                    'seo' => array(
+                    'seo'         => array(
                         'seo_home'     => array('type' => 'boolean', 'default' => false, 'search' => self::search_metadata('function-seo-seo_home', '首页 SEO', 'seo', 'SEO 与增强', 'SEO', array('tdk', '首页', '标题', '描述', 'seo'), array('推荐', 'SEO'))),
-                        'title'        => array('type' => 'string',  'default' => '', 'sanitize' => 'sanitize_text_field'),
-                        'keywords'     => array('type' => 'string',  'default' => '', 'sanitize' => 'sanitize_text_field'),
-                        'description'  => array('type' => 'string',  'default' => '', 'sanitize' => 'sanitize_textarea_field'),
+                        'title'        => array('type' => 'string', 'default' => '', 'sanitize' => 'sanitize_text_field'),
+                        'keywords'     => array('type' => 'string', 'default' => '', 'sanitize' => 'sanitize_text_field'),
+                        'description'  => array('type' => 'string', 'default' => '', 'sanitize' => 'sanitize_textarea_field'),
                         'seo_single'   => array('type' => 'boolean', 'default' => false, 'search' => self::search_metadata('function-seo-seo_single', '文章 SEO', 'seo', 'SEO 与增强', 'SEO', array('seo', '文章', '关键词'), array('推荐', 'SEO'))),
                         'seo_category' => array('type' => 'boolean', 'default' => false, 'search' => self::search_metadata('function-seo-seo_category', '分类和标签 SEO', 'seo', 'SEO 与增强', 'SEO', array('category', '分类', '标签', 'tdk'), array('SEO'))),
                     ),
                 ),
-                'domestic' => array(
-                    '_option_key' => NPCINK_SITE_TOOLBOX_OPTION_DOMESTIC,
-                    'compliance' => array(
-                        'icp_enabled'    => array('type' => 'boolean', 'default' => false, 'search' => self::search_metadata('domestic-compliance-icp', 'ICP 备案号', 'china', '国内生态', '合规', array('icp', '备案', '合规'), array('推荐'))),
-                        'icp_number'     => array('type' => 'string',  'default' => '', 'sanitize' => 'sanitize_text_field'),
-                        'icp_link'       => array('type' => 'string',  'default' => 'https://beian.miit.gov.cn/', 'sanitize' => 'esc_url_raw'),
-                        'police_enabled' => array('type' => 'boolean', 'default' => false, 'search' => self::search_metadata('domestic-compliance-police_enabled', '公安网备号', 'china', '国内生态', '合规', array('公安', '网备', '备案'), array('推荐'), array('domestic-compliance-police'))),
-                        'police_number'  => array('type' => 'string',  'default' => '', 'sanitize' => 'sanitize_text_field'),
-                        'police_link'    => array('type' => 'string',  'default' => 'https://www.beian.gov.cn/portal/registerSystemInfo', 'sanitize' => 'esc_url_raw'),
-                        'cookie_enabled' => array('type' => 'boolean', 'default' => false, 'search' => self::search_metadata('domestic-compliance-cookie_enabled', 'Cookie 同意弹窗', 'china', '国内生态', '合规', array('cookie', '隐私', '弹窗'), array(), array('domestic-compliance-cookie'))),
-                        'cookie_style'   => array('type' => 'string',  'default' => 'bottom', 'enum' => array('bottom', 'top', 'center'), 'sanitize' => 'sanitize_text_field'),
-                        'cookie_title'   => array('type' => 'string',  'default' => 'Cookie 同意', 'sanitize' => 'sanitize_text_field'),
-                        'cookie_content' => array('type' => 'string',  'default' => '本网站使用 Cookie 来改善您的体验。继续浏览即表示您同意我们的 Cookie 政策。', 'sanitize' => 'sanitize_textarea_field'),
-                        'cookie_button'  => array('type' => 'string',  'default' => '我知道了', 'sanitize' => 'sanitize_text_field'),
+                'domestic'    => array(
+                    '_option_key'      => NPCINK_SITE_TOOLBOX_OPTION_DOMESTIC,
+                    'compliance'       => array(
+                        'icp_enabled'       => array('type' => 'boolean', 'default' => false, 'search' => self::search_metadata('domestic-compliance-icp', 'ICP 备案号', 'china', '国内生态', '合规', array('icp', '备案', '合规'), array('推荐'))),
+                        'icp_number'        => array('type' => 'string', 'default' => '', 'sanitize' => 'sanitize_text_field'),
+                        'icp_link'          => array('type' => 'string', 'default' => 'https://beian.miit.gov.cn/', 'sanitize' => 'esc_url_raw'),
+                        'police_enabled'    => array('type' => 'boolean', 'default' => false, 'search' => self::search_metadata('domestic-compliance-police_enabled', '公安网备号', 'china', '国内生态', '合规', array('公安', '网备', '备案'), array('推荐'), array('domestic-compliance-police'))),
+                        'police_number'     => array('type' => 'string', 'default' => '', 'sanitize' => 'sanitize_text_field'),
+                        'police_link'       => array('type' => 'string', 'default' => 'https://www.beian.gov.cn/portal/registerSystemInfo', 'sanitize' => 'esc_url_raw'),
+                        'cookie_enabled'    => array('type' => 'boolean', 'default' => false, 'search' => self::search_metadata('domestic-compliance-cookie_enabled', 'Cookie 同意弹窗', 'china', '国内生态', '合规', array('cookie', '隐私', '弹窗'), array(), array('domestic-compliance-cookie'))),
+                        'cookie_style'      => array('type' => 'string', 'default' => 'bottom', 'enum' => array('bottom', 'top', 'center'), 'sanitize' => 'sanitize_text_field'),
+                        'cookie_title'      => array('type' => 'string', 'default' => 'Cookie 同意', 'sanitize' => 'sanitize_text_field'),
+                        'cookie_content'    => array('type' => 'string', 'default' => '本网站使用 Cookie 来改善您的体验。继续浏览即表示您同意我们的 Cookie 政策。', 'sanitize' => 'sanitize_textarea_field'),
+                        'cookie_button'     => array('type' => 'string', 'default' => '我知道了', 'sanitize' => 'sanitize_text_field'),
                         'copyright_enabled' => array('type' => 'boolean', 'default' => false, 'search' => self::search_metadata('domestic-compliance-copyright_enabled', '版权信息', 'china', '国内生态', '合规', array('copyright', '版权'), array(), array('domestic-compliance-copyright'))),
-                        'copyright_html' => array('type' => 'string',  'default' => '', 'sanitize' => 'wp_kses_post'),
+                        'copyright_html'    => array('type' => 'string', 'default' => '', 'sanitize' => 'wp_kses_post'),
                     ),
-                    'wechat' => array(
-                        'jssdk_enabled'          => array('type' => 'boolean', 'default' => false, 'search' => self::search_metadata('domestic-wechat-jssdk', '微信 JSSDK 分享', 'china', '国内生态', '微信生态', array('wechat', '微信', '分享', 'jssdk'))),
-                        'appid'                  => array('type' => 'string',  'default' => '', 'sanitize' => 'sanitize_text_field'),
-                        'appsecret'              => array('type' => 'string',  'default' => '', 'sanitize' => 'sanitize_text_field', 'sensitive' => true),
-                        'guide_overlay_enabled'  => array('type' => 'boolean', 'default' => false, 'search' => self::search_metadata('domestic-wechat-guide', '微信打开引导', 'china', '国内生态', '微信生态', array('wechat', '微信', '引导', '遮层'))),
-                        'guide_mode'             => array('type' => 'string',  'default' => 'guide', 'sanitize' => 'sanitize_text_field'),
-                        'guide_text'             => array('type' => 'string',  'default' => '点击右上角 ··· 在浏览器中打开', 'sanitize' => 'sanitize_text_field'),
-                        'guide_qrcode'           => array('type' => 'string',  'default' => '', 'sanitize' => 'esc_url_raw'),
+                    'wechat'           => array(
+                        'jssdk_enabled'         => array('type' => 'boolean', 'default' => false, 'search' => self::search_metadata('domestic-wechat-jssdk', '微信 JSSDK 分享', 'china', '国内生态', '微信生态', array('wechat', '微信', '分享', 'jssdk'))),
+                        'appid'                 => array('type' => 'string', 'default' => '', 'sanitize' => 'sanitize_text_field'),
+                        'appsecret'             => array('type' => 'string', 'default' => '', 'sanitize' => 'sanitize_text_field', 'sensitive' => true),
+                        'guide_overlay_enabled' => array('type' => 'boolean', 'default' => false, 'search' => self::search_metadata('domestic-wechat-guide', '微信打开引导', 'china', '国内生态', '微信生态', array('wechat', '微信', '引导', '遮层'))),
+                        'guide_mode'            => array('type' => 'string', 'default' => 'guide', 'sanitize' => 'sanitize_text_field'),
+                        'guide_text'            => array('type' => 'string', 'default' => '点击右上角 ··· 在浏览器中打开', 'sanitize' => 'sanitize_text_field'),
+                        'guide_qrcode'          => array('type' => 'string', 'default' => '', 'sanitize' => 'esc_url_raw'),
                     ),
                     'comment_security' => array(
-                        'blacklist_enabled'         => array('type' => 'boolean', 'default' => false, 'search' => self::search_metadata('domestic-comment-blacklist', '评论敏感词过滤', 'china', '国内生态', '评论安全', array('comment', '评论', '敏感词', '黑名单'), array('推荐', '安全'), array('domestic-comment_security-blacklist_enabled'))),
-                        'blacklist_words'           => array('type' => 'string',  'default' => '', 'sanitize' => 'sanitize_textarea_field'),
-                        'blacklist_action'          => array('type' => 'string',  'default' => 'block', 'enum' => array('block', 'mark'), 'sanitize' => 'sanitize_text_field'),
-                        'link_limit_enabled'        => array('type' => 'boolean', 'default' => false, 'search' => self::search_metadata('domestic-comment-link-limit', '评论链接限制', 'china', '国内生态', '评论安全', array('comment', '评论', '链接', '垃圾'), array(), array('domestic-comment_security-link_limit'))),
-                        'link_limit_count'          => array('type' => 'number',  'default' => 2, 'min' => 0, 'search' => self::search_metadata('domestic-comment_security-link_limit', '链接数量上限', 'china', '国内生态', '评论安全', array('link', '链接', '数量'))),
-                        'nickname_filter_enabled'   => array('type' => 'boolean', 'default' => false, 'search' => self::search_metadata('domestic-comment_security-nickname_filter_enabled', '昵称过滤', 'china', '国内生态', '评论安全', array('nickname', '昵称', '过滤'))),
-                        'nickname_filter_words'     => array('type' => 'string',  'default' => '', 'sanitize' => 'sanitize_textarea_field', 'search' => self::search_metadata('domestic-comment_security-nickname_filter', '昵称过滤词', 'china', '国内生态', '评论安全', array('nickname', '昵称', '关键词'))),
-                        'email_domain_enabled'      => array('type' => 'boolean', 'default' => false, 'search' => self::search_metadata('domestic-comment_security-email_domain_enabled', '邮箱域名黑名单', 'china', '国内生态', '评论安全', array('email', '邮箱', '域名', '黑名单'))),
-                        'email_domain_blacklist'   => array('type' => 'string',  'default' => '10minutemail.com,guerrillamail.com,temp-mail.org', 'sanitize' => 'sanitize_textarea_field', 'search' => self::search_metadata('domestic-comment_security-email_blacklist', '邮箱黑名单域名', 'china', '国内生态', '评论安全', array('email', '邮箱', '域名'))),
-                        'duplicate_enabled'         => array('type' => 'boolean', 'default' => false, 'search' => self::search_metadata('domestic-comment_security-duplicate_enabled', '重复评论拦截', 'china', '国内生态', '评论安全', array('comment', '评论', '重复', '拦截'))),
-                        'ip_rate_enabled'           => array('type' => 'boolean', 'default' => false, 'search' => self::search_metadata('domestic-comment-ip-rate', '评论 IP 频率限制', 'china', '国内生态', '评论安全', array('comment', '评论', 'ip', '频率'), array(), array('domestic-comment_security-ip_rate_limit'))),
-                        'ip_rate_limit'             => array('type' => 'number',  'default' => 5, 'min' => 1, 'search' => self::search_metadata('domestic-comment_security-ip_rate_limit', '评论频率上限', 'china', '国内生态', '评论安全', array('ip', '频率', '上限', '评论'))),
-                        'ip_rate_window'            => array('type' => 'number',  'default' => 60, 'min' => 1),
-                        'log_enabled'               => array('type' => 'boolean', 'default' => false, 'search' => self::search_metadata('domestic-comment_security-log_enabled', '记录拦截日志', 'china', '国内生态', '评论安全', array('comment', '评论', '日志', '拦截'))),
+                        'blacklist_enabled'       => array('type' => 'boolean', 'default' => false, 'search' => self::search_metadata('domestic-comment-blacklist', '评论敏感词过滤', 'china', '国内生态', '评论安全', array('comment', '评论', '敏感词', '黑名单'), array('推荐', '安全'), array('domestic-comment_security-blacklist_enabled'))),
+                        'blacklist_words'         => array('type' => 'string', 'default' => '', 'sanitize' => 'sanitize_textarea_field'),
+                        'blacklist_action'        => array('type' => 'string', 'default' => 'block', 'enum' => array('block', 'mark'), 'sanitize' => 'sanitize_text_field'),
+                        'link_limit_enabled'      => array('type' => 'boolean', 'default' => false, 'search' => self::search_metadata('domestic-comment-link-limit', '评论链接限制', 'china', '国内生态', '评论安全', array('comment', '评论', '链接', '垃圾'), array(), array('domestic-comment_security-link_limit'))),
+                        'link_limit_count'        => array('type' => 'number', 'default' => 2, 'min' => 0, 'search' => self::search_metadata('domestic-comment_security-link_limit', '链接数量上限', 'china', '国内生态', '评论安全', array('link', '链接', '数量'))),
+                        'nickname_filter_enabled' => array('type' => 'boolean', 'default' => false, 'search' => self::search_metadata('domestic-comment_security-nickname_filter_enabled', '昵称过滤', 'china', '国内生态', '评论安全', array('nickname', '昵称', '过滤'))),
+                        'nickname_filter_words'   => array('type' => 'string', 'default' => '', 'sanitize' => 'sanitize_textarea_field', 'search' => self::search_metadata('domestic-comment_security-nickname_filter', '昵称过滤词', 'china', '国内生态', '评论安全', array('nickname', '昵称', '关键词'))),
+                        'email_domain_enabled'    => array('type' => 'boolean', 'default' => false, 'search' => self::search_metadata('domestic-comment_security-email_domain_enabled', '邮箱域名黑名单', 'china', '国内生态', '评论安全', array('email', '邮箱', '域名', '黑名单'))),
+                        'email_domain_blacklist'  => array('type' => 'string', 'default' => '10minutemail.com,guerrillamail.com,temp-mail.org', 'sanitize' => 'sanitize_textarea_field', 'search' => self::search_metadata('domestic-comment_security-email_blacklist', '邮箱黑名单域名', 'china', '国内生态', '评论安全', array('email', '邮箱', '域名'))),
+                        'duplicate_enabled'       => array('type' => 'boolean', 'default' => false, 'search' => self::search_metadata('domestic-comment_security-duplicate_enabled', '重复评论拦截', 'china', '国内生态', '评论安全', array('comment', '评论', '重复', '拦截'))),
+                        'ip_rate_enabled'         => array('type' => 'boolean', 'default' => false, 'search' => self::search_metadata('domestic-comment-ip-rate', '评论 IP 频率限制', 'china', '国内生态', '评论安全', array('comment', '评论', 'ip', '频率'), array(), array('domestic-comment_security-ip_rate_limit'))),
+                        'ip_rate_limit'           => array('type' => 'number', 'default' => 5, 'min' => 1, 'search' => self::search_metadata('domestic-comment_security-ip_rate_limit', '评论频率上限', 'china', '国内生态', '评论安全', array('ip', '频率', '上限', '评论'))),
+                        'ip_rate_window'          => array('type' => 'number', 'default' => 60, 'min' => 1),
+                        'log_enabled'             => array('type' => 'boolean', 'default' => false, 'search' => self::search_metadata('domestic-comment_security-log_enabled', '记录拦截日志', 'china', '国内生态', '评论安全', array('comment', '评论', '日志', '拦截'))),
                     ),
-                    'login_security' => array(
-                        'attempt_limit_enabled' => array(
+                    'login_security'   => array(
+                        'attempt_limit_enabled'          => array(
                             'type'       => 'boolean',
                             'default'    => false,
                             'feature_id' => 'domestic-login_security-attempt_limit_enabled',
@@ -229,10 +229,10 @@ if (!class_exists('Npcink_Toolbox_Config_Schema')) {
                             ),
                             'search'     => self::search_metadata('domestic-login_security-attempt_limit_enabled', '登录尝试保护', 'china', '国内生态', '登录安全', array('login', '登录', '失败', '限制', '锁定', '代理'), array('推荐', '安全')),
                         ),
-                        'attempt_limit_count' => array('type' => 'number', 'default' => 5, 'min' => 2, 'max' => 20, 'integer' => true),
-                        'attempt_window_minutes' => array('type' => 'number', 'default' => 15, 'min' => 1, 'max' => 1440, 'integer' => true),
-                        'lock_duration_minutes' => array('type' => 'number', 'default' => 30, 'min' => 1, 'max' => 1440, 'integer' => true),
-                        'trusted_proxies' => array('type' => 'string', 'default' => '', 'format' => 'ip_list'),
+                        'attempt_limit_count'            => array('type' => 'number', 'default' => 5, 'min' => 2, 'max' => 20, 'integer' => true),
+                        'attempt_window_minutes'         => array('type' => 'number', 'default' => 15, 'min' => 1, 'max' => 1440, 'integer' => true),
+                        'lock_duration_minutes'          => array('type' => 'number', 'default' => 30, 'min' => 1, 'max' => 1440, 'integer' => true),
+                        'trusted_proxies'                => array('type' => 'string', 'default' => '', 'format' => 'ip_list'),
                         'anonymous_author_guard_enabled' => array(
                             'type'       => 'boolean',
                             'default'    => false,
@@ -245,22 +245,22 @@ if (!class_exists('Npcink_Toolbox_Config_Schema')) {
                     ),
                 ),
                 'performance' => array(
-                    '_option_key' => NPCINK_SITE_TOOLBOX_OPTION_PERFORMANCE,
-                    'oss' => array(
-                        'enabled'      => array('type' => 'boolean', 'default' => false, 'search' => self::search_metadata('performance-oss-enabled', '对象存储 / OSS', 'maintenance', '存储与维护', '云存储', array('oss', 'cos', '云存储', '阿里云', '腾讯云'), array('性能'))),
-                        'provider'     => array('type' => 'string',  'default' => 'aliyun', 'sanitize' => 'sanitize_text_field'),
-                        'access_key'   => array('type' => 'string',  'default' => '', 'sanitize' => 'sanitize_text_field', 'sensitive' => true),
-                        'secret_key'   => array('type' => 'string',  'default' => '', 'sanitize' => 'sanitize_text_field', 'sensitive' => true),
-                        'bucket'       => array('type' => 'string',  'default' => '', 'sanitize' => 'sanitize_text_field'),
-                        'path'         => array('type' => 'string',  'default' => '', 'sanitize' => 'sanitize_text_field'),
-                        'endpoint'     => array('type' => 'string',  'default' => '', 'sanitize' => 'sanitize_text_field'),
-                        'region'       => array('type' => 'string',  'default' => '', 'sanitize' => 'sanitize_text_field'),
-                        'domain'       => array('type' => 'string',  'default' => '', 'sanitize' => 'esc_url_raw'),
+                    '_option_key'    => NPCINK_SITE_TOOLBOX_OPTION_PERFORMANCE,
+                    'oss'            => array(
+                        'enabled'    => array('type' => 'boolean', 'default' => false, 'search' => self::search_metadata('performance-oss-enabled', '对象存储 / OSS', 'maintenance', '存储与维护', '云存储', array('oss', 'cos', '云存储', '阿里云', '腾讯云'), array('性能'))),
+                        'provider'   => array('type' => 'string', 'default' => 'aliyun', 'sanitize' => 'sanitize_text_field'),
+                        'access_key' => array('type' => 'string', 'default' => '', 'sanitize' => 'sanitize_text_field', 'sensitive' => true),
+                        'secret_key' => array('type' => 'string', 'default' => '', 'sanitize' => 'sanitize_text_field', 'sensitive' => true),
+                        'bucket'     => array('type' => 'string', 'default' => '', 'sanitize' => 'sanitize_text_field'),
+                        'path'       => array('type' => 'string', 'default' => '', 'sanitize' => 'sanitize_text_field'),
+                        'endpoint'   => array('type' => 'string', 'default' => '', 'sanitize' => 'sanitize_text_field'),
+                        'region'     => array('type' => 'string', 'default' => '', 'sanitize' => 'sanitize_text_field'),
+                        'domain'     => array('type' => 'string', 'default' => '', 'sanitize' => 'esc_url_raw'),
                     ),
-                    'seo_checker' => array(
+                    'seo_checker'    => array(
                         'enabled' => array('type' => 'boolean', 'default' => false, 'search' => self::search_metadata('performance-seo_checker-enabled', 'SEO 检查助手', 'maintenance', '存储与维护', 'SEO', array('seo', '检查', 'alt', '健康度'), array('SEO'))),
                     ),
-                    'media_health' => array(
+                    'media_health'   => array(
                         'enabled' => array('type' => 'boolean', 'default' => false, 'search' => self::search_metadata('performance-media_health-enabled', '媒体库体检', 'maintenance', '存储与维护', '媒体', array('media', '媒体', '图片', 'alt', '体检'))),
                     ),
                     'search_enhance' => array(
@@ -268,14 +268,14 @@ if (!class_exists('Npcink_Toolbox_Config_Schema')) {
                         'recommend_enabled' => array('type' => 'boolean', 'default' => false, 'search' => self::search_metadata('performance-search_enhance-recommend_enabled', '搜索结果推荐', 'maintenance', '存储与维护', '搜索', array('recommend', '推荐', '相关'))),
                         'hotwords_enabled'  => array('type' => 'boolean', 'default' => false, 'search' => self::search_metadata('performance-search_enhance-hotwords_enabled', '搜索热词统计', 'maintenance', '存储与维护', '搜索', array('hotword', '热词', '统计'))),
                     ),
-                    'db_clean' => array(
+                    'db_clean'       => array(
                         'enabled'             => array('type' => 'boolean', 'default' => false, 'risk' => array('level' => 'high', 'title' => '数据库清理', 'warning' => '数据库清理操作不可逆，删除的数据无法恢复。', 'suggestion' => '执行前务必先预览影响数量，并做好备份。', 'noDismiss' => true), 'feature_id' => 'performance-db_clean-enabled', 'label' => '数据库清理优化', 'group' => '数据库', 'search' => self::search_metadata('performance-db_clean-enabled', '数据库清理优化', 'maintenance', '存储与维护', '数据库', array('db', '数据库', '清理', '优化', '修订版本'), array('推荐', '性能'))),
-                        'clean_revisions'    => array('type' => 'boolean', 'default' => false, 'search' => self::search_metadata('performance-db_clean-clean_revisions', '清理修订版本', 'maintenance', '存储与维护', '数据库', array('revision', '修订', '清理'))),
-                        'clean_drafts'       => array('type' => 'boolean', 'default' => false, 'search' => self::search_metadata('performance-db_clean-clean_drafts', '清理草稿', 'maintenance', '存储与维护', '数据库', array('draft', '草稿', '清理'))),
+                        'clean_revisions'     => array('type' => 'boolean', 'default' => false, 'search' => self::search_metadata('performance-db_clean-clean_revisions', '清理修订版本', 'maintenance', '存储与维护', '数据库', array('revision', '修订', '清理'))),
+                        'clean_drafts'        => array('type' => 'boolean', 'default' => false, 'search' => self::search_metadata('performance-db_clean-clean_drafts', '清理草稿', 'maintenance', '存储与维护', '数据库', array('draft', '草稿', '清理'))),
                         'clean_spam_comments' => array('type' => 'boolean', 'default' => false, 'search' => self::search_metadata('performance-db_clean-clean_spam_comments', '清理垃圾评论', 'maintenance', '存储与维护', '数据库', array('spam', '垃圾', '评论', '清理'))),
-                        'clean_transients'   => array('type' => 'boolean', 'default' => false, 'search' => self::search_metadata('performance-db_clean-clean_transients', '清理过期临时选项', 'maintenance', '存储与维护', '数据库', array('transient', '临时', '清理'))),
-                        'auto_clean'         => array('type' => 'boolean', 'default' => false, 'search' => self::search_metadata('performance-db_clean-auto_clean', '自动定时清理', 'maintenance', '存储与维护', '数据库', array('auto', '自动', '定时', 'cron'))),
-                        'auto_clean_schedule' => array('type' => 'string',  'default' => 'weekly', 'enum' => array('daily', 'weekly', 'monthly'), 'sanitize' => 'sanitize_text_field'),
+                        'clean_transients'    => array('type' => 'boolean', 'default' => false, 'search' => self::search_metadata('performance-db_clean-clean_transients', '清理过期临时选项', 'maintenance', '存储与维护', '数据库', array('transient', '临时', '清理'))),
+                        'auto_clean'          => array('type' => 'boolean', 'default' => false, 'search' => self::search_metadata('performance-db_clean-auto_clean', '自动定时清理', 'maintenance', '存储与维护', '数据库', array('auto', '自动', '定时', 'cron'))),
+                        'auto_clean_schedule' => array('type' => 'string', 'default' => 'weekly', 'enum' => array('daily', 'weekly', 'monthly'), 'sanitize' => 'sanitize_text_field'),
                     ),
                 ),
             );
@@ -345,9 +345,9 @@ if (!class_exists('Npcink_Toolbox_Config_Schema')) {
          * @return array<int, array<string, mixed>>
          */
         public static function get_admin_search_index() {
-            $schema = self::get_schema_definition();
+            $schema       = self::get_schema_definition();
             $search_index = array();
-            $seen_ids = array();
+            $seen_ids     = array();
 
             foreach ($schema as $module_key => $module_def) {
                 if ($module_key === '_option_key' || $module_key === '_flat' || !is_array($module_def)) {
@@ -403,7 +403,7 @@ if (!class_exists('Npcink_Toolbox_Config_Schema')) {
 
             $search = $field_def['search'];
             foreach (array('id', 'label', 'view', 'tabLabel', 'section') as $required_key) {
-                if (!isset($search[$required_key]) || !is_string($search[$required_key]) || $search[$required_key] === '') {
+                if (!isset($search[ $required_key ]) || !is_string($search[ $required_key ]) || $search[ $required_key ] === '') {
                     throw new UnexpectedValueException(
                         // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped -- Developer-facing diagnostic; escape only if an HTML renderer displays it.
                         sprintf('Search metadata for %1$s has an invalid %2$s', $path, $required_key)
@@ -416,7 +416,7 @@ if (!class_exists('Npcink_Toolbox_Config_Schema')) {
                     sprintf('Search metadata for %s has an invalid view', $path)
                 );
             }
-            if (isset($seen_ids[$search['id']])) {
+            if (isset($seen_ids[ $search['id'] ])) {
                 throw new UnexpectedValueException(
                     // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped -- Developer-facing diagnostic; escape only if an HTML renderer displays it.
                     sprintf('Duplicate search ID: %s', $search['id'])
@@ -442,8 +442,8 @@ if (!class_exists('Npcink_Toolbox_Config_Schema')) {
                 $item['aliases'] = $search['aliases'];
             }
 
-            $seen_ids[$search['id']] = true;
-            $search_index[] = $item;
+            $seen_ids[ $search['id'] ] = true;
+            $search_index[]            = $item;
         }
 
         private static function assert_search_string_list($search, $key, $path, $optional) {
@@ -456,13 +456,13 @@ if (!class_exists('Npcink_Toolbox_Config_Schema')) {
                     sprintf('Search metadata for %1$s is missing %2$s', $path, $key)
                 );
             }
-            if (!is_array($search[$key]) || !self::is_list_array($search[$key])) {
+            if (!is_array($search[ $key ]) || !self::is_list_array($search[ $key ])) {
                 throw new UnexpectedValueException(
                     // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped -- Developer-facing diagnostic; escape only if an HTML renderer displays it.
                     sprintf('Search metadata for %1$s has an invalid %2$s list', $path, $key)
                 );
             }
-            foreach ($search[$key] as $value) {
+            foreach ($search[ $key ] as $value) {
                 if (!is_string($value) || $value === '') {
                     throw new UnexpectedValueException(
                         // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped -- Developer-facing diagnostic; escape only if an HTML renderer displays it.
@@ -479,7 +479,7 @@ if (!class_exists('Npcink_Toolbox_Config_Schema')) {
          */
         public static function get_schema_ui_schema() {
             $schema = self::get_schema();
-            $ui = array();
+            $ui     = array();
 
             foreach ($schema as $module_key => $module_def) {
                 if ($module_key === '_option_key' || $module_key === '_flat') {
@@ -496,7 +496,7 @@ if (!class_exists('Npcink_Toolbox_Config_Schema')) {
                         }
                         $ui_field = self::extract_ui_field($field_def, $module_key, '', $field_key);
                         if ($ui_field !== null) {
-                            $ui[$module_key . '-' . $field_key] = $ui_field;
+                            $ui[ $module_key . '-' . $field_key ] = $ui_field;
                         }
                     }
                 } else {
@@ -516,7 +516,7 @@ if (!class_exists('Npcink_Toolbox_Config_Schema')) {
                             }
                             $ui_field = self::extract_ui_field($field_def, $module_key, $sub_key, $field_key);
                             if ($ui_field !== null) {
-                                $ui[$module_key . '-' . $sub_key . '-' . $field_key] = $ui_field;
+                                $ui[ $module_key . '-' . $sub_key . '-' . $field_key ] = $ui_field;
                             }
                         }
                     }
@@ -531,7 +531,7 @@ if (!class_exists('Npcink_Toolbox_Config_Schema')) {
 
             if (class_exists('Npcink_Toolbox_Module_Metadata')) {
                 $module_ui = Npcink_Toolbox_Module_Metadata::get_ui_metadata();
-                $ui = self::merge_module_metadata($ui, $module_ui);
+                $ui        = self::merge_module_metadata($ui, $module_ui);
             }
 
             return $ui;
@@ -558,7 +558,7 @@ if (!class_exists('Npcink_Toolbox_Config_Schema')) {
                 unset($entry);
 
                 if (!$matched && !empty($meta['feature_id'])) {
-                    $module_entry = array(
+                    $module_entry              = array(
                         'path'        => isset($meta['config_path']) ? $meta['config_path'] : $module_id,
                         'type'        => 'module',
                         'label'       => isset($meta['label']) ? $meta['label'] : '',
@@ -569,7 +569,7 @@ if (!class_exists('Npcink_Toolbox_Config_Schema')) {
                         'depends_on'  => isset($meta['depends_on']) ? $meta['depends_on'] : array(),
                         'preset_tags' => isset($meta['preset_tags']) ? $meta['preset_tags'] : array(),
                     );
-                    $ui[$meta['feature_id']] = $module_entry;
+                    $ui[ $meta['feature_id'] ] = $module_entry;
                 }
             }
 
@@ -610,9 +610,9 @@ if (!class_exists('Npcink_Toolbox_Config_Schema')) {
                 $entry['risk_tags'] = $field_def['risk_tags'];
             } elseif (!empty($entry['risk']) && !empty($entry['risk']['level']) && $entry['risk']['level'] !== 'none') {
                 $tag_map = array('low' => '谨慎', 'high' => '安全');
-                $level = $entry['risk']['level'];
-                if (isset($tag_map[$level])) {
-                    $entry['risk_tags'] = array($tag_map[$level]);
+                $level   = $entry['risk']['level'];
+                if (isset($tag_map[ $level ])) {
+                    $entry['risk_tags'] = array($tag_map[ $level ]);
                 }
             }
 
@@ -625,7 +625,7 @@ if (!class_exists('Npcink_Toolbox_Config_Schema')) {
          * @return array
          */
         public static function get_defaults() {
-            $schema = self::get_schema();
+            $schema   = self::get_schema();
             $defaults = array();
 
             foreach ($schema as $module_key => $module_def) {
@@ -634,25 +634,25 @@ if (!class_exists('Npcink_Toolbox_Config_Schema')) {
                 }
 
                 if (!empty($module_def['_flat'])) {
-                    $defaults[$module_key] = array();
+                    $defaults[ $module_key ] = array();
                     foreach ($module_def as $field_key => $field_def) {
                         if ($field_key === '_option_key' || $field_key === '_flat') {
                             continue;
                         }
-                        $defaults[$module_key][$field_key] = $field_def['default'];
+                        $defaults[ $module_key ][ $field_key ] = $field_def['default'];
                     }
                 } else {
-                    $defaults[$module_key] = array();
+                    $defaults[ $module_key ] = array();
                     foreach ($module_def as $sub_key => $sub_def) {
                         if ($sub_key === '_option_key' || $sub_key === '_flat') {
                             continue;
                         }
-                        $defaults[$module_key][$sub_key] = array();
+                        $defaults[ $module_key ][ $sub_key ] = array();
                         foreach ($sub_def as $field_key => $field_def) {
                             if ($field_key === '_option_key' || $field_key === '_flat') {
                                 continue;
                             }
-                            $defaults[$module_key][$sub_key][$field_key] = $field_def['default'];
+                            $defaults[ $module_key ][ $sub_key ][ $field_key ] = $field_def['default'];
                         }
                     }
                 }
@@ -668,42 +668,42 @@ if (!class_exists('Npcink_Toolbox_Config_Schema')) {
          * Npcink_Toolbox_Config_Manager 独立负责，不读取此构建期快照。
          */
         public static function get_admin_settings_contract() {
-            $schema = self::get_schema();
-            $defaults = self::get_defaults();
+            $schema    = self::get_schema();
+            $defaults  = self::get_defaults();
             $ui_schema = self::get_schema_ui_schema();
 
             foreach ($schema as $module_key => $module_def) {
-                if (!is_array($module_def) || !isset($defaults[$module_key])) {
+                if (!is_array($module_def) || !isset($defaults[ $module_key ])) {
                     continue;
                 }
 
                 if (!empty($module_def['_flat'])) {
                     foreach ($module_def as $field_key => $field_def) {
                         if (is_array($field_def) && !empty($field_def['sensitive'])) {
-                            unset($defaults[$module_key][$field_key]);
-                            unset($ui_schema[$module_key . '-' . $field_key]);
+                            unset($defaults[ $module_key ][ $field_key ]);
+                            unset($ui_schema[ $module_key . '-' . $field_key ]);
                         }
                     }
                     continue;
                 }
 
                 foreach ($module_def as $sub_key => $sub_def) {
-                    if (!is_array($sub_def) || !isset($defaults[$module_key][$sub_key])) {
+                    if (!is_array($sub_def) || !isset($defaults[ $module_key ][ $sub_key ])) {
                         continue;
                     }
                     foreach ($sub_def as $field_key => $field_def) {
                         if (is_array($field_def) && !empty($field_def['sensitive'])) {
-                            unset($defaults[$module_key][$sub_key][$field_key]);
-                            unset($ui_schema[$module_key . '-' . $sub_key . '-' . $field_key]);
+                            unset($defaults[ $module_key ][ $sub_key ][ $field_key ]);
+                            unset($ui_schema[ $module_key . '-' . $sub_key . '-' . $field_key ]);
                         }
                     }
                 }
             }
 
             return array(
-                'defaults' => $defaults,
+                'defaults'    => $defaults,
                 'searchIndex' => self::get_admin_search_index(),
-                'uiSchema' => $ui_schema,
+                'uiSchema'    => $ui_schema,
             );
         }
 
@@ -722,7 +722,7 @@ if (!class_exists('Npcink_Toolbox_Config_Schema')) {
                 return array('valid' => false, 'errors' => array('settings 必须为对象'));
             }
 
-            $schema = self::get_schema();
+            $schema           = self::get_schema();
             $expected_modules = array();
             foreach ($schema as $module_key => $module_def) {
                 if ($module_key !== '_option_key' && $module_key !== '_flat') {
@@ -734,16 +734,16 @@ if (!class_exists('Npcink_Toolbox_Config_Schema')) {
             self::validate_exact_keys($settings, $expected_modules, 'settings', $errors);
 
             foreach ($expected_modules as $module_key) {
-                if (!array_key_exists($module_key, $settings) || !is_array($settings[$module_key])) {
+                if (!array_key_exists($module_key, $settings) || !is_array($settings[ $module_key ])) {
                     if (array_key_exists($module_key, $settings)) {
                         $errors[] = "settings.{$module_key} 必须为对象";
                     }
                     continue;
                 }
 
-                $module_def = $schema[$module_key];
+                $module_def = $schema[ $module_key ];
                 if (!empty($module_def['_flat'])) {
-                    self::validate_browser_fields($settings[$module_key], $module_def, "settings.{$module_key}", $errors);
+                    self::validate_browser_fields($settings[ $module_key ], $module_def, "settings.{$module_key}", $errors);
                     continue;
                 }
 
@@ -753,18 +753,18 @@ if (!class_exists('Npcink_Toolbox_Config_Schema')) {
                         $expected_submodules[] = $sub_key;
                     }
                 }
-                self::validate_exact_keys($settings[$module_key], $expected_submodules, "settings.{$module_key}", $errors);
+                self::validate_exact_keys($settings[ $module_key ], $expected_submodules, "settings.{$module_key}", $errors);
 
                 foreach ($expected_submodules as $sub_key) {
-                    if (!array_key_exists($sub_key, $settings[$module_key]) || !is_array($settings[$module_key][$sub_key])) {
-                        if (array_key_exists($sub_key, $settings[$module_key])) {
+                    if (!array_key_exists($sub_key, $settings[ $module_key ]) || !is_array($settings[ $module_key ][ $sub_key ])) {
+                        if (array_key_exists($sub_key, $settings[ $module_key ])) {
                             $errors[] = "settings.{$module_key}.{$sub_key} 必须为对象";
                         }
                         continue;
                     }
                     self::validate_browser_fields(
-                        $settings[$module_key][$sub_key],
-                        $module_def[$sub_key],
+                        $settings[ $module_key ][ $sub_key ],
+                        $module_def[ $sub_key ],
                         "settings.{$module_key}.{$sub_key}",
                         $errors
                     );
@@ -790,28 +790,28 @@ if (!class_exists('Npcink_Toolbox_Config_Schema')) {
                 if (!array_key_exists($field_key, $values)) {
                     continue;
                 }
-                $field_def = $field_definitions[$field_key];
-                $type = isset($field_def['type']) ? $field_def['type'] : 'string';
-                if (!self::matches_json_type($values[$field_key], $type)) {
+                $field_def = $field_definitions[ $field_key ];
+                $type      = isset($field_def['type']) ? $field_def['type'] : 'string';
+                if (!self::matches_json_type($values[ $field_key ], $type)) {
                     $errors[] = "{$path}.{$field_key} 必须为 {$type} 类型";
                     continue;
                 }
                 if ($type === 'number' && !empty($field_def['integer'])) {
-                    if (!is_int($values[$field_key])) {
+                    if (!is_int($values[ $field_key ])) {
                         $errors[] = "{$path}.{$field_key} 必须为整数";
                         continue;
                     }
-                    if (isset($field_def['min']) && $values[$field_key] < $field_def['min']) {
+                    if (isset($field_def['min']) && $values[ $field_key ] < $field_def['min']) {
                         $errors[] = "{$path}.{$field_key} 不能小于 {$field_def['min']}";
                         continue;
                     }
-                    if (isset($field_def['max']) && $values[$field_key] > $field_def['max']) {
+                    if (isset($field_def['max']) && $values[ $field_key ] > $field_def['max']) {
                         $errors[] = "{$path}.{$field_key} 不能大于 {$field_def['max']}";
                         continue;
                     }
                 }
                 if ($type === 'string' && isset($field_def['format']) && $field_def['format'] === 'ip_list') {
-                    $ip_list = self::sanitize_ip_list($values[$field_key]);
+                    $ip_list = self::sanitize_ip_list($values[ $field_key ]);
                     if (!$ip_list['valid']) {
                         $errors[] = "{$path}.{$field_key} {$ip_list['error']}";
                         continue;
@@ -819,7 +819,7 @@ if (!class_exists('Npcink_Toolbox_Config_Schema')) {
                 }
                 if ($type === 'array' && isset($field_def['items']) && is_array($field_def['items'])) {
                     self::validate_array_items(
-                        $values[$field_key],
+                        $values[ $field_key ],
                         $field_def['items'],
                         "{$path}.{$field_key}",
                         $errors
@@ -856,7 +856,7 @@ if (!class_exists('Npcink_Toolbox_Config_Schema')) {
             $properties = isset($contract['properties']) && is_array($contract['properties'])
                 ? $contract['properties']
                 : array();
-            $required = isset($contract['required']) && is_array($contract['required'])
+            $required   = isset($contract['required']) && is_array($contract['required'])
                 ? $contract['required']
                 : array();
 
@@ -876,7 +876,7 @@ if (!class_exists('Npcink_Toolbox_Config_Schema')) {
                     continue;
                 }
                 $property_type = isset($property_contract['type']) ? $property_contract['type'] : '';
-                if (!self::matches_json_type($value[$property_key], $property_type)) {
+                if (!self::matches_json_type($value[ $property_key ], $property_type)) {
                     $errors[] = "{$path}.{$property_key} 必须为 {$property_type} 类型";
                 }
             }
@@ -1017,13 +1017,15 @@ if (!class_exists('Npcink_Toolbox_Config_Schema')) {
                     return array('valid' => false, 'value' => '', 'error' => '每个非空行必须是精确 IPv4 或 IPv6 地址');
                 }
 
+                // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged -- 失败为预期分支，靠返回值判断
                 $packed = @inet_pton($line);
+                // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged -- 失败为预期分支，靠返回值判断
                 $canonical = $packed !== false ? @inet_ntop($packed) : false;
                 if (!is_string($canonical)) {
                     return array('valid' => false, 'value' => '', 'error' => '每个非空行必须是精确 IPv4 或 IPv6 地址');
                 }
 
-                $normalized[strtolower($canonical)] = true;
+                $normalized[ strtolower($canonical) ] = true;
             }
 
             return array(
@@ -1043,24 +1045,24 @@ if (!class_exists('Npcink_Toolbox_Config_Schema')) {
         public static function validate_module($module, $data) {
             $schema = self::get_schema();
 
-            if (!isset($schema[$module])) {
+            if (!isset($schema[ $module ])) {
                 return array('valid' => false, 'data' => array(), 'errors' => array("Unknown module: {$module}"));
             }
 
-            $module_def = $schema[$module];
-            $cleaned = array();
-            $errors = array();
+            $module_def = $schema[ $module ];
+            $cleaned    = array();
+            $errors     = array();
 
             if (!empty($module_def['_flat'])) {
                 foreach ($module_def as $field_key => $field_def) {
                     if ($field_key === '_option_key' || $field_key === '_flat') {
                         continue;
                     }
-                    $raw = isset($data[$field_key]) ? $data[$field_key] : null;
-                    $result = self::sanitize_field($raw, $field_def);
-                    $cleaned[$field_key] = $result['value'];
+                    $raw                   = isset($data[ $field_key ]) ? $data[ $field_key ] : null;
+                    $result                = self::sanitize_field($raw, $field_def);
+                    $cleaned[ $field_key ] = $result['value'];
                     if ($result['error']) {
-                        $errors[$module . '.' . $field_key] = $result['error'];
+                        $errors[ $module . '.' . $field_key ] = $result['error'];
                     }
                 }
             } else {
@@ -1068,17 +1070,17 @@ if (!class_exists('Npcink_Toolbox_Config_Schema')) {
                     if ($sub_key === '_option_key' || $sub_key === '_flat') {
                         continue;
                     }
-                    $cleaned[$sub_key] = array();
-                    $sub_data = isset($data[$sub_key]) && is_array($data[$sub_key]) ? $data[$sub_key] : array();
+                    $cleaned[ $sub_key ] = array();
+                    $sub_data            = isset($data[ $sub_key ]) && is_array($data[ $sub_key ]) ? $data[ $sub_key ] : array();
                     foreach ($sub_def as $field_key => $field_def) {
                         if ($field_key === '_option_key' || $field_key === '_flat') {
                             continue;
                         }
-                        $raw = isset($sub_data[$field_key]) ? $sub_data[$field_key] : null;
-                        $result = self::sanitize_field($raw, $field_def);
-                        $cleaned[$sub_key][$field_key] = $result['value'];
+                        $raw                               = isset($sub_data[ $field_key ]) ? $sub_data[ $field_key ] : null;
+                        $result                            = self::sanitize_field($raw, $field_def);
+                        $cleaned[ $sub_key ][ $field_key ] = $result['value'];
                         if ($result['error']) {
-                            $errors[$module . '.' . $sub_key . '.' . $field_key] = $result['error'];
+                            $errors[ $module . '.' . $sub_key . '.' . $field_key ] = $result['error'];
                         }
                     }
                 }
@@ -1098,17 +1100,17 @@ if (!class_exists('Npcink_Toolbox_Config_Schema')) {
          * @return array ['valid' => bool, 'data' => array, 'errors' => array]
          */
         public static function validate_full_config($full_config) {
-            $schema = self::get_schema();
-            $cleaned = array();
+            $schema     = self::get_schema();
+            $cleaned    = array();
             $all_errors = array();
 
             foreach ($schema as $module_key => $module_def) {
                 if ($module_key === '_option_key' || $module_key === '_flat') {
                     continue;
                 }
-                $module_data = isset($full_config[$module_key]) && is_array($full_config[$module_key]) ? $full_config[$module_key] : array();
-                $result = self::validate_module($module_key, $module_data);
-                $cleaned[$module_key] = $result['data'];
+                $module_data            = isset($full_config[ $module_key ]) && is_array($full_config[ $module_key ]) ? $full_config[ $module_key ] : array();
+                $result                 = self::validate_module($module_key, $module_data);
+                $cleaned[ $module_key ] = $result['data'];
                 if (!empty($result['errors'])) {
                     $all_errors = array_merge($all_errors, $result['errors']);
                 }

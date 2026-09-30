@@ -33,11 +33,11 @@ if (!class_exists('Npcink_Toolbox_Unlisted_Vague_Img')) {
                 return;
             }
 
-            $selector = self::get_selector();
+            $selector            = self::get_selector();
             $login_visible_label = wp_json_encode(__('登录可见', 'npcink-site-toolbox'));
 
             // 模糊样式；标签挂在包裹元素上（::before/::after 挂在 img 这类替换元素上不会渲染）
-            $css = $selector . '{-webkit-filter:blur(10px)!important;-moz-filter:blur(10px)!important;-ms-filter:blur(10px)!important;filter:blur(6px)!important}';
+            $css  = $selector . '{-webkit-filter:blur(10px)!important;-moz-filter:blur(10px)!important;-ms-filter:blur(10px)!important;filter:blur(6px)!important}';
             $css .= '.npcink-vague-wrap{position:relative;display:inline-block;max-width:100%}';
             $css .= '.npcink-vague-wrap::after{content:' . $login_visible_label . ';position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px;text-shadow:0 1px 3px rgba(0,0,0,.8);}';
             wp_register_style('npcink-site-toolbox-unlisted-images', false, array(), NPCINK_SITE_TOOLBOX_VERSION);
@@ -45,7 +45,7 @@ if (!class_exists('Npcink_Toolbox_Unlisted_Vague_Img')) {
             wp_add_inline_style('npcink-site-toolbox-unlisted-images', $css);
 
             // 用包裹元素承载标签：把匹配的图片逐个包进 .npcink-vague-wrap
-            $js = '(function(){var sel=' . wp_json_encode($selector) . ';';
+            $js  = '(function(){var sel=' . wp_json_encode($selector) . ';';
             $js .= 'document.addEventListener("DOMContentLoaded",function(){';
             $js .= 'document.querySelectorAll(sel).forEach(function(img){';
             $js .= 'if(img.closest(".npcink-vague-wrap")){return;}';

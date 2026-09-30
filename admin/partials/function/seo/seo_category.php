@@ -2,7 +2,7 @@
 defined('ABSPATH') || exit;
 
 /**
- * 效果：简单SEO - 分类和标签TDK 
+ * 效果：简单SEO - 分类和标签TDK
  * 来源：https://www.npc.ink/4596.html
  */
 if (!class_exists('Npcink_Toolbox_Seo_Category')) {
@@ -50,11 +50,11 @@ if (!class_exists('Npcink_Toolbox_Seo_Category')) {
             }
 
             $description_data = '';
-            $category = get_queried_object(); // 获取当前分类对象
+            $category         = get_queried_object(); // 获取当前分类对象
             if ($category) {
                 $description_data = $category->description; // 获取分类描述
             }
-           
+
             if ($description_data !== '' &&  $description_data !== false) {
                 $description = mb_substr($description_data, 0, 55, 'utf-8'); //只取前40个字
                 echo '<meta name="description" content="' . esc_attr($description) . '" />';

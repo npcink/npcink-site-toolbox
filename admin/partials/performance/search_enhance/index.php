@@ -20,15 +20,23 @@ if (!class_exists('Npcink_Toolbox_Performance_Search_Enhance')) {
         public static function highlight_search($text) {
             // 非搜索页直接返回：the_title/the_excerpt 全站都会触发，
             // 不能在判断 is_search() 之前对每个标题/摘要都跑一遍 kses
-            if (!is_search()) return $text;
-            $text = wp_kses_post((string) $text);
-            $query = wp_strip_all_tags((string) get_search_query());
-            if (empty($query)) return $text;
+            if (!is_search()) {
+                return $text;
+            }
+            $text  = wp_kses_post( (string) $text);
+            $query = wp_strip_all_tags( (string) get_search_query());
+            if (empty($query)) {
+                return $text;
+            }
             $parts = preg_split('/(<[^>]+>)/', $text, -1, PREG_SPLIT_DELIM_CAPTURE);
-            if (!is_array($parts)) return $text;
+            if (!is_array($parts)) {
+                return $text;
+            }
             foreach ($parts as $index => $part) {
-                if ($part === '' || $part[0] === '<') continue;
-                $parts[$index] = preg_replace_callback(
+                if ($part === '' || $part[0] === '<') {
+                    continue;
+                }
+                $parts[ $index ] = preg_replace_callback(
                     '/(' . preg_quote($query, '/') . ')/iu',
                     static function ($matches) {
                         return '<mark style="background:#ffeb3b;padding:0 2px;">' . esc_html($matches[0]) . '</mark>';
@@ -40,7 +48,9 @@ if (!class_exists('Npcink_Toolbox_Performance_Search_Enhance')) {
         }
         public static function show_recommendations() {
             $tags = get_tags(array('orderby' => 'count', 'order' => 'DESC', 'number' => 5));
-            if (empty($tags)) return;
+            if (empty($tags)) {
+                return;
+            }
             echo '<div class="mabox-search-recommend" style="margin:30px 0;text-align:center;">';
             printf(
                 '<h3 style="margin-bottom:15px;">%s</h3>',

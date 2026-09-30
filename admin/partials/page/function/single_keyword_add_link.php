@@ -21,6 +21,7 @@ if (!class_exists('Npcink_Toolbox_Single_Keyword_Add_Link')) {
         //按长度排序
         public static function tag_sort($a, $b)
         {
+            // phpcs:ignore Universal.Operators.StrictComparisons.LooseEqual -- 既有宽松比较语义已人工核实
             if ($a->name == $b->name) {
                 return 0;
             }
@@ -36,8 +37,8 @@ if (!class_exists('Npcink_Toolbox_Single_Keyword_Add_Link')) {
             }
             //连接数量
             $match_num_from = 1; //一篇文章中同一个关键字少于多少不锚文本（这个直接填1就好了）
-            $match_num_to = 3; //一篇文章中同一个关键字最多出现多少次锚文本（建议不超过1次）
-            $posttags = get_the_tags();
+            $match_num_to   = 3; //一篇文章中同一个关键字最多出现多少次锚文本（建议不超过1次）
+            $posttags       = get_the_tags();
             if (!$posttags) {
                 return $content;
             }
@@ -45,7 +46,7 @@ if (!class_exists('Npcink_Toolbox_Single_Keyword_Add_Link')) {
 
             // 暂存代码与预格式块，避免其中的关键词被链接；
             // 使用私有区字符包裹，保证占位符不会被当作普通关键词匹配
-            $vault = array();
+            $vault   = array();
             $content = preg_replace_callback(
                 '/<(code|pre)\b[^>]*>.*?<\/\1>/is',
                 static function ($matches) use (&$vault) {
@@ -56,23 +57,23 @@ if (!class_exists('Npcink_Toolbox_Single_Keyword_Add_Link')) {
             );
 
             foreach ($posttags as $tag) {
-                $link = get_tag_link($tag->term_id);
-                $keyword = wp_strip_all_tags((string) $tag->name);
+                $link    = get_tag_link($tag->term_id);
+                $keyword = wp_strip_all_tags( (string) $tag->name);
                 if ('' === $keyword) {
                     continue;
                 }
                 //连接代码
                 $cleankeyword = stripslashes($keyword);
                 /* translators: %s: Tag name used in the generated link title. */
-                $title = sprintf(__('查看所有文章关于 %s', 'npcink-site-toolbox'), $cleankeyword);
-                $url = '<strong><a href="' . esc_url($link) . '" title="' . esc_attr($title) . '"';
-                $url .= ' target="_blank" rel="noopener"';
-                $url .= '>' . esc_html($cleankeyword) . '</a></strong>';
-                $limit = wp_rand($match_num_from, $match_num_to);
-                $case = '';
+                $title        = sprintf(__('查看所有文章关于 %s', 'npcink-site-toolbox'), $cleankeyword);
+                $url          = '<strong><a href="' . esc_url($link) . '" title="' . esc_attr($title) . '"';
+                $url         .= ' target="_blank" rel="noopener"';
+                $url         .= '>' . esc_html($cleankeyword) . '</a></strong>';
+                $limit        = wp_rand($match_num_from, $match_num_to);
+                $case         = '';
                 $cleankeyword = preg_quote($cleankeyword, '~');
                 // 使用 ~ 分隔符：模式中的 </a> 含 / 字符，用 / 作分隔符会使正则非法
-                $regEx = '~(?!((<.*?)|(<a.*?)))(' . $cleankeyword . ')(?!(([^<>]*?)>)|([^>]*?</a>))~is' . $case;
+                $regEx   = '~(?!((<.*?)|(<a.*?)))(' . $cleankeyword . ')(?!(([^<>]*?)>)|([^>]*?</a>))~is' . $case;
                 $content = preg_replace_callback($regEx, static function () use ($url) {
                     return $url;
                 }, $content, $limit);

@@ -22,14 +22,14 @@ if (!class_exists('Npcink_Toolbox_Page_Comment_Interval')) {
             //间隔时间
             $seconds = Npcink_Toolbox_Admin::get_config(self::$option, 'interval_time');
             if (($time_new - $time_last) < $seconds) {
-                $time = $seconds - ($time_new - $time_last);
+                $time    = $seconds - ($time_new - $time_last);
                 $message = sprintf(
                     /* translators: %d: Remaining seconds before another comment can be submitted. */
                     __('评论过快！请在 %d 秒后再来评论。', 'npcink-site-toolbox'),
                     $time
                 );
 
-                $message = $message . Npcink_Toolbox_Admin::back_button();
+                $message      = $message . Npcink_Toolbox_Admin::back_button();
                 $allowed_html = array(
                     'p' => array(),
                     'a' => array(
