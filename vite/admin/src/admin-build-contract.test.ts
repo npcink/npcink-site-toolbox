@@ -18,6 +18,7 @@ type ManifestRecord = {
   isDynamicEntry?: boolean;
   imports?: string[];
   dynamicImports?: string[];
+  css?: string[];
 };
 
 const createFixture = (overrides?: {
