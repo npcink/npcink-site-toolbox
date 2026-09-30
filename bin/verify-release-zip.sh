@@ -162,13 +162,16 @@ required_files=(
   "blocks/site-stats/index.asset.php"
   "blocks/site-stats/style.css"
   "vite/admin/dist/index.js"
-  "vite/admin/dist/index.css"
   "vite/count/dist/index.js"
   "vite/count/dist/index.css"
 )
 for required_file in "${required_files[@]}"; do
   [ -f "$package_root/$required_file" ] || fail "missing required release file: $required_file"
 done
+
+# CSS 已随 chunk 哈希化：发布包必须携带至少一个后台样式 chunk
+admin_css_count="$(find "$package_root/vite/admin/dist/assets" -maxdepth 1 -type f -name '*-*.css' 2>/dev/null | wc -l | tr -d ' ')"
+[ "$admin_css_count" -gt 0 ] || fail "missing hashed admin CSS chunks under vite/admin/dist/assets"
 
 readme_path="$package_root/readme.txt"
 for source_contract in \

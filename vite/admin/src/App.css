@@ -1,3 +1,5 @@
+/* 外壳样式：随入口 chunk 一次性加载；视图专属样式已拆分到对应组件目录 */
+
 .mabox-shell,
 .mabox-detail-drawer,
 .mabox-admin-modal,
@@ -12,7 +14,6 @@
 .mabox-admin-modal *::after {
   box-sizing: border-box;
 }
-
 .mabox-shell :where(h1, h2, h3, h4, h5, h6),
 .mabox-detail-drawer :where(h1, h2, h3, h4, h5, h6),
 .mabox-admin-modal :where(h1, h2, h3, h4, h5, h6) {
@@ -20,14 +21,12 @@
   font-size: inherit;
   font-weight: inherit;
 }
-
 .mabox-shell :where(p),
 .mabox-detail-drawer :where(p),
 .mabox-admin-modal :where(p) {
   margin: 0;
   font: inherit;
 }
-
 .mabox-shell :where(pre),
 .mabox-detail-drawer :where(pre),
 .mabox-admin-modal :where(pre) {
@@ -35,7 +34,6 @@
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   font-size: 1em;
 }
-
 .mabox-shell :where(ol, ul, menu),
 .mabox-detail-drawer :where(ol, ul, menu),
 .mabox-admin-modal :where(ol, ul, menu) {
@@ -43,7 +41,6 @@
   padding: 0;
   list-style: none;
 }
-
 .mabox-shell :where(button, input, optgroup, select, textarea),
 .mabox-detail-drawer :where(button, input, optgroup, select, textarea),
 .mabox-admin-modal :where(button, input, optgroup, select, textarea) {
@@ -55,13 +52,11 @@
   line-height: inherit;
   letter-spacing: inherit;
 }
-
 .mabox-shell :where(a),
 .mabox-detail-drawer :where(a),
 .mabox-admin-modal :where(a) {
   color: #1677ff;
 }
-
 .mabox-shell :where(h2),
 .mabox-detail-drawer :where(h2),
 .mabox-admin-modal :where(h2) {
@@ -73,23 +68,12 @@
   margin-inline-end: 0px;
   font-weight: bold;
 }
-
-.mabox-preformatted-hint {
-  display: inline-block;
-  margin-right: 0.5rem;
-  margin-left: 0.5rem;
-  color: #f97316;
-  font-size: 0.75rem;
-  line-height: 1rem;
-}
-
 .mabox-shell .ant-btn-primary,
 .mabox-detail-drawer .ant-btn-primary,
 .mabox-admin-modal .ant-btn-primary {
   color: #fff;
   background-color: #3858e9;
 }
-
 .mabox-shell .ant-btn-primary:not(:disabled):not(.ant-btn-disabled):hover,
 .mabox-detail-drawer .ant-btn-primary:not(:disabled):not(.ant-btn-disabled):hover,
 .mabox-admin-modal .ant-btn-primary:not(:disabled):not(.ant-btn-disabled):hover {
@@ -97,7 +81,6 @@
   background-color: #2f4fd7;
   border-color: #2f4fd7;
 }
-
 .mabox-shell .ant-btn-primary:not(:disabled):not(.ant-btn-disabled):focus-visible,
 .mabox-detail-drawer .ant-btn-primary:not(:disabled):not(.ant-btn-disabled):focus-visible,
 .mabox-admin-modal .ant-btn-primary:not(:disabled):not(.ant-btn-disabled):focus-visible {
@@ -107,7 +90,6 @@
   outline: 2px solid rgba(56, 88, 233, 0.28);
   outline-offset: 2px;
 }
-
 .mabox-shell .ant-btn-primary:not(:disabled):not(.ant-btn-disabled):active,
 .mabox-detail-drawer .ant-btn-primary:not(:disabled):not(.ant-btn-disabled):active,
 .mabox-admin-modal .ant-btn-primary:not(:disabled):not(.ant-btn-disabled):active {
@@ -115,7 +97,6 @@
   background-color: #263cae;
   border-color: #263cae;
 }
-
 .mabox-shell .ant-btn-primary:disabled,
 .mabox-shell .ant-btn-primary.ant-btn-disabled,
 .mabox-detail-drawer .ant-btn-primary:disabled,
@@ -126,7 +107,6 @@
   background-color: #f5f5f5;
   border-color: #d9d9d9;
 }
-
 .mabox-shell {
   --mabox-accent: #3858e9;
   --mabox-accent-soft: #f0f3ff;
@@ -141,7 +121,6 @@
   color: var(--mabox-text);
   background: transparent;
 }
-
 .mabox-header {
   position: sticky;
   top: 32px;
@@ -160,20 +139,17 @@
   border-radius: 6px;
   gap: 16px;
 }
-
 .mabox-header-left {
   display: flex;
   align-items: center;
   gap: 10px;
 }
-
 .mabox-header-icon {
   font-size: 24px;
   width: 24px;
   height: 24px;
   color: var(--mabox-accent);
 }
-
 .mabox-header-title {
   font-size: 17px;
   font-weight: 600;
@@ -181,18 +157,15 @@
   color: var(--mabox-text);
   line-height: 1.3;
 }
-
 .mabox-header-center {
   flex: 1;
   max-width: 320px;
 }
-
 .mabox-header-right {
   display: flex;
   align-items: center;
   gap: 8px;
 }
-
 .mabox-help-btn {
   display: inline-flex;
   align-items: center;
@@ -206,13 +179,11 @@
   color: var(--mabox-muted);
   cursor: pointer;
 }
-
 .mabox-help-btn:hover {
   border-color: var(--mabox-border);
   color: var(--mabox-text);
   background: #f6f7f7;
 }
-
 .mabox-help-btn:focus-visible,
 .mabox-mobile-toggle:focus-visible,
 .mabox-nav-item:focus-visible,
@@ -222,7 +193,6 @@
   outline: 2px solid var(--mabox-accent);
   outline-offset: 2px;
 }
-
 .mabox-body {
   display: flex;
   align-items: flex-start;
@@ -233,7 +203,6 @@
   padding: 24px 0;
   gap: 24px;
 }
-
 .mabox-sidebar {
   position: sticky;
   top: 120px;
@@ -246,15 +215,12 @@
   border-radius: 6px;
   overflow-y: auto;
 }
-
 .mabox-nav-group {
   margin-bottom: 8px;
 }
-
 .mabox-nav-group:last-child {
   margin-bottom: 0;
 }
-
 .mabox-nav-group-label {
   padding: 8px 8px 5px;
   font-size: 11px;
@@ -262,7 +228,6 @@
   color: var(--mabox-muted);
   letter-spacing: 0.02em;
 }
-
 .mabox-nav-item {
   width: 100%;
   display: flex;
@@ -282,12 +247,10 @@
   transition: color 120ms ease, background-color 120ms ease;
   position: relative;
 }
-
 .mabox-nav-item:hover {
   background: #f0f0f1;
   color: var(--mabox-text);
 }
-
 .mabox-nav-item .dashicons {
   font-size: 16px;
   width: 16px;
@@ -295,17 +258,14 @@
   line-height: 16px;
   color: currentColor;
 }
-
 .mabox-nav-item:hover .dashicons {
   color: currentColor;
 }
-
 .mabox-nav-item--active {
   background: var(--mabox-accent-soft);
   color: var(--mabox-accent);
   font-weight: 600;
 }
-
 .mabox-nav-item--active::before {
   content: "";
   position: absolute;
@@ -316,16 +276,13 @@
   background: var(--mabox-accent);
   border-radius: 0 2px 2px 0;
 }
-
 .mabox-nav-item--active .dashicons {
   color: currentColor;
 }
-
 .mabox-main {
   flex: 1;
   min-width: 0;
 }
-
 .mabox-content {
   min-height: 440px;
   padding: 24px;
@@ -333,7 +290,6 @@
   border: 1px solid var(--mabox-border);
   border-radius: 6px;
 }
-
 .mabox-footer {
   position: sticky;
   bottom: 0;
@@ -346,7 +302,6 @@
   background: rgba(255, 255, 255, 0.98);
   border-top: 1px solid var(--mabox-border);
 }
-
 .mabox-save-trust {
   display: flex;
   align-items: center;
@@ -354,7 +309,6 @@
   min-width: 0;
   gap: 10px;
 }
-
 .mabox-save-feedback {
   max-width: min(420px, 45vw);
   padding: 5px 8px;
@@ -364,19 +318,16 @@
   line-height: 1.45;
   overflow-wrap: anywhere;
 }
-
 .mabox-save-feedback--warning {
   color: #614200;
   background: #fcf9e8;
   border-color: #dba617;
 }
-
 .mabox-save-feedback--error {
   color: #8a2424;
   background: #fcf0f1;
   border-color: #d63638;
 }
-
 .mabox-save-status {
   color: var(--mabox-muted);
   font-size: 12px;
@@ -384,21 +335,17 @@
   line-height: 1.4;
   white-space: nowrap;
 }
-
 .mabox-save-status:focus-visible {
   outline: 2px solid var(--mabox-accent);
   outline-offset: 3px;
   border-radius: 2px;
 }
-
 .mabox-save-trust--pending .mabox-save-status {
   color: var(--mabox-accent);
 }
-
 .mabox-save-trust--error .mabox-save-status {
   color: #b32d2e;
 }
-
 .mabox-save-action {
   display: inline-flex;
   align-items: center;
@@ -418,20 +365,17 @@
   gap: 7px;
   transition: background-color 120ms ease, border-color 120ms ease;
 }
-
 .mabox-save-action:hover:not(:disabled) {
   border-color: #1e3fc5;
   background: #1e3fc5;
   color: #fff;
 }
-
 .mabox-save-action:disabled {
   border-color: #dcdcde;
   background: #f0f0f1;
   color: #8c8f94;
   cursor: default;
 }
-
 .mabox-save-action-spinner {
   width: 13px;
   height: 13px;
@@ -440,79 +384,10 @@
   border-radius: 50%;
   animation: mabox-spin 800ms linear infinite;
 }
-
 .mabox-save-action:disabled .mabox-save-action-spinner {
   border-color: rgba(100, 105, 112, 0.25);
   border-top-color: #646970;
 }
-
-.mabox-diff-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  min-width: 0;
-  gap: 16px;
-}
-
-.mabox-diff-item-heading {
-  display: flex;
-  align-items: center;
-  min-width: 0;
-  gap: 8px;
-}
-
-.mabox-diff-risk-tag {
-  flex: 0 0 auto;
-  margin-inline-end: 0;
-  font-size: 11px;
-}
-
-.mabox-diff-values {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  min-width: 0;
-  max-width: 62%;
-  color: var(--mabox-text);
-  font-size: 12px;
-  line-height: 1.5;
-  text-align: right;
-  gap: 6px;
-}
-
-.mabox-diff-value {
-  min-width: 0;
-  overflow-wrap: anywhere;
-  word-break: break-word;
-}
-
-.mabox-visually-hidden {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
-}
-
-.mabox-diff-value--before,
-.mabox-diff-arrow {
-  color: var(--mabox-muted);
-}
-
-.mabox-diff-value--after {
-  color: var(--mabox-text);
-}
-
-.mabox-diff-value--high-risk {
-  color: #b32d2e;
-  font-weight: 600;
-}
-
 .mabox-mobile-toggle {
   display: none;
   width: 100%;
@@ -528,7 +403,6 @@
   color: var(--mabox-text);
   cursor: pointer;
 }
-
 .mabox-mobile-nav-overlay {
   position: fixed;
   inset: 0;
@@ -539,7 +413,6 @@
   background: rgba(29, 35, 39, 0.42);
   z-index: 99;
 }
-
 .mabox-view-state {
   display: flex;
   align-items: center;
@@ -549,7 +422,6 @@
   padding: 24px;
   color: var(--mabox-muted);
 }
-
 .mabox-view-state-spinner {
   flex: 0 0 auto;
   width: 18px;
@@ -559,7 +431,6 @@
   border-radius: 50%;
   animation: mabox-spin 800ms linear infinite;
 }
-
 .mabox-view-state-copy {
   display: flex;
   flex-direction: column;
@@ -567,17 +438,14 @@
   line-height: 1.5;
   gap: 2px;
 }
-
 .mabox-view-state-copy strong {
   color: var(--mabox-text);
   font-size: 14px;
   font-weight: 600;
 }
-
 .mabox-view-state-copy span {
   font-size: 13px;
 }
-
 .mabox-view-state--error {
   justify-content: flex-start;
   min-height: 0;
@@ -587,7 +455,6 @@
   background: #fcf0f1;
   color: #8a2424;
 }
-
 .mabox-view-state--error .mabox-view-state-icon {
   flex: 0 0 auto;
   width: 20px;
@@ -595,11 +462,9 @@
   color: #b32d2e;
   font-size: 20px;
 }
-
 .mabox-view-state--error .mabox-view-state-copy strong {
   color: #8a2424;
 }
-
 .mabox-view-state-action {
   flex: 0 0 auto;
   min-height: 32px;
@@ -613,17 +478,14 @@
   font-weight: 500;
   cursor: pointer;
 }
-
 .mabox-view-state-action:hover {
   background: #fff5f5;
   color: #681b1c;
 }
-
 .mabox-search-target {
   background-color: #fff8e5 !important;
   transition: background-color 300ms ease;
 }
-
 @keyframes mabox-spin {
   to {
     transform: rotate(360deg);
@@ -631,112 +493,77 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .mabox-view-state-spinner,
+    .mabox-view-state-spinner,
   .mabox-save-action-spinner {
     animation: none;
   }
 }
 
+
 @media (max-width: 782px) {
-  .mabox-shell {
+    .mabox-shell {
     --mabox-shell-gutter: 12px;
   }
-
-  .mabox-header {
+    .mabox-header {
     top: 46px;
     min-height: 54px;
     padding: 7px 12px;
     gap: 8px;
   }
-
-  .mabox-header-title {
+    .mabox-header-title {
     font-size: 15px;
   }
-
-  .mabox-header-right {
+    .mabox-header-right {
     flex-shrink: 0;
   }
-
-  .mabox-footer {
+    .mabox-footer {
     width: 100%;
     padding: 8px 10px;
   }
-
-  .mabox-footer .mabox-save-trust {
+    .mabox-footer .mabox-save-trust {
     width: 100%;
     flex-wrap: wrap;
     justify-content: space-between;
   }
-
-  .mabox-save-feedback {
+    .mabox-save-feedback {
     flex: 1 0 100%;
     max-width: none;
   }
-
-  .mabox-save-status {
+    .mabox-save-status {
     min-width: 0;
     white-space: normal;
   }
-
-  .mabox-save-action {
+    .mabox-save-action {
     min-width: 96px;
   }
-
-  .mabox-view-state--error {
+    .mabox-view-state--error {
     align-items: flex-start;
     flex-wrap: wrap;
   }
-
-  .mabox-view-state--error .mabox-view-state-copy {
+    .mabox-view-state--error .mabox-view-state-copy {
     flex: 1 1 calc(100% - 32px);
   }
-
-  .mabox-view-state-action {
+    .mabox-view-state-action {
     margin-left: 32px;
   }
-
-  .mabox-diff-item {
-    align-items: flex-start;
-    flex-direction: column;
-    gap: 8px;
-  }
-
-  .mabox-diff-values {
-    align-items: flex-start;
-    flex-direction: column;
-    width: 100%;
-    max-width: none;
-    text-align: left;
-    gap: 4px;
-  }
-
-  .mabox-diff-arrow {
-    transform: rotate(90deg);
-    transform-origin: center;
-  }
-
-  .mabox-help-btn span:last-child {
+    .mabox-help-btn span:last-child {
     display: none;
   }
-
-  .mabox-mobile-search {
+    .mabox-mobile-search {
     width: 100%;
     margin-bottom: 8px;
   }
-
-  .mabox-body {
+    .mabox-body {
     padding: var(--mabox-shell-gutter) 0 72px;
     flex-direction: column;
     align-items: stretch;
     gap: 0;
   }
-
-  .mabox-main {
+    .mabox-main {
     width: 100%;
     max-width: 100%;
   }
-
-  .mabox-sidebar {
+    .mabox-sidebar {
     display: none;
     width: min(284px, calc(100vw - 40px));
     min-width: unset;
@@ -752,99 +579,81 @@
     border-radius: 0;
     box-shadow: 4px 0 16px rgba(0, 0, 0, 0.12);
   }
-
-  .mabox-sidebar--open {
+    .mabox-sidebar--open {
     display: block;
   }
-
-  .mabox-mobile-toggle {
+    .mabox-mobile-toggle {
     display: flex;
   }
-
-  .mabox-content {
+    .mabox-content {
     min-height: 360px;
     padding: 16px 14px;
   }
-
-  .mabox-nav-item {
+    .mabox-nav-item {
     min-height: 42px;
     padding: 10px 12px;
     margin: 1px 0;
     font-size: 14px;
   }
-
-  .mabox-shell .ant-form-item .ant-form-item-label,
+    .mabox-shell .ant-form-item .ant-form-item-label,
   .mabox-detail-drawer .ant-form-item .ant-form-item-label,
   .mabox-admin-modal .ant-form-item .ant-form-item-label {
     padding-bottom: 4px;
   }
-
-  .mabox-shell .ant-form-item .ant-form-item-control,
+    .mabox-shell .ant-form-item .ant-form-item-control,
   .mabox-detail-drawer .ant-form-item .ant-form-item-control,
   .mabox-admin-modal .ant-form-item .ant-form-item-control {
     margin-top: 4px;
   }
 }
 
-.mabox-menu-header {
-  font-weight: bold;
-}
 
 @media (max-width: 768px) {
-  .mabox-shell {
+    .mabox-shell {
     margin: 0 -10px;
   }
-
-  .mabox-shell .ant-form-item-label,
+    .mabox-shell .ant-form-item-label,
   .mabox-detail-drawer .ant-form-item-label,
   .mabox-admin-modal .ant-form-item-label {
     width: 100% !important;
     padding-right: 0 !important;
   }
-
-  .mabox-shell .ant-form-item-control-wrapper,
+    .mabox-shell .ant-form-item-control-wrapper,
   .mabox-detail-drawer .ant-form-item-control-wrapper,
   .mabox-admin-modal .ant-form-item-control-wrapper {
     width: 100% !important;
   }
-
-  .mabox-shell .ant-tabs-nav,
+    .mabox-shell .ant-tabs-nav,
   .mabox-detail-drawer .ant-tabs-nav,
   .mabox-admin-modal .ant-tabs-nav {
     overflow-x: auto !important;
   }
-
-  .mabox-shell .ant-tabs-nav-list,
+    .mabox-shell .ant-tabs-nav-list,
   .mabox-detail-drawer .ant-tabs-nav-list,
   .mabox-admin-modal .ant-tabs-nav-list {
     white-space: nowrap !important;
   }
-
-  .mabox-shell .ant-anchor,
+    .mabox-shell .ant-anchor,
   .mabox-detail-drawer .ant-anchor,
   .mabox-admin-modal .ant-anchor {
     display: none !important;
   }
-
-  .mabox-shell .ant-form,
+    .mabox-shell .ant-form,
   .mabox-detail-drawer .ant-form,
   .mabox-admin-modal .ant-form {
     max-width: 100% !important;
   }
-
-  .mabox-shell .ant-card-body,
+    .mabox-shell .ant-card-body,
   .mabox-detail-drawer .ant-card-body,
   .mabox-admin-modal .ant-card-body {
     padding: 12px !important;
   }
-
-  .mabox-shell .ant-statistic,
+    .mabox-shell .ant-statistic,
   .mabox-detail-drawer .ant-statistic,
   .mabox-admin-modal .ant-statistic {
     margin-bottom: 12px !important;
   }
-
-  .mabox-shell .ant-layout-header,
+    .mabox-shell .ant-layout-header,
   .mabox-detail-drawer .ant-layout-header,
   .mabox-admin-modal .ant-layout-header {
     height: auto !important;
@@ -852,88 +661,47 @@
     line-height: 1.5 !important;
     flex-wrap: wrap !important;
   }
-
-  .mabox-shell .ant-layout-header h1,
+    .mabox-shell .ant-layout-header h1,
   .mabox-detail-drawer .ant-layout-header h1,
   .mabox-admin-modal .ant-layout-header h1 {
     width: 100%;
     margin-bottom: 8px;
     font-size: 18px !important;
   }
-
-  .mabox-shell .ant-tabs-tabpane,
+    .mabox-shell .ant-tabs-tabpane,
   .mabox-detail-drawer .ant-tabs-tabpane,
   .mabox-admin-modal .ant-tabs-tabpane {
     padding: 8px !important;
   }
-
-  .mabox-shell .ant-form-item,
+    .mabox-shell .ant-form-item,
   .mabox-detail-drawer .ant-form-item,
   .mabox-admin-modal .ant-form-item {
     margin-bottom: 16px !important;
   }
-
-  .mabox-shell .ant-switch,
+    .mabox-shell .ant-switch,
   .mabox-detail-drawer .ant-switch,
   .mabox-admin-modal .ant-switch {
     min-width: 36px;
     height: 20px;
   }
-
-  .mabox-shell .ant-btn,
+    .mabox-shell .ant-btn,
   .mabox-detail-drawer .ant-btn,
   .mabox-admin-modal .ant-btn {
     padding: 4px 12px;
     font-size: 13px;
   }
-
-  .mabox-module-row-header {
-    flex-wrap: wrap;
-  }
-
-  .mabox-module-row-actions {
-    width: 100%;
-    justify-content: flex-end;
-  }
-
-  .mabox-module-card {
-    margin-bottom: 12px;
-  }
-
-  .mabox-module-card-header {
-    flex-wrap: wrap;
-  }
-
-  .mabox-module-card-actions {
-    width: 100%;
-    justify-content: flex-start;
-    margin-top: 8px;
-  }
-
-  .mabox-module-card-actions .ant-btn {
-    min-height: 44px;
-  }
-
-  .mabox-preview-panel {
-    margin-top: 16px;
-    margin-bottom: 16px;
-  }
-
-  .mabox-section {
-    margin-bottom: 24px;
-  }
 }
 
+
 @media (min-width: 769px) and (max-width: 1024px) {
-  .mabox-shell .ant-form-item-label,
+    .mabox-shell .ant-form-item-label,
   .mabox-detail-drawer .ant-form-item-label,
   .mabox-admin-modal .ant-form-item-label {
     flex: 0 0 160px !important;
     max-width: 160px !important;
     width: 160px !important;
   }
-
-  .mabox-shell .ant-form-item-control,
+    .mabox-shell .ant-form-item-control,
   .mabox-detail-drawer .ant-form-item-control,
   .mabox-admin-modal .ant-form-item-control,
   .mabox-shell .ant-form-item-control-wrapper,
@@ -946,477 +714,3 @@
   }
 }
 
-.mabox-section {
-  margin-bottom: 32px;
-}
-
-.mabox-section-header {
-  margin-bottom: 16px;
-}
-
-.mabox-section-title {
-  font-size: 18px;
-  font-weight: 600;
-  color: #1d2327;
-  margin: 0;
-  padding: 0;
-}
-
-.mabox-section-desc {
-  font-size: 13px;
-  color: #666;
-  margin: 4px 0 0;
-}
-
-.mabox-section-body {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.mabox-module-card {
-  border: 1px solid #f0f0f0;
-  border-radius: 8px;
-  padding: 16px;
-  transition: box-shadow 0.2s;
-  margin-bottom: 12px;
-}
-
-.mabox-module-card:hover {
-  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-}
-
-.mabox-module-card-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-}
-
-.mabox-module-card-info {
-  flex: 1;
-  min-width: 0;
-}
-
-.mabox-module-card-title-row {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.mabox-module-card-title {
-  font-size: 14px;
-  font-weight: 500;
-  color: #1d2327;
-}
-
-.mabox-module-card-desc {
-  font-size: 13px;
-  color: #646970;
-  margin-top: 4px;
-}
-
-.mabox-module-card-actions {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  flex-shrink: 0;
-}
-
-.mabox-module-card-details-btn {
-  font-size: 12px;
-  color: #1677ff;
-  cursor: pointer;
-  border: none;
-  background: none;
-  padding: 0;
-}
-
-.mabox-module-card-body {
-  margin-top: 16px;
-  padding-top: 12px;
-  border-top: 1px solid #f0f0f0;
-}
-
-.mabox-module-row {
-  padding: 14px 16px;
-  border: 1px solid #f0f0f0;
-  border-radius: 6px;
-  margin-bottom: 8px;
-  transition: box-shadow 0.2s;
-}
-
-.mabox-module-row-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  min-width: 0;
-}
-
-.mabox-module-row:hover {
-  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-}
-
-.mabox-module-row-info {
-  flex: 1;
-  min-width: 0;
-}
-
-.mabox-module-row-title-row {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.mabox-module-row-title {
-  font-size: 14px;
-  font-weight: 500;
-  color: #1d2327;
-}
-
-.mabox-module-row-desc {
-  font-size: 13px;
-  color: #646970;
-  margin-top: 2px;
-}
-
-.mabox-module-row-actions {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  flex-shrink: 0;
-}
-
-.mabox-feature-switch {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-}
-
-.mabox-feature-switch-control {
-  min-width: 44px;
-  min-height: 32px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-}
-
-.mabox-favorite-action {
-  width: 32px;
-  min-height: 32px;
-  padding: 0;
-  border: 0;
-  background: transparent;
-  color: #8c8f94;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 16px;
-  line-height: 1;
-  transition: color 0.2s, background-color 0.2s;
-}
-
-.mabox-favorite-action[aria-pressed="true"] {
-  color: #b26200;
-}
-
-.mabox-favorite-action:hover {
-  color: #135e96;
-  background: #f0f6fc;
-}
-
-.mabox-favorite-action:focus-visible {
-  outline: 2px solid #2271b1;
-  outline-offset: 2px;
-}
-
-.mabox-module-row-details-btn {
-  font-size: 12px;
-  color: #1677ff;
-  cursor: pointer;
-  border: none;
-  background: none;
-  padding: 0;
-}
-
-.mabox-module-row-body {
-  width: 100%;
-  margin-top: 12px;
-  padding-top: 12px;
-  border-top: 1px solid #f0f0f0;
-}
-
-.mabox-detail-drawer.ant-drawer {
-  top: 32px;
-  height: calc(100vh - 32px);
-}
-
-.mabox-detail-drawer .ant-drawer-content-wrapper {
-  max-width: min(520px, calc(100vw - 16px));
-}
-
-.mabox-detail-drawer .ant-drawer-body {
-  overflow-x: hidden;
-}
-
-.mabox-oss-safety-strip {
-  margin-bottom: 18px;
-  padding-block: 9px;
-}
-
-.mabox-oss-safety-strip .ant-alert-message {
-  width: 100%;
-}
-
-.mabox-oss-section + .mabox-oss-section,
-.mabox-oss-summary,
-.mabox-oss-test {
-  border-top: 1px solid #e2e4e7;
-  padding-top: 16px;
-}
-
-.mabox-oss-section,
-.mabox-oss-summary {
-  margin-bottom: 18px;
-}
-
-.mabox-oss-section .ant-typography,
-.mabox-oss-summary > .ant-typography,
-.mabox-oss-test > .ant-typography {
-  margin-top: 0;
-  margin-bottom: 14px;
-}
-
-.mabox-oss-info-button.ant-btn {
-  width: 24px;
-  min-width: 24px;
-  height: 24px;
-  padding: 0;
-  color: #2271b1;
-}
-
-.mabox-oss-info-button.ant-btn:hover,
-.mabox-oss-info-button.ant-btn:focus-visible {
-  color: #135e96;
-  background: #f0f6fc;
-}
-
-.mabox-oss-info-button.ant-btn:focus-visible {
-  outline: 2px solid #2271b1;
-  outline-offset: 1px;
-}
-
-.mabox-oss-popover {
-  max-width: 300px;
-  line-height: 1.6;
-}
-
-.mabox-oss-inline-note {
-  margin: -4px 0 16px;
-}
-
-.mabox-oss-summary dl {
-  margin: 0;
-}
-
-.mabox-oss-summary dl > div {
-  display: grid;
-  grid-template-columns: 76px minmax(0, 1fr);
-  align-items: baseline;
-  gap: 8px;
-  padding: 7px 0;
-}
-
-.mabox-oss-summary dt {
-  color: #646970;
-}
-
-.mabox-oss-summary dd {
-  min-width: 0;
-  margin: 0;
-}
-
-.mabox-oss-summary code {
-  display: block;
-  overflow-x: auto;
-  padding: 3px 6px;
-  white-space: nowrap;
-  color: #1d2327;
-  background: #f6f7f7;
-  border-radius: 3px;
-}
-
-.mabox-oss-test {
-  padding-bottom: 8px;
-}
-
-.mabox-oss-connection-notice {
-  padding: 12px 14px;
-}
-
-.mabox-oss-connection-notice .ant-alert-message {
-  margin-bottom: 2px;
-  font-weight: 600;
-}
-
-.mabox-oss-connection-result {
-  min-width: 0;
-}
-
-.mabox-oss-connection-summary {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 6px;
-  min-width: 0;
-}
-
-.mabox-oss-connection-details-button.ant-btn {
-  height: auto;
-  padding: 0 2px;
-  line-height: inherit;
-}
-
-.mabox-oss-connection-details {
-  margin-top: 6px;
-  color: #50575e;
-  line-height: 1.6;
-  overflow-wrap: anywhere;
-}
-
-.mabox-preview-panel {
-  border: 1px solid #f0f0f0;
-  border-radius: 8px;
-  padding: 16px;
-  margin-bottom: 16px;
-}
-
-.mabox-preview-panel-label {
-  font-size: 13px;
-  color: #646970;
-  margin-bottom: 8px;
-}
-
-.mabox-preview-panel-body {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 80px;
-}
-
-.mabox-preview-trigger {
-  font-weight: 700;
-  cursor: pointer;
-}
-
-.mabox-full-width {
-  width: 100%;
-}
-
-.mabox-check-table {
-  margin-bottom: 16px;
-}
-
-.mabox-module-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 16px;
-}
-
-.mabox-settings-tabs {
-  display: flex;
-  gap: 4px;
-  margin-bottom: 20px;
-  border-bottom: 1px solid #f0f0f0;
-  padding-bottom: 0;
-  max-width: 100%;
-  overflow-x: auto;
-  overscroll-behavior-inline: contain;
-  scrollbar-width: thin;
-}
-
-.mabox-settings-tab {
-  flex: 0 0 auto;
-  min-height: 44px;
-  padding: 8px 16px;
-  font-size: 13px;
-  color: #666;
-  background: none;
-  border: none;
-  border-bottom: 2px solid transparent;
-  cursor: pointer;
-  transition: all 0.2s;
-  white-space: nowrap;
-}
-
-.mabox-settings-tab:hover {
-  color: #1677ff;
-}
-
-.mabox-settings-tab:focus-visible {
-  outline: 2px solid #2271b1;
-  outline-offset: -2px;
-}
-
-.mabox-settings-tab--active {
-  color: #1677ff;
-  font-weight: 500;
-  border-bottom-color: #1677ff;
-}
-
-.mabox-settings-panel {
-  min-height: 200px;
-}
-
-.mabox-login-layout {
-  display: flex;
-  gap: 24px;
-}
-.mabox-login-form {
-  flex: 1;
-  min-width: 0;
-}
-.mabox-login-preview {
-  width: 360px;
-  flex-shrink: 0;
-}
-@media (max-width: 768px) {
-  .mabox-feature-switch-control,
-  .mabox-favorite-action {
-    min-height: 44px;
-  }
-
-  .mabox-feature-switch-control {
-    min-width: 44px;
-  }
-
-  .mabox-favorite-action {
-    width: 44px;
-  }
-
-  .mabox-module-grid {
-    grid-template-columns: minmax(0, 1fr);
-  }
-
-  .mabox-module-card {
-    min-width: 0;
-  }
-
-  .mabox-login-layout {
-    flex-direction: column;
-  }
-  .mabox-login-preview {
-    width: 100%;
-    order: -1;
-  }
-}
-
-@media (max-width: 782px) {
-  .mabox-detail-drawer.ant-drawer {
-    top: 46px;
-    height: calc(100vh - 46px);
-  }
-}

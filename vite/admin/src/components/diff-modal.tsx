@@ -3,6 +3,7 @@ import { Modal, List, Tag, Space, Typography } from "antd";
 import { ExclamationCircleOutlined } from "@ant-design/icons";
 import { ConfigDiffItem } from "@/tool/interface";
 import { __, sprintf } from "@/tool/i18n";
+import "./diff-modal.css";
 
 interface DiffModalProps {
   visible: boolean;

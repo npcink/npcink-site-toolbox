@@ -17,6 +17,7 @@ import {
   SecretField,
   SettingsSection,
 } from "@/components/settings-ui";
+import "./oss.css";
 
 const fromConfig = AntConfig.from;
 const OSS_SECRET_PATHS = [

@@ -227,18 +227,12 @@ class Npcink_Toolbox_Admin
         }
 
         //准备地址
-        $index_css_path    = plugin_dir_path(__DIR__) . 'vite/admin/dist/index.css';
-        $index_js_path     = plugin_dir_path(__DIR__) . 'vite/admin/dist/index.js';
-        $index_css         = plugin_dir_url(__DIR__) . 'vite/admin/dist/index.css';
-        $index_js          = plugin_dir_url(__DIR__) . 'vite/admin/dist/index.js';
-        $index_css_version = is_file($index_css_path)
-            ? self::$version . '-' . (string) filemtime($index_css_path)
-            : self::$version;
-        $index_js_version  = is_file($index_js_path)
+        $index_js_path    = plugin_dir_path(__DIR__) . 'vite/admin/dist/index.js';
+        $index_js         = plugin_dir_url(__DIR__) . 'vite/admin/dist/index.js';
+        $index_js_version = is_file($index_js_path)
             ? self::$version . '-' . (string) filemtime($index_js_path)
             : self::$version;
 
-        wp_enqueue_style($name, $index_css, array(), $index_css_version, false);
         wp_enqueue_script($name, $index_js, array('wp-i18n'), $index_js_version, true);
         if (function_exists('wp_set_script_translations')) {
             wp_set_script_translations($name, 'npcink-site-toolbox', plugin_dir_path(__DIR__) . 'languages');

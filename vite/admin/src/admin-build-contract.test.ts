@@ -28,8 +28,7 @@ const createFixture = (overrides?: {
   const directory = mkdtempSync(join(tmpdir(), 'mabox-build-contract-'));
   temporaryDirectories.push(directory);
   const defaultHtml = `<!doctype html><script type="module" src="./index.js"></script>
-    <link rel="modulepreload" href="./assets/shared-abcdef12.js">
-    <link rel="stylesheet" href="./index.css">`;
+    <link rel="modulepreload" href="./assets/shared-abcdef12.js">`;
   const defaultManifest: Record<string, ManifestRecord> = {
     'index.html': {
       file: 'index.js',
@@ -41,17 +40,19 @@ const createFixture = (overrides?: {
       isDynamicEntry: true,
       imports: ['shared'],
       dynamicImports: ['lazy'],
+      css: ['assets/app-12345678.css'],
     },
     shared: { file: 'assets/shared-abcdef12.js' },
-    lazy: { file: 'assets/lazy-12345678.js', isDynamicEntry: true },
+    lazy: { file: 'assets/lazy-12345678.js', isDynamicEntry: true, css: ['assets/lazy-87654321.css'] },
   };
   const defaultFiles: Record<string, string | Buffer> = {
     'index.html': overrides?.html ?? defaultHtml,
     'index.js': 'void import("./assets/main-fedcba98.js");\n',
-    'index.css': '.mabox-shell{display:block}',
     'assets/main-fedcba98.js': 'import "./shared-abcdef12.js"; import("./lazy-12345678.js");',
     'assets/shared-abcdef12.js': 'export const shared = true;',
     'assets/lazy-12345678.js': 'export const lazy = true;',
+    'assets/app-12345678.css': '.mabox-shell{display:block}',
+    'assets/lazy-87654321.css': '.mabox-lazy{display:block}',
     '.vite/manifest.json': JSON.stringify(overrides?.manifest ?? defaultManifest),
     ...overrides?.files,
   };
@@ -84,7 +85,7 @@ describe('admin build contract scanner', () => {
 
     expect(config).toContain('base: "./"');
     expect(config).toContain('manifest: ".vite/manifest.json"');
-    expect(config).toContain('cssCodeSplit: false');
+    expect(config).toContain('cssCodeSplit: true');
     expect(config).toContain('modulePreload: false');
     expect(config).toContain('chunkSizeWarningLimit: 400');
     expect(config).toContain('chunkInfo.name === "index"');
@@ -95,10 +96,10 @@ describe('admin build contract scanner', () => {
     expect(packageManifest).toContain('node admin/src/check-admin-build-contract.mjs');
     expect(packageManifest).toContain('"test:coverage": "vitest run --root admin --coverage --maxWorkers=2 --minWorkers=2"');
     expect(adminPhp).toContain("filemtime($index_js_path)");
-    expect(adminPhp).toContain("filemtime($index_css_path)");
+    expect(adminPhp).not.toContain("$index_css");
     expect(adminPhp).toContain("wp_enqueue_script($name, $index_js, array('wp-i18n'), $index_js_version, true)");
     expect(adminPhp).toContain("wp_set_script_translations($name, 'npcink-site-toolbox'");
-    expect(adminPhp).toContain("wp_enqueue_style($name, $index_css, array(), $index_css_version, false)");
+    expect(adminPhp).not.toContain('wp_enqueue_style($name');
     expect(pluginPhp).toContain("str_replace('<script', '<script type=\"module\"', $tag)");
     expect(htmlSource).toContain('src="/src/bootstrap.ts"');
     expect(bootstrapSource.trim()).toBe("void import('./main.tsx')");
@@ -131,7 +132,7 @@ describe('admin build contract scanner', () => {
     }))).toThrow(/escapes the dist directory/);
 
     expect(() => scan(createFixture({
-      html: '<script type="module" src="./index.js"></script><link rel="stylesheet" href="./index.css">',
+      html: '<script type="module" src="./index.js"></script>',
       manifest: {
         'index.html': { file: 'index.js', isEntry: true, dynamicImports: ['missing'] },
       },
@@ -141,8 +142,7 @@ describe('admin build contract scanner', () => {
   it('rejects a dynamic entry promoted into initial modulepreload', () => {
     expect(() => scan(createFixture({
       html: `<!doctype html><script type="module" src="./index.js"></script>
-        <link rel="modulepreload" href="./assets/lazy-12345678.js">
-        <link rel="stylesheet" href="./index.css">`,
+        <link rel="modulepreload" href="./assets/lazy-12345678.js">`,
     }))).toThrow(/Dynamic import leaked into the initial JS closure/);
   });
 
@@ -179,7 +179,7 @@ describe('admin build contract scanner', () => {
     }))).toThrow(/Largest JS gzip .* exceeds/);
 
     expect(() => scan(createFixture({
-      html: '<script type="module" src="./index.js"></script><link rel="stylesheet" href="./index.css">',
+      html: '<script type="module" src="./index.js"></script>',
       manifest: {
         'index.html': { file: 'index.js', isEntry: true, dynamicImports: ['app'] },
         app: { file: 'assets/main-fedcba98.js', isDynamicEntry: true, dynamicImports: ['lazy'] },
@@ -195,19 +195,51 @@ describe('admin build contract scanner', () => {
     }))).toThrow(/Orphan JS artifact is unreachable|Empty vendor chunk found/);
 
     expect(() => scan(createFixture({
-      files: { 'index.css': 'url(/wp-content/plugins/npcink-site-toolbox/image.png)' },
+      files: { 'assets/app-12345678.css': 'url(/wp-content/plugins/npcink-site-toolbox/image.png)' },
     }))).toThrow(/Hardcoded \/wp-content\/plugins\/ path/);
   });
 
-  it('rejects split CSS, a non-fixed stylesheet link and unhashed assets', () => {
+  it('rejects stylesheet links in HTML, orphan/unhashed CSS and unhashed assets', () => {
+    // HTML 不得直接链接样式表：CSS 全部随 chunk 由运行时注入
     expect(() => scan(createFixture({
-      files: { 'assets/lazy-deadbeef.css': '.mabox-lazy{}' },
-    }))).toThrow(/Expected exactly one built CSS file index\.css/);
+      html: '<script type="module" src="./index.js"></script><link rel="stylesheet" href="./assets/app-12345678.css">',
+    }))).toThrow(/index.html must not link stylesheets/);
 
+    // 孤儿 CSS：磁盘存在但 manifest 未引用
     expect(() => scan(createFixture({
-      html: '<script type="module" src="./index.js"></script><link rel="stylesheet" href="./assets/admin-deadbeef.css">',
-      files: { 'assets/admin-deadbeef.css': '.mabox-shell{}' },
-    }))).toThrow(/Expected one fixed stylesheet index\.css/);
+      files: { 'assets/extra-deadbeef.css': '.mabox-extra{}' },
+    }))).toThrow(/CSS artifact is not referenced by the Vite manifest/);
+
+    // 无哈希 CSS 文件名
+    expect(() => scan(createFixture({
+      html: '<script type="module" src="./index.js"></script>',
+      manifest: {
+        'index.html': { file: 'index.js', isEntry: true, dynamicImports: ['app'] },
+        app: {
+          file: 'assets/main-fedcba98.js',
+          isDynamicEntry: true,
+          dynamicImports: ['lazy'],
+          css: ['assets/app.css'],
+        },
+        lazy: { file: 'assets/lazy-12345678.js', isDynamicEntry: true, css: ['assets/lazy-87654321.css'] },
+      },
+      files: { 'assets/app.css': '.mabox-shell{}' },
+    }))).toThrow(/Built CSS must use an assets\/name-hash\.css filename/);
+
+    // app 入口 chunk 必须携带外壳样式
+    expect(() => scan(createFixture({
+      html: '<script type="module" src="./index.js"></script>',
+      manifest: {
+        'index.html': { file: 'index.js', isEntry: true, dynamicImports: ['app'] },
+        app: { file: 'assets/main-fedcba98.js', isDynamicEntry: true, dynamicImports: ['lazy'] },
+        lazy: { file: 'assets/lazy-12345678.js', isDynamicEntry: true, css: ['assets/lazy-87654321.css'] },
+      },
+    }))).toThrow(/App entry chunk carries no CSS/);
+
+    // 首屏 CSS 超预算
+    expect(() => scan(createFixture({
+      files: { 'assets/app-12345678.css': Buffer.alloc(33 * 1024, 1) },
+    }))).toThrow(/Initial CSS raw .* exceeds/);
 
     expect(() => scan(createFixture({
       files: { 'assets/logo.svg': '<svg />' },

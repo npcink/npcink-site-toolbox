@@ -32,7 +32,7 @@ export default defineConfig({
     outDir: path.resolve(__dirname, "dist"),
     emptyOutDir: true,
     manifest: ".vite/manifest.json",
-    cssCodeSplit: false,
+    cssCodeSplit: true, // 视图样式随各自 chunk 加载，入口只保留外壳样式
     modulePreload: false,
     rollupOptions: {
       input: {
@@ -48,10 +48,7 @@ export default defineConfig({
           chunkInfo.name === "index"
             ? "index.js"
             : "assets/[name]-[hash].js",
-        assetFileNames: (assetInfo) =>
-          assetInfo.name?.endsWith(".css")
-            ? "index.css"
-            : "assets/[name]-[hash][extname]",
+        assetFileNames: "assets/[name]-[hash][extname]",
         chunkFileNames: "assets/[name]-[hash].js",
       },
     },

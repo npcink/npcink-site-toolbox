@@ -109,7 +109,7 @@ class ReleasePackageContractTest extends TestCase
             'blocks/site-stats/index.asset.php',
             'blocks/site-stats/style.css',
             'vite/admin/dist/index.js',
-            'vite/admin/dist/index.css',
+            'missing hashed admin CSS chunks',
             'vite/count/dist/index.js',
             'vite/count/dist/index.css',
         ) as $asset) {
@@ -712,7 +712,7 @@ BASH
             'blocks/site-stats/index.asset.php' => "<?php\nreturn array('dependencies' => array(), 'version' => '9.8.7');\n",
             'blocks/site-stats/style.css' => '.npcink-site-stats{}',
             'vite/admin/dist/index.js' => 'void 0;',
-            'vite/admin/dist/index.css' => '.mabox{}',
+            'vite/admin/dist/assets/app-1a2b3c4d.css' => '.mabox{}',
             'vite/count/dist/index.js' => 'void 0;',
             'vite/count/dist/index.css' => '.mabox-count{}',
         );

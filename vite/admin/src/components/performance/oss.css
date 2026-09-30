@@ -1,0 +1,105 @@
+/* OSS 视图样式（由 App.css 按所有权拆出；保持 mabox- 前缀约定） */
+
+.mabox-oss-safety-strip {
+  margin-bottom: 18px;
+  padding-block: 9px;
+}
+.mabox-oss-safety-strip .ant-alert-message {
+  width: 100%;
+}
+.mabox-oss-section + .mabox-oss-section,
+.mabox-oss-summary,
+.mabox-oss-test {
+  border-top: 1px solid #e2e4e7;
+  padding-top: 16px;
+}
+.mabox-oss-section,
+.mabox-oss-summary {
+  margin-bottom: 18px;
+}
+.mabox-oss-section .ant-typography,
+.mabox-oss-summary > .ant-typography,
+.mabox-oss-test > .ant-typography {
+  margin-top: 0;
+  margin-bottom: 14px;
+}
+.mabox-oss-info-button.ant-btn {
+  width: 24px;
+  min-width: 24px;
+  height: 24px;
+  padding: 0;
+  color: #2271b1;
+}
+.mabox-oss-info-button.ant-btn:hover,
+.mabox-oss-info-button.ant-btn:focus-visible {
+  color: #135e96;
+  background: #f0f6fc;
+}
+.mabox-oss-info-button.ant-btn:focus-visible {
+  outline: 2px solid #2271b1;
+  outline-offset: 1px;
+}
+.mabox-oss-popover {
+  max-width: 300px;
+  line-height: 1.6;
+}
+.mabox-oss-inline-note {
+  margin: -4px 0 16px;
+}
+.mabox-oss-summary dl {
+  margin: 0;
+}
+.mabox-oss-summary dl > div {
+  display: grid;
+  grid-template-columns: 76px minmax(0, 1fr);
+  align-items: baseline;
+  gap: 8px;
+  padding: 7px 0;
+}
+.mabox-oss-summary dt {
+  color: #646970;
+}
+.mabox-oss-summary dd {
+  min-width: 0;
+  margin: 0;
+}
+.mabox-oss-summary code {
+  display: block;
+  overflow-x: auto;
+  padding: 3px 6px;
+  white-space: nowrap;
+  color: #1d2327;
+  background: #f6f7f7;
+  border-radius: 3px;
+}
+.mabox-oss-test {
+  padding-bottom: 8px;
+}
+.mabox-oss-connection-notice {
+  padding: 12px 14px;
+}
+.mabox-oss-connection-notice .ant-alert-message {
+  margin-bottom: 2px;
+  font-weight: 600;
+}
+.mabox-oss-connection-result {
+  min-width: 0;
+}
+.mabox-oss-connection-summary {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+.mabox-oss-connection-details-button.ant-btn {
+  height: auto;
+  padding: 0 2px;
+  line-height: inherit;
+}
+.mabox-oss-connection-details {
+  margin-top: 6px;
+  color: #50575e;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}

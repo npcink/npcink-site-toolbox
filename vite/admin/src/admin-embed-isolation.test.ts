@@ -125,7 +125,14 @@ describe('WordPress admin embed isolation', () => {
   it('uses only mabox-namespaced selectors without a Tailwind/PostCSS pipeline', () => {
     const appStyleSource = readRelativeFile('./App.css');
     const appSource = readRelativeFile('./App.tsx');
-    const selectors = collectStyleSelectors(appStyleSource);
+    // 样式已按所有权拆分：命名空间与关键选择器断言覆盖全部样式文件
+    const styleSources = [
+      appStyleSource,
+      readRelativeFile('./components/settings-ui/settings-ui.css'),
+      readRelativeFile('./components/performance/oss.css'),
+      readRelativeFile('./components/diff-modal.css'),
+    ];
+    const selectors = styleSources.flatMap((source) => collectStyleSelectors(source));
     const packageManifest = JSON.parse(
       readRelativeFile('../../package.json'),
     ) as { devDependencies?: Record<string, string> };
@@ -143,6 +150,10 @@ describe('WordPress admin embed isolation', () => {
       '}',
     );
     expect(selectors.length).toBeGreaterThan(0);
+    for (const source of styleSources) {
+      expect(source).not.toMatch(/@(tailwind|apply)\b/);
+      expect(source).not.toContain('#root');
+    }
     expect(selectors.filter((selector) => !selector.startsWith('.mabox-'))).toEqual([]);
     expect(selectors).toEqual(expect.arrayContaining([
       '.mabox-shell *',
@@ -159,12 +170,12 @@ describe('WordPress admin embed isolation', () => {
       '.mabox-admin-modal .ant-form-item-label',
       '.mabox-module-grid',
     ]));
-    expect(appStyleSource).toContain(
+    expect(styleSources[1]).toContain(
       '.mabox-module-grid {\n    grid-template-columns: minmax(0, 1fr);\n  }',
     );
-    expect(appStyleSource.lastIndexOf(
+    expect(styleSources[1].lastIndexOf(
       '.mabox-feature-switch-control,\n  .mabox-favorite-action {\n    min-height: 44px;\n  }',
-    )).toBeGreaterThan(appStyleSource.indexOf(
+    )).toBeGreaterThan(styleSources[1].indexOf(
       '.mabox-feature-switch-control {\n  min-width: 44px;\n  min-height: 32px;',
     ));
     expect(

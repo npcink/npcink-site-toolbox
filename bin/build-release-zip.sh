@@ -14,6 +14,13 @@ fail() {
   exit 1
 }
 
+# CSS 已随 chunk 哈希化：打包前确认后台样式 chunk 存在，避免静默缺样式发版
+require_admin_css_chunks() {
+  local count
+  count="$(find "$staging_root/vite/admin/dist/assets" -maxdepth 1 -type f -name '*-*.css' 2>/dev/null | wc -l | tr -d ' ')"
+  [ "$count" -gt 0 ] || fail "missing hashed admin CSS chunks under vite/admin/dist/assets"
+}
+
 require_command() {
   command -v "$1" >/dev/null 2>&1 || fail "required command not found: $1"
 }
@@ -83,7 +90,6 @@ required_assets=(
   "blocks/site-stats/index.asset.php"
   "blocks/site-stats/style.css"
   "vite/admin/dist/index.js"
-  "vite/admin/dist/index.css"
   "vite/count/dist/index.js"
   "vite/count/dist/index.css"
 )
@@ -181,6 +187,8 @@ temporary_sidecar="$temporary_zip.sha256"
 
 release_sha256="$(hash_file "$temporary_zip")"
 printf '%s  %s\n' "$release_sha256" "$output_name" > "$temporary_sidecar"
+
+require_admin_css_chunks
 
 "$VERIFY_SCRIPT" "$temporary_zip"
 

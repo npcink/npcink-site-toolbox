@@ -1,3 +1,5 @@
+import "./settings-ui.css";
+
 export { default as SettingsSection } from "./SettingsSection";
 export { default as ModuleCard } from "./ModuleCard";
 export { default as ModuleRow } from "./ModuleRow";

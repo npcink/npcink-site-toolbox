@@ -10,6 +10,9 @@ const DEFAULT_BUDGETS = Object.freeze({
   initialGzip: 140 * KIB,
   chunkRaw: 400 * KIB,
   chunkGzip: 140 * KIB,
+  // 首屏样式预算：入口 index.css 只允许外壳样式，视图样式必须随 chunk 拆分
+  initialCssRaw: 32 * KIB,
+  initialCssGzip: 9 * KIB,
 });
 const BOOTSTRAP_BUDGETS = Object.freeze({ raw: 10 * KIB, gzip: 5 * KIB });
 const HASHED_CHUNK_PATTERN = /^assets\/.+-[A-Za-z0-9_-]{8}\.js$/;
@@ -170,16 +173,59 @@ const auditBuild = (distDirectory = defaultDistDirectory, budgets = DEFAULT_BUDG
     .map((file) => normalizeArtifactPath(relative(distDirectory, file)))
     .sort();
 
-  if (html.stylesheets.length !== 1 || html.stylesheets[0] !== 'index.css') {
-    violations.push(`Expected one fixed stylesheet index.css, found: ${html.stylesheets.join(', ') || 'none'}`);
+  if (html.stylesheets.length !== 0) {
+    violations.push(`index.html must not link stylesheets (CSS loads with chunks), found: ${html.stylesheets.join(', ')}`);
   }
 
+  // CSS 全部随 chunk 拆分：每个 CSS 必须是 assets/name-hash.css 且被 manifest 的 css 字段引用
   const allCss = allFiles
     .filter((file) => extname(file) === '.css')
     .map((file) => normalizeArtifactPath(relative(distDirectory, file)))
     .sort();
-  if (allCss.length !== 1 || allCss[0] !== 'index.css') {
-    violations.push(`Expected exactly one built CSS file index.css, found: ${allCss.join(', ') || 'none'}`);
+  if (allCss.length === 0) {
+    violations.push('No built CSS artifacts were found');
+  }
+  const cssOnDisk = new Set(allCss);
+  const manifestCssFiles = new Set();
+  for (const record of byFile.values()) {
+    for (const cssFile of record.css ?? []) {
+      if (typeof cssFile !== 'string') {
+        violations.push(`Manifest record ${record.key} has a non-string css reference`);
+        continue;
+      }
+      const resolvedCss = resolveArtifact(distDirectory, cssFile, `Manifest record ${record.key} css`);
+      manifestCssFiles.add(resolvedCss);
+    }
+  }
+  for (const cssFile of allCss) {
+    if (!HASHED_ASSET_PATTERN.test(cssFile)) {
+      violations.push(`Built CSS must use an assets/name-hash.css filename: ${cssFile}`);
+    }
+    if (!manifestCssFiles.has(cssFile)) {
+      violations.push(`CSS artifact is not referenced by the Vite manifest: ${cssFile}`);
+    }
+  }
+  for (const cssFile of manifestCssFiles) {
+    if (!cssOnDisk.has(cssFile)) {
+      violations.push(`Manifest css reference is missing on disk: ${cssFile}`);
+    }
+  }
+
+  // 首屏 CSS = app 入口 chunk 携带的样式（外壳层），必须在预算内
+  const appRecord = byFile.get(appEntry);
+  const initialCssFiles = [...new Set(
+    (appRecord?.css ?? []).filter((cssFile) => typeof cssFile === 'string')
+      .map((cssFile) => resolveArtifact(distDirectory, cssFile, 'App entry css')),
+  )].sort();
+  if (initialCssFiles.length === 0) {
+    violations.push('App entry chunk carries no CSS; the shell stylesheet is missing');
+  }
+  const initialCss = measureFiles(distDirectory, initialCssFiles);
+  if (initialCss.raw > budgets.initialCssRaw) {
+    violations.push(`Initial CSS raw ${formatSize(initialCss.raw)} exceeds ${formatSize(budgets.initialCssRaw)}`);
+  }
+  if (initialCss.gzip > budgets.initialCssGzip) {
+    violations.push(`Initial CSS gzip ${formatSize(initialCss.gzip)} exceeds ${formatSize(budgets.initialCssGzip)}`);
   }
 
   const fixedArtifacts = new Set(['index.html', 'index.js', 'index.css', '.vite/manifest.json']);
@@ -268,6 +314,9 @@ const auditBuild = (distDirectory = defaultDistDirectory, budgets = DEFAULT_BUDG
   return {
     initial,
     bootstrapSize,
+    initialCss,
+    cssFiles: allCss,
+    initialCssFiles,
     initialFiles: [...initialFiles].sort(),
     appEntry,
     largestRawChunk,
@@ -290,7 +339,7 @@ if (isCli) {
     `app entry ${result.appEntry}`,
     `largest raw ${result.largestRawChunk.file} ${formatSize(result.largestRawChunk.raw)}`,
     `largest gzip ${result.largestGzipChunk.file} ${formatSize(result.largestGzipChunk.gzip)}`,
-    `modulepreload [${result.preloads.join(', ')}], dynamic chunks ${result.dynamicFiles.length}, JS files ${result.jsFiles.length}`,
+    `modulepreload [${result.preloads.join(', ')}], dynamic chunks ${result.dynamicFiles.length}, JS files ${result.jsFiles.length}`,`css files ${result.cssFiles.length} (initial ${formatSize(result.initialCss.raw)} raw / ${formatSize(result.initialCss.gzip)} gzip)`,
   ].join('; '));
 }
 

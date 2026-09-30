@@ -1,0 +1,37 @@
+/* 保存差异确认弹窗样式（由 App.css 按所有权拆出；保持 mabox- 前缀约定） */
+
+.mabox-diff-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  min-width: 0;
+  gap: 16px;
+}
+.mabox-diff-item-heading {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  gap: 8px;
+}
+.mabox-diff-risk-tag {
+  flex: 0 0 auto;
+  margin-inline-end: 0;
+  font-size: 11px;
+}
+.mabox-full-width {
+  width: 100%;
+}
+
+@media (max-width: 782px) {
+    .mabox-diff-item {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 8px;
+  }
+    .mabox-diff-arrow {
+    transform: rotate(90deg);
+    transform-origin: center;
+  }
+}
+
