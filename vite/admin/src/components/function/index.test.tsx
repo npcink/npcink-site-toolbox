@@ -12,6 +12,7 @@ function renderFunctionSettings(updateOption = vi.fn()) {
         optionData: defaultVarOption,
         updateOption,
         refreshOption: vi.fn(),
+      discardChanges: vi.fn(),
         lastSavedOption: defaultVarOption,
         setLastSavedOption: vi.fn(),
         secretStatus: emptySecretStatus(),

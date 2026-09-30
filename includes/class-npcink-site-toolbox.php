@@ -163,6 +163,14 @@ class Npcink_Site_Toolbox
             ? $cleaned['data']
             : array();
 
+        // 历史遗留的上传重命名值（如 'true'）会让模块激活但空转，统一归为禁用
+        if (
+            isset($cleaned_data['function']['auxiliary']['upload_auto_name'])
+            && !in_array($cleaned_data['function']['auxiliary']['upload_auto_name'], array('false', 'math', 'md5'), true)
+        ) {
+            $cleaned_data['function']['auxiliary']['upload_auto_name'] = 'false';
+        }
+
         $schema = Npcink_Toolbox_Config_Schema::get_schema();
         foreach (Npcink_Toolbox_Config_Manager::get_module_map_for_cleanup() as $top_key => $option_name) {
             if (!isset($schema[$top_key]) || !is_array($schema[$top_key])) {
@@ -178,6 +186,34 @@ class Npcink_Site_Toolbox
             if ($normalized != $raw) {
                 update_option($option_name, $normalized, false);
             }
+        }
+
+        // 存量数据行改为不自动加载：垃圾评论日志与分类 SEO 行会随数量增长，
+        // 不应常驻 alloptions（写入侧已改为显式 autoload=false，这里刷历史行）
+        global $wpdb;
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching -- One-time version-gated maintenance; autoload flags cannot be flipped through the Options API.
+        $wpdb->query($wpdb->prepare(
+            "UPDATE {$wpdb->options} SET autoload = 'no' WHERE autoload <> 'no' AND (option_name = %s OR option_name LIKE %s)",
+            'npcink_site_toolbox_spam_comment_log',
+            $wpdb->esc_like('npcink_site_toolbox_category_') . '%'
+        ));
+
+        // 删除 pre-2.1/已退役功能遗留的 Option 行（键名经 git 历史考古确认）
+        $legacy_option_names = array(
+            'magick_plugin_config',
+            'mabox_ai_review_log',
+            'mabox_feature_popularity',
+            'mabox_feedback_stats',
+            'mabox_login_log',
+            'mabox_privacy_notice_dismissed',
+            'mabox_search_log',
+            'mabox_spam_comment_log',
+            'mabox_telemetry_data',
+            'mabox_telemetry_user_count',
+            'mabox_wizard_completed',
+        );
+        foreach ($legacy_option_names as $legacy_option_name) {
+            delete_option($legacy_option_name);
         }
 
         update_option('npcink_site_toolbox_version', NPCINK_SITE_TOOLBOX_VERSION, false);

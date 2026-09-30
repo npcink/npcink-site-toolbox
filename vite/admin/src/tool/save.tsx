@@ -20,6 +20,7 @@ const App: React.FC = () => {
   const {
     optionData,
     refreshOption,
+    discardChanges,
     lastSavedOption,
     secretStatus,
     secretChanges,
@@ -79,6 +80,14 @@ const App: React.FC = () => {
     } finally {
       setSaving(false);
     }
+  };
+
+  const handleDiscardChanges = () => {
+    if (!window.confirm(sprintf(__("确定放弃全部 %d 项未保存的修改？此操作不可撤销。"), changeCount))) {
+      return;
+    }
+    discardChanges();
+    notice.success(__("已恢复到最近保存的设置"));
   };
 
   const handleRereadSettings = async () => {
@@ -196,6 +205,15 @@ const App: React.FC = () => {
         )}
         <span>{buttonText}</span>
       </button>
+      {settingsState === "ready" && changeCount > 0 && !saving && !preparingConfirmation && (
+        <button
+          type="button"
+          className="mabox-save-action mabox-save-action--discard"
+          onClick={handleDiscardChanges}
+        >
+          {__("放弃更改")}
+        </button>
+      )}
       {LoadedDiffModal && (
         <LoadedDiffModal
           visible={diffVisible}

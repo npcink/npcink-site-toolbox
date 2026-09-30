@@ -18,8 +18,10 @@ if (!class_exists('Npcink_Toolbox_Performance_Search_Enhance')) {
             }
         }
         public static function highlight_search($text) {
-            $text = wp_kses_post((string) $text);
+            // 非搜索页直接返回：the_title/the_excerpt 全站都会触发，
+            // 不能在判断 is_search() 之前对每个标题/摘要都跑一遍 kses
             if (!is_search()) return $text;
+            $text = wp_kses_post((string) $text);
             $query = wp_strip_all_tags((string) get_search_query());
             if (empty($query)) return $text;
             $parts = preg_split('/(<[^>]+>)/', $text, -1, PREG_SPLIT_DELIM_CAPTURE);

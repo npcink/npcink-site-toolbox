@@ -2,7 +2,10 @@ import { useEffect } from "react";
 
 import { __ } from "@/tool/i18n";
 
-export const UNSAVED_CHANGES_MESSAGE = __("还有设置尚未保存，离开后这些修改将丢失。确定离开吗？");
+// 应用内切换视图时修改仍会保留（可返回统一保存），文案必须如实描述
+export const UNSAVED_CHANGES_MESSAGE = __(
+  "还有设置尚未保存。切换视图不会丢失这些修改，可稍后返回统一保存；关闭或刷新页面则不会保存。仍要切换吗？",
+);
 
 export function confirmUnsavedNavigation(
   hasUnsavedChanges: boolean,

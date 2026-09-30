@@ -110,8 +110,8 @@ if (!class_exists('Npcink_Toolbox_Seo_Category_Add_Meat')) {
             $words_key = 'npcink_site_toolbox_category_keywords_' . absint($term_id);
             $words_value = sanitize_text_field(wp_unslash($_POST['cat-words']));
 
-            update_option($title_key, $title_value);
-            update_option($words_key, $words_value);
+            update_option($title_key, $title_value, false);
+            update_option($words_key, $words_value, false);
 
             return $term_id;
         }

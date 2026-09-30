@@ -180,6 +180,13 @@ const App: React.FC = () => {
 
   const refreshOption = loadSettings;
 
+  // 一键放弃全部未保存修改：回到最近一次保存/读取的状态，并让表单重新同步
+  const discardChanges = useCallback(() => {
+    setOptionData(lastSavedOption);
+    setSecretChanges({});
+    setConfigEpoch((epoch) => epoch + 1);
+  }, [lastSavedOption]);
+
   const setSecretChange = useCallback((path: SecretPath, change?: SecretChange) => {
     setSecretChanges((previous) => {
       const next = { ...previous };
@@ -318,6 +325,7 @@ const App: React.FC = () => {
         optionData,
         updateOption,
         refreshOption,
+        discardChanges,
         lastSavedOption,
         setLastSavedOption,
         secretStatus,

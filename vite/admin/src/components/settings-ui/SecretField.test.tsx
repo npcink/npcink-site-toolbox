@@ -29,6 +29,7 @@ const Harness: React.FC<{ configured: boolean; compact?: boolean }> = ({ configu
         optionData: defaultVarOption,
         updateOption: vi.fn(),
         refreshOption: async () => {},
+      discardChanges: vi.fn(),
         lastSavedOption: defaultVarOption,
         setLastSavedOption: vi.fn(),
         secretStatus: status,

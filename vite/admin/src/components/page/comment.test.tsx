@@ -20,6 +20,7 @@ function renderSettings() {
         optionData,
         updateOption,
         refreshOption: vi.fn(),
+      discardChanges: vi.fn(),
         lastSavedOption: optionData,
         setLastSavedOption: vi.fn(),
         secretStatus: emptySecretStatus(),

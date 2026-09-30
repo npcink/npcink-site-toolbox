@@ -131,6 +131,19 @@ final class ProductIdentityContractTest extends TestCase
         );
 
         $runtime = implode("\n", $this->runtimePhpSources());
+
+        // 遗留 Option 清理列表（升级/卸载时一次性 delete_option 的 pre-2.1 键名）
+        // 是对“单一现行前缀”契约的支持而非违反：先剔除这两处数组声明本身，
+        // 再断言退役键不会出现在其余任何位置（防止有人用旧键读写数据）。
+        $runtime_without_legacy_cleanup = preg_replace(
+            '/\$(?:npcink_site_toolbox_)?legacy_option_names = array\([^;]*\);/s',
+            '',
+            $runtime
+        );
+        $this->assertNotSame(null, $runtime_without_legacy_cleanup);
+        $this->assertGreaterThan(0, substr_count($runtime, 'legacy_option_names'), '遗留清理列表声明缺失');
+        $runtime = (string) $runtime_without_legacy_cleanup;
+
         foreach (
             array(
                 'Magick_ToolBox_',

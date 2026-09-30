@@ -311,6 +311,7 @@ describe("AiDiagnostics", () => {
         lastSavedOption: defaultVarOption,
         updateOption: vi.fn(),
         refreshOption: vi.fn(),
+      discardChanges: vi.fn(),
         setLastSavedOption: vi.fn(),
         secretStatus: emptySecretStatus(),
         secretChanges: {},

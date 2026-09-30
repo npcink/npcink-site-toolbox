@@ -19,6 +19,7 @@ function renderDomestic(targetItemId?: string, optionData: Option = defaultVarOp
         optionData,
         updateOption,
         refreshOption: vi.fn(),
+      discardChanges: vi.fn(),
         lastSavedOption: defaultVarOption,
         setLastSavedOption: vi.fn(),
         secretStatus: emptySecretStatus(),

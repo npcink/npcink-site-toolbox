@@ -57,6 +57,7 @@ function renderDashboard(onNavigate = vi.fn(), optionData: Option = defaultVarOp
         optionData,
         updateOption: vi.fn(),
         refreshOption: vi.fn(),
+      discardChanges: vi.fn(),
         lastSavedOption: defaultVarOption,
         setLastSavedOption: vi.fn(),
         secretStatus: emptySecretStatus(),

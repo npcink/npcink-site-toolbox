@@ -101,6 +101,7 @@ export interface OptionContextType {
   optionData: Option;
   updateOption: (father: string, son: string, newValue: unknown) => void;
   refreshOption: () => Promise<void>;
+  discardChanges: () => void;
   lastSavedOption: Option;
   setLastSavedOption: (data: Option) => void;
   secretStatus: SecretStatus;
@@ -117,6 +118,7 @@ export const DataContext = createContext<OptionContextType>({
   optionData: defaultVarOption,
   updateOption: () => {},
   refreshOption: async () => {},
+  discardChanges: () => {},
   lastSavedOption: defaultVarOption,
   setLastSavedOption: () => {},
   secretStatus: emptySecretStatus(),

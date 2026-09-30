@@ -47,6 +47,24 @@ function npcink_site_toolbox_uninstall_cleanup()
         delete_option($npcink_site_toolbox_option_name);
     }
 
+    // pre-2.1/已退役功能遗留的 Option 行（键名经 git 历史考古确认，与升级清理保持一致）
+    $npcink_site_toolbox_legacy_option_names = array(
+        'magick_plugin_config',
+        'mabox_ai_review_log',
+        'mabox_feature_popularity',
+        'mabox_feedback_stats',
+        'mabox_login_log',
+        'mabox_privacy_notice_dismissed',
+        'mabox_search_log',
+        'mabox_spam_comment_log',
+        'mabox_telemetry_data',
+        'mabox_telemetry_user_count',
+        'mabox_wizard_completed',
+    );
+    foreach ($npcink_site_toolbox_legacy_option_names as $npcink_site_toolbox_legacy_option_name) {
+        delete_option($npcink_site_toolbox_legacy_option_name);
+    }
+
     delete_metadata('comment', 0, '_npcink_site_toolbox_block_reason', '', true);
 
     // 数据库清理的预览凭证按用户记录在 usermeta 中，卸载时一并清除。

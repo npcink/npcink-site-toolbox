@@ -38,7 +38,8 @@ function renderSave(overrides: Partial<OptionContextType> = {}) {
   const value: OptionContextType = {
     optionData,
     updateOption: vi.fn(),
-    refreshOption: vi.fn().mockResolvedValue(undefined),
+    refreshOption: vi.fn(),
+      discardChanges: vi.fn().mockResolvedValue(undefined),
     lastSavedOption: cloneOption(),
     setLastSavedOption: vi.fn(),
     secretStatus: emptySecretStatus(),
@@ -269,5 +270,35 @@ describe("Save", () => {
     expect(clearSecretChanges).not.toHaveBeenCalled();
     expect(refreshOption).not.toHaveBeenCalled();
     expect(screen.getByRole("status")).toHaveTextContent("1 项待保存");
+  });
+  it("有待保存修改时提供放弃更改，并在确认后回滚到最近保存状态", () => {
+    const pending = cloneOption();
+    if (pending.optimize?.site) {
+      pending.optimize.site.hide_top_toolbar = true;
+    }
+    const confirm = vi.spyOn(window, "confirm").mockReturnValue(true);
+    const { value } = renderSave({ optionData: pending });
+
+    fireEvent.click(screen.getByRole("button", { name: "放弃更改" }));
+    expect(confirm).toHaveBeenCalledTimes(1);
+    expect(value.discardChanges).toHaveBeenCalledTimes(1);
+  });
+
+  it("取消确认时不执行放弃更改", () => {
+    const pending = cloneOption();
+    if (pending.optimize?.site) {
+      pending.optimize.site.hide_top_toolbar = true;
+    }
+    const confirm = vi.spyOn(window, "confirm").mockReturnValue(false);
+    const { value } = renderSave({ optionData: pending });
+
+    fireEvent.click(screen.getByRole("button", { name: "放弃更改" }));
+    expect(confirm).toHaveBeenCalledTimes(1);
+    expect(value.discardChanges).not.toHaveBeenCalled();
+  });
+
+  it("没有待保存修改时不显示放弃更改", () => {
+    renderSave();
+    expect(screen.queryByRole("button", { name: "放弃更改" })).toBeNull();
   });
 });

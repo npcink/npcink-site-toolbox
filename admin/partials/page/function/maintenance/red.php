@@ -55,8 +55,6 @@ if ('' !== $npcink_site_toolbox_countdown) {
 <body <?php body_class(); ?>>
     <?php wp_body_open(); ?>
 
-    <body>
-
 
         <!--复制开始-->
         <!--

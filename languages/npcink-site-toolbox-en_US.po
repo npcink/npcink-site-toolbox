@@ -6,7 +6,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/npcink-site-"
 "toolbox\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2026-09-29 22:40+0800\n"
+"PO-Revision-Date: 2026-09-30 09:40+0800\n"
 "Last-Translator: Npcink\n"
 "Language-Team: English (United States)\n"
 "Language: en_US\n"
@@ -1514,8 +1514,8 @@ msgstr "Image selector to blur"
 #: vite/admin/dist/index.js:328
 msgid "主题正文容器不是 .entry-content 时，可改成对应的图片选择器"
 msgstr ""
-"If your theme's content container is not .entry-content, replace this wi"
-"th the matching image selector"
+"If your theme's content container is not .entry-content, replace this with "
+"the matching image selector"
 
 #: vite/admin/dist/index.js:329
 msgid "文章末尾添加最后更新时间，文章发布24小时后再次修改，即可展示"
@@ -1735,85 +1735,107 @@ msgid "未登录权限"
 msgstr "Not Logged In Permissions"
 
 #: vite/admin/dist/index.js:376
+msgid "分类、标签或页面列表加载失败。"
+msgstr "Failed to load the category, tag, or page lists."
+
+#: vite/admin/dist/index.js:377
+msgid "下方选项暂时无法选择，请检查网络或 REST 接口后重试。"
+msgstr ""
+"The options below cannot be selected for now; check your network or the "
+"REST endpoint and retry."
+
+#: vite/admin/dist/index.js:378
+msgid "重试"
+msgstr "Retry"
+
+#: vite/admin/dist/index.js:379
+msgid "正在加载分类、标签和页面列表…"
+msgstr "Loading categories, tags, and pages…"
+
+#: vite/admin/dist/index.js:380
 msgid "隐藏指定分类下的内容"
 msgstr "Hide Content Within Specific Categories"
 
-#: vite/admin/dist/index.js:377
+#: vite/admin/dist/index.js:381
 msgid "该分类下的内容未登录时，不可见，仅展示提示内容"
 msgstr ""
 "Content within the selected category is not visible when logged out and only "
 "displays a message."
 
-#: vite/admin/dist/index.js:378
+#: vite/admin/dist/index.js:382
+msgid "加载失败，请重试"
+msgstr "Load failed, please retry"
+
+#: vite/admin/dist/index.js:383
 msgid "请选择要隐藏的分类"
 msgstr "Select the categories to hide."
 
-#: vite/admin/dist/index.js:379
+#: vite/admin/dist/index.js:384
 msgid "隐藏指定标签下的内容"
 msgstr "Hide content under the selected tags."
 
-#: vite/admin/dist/index.js:380
+#: vite/admin/dist/index.js:385
 msgid "该标签下的内容未登录时，不可见，仅展示提示内容"
 msgstr ""
 "Content within the selected tag is not visible when logged out and only "
 "displays a message."
 
-#: vite/admin/dist/index.js:381
+#: vite/admin/dist/index.js:386
 msgid "请选择要隐藏的标签"
 msgstr "Select the tags to hide."
 
-#: vite/admin/dist/index.js:382
+#: vite/admin/dist/index.js:387
 msgid "该页面下的内容未登录时，不可见，仅展示提示内容"
 msgstr ""
 "Content within the selected page is not visible when logged out and only "
 "displays a message."
 
-#: vite/admin/dist/index.js:383
+#: vite/admin/dist/index.js:388
 msgid "请选择要隐藏的页面"
 msgstr "Select the pages to hide."
 
-#: vite/admin/dist/index.js:384
+#: vite/admin/dist/index.js:389
 msgid "隐藏时的提示内容"
 msgstr "The message displayed when hiding content."
 
-#: vite/admin/dist/index.js:385
+#: vite/admin/dist/index.js:390
 msgid "内容被隐藏时的提示内容，支持HTML"
 msgstr "Message displayed when content is hidden, supports HTML."
 
-#: vite/admin/dist/index.js:386
+#: vite/admin/dist/index.js:391
 msgid "站点与媒体分组"
 msgstr "Media & Site Groups"
 
-#: vite/admin/dist/index.js:387
+#: vite/admin/dist/index.js:392
 msgid "媒体文件相关优化"
 msgstr "Optimize media files related settings."
 
-#: vite/admin/dist/index.js:388
+#: vite/admin/dist/index.js:393
 msgid "标签值为：当前文章名 - 网站名"
 msgstr "Tag value: Current post title - Website name."
 
-#: vite/admin/dist/index.js:389
+#: vite/admin/dist/index.js:394
 msgid "禁用自动图片尺寸"
 msgstr "Disable automatic image sizes generation."
 
-#: vite/admin/dist/index.js:390
+#: vite/admin/dist/index.js:395
 msgid ""
 "禁用自动生成的图片尺寸、禁用缩略尺寸，可能导致部分主题或插件无法获取所需尺寸"
 msgstr ""
 "Disables generated and thumbnail image sizes, may cause some themes or "
 "plugins to fail in fetching required sizes."
 
-#: vite/admin/dist/index.js:391
+#: vite/admin/dist/index.js:396
 msgid "添加SVG图标支持"
 msgstr "Add support for SVG icons."
 
-#: vite/admin/dist/index.js:392
+#: vite/admin/dist/index.js:397
 msgid "选中后可在媒体库上传SVG图标，SVG文件可能包含脚本，存在安全风险"
 msgstr ""
 "Select to add SVG icon support. SVG files can contain scripts and pose a "
 "security risk."
 
-#: vite/admin/dist/index.js:393
+#: vite/admin/dist/index.js:398
 msgid ""
 "当前服务器的 WordPress 图片编辑器不支持 WebP；即使保留设置，JPEG 也会安全保持"
 "原格式"
@@ -1821,7 +1843,7 @@ msgstr ""
 "Current WordPress image editor on the server does not support WebP; JPEG "
 "will be saved in its original format even with settings retained."
 
-#: vite/admin/dist/index.js:394
+#: vite/admin/dist/index.js:399
 msgid ""
 "原始上传的 JPEG 留作恢复备份；媒体库使用 WordPress 生成的 WebP 主图和缩略图。"
 "不转换 PNG，不删除或覆盖原图"
@@ -1830,41 +1852,41 @@ msgstr ""
 "uses WordPress-generated WebP main images and thumbnails. No PNG conversion, "
 "no deletion or overwriting of originals."
 
-#: vite/admin/dist/index.js:395
+#: vite/admin/dist/index.js:400
 msgid "上传图片自动重命名"
 msgstr "Images are automatically renamed when uploaded."
 
-#: vite/admin/dist/index.js:396
+#: vite/admin/dist/index.js:401
 msgid "数字重命名类似："
 msgstr "Similar to numeric renaming:"
 
-#: vite/admin/dist/index.js:397
+#: vite/admin/dist/index.js:402
 msgid "MD5重命名类似："
 msgstr "MD5-based renaming:"
 
-#: vite/admin/dist/index.js:398
+#: vite/admin/dist/index.js:403
 msgid "禁用"
 msgstr "Disabled"
 
-#: vite/admin/dist/index.js:399
+#: vite/admin/dist/index.js:404
 msgid "数字重命名"
 msgstr "Numeric renaming enabled"
 
-#: vite/admin/dist/index.js:400
+#: vite/admin/dist/index.js:405
 msgid "MD5重命名"
 msgstr "MD5 Rename"
 
-#: vite/admin/dist/index.js:401
+#: vite/admin/dist/index.js:406
 msgid "站点基础优化设置"
 msgstr "Basic optimization settings for the site."
 
-#: vite/admin/dist/index.js:402
+#: vite/admin/dist/index.js:407
 msgid "对无法编辑文章的登录用户隐藏前台顶部工具条"
 msgstr ""
 "Hide the top toolbar on the front-end for login users who cannot edit "
 "articles."
 
-#: vite/admin/dist/index.js:403
+#: vite/admin/dist/index.js:408
 msgid ""
 "从RSS源和网站中删除WordPress版本信息，如果您无法保持您的WordPres版本为最新，"
 "推荐开启"
@@ -1872,169 +1894,171 @@ msgstr ""
 "Remove WordPress version information from RSS sources and the website if you "
 "cannot keep your WordPress version up-to-date, recommended to enable."
 
-#: vite/admin/dist/index.js:404
+#: vite/admin/dist/index.js:409
 msgid "禁止title中的 \"-\" 被转义"
 msgstr "Do not escape the '-' in title tags"
 
-#: vite/admin/dist/index.js:405
+#: vite/admin/dist/index.js:410
 msgid "让网页标题符号正常显示"
 msgstr "Display web page titles correctly."
 
-#: vite/admin/dist/index.js:406
+#: vite/admin/dist/index.js:411
 msgid "去掉分类目录链接中的 category 字符，修改后旧链接可能失效"
 msgstr ""
 "Remove 'category' characters from category links; changes may cause old "
 "links to become invalid."
 
-#: vite/admin/dist/index.js:407
+#: vite/admin/dist/index.js:412
 msgid "将 ?s=关键词 改为 域名/search/关键词，部分主题可能不兼容"
 msgstr ""
 "Change?s=keyword to domain/search/keyword, some themes might not be "
 "compatible with this change."
 
-#: vite/admin/dist/index.js:408
+#: vite/admin/dist/index.js:413
 msgid "安全 - 移除 wp-sitemap-users"
 msgstr "Security - Remove wp-sitemap-users"
 
-#: vite/admin/dist/index.js:409
+#: vite/admin/dist/index.js:414
 msgid "移除原生站点地图中的用户信息部分，可减少用户信息暴露风险"
 msgstr ""
 "Remove the user information portion from the native site map to reduce "
 "exposure risk"
 
-#: vite/admin/dist/index.js:410
+#: vite/admin/dist/index.js:415
 msgid "在用户列表中以“昵称”列替代“姓名”列"
 msgstr "Replace 'Name' column with 'Nickname' column in User list"
 
-#: vite/admin/dist/index.js:411
+#: vite/admin/dist/index.js:416
 msgid "在 WordPress 发送的邮件中隐藏 IP 地址，保护用户隐私"
 msgstr "Hide IP address in emails sent from WordPress to protect user privacy."
 
-#: vite/admin/dist/index.js:412
+#: vite/admin/dist/index.js:417
 msgid "后台文章管理增强"
 msgstr "enhance post management settings"
 
-#: vite/admin/dist/index.js:413
+#: vite/admin/dist/index.js:418
 msgid "文章菜单添加作者筛选项"
 msgstr "add author filter to the posts menu"
 
-#: vite/admin/dist/index.js:414
+#: vite/admin/dist/index.js:419
 msgid "文章和媒体菜单添加时间筛选项，媒体菜单需为列表布局"
 msgstr ""
 "add date filter to the posts and media menus; media menu must be in list "
 "layout"
 
-#: vite/admin/dist/index.js:415
+#: vite/admin/dist/index.js:420
 msgid "各个列表显示链接ID"
 msgstr "display link IDs for each list view"
 
-#: vite/admin/dist/index.js:416
+#: vite/admin/dist/index.js:421
 msgid "支持 文章、页面、链接、多媒体、评论、分类、标签、用户 等"
 msgstr ""
 "supports articles, pages, links, media, comments, categories, tags, users, "
 "etc."
 
-#: vite/admin/dist/index.js:417
+#: vite/admin/dist/index.js:422
 msgid "展示、添加、删除缩略图，仅经典编辑器可用"
 msgstr "shows, adds, removes thumbnails; only available in Classic Editor"
 
-#: vite/admin/dist/index.js:418
+#: vite/admin/dist/index.js:423
 msgid "在文章、页面等全部列表页添加按钮，把当前筛选结果一键在新标签页打开"
 msgstr ""
 "Adds a button to every post-type list screen (posts, pages, and more) that "
 "opens the current filtered results' edit screens in new tabs at once"
 
-#: vite/admin/dist/index.js:419
+#: vite/admin/dist/index.js:424
 msgid "正在加载当前页面"
 msgstr "Loading the current page"
 
-#: vite/admin/dist/index.js:420
+#: vite/admin/dist/index.js:425
 msgid "设置读取完成，正在准备页面内容。"
 msgstr "Settings loaded. Preparing the page."
 
-#: vite/admin/dist/index.js:421
+#: vite/admin/dist/index.js:426
 msgid "工作台"
 msgstr "Workspace"
 
-#: vite/admin/dist/index.js:422
+#: vite/admin/dist/index.js:427
 msgid "概览"
 msgstr "Overview"
 
-#: vite/admin/dist/index.js:423
+#: vite/admin/dist/index.js:428
 msgid "站点设置"
 msgstr "Site Settings"
 
-#: vite/admin/dist/index.js:424
+#: vite/admin/dist/index.js:429
 msgid "工具与支持"
 msgstr "Tools & Support"
 
-#: vite/admin/dist/index.js:425
+#: vite/admin/dist/index.js:430
 msgid "关于与帮助"
 msgstr "About & Help"
 
-#: vite/admin/dist/index.js:426
+#: vite/admin/dist/index.js:431
 msgid "无法读取设置"
 msgstr "cannot read settings"
 
-#: vite/admin/dist/index.js:427
+#: vite/admin/dist/index.js:432
 msgid "正在读取站点设置"
 msgstr "Loading site settings"
 
-#: vite/admin/dist/index.js:428
+#: vite/admin/dist/index.js:433
 msgid "读取完成前不会启用保存。"
 msgstr "Saving remains disabled until loading is complete."
 
-#: vite/admin/dist/index.js:429
+#: vite/admin/dist/index.js:434
 msgid "无法读取站点设置"
 msgstr "Unable to load site settings"
 
-#: vite/admin/dist/index.js:430
+#: vite/admin/dist/index.js:435
 msgid "设置接口请求失败"
 msgstr "The settings request failed"
 
-#: vite/admin/dist/index.js:431
+#: vite/admin/dist/index.js:436
 msgid "为避免覆盖真实配置，保存功能已禁用。"
 msgstr "Saving is disabled to prevent overwriting the current configuration."
 
-#: vite/admin/dist/index.js:432
+#: vite/admin/dist/index.js:437
 msgid "重新读取"
 msgstr "Reload"
 
-#: vite/admin/dist/index.js:433
+#: vite/admin/dist/index.js:438
 msgid "打开帮助"
 msgstr "Open help"
 
-#: vite/admin/dist/index.js:434
+#: vite/admin/dist/index.js:439
 msgid "帮助"
 msgstr "Help"
 
-#: vite/admin/dist/index.js:435
+#: vite/admin/dist/index.js:440
 msgid "导航"
 msgstr "Navigation"
 
-#: vite/admin/dist/index.js:436
+#: vite/admin/dist/index.js:441
 msgid "关闭导航"
 msgstr "Close navigation"
 
-#: vite/admin/dist/index.js:437
+#: vite/admin/dist/index.js:442
 msgid "Npcink Site Toolbox 主导航"
 msgstr "Npcink Site Toolbox primary navigation"
 
-#: vite/admin/dist/index.js:438
+#: vite/admin/dist/index.js:443
 msgid "保存与离开保护"
 msgstr "Save and navigation protection"
 
-#: vite/admin/dist/index.js:439
+#: vite/admin/dist/index.js:444
 msgid ""
 "修改普通设置或填写凭据后，页面会显示待保存数量。刷新、关闭标签页或切换到插件"
-"内其他区域时，系统会先确认，避免静默丢失草稿。"
+"内其他区域时，系统会先确认；切换视图后修改仍会保留，可返回统一保存。如需撤销"
+"全部未保存的修改，可点击保存按钮旁的「放弃更改」。"
 msgstr ""
-"after modifying general settings or filling credentials, the page will show "
-"how many changes are pending. Refreshing, closing a tab, or switching to "
-"another area within the plugin will first confirm before saving, avoiding "
-"silent loss of drafts."
+"After changing settings or entering credentials, the page shows the pend"
+"ing count. Refreshing, closing the tab, or switching to another area of "
+"the plugin asks first; switching views keeps your changes so you can sav"
+"e them later. To undo all unsaved changes, use “Discard changes” next to"
+" the save button."
 
-#: vite/admin/dist/index.js:440
+#: vite/admin/dist/index.js:445
 msgid ""
 "保存请求带有读取设置时的配置版本。如果其他管理员、另一个标签页或受控代码已经"
 "更新设置，本次保存会停止并提示重新读取，不会用旧快照覆盖新配置。"
@@ -2044,11 +2068,11 @@ msgstr ""
 "save will stop and prompt for re-reading instead of using an old snapshot to "
 "overwrite new configurations."
 
-#: vite/admin/dist/index.js:441
+#: vite/admin/dist/index.js:446
 msgid "发生保存冲突时"
 msgstr "When a save conflict occurs"
 
-#: vite/admin/dist/index.js:442
+#: vite/admin/dist/index.js:447
 msgid ""
 "先记下当前准备修改的项目，再重新读取或刷新后台。核对最新配置和保存差异后，再"
 "提交需要保留的修改。"
@@ -2057,7 +2081,7 @@ msgstr ""
 "again from the backend. After verifying the latest configuration against "
 "your changes, submit only those modifications that need to be retained."
 
-#: vite/admin/dist/index.js:443
+#: vite/admin/dist/index.js:448
 msgid ""
 "数据库清理必须按项目先预览、再确认。预览资格仅对当前管理员和当前清理项目有"
 "效，5 分钟后失效且只能使用一次；如果执行前数据库内容发生变化，系统会停止清理"
@@ -2068,11 +2092,11 @@ msgstr ""
 "in 5 minutes and can only be used once; if database content changes before "
 "execution, the cleanup will stop and require a new preview."
 
-#: vite/admin/dist/index.js:444
+#: vite/admin/dist/index.js:449
 msgid "图片 Alt 检查"
 msgstr "Image alt text checks"
 
-#: vite/admin/dist/index.js:445
+#: vite/admin/dist/index.js:450
 msgid ""
 "SEO 检查助手和媒体库体检只检查缺少 Alt 的图片并显示数量。为避免与站点已有 "
 "SEO 或媒体插件重复写入，Npcink Site Toolbox 不提供 Alt 自动写入；请在负责 "
@@ -2084,11 +2108,11 @@ msgstr ""
 "automatic writing of Alt; please handle this manually in the plugin "
 "responsible for SEO or in the media library."
 
-#: vite/admin/dist/index.js:446
+#: vite/admin/dist/index.js:451
 msgid "界面语言"
 msgstr "Interface Language"
 
-#: vite/admin/dist/index.js:447
+#: vite/admin/dist/index.js:452
 msgid ""
 "插件界面跟随当前 WordPress 用户语言。简体中文使用内置源文案；English (United "
 "States) 使用随插件发布的英文语言包。修改个人资料中的语言后，重新打开插件页面"
@@ -2099,29 +2123,29 @@ msgstr ""
 "the language package included with the plugin. After changing your profile "
 "language, re-opening the plugin page will take effect."
 
-#: vite/admin/dist/index.js:448
+#: vite/admin/dist/index.js:453
 msgid "风险提示"
 msgstr "Risk Warning"
 
-#: vite/admin/dist/index.js:449
+#: vite/admin/dist/index.js:454
 msgid "开启有风险的功能时会弹出确认提示；选择过「不再提示」的功能不会再确认。"
 msgstr ""
-"A confirmation prompt appears when enabling risky features; features who"
-"se prompt was dismissed with \"don't ask again\" will no longer confirm."
+"A confirmation prompt appears when enabling risky features; features whose "
+"prompt was dismissed with \"don't ask again\" will no longer confirm."
 
-#: vite/admin/dist/index.js:450
+#: vite/admin/dist/index.js:455
 msgid "已恢复全部风险提示"
 msgstr "All risk prompts restored"
 
-#: vite/admin/dist/index.js:451
+#: vite/admin/dist/index.js:456
 msgid "重置失败，请重试"
 msgstr "Reset failed, please retry"
 
-#: vite/admin/dist/index.js:452
+#: vite/admin/dist/index.js:457
 msgid "恢复全部风险提示"
 msgstr "Restore all risk prompts"
 
-#: vite/admin/dist/index.js:453
+#: vite/admin/dist/index.js:458
 msgid ""
 "这是一款完全免费且开源的插件，还在根据各位的使用和反馈，不断优化和增添新功能"
 "中。"
@@ -2129,15 +2153,15 @@ msgstr ""
 "'This is a completely free and open-source plugin that continues to be "
 "optimized and enhanced based on users' feedback.'"
 
-#: vite/admin/dist/index.js:454
+#: vite/admin/dist/index.js:459
 msgid "介绍地址："
 msgstr "Introduction URL:"
 
-#: vite/admin/dist/index.js:455
+#: vite/admin/dist/index.js:460
 msgid "开源地址："
 msgstr "Open-source URL:"
 
-#: vite/admin/dist/index.js:456
+#: vite/admin/dist/index.js:461
 msgid ""
 "早期给公司的子主题添加各项功能，管理不便，便独立出来，方便统一管理和维护；随"
 "着进一步的发展，功能增多，独乐乐不如众乐乐，于是免费分享出来，供大家使用。"
@@ -2146,7 +2170,7 @@ msgstr ""
 "maintenance; as development progressed, more features were added, making it "
 "beneficial to share them freely with others."
 
-#: vite/admin/dist/index.js:457
+#: vite/admin/dist/index.js:462
 msgid ""
 "您可以通过以下方式，或通过下方联系方式，给出您的宝贵建议；我会酌情排期，实现"
 "有趣的功能。"
@@ -2155,259 +2179,259 @@ msgstr ""
 "the contact information below. I will schedule interesting features "
 "accordingly."
 
-#: vite/admin/dist/index.js:458
+#: vite/admin/dist/index.js:463
 msgid "您可以通过以下方式联系到我："
 msgstr "Contact me through the following ways:"
 
-#: vite/admin/dist/index.js:459
+#: vite/admin/dist/index.js:464
 msgid "（QQ 好友）"
 msgstr "(QQ Friends)"
 
-#: vite/admin/dist/index.js:460
+#: vite/admin/dist/index.js:465
 msgid "（邮件）"
 msgstr "(Email)"
 
-#: vite/admin/dist/index.js:461
+#: vite/admin/dist/index.js:466
 msgid "关于插件"
 msgstr "About the plugin"
 
-#: vite/admin/dist/index.js:462
+#: vite/admin/dist/index.js:467
 msgid "我有建议"
 msgstr "I have suggestions"
 
-#: vite/admin/dist/index.js:463
+#: vite/admin/dist/index.js:468
 msgid "联系方式"
 msgstr "Contact information"
 
-#: vite/admin/dist/index.js:464
+#: vite/admin/dist/index.js:469
 #: includes/class-npcink-toolbox-block-patterns.php:98
 msgid "来源"
 msgstr "Source"
 
-#: vite/admin/dist/index.js:465
+#: vite/admin/dist/index.js:470
 msgid "使用帮助"
 msgstr "Help"
 
-#: vite/admin/dist/index.js:466
+#: vite/admin/dist/index.js:471
 msgid "运行状态"
 msgstr "Runtime Status"
 
-#: vite/admin/dist/index.js:467
+#: vite/admin/dist/index.js:472
 msgid "AI 诊断"
 msgstr "AI Diagnostics"
 
-#: vite/admin/dist/index.js:468
+#: vite/admin/dist/index.js:473
 msgid "关于与支持"
 msgstr "About & Support"
 
-#: vite/admin/dist/index.js:469
+#: vite/admin/dist/index.js:474
 msgid "关于与帮助分组"
 msgstr "Under the About & Help group"
 
-#: vite/admin/dist/index.js:470
+#: vite/admin/dist/index.js:475
 msgid "故障排查"
 msgstr "Troubleshooting"
 
-#: vite/admin/dist/index.js:471
+#: vite/admin/dist/index.js:476
 msgid "解释 WordPress、PHP、数据库、主题与插件运行快照。"
 msgstr ""
 "Explain snapshots of WordPress, PHP, database, theme, and plugin performance."
 
-#: vite/admin/dist/index.js:472
+#: vite/admin/dist/index.js:477
 msgid "性能分析"
 msgstr "Performance Analysis"
 
-#: vite/admin/dist/index.js:473
+#: vite/admin/dist/index.js:478
 msgid "检查自动加载、缓存、Cron 与数据库单次往返等性能风险信号。"
 msgstr ""
 "Check for performance risk signals such as automatic loading, caching, Cron "
 "jobs, and single database round trips."
 
-#: vite/admin/dist/index.js:474
+#: vite/admin/dist/index.js:479
 msgid "维护解读"
 msgstr "Maintenance Analysis"
 
-#: vite/admin/dist/index.js:475
+#: vite/admin/dist/index.js:480
 msgid "归纳数据库、SEO、媒体、搜索健康与对象存储配置状态。"
 msgstr ""
 "Summarize the status of database, SEO, media, search health, and object "
 "storage configuration."
 
-#: vite/admin/dist/index.js:476
+#: vite/admin/dist/index.js:481
 msgid "设置风险"
 msgstr "Settings Risk"
 
-#: vite/admin/dist/index.js:477
+#: vite/admin/dist/index.js:482
 msgid "解释当前尚未保存的普通设置差异，不包含任何凭据字段。"
 msgstr ""
 "Explain any differences between unsaved general settings, without including "
 "any credential fields."
 
-#: vite/admin/dist/index.js:478
+#: vite/admin/dist/index.js:483
 msgid "修复复验"
 msgstr "Fix Verification"
 
-#: vite/admin/dist/index.js:479
+#: vite/admin/dist/index.js:484
 msgid "对比同范围的前后快照，区分改善、恶化与证据不足。"
 msgstr ""
 "Compare previous and current snapshots to distinguish improvements, "
 "declines, and lack of evidence."
 
-#: vite/admin/dist/index.js:480
+#: vite/admin/dist/index.js:485
 msgid ""
 "请检查 WordPress 7.0+ 的 DeepSeek Connector 是否已连接；数据未由本插件保存。"
 msgstr ""
 "Check if the DeepSeek Connector is connected to your WordPress site (version "
 "7.0 or higher); data is not being saved by this plugin."
 
-#: vite/admin/dist/index.js:481
+#: vite/admin/dist/index.js:486
 msgid "模型在自动重试后仍未生成可展示正文；可稍后重试。"
 msgstr ""
 "The model did not generate displayable content after automatic retries; "
 "please try again later."
 
-#: vite/admin/dist/index.js:482
+#: vite/admin/dist/index.js:487
 msgid "DeepSeek 当前请求过多或额度受限；请稍后重试。"
 msgstr "Too many requests detected; please try again later."
 
-#: vite/admin/dist/index.js:483
+#: vite/admin/dist/index.js:488
 msgid "暂时无法连接 DeepSeek 服务；请稍后重试。"
 msgstr "Unable to connect to DeepSeek service; please try again later."
 
-#: vite/admin/dist/index.js:484
+#: vite/admin/dist/index.js:489
 msgid "没有保存不完整回答，也没有执行任何修改。可稍后重试。"
 msgstr ""
 "No incomplete answers were saved and no modifications were made. Please try "
 "again later."
 
-#: vite/admin/dist/index.js:485
+#: vite/admin/dist/index.js:490
 msgid "生成诊断报告"
 msgstr "Generate Diagnostic Report"
 
-#: vite/admin/dist/index.js:486
+#: vite/admin/dist/index.js:491
 msgid "生成性能快照"
 msgstr "Generate Performance Snapshot"
 
-#: vite/admin/dist/index.js:487
+#: vite/admin/dist/index.js:492
 msgid "生成维护快照"
 msgstr "Generate Maintenance Snapshot"
 
-#: vite/admin/dist/index.js:488
+#: vite/admin/dist/index.js:493
 msgid "AI 诊断与分析"
 msgstr "AI Diagnostics & Analysis"
 
-#: vite/admin/dist/index.js:489
+#: vite/admin/dist/index.js:494
 msgid "管理员先检查白名单快照，再显式发送给 DeepSeek；AI 只解释，不修改站点。"
 msgstr ""
 "The admin reviews the allowlisted snapshot before explicitly sending it to "
 "DeepSeek. AI explains the data but does not modify the site."
 
-#: vite/admin/dist/index.js:490
+#: vite/admin/dist/index.js:495
 msgid "AI 分析能力"
 msgstr "AI Analysis Capabilities"
 
-#: vite/admin/dist/index.js:491
+#: vite/admin/dist/index.js:496
 msgid "正在采集"
 msgstr "Collecting…"
 
-#: vite/admin/dist/index.js:492
+#: vite/admin/dist/index.js:497
 #, javascript-format
 msgid "%d 项普通设置待保存"
 msgstr "%d regular settings pending save"
 
-#: vite/admin/dist/index.js:493
+#: vite/admin/dist/index.js:498
 msgid "。凭据变更不会进入本分析。"
 msgstr "Credentials changes won't be analyzed."
 
-#: vite/admin/dist/index.js:494
+#: vite/admin/dist/index.js:499
 msgid "当前没有普通设置差异。请先在其他标签页调整设置，再回到这里分析。"
 msgstr ""
 "No differences found in the current settings. Please adjust the settings on "
 "another tab and come back here for analysis."
 
-#: vite/admin/dist/index.js:495
+#: vite/admin/dist/index.js:500
 msgid "基线范围"
 msgstr "Baseline Range"
 
-#: vite/admin/dist/index.js:496
+#: vite/admin/dist/index.js:501
 msgid "性能快照"
 msgstr "Performance Snapshot"
 
-#: vite/admin/dist/index.js:497
+#: vite/admin/dist/index.js:502
 msgid "维护快照"
 msgstr "Maintenance Snapshot"
 
-#: vite/admin/dist/index.js:498
+#: vite/admin/dist/index.js:503
 msgid "正在记录"
 msgstr "Recording in progress"
 
-#: vite/admin/dist/index.js:499
+#: vite/admin/dist/index.js:504
 msgid "重新记录基线"
 msgstr "Re-record Baseline"
 
-#: vite/admin/dist/index.js:500
+#: vite/admin/dist/index.js:505
 msgid "记录当前基线"
 msgstr "Record Current Baseline"
 
-#: vite/admin/dist/index.js:501
+#: vite/admin/dist/index.js:506
 #, javascript-format
 msgid "已在本页暂存 %s 的%s基线；刷新或离开页面后不会保留。"
 msgstr ""
 "The %2$s baseline for %1$s is temporarily stored on this page and will be "
 "cleared when you refresh or leave."
 
-#: vite/admin/dist/index.js:502
+#: vite/admin/dist/index.js:507
 msgid "快照生成失败"
 msgstr "Snapshot Generation Failed"
 
-#: vite/admin/dist/index.js:503
+#: vite/admin/dist/index.js:508
 msgid "没有生成、保存或发送不完整信息，请稍后重试。"
 msgstr ""
 "No complete information to generate, save, or send. Please try again later."
 
-#: vite/admin/dist/index.js:504
+#: vite/admin/dist/index.js:509
 msgid "重新生成"
 msgstr "Regenerate"
 
-#: vite/admin/dist/index.js:505
+#: vite/admin/dist/index.js:510
 msgid "发送前预览"
 msgstr "Preview before sending"
 
-#: vite/admin/dist/index.js:506
+#: vite/admin/dist/index.js:511
 msgid "网页中展示白名单事实；点击分析时，服务端会重新采集同范围最新数据。"
 msgstr ""
 "Whitelist of facts displayed on the webpage; when clicked for analysis, the "
 "server will re-collect latest data within the same range."
 
-#: vite/admin/dist/index.js:507
+#: vite/admin/dist/index.js:512
 msgid "复制 Markdown"
 msgstr "Copy Markdown"
 
-#: vite/admin/dist/index.js:508
+#: vite/admin/dist/index.js:513
 msgid "排查目标（可选）"
 msgstr "Target to Exclude (Optional)"
 
-#: vite/admin/dist/index.js:509
+#: vite/admin/dist/index.js:514
 msgid "分析目标（可选）"
 msgstr "Analyze Goals (optional)"
 
-#: vite/admin/dist/index.js:510
+#: vite/admin/dist/index.js:515
 msgid "补充你关心的现象或本次调整目的；不要填写密码、密钥或个人信息。"
 msgstr ""
 "Add any phenomena you're concerned about or the purpose of this adjustment; "
 "do not enter passwords, keys, or personal information."
 
-#: vite/admin/dist/index.js:511
+#: vite/admin/dist/index.js:516
 msgid "点击后会向 DeepSeek 发送同范围最新白名单事实。"
 msgstr "Clicking this will send the latest whitelisted facts to DeepSeek."
 
-#: vite/admin/dist/index.js:512
+#: vite/admin/dist/index.js:517
 msgid "若模型只返回空正文，最多自动重试一次。"
 msgstr ""
 "If the model only returns an empty body text, it will automatically retry up "
 "to once."
 
-#: vite/admin/dist/index.js:513
+#: vite/admin/dist/index.js:518
 msgid ""
 "API Key 由 WordPress Connectors 管理，本插件不读取、不保存，也不会执行模型建"
 "议。"
@@ -2415,88 +2439,88 @@ msgstr ""
 "API Key is managed by the WordPress Connectors plugin. This plugin does not "
 "read from, save, or execute model suggestions."
 
-#: vite/admin/dist/index.js:514
+#: vite/admin/dist/index.js:519
 msgid "DeepSeek 正在分析"
 msgstr "DeepSeek is Analyzing"
 
-#: vite/admin/dist/index.js:515
+#: vite/admin/dist/index.js:520
 msgid "重新采集并对比"
 msgstr "Resync and Compare"
 
-#: vite/admin/dist/index.js:516
+#: vite/admin/dist/index.js:521
 msgid "使用 DeepSeek 分析"
 msgstr "Use DeepSeek Analysis"
 
-#: vite/admin/dist/index.js:517
+#: vite/admin/dist/index.js:522
 msgid "DeepSeek 分析失败"
 msgstr "DeepSeek Analysis Failed"
 
-#: vite/admin/dist/index.js:518
+#: vite/admin/dist/index.js:523
 msgid "前往 Connectors"
 msgstr "Go to Connectors"
 
-#: vite/admin/dist/index.js:519
+#: vite/admin/dist/index.js:524
 msgid "DeepSeek 分析结果"
 msgstr "DeepSeek Analysis Results"
 
-#: vite/admin/dist/index.js:520
+#: vite/admin/dist/index.js:525
 #, javascript-format
 msgid "Provider：%s%s。结果未保存，也未自动修改站点。"
 msgstr ""
 "Provider: %s%s. Results are not saved and have not been automatically "
 "updated for the site."
 
-#: vite/admin/dist/index.js:521
+#: vite/admin/dist/index.js:526
 #, javascript-format
 msgid " · 模型：%s"
 msgstr " · Model: %s"
 
-#: vite/admin/dist/index.js:522
+#: vite/admin/dist/index.js:527
 msgid "继续追问"
 msgstr "Keep Asking"
 
-#: vite/admin/dist/index.js:523
+#: vite/admin/dist/index.js:528
 #, javascript-format
 msgid "%d/3 轮 · 仅保存在当前页面，切换模式或刷新后清除。"
 msgstr ""
 "Round %d/3 · Stored only on this page and cleared when you switch modes or "
 "refresh."
 
-#: vite/admin/dist/index.js:524
+#: vite/admin/dist/index.js:529
 msgid "临时追问记录"
 msgstr "Temporary Ask Record"
 
-#: vite/admin/dist/index.js:525
+#: vite/admin/dist/index.js:530
 #, javascript-format
 msgid "追问 %d"
 msgstr "Follow-up %d"
 
-#: vite/admin/dist/index.js:526
+#: vite/admin/dist/index.js:531
 msgid "快捷追问"
 msgstr "Suggested Follow-ups"
 
-#: vite/admin/dist/index.js:527
+#: vite/admin/dist/index.js:532
 msgid "依据是什么？"
 msgstr "What is it based on?"
 
-#: vite/admin/dist/index.js:528
+#: vite/admin/dist/index.js:533
 msgid "还缺哪些证据？"
 msgstr "What else do we need to provide?"
 
-#: vite/admin/dist/index.js:529
+#: vite/admin/dist/index.js:534
 msgid "给出安全的验证步骤。"
 msgstr "Provide safe steps for verification."
 
-#: vite/admin/dist/index.js:530
+#: vite/admin/dist/index.js:535
 msgid "当前追问"
 msgstr "Current Follow-up"
 
-#: vite/admin/dist/index.js:531
+#: vite/admin/dist/index.js:536
 msgid "最多 1000 字，不要填写密码、密钥或个人信息。"
 msgstr ""
 "Maximum of 1000 characters, no password, key, or personal information needed."
 
-#: vite/admin/dist/index.js:532
+#: vite/admin/dist/index.js:537
 msgid ""
 "提交时会再次发送原白名单事实、首次回答和本页已完成的追问；这些内容不会持久"
 "化。"
@@ -2504,46 +2528,46 @@ msgstr ""
 "Submit and resend the original whitelist facts, first answer, and any "
 "completed follow-ups; these contents will not persist."
 
-#: vite/admin/dist/index.js:533
+#: vite/admin/dist/index.js:538
 msgid "DeepSeek 正在回答"
 msgstr "DeepSeek is answering"
 
-#: vite/admin/dist/index.js:534
+#: vite/admin/dist/index.js:539
 msgid "提交追问"
 msgstr "Submit Follow-up"
 
-#: vite/admin/dist/index.js:535
+#: vite/admin/dist/index.js:540
 msgid "已完成 3 轮追问。若需要新的上下文，请重新生成快照并开始一次新分析。"
 msgstr ""
 "Completed 3 rounds of follow-ups. If new context is needed, please take a "
 "new snapshot and start a new analysis."
 
-#: vite/admin/dist/index.js:536
+#: vite/admin/dist/index.js:541
 msgid "追问失败"
 msgstr "Follow-up Failed"
 
-#: vite/admin/dist/index.js:537
+#: vite/admin/dist/index.js:542
 msgid "本轮未加入临时记录，也没有保存任何内容；请稍后重试。"
 msgstr ""
 "No temporary records were added this round and no content was saved; please "
 "try again later."
 
-#: vite/admin/dist/index.js:538
+#: vite/admin/dist/index.js:543
 msgid "已复制脱敏诊断报告，请在分享前再次检查。"
 msgstr ""
 "Copied and de-identified diagnosis report. Please review again before "
 "sharing."
 
-#: vite/admin/dist/index.js:539
+#: vite/admin/dist/index.js:544
 msgid "已复制白名单快照，请在分享前再次检查。"
 msgstr "Whitelist snapshot has been copied. Please check again before sharing."
 
-#: vite/admin/dist/index.js:540
+#: vite/admin/dist/index.js:545
 msgid "浏览器未允许复制，请刷新页面后重试。"
 msgstr ""
 "Your browser doesn't allow copying. Please refresh the page and try again."
 
-#: vite/admin/dist/index.js:541
+#: vite/admin/dist/index.js:546
 msgid ""
 "这是一款完全免费且开源的插件，还在根据各位的使用和反馈，不断优化和增添新功能"
 "中；"
@@ -2551,7 +2575,7 @@ msgstr ""
 "This is a free and open-source plugin that continues to optimize and add new "
 "features based on your usage and feedback;"
 
-#: vite/admin/dist/index.js:542
+#: vite/admin/dist/index.js:547
 msgid ""
 "早期给公司的子主题添加各项功能，管理不便，便独立出来，方便统一管理和维护；"
 msgstr ""
@@ -2559,7 +2583,7 @@ msgstr ""
 "it became inconvenient, so I separated it out to make it easier to manage "
 "and maintain uniformly;"
 
-#: vite/admin/dist/index.js:543
+#: vite/admin/dist/index.js:548
 msgid ""
 "随着进一步的发展，功能增多，独乐乐不如众乐乐，于是免费分享出来，供大家使用。"
 msgstr ""
@@ -2567,7 +2591,7 @@ msgstr ""
 "alone is not as good as sharing them with others. Thus, I decided to share "
 "it freely for everyone to use;"
 
-#: vite/admin/dist/index.js:544
+#: vite/admin/dist/index.js:549
 msgid ""
 "您可以通过以下方式，或通过下方联系方式，给出您的宝贵建议；我会酌情排期，实现"
 "有趣的功能，"
@@ -2576,41 +2600,41 @@ msgstr ""
 "by contacting me via the below contact information; I will schedule "
 "interesting functions accordingly;"
 
-#: vite/admin/dist/index.js:545
+#: vite/admin/dist/index.js:550
 msgid "文章评论"
 msgstr "Post Comments"
 
-#: vite/admin/dist/index.js:546
+#: vite/admin/dist/index.js:551
 msgid "您可以通过以下方式，联系到我，"
 msgstr "You can reach out to me through the following ways;"
 
-#: vite/admin/dist/index.js:547
+#: vite/admin/dist/index.js:552
 msgid "正在读取运行状态"
 msgstr "Reading and writing status is currently being read;"
 
-#: vite/admin/dist/index.js:548
+#: vite/admin/dist/index.js:553
 msgid "只读取模块和环境事实，不会修改设置。"
 msgstr ""
 "Only reads the read-only modules and environment facts, does not modify "
 "settings;"
 
-#: vite/admin/dist/index.js:549
+#: vite/admin/dist/index.js:554
 msgid "运行状态暂时不可用"
 msgstr "The running status is temporarily unavailable;"
 
-#: vite/admin/dist/index.js:550
+#: vite/admin/dist/index.js:555
 msgid "读取失败，没有生成不完整的诊断信息。"
 msgstr "Failed to read, no incomplete diagnostic information was generated;"
 
-#: vite/admin/dist/index.js:551
+#: vite/admin/dist/index.js:556
 msgid "重新获取"
 msgstr "Reload"
 
-#: vite/admin/dist/index.js:552
+#: vite/admin/dist/index.js:557
 msgid "功能与运行状态"
 msgstr "Function and running status;"
 
-#: vite/admin/dist/index.js:553
+#: vite/admin/dist/index.js:558
 msgid ""
 "核对当前实际加载的模块、编辑器工具和基础运行环境；本页面只读，不会发送外部请"
 "求。"
@@ -2619,73 +2643,73 @@ msgstr ""
 "environment currently. This page is only for reading and will not send "
 "external requests;"
 
-#: vite/admin/dist/index.js:554
+#: vite/admin/dist/index.js:559
 #: includes/class-npcink-toolbox-my-comments.php:69
 msgid "刷新"
 msgstr "Refresh"
 
-#: vite/admin/dist/index.js:555
+#: vite/admin/dist/index.js:560
 msgid "运行状态摘要"
 msgstr "Summary of the running status;"
 
-#: vite/admin/dist/index.js:556
+#: vite/admin/dist/index.js:561
 msgid "插件版本"
 msgstr "Plugin Version"
 
-#: vite/admin/dist/index.js:557
+#: vite/admin/dist/index.js:562
 msgid "未知"
 msgstr "Unknown"
 
-#: vite/admin/dist/index.js:558
+#: vite/admin/dist/index.js:563
 msgid "运行模块"
 msgstr "Active Modules"
 
-#: vite/admin/dist/index.js:559
+#: vite/admin/dist/index.js:564
 msgid "无需开关"
 msgstr "Always Active"
 
-#: vite/admin/dist/index.js:560
+#: vite/admin/dist/index.js:565
 msgid "编辑器工具"
 msgstr "Editor Tools"
 
-#: vite/admin/dist/index.js:561
+#: vite/admin/dist/index.js:566
 msgid "运行环境"
 msgstr "Runtime Environment"
 
-#: vite/admin/dist/index.js:562
+#: vite/admin/dist/index.js:567
 msgid "仅显示影响插件运行的版本事实，不使用综合评分。"
 msgstr ""
 "Only show version facts that affect plugin operation, without using a "
 "consolidated score."
 
-#: vite/admin/dist/index.js:563
+#: vite/admin/dist/index.js:568
 msgid "生成时间"
 msgstr "Generated At"
 
-#: vite/admin/dist/index.js:564
+#: vite/admin/dist/index.js:569
 msgid "当前运行模块"
 msgstr "Current Running Modules"
 
-#: vite/admin/dist/index.js:565
+#: vite/admin/dist/index.js:570
 msgid "仅列出本次实际加载的功能；作用范围可帮助判断问题出现在哪一侧。"
 msgstr ""
 "List only the features actually loaded this time; scope can help determine "
 "where an issue lies."
 
-#: vite/admin/dist/index.js:566
+#: vite/admin/dist/index.js:571
 #, javascript-format
 msgid "前往%s设置"
 msgstr "Go to %s Settings"
 
-#: vite/admin/dist/index.js:567
+#: vite/admin/dist/index.js:572
 msgid "前往设置"
 msgstr "Go to Settings"
 
-#: vite/admin/dist/index.js:568
+#: vite/admin/dist/index.js:573
 msgid "始终可用的编辑器工具"
 msgstr "Always Available Editor Tools"
 
-#: vite/admin/dist/index.js:569
+#: vite/admin/dist/index.js:574
 msgid ""
 "这些工具不受设置开关控制，在文章或页面编辑器的 Npcink Site Toolbox 分类中使"
 "用。"
@@ -2693,420 +2717,420 @@ msgstr ""
 "These tools are not controlled by the settings switch and can be used in the "
 "Npcink Site Toolbox category of the article or page editor."
 
-#: vite/admin/dist/index.js:570
+#: vite/admin/dist/index.js:575
 msgid "区块样板"
 msgstr "Block Templates"
 
-#: vite/admin/dist/index.js:571
+#: vite/admin/dist/index.js:576
 msgid "动态区块"
 msgstr "Dynamic Blocks"
 
-#: vite/admin/dist/index.js:572
+#: vite/admin/dist/index.js:577
 msgid "DeepSeek 分析结果内容"
 msgstr "DeepSeek Analysis Results Content"
 
-#: vite/admin/dist/index.js:573
+#: vite/admin/dist/index.js:578
 msgid "去除分类链接中的 category 字符"
 msgstr "Remove 'category' characters from category links."
 
-#: vite/admin/dist/index.js:574
+#: vite/admin/dist/index.js:579
 msgid "复制文字跳出弹窗提示"
 msgstr "Copy Text Notification Popup"
 
-#: vite/admin/dist/index.js:575
+#: vite/admin/dist/index.js:580
 msgid "美化"
 msgstr "Enhancements"
 
-#: vite/admin/dist/index.js:576
+#: vite/admin/dist/index.js:581
 #: includes/class-npcink-toolbox-diagnostics.php:1904
 msgid "其他"
 msgstr "Other"
 
-#: vite/admin/dist/index.js:577
+#: vite/admin/dist/index.js:582
 msgid "待完善"
 msgstr "Incomplete"
 
-#: vite/admin/dist/index.js:578
+#: vite/admin/dist/index.js:583
 msgid "类型"
 msgstr "Type"
 
-#: vite/admin/dist/index.js:579
+#: vite/admin/dist/index.js:584
 msgid "效果"
 msgstr "Results"
 
-#: vite/admin/dist/index.js:580
+#: vite/admin/dist/index.js:585
 msgid "诊断报告预览内容"
 msgstr "Preview Content of Diagnostic Report"
 
-#: vite/admin/dist/index.js:581
+#: vite/admin/dist/index.js:586
 msgid "发送前数据预览"
 msgstr "Preview before sending"
 
-#: vite/admin/dist/index.js:582
+#: vite/admin/dist/index.js:587
 #, javascript-format
 msgid "WordPress %s数据包"
 msgstr "WordPress %s Data Package"
 
-#: vite/admin/dist/index.js:583
+#: vite/admin/dist/index.js:588
 #, javascript-format
 msgid "%d 个数据分区 · %d 项白名单事实"
 msgstr "%d data partitions · %d whitelist items"
 
-#: vite/admin/dist/index.js:584
+#: vite/admin/dist/index.js:589
 msgid "尚未发送"
 msgstr "Not Sent"
 
-#: vite/admin/dist/index.js:585
+#: vite/admin/dist/index.js:590
 msgid "数据合同"
 msgstr "Data Contract"
 
-#: vite/admin/dist/index.js:586
+#: vite/admin/dist/index.js:591
 msgid "分析范围"
 msgstr "Analyze Scope"
 
-#: vite/admin/dist/index.js:587
+#: vite/admin/dist/index.js:592
 msgid "隐私状态"
 msgstr "Privacy Status"
 
-#: vite/admin/dist/index.js:588
+#: vite/admin/dist/index.js:593
 msgid "未发送 · 未保存"
 msgstr "Not Sent · Not Saved"
 
-#: vite/admin/dist/index.js:589
+#: vite/admin/dist/index.js:594
 msgid "发送与分析约束"
 msgstr "Send & Analyze Constraints"
 
-#: vite/admin/dist/index.js:590
+#: vite/admin/dist/index.js:595
 msgid "仅使用下列分区与字段事实，字段值不会被当作操作指令。"
 msgstr ""
 "Use only the following partitions and fields for facts. Field values will "
 "not be treated as action instructions."
 
-#: vite/admin/dist/index.js:591
+#: vite/admin/dist/index.js:596
 msgid "证据不足时要求模型明确说明无法判断；插件不会执行任何修改或清理。"
 msgstr ""
 "Insufficient evidence to require the model to clearly state that it cannot "
 "determine; the plugin will not perform any modifications or cleanups."
 
-#: vite/admin/dist/index.js:592
+#: vite/admin/dist/index.js:597
 msgid "检查项"
 msgstr "Check Items"
 
-#: vite/admin/dist/index.js:593
+#: vite/admin/dist/index.js:598
 msgid "字段 ID"
 msgstr "Field ID"
 
-#: vite/admin/dist/index.js:594
+#: vite/admin/dist/index.js:599
 msgid "当前值"
 msgstr "Current Value"
 
-#: vite/admin/dist/index.js:595
+#: vite/admin/dist/index.js:600
 msgid "已知局限"
 msgstr "Known Limitations"
 
-#: vite/admin/dist/index.js:596
+#: vite/admin/dist/index.js:601
 msgid "未设置"
 msgstr "Not set"
 
-#: vite/admin/dist/index.js:597
+#: vite/admin/dist/index.js:602
 msgid "开启"
 msgstr "Enable"
 
-#: vite/admin/dist/index.js:598
+#: vite/admin/dist/index.js:603
 msgid "关闭"
 msgstr "Close"
 
-#: vite/admin/dist/index.js:599
+#: vite/admin/dist/index.js:604
 msgid "空"
 msgstr "Empty"
 
-#: vite/admin/dist/index.js:600
+#: vite/admin/dist/index.js:605
 msgid "确认保存以下更改？"
 msgstr "Confirm save of these changes?"
 
-#: vite/admin/dist/index.js:601
+#: vite/admin/dist/index.js:606
 msgid "确认保存"
 msgstr "Confirm Save"
 
-#: vite/admin/dist/index.js:602
+#: vite/admin/dist/index.js:607
 #, javascript-format
 msgid "检测到 %d 项高风险功能将被开启，请谨慎确认。"
 msgstr ""
 "Found %d high-risk features that will be enabled. Please confirm carefully."
 
-#: vite/admin/dist/index.js:603
+#: vite/admin/dist/index.js:608
 msgid "低风险"
 msgstr "Low risk"
 
-#: vite/admin/dist/index.js:604
+#: vite/admin/dist/index.js:609
 msgid "原值："
 msgstr "Original Value:"
 
-#: vite/admin/dist/index.js:605
+#: vite/admin/dist/index.js:610
 msgid "新值："
 msgstr "New Value:"
 
-#: vite/admin/dist/index.js:606
+#: vite/admin/dist/index.js:611
 msgid "暂无变更"
 msgstr "No changes"
 
-#: vite/admin/dist/index.js:607
+#: vite/admin/dist/index.js:612
 msgid "自动处理代码"
 msgstr "Automatically Handle Code"
 
-#: vite/admin/dist/index.js:608
+#: vite/admin/dist/index.js:613
 msgid "清空"
 msgstr "Clear"
 
-#: vite/admin/dist/index.js:609
+#: vite/admin/dist/index.js:614
 msgid "简单 SEO"
 msgstr "Simple SEO"
 
-#: vite/admin/dist/index.js:610
+#: vite/admin/dist/index.js:615
 msgid "基础 SEO 设置，推荐使用专业 SEO 插件替代"
 msgstr ""
 "Basic SEO Settings - Recommended to use a professional SEO plugin instead."
 
-#: vite/admin/dist/index.js:611
+#: vite/admin/dist/index.js:616
 msgid "配置"
 msgstr "Configuration"
 
-#: vite/admin/dist/index.js:612
+#: vite/admin/dist/index.js:617
 msgid "SEO 配置"
 msgstr "SEO Settings"
 
-#: vite/admin/dist/index.js:613
+#: vite/admin/dist/index.js:618
 msgid "简单 SEO 设置，仅解决有无问题"
 msgstr "Simple SEO Settings, to address presence issues."
 
-#: vite/admin/dist/index.js:614
+#: vite/admin/dist/index.js:619
 msgid "用下方标题、关键词和描述输出首页 TDK，需要主题支持自定义标题"
 msgstr ""
-"Outputs the homepage TDK from the title, keywords, and description below"
-"; requires a theme with custom title support"
+"Outputs the homepage TDK from the title, keywords, and description below; "
+"requires a theme with custom title support"
 
-#: vite/admin/dist/index.js:615
+#: vite/admin/dist/index.js:620
 msgid "站点标题"
 msgstr "Site Title"
 
-#: vite/admin/dist/index.js:616
+#: vite/admin/dist/index.js:621
 msgid "用英文逗号分隔，建议不超过6个词"
 msgstr "use English commas, up to six words recommended"
 
-#: vite/admin/dist/index.js:617
+#: vite/admin/dist/index.js:622
 msgid "建议240字以内"
 msgstr "Suggestions up to 240 characters."
 
-#: vite/admin/dist/index.js:618
+#: vite/admin/dist/index.js:623
 msgid "分类名称作标题、分类关键词和描述作 Meta，标签描述作 Meta"
 msgstr ""
 "Category names as title, category keywords and description as Meta, tag "
 "descriptions as Meta"
 
-#: vite/admin/dist/index.js:619
+#: vite/admin/dist/index.js:624
 msgid "未识别统计 ID，请粘贴百度统计平台提供的完整代码。"
 msgstr ""
 "Unrecognized statistical ID. Please paste the complete code provided by "
 "Baidu Analytics platform."
 
-#: vite/admin/dist/index.js:620
+#: vite/admin/dist/index.js:625
 msgid "未识别验证码，请粘贴 Google Search Console 提供的完整 HTML 标记。"
 msgstr ""
 "Unrecognized captcha detected. Please paste the complete HTML markup "
 "provided by Google Search Console."
 
-#: vite/admin/dist/index.js:621
+#: vite/admin/dist/index.js:626
 msgid "未识别验证码，请粘贴 Bing Webmaster Tools 提供的完整 HTML Meta 标记。"
 msgstr ""
 "Unrecognized captcha detected. Please paste the complete HTML meta tags "
 "provided by Bing Webmaster Tools."
 
-#: vite/admin/dist/index.js:622
+#: vite/admin/dist/index.js:627
 msgid "辅助功能"
 msgstr "Accessibility"
 
-#: vite/admin/dist/index.js:623
+#: vite/admin/dist/index.js:628
 msgid "文章统计、恶意搜索屏蔽、站点验证"
 msgstr "Article Statistics, Malicious Search Blocking, Site Verification"
 
-#: vite/admin/dist/index.js:624
+#: vite/admin/dist/index.js:629
 msgid "辅助功能配置"
 msgstr "Accessibility Settings"
 
-#: vite/admin/dist/index.js:625
+#: vite/admin/dist/index.js:630
 msgid "恶意关键词"
 msgstr "Malicious Keywords"
 
-#: vite/admin/dist/index.js:626
+#: vite/admin/dist/index.js:631
 msgid "一行一个"
 msgstr "One per line"
 
-#: vite/admin/dist/index.js:627
+#: vite/admin/dist/index.js:632
 msgid "Bing 站点验证"
 msgstr "Bing Site Verification"
 
-#: vite/admin/dist/index.js:628
+#: vite/admin/dist/index.js:633
 msgid "处理失败，请输入百度统计平台的完整统计代码"
 msgstr ""
 "Failed processing. Please input the complete statistical code of Baidu "
 "Analytics platform."
 
-#: vite/admin/dist/index.js:629
+#: vite/admin/dist/index.js:634
 msgid "处理失败，请输入谷歌平台完整 HTML 标记"
 msgstr ""
 "Failed processing. Please input the complete HTML tag of Google platform."
 
-#: vite/admin/dist/index.js:630
+#: vite/admin/dist/index.js:635
 msgid "处理失败，请输入必应平台完整 HTML Meta 标记"
 msgstr ""
 "Failed processing. Please input the complete HTML Meta tag of Bing platform."
 
-#: vite/admin/dist/index.js:631
+#: vite/admin/dist/index.js:636
 msgid "文章统计"
 msgstr "Article Statistics"
 
-#: vite/admin/dist/index.js:632
+#: vite/admin/dist/index.js:637
 msgid "开启后显示在仪表盘下"
 msgstr "Display on Dashboard after enabling"
 
-#: vite/admin/dist/index.js:633
+#: vite/admin/dist/index.js:638
 msgid "禁止搜索指定词汇"
 msgstr "Block search for specified keywords"
 
-#: vite/admin/dist/index.js:634
+#: vite/admin/dist/index.js:639
 msgid "输入关键词"
 msgstr "Input keyword(s)"
 
-#: vite/admin/dist/index.js:635
+#: vite/admin/dist/index.js:640
 msgid "输入您的关键词，以“回车键”分隔，一行一个"
 msgstr "Input your keywords, separated by the 'Enter' key. One per line."
 
-#: vite/admin/dist/index.js:636
+#: vite/admin/dist/index.js:641
 msgid ""
 " → 代码管理（左侧） → 代码获取 → 获取代码 → 复制代码贴入输入框中并保存即可"
 msgstr ""
 "→ Code Management (left) → Get Code → Copy code and paste into input box to "
 "save"
 
-#: vite/admin/dist/index.js:637
+#: vite/admin/dist/index.js:642
 msgid "谷歌统计"
 msgstr "Google Analytics"
 
-#: vite/admin/dist/index.js:638
+#: vite/admin/dist/index.js:643
 msgid "必应统计"
 msgstr "Bing Analytics"
 
-#: vite/admin/dist/index.js:639
+#: vite/admin/dist/index.js:644
 msgid "简单SEO"
 msgstr "Simple SEO"
 
-#: vite/admin/dist/index.js:640
+#: vite/admin/dist/index.js:645
 msgid "仅解决有无问题，推荐使用专业 SEO 插件"
 msgstr ""
 "Only resolve existence issues, recommend using a professional SEO plugin."
 
-#: vite/admin/dist/index.js:641
+#: vite/admin/dist/index.js:646
 msgid "网站相关关键词，用英文逗号分隔，建议不超过6个词"
 msgstr "Website-related keywords, separated by commas with up to 6 words each."
 
-#: vite/admin/dist/index.js:642
+#: vite/admin/dist/index.js:647
 msgid "关于网站的描述，建议240字以内"
 msgstr "About the site description, suggest less than 240 characters."
 
-#: vite/admin/dist/index.js:643
+#: vite/admin/dist/index.js:648
 msgid "文章SEO"
 msgstr "Article SEO"
 
-#: vite/admin/dist/index.js:644
+#: vite/admin/dist/index.js:649
 msgid ""
 "title是文章标题，keywords是文章标签，description是文章描述或文章首段前40字"
 msgstr ""
 "Title is the article title, keywords are the article tags, description is "
 "the article summary or first 40 words of the article body."
 
-#: vite/admin/dist/index.js:645
+#: vite/admin/dist/index.js:650
 msgid "分类和标签SEO"
 msgstr "Categories and Tags SEO"
 
-#: vite/admin/dist/index.js:646
+#: vite/admin/dist/index.js:651
 msgid "T 是分类名称，K 是分类关键词，D 是分类描述，标签只做了D，是标签描述"
 msgstr ""
 "T is the category name, K is the category keyword, D is the category "
 "description. Tags only do D, which is the tag description."
 
-#: vite/admin/dist/index.js:647
+#: vite/admin/dist/index.js:652
 msgid "状态良好"
 msgstr "Healthy"
 
-#: vite/admin/dist/index.js:648
+#: vite/admin/dist/index.js:653
 msgid "需要关注"
 msgstr "Needs Attention"
 
-#: vite/admin/dist/index.js:649
+#: vite/admin/dist/index.js:654
 msgid "需要处理"
 msgstr "Action Required"
 
-#: vite/admin/dist/index.js:650
+#: vite/admin/dist/index.js:655
 #, javascript-format
 msgid "待核对：%s%s"
 msgstr "Unreviewed: %s %s"
 
-#: vite/admin/dist/index.js:651
+#: vite/admin/dist/index.js:656
 #, javascript-format
 msgid "等 %d 项"
 msgstr "%d more items"
 
-#: vite/admin/dist/index.js:652
+#: vite/admin/dist/index.js:657
 #, javascript-format
 msgid "需评估模块：%s%s"
 msgstr "Assessment Modules: %s%s"
 
-#: vite/admin/dist/index.js:653
+#: vite/admin/dist/index.js:658
 msgid "登录安全配置"
 msgstr "Login Security Settings"
 
-#: vite/admin/dist/index.js:654
+#: vite/admin/dist/index.js:659
 #, javascript-format
 msgid "已启用 %d/2 项登录安全配置"
 msgstr "Enabled %d/2 Login Security Configurations"
 
-#: vite/admin/dist/index.js:655
+#: vite/admin/dist/index.js:660
 msgid "评论防护"
 msgstr "Comment Protection"
 
-#: vite/admin/dist/index.js:656
+#: vite/admin/dist/index.js:661
 msgid "评论限制与过滤已配置"
 msgstr "Comment Limiting and Filtering is configured"
 
-#: vite/admin/dist/index.js:657
+#: vite/admin/dist/index.js:662
 msgid "已启用一项基础防护"
 msgstr "Enabled a Basic Protection Feature"
 
-#: vite/admin/dist/index.js:658
+#: vite/admin/dist/index.js:663
 msgid "尚未启用评论防护"
 msgstr "Comments Protection Not Enabled"
 
-#: vite/admin/dist/index.js:659
+#: vite/admin/dist/index.js:664
 msgid "信息暴露"
 msgstr "Information Exposure"
 
-#: vite/admin/dist/index.js:660
+#: vite/admin/dist/index.js:665
 msgid "版本与作者站点地图均已隐藏"
 msgstr "Version and Author site map are both hidden."
 
-#: vite/admin/dist/index.js:661
+#: vite/admin/dist/index.js:666
 msgid "仍有一项暴露面可收紧"
 msgstr "Still one area to tighten up"
 
-#: vite/admin/dist/index.js:662
+#: vite/admin/dist/index.js:667
 msgid "建议隐藏版本和作者站点地图"
 msgstr "Suggest hiding version and author sitemap"
 
-#: vite/admin/dist/index.js:663
+#: vite/admin/dist/index.js:668
 msgid "启用登录尝试保护"
 msgstr "Enable Login Attempt Protection"
 
-#: vite/admin/dist/index.js:664
+#: vite/admin/dist/index.js:669
 msgid ""
 "限制同一已存在账号与来源 IP 组合的连续失败尝试，并使用固定统计窗口和锁定时"
 "长。"
@@ -3114,88 +3138,88 @@ msgstr ""
 "Limit consecutive failed attempts from the same existing account and source "
 "IP combination using a fixed statistical window and lockout duration."
 
-#: vite/admin/dist/index.js:665
+#: vite/admin/dist/index.js:670
 msgid "前往国内生态"
 msgstr "Go to China Services"
 
-#: vite/admin/dist/index.js:666
+#: vite/admin/dist/index.js:671
 msgid "检查媒体基础设置"
 msgstr "Check Media Base Settings"
 
-#: vite/admin/dist/index.js:667
+#: vite/admin/dist/index.js:672
 msgid "确认图片替代文本策略，减少内容可访问性与 SEO 缺口。"
 msgstr ""
 "Confirm image alt text strategy to reduce accessibility gaps and improve SEO."
 
-#: vite/admin/dist/index.js:668
+#: vite/admin/dist/index.js:673
 msgid "检查站点与媒体"
 msgstr "Check Site & Media"
 
-#: vite/admin/dist/index.js:669
+#: vite/admin/dist/index.js:674
 msgid "确认内容 SEO 策略"
 msgstr "Confirm Content SEO Strategy"
 
-#: vite/admin/dist/index.js:670
+#: vite/admin/dist/index.js:675
 msgid "按站点实际情况决定是否启用文章级 SEO，而不是套用预设方案。"
 msgstr ""
 "Enable article-level SEO based on site specifics instead of using preset "
 "solutions."
 
-#: vite/admin/dist/index.js:671
+#: vite/admin/dist/index.js:676
 msgid "管理内容与 SEO"
 msgstr "Manage Content & SEO"
 
-#: vite/admin/dist/index.js:672
+#: vite/admin/dist/index.js:677
 msgid "处理站内搜索问题"
 msgstr "Handle Site Search Issues"
 
-#: vite/admin/dist/index.js:673
+#: vite/admin/dist/index.js:678
 msgid "存在无结果或可疑搜索词，建议检查内容覆盖与搜索限制。"
 msgstr ""
 "There are no results or suspicious search terms present; consider checking "
 "content coverage and search restrictions."
 
-#: vite/admin/dist/index.js:674
+#: vite/admin/dist/index.js:679
 msgid "查看内容工具"
 msgstr "View Content Tools"
 
-#: vite/admin/dist/index.js:675
+#: vite/admin/dist/index.js:680
 msgid "核对国内访问与合规"
 msgstr "Verify Domestic Access & Compliance"
 
-#: vite/admin/dist/index.js:676
+#: vite/admin/dist/index.js:681
 msgid "按实际业务检查备案、Cookie、微信与评论安全能力，不必全部开启。"
 msgstr ""
 "Check compliance with actual business needs for registration, cookies, "
 "WeChat and comment security features, without having to enable all of them."
 
-#: vite/admin/dist/index.js:677
+#: vite/admin/dist/index.js:682
 msgid "查看国内生态"
 msgstr "View China Services"
 
-#: vite/admin/dist/index.js:678
+#: vite/admin/dist/index.js:683
 msgid "定期检查维护状态"
 msgstr "Check Maintenance Status Regularly"
 
-#: vite/admin/dist/index.js:679
+#: vite/admin/dist/index.js:684
 msgid "查看数据库、媒体与站点服务状态，只执行已经确认影响范围的维护任务。"
 msgstr ""
 "Check database, media, and site service status, only perform maintenance "
 "tasks that have been confirmed to affect a specific scope."
 
-#: vite/admin/dist/index.js:680
+#: vite/admin/dist/index.js:685
 msgid "检查维护状态"
 msgstr "Check Maintenance Status"
 
-#: vite/admin/dist/index.js:681
+#: vite/admin/dist/index.js:686
 msgid "站点概览"
 msgstr "Site Overview"
 
-#: vite/admin/dist/index.js:682
+#: vite/admin/dist/index.js:687
 msgid "先处理重要事项，再进入具体设置"
 msgstr "Tackle important matters first, then go into specific settings."
 
-#: vite/admin/dist/index.js:683
+#: vite/admin/dist/index.js:688
 msgid ""
 "这里展示当前配置和站点服务的真实状态。所有调整仍需进入对应页面确认并保存。"
 msgstr ""
@@ -3203,881 +3227,881 @@ msgstr ""
 "services. All adjustments still need to be confirmed and saved on their "
 "respective pages."
 
-#: vite/admin/dist/index.js:684
+#: vite/admin/dist/index.js:689
 msgid "打开存储与维护"
 msgstr "Open Storage & Maintenance"
 
-#: vite/admin/dist/index.js:685
+#: vite/admin/dist/index.js:690
 msgid "配置摘要"
 msgstr "Settings Overview"
 
-#: vite/admin/dist/index.js:686
+#: vite/admin/dist/index.js:691
 msgid "已启用配置"
 msgstr "Enabled Configuration"
 
-#: vite/admin/dist/index.js:687
+#: vite/admin/dist/index.js:692
 #, javascript-format
 msgid "共 %d 个布尔开关"
 msgstr "%d boolean toggles in total"
 
-#: vite/admin/dist/index.js:688
+#: vite/admin/dist/index.js:693
 #, javascript-format
 msgid "已启用 %d/2 项"
 msgstr "Enabled %d/2 items"
 
-#: vite/admin/dist/index.js:689
+#: vite/admin/dist/index.js:694
 msgid "下一步"
 msgstr "Next Step"
 
-#: vite/admin/dist/index.js:690
+#: vite/admin/dist/index.js:695
 msgid "按当前状态生成的建议"
 msgstr "Generate suggestions based on the current state"
 
-#: vite/admin/dist/index.js:691
+#: vite/admin/dist/index.js:696
 msgid "快捷入口"
 msgstr "Quick Access"
 
-#: vite/admin/dist/index.js:692
+#: vite/admin/dist/index.js:697
 msgid "常用功能"
 msgstr "Frequently Used Features"
 
-#: vite/admin/dist/index.js:693
+#: vite/admin/dist/index.js:698
 #, javascript-format
 msgid "%d 项"
 msgstr "%d Items"
 
-#: vite/admin/dist/index.js:694
+#: vite/admin/dist/index.js:699
 #, javascript-format
 msgid "打开常用功能：%s"
 msgstr "Open Utility Features: %s"
 
-#: vite/admin/dist/index.js:695
+#: vite/admin/dist/index.js:700
 #, javascript-format
 msgid "取消收藏：%s"
 msgstr "Unfavorite: %s"
 
-#: vite/admin/dist/index.js:696
+#: vite/admin/dist/index.js:701
 msgid "还没有收藏常用功能"
 msgstr "No saved utilities are available yet."
 
-#: vite/admin/dist/index.js:697
+#: vite/admin/dist/index.js:702
 msgid "点击设置项右侧的星标，之后可以从这里直接打开。"
 msgstr "Click the star next to a setting item to open it directly from here."
 
-#: vite/admin/dist/index.js:698
+#: vite/admin/dist/index.js:703
 msgid "站点服务"
 msgstr "Site Services"
 
-#: vite/admin/dist/index.js:699
+#: vite/admin/dist/index.js:704
 msgid "站点诊断"
 msgstr "Site Diagnostics"
 
-#: vite/admin/dist/index.js:700
+#: vite/admin/dist/index.js:705
 msgid "正在读取站点诊断"
 msgstr "Reading Site Diagnosis"
 
-#: vite/admin/dist/index.js:701
+#: vite/admin/dist/index.js:706
 msgid "请稍候，正在核对运行环境。"
 msgstr "Please wait, checking the environment."
 
-#: vite/admin/dist/index.js:702
+#: vite/admin/dist/index.js:707
 msgid "站点诊断暂时不可用"
 msgstr "Site Diagnosis is currently unavailable"
 
-#: vite/admin/dist/index.js:703
+#: vite/admin/dist/index.js:708
 msgid "请求失败，当前没有可展示的检查结果。"
 msgstr "Request failed, no results to display."
 
-#: vite/admin/dist/index.js:704
+#: vite/admin/dist/index.js:709
 msgid "暂无诊断数据"
 msgstr "No Diagnostics Data Available"
 
-#: vite/admin/dist/index.js:705
+#: vite/admin/dist/index.js:710
 msgid "服务已响应，但没有返回有效诊断结果。"
 msgstr "Service responded but no valid diagnostic results were returned."
 
-#: vite/admin/dist/index.js:706
+#: vite/admin/dist/index.js:711
 msgid "重新检查"
 msgstr "Check Again"
 
-#: vite/admin/dist/index.js:707
+#: vite/admin/dist/index.js:712
 #, javascript-format
 msgid "站点诊断 %d / %d 项通过%s"
 msgstr "Site diagnostics: %d/%d passed%s"
 
-#: vite/admin/dist/index.js:708
+#: vite/admin/dist/index.js:713
 #, javascript-format
 msgid "，%d 个模块风险"
 msgstr ", %d module risks"
 
-#: vite/admin/dist/index.js:709
+#: vite/admin/dist/index.js:714
 #, javascript-format
 msgid "/ %d 项通过"
 msgstr "/ %d passed"
 
-#: vite/admin/dist/index.js:710
+#: vite/admin/dist/index.js:715
 #, javascript-format
 msgid "%d 项待关注，%d 项需要处理；"
 msgstr "%d Items to Watch, %d Items to Tackle;"
 
-#: vite/admin/dist/index.js:711
+#: vite/admin/dist/index.js:716
 #, javascript-format
 msgid "%d 个高风险或实验性模块已启用。"
 msgstr "%d high-risk or experimental modules are enabled."
 
-#: vite/admin/dist/index.js:712
+#: vite/admin/dist/index.js:717
 msgid "未启用高风险或实验性模块。"
 msgstr "High-risk or experimental modules are disabled."
 
-#: vite/admin/dist/index.js:713
+#: vite/admin/dist/index.js:718
 #, javascript-format
 msgid "生成于 %s"
 msgstr "Generated at %s"
 
-#: vite/admin/dist/index.js:714
+#: vite/admin/dist/index.js:719
 msgid "查看功能与运行状态"
 msgstr "View Features & Status"
 
-#: vite/admin/dist/index.js:715
+#: vite/admin/dist/index.js:720
 msgid "近 30 天"
 msgstr "Last 30 days"
 
-#: vite/admin/dist/index.js:716
+#: vite/admin/dist/index.js:721
 msgid "搜索健康"
 msgstr "Search Health"
 
-#: vite/admin/dist/index.js:717
+#: vite/admin/dist/index.js:722
 msgid "已有数据"
 msgstr "Existing Data"
 
-#: vite/admin/dist/index.js:718
+#: vite/admin/dist/index.js:723
 msgid "正在汇总搜索数据"
 msgstr "Gathering search data"
 
-#: vite/admin/dist/index.js:719
+#: vite/admin/dist/index.js:724
 msgid "搜索健康与站点诊断分别加载。"
 msgstr "Search for health and site diagnostics separately load."
 
-#: vite/admin/dist/index.js:720
+#: vite/admin/dist/index.js:725
 msgid "搜索健康暂时不可用"
 msgstr "Search for Health is temporarily unavailable"
 
-#: vite/admin/dist/index.js:721
+#: vite/admin/dist/index.js:726
 msgid "诊断其他区域不受影响，可以单独重试。"
 msgstr "Diagnose any other unaffected areas and retry individually."
 
-#: vite/admin/dist/index.js:722
+#: vite/admin/dist/index.js:727
 msgid "暂无搜索数据"
 msgstr "No search data available"
 
-#: vite/admin/dist/index.js:723
+#: vite/admin/dist/index.js:728
 msgid "近 30 天没有可汇总的站内搜索记录。"
 msgstr "No searchable activity within the last 30 days."
 
-#: vite/admin/dist/index.js:724
+#: vite/admin/dist/index.js:729
 msgid "检查搜索设置"
 msgstr "Check Search Settings"
 
-#: vite/admin/dist/index.js:725
+#: vite/admin/dist/index.js:730
 msgid "总搜索量"
 msgstr "Total Search Volume"
 
-#: vite/admin/dist/index.js:726
+#: vite/admin/dist/index.js:731
 msgid "无结果词"
 msgstr "No-result Queries"
 
-#: vite/admin/dist/index.js:727
+#: vite/admin/dist/index.js:732
 msgid "内容编辑"
 msgstr "Content Editor"
 
-#: vite/admin/dist/index.js:728
+#: vite/admin/dist/index.js:733
 msgid "3 个可编辑样板和 2 个实时数据区块，只在文章或页面编辑器中使用。"
 msgstr ""
 "3 editable templates and 2 real-time data blocks, used only in the post or "
 "page editor."
 
-#: vite/admin/dist/index.js:729
+#: vite/admin/dist/index.js:734
 msgid "5 项可用"
 msgstr "5 Available Items"
 
-#: vite/admin/dist/index.js:730
+#: vite/admin/dist/index.js:735
 msgid "样板"
 msgstr "Patterns"
 
-#: vite/admin/dist/index.js:731
+#: vite/admin/dist/index.js:736
 msgid "资源下载、文章结论、来源与版权说明"
 msgstr "Resources Download, Article Conclusion, Source and Copyright Notice"
 
-#: vite/admin/dist/index.js:732
+#: vite/admin/dist/index.js:737
 msgid "站点数据；GitHub 项目（描述、语言、Stars 与 Forks）"
 msgstr "Site Data; GitHub Project (Description, Language, Stars, and Forks)"
 
-#: vite/admin/dist/index.js:733
+#: vite/admin/dist/index.js:738
 msgid "在区块插入器中选择 Npcink Site Toolbox，或搜索“站点数据”“GitHub 项目”。"
 msgstr ""
 "Select Npcink Site Toolbox in the Block Editor, or search for 'site data' "
 "and 'GitHub project'."
 
-#: vite/admin/dist/index.js:734
+#: vite/admin/dist/index.js:739
 msgid "新建文章使用"
 msgstr "Create New Post Using"
 
-#: vite/admin/dist/index.js:735
+#: vite/admin/dist/index.js:740
 msgid "新建页面"
 msgstr "Create Page"
 
-#: vite/admin/dist/index.js:736
+#: vite/admin/dist/index.js:741
 msgid "建议操作"
 msgstr "Suggestions"
 
-#: vite/admin/dist/index.js:737
+#: vite/admin/dist/index.js:742
 msgid "接下来可以做什么"
 msgstr "What Can I Do Next"
 
-#: vite/admin/dist/index.js:738
+#: vite/admin/dist/index.js:743
 msgid "基础防护"
 msgstr "Basic Protection"
 
-#: vite/admin/dist/index.js:739
+#: vite/admin/dist/index.js:744
 msgid "安全状态"
 msgstr "Security Status"
 
-#: vite/admin/dist/index.js:740
+#: vite/admin/dist/index.js:745
 msgid "部分配置"
 msgstr "Some Configuration"
 
-#: vite/admin/dist/index.js:741
+#: vite/admin/dist/index.js:746
 msgid "管理国内安全设置"
 msgstr "China Services Settings"
 
-#: vite/admin/dist/index.js:742
+#: vite/admin/dist/index.js:747
 msgid "搜索功能或设置"
 msgstr "Search features or settings"
 
-#: vite/admin/dist/index.js:743
+#: vite/admin/dist/index.js:748
 msgid "搜索功能或设置..."
 msgstr "Search features or settings…"
 
-#: vite/admin/dist/index.js:744
+#: vite/admin/dist/index.js:749
 msgid "清空搜索"
 msgstr "Clear search"
 
-#: vite/admin/dist/index.js:745
+#: vite/admin/dist/index.js:750
 #, javascript-format
 msgid "找到 %d 项，显示前 %d 项"
 msgstr "Found %d items, showing the first %d items"
 
-#: vite/admin/dist/index.js:746
+#: vite/admin/dist/index.js:751
 msgid "功能搜索结果"
 msgstr "Feature search results"
 
-#: vite/admin/dist/index.js:747
+#: vite/admin/dist/index.js:752
 msgid "收藏"
 msgstr "Favorites"
 
-#: vite/admin/dist/index.js:748
+#: vite/admin/dist/index.js:753
 msgid "功能标签"
 msgstr "Function Tags"
 
-#: vite/admin/dist/index.js:749
+#: vite/admin/dist/index.js:754
 msgid "未找到匹配的功能"
 msgstr "No matching features found"
 
-#: vite/admin/dist/index.js:750
+#: vite/admin/dist/index.js:755
 msgid "对象存储"
 msgstr "Object Storage"
 
-#: vite/admin/dist/index.js:751
+#: vite/admin/dist/index.js:756
 msgid "SEO 检查"
 msgstr "SEO Check"
 
-#: vite/admin/dist/index.js:752
+#: vite/admin/dist/index.js:757
 msgid "媒体体检"
 msgstr "Media Health Check"
 
-#: vite/admin/dist/index.js:753
+#: vite/admin/dist/index.js:758
 msgid "存储与维护分组"
 msgstr "Storage & Maintenance Group"
 
-#: vite/admin/dist/index.js:754
+#: vite/admin/dist/index.js:759
 msgid "示例：npcink-media"
 msgstr "Example: npcink-media"
 
-#: vite/admin/dist/index.js:755
+#: vite/admin/dist/index.js:760
 msgid "只填写 Bucket 名称；上传目录请填写在下一项。"
 msgstr ""
 "Only enter the bucket name; upload directory should be entered in the next "
 "field."
 
-#: vite/admin/dist/index.js:756
+#: vite/admin/dist/index.js:761
 msgid "示例：npcink-media-1250000000"
 msgstr "Example: npcink-media-1250000000"
 
-#: vite/admin/dist/index.js:757
+#: vite/admin/dist/index.js:762
 msgid "填写带 APPID 后缀的完整 Bucket 名称。"
 msgstr "Enter the full bucket name with a suffix of your APPID."
 
-#: vite/admin/dist/index.js:758
+#: vite/admin/dist/index.js:763
 msgid "填写七牛云空间名称，不要填写访问域名。"
 msgstr "Enter Qiniu Cloud Space Name, do not enter domain name."
 
-#: vite/admin/dist/index.js:759
+#: vite/admin/dist/index.js:764
 msgid "尚未填写公开访问地址"
 msgstr "No public access address entered"
 
-#: vite/admin/dist/index.js:760
+#: vite/admin/dist/index.js:765
 msgid "连接测试失败"
 msgstr "Connection test failed"
 
-#: vite/admin/dist/index.js:761
+#: vite/admin/dist/index.js:766
 msgid "连接成功"
 msgstr "Connection successful"
 
-#: vite/admin/dist/index.js:762
+#: vite/admin/dist/index.js:767
 #, javascript-format
 msgid "已写入测试对象 · %d ms"
 msgstr "Test object written · %d ms"
 
-#: vite/admin/dist/index.js:763
+#: vite/admin/dist/index.js:768
 #, javascript-format
 msgid "对象 %s。固定测试对象会被覆盖；本次测试未保存设置，也未改变启用状态。"
 msgstr ""
 "Object: %s. The fixed test object is overwritten; this test does not save "
 "settings or change the enabled state."
 
-#: vite/admin/dist/index.js:764
+#: vite/admin/dist/index.js:769
 msgid "请检查凭据、Bucket、地域节点和写入权限。"
 msgstr "Please check credentials, bucket, region node, and write permissions."
 
-#: vite/admin/dist/index.js:765
+#: vite/admin/dist/index.js:770
 msgid "图片自动上传至云存储"
 msgstr "Automatically Upload Images to Object Storage"
 
-#: vite/admin/dist/index.js:766
+#: vite/admin/dist/index.js:771
 msgid "启用对象存储"
 msgstr "Enable Object Storage"
 
-#: vite/admin/dist/index.js:767
+#: vite/admin/dist/index.js:772
 msgid "启用后图片将自动上传至云存储"
 msgstr "Enable to automatically upload images to object storage."
 
-#: vite/admin/dist/index.js:768
+#: vite/admin/dist/index.js:773
 msgid "对象存储配置"
 msgstr "Object Storage Settings"
 
-#: vite/admin/dist/index.js:769
+#: vite/admin/dist/index.js:774
 msgid "先配置并测试；更改随页面顶部的“保存”生效。"
 msgstr ""
 "Configure and test first; changes take effect after saving at the top of the "
 "page."
 
-#: vite/admin/dist/index.js:770
+#: vite/admin/dist/index.js:775
 msgid "本地副本始终保留，上传失败时自动回退。"
 msgstr ""
 "Local copies are always retained and automatically rollback when upload "
 "fails."
 
-#: vite/admin/dist/index.js:771
+#: vite/admin/dist/index.js:776
 msgid "查看本地文件回退说明"
 msgstr "View Local File Retention Instructions"
 
-#: vite/admin/dist/index.js:772
+#: vite/admin/dist/index.js:777
 msgid "本地文件回退"
 msgstr "Local File Rollback"
 
-#: vite/admin/dist/index.js:773
+#: vite/admin/dist/index.js:778
 msgid "停用对象存储、上传失败或更换目标时，媒体文件仍可从本站读取。"
 msgstr ""
 "Media files remain available from this site when object storage is disabled, "
 "an upload fails, or the storage destination changes."
 
-#: vite/admin/dist/index.js:774
+#: vite/admin/dist/index.js:779
 msgid "服务商与凭据"
 msgstr "Service Providers & Credentials"
 
-#: vite/admin/dist/index.js:775
+#: vite/admin/dist/index.js:780
 msgid "服务商"
 msgstr "Provider"
 
-#: vite/admin/dist/index.js:776
+#: vite/admin/dist/index.js:781
 msgid "阿里云 OSS"
 msgstr "Aliyun Object Storage"
 
-#: vite/admin/dist/index.js:777
+#: vite/admin/dist/index.js:782
 msgid "腾讯云 COS"
 msgstr "Tencent Cloud Object Storage"
 
-#: vite/admin/dist/index.js:778
+#: vite/admin/dist/index.js:783
 msgid "存储目标"
 msgstr "Storage Destination"
 
-#: vite/admin/dist/index.js:779
+#: vite/admin/dist/index.js:784
 msgid "查看 Bucket 填写说明"
 msgstr "View Bucket Instructions"
 
-#: vite/admin/dist/index.js:780
+#: vite/admin/dist/index.js:785
 msgid "不要填写 oss://、访问域名或上传目录。"
 msgstr "Do not fill out oss://, access domain name, or upload directory."
 
-#: vite/admin/dist/index.js:781
+#: vite/admin/dist/index.js:786
 msgid "上传目录（可选）"
 msgstr "Upload Directory (optional)"
 
-#: vite/admin/dist/index.js:782
+#: vite/admin/dist/index.js:787
 msgid "示例：www 或 uploads/site-a"
 msgstr "Example: www or uploads/site-a"
 
-#: vite/admin/dist/index.js:783
+#: vite/admin/dist/index.js:788
 msgid "查看上传目录填写说明"
 msgstr "View Upload Directory Instructions"
 
-#: vite/admin/dist/index.js:784
+#: vite/admin/dist/index.js:789
 msgid "上传目录"
 msgstr "Upload Directory"
 
-#: vite/admin/dist/index.js:785
+#: vite/admin/dist/index.js:790
 msgid "作为对象键前缀；不要填写 Bucket、oss://，也不要添加开头或结尾斜杠。"
 msgstr ""
 "As a prefix for object keys; do not enter Bucket or oss:// and do not add "
 "leading or trailing slashes."
 
-#: vite/admin/dist/index.js:786
+#: vite/admin/dist/index.js:791
 msgid "示例：oss-cn-shanghai.aliyuncs.com"
 msgstr "Example: oss-cn-shanghai.aliyuncs.com"
 
-#: vite/admin/dist/index.js:787
+#: vite/admin/dist/index.js:792
 msgid "查看 Endpoint 填写说明"
 msgstr "View Endpoint Instructions"
 
-#: vite/admin/dist/index.js:788
+#: vite/admin/dist/index.js:793
 msgid "可直接粘贴阿里云控制台中的外网 Endpoint，也接受 cn-shanghai 快捷写法。"
 msgstr ""
 "paste directly from the public cloud console of Alibaba Cloud, also accepts "
 "the shorthand of cn-shanghai."
 
-#: vite/admin/dist/index.js:789
+#: vite/admin/dist/index.js:794
 msgid "仅当 WordPress 服务器位于同地域阿里云内网时使用 -internal 节点。"
 msgstr ""
 "Use only when your WordPress server is located in the internal node of "
 "Alibaba Cloud within the same region."
 
-#: vite/admin/dist/index.js:790
+#: vite/admin/dist/index.js:795
 msgid "查看节点列表"
 msgstr "View Node List"
 
-#: vite/admin/dist/index.js:791
+#: vite/admin/dist/index.js:796
 msgid "示例：ap-beijing"
 msgstr "Example: ap-beijing"
 
-#: vite/admin/dist/index.js:792
+#: vite/admin/dist/index.js:797
 msgid "查看 Region 填写说明"
 msgstr "View Region Instructions"
 
-#: vite/admin/dist/index.js:793
+#: vite/admin/dist/index.js:798
 msgid "填写地域 ID，例如 ap-beijing；不要填写完整 COS 域名。"
 msgstr ""
 "Enter your region ID, for example ap-beijing; do not include the full COS "
 "domain name."
 
-#: vite/admin/dist/index.js:794
+#: vite/admin/dist/index.js:799
 msgid "七牛云使用全局上传节点，无需填写地域。"
 msgstr "Use Qiniu Cloud global upload nodes, no need to fill in the region."
 
-#: vite/admin/dist/index.js:795
+#: vite/admin/dist/index.js:800
 msgid "公开访问"
 msgstr "Public Access"
 
-#: vite/admin/dist/index.js:796
+#: vite/admin/dist/index.js:801
 msgid "公开访问地址"
 msgstr "Public Access Address"
 
-#: vite/admin/dist/index.js:797
+#: vite/admin/dist/index.js:802
 msgid "查看公开访问地址填写说明"
 msgstr "View Public Access Address Instructions"
 
-#: vite/admin/dist/index.js:798
+#: vite/admin/dist/index.js:803
 msgid "若上传目录为 www，地址通常也以 /www 结尾；插件不会重复追加目录。"
 msgstr ""
 "If the upload directory is www, the address usually ends with /www; the "
 "plugin won't add another directory."
 
-#: vite/admin/dist/index.js:799
+#: vite/admin/dist/index.js:804
 msgid "目标预览"
 msgstr "Destination Preview"
 
-#: vite/admin/dist/index.js:800
+#: vite/admin/dist/index.js:805
 msgid "请求主机"
 msgstr "Request Host"
 
-#: vite/admin/dist/index.js:801
+#: vite/admin/dist/index.js:806
 msgid "远端对象"
 msgstr "Remote Object"
 
-#: vite/admin/dist/index.js:802
+#: vite/admin/dist/index.js:807
 msgid "公开 URL"
 msgstr "Public URL"
 
-#: vite/admin/dist/index.js:803
+#: vite/admin/dist/index.js:808
 msgid "连接测试"
 msgstr "Connection Test"
 
-#: vite/admin/dist/index.js:804
+#: vite/admin/dist/index.js:809
 msgid "测试不会保存设置或改变启用状态。"
 msgstr "Settings won't be saved or changed when enabled."
 
-#: vite/admin/dist/index.js:805
+#: vite/admin/dist/index.js:810
 msgid "查看连接测试说明"
 msgstr "View Connection Test Instructions"
 
-#: vite/admin/dist/index.js:806
+#: vite/admin/dist/index.js:811
 #, javascript-format
 msgid "测试会写入并覆盖 %s；公开访问地址可稍后填写，不影响写入测试。"
 msgstr ""
 "Test writes to and overrides %s; the publicly accessible URL can be filled "
 "in later without affecting the test write."
 
-#: vite/admin/dist/index.js:807
+#: vite/admin/dist/index.js:812
 msgid "测试连接"
 msgstr "Test Connection"
 
-#: vite/admin/dist/index.js:808
+#: vite/admin/dist/index.js:813
 msgid "请先完整填写 Bucket、服务商地域节点和两项凭据。"
 msgstr ""
 "Please make sure to fill out the Bucket, service provider region node, and "
 "two credentials completely."
 
-#: vite/admin/dist/index.js:809
+#: vite/admin/dist/index.js:814
 msgid "收起详情"
 msgstr "Collapse Details"
 
-#: vite/admin/dist/index.js:810
+#: vite/admin/dist/index.js:815
 msgid "查看详情"
 msgstr "View Details"
 
-#: vite/admin/dist/index.js:811
+#: vite/admin/dist/index.js:816
 msgid "文章修订版本"
 msgstr "Article Revision Versions"
 
-#: vite/admin/dist/index.js:812
+#: vite/admin/dist/index.js:817
 msgid "自动草稿"
 msgstr "Auto Drafts"
 
-#: vite/admin/dist/index.js:813
+#: vite/admin/dist/index.js:818
 msgid "垃圾评论"
 msgstr "Spam Comments"
 
-#: vite/admin/dist/index.js:814
+#: vite/admin/dist/index.js:819
 msgid "过期临时选项"
 msgstr "Expired Temporary Options"
 
-#: vite/admin/dist/index.js:815
+#: vite/admin/dist/index.js:820
 msgid "数据库表优化"
 msgstr "Optimize Database Tables"
 
-#: vite/admin/dist/index.js:816
+#: vite/admin/dist/index.js:821
 msgid "待审核文章"
 msgstr "Pending Posts"
 
-#: vite/admin/dist/index.js:817
+#: vite/admin/dist/index.js:822
 msgid "回收站文章"
 msgstr "Trash Articles"
 
-#: vite/admin/dist/index.js:818
+#: vite/admin/dist/index.js:823
 msgid "统计获取失败，请重试。"
 msgstr "Failed to get statistics, please try again."
 
-#: vite/admin/dist/index.js:819
+#: vite/admin/dist/index.js:824
 msgid "统计请求失败，请重试。"
 msgstr "Failed to count requests, please try again."
 
-#: vite/admin/dist/index.js:820
+#: vite/admin/dist/index.js:825
 #, javascript-format
 msgid "预览完成：预计影响 %d 条数据。"
 msgstr "Preview complete: expected to affect %d items."
 
-#: vite/admin/dist/index.js:821
+#: vite/admin/dist/index.js:826
 msgid "预览失败，请重试。"
 msgstr "Preview failed, please try again."
 
-#: vite/admin/dist/index.js:822
+#: vite/admin/dist/index.js:827
 msgid "预览请求失败，请重试。"
 msgstr "Preview request failed, please try again."
 
-#: vite/admin/dist/index.js:823
+#: vite/admin/dist/index.js:828
 msgid "请先预览该清理项目，再确认执行。"
 msgstr "Preview this cleanup project before confirming to execute."
 
-#: vite/admin/dist/index.js:824
+#: vite/admin/dist/index.js:829
 msgid "确认执行数据库清理？"
 msgstr "Confirm Database Cleanup?"
 
-#: vite/admin/dist/index.js:825
+#: vite/admin/dist/index.js:830
 msgid "此操作不可逆"
 msgstr "This action cannot be undone"
 
-#: vite/admin/dist/index.js:826
+#: vite/admin/dist/index.js:831
 msgid "删除的数据无法恢复，请确保已备份数据库。"
 msgstr ""
 "Data deleted cannot be recovered. Please ensure your database is backed up."
 
-#: vite/admin/dist/index.js:827
+#: vite/admin/dist/index.js:832
 #, javascript-format
 msgid "清理项目：%1$s。预计影响 %2$d 条数据。"
 msgstr "Clean up project: %1$s. Estimated impact on %2$d records."
 
-#: vite/admin/dist/index.js:828
+#: vite/admin/dist/index.js:833
 msgid "确认清理"
 msgstr "Confirm Cleanup"
 
-#: vite/admin/dist/index.js:829
+#: vite/admin/dist/index.js:834
 msgid "清理失败，请重试。"
 msgstr "Cleanup failed, please try again."
 
-#: vite/admin/dist/index.js:830
+#: vite/admin/dist/index.js:835
 #, javascript-format
 msgid "清理完成，删除 %d 条数据。"
 msgstr "Cleanup complete, deleted %d items."
 
-#: vite/admin/dist/index.js:831
+#: vite/admin/dist/index.js:836
 #, javascript-format
 msgid "清理完成，删除 %d 条数据；统计刷新失败，请重新查看统计。"
 msgstr ""
 "Cleanup complete, deleted %d items; statistics refresh failed, please check "
 "again."
 
-#: vite/admin/dist/index.js:832
+#: vite/admin/dist/index.js:837
 msgid "检测项"
 msgstr "Scan Items"
 
-#: vite/admin/dist/index.js:833
+#: vite/admin/dist/index.js:838
 #: includes/class-npcink-toolbox-my-comments.php:62
 msgid "状态"
 msgstr "Status"
 
-#: vite/admin/dist/index.js:834
+#: vite/admin/dist/index.js:839
 msgid "值"
 msgstr "Value"
 
-#: vite/admin/dist/index.js:835
+#: vite/admin/dist/index.js:840
 msgid "操作"
 msgstr "Actions"
 
-#: vite/admin/dist/index.js:836
+#: vite/admin/dist/index.js:841
 msgid "预览"
 msgstr "Preview"
 
-#: vite/admin/dist/index.js:837
+#: vite/admin/dist/index.js:842
 msgid "数据库大小"
 msgstr "Database Size"
 
-#: vite/admin/dist/index.js:838
+#: vite/admin/dist/index.js:843
 #, javascript-format
 msgid "%d 条"
 msgstr "%d items"
 
-#: vite/admin/dist/index.js:839
+#: vite/admin/dist/index.js:844
 msgid "数据库清理与优化"
 msgstr "Database Cleanup & Optimization"
 
-#: vite/admin/dist/index.js:840
+#: vite/admin/dist/index.js:845
 msgid "数据库清理操作不可逆，删除的数据无法恢复"
 msgstr ""
 "Database cleanup operations are irreversible and deleted data cannot be "
 "recovered."
 
-#: vite/admin/dist/index.js:841
+#: vite/admin/dist/index.js:846
 msgid "执行前务必先预览影响数量，并做好备份"
 msgstr "Before proceeding, preview the impact and make a backup."
 
-#: vite/admin/dist/index.js:842
+#: vite/admin/dist/index.js:847
 msgid "启用数据库清理"
 msgstr "Enable Database Cleanup"
 
-#: vite/admin/dist/index.js:843
+#: vite/admin/dist/index.js:848
 msgid ""
 "启用后开放统计、预览与手动清理入口；自动清理还需开启下方「定时自动清理」开关"
 msgstr ""
 "Enabling opens the statistics, preview, and manual cleanup actions; "
 "automatic cleanup additionally requires the scheduled cleanup switch below"
 
-#: vite/admin/dist/index.js:844
+#: vite/admin/dist/index.js:849
 msgid "请先启用数据库清理，再使用统计、预览与手动清理操作。"
 msgstr ""
 "Enable database cleanup before using statistics, preview, or manual cleanup."
 
-#: vite/admin/dist/index.js:845
+#: vite/admin/dist/index.js:850
 msgid "清理自动草稿"
 msgstr "Clean Auto Drafts"
 
-#: vite/admin/dist/index.js:846
+#: vite/admin/dist/index.js:851
 msgid "清理过期 Transient"
 msgstr "Clean Expired Transients"
 
-#: vite/admin/dist/index.js:847
+#: vite/admin/dist/index.js:852
 msgid "定时自动清理"
 msgstr "Schedule Automatic Cleanup"
 
-#: vite/admin/dist/index.js:848
+#: vite/admin/dist/index.js:853
 msgid "清理周期"
 msgstr "Cleanup Schedule"
 
-#: vite/admin/dist/index.js:849
+#: vite/admin/dist/index.js:854
 msgid "每天"
 msgstr "Daily"
 
-#: vite/admin/dist/index.js:850
+#: vite/admin/dist/index.js:855
 #: admin/partials/performance/db_clean/index.php:103
 msgid "每周"
 msgstr "Weekly"
 
-#: vite/admin/dist/index.js:851
+#: vite/admin/dist/index.js:856
 #: admin/partials/performance/db_clean/index.php:104
 msgid "每月"
 msgstr "Monthly"
 
-#: vite/admin/dist/index.js:852
+#: vite/admin/dist/index.js:857
 msgid "查看统计"
 msgstr "View Statistics"
 
-#: vite/admin/dist/index.js:853
+#: vite/admin/dist/index.js:858
 #, javascript-format
 msgid "检查完成：发现 %d 项需要关注。"
 msgstr "Check complete: %d items need attention."
 
-#: vite/admin/dist/index.js:854
+#: vite/admin/dist/index.js:859
 msgid "检查完成：未发现需要处理的问题。"
 msgstr "Check complete: No issues found."
 
-#: vite/admin/dist/index.js:855
+#: vite/admin/dist/index.js:860
 msgid "检查失败，请重试。"
 msgstr "Check failed, please try again."
 
-#: vite/admin/dist/index.js:856
+#: vite/admin/dist/index.js:861
 msgid "异常"
 msgstr "Abnormal"
 
-#: vite/admin/dist/index.js:857
+#: vite/admin/dist/index.js:862
 msgid "待处理"
 msgstr "To Be Handled"
 
-#: vite/admin/dist/index.js:858
+#: vite/admin/dist/index.js:863
 msgid "说明"
 msgstr "Note"
 
-#: vite/admin/dist/index.js:859
+#: vite/admin/dist/index.js:864
 msgid "SEO 健康度检查"
 msgstr "SEO Health Check"
 
-#: vite/admin/dist/index.js:860
+#: vite/admin/dist/index.js:865
 msgid "启用 SEO 检查"
 msgstr "Enable SEO Check"
 
-#: vite/admin/dist/index.js:861
+#: vite/admin/dist/index.js:866
 msgid "定期检查网站 SEO 健康度"
 msgstr "Scheduled SEO Health Checks"
 
-#: vite/admin/dist/index.js:862
+#: vite/admin/dist/index.js:867
 msgid "开始检查"
 msgstr "Start Check"
 
-#: vite/admin/dist/index.js:863
+#: vite/admin/dist/index.js:868
 #, javascript-format
 msgid "最多 %d 张"
 msgstr "Up to %d images"
 
-#: vite/admin/dist/index.js:864
+#: vite/admin/dist/index.js:869
 msgid "未取得有效体积数据"
 msgstr "No effective volume data obtained."
 
-#: vite/admin/dist/index.js:865
+#: vite/admin/dist/index.js:870
 #, javascript-format
 msgid "体积增加 %s%%"
 msgstr "Size increased by %s%%"
 
-#: vite/admin/dist/index.js:866
+#: vite/admin/dist/index.js:871
 #, javascript-format
 msgid "预计节省 %s%%"
 msgstr "Estimated savings: %s%%"
 
-#: vite/admin/dist/index.js:867
+#: vite/admin/dist/index.js:872
 msgid "当前服务器不支持生成 WebP，暂不应启用转换。"
 msgstr ""
 "WebP generation is not supported on the current server, do not enable "
 "conversion yet."
 
-#: vite/admin/dist/index.js:868
+#: vite/admin/dist/index.js:873
 msgid "未发现 JPEG 候选，无需安排转换。"
 msgstr "No JPEG candidates found, no need to schedule conversion."
 
-#: vite/admin/dist/index.js:869
+#: vite/admin/dist/index.js:874
 msgid "临时样本未能完整清理，请先排查文件权限。"
 msgstr ""
 "Temporary samples could not be fully cleaned up, please check file "
 "permissions first."
 
-#: vite/admin/dist/index.js:870
+#: vite/admin/dist/index.js:875
 msgid "可用样本不足，暂不据此决定批量转换。"
 msgstr ""
 "Insufficient sample images, do not base batch conversion on this for now."
 
-#: vite/admin/dist/index.js:871
+#: vite/admin/dist/index.js:876
 msgid "样本转换失败，请先排查图像处理环境。"
 msgstr ""
 "Image processing environment issues encountered during sample conversion, "
 "please troubleshoot first."
 
-#: vite/admin/dist/index.js:872
+#: vite/admin/dist/index.js:877
 msgid "样本体积没有明显下降，不建议批量转换。"
 msgstr ""
 "No significant volume reduction observed in samples, no recommendation for "
 "batch conversion."
 
-#: vite/admin/dist/index.js:873
+#: vite/admin/dist/index.js:878
 msgid "候选规模和样本收益均达到阈值，可连续分批转换。"
 msgstr ""
 "Candidate size and sample yield meet the threshold for continuous batch "
 "conversion."
 
-#: vite/admin/dist/index.js:874
+#: vite/admin/dist/index.js:879
 msgid "样本有收益但候选规模较小；如有明确需要，可连续分批转换。"
 msgstr ""
 "Samples have a yield but a small candidate size; if there is a clear need, "
 "they can be converted in batches."
 
-#: vite/admin/dist/index.js:875
+#: vite/admin/dist/index.js:880
 msgid "待复核"
 msgstr "Unreviewed"
 
-#: vite/admin/dist/index.js:876
+#: vite/admin/dist/index.js:881
 msgid "正常"
 msgstr "Normal"
 
-#: vite/admin/dist/index.js:877
+#: vite/admin/dist/index.js:882
 #, javascript-format
 msgid "体检完成：发现 %d 类问题。"
 msgstr "Health check complete: found %d issues."
 
-#: vite/admin/dist/index.js:878
+#: vite/admin/dist/index.js:883
 msgid "体检完成：未发现需要处理的问题。"
 msgstr "Health check complete: No issues to address."
 
-#: vite/admin/dist/index.js:879
+#: vite/admin/dist/index.js:884
 msgid "体检失败，请重试。"
 msgstr "Health check failed, please try again."
 
-#: vite/admin/dist/index.js:880
+#: vite/admin/dist/index.js:885
 msgid "连续转换已停止"
 msgstr "Continuous conversion has stopped."
 
-#: vite/admin/dist/index.js:881
+#: vite/admin/dist/index.js:886
 msgid "已按要求停止"
 msgstr "Stopped as requested"
 
-#: vite/admin/dist/index.js:882
+#: vite/admin/dist/index.js:887
 msgid "本次连续转换已完成"
 msgstr "Conversion completed"
 
-#: vite/admin/dist/index.js:883
+#: vite/admin/dist/index.js:888
 #, javascript-format
 msgid ""
 "%1$s%2$s：已转换 %3$d/%4$d 张，跳过 %5$d 张，失败 %6$d 张；原 JPEG 已保留。"
@@ -4085,16 +4109,16 @@ msgstr ""
 "%1$s%2$s: converted %3$d/%4$d images, skipped %5$d, failed %6$d; original "
 "JPEG files were retained."
 
-#: vite/admin/dist/index.js:884
+#: vite/admin/dist/index.js:889
 msgid "（请求失败）"
 msgstr "Request Failed"
 
-#: vite/admin/dist/index.js:885
+#: vite/admin/dist/index.js:890
 #, javascript-format
 msgid "连续转换最多 %d 张 JPEG？"
 msgstr "Convert up to %d JPEGs at a time."
 
-#: vite/admin/dist/index.js:886
+#: vite/admin/dist/index.js:891
 msgid ""
 "浏览器会依次提交每批最多 5 张，页面需要保持打开；可在当前小批完成后停止。原 "
 "JPEG 与恢复记录会保留，若已启用对象存储，WebP 会按现有配置同步。"
@@ -4104,33 +4128,33 @@ msgstr ""
 "retained, and if object storage is enabled, WebP will sync based on current "
 "configuration."
 
-#: vite/admin/dist/index.js:887
+#: vite/admin/dist/index.js:892
 msgid "开始连续转换"
 msgstr "Start Continuous Conversion"
 
-#: vite/admin/dist/index.js:888
+#: vite/admin/dist/index.js:893
 msgid "连续恢复已停止"
 msgstr "Continuous Resync Stopped Sites"
 
-#: vite/admin/dist/index.js:889
+#: vite/admin/dist/index.js:894
 msgid "已按要求停止恢复"
 msgstr "Stopped recovery as requested."
 
-#: vite/admin/dist/index.js:890
+#: vite/admin/dist/index.js:895
 msgid "本次转换记录已恢复"
 msgstr "Conversion log has been restored."
 
-#: vite/admin/dist/index.js:891
+#: vite/admin/dist/index.js:896
 #, javascript-format
 msgid "%1$s%2$s：已恢复 %3$d/%4$d 张，跳过 %5$d 张，失败 %6$d 张。"
 msgstr "%1$s%2$s: restored %3$d/%4$d images, skipped %5$d, failed %6$d."
 
-#: vite/admin/dist/index.js:892
+#: vite/admin/dist/index.js:897
 #, javascript-format
 msgid "恢复本次转换的 %d 张图片？"
 msgstr "Restore the %d images converted in this run?"
 
-#: vite/admin/dist/index.js:893
+#: vite/admin/dist/index.js:898
 msgid ""
 "附件会重新指向原 JPEG，并清理本次生成的本地 WebP 文件；对象存储中的无引用副本"
 "不会自动删除。"
@@ -4139,124 +4163,124 @@ msgstr ""
 "generated in this process will be cleaned up; there won't be an automatic "
 "deletion of the orphaned copies stored in Object Storage."
 
-#: vite/admin/dist/index.js:894
+#: vite/admin/dist/index.js:899
 msgid "开始连续恢复"
 msgstr "Start Continuous Recovery"
 
-#: vite/admin/dist/index.js:895
+#: vite/admin/dist/index.js:900
 #, javascript-format
 msgid "%d 个"
 msgstr "%d items"
 
-#: vite/admin/dist/index.js:896
+#: vite/admin/dist/index.js:901
 msgid "媒体库健康体检"
 msgstr "Media Library Health Check"
 
-#: vite/admin/dist/index.js:897
+#: vite/admin/dist/index.js:902
 msgid "启用媒体库体检"
 msgstr "Enable Media Library Health Check"
 
-#: vite/admin/dist/index.js:898
+#: vite/admin/dist/index.js:903
 msgid "检查媒体库中的异常文件"
 msgstr "Check Abnormal Files in Media Library"
 
-#: vite/admin/dist/index.js:899
+#: vite/admin/dist/index.js:904
 msgid "开始体检"
 msgstr "Start Check"
 
-#: vite/admin/dist/index.js:900
+#: vite/admin/dist/index.js:905
 msgid "WebP 转换预检"
 msgstr "WebP Conversion Preflight"
 
-#: vite/admin/dist/index.js:901
+#: vite/admin/dist/index.js:906
 msgid "JPEG 候选"
 msgstr "JPEG Candidates"
 
-#: vite/admin/dist/index.js:902
+#: vite/admin/dist/index.js:907
 #, javascript-format
 msgid "%d 张"
 msgstr "%d images"
 
-#: vite/admin/dist/index.js:903
+#: vite/admin/dist/index.js:908
 msgid "PNG 观察"
 msgstr "PNG Review"
 
-#: vite/admin/dist/index.js:904
+#: vite/admin/dist/index.js:909
 msgid "已有 WebP"
 msgstr "WebP Available"
 
-#: vite/admin/dist/index.js:905
+#: vite/admin/dist/index.js:910
 #, javascript-format
 msgid "临时转换 %1$d/%2$d 张；%3$s。"
 msgstr "temporarily convert %1$d/%2$d images; %3$s."
 
-#: vite/admin/dist/index.js:906
+#: vite/admin/dist/index.js:911
 #, javascript-format
 msgid "本次检查了 %d 张图片，未形成可用转换样本。"
 msgstr "checked %d images, no usable conversion samples were formed."
 
-#: vite/admin/dist/index.js:907
+#: vite/admin/dist/index.js:912
 msgid "结果来自最近附件抽样。"
 msgstr "results come from the most recent attachment sampling."
 
-#: vite/admin/dist/index.js:908
+#: vite/admin/dist/index.js:913
 #, javascript-format
 msgid "%d 个文件不可读。"
 msgstr "%d files are unreadable."
 
-#: vite/admin/dist/index.js:909
+#: vite/admin/dist/index.js:914
 msgid "本次计划"
 msgstr "Planned for This Run"
 
-#: vite/admin/dist/index.js:910
+#: vite/admin/dist/index.js:915
 msgid "本次连续转换数量"
 msgstr "Continuous conversion quantity for this run"
 
-#: vite/admin/dist/index.js:911
+#: vite/admin/dist/index.js:916
 #, javascript-format
 msgid "连续转换（最多 %d 张）"
 msgstr "Continuous conversion (up to %d images at a time)"
 
-#: vite/admin/dist/index.js:912
+#: vite/admin/dist/index.js:917
 #, javascript-format
 msgid "恢复本次转换（%d 张）"
 msgstr "Restore this conversion (%d images)"
 
-#: vite/admin/dist/index.js:913
+#: vite/admin/dist/index.js:918
 #, javascript-format
 msgid "恢复一批（%d 张）"
 msgstr "Restore batch (%d images)"
 
-#: vite/admin/dist/index.js:914
+#: vite/admin/dist/index.js:919
 msgid "将在当前小批完成后停止"
 msgstr "Stop after the current small batch is completed"
 
-#: vite/admin/dist/index.js:915
+#: vite/admin/dist/index.js:920
 msgid "完成当前小批后停止"
 msgstr "Stop after completing the current small batch"
 
-#: vite/admin/dist/index.js:916
+#: vite/admin/dist/index.js:921
 msgid "转换进度"
 msgstr "Conversion progress"
 
-#: vite/admin/dist/index.js:917
+#: vite/admin/dist/index.js:922
 msgid "恢复进度"
 msgstr "Restore progress"
 
-#: vite/admin/dist/index.js:918
+#: vite/admin/dist/index.js:923
 #, javascript-format
 msgid "%1$d/%2$d 张"
 msgstr "%1$d/%2$d images"
 
-#: vite/admin/dist/index.js:919
+#: vite/admin/dist/index.js:924
 msgid "连续转换进度"
 msgstr "Continuous conversion progress"
 
-#: vite/admin/dist/index.js:920
+#: vite/admin/dist/index.js:925
 msgid "连续恢复进度"
 msgstr "Continuous restore progress"
 
-#: vite/admin/dist/index.js:921
+#: vite/admin/dist/index.js:926
 #, javascript-format
 msgid ""
 "预检本身只读；连续操作仍按每批最多 %d 张依次提交，页面关闭后不会继续。仅转换 "
@@ -4265,609 +4289,624 @@ msgstr ""
 "Pre-inspection is read-only; continuous operations are submitted in batches "
 "of up to %d images at a time, and will not continue after the page closes."
 
-#: vite/admin/dist/index.js:922
+#: vite/admin/dist/index.js:927
 msgid "搜索健康数据加载失败"
 msgstr "Failed to load health data search"
 
-#: vite/admin/dist/index.js:923
+#: vite/admin/dist/index.js:928
 msgid "暂无搜索数据，开启热词统计后积累数据"
 msgstr ""
 "No search data available. Enable hot word statistics to accumulate data."
 
-#: vite/admin/dist/index.js:924
+#: vite/admin/dist/index.js:929
 msgid "搜索健康分析"
 msgstr "Search health analysis"
 
-#: vite/admin/dist/index.js:925
+#: vite/admin/dist/index.js:930
 msgid "唯一关键词"
 msgstr "Unique keyword"
 
-#: vite/admin/dist/index.js:926
+#: vite/admin/dist/index.js:931
 msgid "无结果比例"
 msgstr "Proportion of no results"
 
-#: vite/admin/dist/index.js:927
+#: vite/admin/dist/index.js:932
 msgid "热门搜索词"
 msgstr "Popular search terms"
 
-#: vite/admin/dist/index.js:928
+#: vite/admin/dist/index.js:933
 msgid "无结果搜索词"
 msgstr "No result search terms"
 
-#: vite/admin/dist/index.js:929
+#: vite/admin/dist/index.js:934
 msgid "异常高频词"
 msgstr "Abnormal frequent words"
 
-#: vite/admin/dist/index.js:930
+#: vite/admin/dist/index.js:935
 msgid "建议"
 msgstr "Suggestions"
 
-#: vite/admin/dist/index.js:931
+#: vite/admin/dist/index.js:936
 msgid "站内搜索体验增强"
 msgstr "Enhance the experience for site internal search"
 
-#: vite/admin/dist/index.js:932
+#: vite/admin/dist/index.js:937
 msgid "关键词高亮"
 msgstr "Keyword highlighting"
 
-#: vite/admin/dist/index.js:933
+#: vite/admin/dist/index.js:938
 msgid "无结果推荐"
 msgstr "Recommend no result suggestions"
 
-#: vite/admin/dist/index.js:934
+#: vite/admin/dist/index.js:939
 msgid "搜索无结果时显示热门标签"
 msgstr "Display popular tags when there are no results in search"
 
-#: vite/admin/dist/index.js:935
+#: vite/admin/dist/index.js:940
 msgid "热词统计"
 msgstr "Popular Query Statistics"
 
-#: vite/admin/dist/index.js:936
+#: vite/admin/dist/index.js:941
 msgid "记录搜索热词（后台可查看）"
 msgstr "Record search hot words (can be viewed from backend)"
 
-#: vite/admin/dist/index.js:937
+#: vite/admin/dist/index.js:942
 msgid "ICP 备案号、公安网备号、Cookie 同意弹窗"
 msgstr ""
 "ICP Registration Number, Public Security Network Precaution Number, Cookie "
 "Consent Pop-up"
 
-#: vite/admin/dist/index.js:938
+#: vite/admin/dist/index.js:943
 msgid "备案与合规配置"
 msgstr "Domain Registration & Compliance Configuration"
 
-#: vite/admin/dist/index.js:939
+#: vite/admin/dist/index.js:944
 msgid "面向中国站长的备案与合规工具"
 msgstr ""
 "China Services for China Site Owners - Domain Mappings & Compliance Tools"
 
-#: vite/admin/dist/index.js:940
+#: vite/admin/dist/index.js:945
 msgid "启用 ICP 备案号显示"
 msgstr "Enable Display of ICP Registration Number"
 
-#: vite/admin/dist/index.js:941
+#: vite/admin/dist/index.js:946
 msgid "如：京ICP备12345678号"
 msgstr "Example: Beijing ICP No. 12345678"
 
-#: vite/admin/dist/index.js:942
+#: vite/admin/dist/index.js:947
 msgid "ICP 查询链接"
 msgstr "Check ICP Link"
 
-#: vite/admin/dist/index.js:943
+#: vite/admin/dist/index.js:948
 msgid "公安网备号显示"
 msgstr "China Services &gt; Police Network License Display"
 
-#: vite/admin/dist/index.js:944
+#: vite/admin/dist/index.js:949
 msgid "如：京公网安备11010102001234号"
 msgstr ""
 "Your Provincial Public Security Bureau's Administrative License Number "
 "(e.g., Beijing Municipal Public Security Bureau No. 11010102001234)"
 
-#: vite/admin/dist/index.js:945
+#: vite/admin/dist/index.js:950
 msgid "网备查询链接"
 msgstr "Backup Link"
 
-#: vite/admin/dist/index.js:946
+#: vite/admin/dist/index.js:951
 msgid "Cookie 弹窗样式"
 msgstr "Cookie Popup Style"
 
-#: vite/admin/dist/index.js:947
+#: vite/admin/dist/index.js:952
 msgid "底部"
 msgstr "Footer"
 
-#: vite/admin/dist/index.js:948
+#: vite/admin/dist/index.js:953
 msgid "Cookie 标题"
 msgstr "Cookie Title"
 
-#: vite/admin/dist/index.js:949
+#: vite/admin/dist/index.js:954
 msgid "Cookie 内容"
 msgstr "Cookie Content"
 
-#: vite/admin/dist/index.js:950
+#: vite/admin/dist/index.js:955
 msgid "Cookie 按钮文字"
 msgstr "Cookie Button Text"
 
-#: vite/admin/dist/index.js:951
+#: vite/admin/dist/index.js:956
 msgid "版权信息显示"
 msgstr "Display Copyright Information"
 
-#: vite/admin/dist/index.js:952
+#: vite/admin/dist/index.js:957
 msgid "版权信息 HTML"
 msgstr "Copyright Information HTML"
 
-#: vite/admin/dist/index.js:953
+#: vite/admin/dist/index.js:958
 msgid "留空则使用默认版权格式"
 msgstr "Leave blank to use default copyright format"
 
-#: vite/admin/dist/index.js:954
+#: vite/admin/dist/index.js:959
 msgid "&copy; 2024 网站名称 版权所有"
 msgstr "&copy; 2024 Website Name All Rights Reserved"
 
-#: vite/admin/dist/index.js:955
+#: vite/admin/dist/index.js:960
 msgid "JSSDK 分享、微信/QQ 打开引导"
 msgstr "JSSDK Sharing, WeChat/QQ Open Guide"
 
-#: vite/admin/dist/index.js:956
+#: vite/admin/dist/index.js:961
 msgid "微信生态配置"
 msgstr "WeChat Ecosystem Configuration"
 
-#: vite/admin/dist/index.js:957
+#: vite/admin/dist/index.js:962
 msgid "微信生态增强功能"
 msgstr "China Services & Enhancements"
 
-#: vite/admin/dist/index.js:958
+#: vite/admin/dist/index.js:963
 msgid "JSSDK 分享"
 msgstr "JS SDK Share"
 
-#: vite/admin/dist/index.js:959
+#: vite/admin/dist/index.js:964
 msgid "微信/QQ 打开引导"
 msgstr "Open Guide with WeChat/WhatsApp"
 
-#: vite/admin/dist/index.js:960
+#: vite/admin/dist/index.js:965
 msgid "引导处理方式"
 msgstr "Handling Method"
 
-#: vite/admin/dist/index.js:961
+#: vite/admin/dist/index.js:966
 msgid "仅提示"
 msgstr "Only Notifications"
 
-#: vite/admin/dist/index.js:962
+#: vite/admin/dist/index.js:967
 msgid "强制跳转"
 msgstr "Force Redirect"
 
-#: vite/admin/dist/index.js:963
+#: vite/admin/dist/index.js:968
 msgid "引导文案"
 msgstr "Welcome Message"
 
-#: vite/admin/dist/index.js:964
+#: vite/admin/dist/index.js:969
 msgid "二维码图片"
 msgstr "QR Code Image"
 
-#: vite/admin/dist/index.js:965
+#: vite/admin/dist/index.js:970
 msgid "图片 URL，可选"
 msgstr "Image URL, optional"
 
-#: vite/admin/dist/index.js:966
+#: vite/admin/dist/index.js:971
 msgid "敏感词过滤、链接限制、IP 频率限制"
 msgstr "Sensitive word filtering, link restrictions, IP frequency limits"
 
-#: vite/admin/dist/index.js:967
+#: vite/admin/dist/index.js:972
 msgid "评论安全配置"
 msgstr "Comment Security Settings"
 
-#: vite/admin/dist/index.js:968
+#: vite/admin/dist/index.js:973
 msgid "评论安全中心，过滤垃圾评论"
 msgstr "Comments Security Center, Filter Junk Comments"
 
-#: vite/admin/dist/index.js:969
+#: vite/admin/dist/index.js:974
 msgid "每行一个"
 msgstr "one per line"
 
-#: vite/admin/dist/index.js:970
+#: vite/admin/dist/index.js:975
 msgid "标记待审核"
 msgstr "Mark as Pending Review"
 
-#: vite/admin/dist/index.js:971
+#: vite/admin/dist/index.js:976
 msgid "限制评论中的最大链接数量"
 msgstr "Limit the number of links in comments"
 
-#: vite/admin/dist/index.js:972
+#: vite/admin/dist/index.js:977
 msgid "最大链接数"
 msgstr "Max Links"
 
-#: vite/admin/dist/index.js:973
+#: vite/admin/dist/index.js:978
 msgid "过滤包含敏感词的评论昵称"
 msgstr "Filter Comment Nicknames Containing Sensitive Words"
 
-#: vite/admin/dist/index.js:974
+#: vite/admin/dist/index.js:979
 msgid "禁用昵称"
 msgstr "Disable Nickname"
 
-#: vite/admin/dist/index.js:975
+#: vite/admin/dist/index.js:980
 msgid "IP 频率限制"
 msgstr "IP Rate Limiting"
 
-#: vite/admin/dist/index.js:976
+#: vite/admin/dist/index.js:981
 msgid "限制同一 IP 的评论频率"
 msgstr "Limit comment frequency from the same IP"
 
-#: vite/admin/dist/index.js:977
+#: vite/admin/dist/index.js:982
 msgid "IP 限制次数"
 msgstr "IP Limit Attempts"
 
-#: vite/admin/dist/index.js:978
+#: vite/admin/dist/index.js:983
 msgid "IP 时间窗口(秒)"
 msgstr "IP Time Window (seconds)"
 
-#: vite/admin/dist/index.js:979
+#: vite/admin/dist/index.js:984
 msgid "管理登录尝试限制与匿名作者枚举"
 msgstr "Manage Login Attempt Limits and Anonymous Author Enumeration"
 
-#: vite/admin/dist/index.js:980
+#: vite/admin/dist/index.js:985
 msgid "登录安全设置"
 msgstr "Login Security Settings"
 
-#: vite/admin/dist/index.js:981
+#: vite/admin/dist/index.js:986
 msgid "两项能力可独立启用，保存后才会在站点生效。"
 msgstr ""
 "Two capabilities can be enabled independently and will take effect on the "
 "site after being saved."
 
-#: vite/admin/dist/index.js:982
+#: vite/admin/dist/index.js:987
 msgid "在统计窗口内限制同一已存在账号与来源 IP 组合的连续失败尝试"
 msgstr ""
 "Limit consecutive failed attempts with the same existing account and source "
 "IP combination in the Statistics window."
 
-#: vite/admin/dist/index.js:983
+#: vite/admin/dist/index.js:988
 msgid "失败尝试上限"
 msgstr "Failed Attempts Limit"
 
-#: vite/admin/dist/index.js:984
+#: vite/admin/dist/index.js:989
 msgid "统计窗口（分钟）"
 msgstr "Statistics Window (minutes)"
 
-#: vite/admin/dist/index.js:985
+#: vite/admin/dist/index.js:990
 msgid "锁定时长（分钟）"
 msgstr "Lock Duration (minutes)"
 
-#: vite/admin/dist/index.js:986
+#: vite/admin/dist/index.js:991
 msgid "高级：可信代理"
 msgstr "Advanced: Trusted Agent"
 
-#: vite/admin/dist/index.js:987
+#: vite/admin/dist/index.js:992
 msgid "仅在站点位于 CDN 或反向代理之后，且代理会覆盖 X-Forwarded-For 时填写。"
 msgstr ""
 "Only fill this in if the site is located after a CDN or reverse proxy and "
 "the proxy covers X-Forwarded-For."
 
-#: vite/admin/dist/index.js:988
+#: vite/admin/dist/index.js:993
 msgid "留空时系统只信任 REMOTE_ADDR。"
 msgstr "Leave blank to trust only REMOTE_ADDR."
 
-#: vite/admin/dist/index.js:989
+#: vite/admin/dist/index.js:994
 msgid "代理出口 IP"
 msgstr "Proxy Export IP"
 
-#: vite/admin/dist/index.js:990
+#: vite/admin/dist/index.js:995
 msgid "每行一个可信代理 IP；不要填写访客 IP 或整个公网网段。"
 msgstr ""
 "Each line one trusted proxy IP; do not enter visitor IP or entire public "
 "network segment."
 
-#: vite/admin/dist/index.js:991
+#: vite/admin/dist/index.js:996
 msgid "收紧未登录访问中的作者参数与 REST 用户端点"
 msgstr ""
 "Tighten author parameters and REST endpoints for unauthenticated access"
 
-#: vite/admin/dist/index.js:992
+#: vite/admin/dist/index.js:997
 msgid "备案号"
 msgstr "ICP Filing Number"
 
-#: vite/admin/dist/index.js:993
+#: vite/admin/dist/index.js:998
 msgid "查询链接"
 msgstr "Lookup URL"
 
-#: vite/admin/dist/index.js:994
+#: vite/admin/dist/index.js:999
 msgid "网备号"
 msgstr "Public Security Filing Number"
 
-#: vite/admin/dist/index.js:995
+#: vite/admin/dist/index.js:1000
 msgid "弹窗样式"
 msgstr "Popup Style"
 
-#: vite/admin/dist/index.js:996
+#: vite/admin/dist/index.js:1001
 msgid "内容"
 msgstr "Content"
 
-#: vite/admin/dist/index.js:997
+#: vite/admin/dist/index.js:1002
 msgid "按钮文字"
 msgstr "Button Text"
 
-#: vite/admin/dist/index.js:998
+#: vite/admin/dist/index.js:1003
 msgid "自定义 HTML"
 msgstr "Custom HTML"
 
-#: vite/admin/dist/index.js:999
+#: vite/admin/dist/index.js:1004
 msgid "链接数量限制"
 msgstr "Link Limit"
 
-#: vite/admin/dist/index.js:1000
+#: vite/admin/dist/index.js:1005
 msgid "黑名单域名"
 msgstr "Blacklist Domain Names"
 
-#: vite/admin/dist/index.js:1001
+#: vite/admin/dist/index.js:1006
 msgid "限制次数"
 msgstr "Attempt Limit"
 
-#: vite/admin/dist/index.js:1002
+#: vite/admin/dist/index.js:1007
 msgid "时间窗口(秒)"
 msgstr "Time Window (seconds)"
 
-#: vite/admin/dist/index.js:1003
+#: vite/admin/dist/index.js:1008
 msgid "暂无预览"
 msgstr "No Preview Available"
 
-#: vite/admin/dist/index.js:1004
+#: vite/admin/dist/index.js:1009
 msgid "详情"
 msgstr "Details"
 
-#: vite/admin/dist/index.js:1005
+#: vite/admin/dist/index.js:1010
 msgid "将替换"
 msgstr "Will replace"
 
-#: vite/admin/dist/index.js:1006
+#: vite/admin/dist/index.js:1011
 msgid "将清除"
 msgstr "Will clear"
 
-#: vite/admin/dist/index.js:1007
+#: vite/admin/dist/index.js:1012
 msgid "已配置"
 msgstr "Configured"
 
-#: vite/admin/dist/index.js:1008
+#: vite/admin/dist/index.js:1013
 msgid "未配置"
 msgstr "Not configured"
 
-#: vite/admin/dist/index.js:1009
+#: vite/admin/dist/index.js:1014
 msgid "留空表示保留。"
 msgstr "Leave blank to retain."
 
-#: vite/admin/dist/index.js:1010
+#: vite/admin/dist/index.js:1015
 msgid "已保存的值不会显示；留空表示保留。"
 msgstr "Saved values will not be displayed; leave empty to retain."
 
-#: vite/admin/dist/index.js:1011
+#: vite/admin/dist/index.js:1016
 msgid "尚未保存凭据。"
 msgstr "Credentials have not been saved."
 
-#: vite/admin/dist/index.js:1012
+#: vite/admin/dist/index.js:1017
 msgid "撤销更改"
 msgstr "Revert Changes"
 
-#: vite/admin/dist/index.js:1013
+#: vite/admin/dist/index.js:1018
 msgid "新值"
 msgstr "New Value"
 
-#: vite/admin/dist/index.js:1014
+#: vite/admin/dist/index.js:1019
 msgid "输入新值以替换"
 msgstr "Enter a new value to replace it."
 
-#: vite/admin/dist/index.js:1015
+#: vite/admin/dist/index.js:1020
 msgid "输入新值"
 msgstr "Enter New Value"
 
-#: vite/admin/dist/index.js:1016
+#: vite/admin/dist/index.js:1021
 msgid "清除已保存凭据"
 msgstr "Clear Saved Credentials"
 
-#: vite/admin/dist/index.js:1017
+#: vite/admin/dist/index.js:1022
 msgid "撤销凭据更改"
 msgstr "Cancel Credential Changes"
 
-#: vite/admin/dist/index.js:1018
+#: vite/admin/dist/index.js:1023
 msgid "建议："
 msgstr "Suggestion:"
 
-#: vite/admin/dist/index.js:1019
+#: vite/admin/dist/index.js:1024
 msgid "正在加载当前分组"
 msgstr "Loading current group settings..."
 
-#: vite/admin/dist/index.js:1020
+#: vite/admin/dist/index.js:1025
 msgid "首次打开时正在准备相关设置。"
 msgstr "Preparing related settings for the first time when opening."
 
-#: vite/admin/dist/index.js:1021
+#: vite/admin/dist/index.js:1026
 msgid "分类数据格式无效"
 msgstr "Invalid category data format."
 
-#: vite/admin/dist/index.js:1022
+#: vite/admin/dist/index.js:1027
 msgid "保存失败，请重试"
 msgstr "Save failed. Please try again."
 
-#: vite/admin/dist/index.js:1023
+#: vite/admin/dist/index.js:1028
 msgid "[已隐藏]"
 msgstr "[Hidden]"
 
-#: vite/admin/dist/index.js:1024
+#: vite/admin/dist/index.js:1029
 #, javascript-format
 msgid "未知凭据路径：%s"
 msgstr "Unknown credential path: %s"
 
-#: vite/admin/dist/index.js:1025
+#: vite/admin/dist/index.js:1030
 #, javascript-format
 msgid "未知凭据操作：%s"
 msgstr "Unknown credential operation: %s"
 
-#: vite/admin/dist/index.js:1026
+#: vite/admin/dist/index.js:1031
 #, javascript-format
 msgid "凭据替换值不能为空：%s"
 msgstr "Credential replacement value cannot be empty: %s"
 
-#: vite/admin/dist/index.js:1027
+#: vite/admin/dist/index.js:1032
 #, javascript-format
 msgid "凭据长度超出限制：%s"
 msgstr "Credential length exceeds the limit: %s"
 
-#: vite/admin/dist/index.js:1028
+#: vite/admin/dist/index.js:1033
 #, javascript-format
 msgid "凭据不得包含控制字符：%s"
 msgstr "Credential must not contain control characters: %s"
 
-#: vite/admin/dist/index.js:1029
+#: vite/admin/dist/index.js:1034
 msgid "配置版本无效，请重新读取设置"
 msgstr "Invalid configuration version, please read settings again."
 
-#: vite/admin/dist/index.js:1030
+#: vite/admin/dist/index.js:1035
 #, javascript-format
 msgid "出错：%s"
 msgstr "Error: %s"
 
-#: vite/admin/dist/index.js:1031
+#: vite/admin/dist/index.js:1036
 msgid "未知错误"
 msgstr "Unknown error"
 
-#: vite/admin/dist/index.js:1032
+#: vite/admin/dist/index.js:1037
 msgid "请输入有效的链接 URL"
 msgstr "Please enter a valid link URL."
 
-#: vite/admin/dist/index.js:1033
-msgid "还有设置尚未保存，离开后这些修改将丢失。确定离开吗？"
+#: vite/admin/dist/index.js:1038
+msgid ""
+"还有设置尚未保存。切换视图不会丢失这些修改，可稍后返回统一保存；关闭或刷新页"
+"面则不会保存。仍要切换吗？"
 msgstr ""
-"There are still unsaved settings. Leaving will cause these changes to be "
-"lost. Are you sure you want to leave?"
+"You have unsaved settings. Switching views keeps them so you can save la"
+"ter; closing or refreshing the page will not save them. Switch anyway?"
 
-#: vite/admin/dist/index.js:1034
+#: vite/admin/dist/index.js:1039
 msgid "已添加到常用功能"
 msgstr "Added to the Quick Links"
 
-#: vite/admin/dist/index.js:1035
+#: vite/admin/dist/index.js:1040
 msgid "已从常用功能移除"
 msgstr "Removed from the Quick Links"
 
-#: vite/admin/dist/index.js:1036
+#: vite/admin/dist/index.js:1041
 #, javascript-format
 msgid "您正在开启「%s」"
 msgstr "You are enabling '%s'."
 
-#: vite/admin/dist/index.js:1037
+#: vite/admin/dist/index.js:1042
 msgid "确认开启"
 msgstr "Confirm Enablement"
 
-#: vite/admin/dist/index.js:1038 admin/class-npcink-toolbox-admin.php:152
+#: vite/admin/dist/index.js:1043 admin/class-npcink-toolbox-admin.php:152
 #: admin/partials/privacy/index.php:188
 msgid "不再提示"
 msgstr "Don't show again"
 
-#: vite/admin/dist/index.js:1039
+#: vite/admin/dist/index.js:1044
 msgid "设置接口返回格式无效"
 msgstr "Invalid format of setting interface response."
 
-#: vite/admin/dist/index.js:1040
+#: vite/admin/dist/index.js:1045
 msgid "设置接口缺少凭据状态"
 msgstr "Setting interface is missing credential status."
 
-#: vite/admin/dist/index.js:1041
+#: vite/admin/dist/index.js:1046
 msgid "设置接口缺少有效配置版本"
 msgstr "Setting interface is missing valid configuration version."
 
-#: vite/admin/dist/index.js:1042
+#: vite/admin/dist/index.js:1047
 #, javascript-format
 msgid "设置接口的凭据状态无效：%s"
 msgstr "Invalid credential status in setting interface: %s"
 
-#: vite/admin/dist/index.js:1043
+#: vite/admin/dist/index.js:1048
 msgid "系统通知"
 msgstr "System Notification"
 
-#: vite/admin/dist/index.js:1044
+#: vite/admin/dist/index.js:1049
 #, javascript-format
 msgid "设置缺少字段：%s"
 msgstr "Missing field in settings: %s"
 
-#: vite/admin/dist/index.js:1045
+#: vite/admin/dist/index.js:1050
 #, javascript-format
 msgid "设置包含未知字段：%s"
 msgstr "Unknown field in settings: %s"
 
-#: vite/admin/dist/index.js:1046
+#: vite/admin/dist/index.js:1051
 #, javascript-format
 msgid "设置字段类型错误：%s"
 msgstr "Incorrect field type in settings: %s"
 
-#: vite/admin/dist/index.js:1047
+#: vite/admin/dist/index.js:1052
 #, javascript-format
 msgid "未定义的设置数组契约：%s"
 msgstr "Undefined setting array contract: %s"
 
-#: vite/admin/dist/index.js:1048
+#: vite/admin/dist/index.js:1053
 #, javascript-format
 msgid "设置数据包含敏感字段：%s"
 msgstr "Setting data contains sensitive fields: %s"
 
-#: vite/admin/dist/index.js:1049 admin/class-npcink-toolbox-admin.php:393
+#: vite/admin/dist/index.js:1054 admin/class-npcink-toolbox-admin.php:393
 #: includes/class-npcink-toolbox-config-manager.php:121
 msgid "设置数据格式无效"
 msgstr "Invalid format of setting data"
 
-#: vite/admin/dist/index.js:1050 admin/class-npcink-toolbox-admin.php:374
+#: vite/admin/dist/index.js:1055 admin/class-npcink-toolbox-admin.php:374
 msgid "保存成功"
 msgstr "Saved"
 
-#: vite/admin/dist/index.js:1051
+#: vite/admin/dist/index.js:1056
 msgid "设置已保存，但重新读取失败；保存功能已禁用，请重新读取后继续"
 msgstr ""
 "Settings saved but failed to refresh; save function is disabled, please try "
 "refreshing and continue."
 
-#: vite/admin/dist/index.js:1052
+#: vite/admin/dist/index.js:1057
 msgid "站点设置已在其他页面更新，无法直接保存"
 msgstr ""
 "Site settings were updated in another page and cannot be saved directly"
 
-#: vite/admin/dist/index.js:1053
+#: vite/admin/dist/index.js:1058
+#, javascript-format
+msgid "确定放弃全部 %d 项未保存的修改？此操作不可撤销。"
+msgstr "Discard all %d unsaved changes? This cannot be undone."
+
+#: vite/admin/dist/index.js:1059
+msgid "已恢复到最近保存的设置"
+msgstr "Settings restored to the last saved state"
+
+#: vite/admin/dist/index.js:1060
 msgid "保存确认界面加载失败，请重试"
 msgstr "Save Failed to load confirmation interface, please try again."
 
-#: vite/admin/dist/index.js:1054
+#: vite/admin/dist/index.js:1061
 msgid "已保存"
 msgstr "Saved"
 
-#: vite/admin/dist/index.js:1055
+#: vite/admin/dist/index.js:1062
 msgid "保存"
 msgstr "Save"
 
-#: vite/admin/dist/index.js:1056
+#: vite/admin/dist/index.js:1063
 msgid "正在保存…"
 msgstr "Saving…"
 
-#: vite/admin/dist/index.js:1057
+#: vite/admin/dist/index.js:1064
 msgid "正在准备确认…"
 msgstr "Preparing confirmation…"
 
-#: vite/admin/dist/index.js:1058
+#: vite/admin/dist/index.js:1065
 msgid "正在准备…"
 msgstr "Preparing…"
 
-#: vite/admin/dist/index.js:1059
+#: vite/admin/dist/index.js:1066
 msgid "正在读取设置…"
 msgstr "Loading settings…"
 
-#: vite/admin/dist/index.js:1060
+#: vite/admin/dist/index.js:1067
 msgid "设置不可用"
 msgstr "Settings unavailable"
 
-#: vite/admin/dist/index.js:1061
+#: vite/admin/dist/index.js:1068
 #, javascript-format
 msgid "%d 项待保存"
 msgstr "%d items to save"
 
-#: vite/admin/dist/index.js:1062
+#: vite/admin/dist/index.js:1069
 msgid "查看并保存"
 msgstr "Review and save"
 
-#: vite/admin/dist/index.js:1063
+#: vite/admin/dist/index.js:1070
 msgid "重新读取设置"
 msgstr "Reload settings"
+
+#: vite/admin/dist/index.js:1071
+msgid "放弃更改"
+msgstr "Discard changes"
 
 #: admin/partials/page/function/maintenance/countdown/main.js:8
 msgid "倒计时结束"
@@ -4945,8 +4984,7 @@ msgstr "User Comments REST API Tutorial"
 #, php-format
 msgid "Npcink Site Toolbox 已激活，可前往 %s 按需启用功能。"
 msgstr ""
-"Npcink Site Toolbox is active. Visit the %s to enable features as needed"
-"."
+"Npcink Site Toolbox is active. Visit the %s to enable features as needed."
 
 #: admin/class-npcink-toolbox-admin.php:150
 msgid "设置页面"
@@ -5060,45 +5098,45 @@ msgstr "SEO"
 msgid "REST API"
 msgstr "REST API"
 
-#: admin/partials/domestic/comment_security/index.php:37
+#: admin/partials/domestic/comment_security/index.php:39
 msgid "评论包含敏感词，已被拦截。"
 msgstr "Comments contain sensitive words and have been blocked."
 
-#: admin/partials/domestic/comment_security/index.php:38
+#: admin/partials/domestic/comment_security/index.php:40
 msgid "评论拦截"
 msgstr "Comment Moderation"
 
-#: admin/partials/domestic/comment_security/index.php:67
+#: admin/partials/domestic/comment_security/index.php:84
 msgid "昵称包含不允许的词汇。"
 msgstr "Nickname contains prohibited words."
 
-#: admin/partials/domestic/comment_security/index.php:68
+#: admin/partials/domestic/comment_security/index.php:85
 msgid "昵称拦截"
 msgstr "Nickname Blocking"
 
-#: admin/partials/domestic/comment_security/index.php:83
+#: admin/partials/domestic/comment_security/index.php:100
 msgid "该邮箱域名不允许评论。"
 msgstr "Comments are disabled for this email domain."
 
-#: admin/partials/domestic/comment_security/index.php:84
+#: admin/partials/domestic/comment_security/index.php:101
 msgid "邮箱拦截"
 msgstr "Email Filtering"
 
-#: admin/partials/domestic/comment_security/index.php:103
+#: admin/partials/domestic/comment_security/index.php:120
 msgid "请勿重复提交相同评论。"
 msgstr "Don't submit duplicate comments."
 
-#: admin/partials/domestic/comment_security/index.php:104
+#: admin/partials/domestic/comment_security/index.php:121
 msgid "重复拦截"
 msgstr "Duplicate Blocking"
 
 #. translators: %d: Number of seconds before another comment can be submitted.
-#: admin/partials/domestic/comment_security/index.php:123
+#: admin/partials/domestic/comment_security/index.php:140
 #, php-format
 msgid "评论过于频繁，请 %d 秒后再试。"
 msgstr "You are commenting too frequently. Please try again in %d seconds."
 
-#: admin/partials/domestic/comment_security/index.php:127
+#: admin/partials/domestic/comment_security/index.php:144
 msgid "频率限制"
 msgstr "Frequency Limiting"
 
@@ -5868,7 +5906,7 @@ msgstr ""
 "Aliyun Endpoint must be a official region node and do not fill in the bucket "
 "domain name or other server address."
 
-#: admin/partials/performance/search_enhance/index.php:45
+#: admin/partials/performance/search_enhance/index.php:47
 msgid "未找到相关内容，试试这些热门标签："
 msgstr "No related content found, try these popular tags:"
 
@@ -6911,6 +6949,20 @@ msgstr "Data"
 msgctxt "block keyword"
 msgid "站点"
 msgstr "Site"
+
+#~ msgid ""
+#~ "修改普通设置或填写凭据后，页面会显示待保存数量。刷新、关闭标签页或切换到插"
+#~ "件内其他区域时，系统会先确认，避免静默丢失草稿。"
+#~ msgstr ""
+#~ "after modifying general settings or filling credentials, the page will "
+#~ "show how many changes are pending. Refreshing, closing a tab, or "
+#~ "switching to another area within the plugin will first confirm before "
+#~ "saving, avoiding silent loss of drafts."
+
+#~ msgid "还有设置尚未保存，离开后这些修改将丢失。确定离开吗？"
+#~ msgstr ""
+#~ "There are still unsaved settings. Leaving will cause these changes to be "
+#~ "lost. Are you sure you want to leave?"
 
 #~ msgid "首页 TDK"
 #~ msgstr "Homepage TDK"

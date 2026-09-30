@@ -3,6 +3,7 @@ defined('ABSPATH') || exit;
 if (!class_exists('Npcink_Toolbox_Domestic_Comment_Security')) {
     class Npcink_Toolbox_Domestic_Comment_Security implements Npcink_Toolbox_Module_Interface {
         private static $config;
+        private static $pending_block_reasons = array();
         public static function run($config = array()) {
             self::$config = $config;
             if (!empty($config['blacklist_enabled'])) {
@@ -24,6 +25,7 @@ if (!class_exists('Npcink_Toolbox_Domestic_Comment_Security')) {
                 add_filter('preprocess_comment', array(__CLASS__, 'check_ip_rate'), 6);
             }
             add_action('wp_set_comment_status', array(__CLASS__, 'log_spam_comment'), 10, 2);
+            add_action('comment_inserted', array(__CLASS__, 'record_pending_block_reasons'), 10, 3);
         }
         public static function check_blacklist($commentdata) {
             $words = self::get_word_list('blacklist_words');
@@ -40,7 +42,8 @@ if (!class_exists('Npcink_Toolbox_Domestic_Comment_Security')) {
                         );
                     } else {
                         $commentdata['comment_approved'] = 0;
-                        add_comment_meta($commentdata['comment_ID'] ?? 0, '_npcink_site_toolbox_block_reason', '敏感词: ' . $word);
+                        // preprocess 阶段评论还没有 ID，原因先暂存，插入后统一落盘
+                        self::$pending_block_reasons[] = '敏感词: ' . $word;
                     }
                     break;
                 }
@@ -53,9 +56,23 @@ if (!class_exists('Npcink_Toolbox_Domestic_Comment_Security')) {
             $count = count($matches[0]);
             if ($count > $limit) {
                 $commentdata['comment_approved'] = 'spam';
-                add_comment_meta($commentdata['comment_ID'] ?? 0, '_npcink_site_toolbox_block_reason', '链接数量超限: ' . $count);
+                self::$pending_block_reasons[] = '链接数量超限: ' . $count;
             }
             return $commentdata;
+        }
+
+        /**
+         * 评论插入后把拦截原因写入真实 comment ID。
+         *
+         * preprocess_comment 阶段 $commentdata 没有 comment_ID，
+         * 直接 add_comment_meta 会写到 ID 0 上（静默无效）。
+         */
+        public static function record_pending_block_reasons($comment_id, $comment, $request = array()) {
+            if (empty(self::$pending_block_reasons)) return;
+            foreach (self::$pending_block_reasons as $reason) {
+                add_comment_meta($comment_id, '_npcink_site_toolbox_block_reason', $reason);
+            }
+            self::$pending_block_reasons = array();
         }
         public static function check_nickname($commentdata) {
             $words = self::get_word_list('nickname_filter_words');
@@ -146,7 +163,7 @@ if (!class_exists('Npcink_Toolbox_Domestic_Comment_Security')) {
                         'reason'  => get_comment_meta($comment_id, '_npcink_site_toolbox_block_reason', true),
                     );
                     if (count($log) > 500) array_shift($log);
-                    update_option('npcink_site_toolbox_spam_comment_log', $log);
+                    update_option('npcink_site_toolbox_spam_comment_log', $log, false);
                 }
             }
         }

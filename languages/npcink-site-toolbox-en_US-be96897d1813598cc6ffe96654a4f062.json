@@ -1,5 +1,5 @@
 {
-    "translation-revision-date": "2026-09-29 22:40+0800",
+    "translation-revision-date": "2026-09-30 09:40+0800",
     "generator": "WP-CLI\/2.12.0",
     "source": "vite\/admin\/dist\/index.js",
     "domain": "messages",
@@ -1135,11 +1135,26 @@
             "\u672a\u767b\u5f55\u6743\u9650": [
                 "Not Logged In Permissions"
             ],
+            "\u5206\u7c7b\u3001\u6807\u7b7e\u6216\u9875\u9762\u5217\u8868\u52a0\u8f7d\u5931\u8d25\u3002": [
+                "Failed to load the category, tag, or page lists."
+            ],
+            "\u4e0b\u65b9\u9009\u9879\u6682\u65f6\u65e0\u6cd5\u9009\u62e9\uff0c\u8bf7\u68c0\u67e5\u7f51\u7edc\u6216 REST \u63a5\u53e3\u540e\u91cd\u8bd5\u3002": [
+                "The options below cannot be selected for now; check your network or the REST endpoint and retry."
+            ],
+            "\u91cd\u8bd5": [
+                "Retry"
+            ],
+            "\u6b63\u5728\u52a0\u8f7d\u5206\u7c7b\u3001\u6807\u7b7e\u548c\u9875\u9762\u5217\u8868\u2026": [
+                "Loading categories, tags, and pages\u2026"
+            ],
             "\u9690\u85cf\u6307\u5b9a\u5206\u7c7b\u4e0b\u7684\u5185\u5bb9": [
                 "Hide Content Within Specific Categories"
             ],
             "\u8be5\u5206\u7c7b\u4e0b\u7684\u5185\u5bb9\u672a\u767b\u5f55\u65f6\uff0c\u4e0d\u53ef\u89c1\uff0c\u4ec5\u5c55\u793a\u63d0\u793a\u5185\u5bb9": [
                 "Content within the selected category is not visible when logged out and only displays a message."
+            ],
+            "\u52a0\u8f7d\u5931\u8d25\uff0c\u8bf7\u91cd\u8bd5": [
+                "Load failed, please retry"
             ],
             "\u8bf7\u9009\u62e9\u8981\u9690\u85cf\u7684\u5206\u7c7b": [
                 "Select the categories to hide."
@@ -1324,8 +1339,8 @@
             "\u4fdd\u5b58\u4e0e\u79bb\u5f00\u4fdd\u62a4": [
                 "Save and navigation protection"
             ],
-            "\u4fee\u6539\u666e\u901a\u8bbe\u7f6e\u6216\u586b\u5199\u51ed\u636e\u540e\uff0c\u9875\u9762\u4f1a\u663e\u793a\u5f85\u4fdd\u5b58\u6570\u91cf\u3002\u5237\u65b0\u3001\u5173\u95ed\u6807\u7b7e\u9875\u6216\u5207\u6362\u5230\u63d2\u4ef6\u5185\u5176\u4ed6\u533a\u57df\u65f6\uff0c\u7cfb\u7edf\u4f1a\u5148\u786e\u8ba4\uff0c\u907f\u514d\u9759\u9ed8\u4e22\u5931\u8349\u7a3f\u3002": [
-                "after modifying general settings or filling credentials, the page will show how many changes are pending. Refreshing, closing a tab, or switching to another area within the plugin will first confirm before saving, avoiding silent loss of drafts."
+            "\u4fee\u6539\u666e\u901a\u8bbe\u7f6e\u6216\u586b\u5199\u51ed\u636e\u540e\uff0c\u9875\u9762\u4f1a\u663e\u793a\u5f85\u4fdd\u5b58\u6570\u91cf\u3002\u5237\u65b0\u3001\u5173\u95ed\u6807\u7b7e\u9875\u6216\u5207\u6362\u5230\u63d2\u4ef6\u5185\u5176\u4ed6\u533a\u57df\u65f6\uff0c\u7cfb\u7edf\u4f1a\u5148\u786e\u8ba4\uff1b\u5207\u6362\u89c6\u56fe\u540e\u4fee\u6539\u4ecd\u4f1a\u4fdd\u7559\uff0c\u53ef\u8fd4\u56de\u7edf\u4e00\u4fdd\u5b58\u3002\u5982\u9700\u64a4\u9500\u5168\u90e8\u672a\u4fdd\u5b58\u7684\u4fee\u6539\uff0c\u53ef\u70b9\u51fb\u4fdd\u5b58\u6309\u94ae\u65c1\u7684\u300c\u653e\u5f03\u66f4\u6539\u300d\u3002": [
+                "After changing settings or entering credentials, the page shows the pending count. Refreshing, closing the tab, or switching to another area of the plugin asks first; switching views keeps your changes so you can save them later. To undo all unsaved changes, use \u201cDiscard changes\u201d next to the save button."
             ],
             "\u4fdd\u5b58\u8bf7\u6c42\u5e26\u6709\u8bfb\u53d6\u8bbe\u7f6e\u65f6\u7684\u914d\u7f6e\u7248\u672c\u3002\u5982\u679c\u5176\u4ed6\u7ba1\u7406\u5458\u3001\u53e6\u4e00\u4e2a\u6807\u7b7e\u9875\u6216\u53d7\u63a7\u4ee3\u7801\u5df2\u7ecf\u66f4\u65b0\u8bbe\u7f6e\uff0c\u672c\u6b21\u4fdd\u5b58\u4f1a\u505c\u6b62\u5e76\u63d0\u793a\u91cd\u65b0\u8bfb\u53d6\uff0c\u4e0d\u4f1a\u7528\u65e7\u5feb\u7167\u8986\u76d6\u65b0\u914d\u7f6e\u3002": [
                 "save requests include the configuration version when reading settings; if other admins, another tab, or controlled code have updated settings, this save will stop and prompt for re-reading instead of using an old snapshot to overwrite new configurations."
@@ -3106,8 +3121,8 @@
             "\u8bf7\u8f93\u5165\u6709\u6548\u7684\u94fe\u63a5 URL": [
                 "Please enter a valid link URL."
             ],
-            "\u8fd8\u6709\u8bbe\u7f6e\u5c1a\u672a\u4fdd\u5b58\uff0c\u79bb\u5f00\u540e\u8fd9\u4e9b\u4fee\u6539\u5c06\u4e22\u5931\u3002\u786e\u5b9a\u79bb\u5f00\u5417\uff1f": [
-                "There are still unsaved settings. Leaving will cause these changes to be lost. Are you sure you want to leave?"
+            "\u8fd8\u6709\u8bbe\u7f6e\u5c1a\u672a\u4fdd\u5b58\u3002\u5207\u6362\u89c6\u56fe\u4e0d\u4f1a\u4e22\u5931\u8fd9\u4e9b\u4fee\u6539\uff0c\u53ef\u7a0d\u540e\u8fd4\u56de\u7edf\u4e00\u4fdd\u5b58\uff1b\u5173\u95ed\u6216\u5237\u65b0\u9875\u9762\u5219\u4e0d\u4f1a\u4fdd\u5b58\u3002\u4ecd\u8981\u5207\u6362\u5417\uff1f": [
+                "You have unsaved settings. Switching views keeps them so you can save later; closing or refreshing the page will not save them. Switch anyway?"
             ],
             "\u5df2\u6dfb\u52a0\u5230\u5e38\u7528\u529f\u80fd": [
                 "Added to the Quick Links"
@@ -3166,6 +3181,12 @@
             "\u7ad9\u70b9\u8bbe\u7f6e\u5df2\u5728\u5176\u4ed6\u9875\u9762\u66f4\u65b0\uff0c\u65e0\u6cd5\u76f4\u63a5\u4fdd\u5b58": [
                 "Site settings were updated in another page and cannot be saved directly"
             ],
+            "\u786e\u5b9a\u653e\u5f03\u5168\u90e8 %d \u9879\u672a\u4fdd\u5b58\u7684\u4fee\u6539\uff1f\u6b64\u64cd\u4f5c\u4e0d\u53ef\u64a4\u9500\u3002": [
+                "Discard all %d unsaved changes? This cannot be undone."
+            ],
+            "\u5df2\u6062\u590d\u5230\u6700\u8fd1\u4fdd\u5b58\u7684\u8bbe\u7f6e": [
+                "Settings restored to the last saved state"
+            ],
             "\u4fdd\u5b58\u786e\u8ba4\u754c\u9762\u52a0\u8f7d\u5931\u8d25\uff0c\u8bf7\u91cd\u8bd5": [
                 "Save Failed to load confirmation interface, please try again."
             ],
@@ -3198,6 +3219,9 @@
             ],
             "\u91cd\u65b0\u8bfb\u53d6\u8bbe\u7f6e": [
                 "Reload settings"
+            ],
+            "\u653e\u5f03\u66f4\u6539": [
+                "Discard changes"
             ]
         }
     }

@@ -20,6 +20,7 @@ function renderSeoChecker() {
         optionData: defaultVarOption,
         updateOption: vi.fn(),
         refreshOption: vi.fn(),
+      discardChanges: vi.fn(),
         lastSavedOption: defaultVarOption,
         setLastSavedOption: vi.fn(),
         secretStatus: emptySecretStatus(),
