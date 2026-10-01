@@ -346,11 +346,11 @@ class ReleasePackageContractTest extends TestCase
         foreach (array(
             '== Source Code and Build ==',
             'https://github.com/npcink/npcink-site-toolbox',
-            'https://github.com/npcink/npcink-site-toolbox/tree/v3.4.0',
-            'https://github.com/npcink/npcink-site-toolbox/tree/v3.4.0/vite/admin/src',
-            'https://github.com/npcink/npcink-site-toolbox/tree/v3.4.0/vite/count/src',
-            'https://github.com/npcink/npcink-site-toolbox/blob/v3.4.0/vite/package.json',
-            'git checkout v3.4.0',
+            'https://github.com/npcink/npcink-site-toolbox/tree/v3.4.1',
+            'https://github.com/npcink/npcink-site-toolbox/tree/v3.4.1/vite/admin/src',
+            'https://github.com/npcink/npcink-site-toolbox/tree/v3.4.1/vite/count/src',
+            'https://github.com/npcink/npcink-site-toolbox/blob/v3.4.1/vite/package.json',
+            'git checkout v3.4.1',
             'pnpm install --frozen-lockfile',
             'pnpm run build',
         ) as $source_contract) {

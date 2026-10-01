@@ -5,7 +5,7 @@ Tags: toolbox, optimization, security, performance
 Requires at least: 6.3
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 3.4.0
+Stable tag: 3.4.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -13,7 +13,7 @@ An opt-in toolbox for WordPress site settings, media, SEO, security, China-focus
 
 == Description ==
 
-Npcink Site Toolbox is a utility plugin for WordPress site owners. Version 3.4.0 provides 57 registered modules: 56 opt-in modules and one always-loaded runtime module, plus three editor patterns and two dynamic blocks. Features cover site and media settings, content and SEO, login and comment safeguards, China-focused integrations, diagnostics, and maintenance.
+Npcink Site Toolbox is a utility plugin for WordPress site owners. Version 3.4.1 provides 57 registered modules: 56 opt-in modules and one always-loaded runtime module, plus three editor patterns and two dynamic blocks. Features cover site and media settings, content and SEO, login and comment safeguards, China-focused integrations, diagnostics, and maintenance.
 
 = Current features =
 
@@ -91,7 +91,7 @@ Google Search Console and Bing Webmaster Tools options only print administrator-
 
 == Source Code and Build ==
 
-The public source matching this exact plugin release is published at tag [v3.4.0](https://github.com/npcink/npcink-site-toolbox/tree/v3.4.0). The readable sources are in [vite/admin/src](https://github.com/npcink/npcink-site-toolbox/tree/v3.4.0/vite/admin/src) and [vite/count/src](https://github.com/npcink/npcink-site-toolbox/tree/v3.4.0/vite/count/src), with the build manifest at [vite/package.json](https://github.com/npcink/npcink-site-toolbox/blob/v3.4.0/vite/package.json).
+The public source matching this exact plugin release is published at tag [v3.4.1](https://github.com/npcink/npcink-site-toolbox/tree/v3.4.1). The readable sources are in [vite/admin/src](https://github.com/npcink/npcink-site-toolbox/tree/v3.4.1/vite/admin/src) and [vite/count/src](https://github.com/npcink/npcink-site-toolbox/tree/v3.4.1/vite/count/src), with the build manifest at [vite/package.json](https://github.com/npcink/npcink-site-toolbox/blob/v3.4.1/vite/package.json).
 
 Reproduce the Admin and Count assets with:
 
@@ -99,7 +99,7 @@ Reproduce the Admin and Count assets with:
 
 `cd npcink-site-toolbox`
 
-`git checkout v3.4.0`
+`git checkout v3.4.1`
 
 `cd vite`
 
@@ -114,6 +114,11 @@ The generated files are written to `vite/admin/dist/` and `vite/count/dist/`.
 The site-statistics and GitHub project block editor scripts are shipped as readable source in `blocks/site-stats/index.js` and `blocks/github-project/index.js`; they have no separate build step.
 
 == Changelog ==
+
+= 3.4.1 =
+* Release date: 2026-10-02.
+* Upgraded the bundled axios from 1.18.1 to 1.20.0, resolving every published axios advisory below 1.20.0 (twelve at cut time: seven high, five moderate) so the production-dependency audit gate passes again.
+* The 3.4.0 candidate was never submitted anywhere and is superseded by this re-verified build.
 
 = 3.4.0 =
 * Release date: 2026-10-02.
@@ -251,6 +256,9 @@ The site-statistics and GitHub project block editor scripts are shipped as reada
 * Vite 构建工具迁移
 
 == Upgrade Notice ==
+
+= 3.4.1 =
+Upgrades the bundled axios HTTP client to 1.20.0 and clears all published production-dependency security advisories that blocked the 3.4.0 candidate. No settings or data change.
 
 = 3.4.0 =
 Adds a filtered-list bulk edit-tab module and fixes several silent failures. Two behavior changes to review before upgrading: restricted content is now fully hidden from logged-out lists, search, and feeds, and featured images are set when a post is saved instead of on view.

@@ -300,3 +300,20 @@ nonce 告警必须结合副作用判断：
 - 扫描前后 ZIP SHA-256 一致，临时容器、卷和网络由脚本清理，复核无残留。
 
 本节同时关闭 3.3.2 遗留的运行时复验缺口：Docker 官方镜像本次实际提供 WordPress 7.1.2，`readme.txt` 的 `Tested up to: 7.1` 首次获得真实运行时证据，不再需要单独补做。
+
+## 十五、2026-10-02 3.4.1 安全通告驱动的重新收口
+
+3.4.0 精确 ZIP 通过本地门禁后、提交 WordPress.org 之前，CI 的生产依赖审计（`pnpm audit --prod`）因新披露的 axios 通告失败，`Build Plugin ZIP` 任务被跳过：发布时点共 12 条（7 high / 5 moderate），修复版本统一为 >=1.20.0，此前锁定 1.18.1。这印证规范 §12.4"工具升级是输入变化"：门禁失败是有价值的信息，不为恢复绿色放宽规则。
+
+axios 编译进入 Admin 产物，属于"进入 ZIP 的文件变化"。因此 3.4.0 候选（SHA-256 `e308039d…faf36`）及其门禁结论立即作废；`v3.4.0` tag 已公开推送，按规范 §7 不移动已发布 tag，保留为被取代记录。处置为升级 axios 1.18.1 → 1.20.0（`vite/package.json` 下限提高到 `^1.20.0`），版本升到 3.4.1，重新执行完整 §9 门禁链。
+
+精确 ZIP 事实（本地执行 `composer release:wordpress-org-check`）：
+
+- 版本：3.4.1；条目：240；大小：1,290,338 bytes；SHA-256：`e69926614e62580a7c769569103c31ec758fb964223a9b3dc6d3143320e3305e`；
+- WordPress：7.1.2；PHP：8.2.34；Plugin Check：2.1.0；
+- 激活与真实前台/后台 HTTP：成功；`WP_DEBUG` 日志：空；
+- PCP：0 errors / 2 warnings / 0 unexpected warnings（仍为第十四节同两条 Core-hook 窄允许，位于 `webp_batch.php` 第 198、320 行）；
+- 扫描前后 ZIP SHA-256 一致；`pnpm audit --prod` 清零；
+- 源码、构建、i18n、ZIP 与身份/发布契约测试全部重跑通过（647 tests / 259,043 assertions）。
+
+经验沉淀：发布候选在提交外部目录前始终暴露在新安全通告之下；本仓库的"CI 生产依赖审计 → Build Plugin ZIP"依赖链恰好把这一输入变化拦截在提交之前。候选作废时不动已发布 tag、按新补丁号重新收口，是规范既定路径，本次为首次实际执行。

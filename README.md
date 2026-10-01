@@ -1,9 +1,9 @@
 # Npcink Site Toolbox
 
 > 面向中国 WordPress 站长的一站式实用工具箱插件
-> 版本：**3.4.0** | 阶段：**WordPress.org 重新提交准备** | 授权：**GPL-2.0**
+> 版本：**3.4.1** | 阶段：**WordPress.org 重新提交准备** | 授权：**GPL-2.0**
 
-`3.2.0` 保留为编辑器工具历史版本；`3.3.0` 加入只读 AI 诊断、认证用户评论 REST、自助兜底页面，并收紧模块激活、搜索统计资源和发布安全门禁；`3.3.1` 进一步修复 WordPress.org 人工审核指出的源码追溯与全局命名问题，并退役目录规则不允许的远程 CDN URL 改写和连通性修复表面；`3.3.2` 修复输出型过滤器的上下文转义，改用可静态提取的 PHP 翻译字面量，并新增外部服务披露与目录规则合同；`3.4.0` 收录 2026-09 全量体验排查修复与第 57 个管理列表模块，包含受限内容查询级排除、首图保存时设置两处行为变化，并将后台 CSS 按所有权拆分按需加载。
+`3.2.0` 保留为编辑器工具历史版本；`3.3.0` 加入只读 AI 诊断、认证用户评论 REST、自助兜底页面，并收紧模块激活、搜索统计资源和发布安全门禁；`3.3.1` 进一步修复 WordPress.org 人工审核指出的源码追溯与全局命名问题，并退役目录规则不允许的远程 CDN URL 改写和连通性修复表面；`3.3.2` 修复输出型过滤器的上下文转义，改用可静态提取的 PHP 翻译字面量，并新增外部服务披露与目录规则合同；`3.4.0` 收录 2026-09 全量体验排查修复与第 57 个管理列表模块，包含受限内容查询级排除、首图保存时设置两处行为变化，并将后台 CSS 按所有权拆分按需加载；`3.4.1` 将 axios 升级到 1.20.0 清空生产依赖安全审计，为实际提交目录的发布候选。
 
 [![CI](https://github.com/npcink/npcink-site-toolbox/actions/workflows/ci.yml/badge.svg)](https://github.com/npcink/npcink-site-toolbox/actions/workflows/ci.yml)
 [![WordPress Plugin](https://img.shields.io/badge/WordPress-6.3%2B-blue)](https://wordpress.org)
@@ -21,7 +21,7 @@ Npcink Site Toolbox 是一款面向中国 WordPress 站长的免费工具箱插�
 - 📖 **在线文档**：搭建中；已发布功能的关键教程随插件内置
 - 🌐 **作者博客**：[npc.ink](https://www.npc.ink)
 - 📦 **GitHub 仓库**：[github.com/npcink/npcink-site-toolbox](https://github.com/npcink/npcink-site-toolbox)
-- 🧩 **3.4.0 前端可读源码**：[Admin](https://github.com/npcink/npcink-site-toolbox/tree/v3.4.0/vite/admin/src) / [Count](https://github.com/npcink/npcink-site-toolbox/tree/v3.4.0/vite/count/src)
+- 🧩 **3.4.1 前端可读源码**：[Admin](https://github.com/npcink/npcink-site-toolbox/tree/v3.4.1/vite/admin/src) / [Count](https://github.com/npcink/npcink-site-toolbox/tree/v3.4.1/vite/count/src)
 
 ---
 
@@ -146,6 +146,11 @@ WordPress.org 自动预审对资源加载、请求鉴权、外部链接和跨文
 ---
 
 ## 更新记录
+
+### 3.4.1 — 2026-10-02
+
+- 将随包构建的 axios 从 1.18.1 升级到 1.20.0，清空生产依赖安全审计（发布时点 12 条通告：7 high / 5 moderate）
+- 3.4.0 候选包在提交 WordPress.org 前被新披露通告阻断，按规范作废并保留 v3.4.0 tag；本版本为重新通过全部门禁后的实际发布候选
 
 ### 3.4.0 — 2026-10-02
 

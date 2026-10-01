@@ -2,7 +2,7 @@
 # This file is distributed under the GPL-2.0-or-later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Npcink Site Toolbox 3.4.0\n"
+"Project-Id-Version: Npcink Site Toolbox 3.4.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/npcink-site-toolbox\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"

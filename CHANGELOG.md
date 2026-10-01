@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [3.4.1] - 2026-10-02
+
+### Security
+
+- Upgraded the bundled axios from 1.18.1 to 1.20.0, resolving all twelve published axios advisories below 1.20.0 (seven high, five moderate) and restoring the production-dependency audit gate. The 3.4.0 candidate was never submitted; its tag remains as a superseded record.
+
 ## [3.4.0] - 2026-10-02
 
 ### Added
