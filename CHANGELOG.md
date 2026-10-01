@@ -6,6 +6,40 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [3.4.0] - 2026-10-02
+
+### Added
+
+- Added an admin-list module that opens every filtered post-type row's edit screen in new tabs.
+
+### Changed
+
+- Restricted category, tag, and page content is now excluded from lists, search results, and feeds for logged-out visitors instead of only replacing the body text.
+- The first-image featured-image assignment now runs when a post is saved; existing posts are no longer auto-assigned while being viewed.
+- Split admin CSS by ownership and load per-chunk styles on demand under a first-screen size budget.
+- WeChat JSSDK tickets now refresh through cron so rendering makes no remote requests.
+
+### Fixed
+
+- Fixed silent failures from the 2026-09 audit: keyword internal links, homepage SEO output, maintenance-page status, empty-keyword search blocking, and the WeChat share overlay.
+- Settings: full feature-search index coverage, form resynchronization after saves, in-place reload on save conflicts, and manual gating for database-cleanup actions.
+- Cleared the PHPCS and ESLint backlogs and made both warnings-blocking.
+
+## [3.3.2] - 2026-08-21
+
+### Fixed
+
+- Escaped content, title, excerpt, and image-Alt filter output according to its HTML context.
+- Replaced dynamic gettext calls in module metadata and privacy disclosures with literal translation mappings.
+
+## [3.3.1] - 2026-08-17
+
+### Changed
+
+- Prefixed browser globals, localized objects, thumbnail AJAX actions, asset handles, nonce actions, and image-size names for WordPress.org compatibility.
+- Retired remote CDN URL rewriting, external connectivity checks, and automatic mirror-fix proposals.
+- Added the latest official Plugin Check to the exact-ZIP release gate.
+
 ## [3.3.0] - 2026-08-13
 
 ### Added

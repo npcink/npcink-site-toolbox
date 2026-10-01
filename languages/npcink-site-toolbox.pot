@@ -2,7 +2,7 @@
 # This file is distributed under the GPL-2.0-or-later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Npcink Site Toolbox 3.3.2\n"
+"Project-Id-Version: Npcink Site Toolbox 3.4.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/npcink-site-toolbox\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -4389,47 +4389,47 @@ msgid "请输入有效的链接 URL"
 msgstr ""
 
 #: vite/admin/dist/index.js:1038
-msgid "还有设置尚未保存。切换视图不会丢失这些修改，可稍后返回统一保存；关闭或刷新页面则不会保存。仍要切换吗？"
+msgid "设置接口返回格式无效"
 msgstr ""
 
 #: vite/admin/dist/index.js:1039
-msgid "已添加到常用功能"
+msgid "设置接口缺少凭据状态"
 msgstr ""
 
 #: vite/admin/dist/index.js:1040
-msgid "已从常用功能移除"
+msgid "设置接口缺少有效配置版本"
 msgstr ""
 
 #: vite/admin/dist/index.js:1041
 #, javascript-format
-msgid "您正在开启「%s」"
+msgid "设置接口的凭据状态无效：%s"
 msgstr ""
 
 #: vite/admin/dist/index.js:1042
-msgid "确认开启"
+msgid "还有设置尚未保存。切换视图不会丢失这些修改，可稍后返回统一保存；关闭或刷新页面则不会保存。仍要切换吗？"
 msgstr ""
 
 #: vite/admin/dist/index.js:1043
-#: admin/class-npcink-toolbox-admin.php:151
-#: admin/partials/privacy/index.php:188
-msgid "不再提示"
+msgid "已添加到常用功能"
 msgstr ""
 
 #: vite/admin/dist/index.js:1044
-msgid "设置接口返回格式无效"
+msgid "已从常用功能移除"
 msgstr ""
 
 #: vite/admin/dist/index.js:1045
-msgid "设置接口缺少凭据状态"
+#, javascript-format
+msgid "您正在开启「%s」"
 msgstr ""
 
 #: vite/admin/dist/index.js:1046
-msgid "设置接口缺少有效配置版本"
+msgid "确认开启"
 msgstr ""
 
 #: vite/admin/dist/index.js:1047
-#, javascript-format
-msgid "设置接口的凭据状态无效：%s"
+#: admin/class-npcink-toolbox-admin.php:151
+#: admin/partials/privacy/index.php:188
+msgid "不再提示"
 msgstr ""
 
 #: vite/admin/dist/index.js:1048
@@ -4462,13 +4462,13 @@ msgid "设置数据包含敏感字段：%s"
 msgstr ""
 
 #: vite/admin/dist/index.js:1054
-#: admin/class-npcink-toolbox-admin.php:392
+#: admin/class-npcink-toolbox-admin.php:386
 #: includes/class-npcink-toolbox-config-manager.php:122
 msgid "设置数据格式无效"
 msgstr ""
 
 #: vite/admin/dist/index.js:1055
-#: admin/class-npcink-toolbox-admin.php:373
+#: admin/class-npcink-toolbox-admin.php:367
 msgid "保存成功"
 msgstr ""
 
@@ -4620,37 +4620,37 @@ msgstr ""
 msgid "抱歉，您不能访问此页面。"
 msgstr ""
 
-#: admin/class-npcink-toolbox-admin.php:328
+#: admin/class-npcink-toolbox-admin.php:322
 #: includes/class-npcink-toolbox-config-manager.php:291
 msgid "保存失败，已恢复为之前的设置"
 msgstr ""
 
-#: admin/class-npcink-toolbox-admin.php:329
+#: admin/class-npcink-toolbox-admin.php:323
 msgid "保存失败，无法确认所有设置已恢复。请重新读取并核对设置后再保存"
 msgstr ""
 
 #. translators: %s: comma-separated module names that could not be confirmed as restored.
-#: admin/class-npcink-toolbox-admin.php:333
+#: admin/class-npcink-toolbox-admin.php:327
 #: includes/class-npcink-toolbox-config-manager.php:294
 #, php-format
 msgid "保存失败，以下模块未能确认恢复：%s。请重新读取并核对设置后再保存"
 msgstr ""
 
-#: admin/class-npcink-toolbox-admin.php:345
+#: admin/class-npcink-toolbox-admin.php:339
 msgid "保存配置失败，已确认回滚"
 msgstr ""
 
-#: admin/class-npcink-toolbox-admin.php:346
+#: admin/class-npcink-toolbox-admin.php:340
 msgid "保存配置失败，回滚未能完整确认"
 msgstr ""
 
-#: admin/class-npcink-toolbox-admin.php:375
+#: admin/class-npcink-toolbox-admin.php:369
 msgid "保存成功（部分字段已自动修正）"
 msgstr ""
 
-#: admin/class-npcink-toolbox-admin.php:387
-#: admin/class-npcink-toolbox-admin.php:434
-#: admin/class-npcink-toolbox-admin.php:453
+#: admin/class-npcink-toolbox-admin.php:381
+#: admin/class-npcink-toolbox-admin.php:428
+#: admin/class-npcink-toolbox-admin.php:447
 #: admin/partials/performance/db_clean/index.php:112
 #: admin/partials/performance/db_clean/index.php:130
 #: admin/partials/performance/db_clean/index.php:155
@@ -4662,50 +4662,50 @@ msgstr ""
 msgid "权限不足"
 msgstr ""
 
-#: admin/class-npcink-toolbox-admin.php:403
+#: admin/class-npcink-toolbox-admin.php:397
 msgid "请求必须包含 settings、secretChanges 和有效 revision"
 msgstr ""
 
-#: admin/class-npcink-toolbox-admin.php:410
+#: admin/class-npcink-toolbox-admin.php:404
 msgid "站点设置已在其他页面或会话中更新。请重新读取设置，核对差异后再保存。"
 msgstr ""
 
-#: admin/class-npcink-toolbox-admin.php:479
-#: admin/class-npcink-toolbox-admin.php:501
-#: admin/class-npcink-toolbox-admin.php:521
-#: admin/class-npcink-toolbox-admin.php:545
-#: admin/class-npcink-toolbox-admin.php:569
-#: admin/class-npcink-toolbox-admin.php:586
-#: admin/class-npcink-toolbox-admin.php:608
+#: admin/class-npcink-toolbox-admin.php:473
+#: admin/class-npcink-toolbox-admin.php:495
+#: admin/class-npcink-toolbox-admin.php:515
+#: admin/class-npcink-toolbox-admin.php:539
+#: admin/class-npcink-toolbox-admin.php:563
+#: admin/class-npcink-toolbox-admin.php:580
+#: admin/class-npcink-toolbox-admin.php:602
 msgid "诊断服务暂不可用"
 msgstr ""
 
-#: admin/class-npcink-toolbox-admin.php:733
-#: admin/class-npcink-toolbox-admin.php:783
+#: admin/class-npcink-toolbox-admin.php:727
+#: admin/class-npcink-toolbox-admin.php:777
 msgid "不含凭据的完整设置"
 msgstr ""
 
-#: admin/class-npcink-toolbox-admin.php:744
+#: admin/class-npcink-toolbox-admin.php:738
 msgid "凭据 replace/clear 操作"
 msgstr ""
 
-#: admin/class-npcink-toolbox-admin.php:756
+#: admin/class-npcink-toolbox-admin.php:750
 msgid "读取设置时返回的不透明配置版本指纹"
 msgstr ""
 
-#: admin/class-npcink-toolbox-admin.php:794
+#: admin/class-npcink-toolbox-admin.php:788
 msgid "对象存储凭据 replace/clear 操作"
 msgstr ""
 
-#: admin/class-npcink-toolbox-admin.php:826
+#: admin/class-npcink-toolbox-admin.php:820
 msgid "每批最多 5 个 JPEG 附件 ID"
 msgstr ""
 
-#: admin/class-npcink-toolbox-admin.php:1101
+#: admin/class-npcink-toolbox-admin.php:1095
 msgid "统计天数范围"
 msgstr ""
 
-#: admin/class-npcink-toolbox-admin.php:1181
+#: admin/class-npcink-toolbox-admin.php:1175
 msgid "返回"
 msgstr ""
 
@@ -6199,8 +6199,8 @@ msgstr ""
 msgid "请至少选择一个统计项目。"
 msgstr ""
 
-#: includes/class-npcink-toolbox-tool.php:162
-#: includes/class-npcink-toolbox-tool.php:264
+#: includes/class-npcink-toolbox-tool.php:146
+#: includes/class-npcink-toolbox-tool.php:248
 msgid "参数错误！"
 msgstr ""
 

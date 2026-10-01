@@ -5,7 +5,7 @@ Tags: toolbox, optimization, security, performance
 Requires at least: 6.3
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 3.3.2
+Stable tag: 3.4.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -13,7 +13,7 @@ An opt-in toolbox for WordPress site settings, media, SEO, security, China-focus
 
 == Description ==
 
-Npcink Site Toolbox is a utility plugin for WordPress site owners. Version 3.3.2 provides 57 registered modules: 56 opt-in modules and one always-loaded runtime module, plus three editor patterns and two dynamic blocks. Features cover site and media settings, content and SEO, login and comment safeguards, China-focused integrations, diagnostics, and maintenance.
+Npcink Site Toolbox is a utility plugin for WordPress site owners. Version 3.4.0 provides 57 registered modules: 56 opt-in modules and one always-loaded runtime module, plus three editor patterns and two dynamic blocks. Features cover site and media settings, content and SEO, login and comment safeguards, China-focused integrations, diagnostics, and maintenance.
 
 = Current features =
 
@@ -91,7 +91,7 @@ Google Search Console and Bing Webmaster Tools options only print administrator-
 
 == Source Code and Build ==
 
-The public source matching this exact plugin release is published at tag [v3.3.2](https://github.com/npcink/npcink-site-toolbox/tree/v3.3.2). The readable sources are in [vite/admin/src](https://github.com/npcink/npcink-site-toolbox/tree/v3.3.2/vite/admin/src) and [vite/count/src](https://github.com/npcink/npcink-site-toolbox/tree/v3.3.2/vite/count/src), with the build manifest at [vite/package.json](https://github.com/npcink/npcink-site-toolbox/blob/v3.3.2/vite/package.json).
+The public source matching this exact plugin release is published at tag [v3.4.0](https://github.com/npcink/npcink-site-toolbox/tree/v3.4.0). The readable sources are in [vite/admin/src](https://github.com/npcink/npcink-site-toolbox/tree/v3.4.0/vite/admin/src) and [vite/count/src](https://github.com/npcink/npcink-site-toolbox/tree/v3.4.0/vite/count/src), with the build manifest at [vite/package.json](https://github.com/npcink/npcink-site-toolbox/blob/v3.4.0/vite/package.json).
 
 Reproduce the Admin and Count assets with:
 
@@ -99,7 +99,7 @@ Reproduce the Admin and Count assets with:
 
 `cd npcink-site-toolbox`
 
-`git checkout v3.3.2`
+`git checkout v3.4.0`
 
 `cd vite`
 
@@ -114,6 +114,16 @@ The generated files are written to `vite/admin/dist/` and `vite/count/dist/`.
 The site-statistics and GitHub project block editor scripts are shipped as readable source in `blocks/site-stats/index.js` and `blocks/github-project/index.js`; they have no separate build step.
 
 == Changelog ==
+
+= 3.4.0 =
+* Release date: 2026-10-02.
+* Added an admin-list module that opens every filtered post-type row's edit screen in new tabs.
+* Fixed silent failures found in the 2026-09 audit: keyword internal links never applied, homepage SEO output stayed inactive after saving, the maintenance page returned the wrong status, empty-keyword searches were blocked, and the WeChat share overlay could not be closed. WeChat tickets now refresh through cron so rendering makes no remote requests.
+* Settings experience: full 69-entry feature search index, form resynchronization after each save, in-place reload on save conflicts, and explicit manual gating for database-cleanup actions.
+* Behavior change: restricted category, tag, and page content is now excluded from lists, search results, and feeds for logged-out visitors instead of only replacing the body text.
+* Behavior change: the first-image featured-image assignment now runs when a post is saved; existing posts are no longer auto-assigned while being viewed.
+* Split admin CSS by ownership and load per-chunk styles on demand under a first-screen size budget.
+* Internal quality: cleared the PHPCS and ESLint backlogs and made both warnings-blocking.
 
 = 3.3.2 =
 * Release date: 2026-08-21.
@@ -241,6 +251,15 @@ The site-statistics and GitHub project block editor scripts are shipped as reada
 * Vite 构建工具迁移
 
 == Upgrade Notice ==
+
+= 3.4.0 =
+Adds a filtered-list bulk edit-tab module and fixes several silent failures. Two behavior changes to review before upgrading: restricted content is now fully hidden from logged-out lists, search, and feeds, and featured images are set when a post is saved instead of on view.
+
+= 3.3.2 =
+Fixes HTML-context escaping for content, title, excerpt, and image-Alt filter output and keeps translation strings statically extractable.
+
+= 3.3.1 =
+Resolves WordPress.org human-review findings: prefixed browser globals and localized objects, retired remote CDN rewriting and connectivity checks, and published readable sources per release tag.
 
 = 3.3.0 =
 Adds opt-in read-only AI diagnostics and authenticated self-service comment tools, fixes module activation contracts, bounds search-statistics storage, and strengthens release security gates. Review the documented external-service and HTTPS requirements before enabling the new features.

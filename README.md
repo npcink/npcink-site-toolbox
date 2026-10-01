@@ -1,9 +1,9 @@
 # Npcink Site Toolbox
 
 > 面向中国 WordPress 站长的一站式实用工具箱插件
-> 版本：**3.3.2** | 阶段：**WordPress.org 人工审核整改** | 授权：**GPL-2.0**
+> 版本：**3.4.0** | 阶段：**WordPress.org 重新提交准备** | 授权：**GPL-2.0**
 
-`3.2.0` 保留为编辑器工具历史版本；`3.3.0` 加入只读 AI 诊断、认证用户评论 REST、自助兜底页面，并收紧模块激活、搜索统计资源和发布安全门禁；`3.3.1` 进一步修复 WordPress.org 人工审核指出的源码追溯与全局命名问题，并退役目录规则不允许的远程 CDN URL 改写和连通性修复表面；`3.3.2` 修复输出型过滤器的上下文转义，改用可静态提取的 PHP 翻译字面量，并新增外部服务披露与目录规则合同。
+`3.2.0` 保留为编辑器工具历史版本；`3.3.0` 加入只读 AI 诊断、认证用户评论 REST、自助兜底页面，并收紧模块激活、搜索统计资源和发布安全门禁；`3.3.1` 进一步修复 WordPress.org 人工审核指出的源码追溯与全局命名问题，并退役目录规则不允许的远程 CDN URL 改写和连通性修复表面；`3.3.2` 修复输出型过滤器的上下文转义，改用可静态提取的 PHP 翻译字面量，并新增外部服务披露与目录规则合同；`3.4.0` 收录 2026-09 全量体验排查修复与第 57 个管理列表模块，包含受限内容查询级排除、首图保存时设置两处行为变化，并将后台 CSS 按所有权拆分按需加载。
 
 [![CI](https://github.com/npcink/npcink-site-toolbox/actions/workflows/ci.yml/badge.svg)](https://github.com/npcink/npcink-site-toolbox/actions/workflows/ci.yml)
 [![WordPress Plugin](https://img.shields.io/badge/WordPress-6.3%2B-blue)](https://wordpress.org)
@@ -21,7 +21,7 @@ Npcink Site Toolbox 是一款面向中国 WordPress 站长的免费工具箱插�
 - 📖 **在线文档**：搭建中；已发布功能的关键教程随插件内置
 - 🌐 **作者博客**：[npc.ink](https://www.npc.ink)
 - 📦 **GitHub 仓库**：[github.com/npcink/npcink-site-toolbox](https://github.com/npcink/npcink-site-toolbox)
-- 🧩 **3.3.2 前端可读源码**：[Admin](https://github.com/npcink/npcink-site-toolbox/tree/v3.3.2/vite/admin/src) / [Count](https://github.com/npcink/npcink-site-toolbox/tree/v3.3.2/vite/count/src)
+- 🧩 **3.4.0 前端可读源码**：[Admin](https://github.com/npcink/npcink-site-toolbox/tree/v3.4.0/vite/admin/src) / [Count](https://github.com/npcink/npcink-site-toolbox/tree/v3.4.0/vite/count/src)
 
 ---
 
@@ -125,7 +125,7 @@ WordPress.org 自动预审对资源加载、请求鉴权、外部链接和跨文
 ### 平台兼容边界
 
 - 声明支持 PHP 7.4–8.3；CI 对这些 PHP 版本执行语法检查，Composer 依赖解析以 PHP 7.4 为平台基线。
-- 声明支持 WordPress 6.3+；已在 WordPress 6.3/PHP 7.4、WordPress 6.3/PHP 8.2 及 WordPress 7.0.4/PHP 8.2 完成安装、激活、设置、REST、区块和主题冒烟。本次目录门禁要求 `readme.txt` 的 `Tested up to` 使用 7.1，但当前 Docker 镜像实际提供 7.0.4；WordPress 7.1 的专门运行时复验仍需在官方镜像可用后补做。第三方主题与页面构建器仍需按实际组合补窄测试。
+- 声明支持 WordPress 6.3+；已在 WordPress 6.3/PHP 7.4、WordPress 6.3/PHP 8.2 及 WordPress 7.0.4/PHP 8.2 完成安装、激活、设置、REST、区块和主题冒烟；3.4.0 发布门禁已在 WordPress 7.1.2/PHP 8.2.34 完成精确 ZIP 激活、WP_DEBUG HTTP 与 Plugin Check 验收，`readme.txt` 的 `Tested up to: 7.1` 已有真实运行时证据。第三方主题与页面构建器仍需按实际组合补窄测试。
 
 ### 安全加固
 
@@ -146,6 +146,15 @@ WordPress.org 自动预审对资源加载、请求鉴权、外部链接和跨文
 ---
 
 ## 更新记录
+
+### 3.4.0 — 2026-10-02
+
+- 新增「在新标签页打开全部编辑」模块：在全部文章类型列表页一键把当前筛选结果的编辑页在新标签页打开
+- 修复 2026-09 全量体验排查发现的静默失效：关键词内链恒失败、首页 SEO 保存后不输出、维护页 503、空关键词搜索误拦、微信遮罩不可关闭；微信 JSSDK 票据改由 Cron 刷新，渲染路径零远程请求
+- 设置体验：功能搜索索引 34→69 全覆盖、保存后表单同步、409 冲突原地重读、数据库清理手动操作门控
+- 行为变化：受限分类/标签内容对未登录访客从列表、搜索和 Feed 整体排除；文章首图改在保存时设置，存量文章不再浏览时自动补设
+- 后台 CSS 按所有权拆分为按需分块加载，并新增首屏 CSS 预算合同
+- PHPCS / ESLint 存量清零并转阻断门禁
 
 ### 3.3.2 — 2026-08-21
 

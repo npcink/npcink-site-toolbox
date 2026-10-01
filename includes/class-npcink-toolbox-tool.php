@@ -56,22 +56,6 @@ if (!class_exists('Npcink_Toolbox_Tool')) {
         }
 
         /**
-         * 判断指定插件是否启用，若该插件启用则返回true
-         * 期待传入插件目录，例如'advanced-custom-fields-pro/acf.php'
-         */
-        public static function plugin_active($plugin_position)
-        {
-            include_once ABSPATH . 'wp-admin/includes/plugin.php';
-            if (is_plugin_active($plugin_position)) {
-                //已启用
-                return true;
-            } else {
-                //没有启用该插件
-                return false;
-            }
-        }
-
-        /**
          * 时间很重要
          */
         public static function get_time()

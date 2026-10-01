@@ -285,3 +285,18 @@ nonce 告警必须结合副作用判断：
 - `readme.txt` 的 `Tested up to` 已按 PCP 当前目录要求更新为 7.1，但本次 Docker 镜像实际为 WordPress 7.0.4，7.1 专门运行时复验待官方镜像可用后补做。
 
 仓库新增 `composer release:wordpress-org-check`，并由 CI 的 ZIP 构建任务强制执行。该命令安装刚构建的精确 ZIP，开启 `WP_DEBUG`，运行真实 HTTP 冒烟，安装官方最新 Plugin Check，完整输出扫描结果，并在 PCP error、非空 debug log、插件未激活或 ZIP 哈希变化时失败。当前两条 Core-hook warning 以文件、规则和 hook 名组成窄允许项；任何新增或变化的 warning 都会阻断 CI 并要求重新人工复核，不使用 `--ignore-warnings`。
+
+## 十四、2026-10-02 3.4.0 发布门禁复验
+
+3.4.0 收录 2026-09 体验排查批次（第 57 个模块「在新标签页打开全部编辑」、受限内容查询级排除、首图保存时设置、后台 CSS 按所有权分块等），这些文件变化使 3.3.2 的 ZIP 哈希与 PCP 结论按规范失效，因此本版本重建唯一候选包并完整重跑发布门禁。
+
+精确 ZIP 事实（本地执行 `composer release:wordpress-org-check`）：
+
+- 版本：3.4.0；条目：240；大小：1,288,451 bytes；SHA-256：`e308039d71815ee97e6538d5c26ebe2a2db3fa4d6d9b35de42773286e56faf36`；
+- WordPress：7.1.2；PHP：8.2.34；Plugin Check：2.1.0；
+- 激活与真实前台/后台 HTTP：成功；`WP_DEBUG` 日志：空；
+- PCP：0 errors / 2 warnings / 0 unexpected warnings；
+- 两条 warning 仍位于 `admin/partials/performance/media_health/webp_batch.php`（第 198、320 行），是 `wp_generate_attachment_metadata` 与 `intermediate_image_sizes_advanced` 两个 WordPress Core hook 的窄允许误报；
+- 扫描前后 ZIP SHA-256 一致，临时容器、卷和网络由脚本清理，复核无残留。
+
+本节同时关闭 3.3.2 遗留的运行时复验缺口：Docker 官方镜像本次实际提供 WordPress 7.1.2，`readme.txt` 的 `Tested up to: 7.1` 首次获得真实运行时证据，不再需要单独补做。

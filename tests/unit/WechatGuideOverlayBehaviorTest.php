@@ -8,7 +8,7 @@ if (!defined('ABSPATH')) {
     define('ABSPATH', dirname(__DIR__, 2) . '/');
 }
 if (!defined('NPCINK_SITE_TOOLBOX_VERSION')) {
-    define('NPCINK_SITE_TOOLBOX_VERSION', '3.3.2');
+    define('NPCINK_SITE_TOOLBOX_VERSION', '3.4.0');
 }
 
 if (!function_exists('__')) {
