@@ -35,7 +35,7 @@ Npcink Site Toolbox 提供站点优化、SEO、安全防护和国内生态等常
 | [SVG 图标支持](/features/media-optimization/svg-support) | 允许上传 SVG 文件 | ✅ |
 | [上传文件重命名](/features/media-optimization/rename-uploads) | 自动将中文文件名转为拼音/日期 | ✅ |
 
-### 后台优化（4 项）
+### 后台优化（5 项）
 
 | 功能 | 说明 | 推荐 |
 |------|------|------|
@@ -43,6 +43,7 @@ Npcink Site Toolbox 提供站点优化、SEO、安全防护和国内生态等常
 | [日期筛选](/features/admin-optimization/date-filter) | 文章列表按日期过滤 | - |
 | [列表显示 ID](/features/admin-optimization/list-id) | 在列表页显示文章/分类 ID | - |
 | [缩略图切换](/features/admin-optimization/thumbnail-switch) | 快速切换文章特色图 | - |
+| [批量打开编辑和查看](/features/admin-optimization/open-all-tabs) | 按当前筛选结果批量打开编辑页或查看页 | - |
 
 ### 页面外观（1 项）
 

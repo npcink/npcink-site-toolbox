@@ -86,6 +86,7 @@ export default defineConfig({
             { text: '日期筛选', link: '/features/admin-optimization/date-filter' },
             { text: '列表显示 ID', link: '/features/admin-optimization/list-id' },
             { text: '缩略图切换', link: '/features/admin-optimization/thumbnail-switch' },
+            { text: '批量打开编辑和查看', link: '/features/admin-optimization/open-all-tabs' },
           ],
         },
         {

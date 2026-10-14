@@ -6951,6 +6951,34 @@ msgctxt "block keyword"
 msgid "站点"
 msgstr "Site"
 
+#: admin/partials/optimize/admin/open_all_edit_tabs.php:54
+#: vite/admin/dist/index.js
+msgid "在新标签页打开全部查看"
+msgstr "Open all views in new tabs"
+
+msgid "查看"
+msgstr "View"
+
+#: vite/admin/dist/index.js
+msgid "在文章、页面和自定义文章类型列表页打开当前筛选结果的编辑页"
+msgstr "Open the current filtered results' edit screens in new tabs for posts, pages, and custom post types"
+
+#: vite/admin/dist/index.js
+msgid "在文章、页面和自定义文章类型列表页打开当前筛选结果的查看页"
+msgstr "Open the current filtered results' view screens in new tabs for posts, pages, and custom post types"
+
+#: admin/partials/optimize/admin/open_all_edit_tabs.php:56
+msgid "当前列表没有可查看的内容。"
+msgstr "There are no viewable items in the current list."
+
+#: vite/admin/dist/index.js
+msgid "批量打开编辑和查看"
+msgstr "Open edit and view screens in bulk"
+
+#: vite/admin/dist/index.js
+msgid "在「站点与媒体 → 后台」分别开启编辑或查看按钮并保存，文章、页面和自定义文章类型列表页顶部就会显示对应按钮。仅打开当前筛选和分页结果中的原生编辑或查看链接；没有对应行操作的内容会跳过，查看按钮不打开草稿预览。浏览器拦截标签页时，请允许本站弹出式窗口后重试。"
+msgstr "Enable the edit or view buttons separately under Site and Media → Admin and save. The enabled buttons appear at the top of post, page, and custom post type lists. Only native edit or view links in the current filtered page are opened; items without the corresponding row action are skipped, and the view button does not open draft previews. If your browser blocks tabs, allow pop-ups from this site and try again."
+
 #~ msgid ""
 #~ "修改普通设置或填写凭据后，页面会显示待保存数量。刷新、关闭标签页或切换到插"
 #~ "件内其他区域时，系统会先确认，避免静默丢失草稿。"

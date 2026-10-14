@@ -34,6 +34,7 @@ export type OptimizeAdmin = {
   show_id: boolean;
   thumbnail_switcher: boolean;
   open_all_edit_tabs: boolean;
+  open_all_view_tabs: boolean;
 };
 
 export type PageComment = {

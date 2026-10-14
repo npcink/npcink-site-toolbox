@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Added
+
+- Add an independent control to open the current post-list page's native view links in new tabs, alongside the existing edit action. Both actions support posts, pages, and custom post types.
+
 ## [3.4.1] - 2026-10-02
 
 ### Security
