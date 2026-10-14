@@ -79,6 +79,7 @@ if (!class_exists('Npcink_Toolbox_Config_Schema')) {
                         'show_id'            => array('type' => 'boolean', 'default' => false, 'search' => self::search_metadata('optimize-admin-show_id', '列表显示 ID 列', 'site', '站点与媒体', '后台', array('id', '列表'))),
                         'thumbnail_switcher' => array('type' => 'boolean', 'default' => false, 'search' => self::search_metadata('optimize-admin-thumbnail_switcher', '缩略图切换', 'site', '站点与媒体', '后台', array('thumbnail', '缩略图'))),
                         'open_all_edit_tabs' => array('type' => 'boolean', 'default' => false, 'search' => self::search_metadata('optimize-admin-open_all_edit_tabs', '在新标签页打开全部编辑', 'site', '站点与媒体', '后台', array('tab', '标签页', '编辑', '批量', '打开'))),
+                        'open_all_view_tabs' => array('type' => 'boolean', 'default' => false, 'search' => self::search_metadata('optimize-admin-open_all_view_tabs', '在新标签页打开全部查看', 'site', '站点与媒体', '后台', array('tab', '标签页', '查看', '批量', '打开'))),
                     ),
                 ),
                 'page'        => array(

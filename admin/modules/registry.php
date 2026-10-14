@@ -193,13 +193,18 @@ return array(
         'risk_tags'  => array('仅后台'),
     ),
     'optimize.admin_open_all_edit_tabs'     => array(
-        'class'      => 'Npcink_Toolbox_Admin_Open_All_Edit_Tabs',
-        'label'      => '在新标签页打开全部编辑',
-        'file'       => 'optimize/admin/open_all_edit_tabs.php',
-        'option_key' => 'optimize.admin.open_all_edit_tabs',
-        'category'   => 'optimize',
-        'scope'      => 'admin',
-        'risk_tags'  => array('仅后台'),
+        'class'            => 'Npcink_Toolbox_Admin_Open_All_Edit_Tabs',
+        'label'            => '在新标签页打开全部编辑',
+        'file'             => 'optimize/admin/open_all_edit_tabs.php',
+        'option_key'       => 'optimize.admin.open_all_edit_tabs',
+        'category'         => 'optimize',
+        'scope'            => 'admin',
+        'config_path'      => 'optimize.admin',
+        'risk_tags'        => array('仅后台'),
+        'activation_paths' => array(
+            'optimize.admin.open_all_edit_tabs',
+            'optimize.admin.open_all_view_tabs',
+        ),
     ),
 
     // ========== 页面外观 ==========

@@ -18,7 +18,7 @@ Npcink Site Toolbox is a utility plugin for WordPress site owners. Version 3.4.1
 = Current features =
 
 * Seven admin views: Overview, Site and Media, Content and Pages, SEO and Enhancements, China Ecosystem, Maintenance Tools, and About and Help.
-* Site and media: link, upload, image, and admin-list enhancements, including opening every filtered post-type row's edit screen in new tabs.
+* Site and media: link, upload, image, and admin-list enhancements, including opening every filtered post-type row's edit or view screen in new tabs.
 * Content and SEO: comment controls, restricted content, reading tools, metadata, internal links, search health, and publishing statistics.
 * Security: login-attempt protection and anonymous author-enumeration protection.
 * China-focused integrations: ICP information, WeChat JSSDK, cookie notice, and optional object storage.
@@ -114,6 +114,9 @@ The generated files are written to `vite/admin/dist/` and `vite/count/dist/`.
 The site-statistics and GitHub project block editor scripts are shipped as readable source in `blocks/site-stats/index.js` and `blocks/github-project/index.js`; they have no separate build step.
 
 == Changelog ==
+
+= Unreleased =
+* Add a separate opt-in control for opening the current post-list page's native view links in new tabs, including custom post types.
 
 = 3.4.1 =
 * Release date: 2026-10-02.

@@ -73,6 +73,7 @@
                 "add_time": false,
                 "add_user": false,
                 "open_all_edit_tabs": false,
+                "open_all_view_tabs": false,
                 "show_id": false,
                 "thumbnail_switcher": false
             },
@@ -434,6 +435,20 @@
                 "打开"
             ],
             "label": "在新标签页打开全部编辑",
+            "section": "后台",
+            "tabKey": "site",
+            "tabLabel": "站点与媒体"
+        },
+        {
+            "id": "optimize-admin-open_all_view_tabs",
+            "keywords": [
+                "tab",
+                "标签页",
+                "查看",
+                "批量",
+                "打开"
+            ],
+            "label": "在新标签页打开全部查看",
             "section": "后台",
             "tabKey": "site",
             "tabLabel": "站点与媒体"

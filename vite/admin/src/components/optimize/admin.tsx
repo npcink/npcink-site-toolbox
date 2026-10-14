@@ -83,10 +83,17 @@ const App: React.FC = () => {
         />
         <ModuleRow
           title={__("在新标签页打开全部编辑")}
-          description={__("在文章、页面等全部列表页添加按钮，把当前筛选结果一键在新标签页打开")}
+          description={__("在文章、页面和自定义文章类型列表页打开当前筛选结果的编辑页")}
           featureId="optimize-admin-open_all_edit_tabs"
           enabled={formData.open_all_edit_tabs as boolean}
           onChange={(checked: boolean) => onValuesChange({ open_all_edit_tabs: checked } as Partial<FieldType>, formData)}
+        />
+        <ModuleRow
+          title={__("在新标签页打开全部查看")}
+          description={__("在文章、页面和自定义文章类型列表页打开当前筛选结果的查看页")}
+          featureId="optimize-admin-open_all_view_tabs"
+          enabled={formData.open_all_view_tabs as boolean}
+          onChange={(checked: boolean) => onValuesChange({ open_all_view_tabs: checked } as Partial<FieldType>, formData)}
         />
       </Form>
     </SettingsSection>
